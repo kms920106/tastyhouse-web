@@ -15,13 +15,28 @@ interface ApiResponse<T = unknown> {
 
 class ApiClient {
   private baseURL: string
-  private defaultHeaders: HeadersInit
 
   constructor(baseURL: string = process.env.NEXT_PUBLIC_API_URL || '') {
     this.baseURL = baseURL
-    this.defaultHeaders = {
+  }
+
+  private async getRequestHeaders(headers?: HeadersInit): Promise<Record<string, string>> {
+    const requestHeaders: Record<string, string> = {
       'Content-Type': 'application/json',
     }
+
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get('accessToken')?.value
+
+    if (accessToken) {
+      requestHeaders['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    if (headers) {
+      Object.assign(requestHeaders, headers)
+    }
+
+    return requestHeaders
   }
 
   private async request<T>(endpoint: string, config: RequestConfig = {}): Promise<ApiResponse<T>> {
@@ -31,7 +46,6 @@ class ApiClient {
     if (params) {
       const searchParams = new URLSearchParams()
 
-      // null/undefined 값을 제거하고 유효한 값만 처리
       Object.entries(params).forEach(([key, value]) => {
         if (value == null) return
 
@@ -49,18 +63,10 @@ class ApiClient {
     }
 
     try {
-      const cookieStore = await cookies()
-      const accessToken = cookieStore.get('accessToken')?.value
-
-      if (accessToken) {
-        this.setAuthToken(accessToken)
-      }
+      const requestHeaders = await this.getRequestHeaders(headers)
 
       const response = await fetch(url, {
-        headers: {
-          ...this.defaultHeaders,
-          ...headers,
-        },
+        headers: requestHeaders,
         cache: 'no-store',
         ...restConfig,
       })
@@ -121,14 +127,6 @@ class ApiClient {
       ...config,
     })
   }
-
-  setAuthToken(token: string) {
-    this.defaultHeaders = {
-      ...this.defaultHeaders,
-      Authorization: `Bearer ${token}`,
-    }
-  }
 }
 
 export const api = new ApiClient()
-export default ApiClient
