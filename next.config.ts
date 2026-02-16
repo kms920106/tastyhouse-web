@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
         hostname: 'static.bbqorder.co.kr',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/api/files**',
+        search: '',
+      },
+      {
+        pathname: '/images/**',
+        search: '',
+      },
+    ],
   },
 }
 

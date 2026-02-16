@@ -20,18 +20,27 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const fileStat = await stat(filePath)
+    // 업로드 디렉토리의 절대 경로 구성
+    const uploadDir = process.env.UPLOAD_DIR || path.join(process.cwd(), '..', 'upload')
+    const absolutePath = path.join(uploadDir, filePath)
+
+    // 경로 탐색 공격 방지
+    if (!absolutePath.startsWith(uploadDir)) {
+      return NextResponse.json({ error: 'Invalid path' }, { status: 400 })
+    }
+
+    const fileStat = await stat(absolutePath)
     if (!fileStat.isFile()) {
       return NextResponse.json({ error: 'Not a file' }, { status: 400 })
     }
 
-    const ext = path.extname(filePath).toLowerCase()
+    const ext = path.extname(absolutePath).toLowerCase()
     const contentType = MIME_TYPES[ext]
     if (!contentType) {
       return NextResponse.json({ error: 'Unsupported file type' }, { status: 400 })
     }
 
-    const fileBuffer = await readFile(filePath)
+    const fileBuffer = await readFile(absolutePath)
 
     return new NextResponse(fileBuffer, {
       headers: {
