@@ -1,18 +1,21 @@
+import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'
 
-const DEFAULT_PROFILE_IMAGE = '/images/sample/profile/default.png'
+const DEFAULT_PROFILE_IMAGE_SM = '/images/account/profile/profile-random-sm.png'
+const DEFAULT_PROFILE_IMAGE_BG = '/images/account/profile/profile-random-bg.png'
 
 interface AvatarProps {
   src?: string | null
   alt: string
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'bg'
   className?: string
   priority?: boolean
 }
 
 const sizeMap = {
-  sm: { dimension: 30, className: 'size-[30px]' },
-  md: { dimension: 40, className: 'size-10' },
+  sm: { dimension: 30, className: 'size-[30px]', defaultImage: DEFAULT_PROFILE_IMAGE_SM },
+  md: { dimension: 40, className: 'size-10', defaultImage: DEFAULT_PROFILE_IMAGE_SM },
+  bg: { dimension: 125, className: 'size-[125px]', defaultImage: DEFAULT_PROFILE_IMAGE_BG },
 } as const
 
 export default function Avatar({
@@ -22,11 +25,10 @@ export default function Avatar({
   className = '',
   priority = false,
 }: AvatarProps) {
-  const { dimension, className: sizeClassName } = sizeMap[size]
-
+  const { dimension, className: sizeClassName, defaultImage } = sizeMap[size]
   return (
     <Image
-      src={src || DEFAULT_PROFILE_IMAGE}
+      src={src ? resolveImageUrl(src) : null || defaultImage}
       alt={alt}
       width={dimension}
       height={dimension}

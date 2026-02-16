@@ -8,7 +8,7 @@ const dummyEvents: Event[] = [
   {
     id: 1,
     title: '8월 이벤트',
-    imageUrl: '/images/events/event1.png',
+    imageUrl: '/images/sample/event/banner1.png',
     startDate: '2020-08-03',
     endDate: '2020-08-31',
     status: 'ongoing',
@@ -17,7 +17,7 @@ const dummyEvents: Event[] = [
   {
     id: 2,
     title: '8월 이벤트',
-    imageUrl: '/images/events/event2.png',
+    imageUrl: '/images/sample/event/banner2.png',
     startDate: '2020-08-03',
     endDate: '2020-08-31',
     status: 'ongoing',
@@ -26,7 +26,16 @@ const dummyEvents: Event[] = [
   {
     id: 3,
     title: '8월 이벤트',
-    imageUrl: '/images/events/event3.png',
+    imageUrl: '/images/sample/event/banner3.png',
+    startDate: '2020-08-03',
+    endDate: '2020-08-31',
+    status: 'ongoing',
+    type: 'ongoing',
+  },
+  {
+    id: 4,
+    title: '8월 이벤트',
+    imageUrl: '/images/sample/event/banner4.png',
     startDate: '2020-08-03',
     endDate: '2020-08-31',
     status: 'ongoing',
@@ -72,7 +81,9 @@ export default function EventsPage() {
         <button
           onClick={() => setActiveTab('ongoing')}
           className={`flex-1 py-4 text-[15px] relative ${
-            activeTab === 'ongoing' ? 'text-[#a11c20] border-[#a11c20]' : 'text-[#aaaaaa] border-[#eeeeee]'
+            activeTab === 'ongoing'
+              ? 'text-[#a11c20] border-[#a11c20]'
+              : 'text-[#aaaaaa] border-[#eeeeee]'
           } border`}
         >
           진행중인 이벤트
