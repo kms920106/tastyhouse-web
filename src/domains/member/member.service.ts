@@ -11,6 +11,10 @@ export const memberService = {
   async getMyAvailableCoupons() {
     return await memberRepository.getMyAvailableCoupons()
   },
+  async getMyCoupons() {
+    const { error, data } = await memberRepository.getMyCoupons()
+    return error ? [] : data?.data ?? []
+  },
   async getMyUsablePoint() {
     return await memberRepository.getMyUsablePoint()
   },

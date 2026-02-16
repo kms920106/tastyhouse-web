@@ -120,14 +120,14 @@ export default function CouponSelector({
                       onClick={() => setTempSelectedCoupon(coupon)}
                       className="w-full flex text-left"
                     >
-                      <div className="flex-1 px-[20px] py-[20px] flex flex-col gap-2">
-                        <span className="text-[22px] leading-[26px] text-[#a91201] font-bold">
+                      <div className="flex-1 px-[20px] py-[20px] flex flex-col">
+                        <span className="text-[21px] leading-[21px] text-[#a91201]">
                           {coupon.discountType === 'AMOUNT'
                             ? `${formatNumber(coupon.discountAmount)}p`
                             : `${coupon.discountAmount}%`}
                         </span>
-                        <span className="text-sm leading-[18px]">{coupon.name}</span>
-                        <div className="flex flex-col gap-1">
+                        <span className="mt-[15px] text-sm leading-[18px]">{coupon.name}</span>
+                        <div className="flex flex-col gap-1 mt-2.5">
                           {coupon.minOrderAmount > 0 && (
                             <span className="text-xs leading-[14px] text-[#aaaaaa]">
                               {formatNumber(coupon.minOrderAmount)}원 이상 결제시

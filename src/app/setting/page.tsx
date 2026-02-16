@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 export default function SettingPage() {
   const menuItems = [
-    { id: 'e-gift', label: 'e-gift 등록', href: '/setting/e-gift' },
-    { id: 'coupon', label: '쿠폰', href: '/coupon' },
+    // { id: 'e-gift', label: 'e-gift 등록', href: '/setting/e-gift' },
+    { id: 'coupons', label: '쿠폰', href: '/coupons' },
     { id: 'event', label: '이벤트', href: '/events' },
     { id: 'point', label: '포인트 내역', href: '/point' },
     { id: 'custom-info', label: '맛집제보', href: '/places/new' },

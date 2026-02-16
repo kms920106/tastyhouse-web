@@ -27,6 +27,10 @@ export const memberRepository = {
       `${ENDPOINT}/v1/me/coupons/available`,
     )
   },
+  // 보유 쿠폰 목록 조회
+  async getMyCoupons() {
+    return api.get<ApiResponse<MemberCouponListItemResponse[]>>(`${ENDPOINT}/v1/me/coupons`)
+  },
   async getMyUsablePoint() {
     return api.get<ApiResponse<UsablePointResponse>>(`${ENDPOINT}/v1/me/point/usable`)
   },
