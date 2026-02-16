@@ -128,4 +128,5 @@ export type UpdateProfileRequest = {
   nickname?: string
   statusMessage?: string
   profileImageUrl?: string
+  profileImageFileId?: number
 }

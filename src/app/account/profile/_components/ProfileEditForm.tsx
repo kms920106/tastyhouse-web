@@ -7,6 +7,7 @@ import { toast } from '@/components/ui/AppToaster'
 import { Spinner } from '@/components/ui/shadcn/spinner'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
 import { updateMemberProfile } from '@/services/member'
+import { uploadFile } from '@/services/file'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -35,8 +36,10 @@ export default function ProfileEditForm() {
   const [nickname, setNickname] = useState('')
   const [statusMessage, setStatusMessage] = useState('')
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)
+  const [profileImageFileId, setProfileImageFileId] = useState<number | null>(null)
   const [errors, setErrors] = useState<ProfileErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
 
   // 프로필 정보로 초기값 설정
   useEffect(() => {
@@ -47,14 +50,48 @@ export default function ProfileEditForm() {
     }
   }, [memberProfile])
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setProfileImageUrl(reader.result as string)
+    if (!file) return
+
+    // 이미지 파일 타입 검증
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      toast('jpg, png, gif, webp 형식의 이미지만 업로드 가능합니다.')
+      return
+    }
+
+    // 파일 크기 검증 (10MB)
+    const maxSize = 10 * 1024 * 1024
+    if (file.size > maxSize) {
+      toast('파일 크기는 최대 10MB까지 가능합니다.')
+      return
+    }
+
+    // 미리보기용 DataURL 생성
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setProfileImageUrl(reader.result as string)
+    }
+    reader.readAsDataURL(file)
+
+    // 파일 업로드
+    setIsUploading(true)
+    try {
+      const response = await uploadFile(file)
+
+      if (response?.data?.success && response.data.data) {
+        setProfileImageFileId(response.data.data)
+      } else {
+        toast('이미지 업로드에 실패했습니다.')
+        setProfileImageUrl(null)
       }
-      reader.readAsDataURL(file)
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error)
+      toast('이미지 업로드 중 오류가 발생했습니다.')
+      setProfileImageUrl(null)
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -81,7 +118,7 @@ export default function ProfileEditForm() {
       const response = await updateMemberProfile({
         nickname,
         statusMessage,
-        profileImageUrl: profileImageUrl || undefined,
+        profileImageFileId: profileImageFileId || undefined,
       })
 
       if (response?.data?.success) {
@@ -130,10 +167,15 @@ export default function ProfileEditForm() {
       <div className="px-[15px] mt-[30px]">
         <AppButton
           onClick={handleSubmit}
-          disabled={isSubmitting || isLoading}
+          disabled={isSubmitting || isLoading || isUploading}
           className="text-white bg-[#a91201]"
         >
-          {isSubmitting ? (
+          {isUploading ? (
+            <>
+              이미지 업로드 중
+              <Spinner />
+            </>
+          ) : isSubmitting ? (
             <>
               변경 중
               <Spinner />
