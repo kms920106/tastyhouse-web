@@ -14,7 +14,7 @@ export const eventService = {
   async getEventDetail(eventId: number) {
     return eventRepository.getEventDetail(eventId)
   },
-  async getWinnerEventList() {
-    return eventRepository.getWinnerEventList()
+  async getEventAnnouncementList() {
+    return eventRepository.getEventAnnouncementList()
   },
 }

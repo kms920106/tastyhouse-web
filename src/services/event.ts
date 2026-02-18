@@ -6,6 +6,6 @@ export async function getEventList(status: EventStatus) {
   return await eventService.getEventList(status)
 }
 
-export async function getWinnerEventList() {
-  return await eventService.getWinnerEventList()
+export async function getEventAnnouncementList() {
+  return await eventService.getEventAnnouncementList()
 }

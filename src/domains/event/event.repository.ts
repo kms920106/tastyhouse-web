@@ -17,7 +17,7 @@ export const eventRepository = {
   async getEventDetail(eventId: number) {
     return api.get<ApiResponse<EventDetailResponse>>(`${ENDPOINT}/v1/${eventId}`)
   },
-  async getWinnerEventList() {
-    return api.get<ApiResponse<WinnerEventListItem[]>>(`${ENDPOINT}/v1/winner/list`)
+  async getEventAnnouncementList() {
+    return api.get<ApiResponse<WinnerEventListItem[]>>(`${ENDPOINT}/v1/announcements`)
   },
 }
