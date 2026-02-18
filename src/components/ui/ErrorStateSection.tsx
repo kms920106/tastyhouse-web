@@ -2,8 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { MdRefresh } from 'react-icons/md'
-import Header, { HeaderCenter, HeaderLeft } from '../layouts/Header'
-import { HeaderTitle } from '../layouts/HeaderTitle'
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
 import AppButton from './AppButton'
 import ErrorMessage from './ErrorMessage'

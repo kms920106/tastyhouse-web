@@ -1,6 +1,5 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import Header, { HeaderCenter, HeaderLeft } from '../layouts/Header'
-import { HeaderTitle } from '../layouts/HeaderTitle'
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
 
 export function ReviewDetailHeaderSkeleton() {
