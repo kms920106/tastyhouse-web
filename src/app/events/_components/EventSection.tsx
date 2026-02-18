@@ -6,6 +6,7 @@ import { useCallback } from 'react'
 import ActiveEventList from './ActiveEventList'
 import EndedEventList from './EndedEventList'
 import HeaderSection from './HeaderSection'
+import WinnerEventList from './WinnerEventList'
 
 type TabValue = 'ongoing' | 'ended' | 'winner'
 
@@ -61,8 +62,7 @@ export default function EventSection({ initialTab }: EventSectionProps) {
           <EndedEventList />
         </TabsContent>
         <TabsContent value="winner" className="mt-0">
-          {/* TODO: 당첨자 발표 목록 구현 */}
-          <div className="p-4 text-center text-gray-500">당첨자 발표가 없습니다.</div>
+          <WinnerEventList />
         </TabsContent>
       </Tabs>
     </>

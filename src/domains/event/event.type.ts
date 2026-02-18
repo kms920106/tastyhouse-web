@@ -42,3 +42,10 @@ export type EventRankDurationResponse = {
 export type EventDetailResponse = {
   bannerImageUrl: string
 }
+
+export type WinnerEventListItem = {
+  id: number
+  name: string
+  announcedAt: string
+  content: string
+}
