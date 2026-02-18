@@ -1,4 +1,5 @@
 import { eventRepository } from './event.repository'
+import { EventStatus } from './event.type'
 
 export const eventService = {
   async getRankEventDuration() {
@@ -6,5 +7,8 @@ export const eventService = {
   },
   async getRankEventPrizes() {
     return eventRepository.getEventRankPrizes()
+  },
+  async getEventList(status: EventStatus) {
+    return eventRepository.getEventList(status)
   },
 }
