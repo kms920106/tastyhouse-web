@@ -92,18 +92,19 @@ export interface CouponListResponse {
   totalCount: number
 }
 
-export interface PointHistory {
-  id: number
-  description: string
+export type PointType = 'EARNED' | 'USE'
+
+export interface PointHistoryItem {
+  reason: string
   date: string
-  amount: number
-  type: 'earn' | 'spend'
+  pointAmount: number
+  pointType: PointType
 }
 
-export interface PointBalance {
+export interface PointHistoryResponse {
   availablePoints: number
-  expiringPoints: number
-  expiringDate: string | null
+  expiredThisMonth: number
+  histories: PointHistoryItem[]
 }
 
 export type LoginParams = {

@@ -1,51 +1,12 @@
-'use client'
-
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import type { PointBalance, PointHistory } from '@/domains/member'
+import { getMyPointHistory } from '@/services/member'
 
-// TODO: API 연동 시 활성화
-// import { getPointBalance } from '@/services/point'
-// import { getPointHistories } from '@/services/point'
-
-const dummyPointBalance: PointBalance = {
-  availablePoints: 1000,
-  expiringPoints: 0,
-  expiringDate: null,
-}
-
-const dummyPointHistories: PointHistory[] = [
-  {
-    id: 1,
-    description: '포토 리뷰 적립금',
-    date: '2020.10.05',
-    amount: 1000,
-    type: 'earn',
-  },
-  {
-    id: 2,
-    description: '주문 결제시 사용',
-    date: '2020.10.04',
-    amount: -3000,
-    type: 'spend',
-  },
-  {
-    id: 3,
-    description: '신규 회원가입 이벤트 적립금',
-    date: '2020.10.02',
-    amount: 3000,
-    type: 'earn',
-  },
-]
-
-export default function PointSection() {
-  // TODO: API 연동 시 활성화
-  // const pointBalance = await getPointBalance()
-  // const pointHistories = await getPointHistories()
-  const pointBalance = dummyPointBalance
-  const pointHistories = dummyPointHistories
+export default async function PointSection() {
+  const { data } = await getMyPointHistory()
+  const pointHistory = data?.data
 
   return (
     <section className="min-h-screen bg-[#f9f9f9]">
@@ -62,31 +23,31 @@ export default function PointSection() {
           <div className="py-[30px] text-center">
             <p className="text-xs leading-[12px]">사용 가능 포인트</p>
             <p className="mt-2.5 text-[23px] leading-[23px] text-[#a91201]">
-              {pointBalance.availablePoints.toLocaleString()} p
+              {(pointHistory?.availablePoints ?? 0).toLocaleString()} p
             </p>
             <p className="text-xs leading-[12px] text-[#aaaaaa] mt-[15px]">
               이번달 소멸 예정 포인트{' '}
-              <span className="text-[#666666]">{pointBalance.expiringPoints}p</span>
+              <span className="text-[#666666]">{pointHistory?.expiredThisMonth ?? 0}p</span>
             </p>
           </div>
         </BorderedSection>
         <BorderedSection className="border-b-0">
-          {pointHistories.length > 0 ? (
+          {pointHistory && pointHistory.histories.length > 0 ? (
             <div className="px-4 divide-y divide-[#f2f2f2]">
-              {pointHistories.map((history) => (
-                <div key={history.id} className="py-5">
+              {pointHistory.histories.map((history, index) => (
+                <div key={index} className="py-5">
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-2.5">
-                      <p className="text-sm leading-[14px] text-gray-900">{history.description}</p>
+                      <p className="text-sm leading-[14px] text-gray-900">{history.reason}</p>
                       <p className="text-[11px] leading-[11px] text-[#aaaaaa]">{history.date}</p>
                     </div>
                     <p
                       className={`text-sm leading-[14px] ${
-                        history.type === 'earn' ? 'text-[#a91201]' : 'text-gray-900'
+                        history.pointType === 'EARNED' ? 'text-[#a91201]' : 'text-gray-900'
                       }`}
                     >
-                      {history.amount > 0 ? '+' : ''}
-                      {history.amount.toLocaleString()} p
+                      {history.pointType === 'EARNED' ? '+' : '-'}
+                      {history.pointAmount.toLocaleString()} p
                     </p>
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import {
   MyBookmarkedPlaceListItemResponse,
   MyReviewListItemResponse,
   MyReviewStatsResponse,
+  PointHistoryResponse,
   UpdateProfileRequest,
   UsablePointResponse,
 } from './member.type'
@@ -33,6 +34,9 @@ export const memberRepository = {
   },
   async getMyUsablePoint() {
     return api.get<ApiResponse<UsablePointResponse>>(`${ENDPOINT}/v1/me/point/usable`)
+  },
+  async getMyPointHistory() {
+    return api.get<ApiResponse<PointHistoryResponse>>(`${ENDPOINT}/v1/me/point/history`)
   },
   async getMyReviews(params: PaginationParams) {
     return api.get<ApiResponse<MyReviewListItemResponse[]>>(`${ENDPOINT}/v1/me/reviews`, {
