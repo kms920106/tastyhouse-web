@@ -24,7 +24,6 @@ const menuGroups: MenuGroup[] = [
       { id: 'coupons', label: '쿠폰', href: '/coupons' },
       { id: 'event', label: '이벤트', href: '/events' },
       { id: 'point', label: '포인트 내역', href: '/point' },
-      { id: 'custom-info', label: '맛집제보', href: '/places/new' },
       { id: 'bank-info', label: '등급안내', href: '/grade' },
     ],
   },
