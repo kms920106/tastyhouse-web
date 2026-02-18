@@ -1,6 +1,7 @@
 'use client'
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { formatDate } from '@/lib/date'
 import { resolveImageUrl } from '@/lib/image'
 import { getEventList } from '@/services/event'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -81,7 +82,7 @@ export default function ActiveEventList() {
             <div className="px-[15px] py-5">
               <h3 className="text-base leading-[16px]">{event.name}</h3>
               <p className="mt-3 text-[13px] leading-[13px] text-[#999999]">
-                {event.startAt.slice(0, 10)} ~ {event.endAt.slice(0, 10)}
+                {formatDate(event.startAt, 'YYYY-MM-DD')} ~ {formatDate(event.endAt, 'YYYY-MM-DD')}
               </p>
             </div>
           </Link>

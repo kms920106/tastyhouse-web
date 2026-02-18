@@ -1,6 +1,7 @@
 'use client'
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { formatDate } from '@/lib/date'
 import { getEventAnnouncementList } from '@/services/event'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -74,8 +75,8 @@ export default function WinnerEventList() {
               >
                 <div className="flex flex-col items-start gap-3">
                   <span className="text-sm leading-[14px]">{event.name}</span>
-                  <span className="text-[13px] leading-[13px] text-[#999999]">
-                    {event.announcedAt.slice(0, 10)}
+                  <span className="text-[13px] leading-[13px] text-[#999999] font-thin">
+                    {formatDate(event.announcedAt, 'YYYY-MM-DD')}
                   </span>
                 </div>
               </AccordionPrimitive.Trigger>
