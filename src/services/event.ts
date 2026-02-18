@@ -1,11 +1,11 @@
 'use server'
 
-import { EventStatus, eventService } from '@/domains/event'
+import { EventAnnouncementListQuery, EventListQuery, eventService } from '@/domains/event'
 
-export async function getEventList(status: EventStatus) {
-  return await eventService.getEventList(status)
+export async function getEventList(params: EventListQuery) {
+  return await eventService.getEventList(params)
 }
 
-export async function getEventAnnouncementList() {
-  return await eventService.getEventAnnouncementList()
+export async function getEventAnnouncementList(params: EventAnnouncementListQuery) {
+  return await eventService.getEventAnnouncementList(params)
 }

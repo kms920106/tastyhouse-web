@@ -13,6 +13,17 @@ export type Event = {
 
 export type EventStatus = 'ACTIVE' | 'ENDED'
 
+export type EventListQuery = {
+  status: EventStatus
+  page: number
+  size: number
+}
+
+export type EventAnnouncementListQuery = {
+  page: number
+  size: number
+}
+
 export type EventListItem = {
   id: number
   name: string

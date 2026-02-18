@@ -1,5 +1,5 @@
 import { eventRepository } from './event.repository'
-import { EventStatus } from './event.type'
+import { EventAnnouncementListQuery, EventListQuery } from './event.type'
 
 export const eventService = {
   async getRankEventDuration() {
@@ -8,13 +8,13 @@ export const eventService = {
   async getRankEventPrizes() {
     return eventRepository.getEventRankPrizes()
   },
-  async getEventList(status: EventStatus) {
-    return eventRepository.getEventList(status)
+  async getEventList(params: EventListQuery) {
+    return eventRepository.getEventList(params)
   },
   async getEventDetail(eventId: number) {
     return eventRepository.getEventDetail(eventId)
   },
-  async getEventAnnouncementList() {
-    return eventRepository.getEventAnnouncementList()
+  async getEventAnnouncementList(params: EventAnnouncementListQuery) {
+    return eventRepository.getEventAnnouncementList(params)
   },
 }
