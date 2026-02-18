@@ -1,7 +1,11 @@
 'use client'
 
-import Header, { HeaderCenter, HeaderLeft, HeaderRight } from '@/components/layouts/Header'
-import { HeaderTitle } from '@/components/layouts/HeaderTitle'
+import Header, {
+  HeaderCenter,
+  HeaderLeft,
+  HeaderRight,
+  HeaderTitle,
+} from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import { RxReload } from 'react-icons/rx'
 

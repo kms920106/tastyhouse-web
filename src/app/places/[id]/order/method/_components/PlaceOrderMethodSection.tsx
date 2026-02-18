@@ -1,7 +1,6 @@
 'use client'
 
-import Header, { HeaderCenter, HeaderLeft } from '@/components/layouts/Header'
-import { HeaderTitle } from '@/components/layouts/HeaderTitle'
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppButton from '@/components/ui/AppButton'
 import type { OrderMethod, OrderMethodItem } from '@/domains/order'

@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import { createContext, useContext } from 'react'
 
 interface HeaderContextValue {
@@ -45,6 +46,15 @@ export function HeaderRight({ children }: HeaderSlotProps) {
       {children}
     </div>
   )
+}
+
+interface HeaderTitleProps {
+  children: React.ReactNode
+  className?: string
+}
+
+export function HeaderTitle({ children, className }: HeaderTitleProps) {
+  return <h1 className={cn('text-[17px] leading-[17px]', className)}>{children}</h1>
 }
 
 export default function Header({

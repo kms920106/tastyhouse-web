@@ -1,5 +1,4 @@
-import Header, { HeaderCenter, HeaderLeft } from '@/components/layouts/Header'
-import { HeaderTitle } from '@/components/layouts/HeaderTitle'
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import Image from 'next/image'
