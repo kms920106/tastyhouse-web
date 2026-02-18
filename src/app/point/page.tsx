@@ -82,7 +82,7 @@ export default function PointPage() {
                 </div>
                 <div>
                   <p
-                    className={`text-[16px] font-medium ${
+                    className={`text-base font-medium ${
                       history.type === 'earn' ? 'text-red-500' : 'text-gray-900'
                     }`}
                   >

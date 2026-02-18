@@ -33,27 +33,27 @@ export default function TermsPage() {
         <div className="space-y-8 py-6">
           {/* 제1조 */}
           <section className="space-y-4">
-            <h2 className="text-[16px] font-medium text-gray-900">제1조(목적)</h2>
+            <h2 className="text-base font-medium text-gray-900">제1조(목적)</h2>
             <p className="text-[14px] text-gray-700 leading-relaxed">
-              본 약관은(이하 &apos;약관&apos;)은 (주)컬쳐히어로(이하 &apos;회사&apos;)에서 제공하는 온라인 인상의 인터넷
-              서비스(이하 &apos;서비스&apos;)의 이용과 관련하여 회사와 회원간 의 권리, 의무 및 책임 사항, 기타
-              필요한 사항을 규정함을 목적으로 합니다.
+              본 약관은(이하 &apos;약관&apos;)은 (주)컬쳐히어로(이하 &apos;회사&apos;)에서 제공하는
+              온라인 인상의 인터넷 서비스(이하 &apos;서비스&apos;)의 이용과 관련하여 회사와 회원간
+              의 권리, 의무 및 책임 사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
             </p>
           </section>
 
           {/* 제2조 */}
           <section className="space-y-4">
-            <h2 className="text-[16px] font-medium text-gray-900">제2조 (이용약관의 효력 및 변경)</h2>
+            <h2 className="text-base font-medium text-gray-900">제2조 (이용약관의 효력 및 변경)</h2>
             <div className="space-y-4 text-[14px] text-gray-700 leading-relaxed">
               <p>
                 본 약관은 회사에서 제공하는 서비스의 이용약관으로 이용자에게 공시 함으로써 효력이
-                발생하며, 합리적인 사유가 발생할 경우 관련 법령에 위배되지 않는 범위 안에서 개정될 수
-                있습니다. 개정된 약관은 온라인 에서 공지함으로써 효력을 발휘하며, 이용자의 권리 또는
-                의무 등 중요 한 규정의 개정은 사전에 공지합니다.
+                발생하며, 합리적인 사유가 발생할 경우 관련 법령에 위배되지 않는 범위 안에서 개정될
+                수 있습니다. 개정된 약관은 온라인 에서 공지함으로써 효력을 발휘하며, 이용자의 권리
+                또는 의무 등 중요 한 규정의 개정은 사전에 공지합니다.
               </p>
               <p>
-                회사는 합리적인 사유가 발생될 경우에 이 약관을 변경할 수 있으며, 약관이 변경될 경우에는
-                지체 없이 이를 공시합니다.
+                회사는 합리적인 사유가 발생될 경우에 이 약관을 변경할 수 있으며, 약관이 변경될
+                경우에는 지체 없이 이를 공시합니다.
               </p>
               <p>
                 이 약관에 동의하는 것은 정기적으로 웹을 방문하여 약관의 변경사항을 확인하는 것에
@@ -70,7 +70,9 @@ export default function TermsPage() {
 
           {/* 제3조 */}
           <section className="space-y-4">
-            <h2 className="text-[16px] font-medium text-gray-900">제3조 (약관 외 사항에 대한 준칙)</h2>
+            <h2 className="text-base font-medium text-gray-900">
+              제3조 (약관 외 사항에 대한 준칙)
+            </h2>
             <p className="text-[14px] text-gray-700 leading-relaxed">
               이 약관은 회사가 제공하는{' '}
               <span className="underline underline-offset-2">개별서비스</span>에 관한 이용안내(이하

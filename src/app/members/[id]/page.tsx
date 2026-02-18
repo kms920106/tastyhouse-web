@@ -112,15 +112,15 @@ export default function MemberProfilePage({ params }: { params: { id: string } }
       {/* Stats */}
       <div className="flex items-center justify-center gap-12 py-6 bg-white border-b-[8px] border-gray-100">
         <div className="flex flex-col items-center gap-1">
-          <span className="text-[16px]">��</span>
+          <span className="text-base">��</span>
           <span className="text-[20px] font-bold">{memberData.reviewCount}</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <span className="text-[16px]">테스트</span>
+          <span className="text-base">테스트</span>
           <span className="text-[20px] font-bold">{memberData.followingCount}</span>
         </div>
         <div className="flex flex-col items-center gap-1">
-          <span className="text-[16px]">테스트</span>
+          <span className="text-base">테스트</span>
           <span className="text-[20px] font-bold">
             {isFollowing ? memberData.followerCount + 1 : memberData.followerCount}
           </span>

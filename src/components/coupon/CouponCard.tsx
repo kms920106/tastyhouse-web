@@ -29,7 +29,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
 
       {/* D-day 표시 */}
       <div className="flex items-center justify-center px-5">
-        <div className="text-[16px] text-gray-700">D-{coupon.daysRemaining}</div>
+        <div className="text-base text-gray-700">D-{coupon.daysRemaining}</div>
       </div>
     </div>
   )

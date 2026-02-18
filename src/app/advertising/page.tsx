@@ -84,7 +84,9 @@ export default function AdvertisingPage() {
               <path d="M15 18l-6-6 6-6" />
             </svg>
           </button>
-          <h1 className="absolute left-1/2 -translate-x-1/2 text-[17px] font-medium">광고 및 제휴</h1>
+          <h1 className="absolute left-1/2 -translate-x-1/2 text-[17px] font-medium">
+            광고 및 제휴
+          </h1>
         </div>
       </header>
 
@@ -92,18 +94,20 @@ export default function AdvertisingPage() {
       <div className="pt-14 pb-24">
         {/* 안내 섹션 */}
         <div className="px-6 py-6 bg-gray-50">
-          <h2 className="text-[16px] font-medium text-gray-900 mb-4">
+          <h2 className="text-base font-medium text-gray-900 mb-4">
             광고 및 제휴 상담신청 유의사항
           </h2>
           <div className="space-y-3">
             <div className="flex items-start">
               <span className="text-[14px] text-gray-600 leading-relaxed">
-                • 먼저 신청하신 고객님의 상담이 지연될 경우 희망시간대보다 늦게 전화를 드릴 수 있습니다.
+                • 먼저 신청하신 고객님의 상담이 지연될 경우 희망시간대보다 늦게 전화를 드릴 수
+                있습니다.
               </span>
             </div>
             <div className="flex items-start">
               <span className="text-[14px] text-gray-600 leading-relaxed">
-                • 등록하신 전화번호는 상담 관련 이외에는 사용되지 않으며, 기존에 등록하신 번호는 변경되지 않습니다.
+                • 등록하신 전화번호는 상담 관련 이외에는 사용되지 않으며, 기존에 등록하신 번호는
+                변경되지 않습니다.
               </span>
             </div>
           </div>
@@ -278,7 +282,7 @@ export default function AdvertisingPage() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4">
         <button
           onClick={handleSubmit}
-          className="w-full bg-[#E87167] text-white text-[16px] font-medium py-4 rounded-lg active:bg-[#D86157] transition-colors"
+          className="w-full bg-[#E87167] text-white text-base font-medium py-4 rounded-lg active:bg-[#D86157] transition-colors"
         >
           확인
         </button>

@@ -156,7 +156,7 @@ export default function PaymentDetailPage() {
       <div className="flex-1">
         {/* Order Number and Status */}
         <div className="px-4 py-4 border-b-8 border-[#f5f5f5] flex items-center justify-between">
-          <span className="text-[16px]">{orderNumber}</span>
+          <span className="text-base">{orderNumber}</span>
           <span className={`px-4 py-1.5 text-[13px] rounded-full ${statusColor}`}>
             {orderStatus}
           </span>
@@ -168,7 +168,7 @@ export default function PaymentDetailPage() {
             onClick={() => setIsOrderExpanded(!isOrderExpanded)}
             className="w-full px-4 py-4 flex items-center justify-between"
           >
-            <h2 className="text-[16px] font-bold">{placeName}</h2>
+            <h2 className="text-base font-bold">{placeName}</h2>
             <svg
               width="24"
               height="24"
@@ -227,7 +227,7 @@ export default function PaymentDetailPage() {
             onClick={() => setIsCustomerExpanded(!isCustomerExpanded)}
             className="w-full px-4 py-4 flex items-center justify-between"
           >
-            <h2 className="text-[16px] font-bold">주문자 정보</h2>
+            <h2 className="text-base font-bold">주문자 정보</h2>
             <svg
               width="24"
               height="24"
@@ -269,7 +269,7 @@ export default function PaymentDetailPage() {
             onClick={() => setIsReservationExpanded(!isReservationExpanded)}
             className="w-full px-4 py-4 flex items-center justify-between"
           >
-            <h2 className="text-[16px] font-bold">예약 정보</h2>
+            <h2 className="text-base font-bold">예약 정보</h2>
             <svg
               width="24"
               height="24"
@@ -321,7 +321,7 @@ export default function PaymentDetailPage() {
             onClick={() => setIsPaymentExpanded(!isPaymentExpanded)}
             className="w-full px-4 py-4 flex items-center justify-between"
           >
-            <h2 className="text-[16px] font-bold">결제 정보</h2>
+            <h2 className="text-base font-bold">결제 정보</h2>
             <svg
               width="24"
               height="24"
@@ -364,7 +364,7 @@ export default function PaymentDetailPage() {
             onClick={() => setIsBreakdownExpanded(!isBreakdownExpanded)}
             className="w-full px-4 py-4 flex items-center justify-between"
           >
-            <h2 className="text-[16px] font-bold">결제 내역</h2>
+            <h2 className="text-base font-bold">결제 내역</h2>
             <svg
               width="24"
               height="24"

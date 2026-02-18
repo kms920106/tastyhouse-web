@@ -249,7 +249,7 @@ export default function BugReportsPage() {
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-4">
         <button
           onClick={handleSubmit}
-          className="w-full bg-[#E87167] text-white text-[16px] font-medium py-4 rounded-lg active:bg-[#D86157] transition-colors"
+          className="w-full bg-[#E87167] text-white text-base font-medium py-4 rounded-lg active:bg-[#D86157] transition-colors"
         >
           확인
         </button>
