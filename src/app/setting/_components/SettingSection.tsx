@@ -22,15 +22,15 @@ const menuGroups: MenuGroup[] = [
   {
     items: [
       { id: 'coupons', label: '쿠폰', href: '/coupons' },
-      { id: 'event', label: '이벤트', href: '/events' },
+      { id: 'events', label: '이벤트', href: '/events' },
       { id: 'point', label: '포인트 내역', href: '/point' },
-      { id: 'bank-info', label: '등급안내', href: '/account/grade' },
+      { id: 'grade', label: '등급안내', href: '/account/grade' },
     ],
   },
   {
     items: [
-      { id: 'notice', label: '공지사항', href: '/setting/notice' },
-      { id: 'faq', label: '자주하는 질문', href: '/setting/faq' },
+      { id: 'notices', label: '공지사항', href: '/notices' },
+      { id: 'faqs', label: '자주하는 질문', href: '/faqs' },
       { id: 'customer-center', label: '고객센터', href: '/setting/customer-center' },
       { id: 'ad-proposal', label: '광고 및 제휴', href: '/setting/ad-proposal' },
       { id: 'version', label: '버그제보', href: '/setting/bug-report' },
