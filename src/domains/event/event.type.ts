@@ -16,11 +16,7 @@ export type EventStatus = 'ACTIVE' | 'ENDED'
 export type EventListItem = {
   id: number
   name: string
-  description: string
-  subtitle: string
   thumbnailImageUrl: string
-  type: string
-  status: EventStatus
   startAt: string
   endAt: string
 }
