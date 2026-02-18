@@ -1,14 +1,12 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
+
+import LogoutButton from './LogoutButton'
 
 interface MenuItem {
   id: string
@@ -67,13 +65,6 @@ function MenuItemRow({ label, href }: MenuItem) {
 }
 
 export default function SettingSection() {
-  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)
-
-  const handleLogoutConfirm = () => {
-    // TODO: 로그아웃 로직 구현
-    console.log('로그아웃')
-  }
-
   return (
     <section className="min-h-screen bg-[#f9f9f9]">
       <Header variant="white" height={55} showBorder={false}>
@@ -93,22 +84,9 @@ export default function SettingSection() {
           </BorderedSection>
         ))}
         <BorderedSection>
-          <button
-            onClick={() => setLogoutDialogOpen(true)}
-            className="w-full flex items-center justify-between px-4 pr-[21px] py-[19px]"
-          >
-            <span className="text-sm leading-[14px]">로그아웃</span>
-            <ArrowIcon />
-          </button>
+          <LogoutButton />
         </BorderedSection>
       </SectionStack>
-      <AppConfirmDialog
-        open={logoutDialogOpen}
-        onOpenChange={setLogoutDialogOpen}
-        title="로그아웃 하시겠습니까?"
-        description={`현재 계정에서 로그아웃됩니다.\n계속 진행하시겠습니까?`}
-        onConfirm={handleLogoutConfirm}
-      />
     </section>
   )
 }
