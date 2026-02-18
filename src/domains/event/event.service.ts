@@ -11,4 +11,7 @@ export const eventService = {
   async getEventList(status: EventStatus) {
     return eventRepository.getEventList(status)
   },
+  async getEventDetail(eventId: number) {
+    return eventRepository.getEventDetail(eventId)
+  },
 }

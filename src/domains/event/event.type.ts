@@ -38,3 +38,7 @@ export type EventRankDurationResponse = {
   startAt: Date
   endAt: Date
 }
+
+export type EventDetailResponse = {
+  bannerImageUrl: string
+}
