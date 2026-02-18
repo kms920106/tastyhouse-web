@@ -9,7 +9,7 @@ export default async function PointSection() {
   const pointHistory = data?.data
 
   return (
-    <section className="min-h-screen bg-[#f9f9f9]">
+    <section className="min-h-screen">
       <Header variant="white" height={55}>
         <HeaderLeft>
           <BackButton />

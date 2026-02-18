@@ -24,7 +24,7 @@ const menuGroups: MenuGroup[] = [
       { id: 'coupons', label: '쿠폰', href: '/coupons' },
       { id: 'event', label: '이벤트', href: '/events' },
       { id: 'point', label: '포인트 내역', href: '/point' },
-      { id: 'bank-info', label: '등급안내', href: '/grade' },
+      { id: 'bank-info', label: '등급안내', href: '/account/grade' },
     ],
   },
   {
@@ -65,7 +65,7 @@ function MenuItemRow({ label, href }: MenuItem) {
 
 export default function SettingSection() {
   return (
-    <section className="min-h-screen bg-[#f9f9f9]">
+    <section className="min-h-screen">
       <Header variant="white" height={55} showBorder={false}>
         <HeaderLeft>
           <BackButton />
