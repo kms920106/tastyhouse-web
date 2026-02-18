@@ -72,13 +72,13 @@ export default function PointSection() {
         </BorderedSection>
         <BorderedSection className="border-b-0">
           {pointHistories.length > 0 ? (
-            <div className="px-[16px] divide-y divide-[#f2f2f2]">
+            <div className="px-4 divide-y divide-[#f2f2f2]">
               {pointHistories.map((history) => (
-                <div key={history.id} className="py-[20px]">
+                <div key={history.id} className="py-5">
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-2.5">
                       <p className="text-sm leading-[14px] text-gray-900">{history.description}</p>
-                      <p className="text-[11px] leading-none text-[#aaaaaa]">{history.date}</p>
+                      <p className="text-[11px] leading-[11px] text-[#aaaaaa]">{history.date}</p>
                     </div>
                     <p
                       className={`text-sm leading-[14px] ${
@@ -94,7 +94,7 @@ export default function PointSection() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-20">
-              <p className="text-[#aaaaaa] text-[14px]">포인트 내역이 없습니다.</p>
+              <p className="text-sm leading-[14px] text-[#aaaaaa]">포인트 내역이 없습니다.</p>
             </div>
           )}
         </BorderedSection>
