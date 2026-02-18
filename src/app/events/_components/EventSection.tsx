@@ -3,8 +3,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
+import ActiveEventList from './ActiveEventList'
+import EndedEventList from './EndedEventList'
 import HeaderSection from './HeaderSection'
-import OngoingEventList from './OngoingEventList'
 
 type TabValue = 'ongoing' | 'ended' | 'winner'
 
@@ -54,11 +55,10 @@ export default function EventSection({ initialTab }: EventSectionProps) {
           </TabsList>
         </div>
         <TabsContent value="ongoing" className="mt-0">
-          <OngoingEventList />
+          <ActiveEventList />
         </TabsContent>
         <TabsContent value="ended" className="mt-0">
-          {/* TODO: 종료된 이벤트 목록 구현 */}
-          <div className="p-4 text-center text-gray-500">종료된 이벤트가 없습니다.</div>
+          <EndedEventList />
         </TabsContent>
         <TabsContent value="winner" className="mt-0">
           {/* TODO: 당첨자 발표 목록 구현 */}

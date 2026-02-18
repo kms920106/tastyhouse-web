@@ -6,10 +6,10 @@ import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function OngoingEventList() {
+export default function EndedEventList() {
   const { data, isLoading } = useQuery({
-    queryKey: ['events', 'ACTIVE'],
-    queryFn: () => getEventList('ACTIVE'),
+    queryKey: ['events', 'ENDED'],
+    queryFn: () => getEventList('ENDED'),
   })
 
   const events = data?.data?.data ?? []
