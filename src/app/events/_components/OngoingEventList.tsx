@@ -1,14 +1,13 @@
-'use client'
-
 import { Event } from '@/domains/event'
 import Image from 'next/image'
+import Link from 'next/link'
 
 // TODO: API 연동 시 제거
 const dummyEvents: Event[] = [
   {
     id: 1,
     title: '8월 신규회원 특별 할인 이벤트',
-    imageUrl: '/images/sample/event/banner1.png',
+    imageUrl: '/images/sample/event/banner5.png',
     startDate: '2020-08-03',
     endDate: '2020-08-31',
     status: 'ongoing',
@@ -41,6 +40,15 @@ const dummyEvents: Event[] = [
     status: 'ongoing',
     type: 'ongoing',
   },
+  {
+    id: 4,
+    title: '8월 신규회원 특별 할인 이벤트',
+    imageUrl: '/images/sample/event/banner1.png',
+    startDate: '2020-08-03',
+    endDate: '2020-08-31',
+    status: 'ongoing',
+    type: 'ongoing',
+  },
 ]
 
 export default function OngoingEventList() {
@@ -53,14 +61,10 @@ export default function OngoingEventList() {
   const events = dummyEvents
 
   return (
-    <div className="px-[23px] py-[20px] flex flex-col gap-2.5">
+    <div className="flex flex-col gap-2.5">
       {events.map((event) => (
-        <div
-          key={event.id}
-          className="bg-white overflow-hidden cursor-pointer"
-          onClick={() => (window.location.href = `/events/${event.id}`)}
-        >
-          <div className="relative w-full aspect-[2/1] bg-gray-100">
+        <Link key={event.id} href={`/events/${event.id}`} className="cursor-pointer">
+          <div className="relative w-full aspect-[2/1]">
             <Image
               src={event.imageUrl}
               alt={event.title}
@@ -72,13 +76,13 @@ export default function OngoingEventList() {
               }}
             />
           </div>
-          <div className="px-[16px] py-[20px]">
-            <h3 className="text-[16px] text-gray-900">{event.title}</h3>
-            <p className="text-[13px] leading-[13px] text-[#999999] pt-[12px]">
+          <div className="px-[15px] py-5">
+            <h3 className="text-base leading-[16px]">{event.title}</h3>
+            <p className="mt-3 text-[13px] leading-[13px] text-[#999999]">
               {event.startDate} ~ {event.endDate}
             </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   )
