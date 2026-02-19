@@ -14,6 +14,10 @@ export const API_ENDPOINTS = {
   // 상품 추가 엔드포인트
   PRODUCTS_TODAY_DISCOUNTS: '/api/products/v1/today-discounts',
 
+  // FAQ
+  // TODO: API 미구현 상태 - 실제 엔드포인트 확정 후 수정 필요
+  FAQS: '/api/faqs/v1',
+
   // 인증
   AUTH_LOGIN: '/api/auth/login',
   AUTH_LOGOUT: '/api/auth/v1/logout',
