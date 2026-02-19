@@ -1,13 +1,27 @@
-import { FaqCategory } from '@/domains/faq'
+import { faqService } from '@/domains/faq'
 import FaqSection from './_components/FaqSection'
 
 interface FaqsPageProps {
-  searchParams: Promise<{ category?: string }>
+  searchParams: Promise<{ categoryId?: string }>
 }
 
 export default async function FaqsPage({ searchParams }: FaqsPageProps) {
   const params = await searchParams
-  const initialCategory = (params.category || '전체') as FaqCategory
+  const initialCategoryId = params.categoryId ? Number(params.categoryId) : 0
 
-  return <FaqSection initialCategory={initialCategory} />
+  const [categoriesResponse, faqsResponse] = await Promise.all([
+    faqService.getFaqCategories(),
+    faqService.getFaqList(initialCategoryId !== 0 ? { categoryId: initialCategoryId } : undefined),
+  ])
+
+  const initialCategories = categoriesResponse.data?.data ?? []
+  const initialFaqs = faqsResponse.data?.data ?? []
+
+  return (
+    <FaqSection
+      initialCategoryId={initialCategoryId}
+      initialCategories={initialCategories}
+      initialFaqs={initialFaqs}
+    />
+  )
 }

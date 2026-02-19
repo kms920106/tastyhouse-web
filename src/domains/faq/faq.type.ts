@@ -1,14 +1,17 @@
-export type FaqCategory = '전체' | '주문/결제' | '취소/환불' | '회원정보' | '기타'
-
-export type FaqListQuery = {
-  category?: FaqCategory
-  page: number
-  size: number
+export type FaqCategoryItem = {
+  id: number
+  name: string
+  sort: number
 }
 
-export type FaqListItem = {
+export type FaqItem = {
   id: number
-  category: FaqCategory
+  categoryId: number
   question: string
   answer: string
+  sort: number
+}
+
+export type FaqListQuery = {
+  categoryId?: number
 }
