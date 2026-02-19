@@ -18,6 +18,9 @@ export const API_ENDPOINTS = {
   // TODO: API 미구현 상태 - 실제 엔드포인트 확정 후 수정 필요
   FAQS: '/api/faqs/v1',
 
+  // 광고 및 제휴
+  PARTNERSHIP_REQUESTS: '/api/partnership-requests/v1',
+
   // 인증
   AUTH_LOGIN: '/api/auth/login',
   AUTH_LOGOUT: '/api/auth/v1/logout',
