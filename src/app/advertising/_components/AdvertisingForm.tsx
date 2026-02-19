@@ -5,11 +5,13 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppInputText from '@/components/ui/AppInputText'
 import { useState } from 'react'
+import PostcodeModal from './PostcodeModal'
+import type { Address } from 'react-daum-postcode'
 
 interface FormData {
   storeName: string
-  postalCode: string
   address: string
+  addressDetail: string
   name: string
   phoneNumber: string
   consultationTime: string
@@ -18,8 +20,8 @@ interface FormData {
 
 interface FormErrors {
   storeName?: string
-  postalCode?: string
   address?: string
+  addressDetail?: string
   name?: string
   phoneNumber?: string
   consultationTime?: string
@@ -28,8 +30,8 @@ interface FormErrors {
 export default function AdvertisingForm() {
   const [formData, setFormData] = useState<FormData>({
     storeName: '',
-    postalCode: '',
     address: '',
+    addressDetail: '',
     name: '',
     phoneNumber: '',
     consultationTime: '',
@@ -37,6 +39,7 @@ export default function AdvertisingForm() {
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
+  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false)
 
   const handleChange = (field: keyof FormData, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -46,16 +49,24 @@ export default function AdvertisingForm() {
   }
 
   const handlePostalCodeSearch = () => {
-    // TODO: 우편번호 검색 API 연동
-    console.log('우편번호 검색')
+    setIsPostcodeOpen(true)
+  }
+
+  const handlePostcodeComplete = (data: Address) => {
+    setFormData((prev) => ({
+      ...prev,
+      address: data.roadAddress || data.jibunAddress,
+      addressDetail: '',
+    }))
+    setErrors((prev) => ({ ...prev, address: undefined }))
   }
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
     if (!formData.storeName.trim()) newErrors.storeName = '상호명을 입력해주세요.'
-    if (!formData.postalCode.trim()) newErrors.postalCode = '우편번호를 검색해주세요.'
-    if (!formData.address.trim()) newErrors.address = '상세주소를 입력해주세요.'
+    if (!formData.address.trim()) newErrors.address = '주소를 검색해주세요.'
+    if (!formData.addressDetail.trim()) newErrors.addressDetail = '상세주소를 입력해주세요.'
     if (!formData.name.trim()) newErrors.name = '성함을 입력해주세요.'
     if (!formData.phoneNumber.trim()) newErrors.phoneNumber = '연락처를 입력해주세요.'
     if (!formData.consultationTime) newErrors.consultationTime = '상담신청시간을 선택해주세요.'
@@ -79,6 +90,13 @@ export default function AdvertisingForm() {
 
   return (
     <>
+      {isPostcodeOpen && (
+        <PostcodeModal
+          onComplete={handlePostcodeComplete}
+          onClose={() => setIsPostcodeOpen(false)}
+        />
+      )}
+
       {/* 안내 섹션 */}
       <div className="px-[15px] py-5 bg-[#f8f8f8] border-b border-[#eeeeee]">
         <h2 className="text-[13px] font-bold text-[#333333] mb-3">
@@ -111,14 +129,15 @@ export default function AdvertisingForm() {
         </AppFormField>
 
         {/* 위치정보 */}
-        <AppFormField label="위치정보" required error={errors.postalCode ?? errors.address}>
+        <AppFormField label="위치정보" required error={errors.address ?? errors.addressDetail}>
           {({ className }) => (
             <div className="flex flex-col gap-2">
               <div className="flex gap-2">
                 <AppInput
                   type="text"
-                  value={formData.postalCode}
+                  value={formData.address}
                   readOnly
+                  placeholder="도로명 주소를 검색해주세요."
                   className={`flex-1 pr-4 bg-white ${className ?? ''}`}
                 />
                 <button
@@ -126,14 +145,14 @@ export default function AdvertisingForm() {
                   onClick={handlePostalCodeSearch}
                   className="shrink-0 h-[50px] px-4 border border-[#eeeeee] box-border text-[13px] text-[#333333] whitespace-nowrap bg-[#f8f8f8] active:bg-[#eeeeee]"
                 >
-                  우편번호 검색
+                  주소 검색
                 </button>
               </div>
               <AppInputText
-                value={formData.address}
-                onChange={(e) => handleChange('address', e.target.value)}
+                value={formData.addressDetail}
+                onChange={(e) => handleChange('addressDetail', e.target.value)}
                 placeholder="상세주소를 입력해주세요."
-                className={errors.address ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined}
+                className={errors.addressDetail ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined}
               />
             </div>
           )}
