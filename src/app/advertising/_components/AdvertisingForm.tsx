@@ -150,9 +150,7 @@ export default function AdvertisingForm() {
           onClose={() => setIsPostcodeOpen(false)}
         />
       )}
-
       <div className="px-[15px] py-[30px] flex flex-col gap-5">
-        {/* 상호명 */}
         <AppFormField label="상호명" required error={errors.businessName}>
           {({ className }) => (
             <AppInputText
@@ -163,8 +161,6 @@ export default function AdvertisingForm() {
             />
           )}
         </AppFormField>
-
-        {/* 위치정보 */}
         <AppFormField label="위치정보" required error={errors.address ?? errors.addressDetail}>
           {({ className }) => (
             <div className="flex flex-col gap-2">
@@ -197,8 +193,6 @@ export default function AdvertisingForm() {
             </div>
           )}
         </AppFormField>
-
-        {/* 성명 */}
         <AppFormField label="성명" required error={errors.contactName}>
           {({ className }) => (
             <AppInputText
@@ -209,8 +203,6 @@ export default function AdvertisingForm() {
             />
           )}
         </AppFormField>
-
-        {/* 연락처 */}
         <AppFormField label="연락처" required error={errors.contactPhone}>
           {({ className }) => (
             <AppInput
@@ -222,8 +214,6 @@ export default function AdvertisingForm() {
             />
           )}
         </AppFormField>
-
-        {/* 상담신청시간 */}
         <AppFormField
           label="상담신청시간"
           required
@@ -274,7 +264,6 @@ export default function AdvertisingForm() {
             </div>
           )}
         </AppFormField>
-
         <label className="flex items-center gap-2.5 mt-[5px] cursor-pointer">
           <CircleCheckbox
             checked={formData.agreeToTerms}

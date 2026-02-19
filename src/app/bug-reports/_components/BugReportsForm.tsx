@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
+import { toast } from '@/components/ui/AppToaster'
+import FixedBottomSection from '@/components/ui/FixedBottomSection'
 
 interface FormData {
   device: string
@@ -40,7 +42,7 @@ export default function BugReportsForm() {
     const currentImages = formData.images
 
     if (currentImages.length + files.length > 5) {
-      alert('사진은 최대 5장까지 업로드할 수 있습니다.')
+      toast('사진은 최대 5장까지 업로드할 수 있습니다.')
       return
     }
 
@@ -68,7 +70,7 @@ export default function BugReportsForm() {
 
     // TODO: 제출 API 연동
     console.log('제출:', formData)
-    alert('버그 제보가 접수되었습니다.')
+    toast('버그 제보가 접수되었습니다.')
   }
 
   return (
@@ -82,9 +84,9 @@ export default function BugReportsForm() {
               <select
                 value={formData.device}
                 onChange={(e) => handleChange('device', e.target.value)}
-                className={`w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666] ${
+                className={`w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border box-border appearance-none bg-white focus:outline-none ${
                   !formData.device ? 'text-[#999999]' : 'text-[#333333]'
-                } ${className ?? ''}`}
+                } ${errors.device ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
               >
                 <option value="">선택</option>
                 <option value="android">Android</option>
@@ -116,7 +118,7 @@ export default function BugReportsForm() {
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
               placeholder="제목을 입력해주세요."
-              className={`w-full h-[50px] pl-[16px] pr-4 text-sm leading-[14px] border border-[#eeeeee] box-border bg-white focus:outline-none focus:border-[#666666] placeholder:text-[#999999] text-[#333333] ${className ?? ''}`}
+              className={`w-full h-[50px] pl-[16px] pr-4 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333] ${errors.title ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
             />
           )}
         </AppFormField>
@@ -129,7 +131,7 @@ export default function BugReportsForm() {
               onChange={(e) => handleChange('content', e.target.value)}
               placeholder="내용을 입력해주세요."
               rows={10}
-              className={`w-full px-[16px] py-3 text-sm leading-[14px] border border-[#eeeeee] box-border bg-white focus:outline-none focus:border-[#666666] placeholder:text-[#999999] text-[#333333] resize-none ${className ?? ''}`}
+              className={`w-full px-[16px] py-3 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333] resize-none ${errors.content ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
             />
           )}
         </AppFormField>
@@ -137,9 +139,9 @@ export default function BugReportsForm() {
         {/* 사진 */}
         <div className="flex flex-col gap-2.5">
           <h3 className="flex items-center text-xs h-3 overflow-hidden">사진</h3>
-          <div className="flex gap-3 overflow-x-auto">
+          <div className="grid grid-cols-3 gap-3">
             {/* 업로드 버튼 */}
-            <label className="flex-shrink-0 w-24 h-24 border border-[#eeeeee] box-border flex flex-col items-center justify-center cursor-pointer active:bg-gray-50">
+            <label className="aspect-square border border-[#eeeeee] box-border flex flex-col items-center justify-center cursor-pointer active:bg-gray-50">
               <input
                 type="file"
                 accept="image/*"
@@ -147,32 +149,22 @@ export default function BugReportsForm() {
                 onChange={handleImageUpload}
                 className="sr-only"
               />
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 36 36"
-                fill="none"
-                className="text-[#cccccc] mb-1"
-              >
-                <rect
-                  x="4"
-                  y="7"
-                  width="28"
-                  height="22"
-                  rx="2"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
+              <div className="flex flex-col items-center gap-2.5">
+                <Image
+                  src="/images/icon-review-photo.png"
+                  alt="사진 업로드"
+                  width={23}
+                  height={18}
                 />
-                <circle cx="18" cy="18" r="6" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="27" cy="11" r="1.5" fill="currentColor" />
-                <path d="M12 7l2-3h8l2 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <span className="text-[12px] text-[#999999]">{formData.images.length}/5</span>
+                <span className="text-[11px] leading-[11px] text-[#999999]">
+                  {formData.images.length}/5
+                </span>
+              </div>
             </label>
 
             {/* 이미지 미리보기 */}
             {formData.images.map((image, index) => (
-              <div key={index} className="relative flex-shrink-0 w-24 h-24">
+              <div key={index} className="relative aspect-square">
                 <Image
                   src={URL.createObjectURL(image)}
                   alt={`Preview ${index + 1}`}
@@ -203,17 +195,16 @@ export default function BugReportsForm() {
         </div>
 
         {/* 안내 문구 */}
-        <p className="text-[13px] text-[#666666] leading-relaxed">
+        <p className="text-sm leading-[14px] text-[#999999]">
           아직 제보되지 않은 버그인 경우 1,000포인트를 지급해드립니다.
         </p>
       </div>
 
-      {/* 하단 고정 버튼 */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#eeeeee] px-[15px] py-[15px]">
-        <AppButton onClick={handleSubmit} className="text-white bg-[#E87167] rounded-lg active:bg-[#D86157]">
+      <FixedBottomSection className="px-[15px] py-[15px]">
+        <AppButton onClick={handleSubmit} className="text-white bg-[#a91201]">
           확인
         </AppButton>
-      </div>
+      </FixedBottomSection>
     </>
   )
 }
