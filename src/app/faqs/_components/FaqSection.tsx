@@ -85,7 +85,7 @@ export default function FaqSection({
           ))}
         </Swiper>
       </div>
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion type="multiple" className="w-full">
         {faqs.map((faq) => (
           <AccordionItem key={faq.id} value={String(faq.id)} className="border-[#eeeeee]">
             <AccordionTrigger

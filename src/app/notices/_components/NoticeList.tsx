@@ -3,7 +3,12 @@
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
 import { getNoticeList } from '@/services/notice'
-import * as AccordionPrimitive from '@radix-ui/react-accordion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/shadcn/accordion'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
@@ -62,34 +67,31 @@ export default function NoticeList() {
 
   return (
     <>
-      <AccordionPrimitive.Root type="multiple">
+      <Accordion type="multiple" className="w-full">
         {notices.map((notice, index) => (
-          <AccordionPrimitive.Item
+          <AccordionItem
             key={notice.id}
             value={String(notice.id)}
-            className="border-b border-[#eeeeee] last:border-b-0"
+            className="border-[#eeeeee]"
           >
-            <AccordionPrimitive.Header>
-              <AccordionPrimitive.Trigger
-                className={`w-full flex items-start justify-between px-[16px] py-[18px] ${index === 0 ? 'pt-0' : ''} [&[data-state=open]>img]:rotate-180 group`}
-              >
-                <div className="flex flex-col items-start gap-3">
-                  <span className="text-sm leading-[14px]">{notice.title}</span>
-                  <span className="text-[13px] leading-[13px] text-[#999999] font-thin">
-                    {formatDate(notice.createdAt, 'YYYY-MM-DD')}
-                  </span>
-                </div>
-              </AccordionPrimitive.Trigger>
-            </AccordionPrimitive.Header>
-            <AccordionPrimitive.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden">
-              <p className="text-[13px] leading-[22px] p-[25px] whitespace-pre-line bg-[#f9f9f9]">
-                {notice.content}
-              </p>
-            </AccordionPrimitive.Content>
-          </AccordionPrimitive.Item>
+            <AccordionTrigger
+              className={`w-full px-[16px] py-[18px] hover:no-underline ${index === 0 ? 'pt-0' : ''}`}
+              showIcon={false}
+            >
+              <div className="flex flex-col items-start gap-3">
+                <span className="text-sm leading-[14px]">{notice.title}</span>
+                <span className="text-[13px] leading-[13px] text-[#999999] font-thin">
+                  {formatDate(notice.createdAt, 'YYYY-MM-DD')}
+                </span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-[25px] py-[25px] text-[13px] leading-[22px] bg-[#f9f9f9] whitespace-pre-line">
+              {notice.content}
+            </AccordionContent>
+          </AccordionItem>
         ))}
         {isFetchingNextPage && <NoticeListSkeleton />}
-      </AccordionPrimitive.Root>
+      </Accordion>
       <div ref={targetRef} className="h-1" aria-hidden="true" />
     </>
   )
