@@ -46,7 +46,7 @@ export default function FaqSection({
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header variant="white" height={55}>
         <HeaderLeft>
           <BackButton />
@@ -55,12 +55,12 @@ export default function FaqSection({
           <HeaderTitle>자주하는 질문</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <div className="sticky top-14 z-40 bg-white border-b border-gray-100">
-        <Swiper slidesPerView="auto" spaceBetween={8} className="px-4 py-3">
+      <div className="pl-[15px] py-5">
+        <Swiper slidesPerView="auto" spaceBetween={10}>
           <SwiperSlide style={{ width: 'auto' }}>
             <button
               onClick={() => setSelectedCategoryId(ALL_CATEGORY_ID)}
-              className={`px-5 py-2.5 text-[15px] font-medium rounded-md whitespace-nowrap border ${
+              className={`px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border ${
                 selectedCategoryId === ALL_CATEGORY_ID
                   ? 'text-[#a11c20] border-[#a11c20]'
                   : 'text-[#aaaaaa] border-[#eeeeee]'
@@ -73,7 +73,7 @@ export default function FaqSection({
             <SwiperSlide key={category.id} style={{ width: 'auto' }}>
               <button
                 onClick={() => setSelectedCategoryId(category.id)}
-                className={`px-5 py-2.5 text-[15px] font-medium rounded-md whitespace-nowrap border ${
+                className={`px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border ${
                   selectedCategoryId === category.id
                     ? 'text-[#a11c20] border-[#a11c20]'
                     : 'text-[#aaaaaa] border-[#eeeeee]'
@@ -87,25 +87,20 @@ export default function FaqSection({
       </div>
       <Accordion type="single" collapsible className="w-full">
         {faqs.map((faq) => (
-          <AccordionItem key={faq.id} value={String(faq.id)} className="border-b border-gray-100">
-            <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-gray-50">
-              <div className="flex flex-col items-start gap-2 text-left pr-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-[14px] text-[#a11c20] font-medium flex-shrink-0">
-                    {getCategoryName(faq.categoryId)}
-                  </span>
-                  <h2 className="text-[15px] text-gray-900 font-normal leading-tight">
-                    {faq.question}
-                  </h2>
-                </div>
+          <AccordionItem key={faq.id} value={String(faq.id)} className="border-[#eeeeee]">
+            <AccordionTrigger
+              className="w-full px-[19px] py-[18px] hover:no-underline"
+              showIcon={false}
+            >
+              <div className="flex items-center gap-5">
+                <span className="text-sm leading-[14px] text-[#a11c20] flex-shrink-0">
+                  {getCategoryName(faq.categoryId)}
+                </span>
+                <h2 className="text-sm leading-[14px]">{faq.question}</h2>
               </div>
             </AccordionTrigger>
-            <AccordionContent className="px-6 pb-6">
-              <div className="bg-gray-50 rounded-lg p-5">
-                <p className="text-[14px] text-gray-700 leading-relaxed whitespace-pre-line">
-                  {faq.answer}
-                </p>
-              </div>
+            <AccordionContent className="px-[26px] py-6 text-[13px] leading-[13px] bg-[#f9f9f9] whitespace-pre-line">
+              {faq.answer}
             </AccordionContent>
           </AccordionItem>
         ))}
