@@ -31,7 +31,7 @@ const menuGroups: MenuGroup[] = [
     items: [
       { id: 'notices', label: '공지사항', href: '/notices' },
       { id: 'faqs', label: '자주하는 질문', href: '/faqs' },
-      { id: 'customer-center', label: '고객센터', href: '/setting/customer-center' },
+      { id: 'customer-center', label: '고객센터', href: '/customer-center' },
       { id: 'advertising', label: '광고 및 제휴', href: '/advertising' },
       { id: 'bug-reports', label: '버그 제보', href: '/bug-reports' },
     ],
