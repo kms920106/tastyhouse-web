@@ -23,7 +23,7 @@ export default function ConfirmModal({
     <Modal open={open} onOpenChange={(open) => !open && onCancel()}>
       <ModalHeader className="px-5 pt-7 pb-0">
         {title && <ModalTitle className="text-base leading-[16px] font-bold">{title}</ModalTitle>}
-        <ModalDescription className="mt-2.5 text-sm leading-[20px] text-[#666666]">
+        <ModalDescription className="mt-2.5 text-sm leading-relaxed text-[#666666]">
           {description}
         </ModalDescription>
       </ModalHeader>

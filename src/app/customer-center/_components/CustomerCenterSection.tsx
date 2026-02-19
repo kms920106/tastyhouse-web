@@ -41,7 +41,7 @@ export default function CustomerCenterSection() {
               <p className="text-sm leading-[14px] text-[#666666]">
                 • 이전 고객님의 상담이 길어질 경우 통화가 지연될 수 있습니다.
               </p>
-              <p className="text-sm leading-[20px] text-[#666666]">
+              <p className="text-sm leading-relaxed text-[#666666]">
                 • 전화가 지연될 경우 카카오톡 문의를 통해 연락처와 통화가 가능한 시간대를 남겨주시면
                 확인 후 바로 연락을 드립니다.
               </p>

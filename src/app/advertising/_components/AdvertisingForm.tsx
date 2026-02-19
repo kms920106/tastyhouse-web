@@ -4,9 +4,12 @@ import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppInputText from '@/components/ui/AppInputText'
+import { toast } from '@/components/ui/AppToaster'
+import CircleCheckbox from '@/components/ui/CircleCheckbox'
+import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import { useState } from 'react'
-import PostcodeModal from './PostcodeModal'
 import type { Address } from 'react-daum-postcode'
+import PostcodeModal from './PostcodeModal'
 
 interface FormData {
   storeName: string
@@ -79,7 +82,7 @@ export default function AdvertisingForm() {
     if (!validateForm()) return
 
     if (!formData.agreeToTerms) {
-      alert('개인정보 수집 및 이용에 동의해주세요.')
+      toast('개인정보 수집 및 이용에 동의해주세요.')
       return
     }
 
@@ -97,25 +100,7 @@ export default function AdvertisingForm() {
         />
       )}
 
-      {/* 안내 섹션 */}
-      <div className="px-[15px] py-5 bg-[#f8f8f8] border-b border-[#eeeeee]">
-        <h2 className="text-[13px] font-bold text-[#333333] mb-3">
-          광고 및 제휴 상담신청 유의사항
-        </h2>
-        <ul className="space-y-2">
-          <li className="text-[13px] text-[#666666] leading-relaxed">
-            • 먼저 신청하신 고객님의 상담이 지연될 경우 희망시간대보다 늦게 전화를 드릴 수
-            있습니다.
-          </li>
-          <li className="text-[13px] text-[#666666] leading-relaxed">
-            • 등록하신 전화번호는 상담 관련 이외에는 사용되지 않으며, 기존에 등록하신 번호는
-            변경되지 않습니다.
-          </li>
-        </ul>
-      </div>
-
-      {/* 폼 섹션 */}
-      <div className="flex flex-col gap-5 px-[15px] py-5">
+      <div className="px-[15px] py-[30px] flex flex-col gap-5">
         {/* 상호명 */}
         <AppFormField label="상호명" required error={errors.storeName}>
           {({ className }) => (
@@ -145,14 +130,18 @@ export default function AdvertisingForm() {
                   onClick={handlePostalCodeSearch}
                   className="shrink-0 h-[50px] px-4 border border-[#eeeeee] box-border text-[13px] text-[#333333] whitespace-nowrap bg-[#f8f8f8] active:bg-[#eeeeee]"
                 >
-                  주소 검색
+                  우편번호 검색
                 </button>
               </div>
               <AppInputText
                 value={formData.addressDetail}
                 onChange={(e) => handleChange('addressDetail', e.target.value)}
                 placeholder="상세주소를 입력해주세요."
-                className={errors.addressDetail ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined}
+                className={
+                  errors.addressDetail
+                    ? 'border-[#bc4040] focus-visible:border-[#bc4040]'
+                    : undefined
+                }
               />
             </div>
           )}
@@ -219,43 +208,21 @@ export default function AdvertisingForm() {
             </div>
           )}
         </AppFormField>
-
-        {/* 개인정보 동의 */}
-        <label className="flex items-center gap-3 cursor-pointer">
-          <div className="relative flex items-center justify-center shrink-0 w-5 h-5">
-            <input
-              type="checkbox"
-              checked={formData.agreeToTerms}
-              onChange={(e) => handleChange('agreeToTerms', e.target.checked)}
-              className="sr-only peer"
-            />
-            <div className="w-5 h-5 border-2 border-[#cccccc] rounded-full peer-checked:bg-[#E87167] peer-checked:border-[#E87167] transition-colors flex items-center justify-center">
-              {formData.agreeToTerms && (
-                <svg
-                  width="10"
-                  height="8"
-                  viewBox="0 0 14 11"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M1 5.5l4 4 8-8" />
-                </svg>
-              )}
-            </div>
-          </div>
-          <span className="text-[13px] text-[#666666]">개인정보 수집 및 이용에 동의합니다. (필수)</span>
+        <label className="flex items-center gap-2.5 mt-[5px] cursor-pointer">
+          <CircleCheckbox
+            checked={formData.agreeToTerms}
+            onChange={(value) => handleChange('agreeToTerms', value)}
+          />
+          <span className="text-sm leading-[14px], text-[#666666]">
+            개인정보 수집 및 이용에 동의합니다. (필수)
+          </span>
         </label>
       </div>
-
-      {/* 하단 고정 버튼 */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#eeeeee] px-[15px] py-[15px]">
-        <AppButton onClick={handleSubmit} className="text-white bg-[#E87167] rounded-lg active:bg-[#D86157]">
+      <FixedBottomSection className="px-[15px] py-[15px]">
+        <AppButton onClick={handleSubmit} className="text-white bg-[#a91201]">
           확인
         </AppButton>
-      </div>
+      </FixedBottomSection>
     </>
   )
 }
