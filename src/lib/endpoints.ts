@@ -21,6 +21,9 @@ export const API_ENDPOINTS = {
   // 광고 및 제휴
   PARTNERSHIP_REQUESTS: '/api/partnership-requests/v1',
 
+  // 버그 제보
+  BUG_REPORTS: '/api/bug-reports/v1',
+
   // 인증
   AUTH_LOGIN: '/api/auth/login',
   AUTH_LOGOUT: '/api/auth/v1/logout',

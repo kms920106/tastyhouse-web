@@ -7,6 +7,7 @@ import AppInputText from '@/components/ui/AppInputText'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import { Spinner } from '@/components/ui/shadcn/spinner'
 import { createPartnershipRequest } from '@/services/partnership'
 import { useState } from 'react'
 import type { Address } from 'react-daum-postcode'
@@ -59,7 +60,6 @@ const INITIAL_FORM_DATA: FormData = {
 
 export default function AdvertisingForm() {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
-
   const [errors, setErrors] = useState<FormErrors>({})
   const [isPostcodeOpen, setIsPostcodeOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -280,7 +280,14 @@ export default function AdvertisingForm() {
           disabled={isSubmitting}
           className="text-white bg-[#a91201]"
         >
-          {isSubmitting ? '신청 중...' : '확인'}
+          {isSubmitting ? (
+            <>
+              신청 중
+              <Spinner />
+            </>
+          ) : (
+            '확인'
+          )}
         </AppButton>
       </FixedBottomSection>
     </>
