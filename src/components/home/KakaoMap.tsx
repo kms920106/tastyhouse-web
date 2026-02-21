@@ -137,7 +137,7 @@ export default function KakaoMap({ places }: KakaoMapProps) {
   const fetchAndUpdatePlaces = useCallback(
     async (lat: number, lng: number, mapInstance: KakaoMap) => {
       try {
-        console.log(lat, lng, mapInstance, clearMarkers, clearOverlay, createMarkers, places)
+        // TODO: API 연동 시 주석 해제
         // const responseData = await getPlacesNear({ latitude: lat, longitude: lng })
         // const placesData: PlaceData[] = responseData as PlaceData[]
 

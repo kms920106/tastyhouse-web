@@ -19,13 +19,11 @@ export default function AccountInfoPage() {
   const [eventNotification, setEventNotification] = useState(false)
 
   const handleVerification = () => {
-    // 재발송 로직
-    console.log('재발송')
+    // TODO: 인증번호 재발송 API 연동
   }
 
   const handleSubmit = () => {
-    // 수정하기 로직
-    console.log('수정하기')
+    // TODO: 개인정보 수정 API 연동
   }
 
   const handleWithdrawal = () => {

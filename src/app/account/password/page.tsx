@@ -10,12 +10,11 @@ export default function PasswordChangePage() {
   const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleSubmit = () => {
-    // 비밀번호 변경 로직
+    // TODO: 비밀번호 변경 API 연동
     if (newPassword !== confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.')
       return
     }
-    console.log('비밀번호 변경')
   }
 
   return (

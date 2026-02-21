@@ -8,8 +8,7 @@ export default function WithdrawPage() {
   const [reason, setReason] = useState('선택')
 
   const handleWithdraw = () => {
-    // 탈퇴하기 로직
-    console.log('회원탈퇴:', reason)
+    // TODO: 회원탈퇴 API 연동
   }
 
   return (

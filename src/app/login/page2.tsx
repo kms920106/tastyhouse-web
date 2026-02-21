@@ -12,12 +12,10 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     // TODO: Implement login logic
-    console.log('Login attempt:', { email, password, keepLoggedIn })
   }
 
   const handleSocialLogin = (provider: string) => {
     // TODO: Implement social login logic
-    console.log('Social login with:', provider)
   }
 
   return (
