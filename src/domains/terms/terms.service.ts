@@ -1,22 +1,15 @@
-// TODO: API 구현 후 아래 주석 해제
-// import { api } from '@/lib/api'
-// import { API_ENDPOINTS } from '@/lib/endpoints'
-// import { ApiResponse } from '@/types/common'
+// import { termsRepository } from './terms.repository'
+import { TermsItem } from './terms.type'
 
-export interface TermsItem {
-  content: string
-}
-
-// TODO: API 미구현 상태 - 실제 응답 스펙 확정 후 수정 필요
+// TODO: API 구현 후 더미데이터 제거 및 실제 API 호출로 교체
 const TERMS_DUMMY_DATA: TermsItem = {
   content: `<h3>제 1조 (목적)</h3><p>본 약관은(이하 '약관')은 (주)컬쳐히어로(이하 '회사')에서 제공하는 온라인상의 인터넷 서비스(이하 '서비스')의 이용과 관련하여 회사와 회원간의 권리, 의무 및 책임 사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p><h3>제 2조 (이용약관의 효력 및 변경)</h3><p>본 약관은 회사에서 제공하는 서비스의 이용약관으로 이용자에게 공시함으로써 효력이 발생하며, 합리적인 사유가 발생할 경우 관련 법령에 위배되지 않는 범위 안에서 개정될 수 있습니다. 개정된 약관은 온라인에서 공지함으로써 효력을 발휘하며, 이용자의 권리 또는 의무 등 중요한 규정의 개정은 사전에 공지합니다.</p><p>회사는 합리적인 사유가 발생될 경우에 이 약관을 변경할 수 있으며, 약관이 변경될 경우에는 지체 없이 이를 공시합니다.</p><p>이 약관에 동의하는 것은 정기적으로 웹을 방문하여 약관의 변경사항을 확인하는 것에 동의함을 의미합니다. 변경된 약관에 대한 정보를 알지 못해 발생하는 이용자의 피해는 회사에서 책임지지 않습니다.</p><p>회원이 변경된 약관에 동의하지 않을 경우 회사는 해당 회원의 탈퇴(해지)를 요청할 수 있으며, 변경된 약관의 효력 발생일로부터 7일 이후에도 거부의사를 표시하지 아니하고 서비스를 계속 사용할 경우 약관의 변경사항에 동의한 것으로 간주됩니다.</p><h3>제 3조 (약관 외 사항에 대한 준칙)</h3><p>이 약관은 회사가 제공하는 개별서비스에 관한 이용안내(이하 '서비스별 안내'라 한다)와 함께 적용합니다. 이 약관에서 정하지 아니한 사항과 이 약관의 해석에 관하여는 관련 법령 또는 상관례에 따릅니다.</p>`,
 }
 
-export async function getTerms(): Promise<TermsItem> {
-  // TODO: API 구현 후 아래 더미데이터 제거 및 실제 API 호출로 교체
-  // const response = await api.get<ApiResponse<TermsItem>>(API_ENDPOINTS.TERMS)
-  // if (response.error || !response.data?.data) return { content: '' }
-  // return response.data.data
-
-  return TERMS_DUMMY_DATA
+export const termsService = {
+  async getTerms() {
+    // TODO: API 구현 후 아래 주석 해제 및 더미데이터 제거
+    // return termsRepository.getTerms()
+    return { data: { data: TERMS_DUMMY_DATA }, error: null }
+  },
 }
