@@ -1,6 +1,6 @@
 'use server'
 
-import { memberService, UpdateProfileRequest } from '@/domains/member'
+import { memberService, UpdateProfileRequest, VerifyPasswordRequest } from '@/domains/member'
 
 export async function getMemberMe() {
   return await memberService.getMemberMe()
@@ -32,4 +32,8 @@ export async function getMyBookmarks(page: number = 0, size: number = 10) {
 
 export async function updateMemberProfile(data: UpdateProfileRequest) {
   return await memberService.updateMyProfile(data)
+}
+
+export async function verifyMemberPassword(data: VerifyPasswordRequest) {
+  return await memberService.verifyPassword(data)
 }

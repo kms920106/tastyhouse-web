@@ -130,3 +130,11 @@ export type UpdateProfileRequest = {
   statusMessage?: string
   profileImageFileId?: number
 }
+
+export type VerifyPasswordRequest = {
+  password: string
+}
+
+export type VerifyPasswordResponse = {
+  verifyToken: string
+}

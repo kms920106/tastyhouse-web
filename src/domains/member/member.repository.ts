@@ -9,6 +9,8 @@ import {
   PointHistoryResponse,
   UpdateProfileRequest,
   UsablePointResponse,
+  VerifyPasswordRequest,
+  VerifyPasswordResponse,
 } from './member.type'
 
 const ENDPOINT = '/api/members'
@@ -54,5 +56,9 @@ export const memberRepository = {
   // 프로필 수정
   async updateMyProfile(data: UpdateProfileRequest) {
     return api.put<ApiResponse<void>>(`${ENDPOINT}/v1/me/profile`, data)
+  },
+  // 비밀번호 인증 (개인정보 수정 진입)
+  async verifyPassword(data: VerifyPasswordRequest) {
+    return api.post<ApiResponse<VerifyPasswordResponse>>(`${ENDPOINT}/v1/me/verify-password`, data)
   },
 }

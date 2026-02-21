@@ -1,5 +1,5 @@
 import { memberRepository } from './member.repository'
-import { UpdateProfileRequest } from './member.type'
+import { UpdateProfileRequest, VerifyPasswordRequest } from './member.type'
 
 export const memberService = {
   async getMemberMe() {
@@ -29,5 +29,8 @@ export const memberService = {
   },
   async updateMyProfile(data: UpdateProfileRequest) {
     return await memberRepository.updateMyProfile(data)
+  },
+  async verifyPassword(data: VerifyPasswordRequest) {
+    return await memberRepository.verifyPassword(data)
   },
 }

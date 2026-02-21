@@ -3,6 +3,8 @@
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import { toast } from '@/components/ui/AppToaster'
+import { verifyMemberPassword } from '@/services/member'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
@@ -56,8 +58,22 @@ export default function AccountInfoVerifyForm() {
 
     setIsSubmitting(true)
     try {
-      // TODO: 비밀번호 확인 API 연동
-      router.push('/account/info/edit')
+      const response = await verifyMemberPassword({ password: formData.password })
+
+      if (response?.error) {
+        toast('비밀번호가 일치하지 않습니다.')
+        return
+      }
+
+      const verifyToken = response?.data?.data?.verifyToken
+      if (!verifyToken) {
+        toast('인증에 실패했습니다. 다시 시도해주세요.')
+        return
+      }
+
+      router.push(`/account/info/edit?verifyToken=${verifyToken}`)
+    } catch {
+      toast('오류가 발생했습니다. 다시 시도해주세요.')
     } finally {
       setIsSubmitting(false)
     }
