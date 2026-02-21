@@ -24,9 +24,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next()
     }
 
-    console.log('[middleware] accessToken expired, refreshing...')
   } else {
-    console.log('[middleware] No accessToken, attempting refresh...')
   }
 
   // 토큰 갱신 시도
@@ -42,7 +40,6 @@ export async function middleware(request: NextRequest) {
     })
 
     if (!response.ok) {
-      console.log('[middleware] Token refresh failed, clearing cookies')
       const res = NextResponse.next()
       res.cookies.delete('accessToken')
       res.cookies.delete('refreshToken')
@@ -50,7 +47,6 @@ export async function middleware(request: NextRequest) {
     }
 
     const data = await response.json()
-    console.log('[middleware] Token refresh successful')
 
     // 새 토큰으로 쿠키 업데이트하여 다음 요청으로 진행
     const res = NextResponse.next()
