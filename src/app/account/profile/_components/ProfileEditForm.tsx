@@ -1,10 +1,9 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
 import { toast } from '@/components/ui/AppToaster'
-import { Spinner } from '@/components/ui/shadcn/spinner'
+import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
 import { updateMemberProfile } from '@/services/member'
 import { uploadFile } from '@/services/file'
@@ -165,25 +164,14 @@ export default function ProfileEditForm() {
         </AppFormField>
       </div>
       <div className="px-[15px] mt-[30px]">
-        <AppButton
+        <AppSubmitButton
           onClick={handleSubmit}
-          disabled={isSubmitting || isLoading || isUploading}
-          className="text-white bg-[#a91201]"
+          disabled={isLoading}
+          isSubmitting={isUploading || isSubmitting}
+          loadingText={isUploading ? '이미지 업로드 중' : '변경 중'}
         >
-          {isUploading ? (
-            <>
-              이미지 업로드 중
-              <Spinner />
-            </>
-          ) : isSubmitting ? (
-            <>
-              변경 중
-              <Spinner />
-            </>
-          ) : (
-            '완료'
-          )}
-        </AppButton>
+          완료
+        </AppSubmitButton>
       </div>
     </div>
   )

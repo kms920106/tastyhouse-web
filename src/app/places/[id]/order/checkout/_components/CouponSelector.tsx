@@ -1,6 +1,6 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import {
   Drawer,
@@ -161,9 +161,9 @@ export default function CouponSelector({
               })}
             </div>
             <div className="mt-5">
-              <AppButton className="!bg-[#a91201] text-white" onClick={handleApplyCoupon}>
+              <AppPrimaryButton onClick={handleApplyCoupon}>
                 {getButtonText()}
-              </AppButton>
+              </AppPrimaryButton>
             </div>
           </div>
         </DrawerContent>

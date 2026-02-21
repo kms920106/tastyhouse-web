@@ -1,9 +1,8 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import { toast } from '@/components/ui/AppToaster'
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { Spinner } from '@/components/ui/shadcn/spinner'
 import { createBugReport } from '@/services/bug-report'
 import { uploadFile } from '@/services/file'
@@ -254,22 +253,16 @@ export default function BugReportsForm() {
           아직 제보되지 않은 버그인 경우 1,000 포인트를 지급해드립니다.
         </p>
       </div>
-      <FixedBottomSection className="px-[15px] py-[15px]">
-        <AppButton
+      <div className="px-[15px] py-[15px]">
+        <AppSubmitButton
           onClick={handleSubmit}
-          disabled={isUploading || isSubmitting}
-          className="text-white bg-[#a91201]"
+          disabled={isUploading}
+          isSubmitting={isSubmitting}
+          loadingText="제출 중"
         >
-          {isSubmitting ? (
-            <>
-              제출 중
-              <Spinner />
-            </>
-          ) : (
-            '확인'
-          )}
-        </AppButton>
-      </FixedBottomSection>
+          확인
+        </AppSubmitButton>
+      </div>
     </>
   )
 }

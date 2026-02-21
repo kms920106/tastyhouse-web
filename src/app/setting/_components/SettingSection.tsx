@@ -44,7 +44,7 @@ const menuGroups: MenuGroup[] = [
   },
   {
     items: [
-      { id: 'privacy-settings', label: '개인정보 수정', href: '/setting/privacy-settings' },
+      { id: 'account-info', label: '개인정보 수정', href: '/account/info' },
       { id: 'password-change', label: '비밀번호 변경', href: '/setting/password-change' },
     ],
   },

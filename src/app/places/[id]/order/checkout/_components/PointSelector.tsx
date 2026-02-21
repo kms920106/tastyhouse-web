@@ -1,6 +1,6 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import AppInputAmount from '@/components/ui/AppInputAmount'
 import { formatNumber } from '@/lib/number'
 import { IoIosCloseCircle } from 'react-icons/io'
@@ -59,12 +59,12 @@ export default function PointSelector({
             </button>
           )}
         </div>
-        <AppButton
+        <AppPrimaryButton
           onClick={handleApplyAllPoints}
-          className="w-[105px] text-sm leading-[14px] text-white bg-[#a91201]"
+          className="w-[105px] text-sm leading-[14px]"
         >
           전액사용
-        </AppButton>
+        </AppPrimaryButton>
       </div>
       <p className="flex gap-1 mt-2.5">
         <span className="text-xs leading-[12px] text-[#aaaaaa]">사용 가능한 포인트</span>

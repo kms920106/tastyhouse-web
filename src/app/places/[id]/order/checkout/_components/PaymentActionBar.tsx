@@ -1,4 +1,4 @@
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 
 interface PaymentActionBarProps {
   onPaymentClick: () => void
@@ -7,9 +7,9 @@ interface PaymentActionBarProps {
 export default function PaymentActionBar({ onPaymentClick }: PaymentActionBarProps) {
   return (
     <div className="px-[15px] py-5">
-      <AppButton className="!bg-[#a91201]" onClick={onPaymentClick}>
+      <AppPrimaryButton onClick={onPaymentClick}>
         결제하기
-      </AppButton>
+      </AppPrimaryButton>
     </div>
   )
 }

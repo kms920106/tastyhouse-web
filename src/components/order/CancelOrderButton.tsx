@@ -1,8 +1,7 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
-import { Spinner } from '@/components/ui/shadcn/spinner'
+import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import type { PaymentCancelCode, PaymentStatus } from '@/domains/payment'
 import { cancelPayment } from '@/services/payment'
 import { useRouter } from 'next/navigation'
@@ -61,16 +60,13 @@ export default function CancelOrderButton({
   return (
     <>
       <div className="px-[15px] py-5">
-        <AppButton className="!bg-[#a91201]" onClick={handleCancelClick} disabled={isLoading}>
-          {isLoading ? (
-            <>
-              취소 중
-              <Spinner />
-            </>
-          ) : (
-            '결제취소'
-          )}
-        </AppButton>
+        <AppSubmitButton
+          onClick={handleCancelClick}
+          isSubmitting={isLoading}
+          loadingText="취소 중"
+        >
+          결제취소
+        </AppSubmitButton>
       </div>
       <AppConfirmDialog
         open={showCancelConfirm}

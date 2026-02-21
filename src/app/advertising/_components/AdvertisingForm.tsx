@@ -1,13 +1,12 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppInputText from '@/components/ui/AppInputText'
 import { toast } from '@/components/ui/AppToaster'
+import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
-import { Spinner } from '@/components/ui/shadcn/spinner'
 import { createPartnershipRequest } from '@/services/partnership'
 import { useState } from 'react'
 import type { Address } from 'react-daum-postcode'
@@ -275,20 +274,13 @@ export default function AdvertisingForm() {
         </label>
       </div>
       <FixedBottomSection className="px-[15px] py-[15px]">
-        <AppButton
+        <AppSubmitButton
           onClick={handleSubmit}
-          disabled={isSubmitting}
-          className="text-white bg-[#a91201]"
+          isSubmitting={isSubmitting}
+          loadingText="신청 중"
         >
-          {isSubmitting ? (
-            <>
-              신청 중
-              <Spinner />
-            </>
-          ) : (
-            '확인'
-          )}
-        </AppButton>
+          확인
+        </AppSubmitButton>
       </FixedBottomSection>
     </>
   )

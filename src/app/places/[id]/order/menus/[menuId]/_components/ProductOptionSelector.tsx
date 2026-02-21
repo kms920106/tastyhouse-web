@@ -1,6 +1,6 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ConfirmModal from '@/components/ui/ConfirmModal'
@@ -222,9 +222,9 @@ export default function ProductOptionSelector({
         </Tabs>
       </BorderedSection>
       <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
-        <AppButton className="!bg-[#a91201]" onClick={handleAddToCart}>
+        <AppPrimaryButton onClick={handleAddToCart}>
           장바구니 담기
-        </AppButton>
+        </AppPrimaryButton>
       </FixedBottomSection>
       <ConfirmModal
         open={showPlaceChangeModal}
