@@ -18,6 +18,10 @@ export const API_ENDPOINTS = {
   // TODO: API 미구현 상태 - 실제 엔드포인트 확정 후 수정 필요
   FAQS: '/api/faqs/v1',
 
+  // 이용약관
+  // TODO: API 미구현 상태 - 실제 엔드포인트 확정 후 수정 필요
+  TERMS: '/api/terms/v1',
+
   // 광고 및 제휴
   PARTNERSHIP_REQUESTS: '/api/partnership-requests/v1',
 

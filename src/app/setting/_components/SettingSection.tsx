@@ -38,8 +38,8 @@ const menuGroups: MenuGroup[] = [
   },
   {
     items: [
-      { id: 'terms', label: '이용약관', href: '/setting/terms' },
-      { id: 'privacy-policy', label: '개인정보취급방침', href: '/setting/privacy-policy' },
+      { id: 'terms', label: '이용약관', href: '/terms' },
+      { id: 'privacy', label: '개인정보취급방침', href: '/policy' },
     ],
   },
   {
