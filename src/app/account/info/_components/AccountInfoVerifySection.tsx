@@ -1,0 +1,19 @@
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
+import { BackButton } from '@/components/layouts/header-parts'
+import AccountInfoVerifyForm from './AccountInfoVerifyForm'
+
+export default function AccountInfoVerifySection() {
+  return (
+    <section className="min-h-screen bg-white">
+      <Header variant="white" height={55}>
+        <HeaderLeft>
+          <BackButton />
+        </HeaderLeft>
+        <HeaderCenter>
+          <HeaderTitle>개인정보 수정</HeaderTitle>
+        </HeaderCenter>
+      </Header>
+      <AccountInfoVerifyForm />
+    </section>
+  )
+}
