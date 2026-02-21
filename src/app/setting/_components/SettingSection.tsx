@@ -39,7 +39,7 @@ const menuGroups: MenuGroup[] = [
   {
     items: [
       { id: 'terms', label: '이용약관', href: '/terms' },
-      { id: 'privacy', label: '개인정보취급방침', href: '/policy' },
+      { id: 'privacy', label: '개인정보취급방침', href: '/privacy' },
     ],
   },
   {
