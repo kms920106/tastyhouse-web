@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useEffect, useMemo } from 'react'
 import { SlCamera } from 'react-icons/sl'
 import { toast } from '../ui/AppToaster'
 
@@ -10,6 +11,14 @@ interface PhotoUploaderProps {
 }
 
 export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
+  const previewUrls = useMemo(() => value.map((file) => URL.createObjectURL(file)), [value])
+
+  useEffect(() => {
+    return () => {
+      previewUrls.forEach((url) => URL.revokeObjectURL(url))
+    }
+  }, [previewUrls])
+
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : []
     if (!files.length) return
@@ -48,10 +57,10 @@ export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
             <span className="text-xs mt-1">{value.length}/5</span>
           </div>
         </label>
-        {value.map((image, index) => (
+        {previewUrls.map((url, index) => (
           <div key={index} className="relative overflow-hidden aspect-square">
             <Image
-              src={URL.createObjectURL(image)}
+              src={url}
               alt={`uploaded-${index}`}
               className="object-cover border border-border-input box-border"
               fill
