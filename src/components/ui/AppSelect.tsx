@@ -2,14 +2,14 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import * as React from 'react'
 
-export interface AppSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {}
+export type AppSelectProps = React.SelectHTMLAttributes<HTMLSelectElement>
 
 export default function AppSelect({ className, children, ...props }: AppSelectProps) {
   return (
     <div className="relative w-full">
       <select
         className={cn(
-          'w-full h-[50px] pl-4 pr-10 text-sm leading-[14px] text-[#333333] border border-[#666666] box-border appearance-none bg-white focus:outline-none',
+          'w-full h-[50px] pl-4 pr-10 text-sm leading-[14px] text-[#333333] border border-[#eeeeee] focus:border-[#666666] box-border appearance-none bg-white focus:outline-none',
           className,
         )}
         {...props}
