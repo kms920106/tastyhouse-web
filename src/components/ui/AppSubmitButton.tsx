@@ -1,7 +1,5 @@
-'use client'
-
-import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { type AppButtonProps } from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { Spinner } from '@/components/ui/shadcn/spinner'
 
 export interface AppSubmitButtonProps extends AppButtonProps {
