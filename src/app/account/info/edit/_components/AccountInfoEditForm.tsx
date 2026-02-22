@@ -19,7 +19,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
 
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
@@ -80,8 +80,8 @@ export default function AccountInfoEditForm() {
   const [isVerificationVisible, setIsVerificationVisible] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
   const [phoneVerifyToken, setPhoneVerifyToken] = useState('')
-  const [isSendingCode, setIsSendingCode] = useState(false)
-  const [isConfirmingCode, setIsConfirmingCode] = useState(false)
+  const [isSendingCode, startSendingCode] = useTransition()
+  const [isConfirmingCode, startConfirmingCode] = useTransition()
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDay, setBirthDay] = useState('')
@@ -90,7 +90,7 @@ export default function AccountInfoEditForm() {
   const [marketingNotification, setMarketingNotification] = useState(false)
   const [eventNotification, setEventNotification] = useState(false)
   const [errors, setErrors] = useState<FormErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, startSubmitting] = useTransition()
 
   useEffect(() => {
     getMemberPersonalInfo().then(({ data }) => {
@@ -111,7 +111,7 @@ export default function AccountInfoEditForm() {
     })
   }, [])
 
-  const handleSendVerification = async () => {
+  const handleSendVerification = () => {
     const rawPhone = phone.replace(/-/g, '')
     if (!rawPhone.match(/^01[0-9]{8,9}$/)) {
       setErrors((prev) => ({ ...prev, phone: '올바른 휴대폰 번호를 입력해주세요.' }))
@@ -123,47 +123,45 @@ export default function AccountInfoEditForm() {
       return
     }
 
-    setIsSendingCode(true)
-    try {
-      const response = await sendPhoneVerificationCode({ phoneNumber: rawPhone })
-      if (response?.error) {
-        toast(response.error)
-        return
+    startSendingCode(async () => {
+      try {
+        const response = await sendPhoneVerificationCode({ phoneNumber: rawPhone })
+        if (response?.error) {
+          toast(response.error)
+          return
+        }
+        setIsVerificationVisible(true)
+        toast('인증번호가 발송되었습니다.')
+      } catch {
+        toast('인증번호 발송에 실패했습니다. 다시 시도해주세요.')
       }
-      setIsVerificationVisible(true)
-      toast('인증번호가 발송되었습니다.')
-    } catch {
-      toast('인증번호 발송에 실패했습니다. 다시 시도해주세요.')
-    } finally {
-      setIsSendingCode(false)
-    }
+    })
   }
 
-  const handleConfirmVerification = async () => {
+  const handleConfirmVerification = () => {
     const rawPhone = phone.replace(/-/g, '')
 
-    setIsConfirmingCode(true)
-    try {
-      const response = await confirmPhoneVerificationCode({
-        phoneNumber: rawPhone,
-        verificationCode,
-      })
-      if (response?.error) {
-        toast(response.error)
-        return
+    startConfirmingCode(async () => {
+      try {
+        const response = await confirmPhoneVerificationCode({
+          phoneNumber: rawPhone,
+          verificationCode,
+        })
+        if (response?.error) {
+          toast(response.error)
+          return
+        }
+        const token = response?.data?.data?.phoneVerifyToken
+        if (!token) {
+          toast('인증에 실패했습니다. 다시 시도해주세요.')
+          return
+        }
+        setPhoneVerifyToken(token)
+        setIsVerified(true)
+      } catch {
+        toast('인증번호 확인에 실패했습니다. 다시 시도해주세요.')
       }
-      const token = response?.data?.data?.phoneVerifyToken
-      if (!token) {
-        toast('인증에 실패했습니다. 다시 시도해주세요.')
-        return
-      }
-      setPhoneVerifyToken(token)
-      setIsVerified(true)
-    } catch {
-      toast('인증번호 확인에 실패했습니다. 다시 시도해주세요.')
-    } finally {
-      setIsConfirmingCode(false)
-    }
+    })
   }
 
   const buildBirthDate = (): number | undefined => {
@@ -198,7 +196,7 @@ export default function AccountInfoEditForm() {
     return false
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!verifyToken) {
       toast('인증 정보가 없습니다. 다시 시도해주세요.')
       return
@@ -206,33 +204,32 @@ export default function AccountInfoEditForm() {
 
     if (!validateForm()) return
 
-    setIsSubmitting(true)
-    try {
-      const response = await updateMemberPersonalInfo(
-        {
-          fullName: name,
-          phoneNumber: isVerified ? phone.replace(/-/g, '') : undefined,
-          birthDate: buildBirthDate(),
-          gender,
-          pushNotificationEnabled: pushNotification,
-          marketingInfoEnabled: marketingNotification,
-          eventInfoEnabled: eventNotification,
-        },
-        verifyToken,
-        isVerified ? phoneVerifyToken : undefined,
-      )
+    startSubmitting(async () => {
+      try {
+        const response = await updateMemberPersonalInfo(
+          {
+            fullName: name,
+            phoneNumber: isVerified ? phone.replace(/-/g, '') : undefined,
+            birthDate: buildBirthDate(),
+            gender,
+            pushNotificationEnabled: pushNotification,
+            marketingInfoEnabled: marketingNotification,
+            eventInfoEnabled: eventNotification,
+          },
+          verifyToken,
+          isVerified ? phoneVerifyToken : undefined,
+        )
 
-      if (response?.error) {
-        toast(response.error)
-        return
+        if (response?.error) {
+          toast(response.error)
+          return
+        }
+
+        toast('개인정보가 수정되었습니다.')
+      } catch {
+        toast('오류가 발생했습니다. 다시 시도해주세요.')
       }
-
-      toast('개인정보가 수정되었습니다.')
-    } catch {
-      toast('오류가 발생했습니다. 다시 시도해주세요.')
-    } finally {
-      setIsSubmitting(false)
-    }
+    })
   }
 
   return (
