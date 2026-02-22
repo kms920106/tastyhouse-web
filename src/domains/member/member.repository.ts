@@ -13,6 +13,7 @@ import {
   UsablePointResponse,
   VerifyPasswordRequest,
   VerifyPasswordResponse,
+  WithdrawRequest,
 } from './member.type'
 
 const ENDPOINT = '/api/members'
@@ -79,5 +80,9 @@ export const memberRepository = {
         ...(phoneVerifyToken ? { 'X-Phone-Verify-Token': phoneVerifyToken } : {}),
       },
     })
+  },
+  // 회원 탈퇴
+  async withdrawMember(data: WithdrawRequest) {
+    return api.delete<ApiResponse<void>>(`${ENDPOINT}/v1/me`, data)
   },
 }

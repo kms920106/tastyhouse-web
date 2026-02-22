@@ -161,3 +161,23 @@ export type PersonalInfoResponse = {
   marketingInfoEnabled: boolean
   eventInfoEnabled: boolean
 }
+
+export type WithdrawReason =
+  | 'LOW_USAGE_FREQUENCY'
+  | 'INSUFFICIENT_CONTENT'
+  | 'SWITCH_TO_ANOTHER_SERVICE'
+  | 'PRIVACY_CONCERNS'
+  | 'OTHER'
+
+export const WITHDRAW_REASON_LABEL: Record<WithdrawReason, string> = {
+  LOW_USAGE_FREQUENCY: '서비스 이용 빈도가 낮아서',
+  INSUFFICIENT_CONTENT: '콘텐츠가 부족해서',
+  SWITCH_TO_ANOTHER_SERVICE: '다른 서비스로 이동',
+  PRIVACY_CONCERNS: '개인정보 보호 우려',
+  OTHER: '기타',
+}
+
+export type WithdrawRequest = {
+  reason: WithdrawReason
+  reasonDetail?: string
+}

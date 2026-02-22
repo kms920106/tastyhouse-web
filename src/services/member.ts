@@ -5,7 +5,9 @@ import {
   UpdatePersonalInfoRequest,
   UpdateProfileRequest,
   VerifyPasswordRequest,
+  WithdrawRequest,
 } from '@/domains/member'
+import { cookies } from 'next/headers'
 
 export async function getMemberMe() {
   return await memberService.getMemberMe()
@@ -53,4 +55,16 @@ export async function updateMemberPersonalInfo(
   phoneVerifyToken?: string,
 ) {
   return await memberService.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
+}
+
+export async function withdrawMember(data: WithdrawRequest) {
+  const result = await memberService.withdrawMember(data)
+
+  if (!result?.error) {
+    const cookieStore = await cookies()
+    cookieStore.delete('accessToken')
+    cookieStore.delete('refreshToken')
+  }
+
+  return result
 }
