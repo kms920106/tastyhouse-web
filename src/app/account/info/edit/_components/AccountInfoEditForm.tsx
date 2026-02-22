@@ -15,10 +15,25 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { z } from 'zod'
 
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
 const BIRTH_MONTHS = Array.from({ length: 12 }, (_, i) => i + 1)
 const BIRTH_DAYS = Array.from({ length: 31 }, (_, i) => i + 1)
+
+const accountInfoSchema = z.object({
+  name: z.string().min(1, '이름을 입력해주세요.'),
+  phone: z
+    .string()
+    .min(1, '휴대폰 번호를 입력해주세요.')
+    .regex(/^01[0-9]{8,9}$/, '올바른 휴대폰 번호를 입력해주세요.'),
+  birthYear: z.string().min(1, '생년월일을 선택해주세요.'),
+  birthMonth: z.string().min(1, '생년월일을 선택해주세요.'),
+  birthDay: z.string().min(1, '생년월일을 선택해주세요.'),
+  gender: z.enum(['MALE', 'FEMALE'], { message: '성별을 선택해주세요.' }),
+})
+
+type FormErrors = Partial<Record<keyof z.infer<typeof accountInfoSchema>, string>>
 
 interface ToggleSwitchProps {
   checked: boolean
@@ -65,6 +80,7 @@ export default function AccountInfoEditForm() {
   const [pushNotification, setPushNotification] = useState(false)
   const [marketingNotification, setMarketingNotification] = useState(false)
   const [eventNotification, setEventNotification] = useState(false)
+  const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -102,11 +118,38 @@ export default function AccountInfoEditForm() {
     return Number(`${birthYear}${mm}${dd}`)
   }
 
+  const validateForm = (): boolean => {
+    const result = accountInfoSchema.safeParse({
+      name: name.trim(),
+      phone: phone.replace(/-/g, ''),
+      birthYear,
+      birthMonth,
+      birthDay,
+      gender,
+    })
+
+    if (result.success) {
+      setErrors({})
+      return true
+    }
+
+    const fieldErrors = z.flattenError(result.error).fieldErrors
+    const newErrors: FormErrors = {}
+    for (const key in fieldErrors) {
+      const field = key as keyof FormErrors
+      newErrors[field] = fieldErrors[field]?.[0]
+    }
+    setErrors(newErrors)
+    return false
+  }
+
   const handleSubmit = async () => {
     if (!verifyToken) {
       toast('인증 정보가 없습니다. 다시 시도해주세요.')
       return
     }
+
+    if (!validateForm()) return
 
     setIsSubmitting(true)
     try {
@@ -142,7 +185,7 @@ export default function AccountInfoEditForm() {
         <BorderedSection>
           <div className="px-[15px] py-[30px] flex flex-col gap-5">
             {/* 아이디 */}
-            <AppFormField label="아이디">
+            <AppFormField label="아이디" required>
               {() => (
                 <AppInput
                   type="email"
@@ -152,29 +195,35 @@ export default function AccountInfoEditForm() {
                 />
               )}
             </AppFormField>
-            <AppFormField label="이름">
-              {() => (
+            <AppFormField label="이름" required error={errors.name}>
+              {({ className }) => (
                 <AppInput
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value)
+                    if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
+                  }}
                   placeholder="이름을 입력해주세요."
-                  className="pr-4"
+                  className={`pr-4 ${className ?? ''}`}
                 />
               )}
             </AppFormField>
-            <AppFormField label="휴대폰 번호">
-              {() => (
+            <AppFormField label="휴대폰 번호" required error={errors.phone}>
+              {({ className }) => (
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
                     <AppInput
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => {
+                        setPhone(e.target.value)
+                        if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }))
+                      }}
                       readOnly={isVerified}
                       placeholder="01012345678"
                       disabled={isVerified}
-                      className={`flex-1 pr-4 ${isVerified ? 'bg-[#f8f8f8] text-[#aaaaaa]' : ''}`}
+                      className={`flex-1 pr-4 ${isVerified ? 'bg-[#f8f8f8] text-[#aaaaaa]' : ''} ${className ?? ''}`}
                     />
                     <AppOutlineButton
                       onClick={handleSendVerification}
@@ -210,14 +259,18 @@ export default function AccountInfoEditForm() {
                 </div>
               )}
             </AppFormField>
-            <AppFormField label="생년월일">
+            <AppFormField label="생년월일" required error={errors.birthYear}>
               {() => (
                 <div className="flex gap-2">
                   <AppSelect
                     value={birthYear}
-                    onChange={(e) => setBirthYear(e.target.value)}
+                    onChange={(e) => {
+                      setBirthYear(e.target.value)
+                      if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
+                    }}
                     className="flex-1 border-[#eeeeee] focus:border-[#666666]"
                   >
+                    <option value="">년도</option>
                     {BIRTH_YEARS.map((year) => (
                       <option key={year} value={year}>
                         {year}
@@ -226,9 +279,13 @@ export default function AccountInfoEditForm() {
                   </AppSelect>
                   <AppSelect
                     value={birthMonth}
-                    onChange={(e) => setBirthMonth(e.target.value)}
+                    onChange={(e) => {
+                      setBirthMonth(e.target.value)
+                      if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
+                    }}
                     className="flex-1 border-[#eeeeee] focus:border-[#666666]"
                   >
+                    <option value="">월</option>
                     {BIRTH_MONTHS.map((month) => (
                       <option key={month} value={month}>
                         {month}
@@ -237,9 +294,13 @@ export default function AccountInfoEditForm() {
                   </AppSelect>
                   <AppSelect
                     value={birthDay}
-                    onChange={(e) => setBirthDay(e.target.value)}
+                    onChange={(e) => {
+                      setBirthDay(e.target.value)
+                      if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
+                    }}
                     className="flex-1 border-[#eeeeee] focus:border-[#666666]"
                   >
+                    <option value="">일</option>
                     {BIRTH_DAYS.map((day) => (
                       <option key={day} value={day}>
                         {day}
@@ -249,7 +310,7 @@ export default function AccountInfoEditForm() {
                 </div>
               )}
             </AppFormField>
-            <AppFormField label="성별">
+            <AppFormField label="성별" required error={errors.gender}>
               {() => (
                 <div className="flex">
                   <AppButton
