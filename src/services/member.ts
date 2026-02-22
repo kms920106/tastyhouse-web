@@ -1,6 +1,11 @@
 'use server'
 
-import { memberService, UpdateProfileRequest, VerifyPasswordRequest } from '@/domains/member'
+import {
+  memberService,
+  UpdatePersonalInfoRequest,
+  UpdateProfileRequest,
+  VerifyPasswordRequest,
+} from '@/domains/member'
 
 export async function getMemberMe() {
   return await memberService.getMemberMe()
@@ -34,6 +39,17 @@ export async function updateMemberProfile(data: UpdateProfileRequest) {
   return await memberService.updateMyProfile(data)
 }
 
+export async function getMemberPersonalInfo() {
+  return await memberService.getMyPersonalInfo()
+}
+
 export async function verifyMemberPassword(data: VerifyPasswordRequest) {
   return await memberService.verifyPassword(data)
+}
+
+export async function updateMemberPersonalInfo(
+  data: UpdatePersonalInfoRequest,
+  verifyToken: string,
+) {
+  return await memberService.updateMyPersonalInfo(data, verifyToken)
 }

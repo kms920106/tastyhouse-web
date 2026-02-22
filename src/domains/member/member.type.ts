@@ -138,3 +138,26 @@ export type VerifyPasswordRequest = {
 export type VerifyPasswordResponse = {
   verifyToken: string
 }
+
+export type Gender = 'MALE' | 'FEMALE'
+
+export type UpdatePersonalInfoRequest = {
+  fullName: string
+  phoneNumber?: string
+  birthDate?: number
+  gender?: Gender
+  pushNotificationEnabled?: boolean
+  marketingInfoEnabled?: boolean
+  eventInfoEnabled?: boolean
+}
+
+export type PersonalInfoResponse = {
+  email: string
+  fullName: string
+  phoneNumber: string
+  birthDate: number | null
+  gender: Gender | null
+  pushNotificationEnabled: boolean
+  marketingInfoEnabled: boolean
+  eventInfoEnabled: boolean
+}

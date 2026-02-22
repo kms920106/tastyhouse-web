@@ -6,7 +6,9 @@ import {
   MyBookmarkedPlaceListItemResponse,
   MyReviewListItemResponse,
   MyReviewStatsResponse,
+  PersonalInfoResponse,
   PointHistoryResponse,
+  UpdatePersonalInfoRequest,
   UpdateProfileRequest,
   UsablePointResponse,
   VerifyPasswordRequest,
@@ -57,8 +59,18 @@ export const memberRepository = {
   async updateMyProfile(data: UpdateProfileRequest) {
     return api.put<ApiResponse<void>>(`${ENDPOINT}/v1/me/profile`, data)
   },
+  // 개인정보 조회
+  async getMyPersonalInfo() {
+    return api.get<ApiResponse<PersonalInfoResponse>>(`${ENDPOINT}/v1/me/personal-info`)
+  },
   // 비밀번호 인증 (개인정보 수정 진입)
   async verifyPassword(data: VerifyPasswordRequest) {
     return api.post<ApiResponse<VerifyPasswordResponse>>(`${ENDPOINT}/v1/me/verify-password`, data)
+  },
+  // 개인정보 수정
+  async updateMyPersonalInfo(data: UpdatePersonalInfoRequest, verifyToken: string) {
+    return api.put<ApiResponse<void>>(`${ENDPOINT}/v1/me/personal-info`, data, {
+      headers: { 'X-Verify-Token': verifyToken },
+    })
   },
 }

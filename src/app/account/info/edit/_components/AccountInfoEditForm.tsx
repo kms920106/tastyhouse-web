@@ -6,18 +6,19 @@ import AppInput from '@/components/ui/AppInput'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
+import type { Gender } from '@/domains/member'
+import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/services/member'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-
-type Gender = 'male' | 'female'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
 const BIRTH_MONTHS = Array.from({ length: 12 }, (_, i) => i + 1)
 const BIRTH_DAYS = Array.from({ length: 31 }, (_, i) => i + 1)
-
 
 interface ToggleSwitchProps {
   checked: boolean
@@ -37,22 +38,52 @@ function ToggleSwitch({ checked, onChange }: ToggleSwitchProps) {
   )
 }
 
+function parseBirthDate(birthDate: number | null) {
+  if (!birthDate) return { year: '', month: '', day: '' }
+  const str = String(birthDate)
+  return {
+    year: str.slice(0, 4),
+    month: String(parseInt(str.slice(4, 6), 10)),
+    day: String(parseInt(str.slice(6, 8), 10)),
+  }
+}
+
 export default function AccountInfoEditForm() {
-  // TODO: API에서 실제 회원 정보 조회로 교체
-  const [email] = useState('kimcs1234@naver.com')
-  const [name, setName] = useState('김철수')
-  const [phone, setPhone] = useState('01087654321')
+  const searchParams = useSearchParams()
+  const verifyToken = searchParams.get('verifyToken') ?? ''
+
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
   const [verificationCode, setVerificationCode] = useState('')
   const [isVerificationVisible, setIsVerificationVisible] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
-  const [birthYear, setBirthYear] = useState('2020')
-  const [birthMonth, setBirthMonth] = useState('7')
-  const [birthDay, setBirthDay] = useState('17')
-  const [gender, setGender] = useState<Gender>('female')
-  const [pushNotification, setPushNotification] = useState(true)
-  const [marketingNotification, setMarketingNotification] = useState(true)
-  const [eventNotification, setEventNotification] = useState(true)
+  const [birthYear, setBirthYear] = useState('')
+  const [birthMonth, setBirthMonth] = useState('')
+  const [birthDay, setBirthDay] = useState('')
+  const [gender, setGender] = useState<Gender>('FEMALE')
+  const [pushNotification, setPushNotification] = useState(false)
+  const [marketingNotification, setMarketingNotification] = useState(false)
+  const [eventNotification, setEventNotification] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    getMemberPersonalInfo().then(({ data }) => {
+      const info = data?.data
+      if (!info) return
+      const { year, month, day } = parseBirthDate(info.birthDate)
+      setEmail(info.email)
+      setName(info.fullName)
+      setPhone(info.phoneNumber)
+      setBirthYear(year)
+      setBirthMonth(month)
+      setBirthDay(day)
+      if (info.gender) setGender(info.gender)
+      setPushNotification(info.pushNotificationEnabled)
+      setMarketingNotification(info.marketingInfoEnabled)
+      setEventNotification(info.eventInfoEnabled)
+    })
+  }, [])
 
   const handleSendVerification = () => {
     // TODO: 인증번호 발송 API 연동
@@ -64,10 +95,42 @@ export default function AccountInfoEditForm() {
     setIsVerified(true)
   }
 
+  const buildBirthDate = (): number | undefined => {
+    if (!birthYear || !birthMonth || !birthDay) return undefined
+    const mm = String(birthMonth).padStart(2, '0')
+    const dd = String(birthDay).padStart(2, '0')
+    return Number(`${birthYear}${mm}${dd}`)
+  }
+
   const handleSubmit = async () => {
-    // TODO: 개인정보 수정 API 연동
+    if (!verifyToken) {
+      toast('인증 정보가 없습니다. 다시 시도해주세요.')
+      return
+    }
+
     setIsSubmitting(true)
     try {
+      const response = await updateMemberPersonalInfo(
+        {
+          fullName: name,
+          phoneNumber: isVerified ? phone.replace(/-/g, '') : undefined,
+          birthDate: buildBirthDate(),
+          gender,
+          pushNotificationEnabled: pushNotification,
+          marketingInfoEnabled: marketingNotification,
+          eventInfoEnabled: eventNotification,
+        },
+        verifyToken,
+      )
+
+      if (response?.error) {
+        toast(response.error)
+        return
+      }
+
+      toast('개인정보가 수정되었습니다.')
+    } catch {
+      toast('오류가 발생했습니다. 다시 시도해주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -100,7 +163,7 @@ export default function AccountInfoEditForm() {
                 />
               )}
             </AppFormField>
-            <AppFormField label="휴대폰번호">
+            <AppFormField label="휴대폰 번호">
               {() => (
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
@@ -191,21 +254,21 @@ export default function AccountInfoEditForm() {
                 <div className="flex">
                   <AppButton
                     className={`flex-1 text-sm leading-[14px] transition-colors ${
-                      gender === 'male'
+                      gender === 'MALE'
                         ? 'border-[#a91201] text-[#a91201]'
                         : 'border-[#eeeeee] text-[#333333]'
                     }`}
-                    onClick={() => setGender('male')}
+                    onClick={() => setGender('MALE')}
                   >
                     남성
                   </AppButton>
                   <AppButton
                     className={`flex-1 text-sm leading-[14px] transition-colors ${
-                      gender === 'female'
+                      gender === 'FEMALE'
                         ? 'border-[#a91201] text-[#a91201]'
                         : 'border-[#eeeeee] text-[#333333]'
                     }`}
-                    onClick={() => setGender('female')}
+                    onClick={() => setGender('FEMALE')}
                   >
                     여성
                   </AppButton>
