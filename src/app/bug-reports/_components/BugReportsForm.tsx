@@ -7,7 +7,7 @@ import { Spinner } from '@/components/ui/shadcn/spinner'
 import { createBugReport } from '@/services/bug-report'
 import { uploadFile } from '@/services/file'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { z } from 'zod'
 
 const bugReportSchema = z.object({
@@ -35,8 +35,8 @@ export default function BugReportsForm() {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([])
-  const [isUploading, setIsUploading] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploading, startUploading] = useTransition()
+  const [isSubmitting, startSubmitting] = useTransition()
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -45,7 +45,7 @@ export default function BugReportsForm() {
     }
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
     if (!files.length) return
 
@@ -54,30 +54,30 @@ export default function BugReportsForm() {
       return
     }
 
-    setIsUploading(true)
-    try {
-      const results = await Promise.all(
-        files.map(async (file) => {
-          const previewUrl = URL.createObjectURL(file)
-          const response = await uploadFile(file)
+    // 같은 파일 재선택 가능하도록 input 초기화
+    e.target.value = ''
 
-          if (!response?.data?.success || !response.data.data) {
-            throw new Error('이미지 업로드에 실패했습니다.')
-          }
+    startUploading(async () => {
+      try {
+        const results = await Promise.all(
+          files.map(async (file) => {
+            const previewUrl = URL.createObjectURL(file)
+            const response = await uploadFile(file)
 
-          return { previewUrl, fileId: response.data.data }
-        }),
-      )
+            if (!response?.data?.success || !response.data.data) {
+              throw new Error('이미지 업로드에 실패했습니다.')
+            }
 
-      setUploadedImages((prev) => [...prev, ...results])
-    } catch (error) {
-      console.error('이미지 업로드 실패:', error)
-      toast('이미지 업로드 중 오류가 발생했습니다.')
-    } finally {
-      setIsUploading(false)
-      // 같은 파일 재선택 가능하도록 input 초기화
-      e.target.value = ''
-    }
+            return { previewUrl, fileId: response.data.data }
+          }),
+        )
+
+        setUploadedImages((prev) => [...prev, ...results])
+      } catch (error) {
+        console.error('이미지 업로드 실패:', error)
+        toast('이미지 업로드 중 오류가 발생했습니다.')
+      }
+    })
   }
 
   const removeImage = (index: number) => {
@@ -107,32 +107,31 @@ export default function BugReportsForm() {
     return false
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (!validateForm()) return
 
-    setIsSubmitting(true)
-    try {
-      const response = await createBugReport({
-        device: formData.device,
-        title: formData.title,
-        content: formData.content,
-        uploadedFileIds: uploadedImages.map((img) => img.fileId),
-      })
+    startSubmitting(async () => {
+      try {
+        const response = await createBugReport({
+          device: formData.device,
+          title: formData.title,
+          content: formData.content,
+          uploadedFileIds: uploadedImages.map((img) => img.fileId),
+        })
 
-      if (response?.data?.success) {
-        toast('버그 제보가 접수되었습니다.')
-        setFormData(INITIAL_FORM_DATA)
-        setUploadedImages([])
-        setErrors({})
-      } else {
-        toast('버그 제보 접수에 실패했습니다.')
+        if (response?.data?.success) {
+          toast('버그 제보가 접수되었습니다.')
+          setFormData(INITIAL_FORM_DATA)
+          setUploadedImages([])
+          setErrors({})
+        } else {
+          toast('버그 제보 접수에 실패했습니다.')
+        }
+      } catch (error) {
+        console.error('버그 제보 실패:', error)
+        toast('버그 제보 중 오류가 발생했습니다.')
       }
-    } catch (error) {
-      console.error('버그 제보 실패:', error)
-      toast('버그 제보 중 오류가 발생했습니다.')
-    } finally {
-      setIsSubmitting(false)
-    }
+    })
   }
 
   return (
