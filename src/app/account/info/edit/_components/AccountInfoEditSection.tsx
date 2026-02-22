@@ -13,7 +13,6 @@ export default function AccountInfoEditSection() {
           <HeaderTitle>개인정보 수정</HeaderTitle>
         </HeaderCenter>
       </Header>
-
       <AccountInfoEditForm />
     </section>
   )

@@ -4,6 +4,7 @@ import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
+import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
@@ -17,23 +18,6 @@ const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
 const BIRTH_MONTHS = Array.from({ length: 12 }, (_, i) => i + 1)
 const BIRTH_DAYS = Array.from({ length: 31 }, (_, i) => i + 1)
 
-const ChevronDownIcon = () => (
-  <svg
-    className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-  >
-    <path
-      d="M4 6L8 10L12 6"
-      stroke="#9CA3AF"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
 
 interface ToggleSwitchProps {
   checked: boolean
@@ -166,48 +150,39 @@ export default function AccountInfoEditForm() {
             <AppFormField label="생년월일">
               {() => (
                 <div className="flex gap-2">
-                  <div className="flex-1 relative">
-                    <select
-                      value={birthYear}
-                      onChange={(e) => setBirthYear(e.target.value)}
-                      className="w-full h-[50px] pl-4 pr-10 text-sm leading-[14px] text-[#333333] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666]"
-                    >
-                      {BIRTH_YEARS.map((year) => (
-                        <option key={year} value={year}>
-                          {year}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDownIcon />
-                  </div>
-                  <div className="flex-1 relative">
-                    <select
-                      value={birthMonth}
-                      onChange={(e) => setBirthMonth(e.target.value)}
-                      className="w-full h-[50px] pl-4 pr-10 text-sm leading-[14px] text-[#333333] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666]"
-                    >
-                      {BIRTH_MONTHS.map((month) => (
-                        <option key={month} value={month}>
-                          {month}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDownIcon />
-                  </div>
-                  <div className="flex-1 relative">
-                    <select
-                      value={birthDay}
-                      onChange={(e) => setBirthDay(e.target.value)}
-                      className="w-full h-[50px] pl-4 pr-10 text-sm leading-[14px] text-[#333333] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666]"
-                    >
-                      {BIRTH_DAYS.map((day) => (
-                        <option key={day} value={day}>
-                          {day}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDownIcon />
-                  </div>
+                  <AppSelect
+                    value={birthYear}
+                    onChange={(e) => setBirthYear(e.target.value)}
+                    className="flex-1 border-[#eeeeee] focus:border-[#666666]"
+                  >
+                    {BIRTH_YEARS.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </AppSelect>
+                  <AppSelect
+                    value={birthMonth}
+                    onChange={(e) => setBirthMonth(e.target.value)}
+                    className="flex-1 border-[#eeeeee] focus:border-[#666666]"
+                  >
+                    {BIRTH_MONTHS.map((month) => (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </AppSelect>
+                  <AppSelect
+                    value={birthDay}
+                    onChange={(e) => setBirthDay(e.target.value)}
+                    className="flex-1 border-[#eeeeee] focus:border-[#666666]"
+                  >
+                    {BIRTH_DAYS.map((day) => (
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </AppSelect>
                 </div>
               )}
             </AppFormField>
