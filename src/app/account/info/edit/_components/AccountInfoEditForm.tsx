@@ -283,7 +283,11 @@ export default function AccountInfoEditForm() {
                       disabled={isVerified || isSendingCode}
                       className="shrink-0 w-auto px-4"
                     >
-                      {isSendingCode ? '발송 중' : isVerificationVisible ? '재발송' : '인증번호 발송'}
+                      {isSendingCode
+                        ? '발송 중'
+                        : isVerificationVisible
+                          ? '재발송'
+                          : '인증번호 발송'}
                     </AppOutlineButton>
                   </div>
                   {isVerificationVisible && (
@@ -323,7 +327,7 @@ export default function AccountInfoEditForm() {
                       setBirthYear(e.target.value)
                       if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
                     }}
-                    className="flex-1 border-[#eeeeee] focus:border-[#666666]"
+                    className="flex-1"
                   >
                     <option value="">년도</option>
                     {BIRTH_YEARS.map((year) => (
@@ -338,7 +342,7 @@ export default function AccountInfoEditForm() {
                       setBirthMonth(e.target.value)
                       if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
                     }}
-                    className="flex-1 border-[#eeeeee] focus:border-[#666666]"
+                    className="flex-1"
                   >
                     <option value="">월</option>
                     {BIRTH_MONTHS.map((month) => (
@@ -353,7 +357,7 @@ export default function AccountInfoEditForm() {
                       setBirthDay(e.target.value)
                       if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
                     }}
-                    className="flex-1 border-[#eeeeee] focus:border-[#666666]"
+                    className="flex-1"
                   >
                     <option value="">일</option>
                     {BIRTH_DAYS.map((day) => (
