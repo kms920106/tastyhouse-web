@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import AppInput from './AppInput'
 
 type AppInputNumberProps = Omit<
@@ -5,30 +6,7 @@ type AppInputNumberProps = Omit<
   'type' | 'onKeyDown' | 'onPaste'
 >
 
-const ALLOWED_KEYS = new Set([
-  'Backspace',
-  'Delete',
-  'Tab',
-  'Escape',
-  'Enter',
-  'ArrowLeft',
-  'ArrowRight',
-  'ArrowUp',
-  'ArrowDown',
-  'Home',
-  'End',
-])
-
 export default function AppInputNumber(props: AppInputNumberProps) {
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (ALLOWED_KEYS.has(e.key)) return
-    if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'v', 'x', 'z'].includes(e.key))
-      return
-    if (!/^[0-9]$/.test(e.key)) {
-      e.preventDefault()
-    }
-  }
-
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pastedText = e.clipboardData.getData('text')
     if (!/^\d+$/.test(pastedText)) {
@@ -38,11 +16,14 @@ export default function AppInputNumber(props: AppInputNumberProps) {
 
   return (
     <AppInput
-      type="text"
+      type="number"
       inputMode="numeric"
-      onKeyDown={handleKeyDown}
       onPaste={handlePaste}
       {...props}
+      className={cn(
+        '[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none',
+        props.className,
+      )}
     />
   )
 }

@@ -68,9 +68,16 @@ export const memberRepository = {
     return api.post<ApiResponse<VerifyPasswordResponse>>(`${ENDPOINT}/v1/me/verify-password`, data)
   },
   // 개인정보 수정
-  async updateMyPersonalInfo(data: UpdatePersonalInfoRequest, verifyToken: string) {
+  async updateMyPersonalInfo(
+    data: UpdatePersonalInfoRequest,
+    verifyToken: string,
+    phoneVerifyToken?: string,
+  ) {
     return api.put<ApiResponse<void>>(`${ENDPOINT}/v1/me/personal-info`, data, {
-      headers: { 'X-Verify-Token': verifyToken },
+      headers: {
+        'X-Verify-Token': verifyToken,
+        ...(phoneVerifyToken ? { 'X-Phone-Verify-Token': phoneVerifyToken } : {}),
+      },
     })
   },
 }

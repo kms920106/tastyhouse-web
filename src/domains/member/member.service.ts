@@ -36,7 +36,11 @@ export const memberService = {
   async verifyPassword(data: VerifyPasswordRequest) {
     return await memberRepository.verifyPassword(data)
   },
-  async updateMyPersonalInfo(data: UpdatePersonalInfoRequest, verifyToken: string) {
-    return await memberRepository.updateMyPersonalInfo(data, verifyToken)
+  async updateMyPersonalInfo(
+    data: UpdatePersonalInfoRequest,
+    verifyToken: string,
+    phoneVerifyToken?: string,
+  ) {
+    return await memberRepository.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
   },
 }

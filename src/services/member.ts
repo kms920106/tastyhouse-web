@@ -50,6 +50,7 @@ export async function verifyMemberPassword(data: VerifyPasswordRequest) {
 export async function updateMemberPersonalInfo(
   data: UpdatePersonalInfoRequest,
   verifyToken: string,
+  phoneVerifyToken?: string,
 ) {
-  return await memberService.updateMyPersonalInfo(data, verifyToken)
+  return await memberService.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
 }

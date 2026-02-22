@@ -3,6 +3,7 @@
 import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
+import AppInputNumber from '@/components/ui/AppInputNumber'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
@@ -11,6 +12,10 @@ import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
 import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/services/member'
+import {
+  confirmPhoneVerificationCode,
+  sendPhoneVerificationCode,
+} from '@/services/phone-verification'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
@@ -70,9 +75,13 @@ export default function AccountInfoEditForm() {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [originalPhone, setOriginalPhone] = useState('')
   const [verificationCode, setVerificationCode] = useState('')
   const [isVerificationVisible, setIsVerificationVisible] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
+  const [phoneVerifyToken, setPhoneVerifyToken] = useState('')
+  const [isSendingCode, setIsSendingCode] = useState(false)
+  const [isConfirmingCode, setIsConfirmingCode] = useState(false)
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDay, setBirthDay] = useState('')
@@ -91,6 +100,7 @@ export default function AccountInfoEditForm() {
       setEmail(info.email)
       setName(info.fullName)
       setPhone(info.phoneNumber)
+      setOriginalPhone(info.phoneNumber)
       setBirthYear(year)
       setBirthMonth(month)
       setBirthDay(day)
@@ -101,14 +111,59 @@ export default function AccountInfoEditForm() {
     })
   }, [])
 
-  const handleSendVerification = () => {
-    // TODO: 인증번호 발송 API 연동
-    setIsVerificationVisible(true)
+  const handleSendVerification = async () => {
+    const rawPhone = phone.replace(/-/g, '')
+    if (!rawPhone.match(/^01[0-9]{8,9}$/)) {
+      setErrors((prev) => ({ ...prev, phone: '올바른 휴대폰 번호를 입력해주세요.' }))
+      return
+    }
+
+    if (rawPhone === originalPhone.replace(/-/g, '')) {
+      setErrors((prev) => ({ ...prev, phone: '현재 등록된 휴대폰 번호와 동일합니다.' }))
+      return
+    }
+
+    setIsSendingCode(true)
+    try {
+      const response = await sendPhoneVerificationCode({ phoneNumber: rawPhone })
+      if (response?.error) {
+        toast(response.error)
+        return
+      }
+      setIsVerificationVisible(true)
+      toast('인증번호가 발송되었습니다.')
+    } catch {
+      toast('인증번호 발송에 실패했습니다. 다시 시도해주세요.')
+    } finally {
+      setIsSendingCode(false)
+    }
   }
 
-  const handleConfirmVerification = () => {
-    // TODO: 인증번호 확인 API 연동
-    setIsVerified(true)
+  const handleConfirmVerification = async () => {
+    const rawPhone = phone.replace(/-/g, '')
+
+    setIsConfirmingCode(true)
+    try {
+      const response = await confirmPhoneVerificationCode({
+        phoneNumber: rawPhone,
+        verificationCode,
+      })
+      if (response?.error) {
+        toast(response.error)
+        return
+      }
+      const token = response?.data?.data?.phoneVerifyToken
+      if (!token) {
+        toast('인증에 실패했습니다. 다시 시도해주세요.')
+        return
+      }
+      setPhoneVerifyToken(token)
+      setIsVerified(true)
+    } catch {
+      toast('인증번호 확인에 실패했습니다. 다시 시도해주세요.')
+    } finally {
+      setIsConfirmingCode(false)
+    }
   }
 
   const buildBirthDate = (): number | undefined => {
@@ -164,6 +219,7 @@ export default function AccountInfoEditForm() {
           eventInfoEnabled: eventNotification,
         },
         verifyToken,
+        isVerified ? phoneVerifyToken : undefined,
       )
 
       if (response?.error) {
@@ -213,43 +269,45 @@ export default function AccountInfoEditForm() {
               {({ className }) => (
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
-                    <AppInput
-                      type="tel"
+                    <AppInputNumber
                       value={phone}
                       onChange={(e) => {
-                        setPhone(e.target.value)
+                        if (e.target.value.length <= 11) setPhone(e.target.value)
                         if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }))
                       }}
                       readOnly={isVerified}
                       placeholder="01012345678"
                       disabled={isVerified}
+                      maxLength={11}
                       className={`flex-1 pr-4 ${isVerified ? 'bg-[#f8f8f8] text-[#aaaaaa]' : ''} ${className ?? ''}`}
                     />
                     <AppOutlineButton
                       onClick={handleSendVerification}
-                      disabled={isVerified}
+                      disabled={isVerified || isSendingCode}
                       className="shrink-0 w-auto px-4"
                     >
-                      재발송
+                      {isSendingCode ? '발송 중' : isVerificationVisible ? '재발송' : '인증번호 발송'}
                     </AppOutlineButton>
                   </div>
                   {isVerificationVisible && (
                     <div className="flex gap-2">
-                      <AppInput
-                        type="text"
+                      <AppInputNumber
                         value={verificationCode}
-                        onChange={(e) => setVerificationCode(e.target.value)}
+                        onChange={(e) => {
+                          if (e.target.value.length <= 6) setVerificationCode(e.target.value)
+                        }}
                         readOnly={isVerified}
                         disabled={isVerified}
                         placeholder="123456"
+                        maxLength={6}
                         className={`flex-1 pr-4 ${isVerified ? 'bg-[#f8f8f8] text-[#aaaaaa]' : ''}`}
                       />
                       <AppOutlineButton
                         className="shrink-0 w-auto px-4"
                         onClick={handleConfirmVerification}
-                        disabled={isVerified}
+                        disabled={isVerified || isConfirmingCode}
                       >
-                        확인
+                        {isConfirmingCode ? '확인 중' : '확인'}
                       </AppOutlineButton>
                     </div>
                   )}
