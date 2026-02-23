@@ -4,7 +4,10 @@ import { cn } from '@/lib/utils'
 export default function AppPrimaryButton({ className, ...props }: AppButtonProps) {
   return (
     <AppButton
-      className={cn('bg-[#a91201] text-white hover:bg-[#a91201]/90 hover:text-white', className)}
+      className={cn(
+        'bg-[#a91201] text-white hover:bg-[#a91201]/90 hover:text-white border-0',
+        className,
+      )}
       {...props}
     />
   )
