@@ -95,7 +95,7 @@ export default function WithdrawForm() {
           </BorderedSection>
           <BorderedSection className="border-b-0">
             <div className="flex flex-col gap-5 px-[15px] pt-[24px] pb-[30px]">
-              <AppFormField label="탈퇴사유" required error={errors.reason}>
+              <AppFormField label="탈퇴 사유" required error={errors.reason}>
                 {() => (
                   <AppSelect
                     name="reason"
