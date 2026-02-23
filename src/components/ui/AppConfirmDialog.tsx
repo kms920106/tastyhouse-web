@@ -1,4 +1,5 @@
 import AppButton from './AppButton'
+import AppPrimaryButton from './AppPrimaryButton'
 import {
   Dialog,
   DialogClose,
@@ -58,12 +59,9 @@ export default function AppConfirmDialog({
             </AppButton>
           </DialogClose>
           <DialogClose asChild>
-            <AppButton
-              className="flex-1 py-4 bg-main text-base leading-[16px] text-white cursor-pointer"
-              onClick={onConfirm}
-            >
+            <AppPrimaryButton className="flex-1 border-0" onClick={onConfirm}>
               {confirmLabel}
-            </AppButton>
+            </AppPrimaryButton>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
