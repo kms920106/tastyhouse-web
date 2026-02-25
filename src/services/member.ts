@@ -2,6 +2,7 @@
 
 import {
   memberService,
+  UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
   UpdateProfileRequest,
   VerifyPasswordRequest,
@@ -55,6 +56,10 @@ export async function updateMemberPersonalInfo(
   phoneVerifyToken?: string,
 ) {
   return await memberService.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
+}
+
+export async function updateMemberPassword(data: UpdatePasswordRequest, verifyToken: string) {
+  return await memberService.updateMyPassword(data, verifyToken)
 }
 
 export async function withdrawMember(data: WithdrawRequest) {

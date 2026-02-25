@@ -1,5 +1,5 @@
 import { memberRepository } from './member.repository'
-import { UpdatePersonalInfoRequest, UpdateProfileRequest, VerifyPasswordRequest, WithdrawRequest } from './member.type'
+import { UpdatePasswordRequest, UpdatePersonalInfoRequest, UpdateProfileRequest, VerifyPasswordRequest, WithdrawRequest } from './member.type'
 
 export const memberService = {
   async getMemberMe() {
@@ -42,6 +42,9 @@ export const memberService = {
     phoneVerifyToken?: string,
   ) {
     return await memberRepository.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
+  },
+  async updateMyPassword(data: UpdatePasswordRequest, verifyToken: string) {
+    return await memberRepository.updateMyPassword(data, verifyToken)
   },
   async withdrawMember(data: WithdrawRequest) {
     return await memberRepository.withdrawMember(data)

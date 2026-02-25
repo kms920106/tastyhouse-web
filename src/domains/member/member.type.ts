@@ -181,3 +181,8 @@ export type WithdrawRequest = {
   reason: WithdrawReason
   reasonDetail?: string
 }
+
+export type UpdatePasswordRequest = {
+  newPassword: string
+  newPasswordConfirm: string
+}

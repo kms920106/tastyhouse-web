@@ -8,6 +8,7 @@ import {
   MyReviewStatsResponse,
   PersonalInfoResponse,
   PointHistoryResponse,
+  UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
   UpdateProfileRequest,
   UsablePointResponse,
@@ -78,6 +79,14 @@ export const memberRepository = {
       headers: {
         'X-Verify-Token': verifyToken,
         ...(phoneVerifyToken ? { 'X-Phone-Verify-Token': phoneVerifyToken } : {}),
+      },
+    })
+  },
+  // 비밀번호 변경
+  async updateMyPassword(data: UpdatePasswordRequest, verifyToken: string) {
+    return api.put<ApiResponse<void>>(`${ENDPOINT}/v1/me/password`, data, {
+      headers: {
+        'X-Verify-Token': verifyToken,
       },
     })
   },
