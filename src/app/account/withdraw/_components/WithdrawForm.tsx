@@ -11,6 +11,7 @@ import SectionStack from '@/components/ui/SectionStack'
 import { WITHDRAW_REASON_LABEL, WithdrawReason } from '@/domains/member/member.type'
 import { withdrawMember } from '@/services/member'
 import { useRouter } from 'next/navigation'
+import { extractZodFieldErrors } from '@/lib/form'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -47,13 +48,7 @@ export default function WithdrawForm() {
     })
 
     if (!result.success) {
-      const fieldErrors = z.flattenError(result.error).fieldErrors
-      const newErrors: FormErrors = {}
-      for (const key in fieldErrors) {
-        const field = key as keyof FormErrors
-        newErrors[field] = fieldErrors[field]?.[0]
-      }
-      setErrors(newErrors)
+      setErrors(extractZodFieldErrors(result.error) as FormErrors)
       return
     }
 

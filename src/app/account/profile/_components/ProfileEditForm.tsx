@@ -9,6 +9,7 @@ import { updateMemberProfile } from '@/services/member'
 import { uploadFile } from '@/services/file'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
+import { extractZodFieldErrors } from '@/lib/form'
 import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import ProfileImageEditor from './ProfileImageEditor'
@@ -97,12 +98,7 @@ export default function ProfileEditForm() {
   const validate = () => {
     const result = profileSchema.safeParse({ nickname, statusMessage })
     if (!result.success) {
-      const fieldErrors: ProfileErrors = {}
-      result.error.issues.forEach((err) => {
-        const field = err.path[0] as keyof ProfileErrors
-        fieldErrors[field] = err.message
-      })
-      setErrors(fieldErrors)
+      setErrors(extractZodFieldErrors(result.error) as ProfileErrors)
       return false
     }
     setErrors({})

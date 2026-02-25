@@ -7,6 +7,7 @@ import { Spinner } from '@/components/ui/shadcn/spinner'
 import { createBugReport } from '@/services/bug-report'
 import { uploadFile } from '@/services/file'
 import Image from 'next/image'
+import { extractZodFieldErrors } from '@/lib/form'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -97,13 +98,7 @@ export default function BugReportsForm() {
       return true
     }
 
-    const fieldErrors = z.flattenError(result.error).fieldErrors
-    const newErrors: FormErrors = {}
-    for (const key in fieldErrors) {
-      const field = key as keyof FormData
-      newErrors[field] = fieldErrors[field]?.[0]
-    }
-    setErrors(newErrors)
+    setErrors(extractZodFieldErrors(result.error) as FormErrors)
     return false
   }
 

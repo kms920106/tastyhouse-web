@@ -6,6 +6,7 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { verifyMemberPassword } from '@/services/member'
 import { useRouter } from 'next/navigation'
+import { extractZodFieldErrors } from '@/lib/form'
 import { useState } from 'react'
 import { z } from 'zod'
 
@@ -43,13 +44,7 @@ export default function AccountInfoVerifyForm() {
       return true
     }
 
-    const fieldErrors = z.flattenError(result.error).fieldErrors
-    const newErrors: FormErrors = {}
-    for (const key in fieldErrors) {
-      const field = key as keyof FormData
-      newErrors[field] = fieldErrors[field]?.[0]
-    }
-    setErrors(newErrors)
+    setErrors(extractZodFieldErrors(result.error) as FormErrors)
     return false
   }
 

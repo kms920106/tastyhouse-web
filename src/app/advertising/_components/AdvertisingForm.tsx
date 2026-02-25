@@ -7,33 +7,33 @@ import { toast } from '@/components/ui/AppToaster'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import { extractZodFieldErrors } from '@/lib/form'
 import { createPartnershipRequest } from '@/services/partnership'
 import { useState } from 'react'
 import type { Address } from 'react-daum-postcode'
+import { z } from 'zod'
 import PostcodeModal from './PostcodeModal'
 
 const CONSULTATION_HOURS = ['09', '10', '11', '14', '15', '16', '17'] as const
 
-interface FormData {
-  businessName: string
-  address: string
-  addressDetail: string
-  contactName: string
-  contactPhone: string
-  consultationDate: string
-  consultationHour: string
+const advertisingSchema = z.object({
+  businessName: z.string().min(1, '상호명을 입력해주세요.'),
+  address: z.string().min(1, '주소를 검색해주세요.'),
+  addressDetail: z.string().min(1, '상세주소를 입력해주세요.'),
+  contactName: z.string().min(1, '성함을 입력해주세요.'),
+  contactPhone: z
+    .string()
+    .min(1, '연락처를 입력해주세요.')
+    .regex(/^01[0-9]-[0-9]{3,4}-[0-9]{4}$/, '올바른 휴대폰 번호 형식이 아닙니다. (예: 010-1234-5678)'),
+  consultationDate: z.string().min(1, '상담 날짜를 선택해주세요.'),
+  consultationHour: z.string().min(1, '상담 시간을 선택해주세요.'),
+})
+
+interface FormData extends z.infer<typeof advertisingSchema> {
   agreeToTerms: boolean
 }
 
-interface FormErrors {
-  businessName?: string
-  address?: string
-  addressDetail?: string
-  contactName?: string
-  contactPhone?: string
-  consultationDate?: string
-  consultationHour?: string
-}
+type FormErrors = Partial<Record<keyof z.infer<typeof advertisingSchema>, string>>
 
 function formatPhoneNumber(value: string): string {
   const digits = value.replace(/[^0-9]/g, '')
@@ -84,23 +84,24 @@ export default function AdvertisingForm() {
   }
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-    const phonePattern = /^01[0-9]-[0-9]{3,4}-[0-9]{4}$/
-
-    if (!formData.businessName.trim()) newErrors.businessName = '상호명을 입력해주세요.'
-    if (!formData.address.trim()) newErrors.address = '주소를 검색해주세요.'
-    if (!formData.addressDetail.trim()) newErrors.addressDetail = '상세주소를 입력해주세요.'
-    if (!formData.contactName.trim()) newErrors.contactName = '성함을 입력해주세요.'
-    if (!formData.contactPhone.trim()) {
-      newErrors.contactPhone = '연락처를 입력해주세요.'
-    } else if (!phonePattern.test(formData.contactPhone)) {
-      newErrors.contactPhone = '올바른 휴대폰 번호 형식이 아닙니다. (예: 010-1234-5678)'
+    const trimmedData = {
+      businessName: formData.businessName.trim(),
+      address: formData.address.trim(),
+      addressDetail: formData.addressDetail.trim(),
+      contactName: formData.contactName.trim(),
+      contactPhone: formData.contactPhone.trim(),
+      consultationDate: formData.consultationDate,
+      consultationHour: formData.consultationHour,
     }
-    if (!formData.consultationDate) newErrors.consultationDate = '상담 날짜를 선택해주세요.'
-    if (!formData.consultationHour) newErrors.consultationHour = '상담 시간을 선택해주세요.'
+    const result = advertisingSchema.safeParse(trimmedData)
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    if (result.success) {
+      setErrors({})
+      return true
+    }
+
+    setErrors(extractZodFieldErrors(result.error) as FormErrors)
+    return false
   }
 
   const handleSubmit = async () => {

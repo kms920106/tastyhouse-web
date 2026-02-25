@@ -19,6 +19,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { extractZodFieldErrors } from '@/lib/form'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -186,13 +187,7 @@ export default function AccountInfoEditForm() {
       return true
     }
 
-    const fieldErrors = z.flattenError(result.error).fieldErrors
-    const newErrors: FormErrors = {}
-    for (const key in fieldErrors) {
-      const field = key as keyof FormErrors
-      newErrors[field] = fieldErrors[field]?.[0]
-    }
-    setErrors(newErrors)
+    setErrors(extractZodFieldErrors(result.error) as FormErrors)
     return false
   }
 
