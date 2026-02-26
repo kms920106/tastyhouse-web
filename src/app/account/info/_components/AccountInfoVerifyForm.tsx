@@ -60,7 +60,7 @@ export default function AccountInfoVerifyForm() {
         return
       }
 
-      const verifyToken = response?.data?.data?.verifyToken
+      const verifyToken = response?.data?.verifyToken
       if (!verifyToken) {
         toast('인증에 실패했습니다. 다시 시도해주세요.')
         return

@@ -1,5 +1,4 @@
 import { api } from '@/lib/api'
-import { ApiResponse } from '@/types/common'
 import {
   MenuCategory,
   PlaceAmenity,
@@ -27,60 +26,60 @@ const ENDPOINT = '/api/places'
 
 export const placeRepository = {
   async getLatestPlaces(params: PlaceLatestQuery) {
-    return api.get<ApiResponse<PlaceLatestListItemResponse[]>>(`${ENDPOINT}/v1/latest`, { params })
+    return api.get<PlaceLatestListItemResponse[]>(`${ENDPOINT}/v1/latest`, { params })
   },
   async getBestPlaces(params: PlaceBestQuery) {
-    return api.get<ApiResponse<PlaceBestListItemResponse[]>>(`${ENDPOINT}/v1/best`, { params })
+    return api.get<PlaceBestListItemResponse[]>(`${ENDPOINT}/v1/best`, { params })
   },
   async getChoicePlaces(params: PlaceChoiceQuery) {
-    return api.get<ApiResponse<PlaceChoiceListItemResponse[]>>(`${ENDPOINT}/v1/editor-choice`, {
+    return api.get<PlaceChoiceListItemResponse[]>(`${ENDPOINT}/v1/editor-choice`, {
       params,
     })
   },
   async getPlaceStations() {
-    return api.get<ApiResponse<PlaceStationListItemResponse[]>>(`${ENDPOINT}/v1/stations`)
+    return api.get<PlaceStationListItemResponse[]>(`${ENDPOINT}/v1/stations`)
   },
   async getPlaceFoodTypes() {
-    return api.get<ApiResponse<PlaceFoodTypeListItemResponse[]>>(`${ENDPOINT}/v1/food-types`)
+    return api.get<PlaceFoodTypeListItemResponse[]>(`${ENDPOINT}/v1/food-types`)
   },
   async getPlaceAmenities() {
-    return api.get<ApiResponse<PlaceAmenity[]>>(`${ENDPOINT}/v1/amenities`)
+    return api.get<PlaceAmenity[]>(`${ENDPOINT}/v1/amenities`)
   },
   async getPlaceName(placeId: number) {
-    return api.get<ApiResponse<PlaceNameResponse>>(`${ENDPOINT}/v1/${placeId}/name`)
+    return api.get<PlaceNameResponse>(`${ENDPOINT}/v1/${placeId}/name`)
   },
   async getPlaceSummary(placeId: number) {
-    return api.get<ApiResponse<PlaceSummaryResponse>>(`${ENDPOINT}/v1/${placeId}/summary`)
+    return api.get<PlaceSummaryResponse>(`${ENDPOINT}/v1/${placeId}/summary`)
   },
   async getPlaceBanners(placeId: number) {
-    return api.get<ApiResponse<PlaceBannerListItemResponse[]>>(`${ENDPOINT}/v1/${placeId}/banners`)
+    return api.get<PlaceBannerListItemResponse[]>(`${ENDPOINT}/v1/${placeId}/banners`)
   },
   async getPlaceBookmark(placeId: number) {
-    return api.get<ApiResponse<PlaceBookmarkResponse>>(`${ENDPOINT}/v1/${placeId}/bookmark`)
+    return api.get<PlaceBookmarkResponse>(`${ENDPOINT}/v1/${placeId}/bookmark`)
   },
   async togglePlaceBookmark(placeId: number) {
-    return api.post<ApiResponse<PlaceBookmarkResponse>>(`${ENDPOINT}/v1/${placeId}/bookmark`)
+    return api.post<PlaceBookmarkResponse>(`${ENDPOINT}/v1/${placeId}/bookmark`)
   },
   async getPlaceInfo(placeId: number) {
-    return api.get<ApiResponse<PlaceInfoResponse>>(`${ENDPOINT}/v1/${placeId}/info`)
+    return api.get<PlaceInfoResponse>(`${ENDPOINT}/v1/${placeId}/info`)
   },
   async getPlaceMenus(placeId: number) {
-    return api.get<ApiResponse<MenuCategory[]>>(`${ENDPOINT}/v1/${placeId}/menus`)
+    return api.get<MenuCategory[]>(`${ENDPOINT}/v1/${placeId}/menus`)
   },
   async getPlacePhotos(placeId: number) {
-    return api.get<ApiResponse<PlacePhotoCategoryResponse[]>>(`${ENDPOINT}/v1/${placeId}/photos`)
+    return api.get<PlacePhotoCategoryResponse[]>(`${ENDPOINT}/v1/${placeId}/photos`)
   },
   async getPlaceReviewStatistics(placeId: number) {
-    return api.get<ApiResponse<PlaceReviewStatisticsResponse>>(
+    return api.get<PlaceReviewStatisticsResponse>(
       `${ENDPOINT}/v1/${placeId}/reviews/statistics`,
     )
   },
   async getPlaceReviews(placeId: number, params: PlaceReviewsByRatingQuery) {
-    return api.get<ApiResponse<PlaceReviewsByRatingResponse>>(`${ENDPOINT}/v1/${placeId}/reviews`, {
+    return api.get<PlaceReviewsByRatingResponse>(`${ENDPOINT}/v1/${placeId}/reviews`, {
       params,
     })
   },
   async getPlaceOrderMethods(placeId: number) {
-    return api.get<ApiResponse<PlaceOrderMethodResponse>>(`${ENDPOINT}/v1/${placeId}/order-methods`)
+    return api.get<PlaceOrderMethodResponse>(`${ENDPOINT}/v1/${placeId}/order-methods`)
   },
 }

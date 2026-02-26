@@ -38,8 +38,8 @@ export default function BookmarkListFetcher() {
     queryFn: async () => {
       const response = await getMyBookmarks(0, 10)
       return {
-        bookmarks: response.data?.data || [],
-        hasMoreBookmarks: (response.data?.pagination?.totalElements ?? 0) > 10,
+        bookmarks: response.data || [],
+        hasMoreBookmarks: (response.pagination?.totalElements ?? 0) > 10,
       }
     },
   })

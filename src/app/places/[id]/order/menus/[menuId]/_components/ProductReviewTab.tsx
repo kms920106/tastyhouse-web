@@ -64,7 +64,7 @@ function ReviewStatistic({ productId }: ReviewStatisticProps) {
     )
   }
 
-  if (!data || !data.data || !data.data.success || !data.data.data) {
+  if (!data?.data) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰 통계')}
@@ -73,7 +73,7 @@ function ReviewStatistic({ productId }: ReviewStatisticProps) {
     )
   }
 
-  const statistics = data.data.data
+  const statistics = data.data
   const {
     totalRating,
     totalReviewCount,
@@ -379,7 +379,7 @@ export default function ProductReviewTab({ productId }: ProductReviewTabProps) {
     )
   }
 
-  if (!data || !data.data || !data.data.success || !data.data.data) {
+  if (!data?.data) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
@@ -388,7 +388,7 @@ export default function ProductReviewTab({ productId }: ProductReviewTabProps) {
     )
   }
 
-  const { reviewsByRating, allReviews, totalReviewCount } = data.data.data
+  const { reviewsByRating, allReviews, totalReviewCount } = data.data
 
   // 선택된 평점에 따라 리뷰 필터링
   let filteredReviews: ReviewListItem[] = []

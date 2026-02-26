@@ -128,57 +128,6 @@ export default function PlacePage() {
 
 ---
 
-#### (10) Zod 미활용
-
-프로젝트에 Zod가 설치되어 있지만, 폼 검증에서 수동으로 if문을 사용하고 있습니다.
-
-**현재:**
-
-```tsx
-const validateForm = (): boolean => {
-  const newErrors: FormErrors = {}
-  if (!formData.device) newErrors.device = '단말기를 선택해주세요.'
-  if (!formData.title.trim()) newErrors.title = '제목을 입력해주세요.'
-  // ...
-}
-```
-
-**권장:**
-
-```tsx
-const bugReportSchema = z.object({
-  device: z.string().min(1, '단말기를 선택해주세요.'),
-  title: z.string().min(1, '제목을 입력해주세요.'),
-  content: z.string().min(1, '내용을 입력해주세요.'),
-})
-
-const result = bugReportSchema.safeParse(formData)
-if (!result.success) {
-  const fieldErrors = result.error.flatten().fieldErrors
-  setErrors(fieldErrors)
-}
-```
-
----
-
-### 3-3. 심각도 낮음 (선택적 개선)
-
-#### (11) services 계층의 역할 모호
-
-`src/services/` 파일들이 대부분 domain service를 단순 위임하는 Server Action 래퍼입니다.
-
-```tsx
-// src/services/order.ts
-'use server'
-export async function getOrderDetail(orderId: number) {
-  return await orderService.getOrderDetail(orderId) // 단순 위임
-}
-```
-
-**권장:** Server Action이 필요한 경우에만 services 계층을 유지하고, 불필요한 래퍼는 domain service를 직접 호출하도록 정리합니다.
-
----
-
 #### (12) API 응답 타입 이중 중첩 가능성
 
 ```tsx

@@ -13,8 +13,7 @@ export function useMemberProfile() {
     staleTime: Infinity,
   })
 
-  const memberProfile: MemberInfo | null =
-    data?.data?.success && data.data.data ? data.data.data : null
+  const memberProfile: MemberInfo | null = data?.data ?? null
 
   return {
     memberProfile,

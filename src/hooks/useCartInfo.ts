@@ -84,8 +84,8 @@ async function fetchProductDetails(
   const detailMap = new Map<number, ProductDetailResponse>()
 
   results.forEach((result, index) => {
-    if (result.status === 'fulfilled' && result.value.data?.data) {
-      detailMap.set(productIds[index], result.value.data.data)
+    if (result.status === 'fulfilled' && result.value.data) {
+      detailMap.set(productIds[index], result.value.data)
     }
   })
 

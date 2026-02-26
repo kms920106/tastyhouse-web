@@ -80,8 +80,8 @@ export default function ProfileEditForm() {
     try {
       const response = await uploadFile(file)
 
-      if (response?.data?.success && response.data.data) {
-        setProfileImageFileId(response.data.data)
+      if (response?.data) {
+        setProfileImageFileId(response.data)
       } else {
         toast('이미지 업로드에 실패했습니다.')
         setProfileImageUrl(null)
@@ -116,7 +116,7 @@ export default function ProfileEditForm() {
         profileImageFileId: profileImageFileId || undefined,
       })
 
-      if (response?.data?.success) {
+      if (!response?.error) {
         // 프로필 캐시 무효화하여 최신 데이터 다시 가져오기
         await queryClient.invalidateQueries({ queryKey: MEMBER_PROFILE_QUERY_KEY })
         toast('프로필이 변경됐습니다.')

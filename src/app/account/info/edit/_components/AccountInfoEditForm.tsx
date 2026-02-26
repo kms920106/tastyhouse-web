@@ -95,7 +95,7 @@ export default function AccountInfoEditForm() {
 
   useEffect(() => {
     getMemberPersonalInfo().then(({ data }) => {
-      const info = data?.data
+      const info = data
       if (!info) return
       const { year, month, day } = parseBirthDate(info.birthDate)
       setEmail(info.email)
@@ -152,7 +152,7 @@ export default function AccountInfoEditForm() {
           toast(response.error)
           return
         }
-        const token = response?.data?.data?.phoneVerifyToken
+        const token = response?.data?.phoneVerifyToken
         if (!token) {
           toast('인증에 실패했습니다. 다시 시도해주세요.')
           return

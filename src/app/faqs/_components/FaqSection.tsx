@@ -35,7 +35,7 @@ export default function FaqSection({
       const params =
         selectedCategoryId !== ALL_CATEGORY_ID ? { categoryId: selectedCategoryId } : undefined
       const response = await getFaqList(params)
-      setFaqs(response.data?.data ?? [])
+      setFaqs(response.data ?? [])
     }
 
     fetchFaqs()

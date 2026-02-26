@@ -63,7 +63,7 @@ export default function ReviewStatistic({ placeId }: ReviewStatisticProps) {
     )
   }
 
-  if (!data || !data.data || !data.data.success || !data.data.data) {
+  if (!data?.data) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰 통계')}
@@ -72,7 +72,7 @@ export default function ReviewStatistic({ placeId }: ReviewStatisticProps) {
     )
   }
 
-  const statistics = data.data.data
+  const statistics = data.data
 
   const {
     totalRating,

@@ -13,8 +13,7 @@ export function useMyReviewStats() {
     staleTime: 1000 * 60 * 5, // 5분
   })
 
-  const reviewStats: MyReviewStatsResponse | null =
-    data?.data?.success && data.data.data ? data.data.data : null
+  const reviewStats: MyReviewStatsResponse | null = data?.data ?? null
 
   return {
     reviewStats,

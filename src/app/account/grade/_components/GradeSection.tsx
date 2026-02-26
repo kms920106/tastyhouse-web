@@ -15,9 +15,9 @@ export default async function GradeSection() {
     getGradeInfoList(),
   ])
 
-  const me = meResult.data?.data
-  const myGrade = myGradeResult.data?.data
-  const gradeInfoList = gradeInfoListResult.data?.data ?? []
+  const me = meResult.data
+  const myGrade = myGradeResult.data
+  const gradeInfoList = gradeInfoListResult.data ?? []
 
   return (
     <section className="min-h-screen">

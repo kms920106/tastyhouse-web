@@ -34,7 +34,7 @@ export default function PlaceMenuListFetcher({ placeId }: PlaceMenuListFetcherPr
     )
   }
 
-  if (!data || !data.data || !data.data.success || !data.data.data) {
+  if (!data?.data) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')}
@@ -43,7 +43,7 @@ export default function PlaceMenuListFetcher({ placeId }: PlaceMenuListFetcherPr
     )
   }
 
-  const menuCategories: MenuCategory[] = data.data.data
+  const menuCategories: MenuCategory[] = data.data
 
   if (menuCategories.length === 0) {
     return <div className="py-10 bg-white text-center text-sm text-[#aaaaaa]">메뉴가 없습니다.</div>

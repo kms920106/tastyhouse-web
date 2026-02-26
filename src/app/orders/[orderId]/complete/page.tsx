@@ -12,7 +12,7 @@ export default async function OrderCompletePage({ params }: OrderCompletePagePro
 
   const orderDetailResult = await getOrderDetail(Number(orderId))
 
-  const orderDetail = orderDetailResult.data?.data
+  const orderDetail = orderDetailResult.data
 
   if (!orderDetail) {
     return <div>주문 정보를 불러올 수 없습니다.</div>

@@ -28,8 +28,8 @@ export default function ReviewListFetcher() {
     queryFn: async () => {
       const response = await getMyReviews(0, 9)
       return {
-        reviews: response.data?.data || [],
-        hasMore: (response.data?.pagination?.totalElements ?? 0) > 9,
+        reviews: response.data || [],
+        hasMore: (response.pagination?.totalElements ?? 0) > 9,
       }
     },
   })

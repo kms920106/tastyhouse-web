@@ -40,7 +40,7 @@ export default function PlacePhotoListFetcher({ placeId }: PlacePhotoListFetcher
     )
   }
 
-  if (!data || !data.data || !data.data.success || !data.data.data) {
+  if (!data?.data) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('사진')}
@@ -49,7 +49,7 @@ export default function PlacePhotoListFetcher({ placeId }: PlacePhotoListFetcher
     )
   }
 
-  const categories = data.data.data
+  const categories = data.data
 
   return (
     <div>

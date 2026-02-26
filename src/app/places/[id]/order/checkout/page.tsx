@@ -20,10 +20,10 @@ export default async function OrderCheckoutPage({ params }: OrderCheckoutPagePro
     getMemberUsablePoint(),
   ])
 
-  const placeName = placeNameResult.data?.data?.name ?? ''
-  const memberInfo = memberResult.data?.data ?? null
-  const availableCoupons = couponsResult.data?.data ?? []
-  const usablePoints = usablePointResult.data?.data?.usablePoints ?? 0
+  const placeName = placeNameResult.data?.name ?? ''
+  const memberInfo = memberResult.data ?? null
+  const availableCoupons = couponsResult.data ?? []
+  const usablePoints = usablePointResult.data?.usablePoints ?? 0
 
   return (
     <OrderCheckoutSection

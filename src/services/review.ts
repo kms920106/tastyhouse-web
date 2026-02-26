@@ -15,7 +15,7 @@ export async function toggleReviewLike(reviewId: number) {
 export async function createComment(reviewId: number, request: CommentCreateRequest) {
   const result = await reviewService.createReviewComment(reviewId, request)
 
-  if (!result.error && result.data && result.data.success && result.data.data) {
+  if (!result.error && result.data) {
     revalidatePath(`/reviews/${reviewId}`)
   }
 
@@ -28,7 +28,7 @@ export async function createReply(
   request: ReplyCreateRequest,
 ) {
   const result = await reviewService.createReviewReply(reviewId, commentId, request)
-  if (!result.error && result.data && result.data.success && result.data.data) {
+  if (!result.error && result.data) {
     revalidatePath(`/reviews/${reviewId}`)
   }
 

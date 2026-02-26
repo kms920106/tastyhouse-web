@@ -29,6 +29,11 @@ export const fileRepository = {
       }
     }
 
+    // 백엔드 응답 { success, data } 구조를 자동 언래핑
+    if (data && typeof data === 'object' && 'success' in data) {
+      return { data: data.data, status }
+    }
+
     return { data, status }
   },
 }

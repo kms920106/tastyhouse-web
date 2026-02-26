@@ -4,7 +4,7 @@ import { termsService } from '@/domains/terms'
 
 export default async function TermsSection() {
   const response = await termsService.getTerms()
-  const terms = response.data?.data ?? { content: '' }
+  const terms = response.data ?? { content: '' }
 
   return (
     <section className="min-h-screen bg-white">

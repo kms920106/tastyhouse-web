@@ -1,5 +1,4 @@
 import { api } from '@/lib/api'
-import { ApiResponse } from '@/types/common'
 import {
   CommentCreateRequest,
   CommentCreateResponse,
@@ -19,34 +18,34 @@ const ENDPOINT = '/api/reviews'
 
 export const reviewRepository = {
   async getBestReviews(params: ReviewBestQuery) {
-    return api.get<ApiResponse<ReviewBestListItemResponse[]>>(`${ENDPOINT}/v1/best`, { params })
+    return api.get<ReviewBestListItemResponse[]>(`${ENDPOINT}/v1/best`, { params })
   },
   async getLatestReviews(params: ReviewLatestQuery) {
-    return api.get<ApiResponse<ReviewLatestListItemResponse[]>>(`${ENDPOINT}/v1/latest`, { params })
+    return api.get<ReviewLatestListItemResponse[]>(`${ENDPOINT}/v1/latest`, { params })
   },
   async getReviewDetail(reviewId: number) {
-    return api.get<ApiResponse<ReviewDetailResponse>>(`${ENDPOINT}/v1/${reviewId}`)
+    return api.get<ReviewDetailResponse>(`${ENDPOINT}/v1/${reviewId}`)
   },
   async getReviewProductDetail(reviewId: number) {
-    return api.get<ApiResponse<ReviewProductDetailResponse>>(`${ENDPOINT}/v1/${reviewId}/product`)
+    return api.get<ReviewProductDetailResponse>(`${ENDPOINT}/v1/${reviewId}/product`)
   },
   async toggleReviewLike(reviewId: number) {
-    return api.post<ApiResponse<ReviewLikeResponse>>(`${ENDPOINT}/v1/${reviewId}/like`)
+    return api.post<ReviewLikeResponse>(`${ENDPOINT}/v1/${reviewId}/like`)
   },
   async getReviewLike(reviewId: number) {
-    return api.get<ApiResponse<ReviewLikeResponse>>(`${ENDPOINT}/v1/${reviewId}/like`)
+    return api.get<ReviewLikeResponse>(`${ENDPOINT}/v1/${reviewId}/like`)
   },
   async createReviewComment(reviewId: number, request: CommentCreateRequest) {
-    return api.post<ApiResponse<CommentCreateResponse>>(
+    return api.post<CommentCreateResponse>(
       `${ENDPOINT}/v1/${reviewId}/comments`,
       request,
     )
   },
   async getReviewComments(reviewId: number) {
-    return api.get<ApiResponse<CommentListResponse>>(`${ENDPOINT}/v1/${reviewId}/comments`)
+    return api.get<CommentListResponse>(`${ENDPOINT}/v1/${reviewId}/comments`)
   },
   async createReviewReply(reviewId: number, commentId: number, request: ReplyCreateRequest) {
-    return api.post<ApiResponse<ReplyCreateResponse>>(
+    return api.post<ReplyCreateResponse>(
       `${ENDPOINT}/v1/comments/${commentId}/replies`,
       request,
     )

@@ -43,15 +43,15 @@ export async function GET(request: NextRequest) {
     })
 
     // API 응답 에러 처리
-    if (!result.data?.success || !result.data?.data) {
+    if (result.error || !result.data) {
       const failUrl = new URL('/payments/fail', origin)
-      failUrl.searchParams.set('message', result.data?.message || '결제 승인에 실패했습니다.')
+      failUrl.searchParams.set('message', result.error || '결제 승인에 실패했습니다.')
       return NextResponse.redirect(failUrl)
     }
 
     // 결제 승인 성공 시 주문 완료 페이지로 리다이렉트
     // 백엔드 응답에서 실제 주문 ID 사용
-    const orderId = result.data.data.pgOrderId
+    const orderId = result.data.pgOrderId
     if (!orderId) {
       const failUrl = new URL('/payments/fail', origin)
       failUrl.searchParams.set('message', '주문 정보를 찾을 수 없습니다.')

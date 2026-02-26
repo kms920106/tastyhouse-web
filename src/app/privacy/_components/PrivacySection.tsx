@@ -4,7 +4,7 @@ import { privacyService } from '@/domains/privacy'
 
 export default async function PrivacySection() {
   const response = await privacyService.getPrivacy()
-  const privacy = response.data?.data ?? { content: '' }
+  const privacy = response.data ?? { content: '' }
 
   return (
     <section className="min-h-screen bg-white">

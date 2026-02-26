@@ -1,5 +1,5 @@
 import { api } from '@/lib/api'
-import { ApiResponse, PaginationParams } from '@/types/common'
+import { PaginationParams } from '@/types/common'
 import type {
   OrderCreateRequest,
   OrderDetailResponse,
@@ -11,14 +11,14 @@ const ENDPOINT = '/api/orders'
 
 export const orderRepository = {
   async createOrder(request: OrderCreateRequest) {
-    return api.post<ApiResponse<OrderResponse>>(`${ENDPOINT}/v1`, request)
+    return api.post<OrderResponse>(`${ENDPOINT}/v1`, request)
   },
   async getOrderList(params: PaginationParams) {
-    return api.get<ApiResponse<OrderListResponse>>(`${ENDPOINT}/v1`, {
+    return api.get<OrderListResponse>(`${ENDPOINT}/v1`, {
       params,
     })
   },
   async getOrderDetail(orderId: number) {
-    return api.get<ApiResponse<OrderDetailResponse>>(`${ENDPOINT}/v1/${orderId}`)
+    return api.get<OrderDetailResponse>(`${ENDPOINT}/v1/${orderId}`)
   },
 }

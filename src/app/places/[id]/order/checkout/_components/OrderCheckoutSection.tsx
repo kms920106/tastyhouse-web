@@ -82,7 +82,7 @@ export default function OrderCheckoutSection({
       return
     }
 
-    const orderId = orderResult.data?.data?.id
+    const orderId = orderResult.data?.id
     if (!orderId) {
       toast('주문 생성에 실패했습니다.')
       return
@@ -99,12 +99,12 @@ export default function OrderCheckoutSection({
       return
     }
 
-    if (!paymentResult.data?.data) {
-      toast(paymentResult.data?.message ?? '결제 생성에 실패했습니다.')
+    if (!paymentResult.data) {
+      toast('결제 생성에 실패했습니다.')
       return
     }
 
-    const paymentId = paymentResult.data.data.id
+    const paymentId = paymentResult.data.id
     if (!paymentId) {
       toast('결제 생성에 실패했습니다.')
       return
@@ -140,7 +140,7 @@ export default function OrderCheckoutSection({
           currency: 'KRW',
           value: paymentAmount,
         },
-        orderId: paymentResult.data.data.pgOrderId,
+        orderId: paymentResult.data.pgOrderId,
         orderName,
         successUrl: `${window.location.origin}/api/payments/tosspayments/success`,
         failUrl: `${window.location.origin}/api/payments/tosspayments/fail`,

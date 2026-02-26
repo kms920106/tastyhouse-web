@@ -48,7 +48,7 @@ export default function CancelOrderButton({
       return
     }
 
-    const code = response.data?.data?.code
+    const code = response.data?.code
     if (code) {
       setCancelResultCode(code)
       if (code === 'SUCCESS') {

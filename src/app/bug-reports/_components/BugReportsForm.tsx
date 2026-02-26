@@ -65,11 +65,11 @@ export default function BugReportsForm() {
             const previewUrl = URL.createObjectURL(file)
             const response = await uploadFile(file)
 
-            if (!response?.data?.success || !response.data.data) {
+            if (!response?.data) {
               throw new Error('이미지 업로드에 실패했습니다.')
             }
 
-            return { previewUrl, fileId: response.data.data }
+            return { previewUrl, fileId: response.data }
           }),
         )
 
@@ -114,7 +114,7 @@ export default function BugReportsForm() {
           uploadedFileIds: uploadedImages.map((img) => img.fileId),
         })
 
-        if (response?.data?.success) {
+        if (!response?.error) {
           toast('버그 제보가 접수되었습니다.')
           setFormData(INITIAL_FORM_DATA)
           setUploadedImages([])

@@ -14,8 +14,8 @@ export default async function FaqsPage({ searchParams }: FaqsPageProps) {
     faqService.getFaqList(initialCategoryId !== 0 ? { categoryId: initialCategoryId } : undefined),
   ])
 
-  const initialCategories = categoriesResponse.data?.data ?? []
-  const initialFaqs = faqsResponse.data?.data ?? []
+  const initialCategories = categoriesResponse.data ?? []
+  const initialFaqs = faqsResponse.data ?? []
 
   return (
     <FaqSection

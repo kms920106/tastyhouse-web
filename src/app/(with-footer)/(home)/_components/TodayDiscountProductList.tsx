@@ -5,7 +5,6 @@ import type { ProductTodayDiscountListItemResponse, ProductTodayDiscountQuery } 
 import { api } from '@/lib/api'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { API_ENDPOINTS } from '@/lib/endpoints'
-import type { ApiResponse } from '@/types/common'
 
 export function TodayDiscountProductListSkeleton() {
   return (
@@ -27,7 +26,7 @@ export default async function TodayDiscountProductList() {
       size: 4,
     } satisfies ProductTodayDiscountQuery,
   }
-  const { data, error } = await api.get<ApiResponse<ProductTodayDiscountListItemResponse[]>>(
+  const { data, error } = await api.get<ProductTodayDiscountListItemResponse[]>(
     API_ENDPOINTS.PRODUCTS_TODAY_DISCOUNTS,
     query,
   )
@@ -38,14 +37,14 @@ export default async function TodayDiscountProductList() {
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
   }
 
   return (
     <>
       <div className="mb-10 divide-y divide-[#eeeeee] border-y border-[#eeeeee]">
-        {data.data.map((product) => (
+        {data.map((product) => (
           <ProductItem
             key={product.id}
             id={product.id}

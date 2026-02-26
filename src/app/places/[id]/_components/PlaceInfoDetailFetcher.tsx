@@ -24,7 +24,7 @@ export default function PlaceInfoDetailFetcher({ placeId }: PlaceInfoDetailFetch
     )
   }
 
-  if (!data || !data.data || !data.data.success || !data.data.data) {
+  if (!data?.data) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('정보')}
@@ -33,5 +33,5 @@ export default function PlaceInfoDetailFetcher({ placeId }: PlaceInfoDetailFetch
     )
   }
 
-  return <PlaceInfoDetail placeInfo={data.data.data} />
+  return <PlaceInfoDetail placeInfo={data.data} />
 }

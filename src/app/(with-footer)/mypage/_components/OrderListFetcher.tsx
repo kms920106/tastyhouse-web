@@ -42,8 +42,8 @@ export default function OrderListFetcher() {
     queryFn: async () => {
       const response = await getOrderList(0, 10)
       return {
-        orders: response.data?.data || [],
-        hasMoreOrders: (response.data?.pagination?.totalElements ?? 0) > 10,
+        orders: response.data || [],
+        hasMoreOrders: (response.pagination?.totalElements ?? 0) > 10,
       }
     },
   })

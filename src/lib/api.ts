@@ -7,10 +7,18 @@ type RequestConfig = RequestInit & {
   >
 }
 
-interface ApiResponse<T = unknown> {
+type PageInfo = {
+  page: number
+  size: number
+  totalElements: number
+  totalPages: number
+}
+
+export interface ApiResponse<T = unknown> {
   data?: T
   error?: string
   status: number
+  pagination?: PageInfo
 }
 
 class ApiClient {
@@ -72,16 +80,25 @@ class ApiClient {
       })
 
       const status = response.status
-      const data = await response.json().catch(() => null)
+      const json = await response.json().catch(() => null)
 
       if (!response.ok) {
         return {
-          error: data?.message || response.statusText || 'An error occurred',
+          error: json?.message || response.statusText || 'An error occurred',
           status,
         }
       }
 
-      return { data, status }
+      // 백엔드 응답 { success, data, message, pagination } 구조를 자동 언래핑
+      if (json && typeof json === 'object' && 'success' in json) {
+        return {
+          data: json.data as T,
+          status,
+          ...(json.pagination ? { pagination: json.pagination } : {}),
+        }
+      }
+
+      return { data: json as T, status }
     } catch (error) {
       return {
         error: error instanceof Error ? error.message : 'Network error',
