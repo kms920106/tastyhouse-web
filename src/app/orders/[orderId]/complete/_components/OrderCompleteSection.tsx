@@ -7,6 +7,7 @@ import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import type { OrderDetailResponse } from '@/domains/order'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 interface OrderCompleteSectionProps {
   orderDetail: OrderDetailResponse
@@ -17,11 +18,17 @@ export default function OrderCompleteSection({ orderDetail }: OrderCompleteSecti
 
   const { id, orderNumber } = orderDetail
 
+  useEffect(() => {
+    const handlePopState = () => router.replace('/')
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [router])
+
   return (
     <section className="flex flex-col min-h-screen">
       <Header variant="white" height={55}>
         <HeaderLeft>
-          <BackButton />
+          <BackButton onClick={() => router.replace('/')} />
         </HeaderLeft>
         <HeaderCenter>
           <HeaderTitle>결제완료</HeaderTitle>
