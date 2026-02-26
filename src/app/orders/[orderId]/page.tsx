@@ -1,3 +1,5 @@
+import ErrorStateSection from '@/components/ui/ErrorStateSection'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { getOrderDetail } from '@/services/order'
 import OrderDetailSection from './_components/OrderDetailSection'
 
@@ -15,7 +17,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   const orderDetail = orderDetailResult.data
 
   if (!orderDetail) {
-    return <div>주문 정보를 불러올 수 없습니다.</div>
+    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문')} />
   }
 
   return <OrderDetailSection orderDetail={orderDetail} />
