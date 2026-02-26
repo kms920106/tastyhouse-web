@@ -1,85 +1,56 @@
+'use client'
+
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import CancelOrderButton from '@/components/order/CancelOrderButton'
-import OrderStatusHeader from '@/components/order/OrderStatusHeader'
-import OrderedProductList from '@/components/order/OrderedProductList'
-import OrdererInformationAccordion from '@/components/order/OrdererInformationAccordion'
-import PaymentBreakdownAccordion from '@/components/order/PaymentBreakdownAccordion'
-import PaymentInformationAccordion from '@/components/order/PaymentInformationAccordion'
-import RefundPolicySection from '@/components/order/RefundPolicySection'
-import BorderedSection from '@/components/ui/BorderedSection'
-import SectionStack from '@/components/ui/SectionStack'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
+import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import type { OrderDetailResponse } from '@/domains/order'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface OrderCompleteSectionProps {
   orderDetail: OrderDetailResponse
 }
 
 export default function OrderCompleteSection({ orderDetail }: OrderCompleteSectionProps) {
-  const {
-    orderNumber,
-    paymentStatus,
-    placeName,
-    placePhoneNumber,
-    orderItems,
-    ordererName,
-    ordererPhone,
-    ordererEmail,
-    totalProductAmount,
-    productDiscountAmount,
-    couponDiscountAmount,
-    pointDiscountAmount,
-    totalDiscountAmount,
-    finalAmount,
-    payment,
-  } = orderDetail
+  const router = useRouter()
+
+  const { id, orderNumber } = orderDetail
 
   return (
-    <section className="min-h-screen flex flex-col bg-white">
+    <section className="flex flex-col min-h-screen">
       <Header variant="white" height={55}>
         <HeaderLeft>
           <BackButton />
         </HeaderLeft>
         <HeaderCenter>
-          <HeaderTitle>결제내역</HeaderTitle>
+          <HeaderTitle>결제완료</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <SectionStack>
-        <BorderedSection className="border-t-0">
-          <OrderStatusHeader orderNumber={orderNumber} paymentStatus={paymentStatus} />
-        </BorderedSection>
-        <BorderedSection>
-          <OrderedProductList placeName={placeName} orderItems={orderItems} />
-        </BorderedSection>
-        <BorderedSection>
-          <OrdererInformationAccordion
-            ordererName={ordererName}
-            ordererPhone={ordererPhone}
-            ordererEmail={ordererEmail}
-          />
-        </BorderedSection>
-        <BorderedSection>
-          <PaymentInformationAccordion payment={payment} />
-        </BorderedSection>
-        <BorderedSection>
-          <PaymentBreakdownAccordion
-            totalProductAmount={totalProductAmount}
-            productDiscountAmount={productDiscountAmount}
-            couponDiscountAmount={couponDiscountAmount}
-            pointDiscountAmount={pointDiscountAmount}
-            totalDiscountAmount={totalDiscountAmount}
-            finalAmount={finalAmount}
-          />
-        </BorderedSection>
-        <BorderedSection>
-          <RefundPolicySection />
-        </BorderedSection>
-      </SectionStack>
-      <CancelOrderButton
-        paymentId={payment.id}
-        paymentStatus={paymentStatus}
-        phoneNumber={placePhoneNumber}
-      />
+      <div className="flex-1 flex flex-col items-center justify-center pb-[70px]">
+        <div className="relative w-[95px] h-[95px]">
+          <Image src="/images/circle.png" alt="" fill className="object-contain" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Image src="/images/check.png" alt="결제완료" width={49} height={35} />
+          </div>
+        </div>
+        <div className="flex flex-col items-center text-center">
+          <p className="mt-[30px] text-sm leading-[14px] text-[#666666]">
+            주문번호 : {orderNumber}
+          </p>
+          <h2 className="mt-[15px] text-[23px] leading-[23px]">결제가 완료되었습니다.</h2>
+          <p className="mt-[21px] text-sm leading-relaxed text-[#999999]">
+            가게 사정에 따라 주문이 취소될 수 있으며,
+            <br />
+            주문 상세 내역은 마이페이지에서 확인이 가능합니다.
+          </p>
+        </div>
+      </div>
+      <FixedBottomSection className="px-[15px] py-[15px]">
+        <AppPrimaryButton onClick={() => router.push(`/orders/${id}`)}>
+          주문 상세 내역 보기
+        </AppPrimaryButton>
+      </FixedBottomSection>
     </section>
   )
 }
