@@ -3,8 +3,8 @@
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppInputText from '@/components/ui/AppInputText'
-import { toast } from '@/components/ui/AppToaster'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -24,7 +24,10 @@ const advertisingSchema = z.object({
   contactPhone: z
     .string()
     .min(1, '연락처를 입력해주세요.')
-    .regex(/^01[0-9]-[0-9]{3,4}-[0-9]{4}$/, '올바른 휴대폰 번호 형식이 아닙니다. (예: 010-1234-5678)'),
+    .regex(
+      /^01[0-9]-[0-9]{3,4}-[0-9]{4}$/,
+      '올바른 휴대폰 번호 형식이 아닙니다. (예: 010-1234-5678)',
+    ),
   consultationDate: z.string().min(1, '상담 날짜를 선택해주세요.'),
   consultationHour: z.string().min(1, '상담 시간을 선택해주세요.'),
 })
@@ -274,12 +277,8 @@ export default function AdvertisingForm() {
           </span>
         </label>
       </div>
-      <FixedBottomSection className="px-[15px] py-[15px]">
-        <AppSubmitButton
-          onClick={handleSubmit}
-          isSubmitting={isSubmitting}
-          loadingText="신청 중"
-        >
+      <FixedBottomSection className="p-[15px]">
+        <AppSubmitButton onClick={handleSubmit} isSubmitting={isSubmitting} loadingText="신청 중">
           확인
         </AppSubmitButton>
       </FixedBottomSection>

@@ -9,7 +9,7 @@ interface CommentInputSectionProps {
 
 export default function CommentInputSection({ params }: CommentInputSectionProps) {
   return (
-    <FixedBottomSection className="px-[15px] py-[15px]">
+    <FixedBottomSection className="p-[15px]">
       <div className="flex items-center gap-[17px]">
         <Suspense fallback={<CommentInputSkeleton />}>
           <CommentInputServer params={params} />

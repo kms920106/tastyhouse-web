@@ -1,13 +1,13 @@
 'use client'
 
 import AppFormField from '@/components/ui/AppFormField'
-import { toast } from '@/components/ui/AppToaster'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import { toast } from '@/components/ui/AppToaster'
 import { Spinner } from '@/components/ui/shadcn/spinner'
+import { extractZodFieldErrors } from '@/lib/form'
 import { createBugReport } from '@/services/bug-report'
 import { uploadFile } from '@/services/file'
 import Image from 'next/image'
-import { extractZodFieldErrors } from '@/lib/form'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -247,7 +247,7 @@ export default function BugReportsForm() {
           아직 제보되지 않은 버그인 경우 1,000 포인트를 지급해드립니다.
         </p>
       </div>
-      <div className="px-[15px] py-[15px]">
+      <div className="p-[15px]">
         <AppSubmitButton
           onClick={handleSubmit}
           disabled={isUploading}

@@ -46,7 +46,7 @@ export default function OrderCompleteSection({ orderDetail }: OrderCompleteSecti
           </p>
         </div>
       </div>
-      <FixedBottomSection className="px-[15px] py-[15px]">
+      <FixedBottomSection className="p-[15px]">
         <AppPrimaryButton onClick={() => router.push(`/orders/${id}`)}>
           주문 상세 내역 보기
         </AppPrimaryButton>
