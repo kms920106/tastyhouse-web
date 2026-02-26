@@ -49,7 +49,7 @@ export default function PlacePhotoListFetcher({ placeId }: PlacePhotoListFetcher
     )
   }
 
-  const categories = data.data
+  const categories = data
 
   return (
     <div>

@@ -21,7 +21,7 @@ export default async function ReviewDetailHeaderServer({
     return <div>-</div>
   }
 
-  const { memberNickname } = data.data
+  const { memberNickname } = data
 
   return <ReviewDetailHeader memberNickname={memberNickname} />
 }

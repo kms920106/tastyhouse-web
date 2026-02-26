@@ -18,7 +18,7 @@ export default async function ShareButtonServer({ placeId }: ShareButtonServerPr
     return <ShareButtonError />
   }
 
-  const { name } = data.data
+  const { name } = data
 
   return <ShareButtonClient placeId={placeId} placeName={name} />
 }

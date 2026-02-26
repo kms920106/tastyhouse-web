@@ -15,7 +15,7 @@ export default async function RankSchedule() {
     return <div>-</div>
   }
 
-  const rankEventInfo = data.data
+  const rankEventInfo = data
 
   const timeDifference = getTimeDifference(rankEventInfo.endAt)
   const remainingTime = formatRemainingTime(timeDifference)

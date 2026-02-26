@@ -59,7 +59,7 @@ export default async function RankList({ rankPeriod }: { rankPeriod: RankPeriod 
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('랭킹')} />
   }
 
-  const memberRankItems = data.data
+  const memberRankItems = data
 
   if (memberRankItems.length === 0) {
     return (

@@ -24,7 +24,7 @@ export default async function CommentListServer({ params }: CommentListServerPro
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('댓글')} />
   }
 
-  const { comments } = data.data
+  const { comments } = data
 
   return <CommentList comments={comments} />
 }

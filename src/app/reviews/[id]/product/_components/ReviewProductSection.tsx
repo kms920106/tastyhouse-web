@@ -52,7 +52,7 @@ export default async function ReviewProductSection({ reviewId }: ReviewProductSe
     createdAt,
     imageUrls,
     tagNames,
-  } = data.data
+  } = data
 
   return (
     <section>

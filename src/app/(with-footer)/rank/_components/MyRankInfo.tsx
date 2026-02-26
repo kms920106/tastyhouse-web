@@ -56,7 +56,7 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('내 랭킹')} />
   }
 
-  const info = data.data
+  const info = data
 
   return (
     <RankItem

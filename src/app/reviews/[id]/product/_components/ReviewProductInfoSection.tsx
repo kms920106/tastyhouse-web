@@ -69,7 +69,7 @@ export default async function ReviewProductInfoSection({
     createdAt,
     imageUrls,
     tagNames,
-  } = data.data
+  } = data
 
   return (
     <Layout>

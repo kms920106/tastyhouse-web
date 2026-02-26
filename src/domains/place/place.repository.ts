@@ -12,6 +12,7 @@ import {
   PlaceInfoResponse,
   PlaceLatestListItemResponse,
   PlaceLatestQuery,
+  PlaceMapMarkerResponse,
   PlaceNameResponse,
   PlaceOrderMethodResponse,
   PlacePhotoCategoryResponse,
@@ -81,5 +82,8 @@ export const placeRepository = {
   },
   async getPlaceOrderMethods(placeId: number) {
     return api.get<PlaceOrderMethodResponse>(`${ENDPOINT}/v1/${placeId}/order-methods`)
+  },
+  async getMapMarkers(params: { latitude: number; longitude: number }) {
+    return api.get<PlaceMapMarkerResponse[]>(`${ENDPOINT}/v1/map/markers`, { params })
   },
 }

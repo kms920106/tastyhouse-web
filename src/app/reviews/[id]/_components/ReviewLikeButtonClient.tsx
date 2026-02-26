@@ -28,7 +28,7 @@ export default function ReviewLikeButtonClient({
         return
       }
 
-      const { liked } = data.data
+      const { liked } = data
 
       setIsLiked(liked)
     })

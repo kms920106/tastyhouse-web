@@ -19,7 +19,7 @@ export default async function PlaceDetailHeaderServer({ placeId }: PlaceDetailHe
     return <div>-</div>
   }
 
-  const { name } = data.data
+  const { name } = data
 
   return <PlaceDetailHeader name={name} />
 }

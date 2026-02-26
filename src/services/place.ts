@@ -1,6 +1,14 @@
 'use server'
 
-import { PlaceLatestQuery, PlaceReviewsByRatingQuery, placeService } from '@/domains/place'
+import { PlaceLatestQuery, PlaceMapMarkerResponse, PlaceReviewsByRatingQuery, placeService } from '@/domains/place'
+
+export async function getMapMarkers(params: {
+  latitude: number
+  longitude: number
+}): Promise<PlaceMapMarkerResponse[]> {
+  const response = await placeService.getMapMarkers(params)
+  return response.data ?? []
+}
 
 export async function getLatestPlaces(query: PlaceLatestQuery) {
   return await placeService.getLatestPlaces(query)

@@ -211,7 +211,7 @@ export default function ReviewList({ placeId }: ReviewListProps) {
     )
   }
 
-  const { reviewsByRating, allReviews, totalReviewCount } = data.data
+  const { reviewsByRating, allReviews, totalReviewCount } = data
 
   // 선택된 평점에 따라 리뷰 필터링
   let filteredReviews = []

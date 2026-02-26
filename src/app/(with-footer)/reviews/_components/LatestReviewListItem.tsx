@@ -18,13 +18,9 @@ type LatestReviewItem = {
 
 interface LatestReviewListItemProps {
   review: LatestReviewItem
-  currentMemberId: number | null
 }
 
-export default function LatestReviewListItem({
-  review,
-  currentMemberId,
-}: LatestReviewListItemProps) {
+export default function LatestReviewListItem({ review }: LatestReviewListItemProps) {
   const {
     id,
     imageUrls,
@@ -48,7 +44,6 @@ export default function LatestReviewListItem({
         <ReviewOptionDrawer
           reviewId={id}
           memberId={memberId}
-          currentMemberId={currentMemberId}
           memberNickname={memberNickname}
           content={content}
         />

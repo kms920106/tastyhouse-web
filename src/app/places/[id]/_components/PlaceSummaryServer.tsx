@@ -26,7 +26,7 @@ export default async function PlaceSummaryServer({
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('기본 정보')} />
   }
 
-  const { id, name, roadAddress, lotAddress, rating } = data.data
+  const { id, name, roadAddress, lotAddress, rating } = data
 
   return (
     <PlaceSummary

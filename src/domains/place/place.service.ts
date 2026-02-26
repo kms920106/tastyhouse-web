@@ -58,4 +58,7 @@ export const placeService = {
   async getPlaceOrderMethods(placeId: number) {
     return placeRepository.getPlaceOrderMethods(placeId)
   },
+  async getMapMarkers(params: { latitude: number; longitude: number }) {
+    return placeRepository.getMapMarkers(params)
+  },
 }

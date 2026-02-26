@@ -30,6 +30,7 @@ export default function ReviewOptionDrawer({
   content,
 }: ReviewOptionDrawerProps) {
   const { memberProfile } = useMemberProfile()
+
   const currentMemberId = memberProfile?.id ?? null
   const isMyReview = currentMemberId !== null && currentMemberId === memberId
 

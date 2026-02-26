@@ -1,5 +1,7 @@
 'use client'
 
+import { getMapMarkers } from '@/services/place'
+import { PlaceMapMarkerResponse } from '@/domains/place'
 import Script from 'next/script'
 import { useCallback, useRef, useState } from 'react'
 
@@ -68,17 +70,7 @@ declare global {
   }
 }
 
-interface PlaceItem {
-  latitude: number
-  longitude: number
-  name: string
-}
-
-interface KakaoMapProps {
-  places: PlaceItem[]
-}
-
-export default function KakaoMap({ places }: KakaoMapProps) {
+export default function KakaoMap() {
   const [latitude, setLatitude] = useState(37.5666103)
   const [longitude, setLongitude] = useState(126.9783882)
 
@@ -104,10 +96,10 @@ export default function KakaoMap({ places }: KakaoMapProps) {
   }, [])
 
   // 새로운 마커들을 생성하는 함수
-  const createMarkers = useCallback((placesData: PlaceItem[], mapInstance: KakaoMap) => {
+  const createMarkers = useCallback((markers: PlaceMapMarkerResponse[], mapInstance: KakaoMap) => {
     const newMarkers: KakaoMarker[] = []
 
-    placesData.forEach((place: PlaceItem) => {
+    markers.forEach((place) => {
       const marker = new window.kakao.maps.Marker({
         position: new window.kakao.maps.LatLng(place.latitude, place.longitude),
       })
@@ -137,24 +129,17 @@ export default function KakaoMap({ places }: KakaoMapProps) {
   const fetchAndUpdatePlaces = useCallback(
     async (lat: number, lng: number, mapInstance: KakaoMap) => {
       try {
-        // TODO: API 연동 시 주석 해제
-        // const responseData = await getPlacesNear({ latitude: lat, longitude: lng })
-        // const placesData: PlaceData[] = responseData as PlaceData[]
-
-        // // 기존 마커 제거
-        // clearMarkers()
-        // // 기존 오버레이 제거
-        // clearOverlay()
-
-        // // 새로운 마커 생성
-        // createMarkers(placesData, mapInstance)
+        const markers = await getMapMarkers({ latitude: lat, longitude: lng })
+        clearMarkers()
+        clearOverlay()
+        createMarkers(markers, mapInstance)
       } catch (error) {
         console.error('장소 데이터를 가져오는 중 오류 발생:', error)
         clearMarkers()
         clearOverlay()
       }
     },
-    [clearMarkers, clearOverlay, createMarkers, places],
+    [clearMarkers, clearOverlay, createMarkers],
   )
 
   const loadKakaoMap = useCallback(() => {

@@ -128,12 +128,6 @@ export default function PlacePage() {
 
 ---
 
-#### (15) CSRF 보호 미구현
-
-Server Action 및 API 호출에서 CSRF 토큰 검증이 없습니다. Next.js의 Server Action은 기본적으로 Origin 헤더를 검증하지만, 추가적인 CSRF 보호를 고려할 수 있습니다.
-
----
-
 ## 4. 개선 우선순위 요약
 
 | 순위 | 항목                                              | 심각도 | 난이도 |

@@ -245,6 +245,13 @@ export type PlaceOrderMethodResponse = {
   orderMethods: OrderMethodItem[]
 }
 
+export type PlaceMapMarkerResponse = {
+  id: number
+  latitude: number
+  longitude: number
+  name: string
+}
+
 export type ProductTodayDiscountListItemResponse = {
   id: number
   name: string

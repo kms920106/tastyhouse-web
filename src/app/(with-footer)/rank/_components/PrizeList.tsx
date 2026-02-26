@@ -42,7 +42,7 @@ export default async function PrizeList() {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} className="py-10" />
   }
 
-  const prizes = data.data
+  const prizes = data
 
   if (prizes.length === 0) {
     return <div className="w-full py-10 text-[#999999] text-center">경품 데이터가 없습니다.</div>

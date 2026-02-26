@@ -45,7 +45,7 @@ export default async function PlaceBookmarkButtonServer({
     )
   }
 
-  const { bookmarked } = data.data
+  const { bookmarked } = data
 
   return <PlaceBookmarkButtonClient initialIsBookmarked={bookmarked} placeId={placeId} />
 }

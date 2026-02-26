@@ -15,6 +15,7 @@ export default function LoginPage() {
   }
 
   const handleSocialLogin = (provider: string) => {
+    alert(provider)
     // TODO: Implement social login logic
   }
 

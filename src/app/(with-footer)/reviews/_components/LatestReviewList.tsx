@@ -145,7 +145,7 @@ export default function LatestReviewList({ reviewType }: LatestReviewListProps) 
   return (
     <>
       {reviews.map((review) => (
-        <LatestReviewListItem key={review.id} review={review} currentMemberId={null} />
+        <LatestReviewListItem key={review.id} review={review} />
       ))}
       {isFetchingNextPage && <LatestReviewListSkeleton />}
       <div ref={targetRef} className="h-1" aria-hidden="true" />
