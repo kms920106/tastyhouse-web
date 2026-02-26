@@ -12,7 +12,13 @@
     "format:check": "prettier --check .",
     "clean-imports": "eslint . --fix --rule 'unused-imports/no-unused-imports: error'",
     "type-check": "tsc --noEmit",
-    "code-quality": "npm run lint:fix && npm run format && npm run type-check"
+    "code-quality": "npm run lint:fix && npm run format && npm run type-check",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:debug": "playwright test --debug",
+    "e2e:headed": "playwright test --headed",
+    "e2e:report": "playwright show-report",
+    "e2e:codegen": "playwright codegen http://localhost:3000"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -46,7 +52,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
