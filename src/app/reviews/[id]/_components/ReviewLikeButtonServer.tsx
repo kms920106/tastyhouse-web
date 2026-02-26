@@ -35,5 +35,5 @@ export default async function ReviewLikeButtonServer({ reviewId }: ReviewLikeBut
     return <ReviewLikeButtonError />
   }
 
-  return <ReviewLikeButtonClient initialIsLiked={data.data.liked} reviewId={reviewId} />
+  return <ReviewLikeButtonClient initialIsLiked={data.liked} reviewId={reviewId} />
 }

@@ -6,7 +6,8 @@ import { getMyPointHistory } from '@/services/member'
 
 export default async function PointSection() {
   const { data } = await getMyPointHistory()
-  const pointHistory = data?.data
+
+  const pointHistory = data
 
   return (
     <section className="min-h-screen">

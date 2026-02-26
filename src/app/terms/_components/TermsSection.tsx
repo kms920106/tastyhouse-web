@@ -3,8 +3,8 @@ import { BackButton } from '@/components/layouts/header-parts'
 import { termsService } from '@/domains/terms'
 
 export default async function TermsSection() {
-  const response = await termsService.getTerms()
-  const terms = response.data ?? { content: '' }
+  const { data } = await termsService.getTerms()
+  const terms = data.data
 
   return (
     <section className="min-h-screen bg-white">

@@ -33,11 +33,11 @@ export default async function ReviewOptionDrawerServer({
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!reviewData || !reviewData.success || !reviewData.data) {
+  if (!reviewData) {
     return <ReviewOptionError />
   }
 
-  const { memberId, memberNickname, content } = reviewData.data
+  const { memberId, memberNickname, content } = reviewData
 
   return (
     <ReviewOptionDrawer

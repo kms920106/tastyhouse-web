@@ -16,5 +16,5 @@ export default async function FacilityContent() {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('편의시설')} className="py-2" />
   }
 
-  return <FacilitySelector amenities={data.data} />
+  return <FacilitySelector amenities={data} />
 }

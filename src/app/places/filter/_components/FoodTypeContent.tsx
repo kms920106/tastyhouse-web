@@ -18,5 +18,5 @@ export default async function FoodTypeContent() {
     )
   }
 
-  return <FoodTypeSelector foods={data.data} />
+  return <FoodTypeSelector foods={data} />
 }

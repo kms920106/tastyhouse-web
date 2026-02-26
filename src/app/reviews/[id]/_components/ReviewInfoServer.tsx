@@ -30,13 +30,13 @@ export default async function ReviewInfoServer({
 
   return (
     <ReviewInfo
-      memberProfileImageUrl={data.data.memberProfileImageUrl}
-      memberNickname={data.data.memberNickname}
-      createdAt={data.data.createdAt}
-      imageUrls={data.data.imageUrls}
-      content={data.data.content}
-      tagNames={data.data.tagNames}
-      id={data.data.id}
+      memberProfileImageUrl={data.memberProfileImageUrl}
+      memberNickname={data.memberNickname}
+      createdAt={data.createdAt}
+      imageUrls={data.imageUrls}
+      content={data.content}
+      tagNames={data.tagNames}
+      id={data.id}
       reviewLike={reviewLike}
       reviewOption={reviewOption}
     />

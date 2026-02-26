@@ -8,8 +8,8 @@ interface EventDetailSectionProps {
 }
 
 export default async function EventDetailSection({ eventId }: EventDetailSectionProps) {
-  const { data: response } = await eventService.getEventDetail(eventId)
-  const eventDetail = response?.data
+  const { data } = await eventService.getEventDetail(eventId)
+  const eventDetail = data
 
   return (
     <>

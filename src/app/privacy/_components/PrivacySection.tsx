@@ -3,8 +3,9 @@ import { BackButton } from '@/components/layouts/header-parts'
 import { privacyService } from '@/domains/privacy'
 
 export default async function PrivacySection() {
-  const response = await privacyService.getPrivacy()
-  const privacy = response.data ?? { content: '' }
+  const { data } = await privacyService.getPrivacy()
+
+  const privacy = data.data
 
   return (
     <section className="min-h-screen bg-white">

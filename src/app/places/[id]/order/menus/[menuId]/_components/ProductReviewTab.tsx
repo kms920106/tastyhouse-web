@@ -73,7 +73,7 @@ function ReviewStatistic({ productId }: ReviewStatisticProps) {
     )
   }
 
-  const statistics = data
+  const statistics = data.data
   const {
     totalRating,
     totalReviewCount,
@@ -388,7 +388,7 @@ export default function ProductReviewTab({ productId }: ProductReviewTabProps) {
     )
   }
 
-  const { reviewsByRating, allReviews, totalReviewCount } = data
+  const { reviewsByRating, allReviews, totalReviewCount } = data.data
 
   // 선택된 평점에 따라 리뷰 필터링
   let filteredReviews: ReviewListItem[] = []

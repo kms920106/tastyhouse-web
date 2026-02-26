@@ -72,7 +72,7 @@ export default function ReviewStatistic({ placeId }: ReviewStatisticProps) {
     )
   }
 
-  const statistics = data
+  const statistics = data.data
 
   const {
     totalRating,

@@ -29,5 +29,5 @@ export default async function PlaceOrderMenuDetailPage({ params }: PlaceOrderMen
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('상품 정보')} />
   }
 
-  return <PlaceOrderMenuDetailSection placeId={placeId} product={data.data} />
+  return <PlaceOrderMenuDetailSection placeId={placeId} product={data} />
 }

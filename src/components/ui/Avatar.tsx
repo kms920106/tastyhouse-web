@@ -28,7 +28,7 @@ export default function Avatar({
   const { dimension, className: sizeClassName, defaultImage } = sizeMap[size]
   return (
     <Image
-      src={src ? resolveImageUrl(src) : null || defaultImage}
+      src={src ? resolveImageUrl(src) : defaultImage}
       alt={alt}
       width={dimension}
       height={dimension}

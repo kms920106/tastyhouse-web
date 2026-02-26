@@ -16,5 +16,5 @@ export default async function StationContent() {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('지하철역')} className="py-2" />
   }
 
-  return <StationSelector stations={data.data} />
+  return <StationSelector stations={data} />
 }

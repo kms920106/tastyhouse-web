@@ -22,7 +22,7 @@ export default function usePlaceBookmark({ placeId, initialIsBookmarked }: UsePl
         return
       }
 
-      setIsBookmarked(data.data.bookmarked)
+      setIsBookmarked(data.bookmarked)
     })
   }
 

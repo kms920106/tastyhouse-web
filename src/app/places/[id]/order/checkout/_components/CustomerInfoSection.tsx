@@ -4,11 +4,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
-import type { MemberContactResponse } from '@/domains/member'
+import { MemberInfo } from '@/domains/member'
 import { formatPhoneNumber } from '@/lib/utils'
 
 interface CustomerInfoSectionProps {
-  customerInfo: MemberContactResponse | null
+  customerInfo: MemberInfo | null
 }
 
 export default function CustomerInfoSection({ customerInfo }: CustomerInfoSectionProps) {
