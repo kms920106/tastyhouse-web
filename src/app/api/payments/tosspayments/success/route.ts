@@ -12,8 +12,7 @@ import { NextRequest, NextResponse } from 'next/server'
  * - amount: 결제 금액
  */
 export async function GET(request: NextRequest) {
-  const host = request.headers.get('host')
-  const origin = host ? `${request.nextUrl.protocol}//${host}` : request.nextUrl.origin
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin
 
   const searchParams = request.nextUrl.searchParams
   const pgOrderId = searchParams.get('orderId')
@@ -51,7 +50,7 @@ export async function GET(request: NextRequest) {
 
     // 결제 승인 성공 시 주문 완료 페이지로 리다이렉트
     // 백엔드 응답에서 실제 주문 ID 사용
-    const orderId = result.data.pgOrderId
+    const orderId = result.data.orderId
     if (!orderId) {
       const failUrl = new URL('/payments/fail', origin)
       failUrl.searchParams.set('message', '주문 정보를 찾을 수 없습니다.')

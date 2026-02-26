@@ -1,12 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 /**
+ * CSRF Origin 검증
+ * - 상태 변이 요청(POST, PUT, DELETE, PATCH)에 대해 Origin/Referer 헤더 검증
+ * - NEXT_PUBLIC_SITE_URL 환경 변수를 허용 Origin으로 사용
+ * - Origin, Referer 모두 없는 경우 서버→서버 요청으로 간주하여 통과
+ */
+function validateCsrfOrigin(request: NextRequest): boolean {
+  const method = request.method.toUpperCase()
+
+  if (['GET', 'HEAD', 'OPTIONS'].includes(method)) {
+    return true
+  }
+
+  const allowedOrigin = process.env.NEXT_PUBLIC_SITE_URL
+  if (!allowedOrigin) return true
+
+  const origin = request.headers.get('origin')
+  const referer = request.headers.get('referer')
+
+  if (origin) {
+    return origin === allowedOrigin
+  }
+
+  if (referer) {
+    return referer.startsWith(allowedOrigin)
+  }
+
+  return true
+}
+
+/**
  * Middleware for automatic token refresh
  * - 모든 요청 전에 accessToken 만료 여부 확인
  * - 만료 시 자동으로 refreshToken으로 갱신
  * - 브라우저 쿠키에 새 토큰 자동 저장
  */
 export async function middleware(request: NextRequest) {
+  if (!validateCsrfOrigin(request)) {
+    return new NextResponse('Forbidden', { status: 403 })
+  }
+
   const accessToken = request.cookies.get('accessToken')?.value
   const refreshToken = request.cookies.get('refreshToken')?.value
 
