@@ -128,39 +128,6 @@ export default function PlacePage() {
 
 ---
 
-#### (12) API 응답 타입 이중 중첩 가능성
-
-```tsx
-// repository에서 ApiResponse<T>를 반환하고, 실제 API도 { success, data } 형태로 응답
-api.post<ApiResponse<OrderResponse>>(`${ENDPOINT}/v1`, request)
-// 결과: ApiResponse<ApiResponse<OrderResponse>> 가능
-```
-
-**권장:** API 클라이언트의 제너릭 타입과 도메인 타입 간의 관계를 명확히 정리하여 중첩을 방지합니다.
-
----
-
-#### (13) 환경 변수 관리
-
-- `.env` 파일에 테스트 키가 포함되어 Git에 커밋될 수 있음
-- `next.config.ts`에서 `env` 설정이 불필요하게 중복됨 (`NEXT_PUBLIC_*`은 자동 노출)
-
-**권장:**
-
-- `.env.example` 파일을 생성하여 필요한 환경 변수 목록만 관리
-- 실제 키는 `.env.local`에 보관하고 `.gitignore`에 추가
-- `next.config.ts`의 `env` 설정 제거 (Next.js가 `NEXT_PUBLIC_*`을 자동 처리)
-
----
-
-#### (14) 아이콘 라이브러리 중복
-
-`lucide-react`와 `react-icons` 두 개의 아이콘 라이브러리가 동시에 사용되고 있습니다.
-
-**권장:** 하나의 아이콘 라이브러리로 통일하여 번들 크기를 줄입니다. Shadcn UI와의 호환성을 고려하면 `lucide-react`로 통일하는 것이 적합합니다.
-
----
-
 #### (15) CSRF 보호 미구현
 
 Server Action 및 API 호출에서 CSRF 토큰 검증이 없습니다. Next.js의 Server Action은 기본적으로 Origin 헤더를 검증하지만, 추가적인 CSRF 보호를 고려할 수 있습니다.
