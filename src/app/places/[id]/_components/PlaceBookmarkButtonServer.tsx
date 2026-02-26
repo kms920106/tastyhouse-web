@@ -37,7 +37,7 @@ export default async function PlaceBookmarkButtonServer({
     )
   }
 
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return (
       <button className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-[#eeeeee] box-border rounded-full cursor-pointer">
         <FaRegBookmark size={16} className="text-[#eeeeee]" />

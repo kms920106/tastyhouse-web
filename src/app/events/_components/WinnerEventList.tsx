@@ -31,7 +31,7 @@ export default function WinnerEventList() {
     queryFn: async ({ pageParam }) => {
       const response = await getEventAnnouncementList({ page: pageParam, size: PAGE_SIZE })
       if (!response.data) throw new Error('응답 데이터가 없습니다.')
-      return response.data
+      return response
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {

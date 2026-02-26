@@ -1,6 +1,6 @@
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
-import { placeService } from '@/domains/place'
 import type { MenuCategory } from '@/domains/place'
+import { placeService } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import PlaceOrderMenuListSection from './_components/PlaceOrderMenuListSection'
 
@@ -17,11 +17,11 @@ export default async function PlaceOrderMenuListPage({ params }: PlaceOrderMenuL
 
   const { error, data } = await placeService.getPlaceMenus(placeId)
 
-  if (error || !data || !data.success || !data.data) {
+  if (error || !data) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
   }
 
-  const menuCategories: MenuCategory[] = data.data
+  const menuCategories: MenuCategory[] = data
 
   return <PlaceOrderMenuListSection placeId={placeId} menuCategories={menuCategories} />
 }

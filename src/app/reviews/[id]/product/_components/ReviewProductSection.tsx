@@ -29,7 +29,7 @@ export default async function ReviewProductSection({ reviewId }: ReviewProductSe
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 

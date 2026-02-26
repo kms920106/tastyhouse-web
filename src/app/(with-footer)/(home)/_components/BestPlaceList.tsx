@@ -68,14 +68,14 @@ export default async function BestPlaceList() {
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
   }
 
   return (
     <>
       <ul className="grid grid-cols-2 gap-x-[15px] gap-y-10 mb-10">
-        {data.data.map((place) => (
+        {data.map((place) => (
           <PlaceListItem
             key={place.id}
             id={place.id}

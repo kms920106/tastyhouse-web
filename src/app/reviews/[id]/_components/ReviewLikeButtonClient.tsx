@@ -23,7 +23,7 @@ export default function ReviewLikeButtonClient({
     startTransition(async () => {
       const { error, data } = await toggleReviewLike(reviewId)
 
-      if (error || !data || !data.success || !data.data) {
+      if (error || !data) {
         toast(error || '좋아요 처리에 실패했습니다.')
         return
       }

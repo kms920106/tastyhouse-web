@@ -17,7 +17,7 @@ export default function usePlaceBookmark({ placeId, initialIsBookmarked }: UsePl
     startTransition(async () => {
       const { error, data } = await togglePlaceBookmark(placeId)
 
-      if (error || !data || !data.success || !data.data) {
+      if (error || !data) {
         toast(error || '북마크 처리에 실패했습니다.')
         return
       }

@@ -17,7 +17,7 @@ export default async function ReviewDetailHeaderServer({
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return <div>-</div>
   }
 

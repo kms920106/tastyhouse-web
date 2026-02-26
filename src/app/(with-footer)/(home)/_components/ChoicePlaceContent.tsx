@@ -17,11 +17,11 @@ export default async function ChoicePlaceContent() {
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data || !data.data || !data.success || !data.data) {
+  if (!data) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
   }
 
-  const places: Place[] = data.data.map((place) => ({
+  const places: Place[] = data.map((place) => ({
     id: place.id,
     imageUrl: place.imageUrl,
     name: place.name,

@@ -41,7 +41,7 @@ export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitBut
       const request = { content }
       const { error, data } = await createComment(reviewId, request)
 
-      if (error || !data || !data.success || !data.data) {
+      if (error || !data) {
         toast('댓글 등록에 실패했습니다.')
         setIsSubmitting(false)
         return
@@ -55,7 +55,7 @@ export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitBut
       }
       const { error, data } = await createReply(reviewId, replyTarget.commentId, request)
 
-      if (error || !data || !data.success || !data.data) {
+      if (error || !data) {
         toast('답글 등록에 실패했습니다.')
         setIsSubmitting(false)
         return

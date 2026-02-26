@@ -17,9 +17,9 @@ export default async function BannerContent() {
   }
 
   // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} className="py-10" />
   }
 
-  return <BannerSwiper banners={data.data} />
+  return <BannerSwiper banners={data} />
 }

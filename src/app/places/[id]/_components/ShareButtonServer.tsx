@@ -14,7 +14,7 @@ export default async function ShareButtonServer({ placeId }: ShareButtonServerPr
     return <ShareButtonError />
   }
 
-  if (!data || !data.success || !data.data) {
+  if (!data) {
     return <ShareButtonError />
   }
 
