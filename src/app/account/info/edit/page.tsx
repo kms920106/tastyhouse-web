@@ -1,5 +1,11 @@
 import AccountInfoEditSection from './_components/AccountInfoEditSection'
 
-export default function AccountInfoEditPage() {
-  return <AccountInfoEditSection />
+interface AccountInfoEditPageProps {
+  searchParams: Promise<{ verifyToken?: string }>
+}
+
+export default async function AccountInfoEditPage({ searchParams }: AccountInfoEditPageProps) {
+  const { verifyToken = '' } = await searchParams
+
+  return <AccountInfoEditSection verifyToken={verifyToken} />
 }

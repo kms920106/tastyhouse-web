@@ -1,23 +1,11 @@
-'use client'
+import PaymentFailContent from './_components/PaymentFailContent'
 
-import AppButton from '@/components/ui/AppButton'
-import { useRouter, useSearchParams } from 'next/navigation'
+interface PaymentFailPageProps {
+  searchParams: Promise<{ code?: string; message?: string }>
+}
 
-export default function PaymentFailPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+export default async function PaymentFailPage({ searchParams }: PaymentFailPageProps) {
+  const { code, message } = await searchParams
 
-  const errorCode = searchParams.get('code')
-  const errorMessage = searchParams.get('message')
-
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-[15px]">
-      <h1 className="text-xl font-bold mb-4">결제에 실패했습니다</h1>
-      {errorMessage && <p className="text-sm text-[#666666] mb-2">{errorMessage}</p>}
-      {errorCode && <p className="text-xs text-[#999999] mb-8">에러 코드: {errorCode}</p>}
-      <AppButton className="w-full max-w-[300px]" onClick={() => router.back()}>
-        돌아가기
-      </AppButton>
-    </div>
-  )
+  return <PaymentFailContent errorCode={code} errorMessage={message} />
 }

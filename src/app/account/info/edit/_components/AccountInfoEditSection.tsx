@@ -2,7 +2,11 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import AccountInfoEditForm from './AccountInfoEditForm'
 
-export default function AccountInfoEditSection() {
+interface AccountInfoEditSectionProps {
+  verifyToken: string
+}
+
+export default function AccountInfoEditSection({ verifyToken }: AccountInfoEditSectionProps) {
   return (
     <section className="min-h-screen bg-white">
       <Header variant="white" height={55} showBorder={false}>
@@ -13,7 +17,7 @@ export default function AccountInfoEditSection() {
           <HeaderTitle>개인정보 수정</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <AccountInfoEditForm />
+      <AccountInfoEditForm verifyToken={verifyToken} />
     </section>
   )
 }

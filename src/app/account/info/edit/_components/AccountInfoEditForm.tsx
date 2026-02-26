@@ -18,7 +18,6 @@ import {
 } from '@/services/phone-verification'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import { extractZodFieldErrors } from '@/lib/form'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
@@ -69,9 +68,11 @@ function parseBirthDate(birthDate: number | null) {
   }
 }
 
-export default function AccountInfoEditForm() {
-  const searchParams = useSearchParams()
-  const verifyToken = searchParams.get('verifyToken') ?? ''
+interface AccountInfoEditFormProps {
+  verifyToken: string
+}
+
+export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditFormProps) {
 
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
