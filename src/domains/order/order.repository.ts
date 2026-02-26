@@ -19,7 +19,6 @@ export const orderRepository = {
     })
   },
   async getOrderDetail(orderId: number) {
-    console.log(`${ENDPOINT}/v1/${orderId}`)
     return api.get<OrderDetailResponse>(`${ENDPOINT}/v1/${orderId}`)
   },
 }

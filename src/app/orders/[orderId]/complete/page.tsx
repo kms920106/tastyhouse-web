@@ -9,10 +9,8 @@ interface OrderCompletePageProps {
 
 export default async function OrderCompletePage({ params }: OrderCompletePageProps) {
   const { orderId } = await params
-  console.log('orderId: ', orderId)
 
   const orderDetailResult = await getOrderDetail(Number(orderId))
-  console.log(orderDetailResult)
 
   const orderDetail = orderDetailResult.data
 
