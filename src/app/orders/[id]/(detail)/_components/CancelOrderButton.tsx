@@ -60,11 +60,7 @@ export default function CancelOrderButton({
   return (
     <>
       <div className="px-[15px] py-5">
-        <AppSubmitButton
-          onClick={handleCancelClick}
-          isSubmitting={isLoading}
-          loadingText="취소 중"
-        >
+        <AppSubmitButton onClick={handleCancelClick} isSubmitting={isLoading} loadingText="취소 중">
           결제취소
         </AppSubmitButton>
       </div>
