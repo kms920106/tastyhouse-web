@@ -119,8 +119,11 @@ export default function OrderCheckoutSection({
         return
       }
 
-      // 주문 완료 페이지 이동
-      router.push(PAGE_PATHS.ORDER_COMPLETE(orderId))
+      // [이전 방식] push: 히스토리 스택에 결제완료 페이지 추가 → 뒤로가기 시 결제하기 페이지로 돌아옴
+      // router.push(PAGE_PATHS.ORDER_COMPLETE(orderId))
+
+      // [현재 방식] replace: 결제하기 페이지를 히스토리에서 교체 → 뒤로가기 시 결제하기 페이지로 돌아오지 않음
+      router.replace(PAGE_PATHS.ORDER_COMPLETE(orderId))
       return
     }
 
