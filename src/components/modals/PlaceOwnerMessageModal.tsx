@@ -1,4 +1,3 @@
-import AppButton from '@/components/ui/AppButton'
 import {
   Modal,
   ModalContentWrapper,
@@ -8,6 +7,7 @@ import {
   ModalTitle,
 } from '@/components/ui/Modal'
 import { formatDate } from '@/lib/date'
+import AppPrimaryButton from '../ui/AppPrimaryButton'
 
 interface PlaceOwnerMessageModalProps {
   open: boolean
@@ -39,9 +39,7 @@ export default function PlaceOwnerMessageModal({
         </p>
       </ModalContentWrapper>
       <ModalFooter>
-        <AppButton className="bg-main" onClick={() => onOpenChange(false)}>
-          확인
-        </AppButton>
+        <AppPrimaryButton onClick={() => onOpenChange(false)}>확인</AppPrimaryButton>
       </ModalFooter>
     </Modal>
   )

@@ -2,7 +2,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import MenuCategoryItem from '@/components/menus/MenuCategoryItem'
 import MenuItem from '@/components/menus/MenuItem'
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import BorderedSection from '@/components/ui/BorderedSection'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import SectionStack from '@/components/ui/SectionStack'
@@ -52,9 +52,9 @@ export default function PlaceOrderMenuListSection({
       </SectionStack>
       <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
         <Link href={PAGE_PATHS.ORDER_CART(placeId)}>
-          <AppButton className="bg-main gap-1">
+          <AppPrimaryButton className="gap-1">
             <CartItemCount placeId={placeId} />
-          </AppButton>
+          </AppPrimaryButton>
         </Link>
       </FixedBottomSection>
       <div className="h-[71px] bg-white" />

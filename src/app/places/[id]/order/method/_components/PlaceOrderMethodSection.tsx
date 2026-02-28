@@ -2,7 +2,7 @@
 
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import type { OrderMethod, OrderMethodItem } from '@/domains/order'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
@@ -117,9 +117,9 @@ export default function PlaceOrderMethodSection({
           </div>
         </div>
         <div className="px-[15px] py-2.5">
-          <AppButton className="bg-main" onClick={handleNext} disabled={!selectedMethod}>
+          <AppPrimaryButton onClick={handleNext} disabled={!selectedMethod}>
             다음
-          </AppButton>
+          </AppPrimaryButton>
         </div>
       </div>
     </>

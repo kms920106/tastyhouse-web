@@ -1,4 +1,3 @@
-import AppButton from '@/components/ui/AppButton'
 import {
   Modal,
   ModalContentWrapper,
@@ -7,6 +6,7 @@ import {
   ModalHeader,
   ModalTitle,
 } from '@/components/ui/Modal'
+import AppPrimaryButton from '../ui/AppPrimaryButton'
 
 interface RankInfoModalProps {
   open: boolean
@@ -38,9 +38,7 @@ export function RankInfoModal({ open, onOpenChange }: RankInfoModalProps) {
         </p>
       </ModalContentWrapper>
       <ModalFooter>
-        <AppButton className="bg-main" onClick={() => onOpenChange(false)}>
-          확인
-        </AppButton>
+        <AppPrimaryButton onClick={() => onOpenChange(false)}>확인</AppPrimaryButton>
       </ModalFooter>
     </Modal>
   )

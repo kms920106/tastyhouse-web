@@ -1,6 +1,6 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { useRouter } from 'next/navigation'
 
 interface PaymentFailContentProps {
@@ -16,9 +16,9 @@ export default function PaymentFailContent({ errorCode, errorMessage }: PaymentF
       <h1 className="text-xl font-bold mb-4">결제에 실패했습니다</h1>
       {errorMessage && <p className="text-sm text-[#666666] mb-2">{errorMessage}</p>}
       {errorCode && <p className="text-xs text-[#999999] mb-8">에러 코드: {errorCode}</p>}
-      <AppButton className="w-full max-w-[300px]" onClick={() => router.back()}>
+      <AppPrimaryButton className="w-full max-w-[300px]" onClick={() => router.back()}>
         돌아가기
-      </AppButton>
+      </AppPrimaryButton>
     </div>
   )
 }
