@@ -57,7 +57,7 @@ export default async function OrderDetailSection({ orderId }: OrderDetailSection
           <OrderStatusHeader orderNumber={orderNumber} paymentStatus={paymentStatus} />
         </BorderedSection>
         <BorderedSection>
-          <OrderedProductList placeName={placeName} orderItems={orderItems} />
+          <OrderedProductList orderId={orderId} placeName={placeName} orderItems={orderItems} />
         </BorderedSection>
         <BorderedSection>
           <OrdererInformationAccordion

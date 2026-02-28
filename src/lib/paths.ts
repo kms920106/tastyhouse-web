@@ -39,6 +39,10 @@ export const PAGE_PATHS = {
   REVIEW_PRODUCT_DETAIL: (id: string | number) => `/reviews/${id}/product`,
   REVIEW_CREATE: '/reviews/create',
   REVIEW_CREATE_WITH_MENU: (menuId: string | number) => `/reviews/create?menuId=${menuId}`,
+  ORDER_REVIEW_CREATE: (orderId: string | number, orderProductId: string | number) =>
+    `/orders/${orderId}/reviews/create?orderProductId=${orderProductId}`,
+  ORDER_REVIEW_EDIT: (orderId: string | number, orderProductId: string | number) =>
+    `/orders/${orderId}/reviews/edit?orderProductId=${orderProductId}`,
 
   // 이벤트
   EVENTS: '/events',
