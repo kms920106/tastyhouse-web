@@ -9,14 +9,13 @@ interface EventDetailSectionProps {
 
 export default async function EventDetailSection({ eventId }: EventDetailSectionProps) {
   const { data } = await eventService.getEventDetail(eventId)
-  const eventDetail = data
 
   return (
     <>
       <HeaderSection />
-      {eventDetail && (
+      {data && (
         <Image
-          src={resolveImageUrl(eventDetail.bannerImageUrl)}
+          src={resolveImageUrl(data.bannerImageUrl)}
           alt="이벤트 배너"
           width={1080}
           height={1436}
