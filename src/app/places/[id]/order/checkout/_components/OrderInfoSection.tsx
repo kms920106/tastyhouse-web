@@ -1,13 +1,10 @@
-'use client'
-
-import ImageContainer from '@/components/ui/ImageContainer'
+import OrderProductItem from '@/components/order/OrderProductItem'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
-import { formatNumber } from '@/lib/number'
 import { formatOrderSummary } from '@/lib/order'
 
 interface OrderItem {
@@ -45,15 +42,13 @@ export default function OrderInfoSection({
           <div className="px-4">
             <div className="divide-y divide-[#eeeeee] first:border-t border-[#eeeeee]">
               {items.map((item, index) => (
-                <div key={index} className="flex items-center gap-[15px] py-[15px]">
-                  <ImageContainer src={item.imageUrl} alt={item.name} size={50} />
-                  <div className="flex flex-col gap-2.5">
-                    <h3 className="text-sm leading-[14px]">{item.name}</h3>
-                    <p className="text-sm leading-[14px]">
-                      {formatNumber(item.salePrice)}원 | {item.quantity}개
-                    </p>
-                  </div>
-                </div>
+                <OrderProductItem
+                  key={index}
+                  productName={item.name}
+                  productImageUrl={item.imageUrl}
+                  unitPrice={item.salePrice}
+                  quantity={item.quantity}
+                />
               ))}
             </div>
           </div>
