@@ -1,18 +1,18 @@
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { getOrderDetail } from '@/services/order'
-import OrderDetailSection from './_components/OrderDetailSection'
+import OrderCompleteSection from './_components/OrderCompleteSection'
 
-interface OrderDetailPageProps {
+interface OrderCompletePageProps {
   params: Promise<{
-    orderId: string
+    id: string
   }>
 }
 
-export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
-  const { orderId } = await params
+export default async function OrderCompletePage({ params }: OrderCompletePageProps) {
+  const { id } = await params
 
-  const orderDetailResult = await getOrderDetail(Number(orderId))
+  const orderDetailResult = await getOrderDetail(Number(id))
 
   const orderDetail = orderDetailResult.data
 
@@ -20,5 +20,5 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문')} />
   }
 
-  return <OrderDetailSection orderDetail={orderDetail} />
+  return <OrderCompleteSection orderDetail={orderDetail} />
 }

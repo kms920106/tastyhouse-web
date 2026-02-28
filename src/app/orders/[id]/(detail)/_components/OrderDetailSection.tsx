@@ -8,14 +8,22 @@ import PaymentBreakdownAccordion from '@/components/order/PaymentBreakdownAccord
 import PaymentInformationAccordion from '@/components/order/PaymentInformationAccordion'
 import RefundPolicySection from '@/components/order/RefundPolicySection'
 import BorderedSection from '@/components/ui/BorderedSection'
+import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { OrderDetailResponse } from '@/domains/order'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { getOrderDetail } from '@/services/order'
 
 interface OrderDetailSectionProps {
-  orderDetail: OrderDetailResponse
+  orderId: number
 }
 
-export default function OrderDetailSection({ orderDetail }: OrderDetailSectionProps) {
+export default async function OrderDetailSection({ orderId }: OrderDetailSectionProps) {
+  const { data } = await getOrderDetail(orderId)
+
+  if (!data) {
+    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문')} />
+  }
+
   const {
     orderNumber,
     paymentStatus,
@@ -32,7 +40,7 @@ export default function OrderDetailSection({ orderDetail }: OrderDetailSectionPr
     totalDiscountAmount,
     finalAmount,
     payment,
-  } = orderDetail
+  } = data
 
   return (
     <section className="min-h-screen flex flex-col bg-white">
