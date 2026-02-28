@@ -10,7 +10,7 @@ export default function BugReportsSection() {
           <BackButton />
         </HeaderLeft>
         <HeaderCenter>
-          <HeaderTitle>버그제보</HeaderTitle>
+          <HeaderTitle>버그 제보</HeaderTitle>
         </HeaderCenter>
       </Header>
       <BugReportsForm />
