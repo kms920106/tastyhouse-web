@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { MdRefresh } from 'react-icons/md'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
-import AppButton from './AppButton'
+import AppPrimaryButton from './AppPrimaryButton'
 import ErrorMessage from './ErrorMessage'
 
 interface ErrorStateSectionProps {
@@ -32,10 +32,10 @@ export default function ErrorStateSection({ message }: ErrorStateSectionProps) {
         <ErrorMessage message={message} />
       </div>
       <div className="p-4">
-        <AppButton onClick={handleRetry} className="bg-main w-full">
+        <AppPrimaryButton onClick={handleRetry}>
           <MdRefresh size={20} />
           다시 시도
-        </AppButton>
+        </AppPrimaryButton>
       </div>
     </section>
   )
