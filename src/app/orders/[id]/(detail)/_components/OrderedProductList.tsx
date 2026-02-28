@@ -9,7 +9,12 @@ interface OrderedProductListProps {
   orderItems: OrderItemResponse[]
 }
 
-export default function OrderedProductList({ orderId, placeName, orderItems }: OrderedProductListProps) {
+export default function OrderedProductList({
+  orderId,
+  placeName,
+  orderItems,
+}: OrderedProductListProps) {
+  console.log(orderItems)
   return (
     <>
       <div className="px-[15px] pt-5 pb-[15px]">
@@ -26,7 +31,7 @@ export default function OrderedProductList({ orderId, placeName, orderItems }: O
               quantity={item.quantity}
               options={item.options}
               action={
-                item.isReviewed ? (
+                item.reviewed ? (
                   <Link
                     href={PAGE_PATHS.ORDER_REVIEW_EDIT(orderId, item.id)}
                     className="flex items-center justify-center shrink-0 px-[11px] py-2.5 text-xs leading-[12px] text-[#a91201] border border-[#a91201] box-border"

@@ -63,7 +63,7 @@ export interface OrderItemResponse {
   optionTotalPrice: number
   totalPrice: number
   options: OrderItemOptionResponse[]
-  isReviewed: boolean
+  reviewed: boolean
 }
 
 export interface PaymentSummaryResponse {
