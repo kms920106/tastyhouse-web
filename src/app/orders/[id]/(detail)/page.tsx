@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import OrderDetailSection from './_components/OrderDetailSection'
+import OrderDetailSkeleton from './_components/OrderDetailSkeleton'
 
 interface OrderDetailPageProps {
   params: Promise<{
@@ -13,7 +14,7 @@ export default async function OrderDetailPage({ params }: OrderDetailPageProps) 
   const orderId = Number(id)
 
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
+    <Suspense fallback={<OrderDetailSkeleton />}>
       <OrderDetailSection orderId={orderId} />
     </Suspense>
   )
