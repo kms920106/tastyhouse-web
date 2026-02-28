@@ -1,24 +1,19 @@
-'use client'
-
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import type { OrderDetailResponse } from '@/domains/order'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface OrderCompleteSectionProps {
   orderDetail: OrderDetailResponse
 }
 
 export default function OrderCompleteSection({ orderDetail }: OrderCompleteSectionProps) {
-  const router = useRouter()
-
   const { id, orderNumber } = orderDetail
 
   return (
-    <section className="flex flex-col min-h-screen">
+    <section className="flex flex-col h-dvh overflow-hidden">
       <Header variant="white" height={55}>
         <HeaderLeft>
           <BackButton />
@@ -27,7 +22,7 @@ export default function OrderCompleteSection({ orderDetail }: OrderCompleteSecti
           <HeaderTitle>결제완료</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <div className="flex-1 flex flex-col items-center justify-center pb-[70px]">
+      <div className="flex-1 flex flex-col items-center justify-center">
         <div className="relative w-[95px] h-[95px]">
           <Image src="/images/circle.png" alt="" fill className="object-contain" />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -46,11 +41,11 @@ export default function OrderCompleteSection({ orderDetail }: OrderCompleteSecti
           </p>
         </div>
       </div>
-      <FixedBottomSection className="p-[15px]">
-        <AppPrimaryButton onClick={() => router.push(`/orders/${id}`)}>
-          주문 상세 내역 보기
-        </AppPrimaryButton>
-      </FixedBottomSection>
+      <div className="px-[15px] py-2.5">
+        <Link href={`/orders/${id}`}>
+          <AppPrimaryButton>주문 상세 내역 보기</AppPrimaryButton>
+        </Link>
+      </div>
     </section>
   )
 }
