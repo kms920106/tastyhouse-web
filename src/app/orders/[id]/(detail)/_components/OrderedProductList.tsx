@@ -14,7 +14,6 @@ export default function OrderedProductList({
   placeName,
   orderItems,
 }: OrderedProductListProps) {
-  console.log(orderItems)
   return (
     <>
       <div className="px-[15px] pt-5 pb-[15px]">

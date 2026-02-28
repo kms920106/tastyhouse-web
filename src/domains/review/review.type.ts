@@ -137,3 +137,36 @@ export type ReplyCreateResponse = {
   content: string
   createdAt: string
 }
+
+export type ReviewWriteInfoResponse = {
+  productId: number
+  productName: string
+  productImageUrl: string
+  productPrice: number
+  orderId: number
+  isReviewed: boolean
+}
+
+export type ReviewCreateRequest = {
+  orderItemId: number | null
+  productId: number
+  tasteRating: number
+  amountRating: number
+  priceRating: number
+  content: string
+  uploadedFileIds: number[]
+  tags: string[]
+}
+
+export type ReviewCreateResponse = {
+  reviewId: number
+  productId: number
+  tasteRating: number
+  amountRating: number
+  priceRating: number
+  totalRating: number
+  content: string
+  imageUrls: string[]
+  tags: string[]
+  createdAt: string
+}

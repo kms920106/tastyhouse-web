@@ -7,11 +7,14 @@ import {
   ReplyCreateResponse,
   ReviewBestListItemResponse,
   ReviewBestQuery,
+  ReviewCreateRequest,
+  ReviewCreateResponse,
   ReviewDetailResponse,
   ReviewLatestListItemResponse,
   ReviewLatestQuery,
   ReviewLikeResponse,
   ReviewProductDetailResponse,
+  ReviewWriteInfoResponse,
 } from './review.type'
 
 const ENDPOINT = '/api/reviews'
@@ -49,5 +52,11 @@ export const reviewRepository = {
       `${ENDPOINT}/v1/comments/${commentId}/replies`,
       request,
     )
+  },
+  async getReviewWriteInfo(orderItemId: number) {
+    return api.get<ReviewWriteInfoResponse>(`${ENDPOINT}/v1/write/order-items/${orderItemId}`)
+  },
+  async createReview(request: ReviewCreateRequest) {
+    return api.post<ReviewCreateResponse>(`${ENDPOINT}/v1`, request)
   },
 }

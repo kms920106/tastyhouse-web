@@ -3,6 +3,7 @@ import {
   CommentCreateRequest,
   ReplyCreateRequest,
   ReviewBestQuery,
+  ReviewCreateRequest,
   ReviewLatestQuery,
 } from './review.type'
 
@@ -33,5 +34,11 @@ export const reviewService = {
   },
   async createReviewReply(reviewId: number, commentId: number, request: ReplyCreateRequest) {
     return reviewRepository.createReviewReply(reviewId, commentId, request)
+  },
+  async getReviewWriteInfo(orderItemId: number) {
+    return reviewRepository.getReviewWriteInfo(orderItemId)
+  },
+  async createReview(request: ReviewCreateRequest) {
+    return reviewRepository.createReview(request)
   },
 }
