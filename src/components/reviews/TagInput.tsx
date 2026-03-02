@@ -58,10 +58,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
   }
 
   return (
-    <div className="flex flex-col gap-2.5 px-4 py-6 bg-white">
-      <label className="text-xs text-gray-700" htmlFor="tag">
-        태그
-      </label>
+    <div className="flex flex-col gap-2.5">
       <div className="relative">
         <input
           type="text"

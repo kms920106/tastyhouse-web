@@ -1,7 +1,7 @@
 'use client'
 
 import PhotoUploader from '@/components/reviews/PhotoUploader'
-import ReviewInput from '@/components/reviews/ReviewInput'
+import ReviewTextarea from '@/components/reviews/ReviewTextarea'
 import SubmitButton from '@/components/reviews/SubmitButton'
 import TagInput from '@/components/reviews/TagInput'
 import { useState } from 'react'
@@ -54,7 +54,7 @@ export default function ReviewCreatePage() {
             autoComplete="off"
           ></input>
         </div>
-        <ReviewInput value={form.content} onChange={(val) => handleChange('content', val)} />
+        <ReviewTextarea value={form.content} onChange={(val) => handleChange('content', val)} />
         <PhotoUploader value={form.photos} onChange={(val) => handleChange('photos', val)} />
         <TagInput value={form.tags} onChange={(val) => handleChange('tags', val)} />
         <div className="px-4 py-6 bg-white">

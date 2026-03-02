@@ -2,6 +2,7 @@
 
 import AppFormField from '@/components/ui/AppFormField'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import AppTextarea from '@/components/ui/AppTextarea'
 import { toast } from '@/components/ui/AppToaster'
 import { Spinner } from '@/components/ui/shadcn/spinner'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -176,12 +177,13 @@ export default function BugReportsForm() {
         </AppFormField>
         <AppFormField label="내용" required error={errors.content}>
           {({ className }) => (
-            <textarea
+            <AppTextarea
               value={formData.content}
               onChange={(e) => handleChange('content', e.target.value)}
               placeholder="내용을 입력해주세요."
-              rows={10}
-              className={`w-full px-[16px] py-3 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333] resize-none ${errors.content ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
+              rows={16}
+              error={!!errors.content}
+              className={className}
             />
           )}
         </AppFormField>

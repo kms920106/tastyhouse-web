@@ -27,6 +27,10 @@ export const PAGE_PATHS = {
   ORDERS: '/orders',
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
+  ORDERS_REVIEWS_CREATE: (orderItemId: number) =>
+    `/orders/reviews/create?orderItemId=${orderItemId}`,
+  ORDERS_REVIEWS_EDIT: (orderProductId: number) =>
+    `/orders/reviews/edit?orderProductId=${orderProductId}`,
 
   // 결제
   PAYMENT_SUCCESS: '/payments/success',
@@ -39,10 +43,6 @@ export const PAGE_PATHS = {
   REVIEW_PRODUCT_DETAIL: (id: string | number) => `/reviews/${id}/product`,
   REVIEW_CREATE: '/reviews/create',
   REVIEW_CREATE_WITH_MENU: (menuId: string | number) => `/reviews/create?menuId=${menuId}`,
-  ORDER_REVIEW_CREATE: (orderId: string | number, orderItemId: string | number) =>
-    `/orders/${orderId}/reviews/create?orderItemId=${orderItemId}`,
-  ORDER_REVIEW_EDIT: (orderId: string | number, orderProductId: string | number) =>
-    `/orders/${orderId}/reviews/edit?orderProductId=${orderProductId}`,
 
   // 이벤트
   EVENTS: '/events',

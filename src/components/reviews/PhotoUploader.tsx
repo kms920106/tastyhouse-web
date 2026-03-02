@@ -39,11 +39,7 @@ export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
   }
 
   return (
-    <div className="flex flex-col gap-2.5 px-4 py-6 bg-white">
-      <label className="text-xs text-gray-700" htmlFor="placeName">
-        사진 <span className="text-red-500">*</span>
-      </label>
-      <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-3">
         <label className="relative flex items-center justify-center aspect-square border-1 border-dashed border-border-main box-border cursor-pointer">
           <input
             type="file"
@@ -74,7 +70,6 @@ export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
             </button>
           </div>
         ))}
-      </div>
     </div>
   )
 }

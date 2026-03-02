@@ -3,7 +3,6 @@ import { BackButton } from '@/components/layouts/header-parts'
 import OrderReviewCreateForm from './OrderReviewCreateForm'
 
 interface OrderReviewCreateSectionProps {
-  orderId: number
   orderItemId: number
   productId: number
   productName: string
@@ -12,7 +11,6 @@ interface OrderReviewCreateSectionProps {
 }
 
 export default function OrderReviewCreateSection({
-  orderId,
   orderItemId,
   productId,
   productName,
@@ -30,7 +28,6 @@ export default function OrderReviewCreateSection({
         </HeaderCenter>
       </Header>
       <OrderReviewCreateForm
-        orderId={orderId}
         orderItemId={orderItemId}
         productId={productId}
         productName={productName}
