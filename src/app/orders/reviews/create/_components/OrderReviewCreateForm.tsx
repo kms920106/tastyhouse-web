@@ -238,16 +238,16 @@ export default function OrderReviewCreateForm({
               />
             )}
           </AppFormField>
-          <AppFormField label="사진">
-            {() => <PhotoUploader value={photos} onChange={handlePhotosChange} />}
-          </AppFormField>
-          <div className="px-4 py-6">
-            <ul className="list-disc list-inside text-gray-700 space-y-1">
-              <li className="text-xs text-[#666666]">
+          <div className="flex flex-col gap-5">
+            <AppFormField label="사진">
+              {() => <PhotoUploader value={photos} onChange={handlePhotosChange} />}
+            </AppFormField>
+            <div>
+              <p className="text-sm leading-relaxed text-[#999999]">
                 해당 음식과 무관한 사진을 첨부한 리뷰는 통보없이 삭제 및 적립 혜택이 취소될 수
                 있습니다.
-              </li>
-            </ul>
+              </p>
+            </div>
           </div>
           <AppFormField label="태그">
             {() => <TagInput value={formData.tags} onChange={handleTagsChange} />}
@@ -255,20 +255,22 @@ export default function OrderReviewCreateForm({
         </div>
       </BorderedSection>
       <BorderedSection>
-        <div className="px-4 py-6">
-          <p className="text-gray-900 mb-3">리뷰 작성시 포인트 적립 및 주의사항</p>
-          <ul className="list-disc list-inside space-y-1.5">
-            <li className="text-xs text-[#666666]">
+        <div className="flex flex-col gap-5 px-[15px] py-5">
+          <p className="text-base leading-[16px]">리뷰 작성시 포인트 적립 및 주의사항</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li className="text-xs leading-relaxed text-[#666666]">
               일반(평점 및 내용)리뷰 작성시 <span className="text-[#a91201]">100p 적립</span>
             </li>
-            <li className="text-xs text-[#666666]">
+            <li className="text-xs leading-relaxed text-[#666666]">
               포토리뷰 작성시 <span className="text-[#a91201]">200p 적립</span>
             </li>
-            <li className="text-xs text-[#666666]">
+            <li className="text-xs leading-relaxed text-[#666666]">
               주문한 상품별로 리뷰 작성이 가능하며, 동일 상품 여러개 구매시 최소 1회의 한해 포인트
               적립
             </li>
-            <li className="text-xs text-[#666666]">리뷰 삭제 후 재작성시 포인트 미지급</li>
+            <li className="text-xs leading-relaxed text-[#666666]">
+              리뷰 삭제 후 재작성시 포인트 미지급
+            </li>
           </ul>
         </div>
       </BorderedSection>
