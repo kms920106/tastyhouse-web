@@ -65,7 +65,7 @@ export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
             className="absolute top-2 right-2"
             onClick={() => handleRemoveImage(index)}
           >
-            <Image src="/images/icon-delete.png" alt="삭제" width={20} height={20} />
+            <Image src="/images/icon-delete-circle.png" alt="삭제" width={20} height={20} />
           </button>
         </div>
       ))}
