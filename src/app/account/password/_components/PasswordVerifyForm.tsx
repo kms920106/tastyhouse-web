@@ -4,13 +4,13 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
-import { verifyMemberPassword } from '@/services/member'
 import { extractZodFieldErrors } from '@/lib/form'
+import { verifyMemberPassword } from '@/services/member'
 import { useState } from 'react'
 import { z } from 'zod'
 
 const verifySchema = z.object({
-  password: z.string().min(1, '현재 비밀번호를 입력해주세요.'),
+  password: z.string().min(1, '현재 비밀번호를 입력해 주세요.'),
 })
 
 type FormData = z.infer<typeof verifySchema>
@@ -62,13 +62,13 @@ export default function PasswordVerifyForm({ onVerified }: PasswordVerifyFormPro
 
       const verifyToken = response?.data?.verifyToken
       if (!verifyToken) {
-        toast('인증에 실패했습니다. 다시 시도해주세요.')
+        toast('인증에 실패했습니다. 다시 시도해 주세요.')
         return
       }
 
       onVerified(verifyToken)
     } catch {
-      toast('오류가 발생했습니다. 다시 시도해주세요.')
+      toast('오류가 발생했습니다. 다시 시도해 주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -82,7 +82,7 @@ export default function PasswordVerifyForm({ onVerified }: PasswordVerifyFormPro
             type="password"
             value={formData.password}
             onChange={(e) => handleChange('password', e.target.value)}
-            placeholder="현재 비밀번호를 입력해주세요."
+            placeholder="현재 비밀번호를 입력해 주세요."
             className={className}
             onKeyDown={(e) => e.key === 'Enter' && !isSubmitting && handleConfirm()}
           />

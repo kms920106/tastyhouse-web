@@ -118,7 +118,7 @@ export default function ProductOptionSelector({
     })
 
     if (missingRequired.length > 0) {
-      alert(`필수 옵션을 선택해주세요: ${missingRequired.map((g) => g.name).join(', ')}`)
+      alert(`필수 옵션을 선택해 주세요: ${missingRequired.map((g) => g.name).join(', ')}`)
       return false
     }
     return true
@@ -222,9 +222,7 @@ export default function ProductOptionSelector({
         </Tabs>
       </BorderedSection>
       <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
-        <AppPrimaryButton onClick={handleAddToCart}>
-          장바구니 담기
-        </AppPrimaryButton>
+        <AppPrimaryButton onClick={handleAddToCart}>장바구니 담기</AppPrimaryButton>
       </FixedBottomSection>
       <ConfirmModal
         open={showPlaceChangeModal}

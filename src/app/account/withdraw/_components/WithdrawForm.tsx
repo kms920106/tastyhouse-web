@@ -9,9 +9,9 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { WITHDRAW_REASON_LABEL, WithdrawReason } from '@/domains/member/member.type'
+import { extractZodFieldErrors } from '@/lib/form'
 import { withdrawMember } from '@/services/member'
 import { useRouter } from 'next/navigation'
-import { extractZodFieldErrors } from '@/lib/form'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -25,7 +25,7 @@ const NOTICES = [
 
 const withdrawSchema = z.object({
   reason: z.enum(Object.keys(WITHDRAW_REASON_LABEL) as [WithdrawReason, ...WithdrawReason[]], {
-    message: '탈퇴 사유를 선택해주세요.',
+    message: '탈퇴 사유를 선택해 주세요.',
   }),
 })
 
@@ -64,7 +64,7 @@ export default function WithdrawForm() {
       const response = await withdrawMember({ reason: pendingReason })
 
       if (response?.error) {
-        toast('탈퇴 처리 중 오류가 발생했습니다. 다시 시도해주세요.')
+        toast('탈퇴 처리 중 오류가 발생했습니다. 다시 시도해 주세요.')
         return
       }
 

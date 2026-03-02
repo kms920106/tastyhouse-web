@@ -55,12 +55,12 @@ export default function OrderCheckoutSection({
 
   const handlePayment = async () => {
     if (!agreedToTerms) {
-      toast('약관에 동의해주세요.')
+      toast('약관에 동의해 주세요.')
       return
     }
 
     if (!selectedPaymentMethod) {
-      toast('결제 수단을 선택해주세요.')
+      toast('결제 수단을 선택해 주세요.')
       return
     }
 
@@ -130,7 +130,7 @@ export default function OrderCheckoutSection({
     // 3-B. 신용카드 결제 - PG 결제창 호출
     if (selectedPaymentMethod === 'CREDIT_CARD') {
       if (!tossPayment) {
-        toast('결제 모듈을 불러오는 중입니다. 잠시 후 다시 시도해주세요.')
+        toast('결제 모듈을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.')
         return
       }
 

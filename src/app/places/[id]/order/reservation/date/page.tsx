@@ -282,7 +282,7 @@ export default function ReservationDatePage() {
         <div className="py-6 -mx-6 px-6 border-t-[6px] border-[#f5f5f5] box-border">
           <h2 className="mb-4 text-[17px]">인원</h2>
           <div className="flex items-center justify-between">
-            <p className="text-[15px] text-[#666666]">방문하시는 인원을 선택해주세요.</p>
+            <p className="text-[15px] text-[#666666]">방문하시는 인원을 선택해 주세요.</p>
             <div className="flex items-center gap-3">
               <button
                 onClick={decrementGuestCount}

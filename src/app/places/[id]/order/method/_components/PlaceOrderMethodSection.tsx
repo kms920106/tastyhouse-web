@@ -78,11 +78,11 @@ export default function PlaceOrderMethodSection({
         </Header>
         <div className="flex-1 flex flex-col justify-center px-[15px]">
           <div className="flex flex-col gap-[21px] text-center">
-            <h2 className="text-[23px] leading-[23px]">원하시는 주문방법을 선택해주세요.</h2>
+            <h2 className="text-[23px] leading-[23px]">원하시는 주문방법을 선택해 주세요.</h2>
             <p className="text-sm leading-[21px] text-[#999999]">
               가게 사정에 따라 가능한 주문방법이 달라질 수 있으며,
               <br />
-              자세한 사항은 가게 정보를 확인해주세요.
+              자세한 사항은 가게 정보를 확인해 주세요.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-[15px] mt-[60px]">

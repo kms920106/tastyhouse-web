@@ -11,6 +11,7 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
+import { extractZodFieldErrors } from '@/lib/form'
 import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/services/member'
 import {
   confirmPhoneVerificationCode,
@@ -18,7 +19,6 @@ import {
 } from '@/services/phone-verification'
 import Image from 'next/image'
 import Link from 'next/link'
-import { extractZodFieldErrors } from '@/lib/form'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -27,15 +27,15 @@ const BIRTH_MONTHS = Array.from({ length: 12 }, (_, i) => i + 1)
 const BIRTH_DAYS = Array.from({ length: 31 }, (_, i) => i + 1)
 
 const accountInfoSchema = z.object({
-  name: z.string().min(1, '이름을 입력해주세요.'),
+  name: z.string().min(1, '이름을 입력해 주세요.'),
   phone: z
     .string()
-    .min(1, '휴대폰 번호를 입력해주세요.')
-    .regex(/^01[0-9]{8,9}$/, '올바른 휴대폰 번호를 입력해주세요.'),
-  birthYear: z.string().min(1, '생년월일을 선택해주세요.'),
-  birthMonth: z.string().min(1, '생년월일을 선택해주세요.'),
-  birthDay: z.string().min(1, '생년월일을 선택해주세요.'),
-  gender: z.enum(['MALE', 'FEMALE'], { message: '성별을 선택해주세요.' }),
+    .min(1, '휴대폰 번호를 입력해 주세요.')
+    .regex(/^01[0-9]{8,9}$/, '올바른 휴대폰 번호를 입력해 주세요.'),
+  birthYear: z.string().min(1, '생년월일을 선택해 주세요.'),
+  birthMonth: z.string().min(1, '생년월일을 선택해 주세요.'),
+  birthDay: z.string().min(1, '생년월일을 선택해 주세요.'),
+  gender: z.enum(['MALE', 'FEMALE'], { message: '성별을 선택해 주세요.' }),
 })
 
 type FormErrors = Partial<Record<keyof z.infer<typeof accountInfoSchema>, string>>
@@ -73,7 +73,6 @@ interface AccountInfoEditFormProps {
 }
 
 export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditFormProps) {
-
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -116,7 +115,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
   const handleSendVerification = () => {
     const rawPhone = phone.replace(/-/g, '')
     if (!rawPhone.match(/^01[0-9]{8,9}$/)) {
-      setErrors((prev) => ({ ...prev, phone: '올바른 휴대폰 번호를 입력해주세요.' }))
+      setErrors((prev) => ({ ...prev, phone: '올바른 휴대폰 번호를 입력해 주세요.' }))
       return
     }
 
@@ -135,7 +134,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
         setIsVerificationVisible(true)
         toast('인증번호가 발송되었습니다.')
       } catch {
-        toast('인증번호 발송에 실패했습니다. 다시 시도해주세요.')
+        toast('인증번호 발송에 실패했습니다. 다시 시도해 주세요.')
       }
     })
   }
@@ -155,13 +154,13 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
         }
         const token = response?.data?.phoneVerifyToken
         if (!token) {
-          toast('인증에 실패했습니다. 다시 시도해주세요.')
+          toast('인증에 실패했습니다. 다시 시도해 주세요.')
           return
         }
         setPhoneVerifyToken(token)
         setIsVerified(true)
       } catch {
-        toast('인증번호 확인에 실패했습니다. 다시 시도해주세요.')
+        toast('인증번호 확인에 실패했습니다. 다시 시도해 주세요.')
       }
     })
   }
@@ -194,7 +193,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
 
   const handleSubmit = () => {
     if (!verifyToken) {
-      toast('인증 정보가 없습니다. 다시 시도해주세요.')
+      toast('인증 정보가 없습니다. 다시 시도해 주세요.')
       return
     }
 
@@ -223,7 +222,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
 
         toast('개인정보가 수정되었습니다.')
       } catch {
-        toast('오류가 발생했습니다. 다시 시도해주세요.')
+        toast('오류가 발생했습니다. 다시 시도해 주세요.')
       }
     })
   }
@@ -253,7 +252,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                     setName(e.target.value)
                     if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
                   }}
-                  placeholder="이름을 입력해주세요."
+                  placeholder="이름을 입력해 주세요."
                   className={`pr-4 ${className ?? ''}`}
                 />
               )}

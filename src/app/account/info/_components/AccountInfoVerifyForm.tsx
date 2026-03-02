@@ -4,14 +4,14 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
+import { extractZodFieldErrors } from '@/lib/form'
 import { verifyMemberPassword } from '@/services/member'
 import { useRouter } from 'next/navigation'
-import { extractZodFieldErrors } from '@/lib/form'
 import { useState } from 'react'
 import { z } from 'zod'
 
 const verifySchema = z.object({
-  password: z.string().min(1, '비밀번호를 입력해주세요.'),
+  password: z.string().min(1, '비밀번호를 입력해 주세요.'),
 })
 
 type FormData = z.infer<typeof verifySchema>
@@ -62,13 +62,13 @@ export default function AccountInfoVerifyForm() {
 
       const verifyToken = response?.data?.verifyToken
       if (!verifyToken) {
-        toast('인증에 실패했습니다. 다시 시도해주세요.')
+        toast('인증에 실패했습니다. 다시 시도해 주세요.')
         return
       }
 
       router.push(`/account/info/edit?verifyToken=${verifyToken}`)
     } catch {
-      toast('오류가 발생했습니다. 다시 시도해주세요.')
+      toast('오류가 발생했습니다. 다시 시도해 주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -80,7 +80,7 @@ export default function AccountInfoVerifyForm() {
         <p className="text-sm leading-relaxed text-[#666666]">
           회원님의 정보를 안전하게 보호하기위해
           <br />
-          비밀번호를 한번 더 확인해주세요.
+          비밀번호를 한번 더 확인해 주세요.
         </p>
         <div className="mt-[20px]">
           <AppFormField label="비밀번호" error={errors.password}>

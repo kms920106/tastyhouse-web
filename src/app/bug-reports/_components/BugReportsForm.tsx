@@ -13,9 +13,9 @@ import { useState, useTransition } from 'react'
 import { z } from 'zod'
 
 const bugReportSchema = z.object({
-  device: z.string().min(1, '단말기를 선택해주세요.'),
-  title: z.string().min(1, '제목을 입력해주세요.'),
-  content: z.string().min(1, '내용을 입력해주세요.'),
+  device: z.string().min(1, '단말기를 선택해 주세요.'),
+  title: z.string().min(1, '제목을 입력해 주세요.'),
+  content: z.string().min(1, '내용을 입력해 주세요.'),
 })
 
 type FormData = z.infer<typeof bugReportSchema>
@@ -170,7 +170,7 @@ export default function BugReportsForm() {
               type="text"
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              placeholder="제목을 입력해주세요."
+              placeholder="제목을 입력해 주세요."
               className={`w-full h-[50px] pl-[16px] pr-4 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333] ${errors.title ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
             />
           )}
@@ -180,7 +180,7 @@ export default function BugReportsForm() {
             <AppTextarea
               value={formData.content}
               onChange={(e) => handleChange('content', e.target.value)}
-              placeholder="내용을 입력해주세요."
+              placeholder="내용을 입력해 주세요."
               rows={16}
               error={!!errors.content}
               className={className}

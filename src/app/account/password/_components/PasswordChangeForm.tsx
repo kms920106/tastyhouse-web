@@ -14,10 +14,10 @@ const changeSchema = z
   .object({
     newPassword: z
       .string()
-      .min(1, '새 비밀번호를 입력해주세요.')
-      .min(8, '비밀번호는 8자 이상 20자 이하로 입력해주세요.')
-      .max(20, '비밀번호는 8자 이상 20자 이하로 입력해주세요.'),
-    newPasswordConfirm: z.string().min(1, '새 비밀번호 확인을 입력해주세요.'),
+      .min(1, '새 비밀번호를 입력해 주세요.')
+      .min(8, '비밀번호는 8자 이상 20자 이하로 입력해 주세요.')
+      .max(20, '비밀번호는 8자 이상 20자 이하로 입력해 주세요.'),
+    newPasswordConfirm: z.string().min(1, '새 비밀번호 확인을 입력해 주세요.'),
   })
   .refine((data) => data.newPassword === data.newPasswordConfirm, {
     message: '비밀번호가 일치하지 않습니다.',
@@ -75,7 +75,7 @@ export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormPr
         if (status === 400) {
           toast('현재 비밀번호와 동일한 비밀번호로 변경할 수 없습니다.')
         } else {
-          toast('비밀번호 변경에 실패했습니다. 다시 시도해주세요.')
+          toast('비밀번호 변경에 실패했습니다. 다시 시도해 주세요.')
         }
         return
       }
@@ -83,7 +83,7 @@ export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormPr
       toast('비밀번호가 변경되었습니다.')
       router.back()
     } catch {
-      toast('오류가 발생했습니다. 다시 시도해주세요.')
+      toast('오류가 발생했습니다. 다시 시도해 주세요.')
     } finally {
       setIsSubmitting(false)
     }
@@ -97,7 +97,7 @@ export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormPr
             type="password"
             value={formData.newPassword}
             onChange={(e) => handleChange('newPassword', e.target.value)}
-            placeholder="새 비밀번호를 입력해주세요."
+            placeholder="새 비밀번호를 입력해 주세요."
             className={className}
           />
         )}
@@ -108,7 +108,7 @@ export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormPr
             type="password"
             value={formData.newPasswordConfirm}
             onChange={(e) => handleChange('newPasswordConfirm', e.target.value)}
-            placeholder="새 비밀번호를 확인해주세요."
+            placeholder="새 비밀번호를 확인해 주세요."
             className={className}
             onKeyDown={(e) => e.key === 'Enter' && !isSubmitting && handleConfirm()}
           />

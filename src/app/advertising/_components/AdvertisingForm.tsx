@@ -17,19 +17,19 @@ import PostcodeModal from './PostcodeModal'
 const CONSULTATION_HOURS = ['09', '10', '11', '14', '15', '16', '17'] as const
 
 const advertisingSchema = z.object({
-  businessName: z.string().min(1, '상호명을 입력해주세요.'),
-  address: z.string().min(1, '주소를 검색해주세요.'),
-  addressDetail: z.string().min(1, '상세주소를 입력해주세요.'),
-  contactName: z.string().min(1, '성함을 입력해주세요.'),
+  businessName: z.string().min(1, '상호명을 입력해 주세요.'),
+  address: z.string().min(1, '주소를 검색해 주세요.'),
+  addressDetail: z.string().min(1, '상세주소를 입력해 주세요.'),
+  contactName: z.string().min(1, '성함을 입력해 주세요.'),
   contactPhone: z
     .string()
-    .min(1, '연락처를 입력해주세요.')
+    .min(1, '연락처를 입력해 주세요.')
     .regex(
       /^01[0-9]-[0-9]{3,4}-[0-9]{4}$/,
       '올바른 휴대폰 번호 형식이 아닙니다. (예: 010-1234-5678)',
     ),
-  consultationDate: z.string().min(1, '상담 날짜를 선택해주세요.'),
-  consultationHour: z.string().min(1, '상담 시간을 선택해주세요.'),
+  consultationDate: z.string().min(1, '상담 날짜를 선택해 주세요.'),
+  consultationHour: z.string().min(1, '상담 시간을 선택해 주세요.'),
 })
 
 interface FormData extends z.infer<typeof advertisingSchema> {
@@ -111,7 +111,7 @@ export default function AdvertisingForm() {
     if (!validateForm()) return
 
     if (!formData.agreeToTerms) {
-      toast('개인정보 수집 및 이용에 동의해주세요.')
+      toast('개인정보 수집 및 이용에 동의해 주세요.')
       return
     }
 
@@ -159,7 +159,7 @@ export default function AdvertisingForm() {
             <AppInputText
               value={formData.businessName}
               onChange={(e) => handleChange('businessName', e.target.value)}
-              placeholder="상호명을 입력해주세요."
+              placeholder="상호명을 입력해 주세요."
               className={className}
             />
           )}
@@ -172,7 +172,7 @@ export default function AdvertisingForm() {
                   type="text"
                   value={formData.address}
                   readOnly
-                  placeholder="도로명 주소를 검색해주세요."
+                  placeholder="도로명 주소를 검색해 주세요."
                   className={`flex-1 pr-4 bg-white ${className ?? ''}`}
                 />
                 <button
@@ -186,7 +186,7 @@ export default function AdvertisingForm() {
               <AppInputText
                 value={formData.addressDetail}
                 onChange={(e) => handleChange('addressDetail', e.target.value)}
-                placeholder="상세주소를 입력해주세요."
+                placeholder="상세주소를 입력해 주세요."
                 className={
                   errors.addressDetail
                     ? 'border-[#bc4040] focus-visible:border-[#bc4040]'
@@ -201,7 +201,7 @@ export default function AdvertisingForm() {
             <AppInputText
               value={formData.contactName}
               onChange={(e) => handleChange('contactName', e.target.value)}
-              placeholder="성함을 입력해주세요."
+              placeholder="성함을 입력해 주세요."
               className={className}
             />
           )}

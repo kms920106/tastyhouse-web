@@ -45,7 +45,7 @@ export default function LoginPage() {
           <div>
             <input
               type="text"
-              placeholder="아이디(이메일주소)를 입력해주세요."
+              placeholder="아이디(이메일주소)를 입력해 주세요."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-4 border border-gray-200 rounded-lg text-base leading-[16px] placeholder:text-gray-400 focus:outline-none focus:border-gray-300"
@@ -56,7 +56,7 @@ export default function LoginPage() {
           <div>
             <input
               type="password"
-              placeholder="비밀번호를 입력해주세요."
+              placeholder="비밀번호를 입력해 주세요."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-4 border border-gray-200 rounded-lg  placeholder:text-gray-400 focus:outline-none focus:border-gray-300"

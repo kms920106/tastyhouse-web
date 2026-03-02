@@ -14,7 +14,7 @@ export default function GlobalErrorPage({ error, reset }: GlobalErrorPageProps) 
         <section className="flex flex-col min-h-screen">
           <div className="flex-1 flex items-center justify-center">
             <div className="w-full text-sm leading-relaxed text-[#999999] text-center whitespace-pre-line">
-              {error.message || '심각한 오류가 발생했습니다.\n페이지를 새로고침 해주세요.'}
+              {error.message || '심각한 오류가 발생했습니다.\n페이지를 새로고침 해 주세요.'}
             </div>
           </div>
           <div className="p-4">

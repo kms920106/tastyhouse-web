@@ -2,14 +2,14 @@
 
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
-import { toast } from '@/components/ui/AppToaster'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import { toast } from '@/components/ui/AppToaster'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
-import { updateMemberProfile } from '@/services/member'
+import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFile } from '@/services/file'
+import { updateMemberProfile } from '@/services/member'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import { extractZodFieldErrors } from '@/lib/form'
 import { useEffect, useState } from 'react'
 import { z } from 'zod'
 import ProfileImageEditor from './ProfileImageEditor'
@@ -17,7 +17,7 @@ import ProfileImageEditor from './ProfileImageEditor'
 const profileSchema = z.object({
   nickname: z
     .string()
-    .min(1, '닉네임을 입력해주세요.')
+    .min(1, '닉네임을 입력해 주세요.')
     .max(20, '닉네임은 최대 20자까지 가능합니다.')
     .refine((val) => !/\s/.test(val), '닉네임에 공백을 포함할 수 없습니다.'),
   statusMessage: z.string().max(30, '상태메세지는 최대 30자까지 가능합니다.'),

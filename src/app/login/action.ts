@@ -1,8 +1,8 @@
 'use server'
 
+import type { LoginParams, LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
 import { api } from '@/lib/api'
 import { API_ENDPOINTS } from '@/lib/endpoints'
-import type { LoginParams, LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -10,10 +10,10 @@ import { redirect } from 'next/navigation'
 // 입력 검증 함수 분리
 function validateLoginInput(username: string, password: string): string | null {
   if (!username?.trim()) {
-    return '아이디를 입력해주세요.'
+    return '아이디를 입력해 주세요.'
   }
   if (!password?.trim()) {
-    return '비밀번호를 입력해주세요.'
+    return '비밀번호를 입력해 주세요.'
   }
   if (username.length < 3) {
     return '아이디는 최소 3글자 이상이어야 합니다.'
