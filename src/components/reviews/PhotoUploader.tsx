@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useEffect, useMemo } from 'react'
-import { SlCamera } from 'react-icons/sl'
 import { toast } from '../ui/AppToaster'
 
 interface PhotoUploaderProps {
@@ -40,36 +39,36 @@ export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
 
   return (
     <div className="grid grid-cols-3 gap-3">
-        <label className="relative flex items-center justify-center aspect-square border-1 border-dashed border-border-main box-border cursor-pointer">
-          <input
-            type="file"
-            className="hidden"
-            onChange={handleUploadImage}
-            accept="image/*"
-            multiple
+      <label className="relative flex items-center justify-center aspect-square border-1 border-dashed border-border-main box-border cursor-pointer">
+        <input
+          type="file"
+          className="hidden"
+          onChange={handleUploadImage}
+          accept="image/*"
+          multiple
+        />
+        <div className="flex flex-col items-center gap-2.5">
+          <Image src="/images/icon-camera.png" alt="카메라" width={23} height={18} />
+          <span className="text-[11px] leading-[11px] text-[#999999]">{value.length}/5</span>
+        </div>
+      </label>
+      {previewUrls.map((url, index) => (
+        <div key={index} className="relative overflow-hidden aspect-square">
+          <Image
+            src={url}
+            alt={`uploaded-${index}`}
+            className="object-cover border border-border-input box-border"
+            fill
           />
-          <div className="flex flex-col items-center text-gray-400">
-            <SlCamera size={23} />
-            <span className="text-xs mt-1">{value.length}/5</span>
-          </div>
-        </label>
-        {previewUrls.map((url, index) => (
-          <div key={index} className="relative overflow-hidden aspect-square">
-            <Image
-              src={url}
-              alt={`uploaded-${index}`}
-              className="object-cover border border-border-input box-border"
-              fill
-            />
-            <button
-              type="button"
-              className="absolute top-1 right-1"
-              onClick={() => handleRemoveImage(index)}
-            >
-              <Image src="/images/icon-delete.png" alt="삭제" width={20} height={20} />
-            </button>
-          </div>
-        ))}
+          <button
+            type="button"
+            className="absolute top-2 right-2"
+            onClick={() => handleRemoveImage(index)}
+          >
+            <Image src="/images/icon-delete.png" alt="삭제" width={20} height={20} />
+          </button>
+        </div>
+      ))}
     </div>
   )
 }
