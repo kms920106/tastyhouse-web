@@ -159,7 +159,10 @@ export default function OrderReviewCreateForm({
   }
 
   const handleSubmit = () => {
-    if (!validateForm()) return
+    if (!validateForm()) {
+      toast('작성하지 않은 항목이 있습니다. 확인해 주세요.')
+      return
+    }
 
     startSubmitting(async () => {
       const { error } = await createOrderReview({
