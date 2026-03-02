@@ -219,11 +219,11 @@ export default function OrderReviewCreateForm({
                   </button>
                 ))}
               </div>
+              {errors.ratings && formData.ratings[key] === 0 && (
+                <p className="text-xs leading-[12px] text-[#bc4040]">{errors.ratings}</p>
+              )}
             </div>
           ))}
-          {errors.ratings && (
-            <p className="text-xs leading-[12px] text-[#bc4040] py-3">{errors.ratings}</p>
-          )}
         </div>
       </BorderedSection>
       <BorderedSection>
