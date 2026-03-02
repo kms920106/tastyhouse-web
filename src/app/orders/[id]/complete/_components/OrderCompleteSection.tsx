@@ -24,9 +24,9 @@ export default function OrderCompleteSection({ orderDetail }: OrderCompleteSecti
       </Header>
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="relative w-[95px] h-[95px]">
-          <Image src="/images/circle.png" alt="" fill className="object-contain" />
+          <Image src="/images/icon-circle-red.png" alt="" fill className="object-contain" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Image src="/images/check.png" alt="결제완료" width={49} height={35} />
+            <Image src="/images/icon-check-red.png" alt="결제완료" width={49} height={35} />
           </div>
         </div>
         <div className="flex flex-col items-center text-center">
