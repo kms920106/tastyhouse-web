@@ -18,6 +18,7 @@ export default function ReviewTextarea({ value, onChange, error, className }: Re
         rows={10}
         error={error}
         className={className}
+        placeholder="내용을 입력해 주세요."
       />
       <span className="absolute bottom-[15px] right-[15px] text-sm leading-[14px] text-[#cccccc]">
         {value.length} / 500
