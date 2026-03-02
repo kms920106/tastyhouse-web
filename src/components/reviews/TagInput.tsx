@@ -1,5 +1,7 @@
 'use client'
 
+import HashTag from '@/components/ui/HashTag'
+import Image from 'next/image'
 import { useState } from 'react'
 
 interface TagInputProps {
@@ -70,6 +72,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           autoComplete="off"
+          placeholder="태그를 입력해 주세요."
         />
 
         {isFocused && inputValue && dropdownList.length > 0 && (
@@ -89,20 +92,19 @@ export default function TagInput({ value, onChange }: TagInputProps) {
           </ul>
         )}
       </div>
-      <div className="flex flex-wrap gap-2 mt-2">
+      <div className="flex flex-wrap gap-2">
         {value.map((tag, index) => (
-          <span
+          <HashTag
             key={index}
-            className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm flex items-center"
+            tag={tag}
+            variant="secondary"
+            size="md"
+            className="h-[30px] pl-4 pr-2.5 py-2.5 gap-[11px]"
           >
-            #{tag}
-            <button
-              onClick={() => handleTagRemove(tag)}
-              className="ml-2 text-gray-500 cursor-pointer"
-            >
-              ×
+            <button onClick={() => handleTagRemove(tag)} className="cursor-pointer">
+              <Image src="/images/icon-delete.png" alt="삭제" width={9} height={9} />
             </button>
-          </span>
+          </HashTag>
         ))}
       </div>
     </div>
