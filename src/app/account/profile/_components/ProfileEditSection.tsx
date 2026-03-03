@@ -1,5 +1,3 @@
-// 'use client'
-
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import ProfileEditForm from './ProfileEditForm'
