@@ -49,7 +49,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing && inputValue.trim()) {
       e.preventDefault()
       handleTagAdd(inputValue.trim())
     }
