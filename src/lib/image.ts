@@ -1,4 +1,6 @@
-export function resolveImageUrl(filePath: string): string {
+export function resolveImageUrl(filePath: string | null | undefined): string {
+  if (!filePath) return ''
+
   // base64 데이터 URL은 그대로 반환
   if (filePath.startsWith('data:')) {
     return filePath

@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 interface ImageContainerProps {
-  src: string
+  src: string | null | undefined
   alt: string
   size: 50 | 60 | 65 | 75
   rounded?: 'none' | '1px' | '2.5px'
