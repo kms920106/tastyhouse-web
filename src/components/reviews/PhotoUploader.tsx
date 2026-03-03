@@ -1,8 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useMemo } from 'react'
-import { toast } from '../ui/AppToaster'
+import { useEffect, useState } from 'react'
 
 interface PhotoUploaderProps {
   value: File[]
@@ -10,31 +9,27 @@ interface PhotoUploaderProps {
 }
 
 export default function PhotoUploader({ value, onChange }: PhotoUploaderProps) {
-  const previewUrls = useMemo(() => value.map((file) => URL.createObjectURL(file)), [value])
+  const [previewUrls, setPreviewUrls] = useState<string[]>([])
 
   useEffect(() => {
+    const urls = value.map((file) => URL.createObjectURL(file))
+    setPreviewUrls(urls)
+
     return () => {
-      previewUrls.forEach((url) => URL.revokeObjectURL(url))
+      urls.forEach((url) => URL.revokeObjectURL(url))
     }
-  }, [previewUrls])
+  }, [value])
 
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : []
     if (!files.length) return
-
-    if (value.length + files.length > 5) {
-      toast('사진은 최대 5장까지 업로드할 수 있습니다.')
-      e.target.value = ''
-      return
-    }
 
     onChange([...value, ...files])
     e.target.value = ''
   }
 
   const handleRemoveImage = (index: number) => {
-    const newFiles = value.filter((_, i) => i !== index)
-    onChange(newFiles)
+    onChange(value.filter((_, i) => i !== index))
   }
 
   return (

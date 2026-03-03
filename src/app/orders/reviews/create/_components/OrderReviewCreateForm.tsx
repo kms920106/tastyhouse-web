@@ -73,7 +73,11 @@ export default function OrderReviewCreateForm({
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, startSubmitting] = useTransition()
 
-  const { files, uploadedFiles, isUploading, handleFilesChange } = useFileUpload()
+  const { files, uploadedFiles, isUploading, handleFilesChange } = useFileUpload({
+    maxCount: 5,
+    allowedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+    maxFileSize: 5 * 1024 * 1024,
+  })
 
   const handleRatingChange = (key: 'taste' | 'amount' | 'price', value: number) => {
     setFormData((prev) => ({ ...prev, ratings: { ...prev.ratings, [key]: value } }))
