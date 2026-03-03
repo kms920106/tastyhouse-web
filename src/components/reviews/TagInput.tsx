@@ -3,6 +3,7 @@
 import HashTag from '@/components/ui/HashTag'
 import Image from 'next/image'
 import { useState } from 'react'
+import AppInputText from '../ui/AppInputText'
 
 interface TagInputProps {
   value: string[]
@@ -62,8 +63,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
   return (
     <div className="flex flex-col gap-2.5">
       <div className="relative">
-        <input
-          type="text"
+        <AppInputText
           className="w-full h-[50px] px-4 text-sm border border-border-input box-border focus:border-input-focus focus:ring-1 focus:ring-border-input-focus outline-none"
           id="tag"
           value={inputValue}
