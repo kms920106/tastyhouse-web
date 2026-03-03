@@ -9,8 +9,8 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
+import useFileUpload from '@/hooks/useFileUpload'
 import { extractZodFieldErrors } from '@/lib/form'
-import { uploadFile } from '@/services/file'
 import { createOrderReview } from '@/services/review'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
@@ -27,11 +27,6 @@ const RATING_CATEGORIES: RatingCategory[] = [
   { key: 'amount', label: '양은 어떤가요?' },
   { key: 'price', label: '가격은 어떤가요?' },
 ]
-
-interface UploadedPhoto {
-  previewUrl: string
-  fileId: number
-}
 
 const reviewSchema = z.object({
   ratings: z
@@ -76,10 +71,9 @@ export default function OrderReviewCreateForm({
 
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
-  const [photos, setPhotos] = useState<File[]>([])
-  const [uploadedPhotos, setUploadedPhotos] = useState<UploadedPhoto[]>([])
-  const [isUploading, startUploading] = useTransition()
   const [isSubmitting, startSubmitting] = useTransition()
+
+  const { files, uploadedFiles, isUploading, handleFilesChange } = useFileUpload()
 
   const handleRatingChange = (key: 'taste' | 'amount' | 'price', value: number) => {
     setFormData((prev) => ({ ...prev, ratings: { ...prev.ratings, [key]: value } }))
@@ -97,39 +91,6 @@ export default function OrderReviewCreateForm({
 
   const handleTagsChange = (tags: string[]) => {
     setFormData((prev) => ({ ...prev, tags }))
-  }
-
-  const handlePhotosChange = (files: File[]) => {
-    const newFiles = files.slice(photos.length)
-
-    if (newFiles.length === 0) {
-      setPhotos(files)
-      setUploadedPhotos((prev) => prev.slice(0, files.length))
-      return
-    }
-
-    setPhotos(files)
-
-    startUploading(async () => {
-      try {
-        const results = await Promise.all(
-          newFiles.map(async (file) => {
-            const response = await uploadFile(file)
-
-            if (!response?.data) {
-              throw new Error('사진 업로드에 실패했습니다.')
-            }
-
-            return { previewUrl: URL.createObjectURL(file), fileId: response.data.fileId }
-          }),
-        )
-
-        setUploadedPhotos((prev) => [...prev, ...results])
-      } catch {
-        toast('사진 업로드 중 오류가 발생했습니다.')
-        setPhotos((prev) => prev.slice(0, prev.length - newFiles.length))
-      }
-    })
   }
 
   const validateForm = (): boolean => {
@@ -172,7 +133,7 @@ export default function OrderReviewCreateForm({
         amountRating: formData.ratings.amount,
         priceRating: formData.ratings.price,
         content: formData.content,
-        uploadedFileIds: uploadedPhotos.map((p) => p.fileId),
+        uploadedFileIds: uploadedFiles.map((f) => f.fileId),
         tags: formData.tags,
       })
 
@@ -240,7 +201,7 @@ export default function OrderReviewCreateForm({
           </AppFormField>
           <div className="flex flex-col gap-5">
             <AppFormField label="사진">
-              {() => <PhotoUploader value={photos} onChange={handlePhotosChange} />}
+              {() => <PhotoUploader value={files} onChange={handleFilesChange} />}
             </AppFormField>
             <div>
               <p className="text-sm leading-relaxed text-[#999999]">

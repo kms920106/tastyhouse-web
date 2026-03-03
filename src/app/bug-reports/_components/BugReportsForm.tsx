@@ -5,9 +5,9 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import AppTextarea from '@/components/ui/AppTextarea'
 import { toast } from '@/components/ui/AppToaster'
 import { Spinner } from '@/components/ui/shadcn/spinner'
+import useFileUpload from '@/hooks/useFileUpload'
 import { extractZodFieldErrors } from '@/lib/form'
 import { createBugReport } from '@/services/bug-report'
-import { uploadFile } from '@/services/file'
 import Image from 'next/image'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
@@ -28,62 +28,22 @@ const INITIAL_FORM_DATA: FormData = {
   content: '',
 }
 
-interface UploadedImage {
-  previewUrl: string
-  fileId: number
-}
+const MAX_IMAGE_COUNT = 5
 
 export default function BugReportsForm() {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
-  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([])
-  const [isUploading, startUploading] = useTransition()
   const [isSubmitting, startSubmitting] = useTransition()
+
+  const { uploadedFiles, isUploading, handleInputChange, removeAt, reset: resetFiles } = useFileUpload({
+    maxCount: MAX_IMAGE_COUNT,
+  })
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
-  }
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
-    if (!files.length) return
-
-    if (uploadedImages.length + files.length > 5) {
-      toast('사진은 최대 5장까지 업로드할 수 있습니다.')
-      return
-    }
-
-    // 같은 파일 재선택 가능하도록 input 초기화
-    e.target.value = ''
-
-    startUploading(async () => {
-      try {
-        const results = await Promise.all(
-          files.map(async (file) => {
-            const previewUrl = URL.createObjectURL(file)
-            const response = await uploadFile(file)
-
-            if (!response?.data) {
-              throw new Error('이미지 업로드에 실패했습니다.')
-            }
-
-            return { previewUrl, fileId: response.data }
-          }),
-        )
-
-        setUploadedImages((prev) => [...prev, ...results])
-      } catch (error) {
-        console.error('이미지 업로드 실패:', error)
-        toast('이미지 업로드 중 오류가 발생했습니다.')
-      }
-    })
-  }
-
-  const removeImage = (index: number) => {
-    setUploadedImages((prev) => prev.filter((_, i) => i !== index))
   }
 
   const validateForm = (): boolean => {
@@ -112,14 +72,14 @@ export default function BugReportsForm() {
           device: formData.device,
           title: formData.title,
           content: formData.content,
-          uploadedFileIds: uploadedImages.map((img) => img.fileId),
+          uploadedFileIds: uploadedFiles.map((f) => f.fileId),
         })
 
         if (!response?.error) {
           toast('버그 제보가 접수되었습니다.')
           setFormData(INITIAL_FORM_DATA)
-          setUploadedImages([])
           setErrors({})
+          resetFiles()
         } else {
           toast('버그 제보 접수에 실패했습니다.')
         }
@@ -195,8 +155,8 @@ export default function BugReportsForm() {
                 type="file"
                 accept="image/*"
                 multiple
-                onChange={handleImageUpload}
-                disabled={isUploading || uploadedImages.length >= 5}
+                onChange={handleInputChange}
+                disabled={isUploading || uploadedFiles.length >= MAX_IMAGE_COUNT}
                 className="sr-only"
               />
               <div className="flex flex-col items-center gap-2.5">
@@ -211,11 +171,11 @@ export default function BugReportsForm() {
                   />
                 )}
                 <span className="text-[11px] leading-[11px] text-[#999999]">
-                  {uploadedImages.length}/5
+                  {uploadedFiles.length}/{MAX_IMAGE_COUNT}
                 </span>
               </div>
             </label>
-            {uploadedImages.map((image, index) => (
+            {uploadedFiles.map((image, index) => (
               <div key={image.fileId} className="relative aspect-square">
                 <Image
                   src={image.previewUrl}
@@ -226,7 +186,7 @@ export default function BugReportsForm() {
                 />
                 <button
                   type="button"
-                  onClick={() => removeImage(index)}
+                  onClick={() => removeAt(index)}
                   className="absolute -top-2 -right-2 w-6 h-6 bg-[#333333] rounded-full flex items-center justify-center"
                 >
                   <svg
