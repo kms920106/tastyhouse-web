@@ -2,6 +2,7 @@
 
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { PlaceFoodType } from '@/domains/place'
+import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'
 import { useFilterState } from './FilterStateProvider'
 
@@ -52,7 +53,7 @@ export default function FoodTypeSelector({ foods }: FoodTypeSelectorProps) {
               className={`relative flex items-center justify-center w-full h-12 mb-[15px] ${!isSelected ? 'opacity-50' : ''}`}
             >
               <Image
-                src={foodType.imageUrl}
+                src={resolveImageUrl(foodType.imageUrl)}
                 alt={foodType.name}
                 width={56}
                 height={35}

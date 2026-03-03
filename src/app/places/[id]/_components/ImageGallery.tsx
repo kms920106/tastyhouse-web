@@ -3,6 +3,7 @@
 import ImageLightbox from '@/components/reviews/ImageLightbox'
 import ImageSwiper from '@/components/reviews/ImageSwiper'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import { resolveImageUrl } from '@/lib/image'
 import { useState } from 'react'
 
 export function ImageGallerySkeleton() {
@@ -19,6 +20,8 @@ export default function ImageGallery({ imageUrls }: ImageGalleryProps) {
 
   if (imageUrls.length === 0) return null
 
+  const resolvedImageUrls = imageUrls.map(resolveImageUrl)
+
   const openLightbox = (index: number) => {
     setLightboxIndex(index)
     setLightboxOpen(true)
@@ -26,9 +29,9 @@ export default function ImageGallery({ imageUrls }: ImageGalleryProps) {
 
   return (
     <>
-      <ImageSwiper imageUrls={imageUrls} onImageClick={openLightbox} />
+      <ImageSwiper imageUrls={resolvedImageUrls} onImageClick={openLightbox} />
       <ImageLightbox
-        imageUrls={imageUrls}
+        imageUrls={resolvedImageUrls}
         isOpen={lightboxOpen}
         currentIndex={lightboxIndex}
         onClose={() => setLightboxOpen(false)}

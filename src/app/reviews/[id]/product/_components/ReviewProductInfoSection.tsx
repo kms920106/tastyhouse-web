@@ -8,6 +8,7 @@ import SectionStack from '@/components/ui/SectionStack'
 import TextContent from '@/components/ui/TextContent'
 import { reviewService } from '@/domains/review'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { resolveImageUrl } from '@/lib/image'
 import { formatNumber } from '@/lib/number'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
@@ -80,7 +81,7 @@ export default async function ReviewProductInfoSection({
               <div className="flex items-center gap-4">
                 <div className="relative w-[50px] h-[50px] flex-shrink-0 overflow-hidden">
                   <Image
-                    src={productImageUrl}
+                    src={resolveImageUrl(productImageUrl)}
                     alt={productName}
                     fill
                     className="object-cover"

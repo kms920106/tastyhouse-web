@@ -2,6 +2,7 @@ import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { eventService } from '@/domains/event/event.service'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'
 
 export function PrizeListSkeleton() {
@@ -62,7 +63,7 @@ export default async function PrizeList() {
         </div>
         <div className="flex items-center justify-center w-full h-full bg-white border border-[#eeeeee] rounded-full">
           <Image
-            src={prize.imageUrl}
+            src={resolveImageUrl(prize.imageUrl)}
             alt={prize.name}
             width={80}
             height={80}

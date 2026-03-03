@@ -1,5 +1,6 @@
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { MyReviewListItemResponse } from '@/domains/member/member.type'
+import { resolveImageUrl } from '@/lib/image'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,7 +13,7 @@ interface ReviewListItemProps {
 function ReviewListItem({ id, imageUrl }: ReviewListItemProps) {
   return (
     <Link key={id} href={PAGE_PATHS.REVIEW_DETAIL(id)} className="relative aspect-square">
-      <Image src={imageUrl ?? ''} alt="리뷰 이미지" fill sizes="33vw" className="object-cover" />
+      <Image src={resolveImageUrl(imageUrl ?? '')} alt="리뷰 이미지" fill sizes="33vw" className="object-cover" />
     </Link>
   )
 }

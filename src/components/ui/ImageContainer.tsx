@@ -1,3 +1,4 @@
+import { resolveImageUrl } from '@/lib/image'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
@@ -35,7 +36,7 @@ export default function ImageContainer({
         rounded === '2.5px' && 'rounded-[2.5px]',
       )}
     >
-      <Image src={src} alt={alt} fill className="object-cover" sizes={sizeValue} />
+      <Image src={resolveImageUrl(src)} alt={alt} fill className="object-cover" sizes={sizeValue} />
     </div>
   )
 }

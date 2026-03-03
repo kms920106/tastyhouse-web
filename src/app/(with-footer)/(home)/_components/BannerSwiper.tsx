@@ -6,6 +6,7 @@ import styles from './BannerSwiper.module.css'
 
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { Banner } from '@/domains/banner'
+import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Autoplay, Pagination } from 'swiper/modules'
@@ -54,7 +55,7 @@ export default function BannerSwiper({ banners }: BannerSwiperProps) {
               className="relative block w-full h-full"
             >
               <Image
-                src={banner.imageUrl}
+                src={resolveImageUrl(banner.imageUrl)}
                 alt={banner.title}
                 fill
                 sizes="(max-width: 500px) 100vw, 500px"
@@ -65,7 +66,7 @@ export default function BannerSwiper({ banners }: BannerSwiperProps) {
           ) : (
             <div className="relative w-full h-full">
               <Image
-                src={banner.imageUrl}
+                src={resolveImageUrl(banner.imageUrl)}
                 alt={banner.title}
                 fill
                 sizes="(max-width: 500px) 100vw, 500px"
