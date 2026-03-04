@@ -1,7 +1,7 @@
 'use client'
 
 import Avatar from '@/components/ui/Avatar'
-import Nickname from '@/components/ui/Nickname'
+import MemberNickname from '@/components/ui/MemberNickname'
 import TimeAgo from '@/components/ui/TimeAgo'
 import {
   Drawer,
@@ -60,7 +60,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
         <Avatar src={comment.memberProfileImageUrl} alt={comment.memberNickname} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-[15px] mb-2.5">
-            <Nickname>{comment.memberNickname}</Nickname>
+            <MemberNickname>{comment.memberNickname}</MemberNickname>
             <TimeAgo date={comment.createdAt} />
           </div>
           <p className="text-xs leading-relaxed whitespace-pre-wrap break-words">
@@ -105,7 +105,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
                 <Avatar src={reply.memberProfileImageUrl} alt={reply.memberNickname} size="sm" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2.5">
-                    <Nickname size="sm">{reply.memberNickname}</Nickname>
+                    <MemberNickname size="sm">{reply.memberNickname}</MemberNickname>
                     <TimeAgo date={reply.createdAt} />
                   </div>
                   <p className="text-xs leading-relaxed whitespace-pre-wrap break-words">

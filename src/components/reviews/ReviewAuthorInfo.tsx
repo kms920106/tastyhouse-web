@@ -1,5 +1,5 @@
 import Avatar from '@/components/ui/Avatar'
-import Nickname from '@/components/ui/Nickname'
+import MemberNickname from '@/components/ui/MemberNickname'
 import TimeAgo from '@/components/ui/TimeAgo'
 
 interface ReviewAuthorInfoProps {
@@ -17,7 +17,7 @@ export default function ReviewAuthorInfo({
     <div className="flex items-center gap-2.5">
       <Avatar src={profileImageUrl} alt={nickname} priority />
       <div className="flex flex-col gap-2">
-        <Nickname>{nickname}</Nickname>
+        <MemberNickname>{nickname}</MemberNickname>
         <TimeAgo date={createdAt} />
       </div>
     </div>
