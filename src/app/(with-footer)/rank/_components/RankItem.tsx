@@ -1,6 +1,6 @@
 import Avatar from '@/components/ui/Avatar'
-import Nickname from '@/components/ui/Nickname'
-import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
+import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
+import MemberNickname from '@/components/ui/MemberNickname'
 import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
 
@@ -21,10 +21,6 @@ export default function RankItem({
   reviewCount,
   isMe = false,
 }: RankItemProps) {
-  const gradeName = getMemberGradeName(grade)
-  const gradeIcon = getMemberGradeIcon(grade)
-  const gradeColor = getMemberGradeColor(grade)
-
   return (
     <div className="flex justify-between items-center w-full">
       <div className="flex items-center gap-2.5">
@@ -49,20 +45,9 @@ export default function RankItem({
                 나
               </p>
             )}
-            <Nickname>{nickname}</Nickname>
+            <MemberNickname>{nickname}</MemberNickname>
           </div>
-          <div className="flex items-center gap-[5px]">
-            <div className="relative w-[14px] h-[14px]">
-              <Image
-                src={`/images/rank/icon-level-${gradeIcon}-40.png`}
-                alt={gradeName}
-                fill
-                style={{ objectFit: 'contain' }}
-                sizes="14px"
-              />
-            </div>
-            <span className={`text-xs leading-[12px] ${gradeColor}`}>{gradeName}</span>
-          </div>
+          <MemberGradeBadge grade={grade} />
         </div>
       </div>
       <div className="text-xs leading-[12px] text-[#666666]">{reviewCount}개</div>
