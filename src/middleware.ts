@@ -57,8 +57,6 @@ export async function middleware(request: NextRequest) {
     if (!isExpired) {
       return NextResponse.next()
     }
-
-  } else {
   }
 
   // 토큰 갱신 시도
@@ -80,7 +78,8 @@ export async function middleware(request: NextRequest) {
       return res
     }
 
-    const data = await response.json()
+    const json = await response.json()
+    const data = json?.data ?? json
 
     // 새 토큰으로 쿠키 업데이트하여 다음 요청으로 진행
     const res = NextResponse.next()
