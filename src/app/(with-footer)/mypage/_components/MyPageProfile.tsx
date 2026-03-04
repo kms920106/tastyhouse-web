@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { useMyReviewStats } from '@/hooks/useMyReviewStats'
+import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -49,7 +50,7 @@ export default function MyPageProfile() {
     return <MyPageProfileSkeleton />
   }
 
-  const { nickname, profileImageUrl, grade: memberGrade, statusMessage } = memberProfile ?? {}
+  const { id: memberId, nickname, profileImageUrl, grade: memberGrade, statusMessage } = memberProfile ?? {}
 
   const gradeName = getMemberGradeName(memberGrade ?? 'NEWCOMER')
   const gradeIcon = getMemberGradeIcon(memberGrade ?? 'NEWCOMER')
@@ -86,14 +87,14 @@ export default function MyPageProfile() {
           <span className="text-xs leading-[12px]">리뷰</span>
           <span className="text-xs leading-[12px] font-bold">{totalReviewCount}</span>
         </button>
-        <button className="flex items-center gap-1">
+        <Link href={PAGE_PATHS.MEMBER_FOLLOWS(memberId ?? '', 'following')} className="flex items-center gap-1">
           <span className="text-xs leading-[12px]">팔로잉</span>
           <span className="text-xs leading-[12px] font-bold">{0}</span>
-        </button>
-        <button className="flex items-center gap-1">
+        </Link>
+        <Link href={PAGE_PATHS.MEMBER_FOLLOWS(memberId ?? '', 'follower')} className="flex items-center gap-1">
           <span className="text-xs leading-[12px]">팔로워</span>
           <span className="text-xs leading-[12px] font-bold">{0}</span>
-        </button>
+        </Link>
       </div>
     </div>
   )

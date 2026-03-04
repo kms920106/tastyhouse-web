@@ -2,6 +2,9 @@ import { memberRepository } from './member.repository'
 import { UpdatePasswordRequest, UpdatePersonalInfoRequest, UpdateProfileRequest, VerifyPasswordRequest, WithdrawRequest } from './member.type'
 
 export const memberService = {
+  async getOtherMemberProfile(memberId: number | string) {
+    return await memberRepository.getOtherMemberProfile(memberId)
+  },
   async getMemberMe() {
     return await memberRepository.getMemberMe()
   },

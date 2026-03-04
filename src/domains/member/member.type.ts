@@ -125,6 +125,18 @@ export type LoginResponse = {
   tokenType: string
 }
 
+export type OtherMemberProfileResponse = {
+  id: number
+  nickname: string
+  memberGrade: MemberGradeCode
+  statusMessage: string | null
+  profileImageUrl: string | null
+  reviewCount: number
+  followingCount: number
+  followerCount: number
+  isFollowing: boolean
+}
+
 export type UpdateProfileRequest = {
   nickname?: string
   statusMessage?: string

@@ -73,6 +73,8 @@ export const PAGE_PATHS = {
   // 회원
   MEMBERS: '/members',
   MEMBER_DETAIL: (id: string | number) => `/members/${id}`,
+  MEMBER_FOLLOWS: (id: string | number, tab?: 'following' | 'follower') =>
+    `/members/${id}/follows${tab ? `?tab=${tab}` : ''}`,
 
   // 인증
   LOGIN: '/login',

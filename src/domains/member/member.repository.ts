@@ -6,6 +6,7 @@ import {
   MyBookmarkedPlaceListItemResponse,
   MyReviewListItemResponse,
   MyReviewStatsResponse,
+  OtherMemberProfileResponse,
   PersonalInfoResponse,
   PointHistoryResponse,
   UpdatePasswordRequest,
@@ -20,6 +21,10 @@ import {
 const ENDPOINT = '/api/members'
 
 export const memberRepository = {
+  // 다른 회원 프로필 조회
+  async getOtherMemberProfile(memberId: number | string) {
+    return api.get<OtherMemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
+  },
   // 내 프로필 조회
   async getMemberMe() {
     return api.get<MemberInfo>(`${ENDPOINT}/v1/me`)
