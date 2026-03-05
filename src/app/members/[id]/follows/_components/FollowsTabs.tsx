@@ -1,11 +1,16 @@
 'use client'
 
+import AppButton from '@/components/ui/AppButton'
+import AppInputText from '@/components/ui/AppInputText'
+import Avatar from '@/components/ui/Avatar'
+import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
+import MemberNickname from '@/components/ui/MemberNickname'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
+import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { IoClose, IoSearch } from 'react-icons/io5'
 
 export type FollowTabValue = 'following' | 'follower'
 
@@ -13,7 +18,7 @@ interface FollowUser {
   id: number
   nickname: string
   profileImageUrl: string | null
-  gradeName: string
+  grade: MemberGradeCode
   isFollowing: boolean
 }
 
@@ -23,28 +28,28 @@ const getDummyFollowers = (): FollowUser[] => [
     id: 1,
     nickname: '먹는게제일좋아',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: true,
   },
   {
     id: 2,
     nickname: '먹는게제일좋아',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: false,
   },
   {
     id: 3,
     nickname: '먹는게제일좋아',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: true,
   },
   {
     id: 4,
     nickname: '먹는게제일좋아',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: true,
   },
 ]
@@ -54,35 +59,35 @@ const getDummyFollowing = (): FollowUser[] => [
     id: 1,
     nickname: '먹는게제일좋아',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: false,
   },
   {
     id: 2,
     nickname: '먹는게제일좋아02',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: false,
   },
   {
     id: 3,
     nickname: '먹는게제일좋아03',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: true,
   },
   {
     id: 4,
     nickname: '먹는게제일좋아03',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: true,
   },
   {
     id: 5,
     nickname: '먹는게제일좋아03',
     profileImageUrl: null,
-    gradeName: '테하멤버',
+    grade: 'TEHA',
     isFollowing: true,
   },
 ]
@@ -150,87 +155,50 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
 
     return (
       <div className="px-[15px] py-5">
-        {/* Search Bar */}
-        <div className="">
-          <div className="relative flex items-center">
-            <input
-              type="text"
-              placeholder="검색"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[50px] pl-4 pr-12 bg-gray-100 rounded-lg text-[15px] outline-none focus:bg-white focus:ring-2 focus:ring-gray-200"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute right-12 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center"
-              >
-                <IoClose size={20} className="text-gray-400" />
-              </button>
-            )}
-            <button className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center">
-              <IoSearch size={24} className="text-gray-600" />
-            </button>
-          </div>
+        <div className="relative flex items-center">
+          <AppInputText
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="!bg-[#fafafa] rounded-[2.5px] border-[#eeeeee] pr-[40px]"
+          />
+          <button className="absolute right-[17px] top-1/2 -translate-y-1/2">
+            <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
+          </button>
         </div>
-
-        {/* User List */}
         <div className="">
-          {filtered.map((user) => {
-            const isFollowing = getFollowState(user.id, user.isFollowing)
+          {filtered.map((member) => {
+            const isFollowing = getFollowState(member.id, member.isFollowing)
             return (
               <div
-                key={user.id}
+                key={member.id}
                 className="flex items-center justify-between py-4 border-b border-gray-100"
               >
-                {/* Left: Profile */}
                 <div className="flex items-center gap-3">
-                  <div className="relative w-[50px] h-[50px] rounded-full bg-gray-200 overflow-hidden">
-                    {user.profileImageUrl ? (
-                      <Image
-                        src={user.profileImageUrl}
-                        alt={user.nickname}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                        <div className="w-8 h-8 rounded-full bg-white" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[16px] font-bold">{user.nickname}</span>
-                    <div className="flex items-center gap-1">
-                      <Image
-                        src="/images/icon-member-badge.png"
-                        alt="멤버 배지"
-                        width={16}
-                        height={16}
-                      />
-                      <span className="text-[12px] text-[#FFA500]">{user.gradeName}</span>
-                    </div>
+                  <Avatar src={member.profileImageUrl} alt={member.nickname} />
+                  <div className="flex flex-col gap-[9px]">
+                    <MemberNickname>{member.nickname}</MemberNickname>
+                    <MemberGradeBadge grade={member.grade} />
                   </div>
                 </div>
-
-                {/* Right: Action Button and Menu */}
                 <div className="flex items-center gap-2">
                   {tab === 'follower' ? (
                     <button
-                      onClick={() => handleRemoveFollower(user.id)}
+                      onClick={() => handleRemoveFollower(member.id)}
                       className="px-5 py-2 rounded-md text-[14px] font-medium bg-white border border-gray-300 text-gray-600"
                     >
                       삭제
                     </button>
                   ) : (
-                    <button
-                      onClick={() => handleFollowToggle(user.id, user.isFollowing)}
-                      className={`px-5 py-2 rounded-md text-[14px] font-medium ${
-                        isFollowing ? 'bg-white border border-main text-main' : 'bg-main text-white'
+                    <AppButton
+                      onClick={() => handleFollowToggle(member.id, member.isFollowing)}
+                      className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
+                        isFollowing
+                          ? 'bg-white text-main border border-main box-border'
+                          : 'bg-main text-white'
                       }`}
                     >
                       {isFollowing ? '팔로잉' : '팔로우'}
-                    </button>
+                    </AppButton>
                   )}
                   <button className="w-8 h-8 flex items-center justify-center">
                     <BsThreeDotsVertical size={18} className="text-gray-400" />
@@ -240,8 +208,6 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
             )
           })}
         </div>
-
-        {/* Empty State */}
         {filtered.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="w-20 h-20 mb-4">
