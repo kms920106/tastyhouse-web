@@ -1,82 +1,48 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
 import AppInputText from '@/components/ui/AppInputText'
-import Avatar from '@/components/ui/Avatar'
-import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
-import MemberNickname from '@/components/ui/MemberNickname'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import { FollowMemberResponse } from '@/domains/follow'
-import {
-  followMember,
-  getFollowerList,
-  getFollowingList,
-  removeFollower,
-  unfollowMember,
-} from '@/services/follow'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import { FiMoreVertical } from 'react-icons/fi'
+import FollowerList from './FollowerList'
+import FollowingList from './FollowingList'
 
 export type FollowTabValue = 'following' | 'follower'
+
+const TAB_TRIGGER_CLASS =
+  'flex-1 h-full text-sm leading-[14px] text-[#333333]/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
+
+interface SearchInputProps {
+  value: string
+  onChange: (value: string) => void
+}
+
+function SearchInput({ value, onChange }: SearchInputProps) {
+  return (
+    <div className="relative flex items-center shrink-0">
+      <AppInputText
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="!bg-[#fafafa] rounded-[2.5px] border-[#eeeeee] pr-[40px]"
+      />
+      <button className="absolute right-[17px] top-1/2 -translate-y-1/2">
+        <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
+      </button>
+    </div>
+  )
+}
 
 interface FollowsTabsProps {
   memberId: number
   initialTab: FollowTabValue
 }
 
-const PAGE_SIZE = 20
-
-const TAB_TRIGGER_CLASS =
-  'flex-1 h-full text-sm leading-[14px] text-[#333333]/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
-
 export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const queryClient = useQueryClient()
 
   const [searchQuery, setSearchQuery] = useState('')
-
-  const { data: followingList = [] } = useQuery({
-    queryKey: ['following', memberId],
-    queryFn: async () => {
-      const response = await getFollowingList(memberId, { page: 0, size: PAGE_SIZE })
-      return response.data ?? []
-    },
-  })
-
-  const { data: followerList = [] } = useQuery({
-    queryKey: ['followers', memberId],
-    queryFn: async () => {
-      const response = await getFollowerList(memberId, { page: 0, size: PAGE_SIZE })
-      return response.data ?? []
-    },
-  })
-
-  const followMutation = useMutation({
-    mutationFn: (targetMemberId: number) => followMember(targetMemberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['following', memberId] })
-      queryClient.invalidateQueries({ queryKey: ['followers', memberId] })
-    },
-  })
-
-  const unfollowMutation = useMutation({
-    mutationFn: (targetMemberId: number) => unfollowMember(targetMemberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['following', memberId] })
-      queryClient.invalidateQueries({ queryKey: ['followers', memberId] })
-    },
-  })
-
-  const removeFollowerMutation = useMutation({
-    mutationFn: (targetMemberId: number) => removeFollower(targetMemberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['followers', memberId] })
-    },
-  })
 
   const handleTabChange = useCallback(
     (tab: string) => {
@@ -87,93 +53,6 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
     },
     [router, pathname],
   )
-
-  const handleFollowToggle = (member: FollowMemberResponse) => {
-    if (member.following) {
-      unfollowMutation.mutate(member.memberId)
-    } else {
-      followMutation.mutate(member.memberId)
-    }
-  }
-
-  const handleRemoveFollower = (targetMemberId: number) => {
-    removeFollowerMutation.mutate(targetMemberId)
-  }
-
-  const renderUserList = (list: FollowMemberResponse[], tab: FollowTabValue) => {
-    const filtered = list.filter((user) =>
-      user.nickname.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
-
-    return (
-      <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
-        <div className="relative flex items-center shrink-0">
-          <AppInputText
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="!bg-[#fafafa] rounded-[2.5px] border-[#eeeeee] pr-[40px]"
-          />
-          <button className="absolute right-[17px] top-1/2 -translate-y-1/2">
-            <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
-          </button>
-        </div>
-        <div></div>
-        {filtered.length > 0 ? (
-          <div className="flex flex-col gap-[30px] py-[30px]">
-            {filtered.map((member) => (
-              <div key={member.memberId} className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Avatar src={member.profileImageUrl} alt={member.nickname} />
-                  <div className="flex flex-col gap-[9px]">
-                    <MemberNickname>{member.nickname}</MemberNickname>
-                    <MemberGradeBadge grade={member.memberGrade} />
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  {tab === 'follower' ? (
-                    <button
-                      onClick={() => handleRemoveFollower(member.memberId)}
-                      className="px-5 py-2 rounded-md text-[14px] font-medium bg-white border border-gray-300 text-gray-600"
-                    >
-                      삭제
-                    </button>
-                  ) : (
-                    <AppButton
-                      onClick={() => handleFollowToggle(member)}
-                      className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
-                        member.following
-                          ? 'bg-white text-main border border-main box-border'
-                          : 'bg-main text-white'
-                      }`}
-                    >
-                      {member.following}
-                      {member.following ? '팔로잉' : '팔로우'}
-                    </AppButton>
-                  )}
-                  <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
-                    <FiMoreVertical size={22} color="#999999" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center flex-1 pb-[70px]">
-            <div className="relative w-[35px] h-[40px]">
-              <Image src="/images/mypage/logo-gray.png" alt="로고" width={35} height={40} />
-            </div>
-            <div className="mt-[15px]">
-              <p className="text-sm leading-[14px] text-[#aaaaaa]">
-                {searchQuery
-                  ? '검색 결과가 없습니다.'
-                  : `${tab === 'following' ? '팔로잉이' : '팔로워가'} 없습니다.`}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-    )
-  }
 
   return (
     <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
@@ -186,10 +65,16 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
         </TabsTrigger>
       </TabsList>
       <TabsContent value="following" className="mt-0">
-        {renderUserList(followingList, 'following')}
+        <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
+          <SearchInput value={searchQuery} onChange={setSearchQuery} />
+          <FollowingList memberId={memberId} searchQuery={searchQuery} />
+        </div>
       </TabsContent>
       <TabsContent value="follower" className="mt-0">
-        {renderUserList(followerList, 'follower')}
+        <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
+          <SearchInput value={searchQuery} onChange={setSearchQuery} />
+          <FollowerList memberId={memberId} searchQuery={searchQuery} />
+        </div>
       </TabsContent>
     </Tabs>
   )
