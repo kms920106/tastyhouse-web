@@ -20,10 +20,7 @@ export default function AppButton({
 }: AppButtonProps) {
   return (
     <Button
-      className={cn(
-        'w-full h-[50px] m-0 p-0 text-base leading-[16px] rounded-none shadow-none cursor-pointer',
-        className,
-      )}
+      className={cn('m-0 p-0 rounded-none shadow-none cursor-pointer', className)}
       variant={variant}
       size={size}
       asChild={asChild}

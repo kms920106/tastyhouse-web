@@ -5,7 +5,7 @@ export default function AppOutlineButton({ className, ...props }: AppButtonProps
   return (
     <AppButton
       className={cn(
-        'border-[#666666] disabled:border-[#eeeeee] disabled:text-[#aaaaaa] disabled:cursor-not-allowed',
+        'h-[50px] text-sm leading-[14px] border-[#666666] disabled:border-[#eeeeee] disabled:text-[#aaaaaa] disabled:cursor-not-allowed',
         className,
       )}
       {...props}

@@ -29,7 +29,10 @@ export default function CustomerCenterSection() {
               </p>
               <p className="text-sm leading-[14px] text-[#666666]">(토/일/공휴일 휴무)</p>
             </div>
-            <AppButton asChild className="bg-[#333333] text-white">
+            <AppButton
+              asChild
+              className="w-full h-[50px] bg-[#333333] text-base leading-[16px] text-white"
+            >
               <Link href="tel:1234-5678">전화 문의</Link>
             </AppButton>
           </div>
@@ -50,7 +53,10 @@ export default function CustomerCenterSection() {
               </p>
             </div>
             <div className="mt-[30px]">
-              <AppButton className=" bg-[#fddc3f] text-black gap-1" onClick={() => {}}>
+              <AppButton
+                className="gap-1 w-full h-[50px] bg-[#fddc3f] text-base leading-[16px] text-black"
+                onClick={() => {}}
+              >
                 <Image src="/images/icon-kakao.png" alt="카카오톡" width={30} height={30} />
                 카카오톡 문의
               </AppButton>

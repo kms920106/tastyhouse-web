@@ -1,6 +1,5 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppInputNumber from '@/components/ui/AppInputNumber'
@@ -276,7 +275,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                     <AppOutlineButton
                       onClick={handleSendVerification}
                       disabled={isVerified || isSendingCode}
-                      className="shrink-0 w-auto px-4"
+                      className="shrink-0 w-auto h-auto px-4"
                     >
                       {isSendingCode
                         ? '발송 중'
@@ -367,8 +366,8 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
             <AppFormField label="성별" required error={errors.gender}>
               {() => (
                 <div className="flex">
-                  <AppButton
-                    className={`flex-1 text-sm leading-[14px] transition-colors ${
+                  <AppOutlineButton
+                    className={`flex-1 transition-colors ${
                       gender === 'MALE'
                         ? 'border-[#a91201] text-[#a91201]'
                         : 'border-[#eeeeee] text-[#333333]'
@@ -376,9 +375,9 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                     onClick={() => setGender('MALE')}
                   >
                     남성
-                  </AppButton>
-                  <AppButton
-                    className={`flex-1 text-sm leading-[14px] transition-colors ${
+                  </AppOutlineButton>
+                  <AppOutlineButton
+                    className={`flex-1 transition-colors ${
                       gender === 'FEMALE'
                         ? 'border-[#a91201] text-[#a91201]'
                         : 'border-[#eeeeee] text-[#333333]'
@@ -386,7 +385,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                     onClick={() => setGender('FEMALE')}
                   >
                     여성
-                  </AppButton>
+                  </AppOutlineButton>
                 </div>
               )}
             </AppFormField>
