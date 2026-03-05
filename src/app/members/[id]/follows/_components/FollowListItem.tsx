@@ -1,12 +1,14 @@
 'use client'
 
 import AppButton from '@/components/ui/AppButton'
+import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import Avatar from '@/components/ui/Avatar'
 import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
 import MemberNickname from '@/components/ui/MemberNickname'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { FollowMemberResponse } from '@/domains/follow'
+import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
 interface FollowListItemProps {
@@ -40,6 +42,8 @@ export default function FollowListItem({
   onFollowToggle,
   onRemoveFollower,
 }: FollowListItemProps) {
+  const [removeConfirmOpen, setRemoveConfirmOpen] = useState(false)
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
@@ -51,12 +55,23 @@ export default function FollowListItem({
       </div>
       <div className="flex items-center gap-2">
         {tab === 'follower' ? (
-          <AppOutlineButton
-            onClick={() => onRemoveFollower(member.memberId)}
-            className="h-[30px] px-7 py-2.5 text-xs leading-[12px] bg-[#eeeeee] border border-[#cccccc] box-border rounded-[2.5px]"
-          >
-            삭제
-          </AppOutlineButton>
+          <>
+            <AppOutlineButton
+              onClick={() => setRemoveConfirmOpen(true)}
+              className="h-[30px] px-7 py-2.5 text-xs leading-[12px] bg-[#eeeeee] border border-[#cccccc] box-border rounded-[2.5px]"
+            >
+              삭제
+            </AppOutlineButton>
+            <AppConfirmDialog
+              open={removeConfirmOpen}
+              onOpenChange={setRemoveConfirmOpen}
+              title="팔로워를 삭제하시겠습니까?"
+              description={`${member.nickname}님을 팔로워 목록에서 삭제합니다.\n삭제 후에는 해당 팔로워 관계가 해제됩니다.`}
+              confirmLabel="삭제"
+              cancelLabel="취소"
+              onConfirm={() => onRemoveFollower(member.memberId)}
+            />
+          </>
         ) : (
           <>
             <AppButton
