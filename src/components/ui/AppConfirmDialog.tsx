@@ -52,14 +52,14 @@ export default function AppConfirmDialog({
         <DialogFooter className="flex-row gap-0 sm:flex-row">
           <DialogClose asChild>
             <AppButton
-              className="flex-1 py-4 bg-[#eeeeee] text-base leading-[16px] text-black cursor-pointer"
+              className="flex-1 h-full py-4 bg-[#eeeeee] text-base leading-[16px] text-black cursor-pointer"
               onClick={onCancel}
             >
               {cancelLabel}
             </AppButton>
           </DialogClose>
           <DialogClose asChild>
-            <AppPrimaryButton className="flex-1 border-0" onClick={onConfirm}>
+            <AppPrimaryButton className="flex-1" onClick={onConfirm}>
               {confirmLabel}
             </AppPrimaryButton>
           </DialogClose>
