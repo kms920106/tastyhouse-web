@@ -46,8 +46,8 @@ export interface EventPrizeResponse {
 }
 
 export interface EventRankDurationResponse {
-  startAt: Date
-  endAt: Date
+  startAt: string
+  endAt: string
 }
 
 export interface EventDetailResponse {
