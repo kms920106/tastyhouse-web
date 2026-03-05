@@ -1,6 +1,7 @@
 'use client'
 
 import AppButton from '@/components/ui/AppButton'
+import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import Avatar from '@/components/ui/Avatar'
 import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
 import MemberNickname from '@/components/ui/MemberNickname'
@@ -50,27 +51,29 @@ export default function FollowListItem({
       </div>
       <div className="flex items-center gap-2">
         {tab === 'follower' ? (
-          <button
+          <AppOutlineButton
             onClick={() => onRemoveFollower(member.memberId)}
-            className="px-5 py-2 rounded-md text-[14px] font-medium bg-white border border-gray-300 text-gray-600"
+            className="h-[30px] px-7 py-2.5 text-xs leading-[12px] bg-[#eeeeee] border border-[#cccccc] box-border rounded-[2.5px]"
           >
             삭제
-          </button>
+          </AppOutlineButton>
         ) : (
-          <AppButton
-            onClick={() => onFollowToggle(member)}
-            className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
-              member.following
-                ? 'bg-white text-main border border-main box-border'
-                : 'bg-main text-white'
-            }`}
-          >
-            {member.following ? '팔로잉' : '팔로우'}
-          </AppButton>
+          <>
+            <AppButton
+              onClick={() => onFollowToggle(member)}
+              className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
+                member.following
+                  ? 'bg-white text-main border border-main box-border'
+                  : 'bg-main text-white'
+              }`}
+            >
+              {member.following ? '팔로잉' : '팔로우'}
+            </AppButton>
+            <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
+              <FiMoreVertical size={22} color="#999999" />
+            </button>
+          </>
         )}
-        <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
-          <FiMoreVertical size={22} color="#999999" />
-        </button>
       </div>
     </div>
   )
