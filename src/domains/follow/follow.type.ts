@@ -5,5 +5,5 @@ export type FollowMemberResponse = {
   nickname: string
   memberGrade: MemberGradeCode
   profileImageUrl: string | null
-  isFollowing: boolean
+  following: boolean
 }
