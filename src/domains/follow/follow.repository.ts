@@ -21,7 +21,7 @@ export const followRepository = {
     return api.delete<void>(`${ENDPOINT}/v1/${memberId}`)
   },
 
-  async removeFollower(memberId: number) {
-    return api.delete<void>(`${ENDPOINT}/v1/me/followers/${memberId}`)
+  async removeFollower(followerId: number) {
+    return api.delete<void>(`${ENDPOINT}/v1/followers/${followerId}`)
   },
 }

@@ -18,7 +18,7 @@ export const followService = {
     return followRepository.unfollowMember(memberId)
   },
 
-  async removeFollower(memberId: number) {
-    return followRepository.removeFollower(memberId)
+  async removeFollower(followerId: number) {
+    return followRepository.removeFollower(followerId)
   },
 }

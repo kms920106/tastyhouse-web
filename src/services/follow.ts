@@ -19,6 +19,6 @@ export async function unfollowMember(memberId: number) {
   return followService.unfollowMember(memberId)
 }
 
-export async function removeFollower(memberId: number) {
-  return followService.removeFollower(memberId)
+export async function removeFollower(followerId: number) {
+  return followService.removeFollower(followerId)
 }
