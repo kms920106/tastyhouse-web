@@ -106,8 +106,8 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
     )
 
     return (
-      <div className="px-[15px] py-5">
-        <div className="relative flex items-center">
+      <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
+        <div className="relative flex items-center shrink-0">
           <AppInputText
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -117,46 +117,47 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
             <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
           </button>
         </div>
-        {filtered.map((member) => (
-          <div
-            key={member.memberId}
-            className="flex items-center justify-between py-4 border-b border-gray-100"
-          >
-            <div className="flex items-center gap-3">
-              <Avatar src={member.profileImageUrl} alt={member.nickname} />
-              <div className="flex flex-col gap-[9px]">
-                <MemberNickname>{member.nickname}</MemberNickname>
-                <MemberGradeBadge grade={member.memberGrade} />
+        {filtered.length > 0 ? (
+          filtered.map((member) => (
+            <div
+              key={member.memberId}
+              className="flex items-center justify-between py-4 border-b border-gray-100"
+            >
+              <div className="flex items-center gap-3">
+                <Avatar src={member.profileImageUrl} alt={member.nickname} />
+                <div className="flex flex-col gap-[9px]">
+                  <MemberNickname>{member.nickname}</MemberNickname>
+                  <MemberGradeBadge grade={member.memberGrade} />
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {tab === 'follower' ? (
+                  <button
+                    onClick={() => handleRemoveFollower(member.memberId)}
+                    className="px-5 py-2 rounded-md text-[14px] font-medium bg-white border border-gray-300 text-gray-600"
+                  >
+                    삭제
+                  </button>
+                ) : (
+                  <AppButton
+                    onClick={() => handleFollowToggle(member)}
+                    className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
+                      member.isFollowing
+                        ? 'bg-white text-main border border-main box-border'
+                        : 'bg-main text-white'
+                    }`}
+                  >
+                    {member.isFollowing ? '팔로잉' : '팔로우'}
+                  </AppButton>
+                )}
+                <button className="w-8 h-8 flex items-center justify-center">
+                  <BsThreeDotsVertical size={18} className="text-gray-400" />
+                </button>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              {tab === 'follower' ? (
-                <button
-                  onClick={() => handleRemoveFollower(member.memberId)}
-                  className="px-5 py-2 rounded-md text-[14px] font-medium bg-white border border-gray-300 text-gray-600"
-                >
-                  삭제
-                </button>
-              ) : (
-                <AppButton
-                  onClick={() => handleFollowToggle(member)}
-                  className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
-                    member.isFollowing
-                      ? 'bg-white text-main border border-main box-border'
-                      : 'bg-main text-white'
-                  }`}
-                >
-                  {member.isFollowing ? '팔로잉' : '팔로우'}
-                </AppButton>
-              )}
-              <button className="w-8 h-8 flex items-center justify-center">
-                <BsThreeDotsVertical size={18} className="text-gray-400" />
-              </button>
-            </div>
-          </div>
-        ))}
-        {filtered.length === 0 && (
-          <div className="flex flex-col items-center justify-center">
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center flex-1 pb-[70px]">
             <div className="relative w-[35px] h-[40px]">
               <Image src="/images/mypage/logo-gray.png" alt="로고" width={35} height={40} />
             </div>
@@ -164,7 +165,7 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
               <p className="text-sm leading-[14px] text-[#aaaaaa]">
                 {searchQuery
                   ? '검색 결과가 없습니다.'
-                  : `${tab === 'following' ? '팔로잉' : '팔로워'}이 없습니다.`}
+                  : `${tab === 'following' ? '팔로잉이' : '팔로워가'} 없습니다.`}
               </p>
             </div>
           </div>
