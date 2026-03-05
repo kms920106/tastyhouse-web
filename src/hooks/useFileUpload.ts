@@ -1,5 +1,5 @@
 import { toast } from '@/components/ui/AppToaster'
-import { uploadFile } from '@/services/file'
+import { uploadFileClient } from '@/lib/uploadFile'
 import { useState, useTransition } from 'react'
 
 interface UploadedFile {
@@ -56,7 +56,7 @@ export default function useFileUpload({
         const results = await Promise.all(
           newFiles.map(async (file) => {
             const previewUrl = URL.createObjectURL(file)
-            const response = await uploadFile(file)
+            const response = await uploadFileClient(file)
 
             if (!response?.data) {
               throw new Error('파일 업로드에 실패했습니다.')

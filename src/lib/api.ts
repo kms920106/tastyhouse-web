@@ -5,6 +5,7 @@ type RequestConfig = RequestInit & {
     string,
     string | number | boolean | Array<string | number | boolean> | null | undefined
   >
+  isFormData?: boolean
 }
 
 type PageInfo = {
@@ -28,10 +29,13 @@ class ApiClient {
     this.baseURL = baseURL
   }
 
-  private async getRequestHeaders(headers?: HeadersInit): Promise<Record<string, string>> {
-    const requestHeaders: Record<string, string> = {
-      'Content-Type': 'application/json',
-    }
+  private async getRequestHeaders(
+    headers?: HeadersInit,
+    isFormData?: boolean,
+  ): Promise<Record<string, string>> {
+    const requestHeaders: Record<string, string> = isFormData
+      ? {}
+      : { 'Content-Type': 'application/json' }
 
     const cookieStore = await cookies()
     const accessToken = cookieStore.get('accessToken')?.value
@@ -48,7 +52,7 @@ class ApiClient {
   }
 
   private async request<T>(endpoint: string, config: RequestConfig = {}): Promise<ApiResponse<T>> {
-    const { params, headers, ...restConfig } = config
+    const { params, headers, isFormData, ...restConfig } = config
 
     let url = `${this.baseURL}${endpoint}`
     if (params) {
@@ -71,7 +75,7 @@ class ApiClient {
     }
 
     try {
-      const requestHeaders = await this.getRequestHeaders(headers)
+      const requestHeaders = await this.getRequestHeaders(headers, isFormData)
 
       const response = await fetch(url, {
         headers: requestHeaders,
@@ -135,6 +139,19 @@ class ApiClient {
       method: 'PUT',
       body: body ? JSON.stringify(body) : undefined,
       ...config,
+    })
+  }
+
+  async upload<T = unknown>(
+    endpoint: string,
+    formData: FormData,
+    config?: RequestConfig,
+  ): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, {
+      ...config,
+      method: 'POST',
+      body: formData,
+      isFormData: true,
     })
   }
 

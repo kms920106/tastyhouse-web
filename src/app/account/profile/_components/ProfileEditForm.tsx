@@ -6,7 +6,7 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
 import { extractZodFieldErrors } from '@/lib/form'
-import { uploadFile } from '@/services/file'
+import { uploadFileClient } from '@/lib/uploadFile'
 import { updateMemberProfile } from '@/services/member'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -78,7 +78,7 @@ export default function ProfileEditForm() {
     // 파일 업로드
     setIsUploading(true)
     try {
-      const response = await uploadFile(file)
+      const response = await uploadFileClient(file)
 
       if (response?.data) {
         setProfileImageFileId(response.data)
