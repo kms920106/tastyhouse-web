@@ -1,43 +1,43 @@
 'use server'
 
-import { PlaceLatestQuery, PlaceMapMarkerResponse, PlaceReviewsByRatingQuery, placeService } from '@/domains/place'
+import { PlaceLatestQuery, PlaceMapMarkerResponse, PlaceReviewsByRatingQuery, placeRepository } from '@/domains/place'
 
 export async function getMapMarkers(params: {
   latitude: number
   longitude: number
 }): Promise<PlaceMapMarkerResponse[]> {
-  const response = await placeService.getMapMarkers(params)
+  const response = await placeRepository.getMapMarkers(params)
   return response.data ?? []
 }
 
 export async function getLatestPlaces(query: PlaceLatestQuery) {
-  return await placeService.getLatestPlaces(query)
+  return placeRepository.getLatestPlaces(query)
 }
 
 export async function getPlaceInfo(placeId: number) {
-  return await placeService.getPlaceInfo(placeId)
+  return placeRepository.getPlaceInfo(placeId)
 }
 
 export async function getPlaceName(placeId: number) {
-  return await placeService.getPlaceName(placeId)
+  return placeRepository.getPlaceName(placeId)
 }
 
 export async function togglePlaceBookmark(placeId: number) {
-  return await placeService.togglePlaceBookmark(placeId)
+  return placeRepository.togglePlaceBookmark(placeId)
 }
 
 export async function getPlaceMenus(placeId: number) {
-  return await placeService.getPlaceMenus(placeId)
+  return placeRepository.getPlaceMenus(placeId)
 }
 
 export async function getPlacePhotos(placeId: number) {
-  return await placeService.getPlacePhotos(placeId)
+  return placeRepository.getPlacePhotos(placeId)
 }
 
 export async function getPlaceReviewStatistics(placeId: number) {
-  return await placeService.getPlaceReviewStatistics(placeId)
+  return placeRepository.getPlaceReviewStatistics(placeId)
 }
 
 export async function getPlaceReviews(placeId: number, query: PlaceReviewsByRatingQuery) {
-  return await placeService.getPlaceReviews(placeId, query)
+  return placeRepository.getPlaceReviews(placeId, query)
 }

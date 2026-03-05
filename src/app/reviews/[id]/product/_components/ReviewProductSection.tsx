@@ -7,7 +7,7 @@ import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import Rating from '@/components/ui/Rating'
 import SectionStack from '@/components/ui/SectionStack'
 import TextContent from '@/components/ui/TextContent'
-import { reviewService } from '@/domains/review'
+import { reviewRepository } from "@/domains/review"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { resolveImageUrl } from '@/lib/image'
 import { formatNumber } from '@/lib/number'
@@ -22,7 +22,7 @@ interface ReviewProductSectionProps {
 
 export default async function ReviewProductSection({ reviewId }: ReviewProductSectionProps) {
   // API 호출
-  const { error, data } = await reviewService.getReviewProductDetail(reviewId)
+  const { error, data } = await reviewRepository.getReviewProductDetail(reviewId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

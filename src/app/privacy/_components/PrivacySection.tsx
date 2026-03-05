@@ -1,9 +1,9 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import { privacyService } from '@/domains/privacy'
+import { privacyRepository } from "@/domains/privacy"
 
 export default async function PrivacySection() {
-  const { data } = await privacyService.getPrivacy()
+  const { data } = await privacyRepository.getPrivacy()
 
   const privacy = data.data
 

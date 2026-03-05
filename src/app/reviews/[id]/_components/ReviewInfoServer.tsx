@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { reviewService } from '@/domains/review'
+import { reviewRepository } from "@/domains/review"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { ReactNode } from 'react'
 import ReviewInfo from './ReviewInfo'
@@ -16,7 +16,7 @@ export default async function ReviewInfoServer({
   reviewOption,
 }: ReviewInfoServerProps) {
   // API 호출
-  const { error, data } = await reviewService.getReviewDetail(reviewId)
+  const { error, data } = await reviewRepository.getReviewDetail(reviewId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

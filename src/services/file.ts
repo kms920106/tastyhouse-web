@@ -1,7 +1,7 @@
 'use server'
 
-import { fileService } from '@/domains/file'
+import { fileRepository } from '@/domains/file'
 
 export async function uploadFile(file: File) {
-  return await fileService.uploadFile(file)
+  return fileRepository.uploadFile(file)
 }

@@ -1,24 +1,24 @@
 'use server'
 
-import { followService } from '@/domains/follow'
+import { followRepository } from '@/domains/follow'
 import { PaginationParams } from '@/types/common'
 
 export async function getFollowingList(memberId: number, params: PaginationParams) {
-  return followService.getFollowingList(memberId, params)
+  return followRepository.getFollowingList(memberId, params)
 }
 
 export async function getFollowerList(memberId: number, params: PaginationParams) {
-  return followService.getFollowerList(memberId, params)
+  return followRepository.getFollowerList(memberId, params)
 }
 
 export async function followMember(memberId: number) {
-  return followService.followMember(memberId)
+  return followRepository.followMember(memberId)
 }
 
 export async function unfollowMember(memberId: number) {
-  return followService.unfollowMember(memberId)
+  return followRepository.unfollowMember(memberId)
 }
 
 export async function removeFollower(followerId: number) {
-  return followService.removeFollower(followerId)
+  return followRepository.removeFollower(followerId)
 }

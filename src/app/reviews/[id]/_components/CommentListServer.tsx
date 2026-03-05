@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { reviewService } from '@/domains/review'
+import { reviewRepository } from "@/domains/review"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import CommentList from './CommentList'
 
@@ -12,7 +12,7 @@ export default async function CommentListServer({ params }: CommentListServerPro
   const reviewId = Number(id)
 
   // API 호출
-  const { error, data } = await reviewService.getReviewComments(reviewId)
+  const { error, data } = await reviewRepository.getReviewComments(reviewId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { placeService } from '@/domains/place'
+import { placeRepository } from "@/domains/place"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { ReactNode } from 'react'
 import PlaceSummary from './PlaceSummary'
@@ -14,7 +14,7 @@ export default async function PlaceSummaryServer({
   bookmarkButton,
 }: PlaceSummaryServerProps) {
   // API 호출
-  const { error, data } = await placeService.getPlaceSummary(placeId)
+  const { error, data } = await placeRepository.getPlaceSummary(placeId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

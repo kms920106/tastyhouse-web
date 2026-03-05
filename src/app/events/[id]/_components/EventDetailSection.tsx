@@ -1,4 +1,4 @@
-import { eventService } from '@/domains/event'
+import { eventRepository } from "@/domains/event"
 import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'
 import HeaderSection from './HeaderSection'
@@ -8,7 +8,7 @@ interface EventDetailSectionProps {
 }
 
 export default async function EventDetailSection({ eventId }: EventDetailSectionProps) {
-  const { data } = await eventService.getEventDetail(eventId)
+  const { data } = await eventRepository.getEventDetail(eventId)
 
   return (
     <>

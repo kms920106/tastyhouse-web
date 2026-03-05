@@ -1,9 +1,9 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import { termsService } from '@/domains/terms'
+import { termsRepository } from "@/domains/terms"
 
 export default async function TermsSection() {
-  const { data } = await termsService.getTerms()
+  const { data } = await termsRepository.getTerms()
   const terms = data.data
 
   return (

@@ -1,10 +1,10 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { placeService } from '@/domains/place'
+import { placeRepository } from "@/domains/place"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import StationSelector from './StationSelector'
 
 export default async function StationContent() {
-  const { data, error } = await placeService.getPlaceStations()
+  const { data, error } = await placeRepository.getPlaceStations()
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

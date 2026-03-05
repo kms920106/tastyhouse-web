@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { placeService } from '@/domains/place'
+import { placeRepository } from "@/domains/place"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import PlaceOrderMethodSection from './_components/PlaceOrderMethodSection'
 
@@ -15,7 +15,7 @@ export default async function OrderMethodPage({ params }: OrderMethodPageProps) 
   const placeId = Number(id)
 
   // API 호출
-  const { error, data } = await placeService.getPlaceOrderMethods(placeId)
+  const { error, data } = await placeRepository.getPlaceOrderMethods(placeId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

@@ -5,7 +5,7 @@ import Header, {
   HeaderTitle,
 } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import { memberService } from '@/domains/member'
+import { memberRepository } from "@/domains/member"
 import { AiOutlinePlus } from 'react-icons/ai'
 
 interface FollowsHeaderProps {
@@ -13,7 +13,7 @@ interface FollowsHeaderProps {
 }
 
 export default async function FollowsHeader({ memberId }: FollowsHeaderProps) {
-  const { data } = await memberService.getOtherMemberProfile(memberId)
+  const { data } = await memberRepository.getOtherMemberProfile(memberId)
   const memberNickname = data?.nickname ?? ''
 
   return (

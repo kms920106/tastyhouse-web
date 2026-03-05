@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { productService } from '@/domains/product'
+import { productRepository } from "@/domains/product"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import PlaceOrderMenuDetailSection from './_components/PlaceOrderMenuDetailSection'
 
@@ -17,7 +17,7 @@ export default async function PlaceOrderMenuDetailPage({ params }: PlaceOrderMen
   const productId = Number(menuId)
 
   // API 호출
-  const { error, data } = await productService.getProductById(productId)
+  const { error, data } = await productRepository.getProductById(productId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

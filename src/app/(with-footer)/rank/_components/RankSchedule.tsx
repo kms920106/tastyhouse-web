@@ -1,9 +1,9 @@
-import { eventService } from '@/domains/event'
+import { eventRepository } from "@/domains/event"
 import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
 
 export default async function RankSchedule() {
   // API 호출
-  const { error, data } = await eventService.getRankEventDuration()
+  const { error, data } = await eventRepository.getRankEventDuration()
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

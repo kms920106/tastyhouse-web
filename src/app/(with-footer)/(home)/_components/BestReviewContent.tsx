@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { reviewService } from '@/domains/review'
+import { reviewRepository } from "@/domains/review"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import BestReviewSwiper from './BestReviewSwiper'
 
@@ -9,7 +9,7 @@ export default async function BestReviewContent() {
     page: 0,
     size: 5,
   }
-  const { data, error } = await reviewService.getBestReviews(query)
+  const { data, error } = await reviewRepository.getBestReviews(query)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

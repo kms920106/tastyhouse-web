@@ -1,7 +1,7 @@
 'use server'
 
-import { PartnershipRequestCreateRequest, partnershipService } from '@/domains/partnership'
+import { PartnershipRequestCreateRequest, partnershipRepository } from '@/domains/partnership'
 
 export async function createPartnershipRequest(request: PartnershipRequestCreateRequest) {
-  return await partnershipService.createPartnershipRequest(request)
+  return partnershipRepository.createPartnershipRequest(request)
 }

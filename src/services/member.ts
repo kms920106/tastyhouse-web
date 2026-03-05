@@ -1,6 +1,7 @@
 'use server'
 
 import {
+  memberRepository,
   memberService,
   UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
@@ -11,43 +12,43 @@ import {
 import { cookies } from 'next/headers'
 
 export async function getMemberMe() {
-  return await memberService.getMemberMe()
+  return memberRepository.getMemberMe()
 }
 
 export async function getMyReviewStats() {
-  return await memberService.getMyReviewStats()
+  return memberRepository.getMyReviewStats()
 }
 
 export async function getMemberAvailableCoupons() {
-  return await memberService.getMyAvailableCoupons()
+  return memberRepository.getMyAvailableCoupons()
 }
 
 export async function getMemberUsablePoint() {
-  return await memberService.getMyUsablePoint()
+  return memberRepository.getMyUsablePoint()
 }
 
 export async function getMyPointHistory() {
-  return await memberService.getMyPointHistory()
+  return memberRepository.getMyPointHistory()
 }
 
 export async function getMyReviews(page: number = 0, size: number = 9) {
-  return await memberService.getMyReviews(page, size)
+  return memberService.getMyReviews(page, size)
 }
 
 export async function getMyBookmarks(page: number = 0, size: number = 10) {
-  return await memberService.getMyBookmarks(page, size)
+  return memberService.getMyBookmarks(page, size)
 }
 
 export async function updateMemberProfile(data: UpdateProfileRequest) {
-  return await memberService.updateMyProfile(data)
+  return memberRepository.updateMyProfile(data)
 }
 
 export async function getMemberPersonalInfo() {
-  return await memberService.getMyPersonalInfo()
+  return memberRepository.getMyPersonalInfo()
 }
 
 export async function verifyMemberPassword(data: VerifyPasswordRequest) {
-  return await memberService.verifyPassword(data)
+  return memberRepository.verifyPassword(data)
 }
 
 export async function updateMemberPersonalInfo(
@@ -55,15 +56,15 @@ export async function updateMemberPersonalInfo(
   verifyToken: string,
   phoneVerifyToken?: string,
 ) {
-  return await memberService.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
+  return memberRepository.updateMyPersonalInfo(data, verifyToken, phoneVerifyToken)
 }
 
 export async function updateMemberPassword(data: UpdatePasswordRequest, verifyToken: string) {
-  return await memberService.updateMyPassword(data, verifyToken)
+  return memberRepository.updateMyPassword(data, verifyToken)
 }
 
 export async function withdrawMember(data: WithdrawRequest) {
-  const result = await memberService.withdrawMember(data)
+  const result = await memberRepository.withdrawMember(data)
 
   if (!result?.error) {
     const cookieStore = await cookies()

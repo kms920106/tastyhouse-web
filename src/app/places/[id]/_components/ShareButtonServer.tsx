@@ -1,4 +1,4 @@
-import { placeService } from '@/domains/place'
+import { placeRepository } from "@/domains/place"
 import ShareButtonClient from './ShareButtonClient'
 import ShareButtonError from './ShareButtonError'
 
@@ -8,7 +8,7 @@ interface ShareButtonServerProps {
 
 export default async function ShareButtonServer({ placeId }: ShareButtonServerProps) {
   // API 호출
-  const { error, data } = await placeService.getPlaceName(placeId)
+  const { error, data } = await placeRepository.getPlaceName(placeId)
 
   if (error) {
     return <ShareButtonError />

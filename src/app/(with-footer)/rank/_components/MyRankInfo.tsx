@@ -1,6 +1,6 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { RankPeriod, rankPeriodToRankType, rankService } from '@/domains/rank'
+import { RankPeriod, rankPeriodToRankType, rankRepository } from "@/domains/rank"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { cookies } from 'next/headers'
 import RankItem from './RankItem'
@@ -44,7 +44,7 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
   const params = {
     type: rankPeriodToRankType(rankPeriod),
   }
-  const { error, data } = await rankService.getRankMembersMe(params)
+  const { error, data } = await rankRepository.getRankMembersMe(params)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

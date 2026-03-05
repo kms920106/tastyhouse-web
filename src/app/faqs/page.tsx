@@ -1,4 +1,4 @@
-import { faqService } from '@/domains/faq'
+import { faqRepository } from "@/domains/faq"
 import FaqSection from './_components/FaqSection'
 
 interface FaqsPageProps {
@@ -10,8 +10,8 @@ export default async function FaqsPage({ searchParams }: FaqsPageProps) {
   const initialCategoryId = params.categoryId ? Number(params.categoryId) : 0
 
   const [categoriesResponse, faqsResponse] = await Promise.all([
-    faqService.getFaqCategories(),
-    faqService.getFaqList(initialCategoryId !== 0 ? { categoryId: initialCategoryId } : undefined),
+    faqRepository.getFaqCategories(),
+    faqRepository.getFaqList(initialCategoryId !== 0 ? { categoryId: initialCategoryId } : undefined),
   ])
 
   const initialCategories = categoriesResponse.data ?? []

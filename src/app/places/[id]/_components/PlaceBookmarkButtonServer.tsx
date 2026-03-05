@@ -1,4 +1,4 @@
-import { placeService } from '@/domains/place'
+import { placeRepository } from "@/domains/place"
 import { PAGE_PATHS } from '@/lib/paths'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ export default async function PlaceBookmarkButtonServer({
   }
 
   // API 호출
-  const { error, data } = await placeService.getPlaceBookmark(placeId)
+  const { error, data } = await placeRepository.getPlaceBookmark(placeId)
 
   if (error) {
     return (

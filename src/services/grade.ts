@@ -1,11 +1,11 @@
 'use server'
 
-import { gradeService } from '@/domains/grade'
+import { gradeRepository } from '@/domains/grade'
 
 export async function getMyGrade() {
-  return await gradeService.getMyGrade()
+  return gradeRepository.getMyGrade()
 }
 
 export async function getGradeInfoList() {
-  return await gradeService.getGradeInfoList()
+  return gradeRepository.getGradeInfoList()
 }

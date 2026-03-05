@@ -12,7 +12,7 @@ import {
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { getPlaceFoodTypeCodeName } from '@/constants/place'
-import { PlaceFoodType, placeService } from '@/domains/place'
+import { PlaceFoodType, placeRepository } from "@/domains/place"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 
 export function BestPlaceListSkeleton() {
@@ -60,7 +60,7 @@ export default async function BestPlaceList() {
     page: 0,
     size: 4,
   }
-  const { data, error } = await placeService.getBestPlaces(query)
+  const { data, error } = await placeRepository.getBestPlaces(query)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

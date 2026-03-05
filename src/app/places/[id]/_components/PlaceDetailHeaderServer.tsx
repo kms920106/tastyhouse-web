@@ -1,4 +1,4 @@
-import { placeService } from '@/domains/place'
+import { placeRepository } from "@/domains/place"
 import PlaceDetailHeader from './PlaceDetailHeader'
 
 interface PlaceDetailHeaderServerProps {
@@ -7,7 +7,7 @@ interface PlaceDetailHeaderServerProps {
 
 export default async function PlaceDetailHeaderServer({ placeId }: PlaceDetailHeaderServerProps) {
   // API 호출
-  const { error, data } = await placeService.getPlaceName(placeId)
+  const { error, data } = await placeRepository.getPlaceName(placeId)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

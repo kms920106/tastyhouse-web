@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { Place, placeService } from '@/domains/place'
+import { Place, placeRepository } from "@/domains/place"
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import ChoiceSwiper from './ChoiceSwiper'
 
@@ -9,7 +9,7 @@ export default async function ChoicePlaceContent() {
     page: 0,
     size: 4,
   }
-  const { data, error } = await placeService.getChoicePlaces(query)
+  const { data, error } = await placeRepository.getChoicePlaces(query)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {
