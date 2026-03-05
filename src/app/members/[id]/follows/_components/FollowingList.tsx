@@ -58,19 +58,32 @@ export default function FollowingList({ memberId, searchQuery }: FollowingListPr
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
+  const updateFollowingState = (targetMemberId: number, following: boolean) => {
+    queryClient.setQueryData(['following', memberId], (old: typeof data) => {
+      if (!old) return old
+      return {
+        ...old,
+        pages: old.pages.map((page) => ({
+          ...page,
+          data: page.data?.map((m) =>
+            m.memberId === targetMemberId ? { ...m, following } : m,
+          ),
+        })),
+      }
+    })
+  }
+
   const followMutation = useMutation({
     mutationFn: (targetMemberId: number) => followMember(targetMemberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['following', memberId] })
-      queryClient.invalidateQueries({ queryKey: ['followers', memberId] })
+    onSuccess: (_, targetMemberId) => {
+      updateFollowingState(targetMemberId, true)
     },
   })
 
   const unfollowMutation = useMutation({
     mutationFn: (targetMemberId: number) => unfollowMember(targetMemberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['following', memberId] })
-      queryClient.invalidateQueries({ queryKey: ['followers', memberId] })
+    onSuccess: (_, targetMemberId) => {
+      updateFollowingState(targetMemberId, false)
     },
   })
 

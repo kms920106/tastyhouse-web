@@ -14,11 +14,11 @@ export const followRepository = {
   },
 
   async followMember(memberId: number) {
-    return api.post<void>(`${ENDPOINT}/v1/${memberId}/follow`)
+    return api.post<void>(`${ENDPOINT}/v1/${memberId}`)
   },
 
   async unfollowMember(memberId: number) {
-    return api.delete<void>(`${ENDPOINT}/v1/${memberId}/follow`)
+    return api.delete<void>(`${ENDPOINT}/v1/${memberId}`)
   },
 
   async removeFollower(memberId: number) {
