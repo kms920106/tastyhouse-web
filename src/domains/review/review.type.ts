@@ -4,7 +4,7 @@ export type ReviewType = 'ALL' | 'FOLLOWING'
 
 export type ReviewSortType = 'recommended' | 'latest' | 'oldest'
 
-export type ReviewComment = {
+export interface ReviewComment {
   id: number
   reviewId: number
   memberId: number
@@ -15,7 +15,7 @@ export type ReviewComment = {
   replies?: ReviewReply[]
 }
 
-export type ReviewReply = {
+export interface ReviewReply {
   id: number
   commentId: number
   memberId: number
@@ -33,7 +33,7 @@ export type ReviewLatestQuery = PaginationParams & {
   type: ReviewType
 }
 
-export type ReviewBestListItemResponse = {
+export interface ReviewBestListItemResponse {
   id: number
   content: string
   imageUrl: string
@@ -42,7 +42,7 @@ export type ReviewBestListItemResponse = {
   totalRating: number
 }
 
-export type ReviewLatestListItemResponse = {
+export interface ReviewLatestListItemResponse {
   id: number
   imageUrls: string[]
   stationName: string
@@ -56,7 +56,7 @@ export type ReviewLatestListItemResponse = {
   createdAt: string
 }
 
-export type ReviewDetailResponse = {
+export interface ReviewDetailResponse {
   id: number
   placeId: number
   placeName: string
@@ -78,7 +78,7 @@ export type ReviewDetailResponse = {
   tagNames: string[]
 }
 
-export type ReviewProductDetailResponse = {
+export interface ReviewProductDetailResponse {
   productId: number
   productName: string
   productImageUrl: string
@@ -99,15 +99,15 @@ export type ReviewProductDetailResponse = {
   tagNames: string[]
 }
 
-export type ReviewLikeResponse = {
+export interface ReviewLikeResponse {
   liked: boolean
 }
 
-export type CommentCreateRequest = {
+export interface CommentCreateRequest {
   content: string
 }
 
-export type CommentCreateResponse = {
+export interface CommentCreateResponse {
   id: number
   reviewId: number
   memberId: number
@@ -118,17 +118,17 @@ export type CommentCreateResponse = {
   replies: ReviewReply[]
 }
 
-export type CommentListResponse = {
+export interface CommentListResponse {
   comments: ReviewComment[]
   totalCount: number
 }
 
-export type ReplyCreateRequest = {
+export interface ReplyCreateRequest {
   content: string
   replyToMemberId: number
 }
 
-export type ReplyCreateResponse = {
+export interface ReplyCreateResponse {
   id: number
   commentId: number
   memberId: number
@@ -138,7 +138,7 @@ export type ReplyCreateResponse = {
   createdAt: string
 }
 
-export type ReviewWriteInfoResponse = {
+export interface ReviewWriteInfoResponse {
   productId: number
   productName: string
   productImageUrl: string
@@ -147,7 +147,7 @@ export type ReviewWriteInfoResponse = {
   isReviewed: boolean
 }
 
-export type ReviewCreateRequest = {
+export interface ReviewCreateRequest {
   orderItemId: number | null
   productId: number
   tasteRating: number
@@ -158,7 +158,7 @@ export type ReviewCreateRequest = {
   tags: string[]
 }
 
-export type ReviewCreateResponse = {
+export interface ReviewCreateResponse {
   reviewId: number
   productId: number
   tasteRating: number

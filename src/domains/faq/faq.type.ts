@@ -1,10 +1,10 @@
-export type FaqCategoryItem = {
+export interface FaqCategoryItem {
   id: number
   name: string
   sort: number
 }
 
-export type FaqItem = {
+export interface FaqItem {
   id: number
   categoryId: number
   question: string
@@ -12,6 +12,6 @@ export type FaqItem = {
   sort: number
 }
 
-export type FaqListQuery = {
+export interface FaqListQuery {
   categoryId?: number
 }

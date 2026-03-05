@@ -24,7 +24,7 @@ export type PlaceAmenityCode =
 
 export type PlaceImageCategoryCode = 'EXTERIOR' | 'INTERIOR' | 'FOOD' | 'OTHER'
 
-export type Place = {
+export interface Place {
   id: number
   imageUrl: string
   name: string
@@ -33,7 +33,7 @@ export type Place = {
   products: Product[]
 }
 
-export type PlaceMenu = {
+export interface PlaceMenu {
   id: number
   imageUrl: string
   spiciness: number | null
@@ -46,7 +46,7 @@ export type PlaceMenu = {
   isRepresentative: boolean | null
 }
 
-export type PlaceBusinessHour = {
+export interface PlaceBusinessHour {
   dayType: string
   dayTypeDescription: string
   openTime: string
@@ -54,30 +54,30 @@ export type PlaceBusinessHour = {
   isClosed: boolean
 }
 
-export type PlaceBreakTimes = {
+export interface PlaceBreakTimes {
   dayType: string
   dayTypeDescription: string
   startTime: string
   endTime: string
 }
 
-export type PlaceClosedDay = {
+export interface PlaceClosedDay {
   closedDayType: string
   description: string
 }
 
-export type PlaceFilterParams = {
+export interface PlaceFilterParams {
   stationId: number | null
   foodTypes: PlaceFoodType[] | null
   amenities: PlaceAmenityCode[] | null
 }
 
-export type PlaceStation = {
+export interface PlaceStation {
   id: number
   name: string
 }
 
-export type PlaceAmenity = {
+export interface PlaceAmenity {
   code: PlaceAmenityCode
   name: string
   imageUrlOn: string
@@ -100,18 +100,18 @@ export type PlaceReviewsByRatingQuery = PaginationParams
 
 export type PlaceMapQuery = PaginationParams
 
-export type PlaceFoodTypeListItemResponse = {
+export interface PlaceFoodTypeListItemResponse {
   code: PlaceFoodType
   name: string
   imageUrl: string
 }
 
-export type PlaceStationListItemResponse = {
+export interface PlaceStationListItemResponse {
   id: number
   name: string
 }
 
-export type ProductChoiceListItemResponse = {
+export interface ProductChoiceListItemResponse {
   id: number
   name: string
   placeName: string
@@ -121,22 +121,22 @@ export type ProductChoiceListItemResponse = {
   discountRate: number
 }
 
-export type MenuCategory = {
+export interface MenuCategory {
   categoryName: string
   menus: PlaceMenu[]
 }
 
-export type PlacePhotoCategoryResponse = {
+export interface PlacePhotoCategoryResponse {
   name: string
   imageUrls: string[]
 }
 
-export type PlaceNameResponse = {
+export interface PlaceNameResponse {
   id: number
   name: string
 }
 
-export type PlaceSummaryResponse = {
+export interface PlaceSummaryResponse {
   id: number
   name: string
   roadAddress: string
@@ -144,11 +144,11 @@ export type PlaceSummaryResponse = {
   rating: number
 }
 
-export type PlaceBookmarkResponse = {
+export interface PlaceBookmarkResponse {
   bookmarked: boolean
 }
 
-export type PlaceInfoResponse = {
+export interface PlaceInfoResponse {
   id: number
   name: string
   rating: number
@@ -166,12 +166,12 @@ export type PlaceInfoResponse = {
   amenities: PlaceAmenity[]
 }
 
-export type PlaceBannerListItemResponse = {
+export interface PlaceBannerListItemResponse {
   id: number
   imageUrl: string
 }
 
-export type PlaceReviewListItemResponse = {
+export interface PlaceReviewListItemResponse {
   id: number
   imageUrls: string[]
   totalRating: number
@@ -183,7 +183,7 @@ export type PlaceReviewListItemResponse = {
   productName: string | null
 }
 
-export type PlaceReviewStatisticsResponse = {
+export interface PlaceReviewStatisticsResponse {
   totalRating: number
   totalReviewCount: number
   averageTasteRating: number
@@ -197,13 +197,13 @@ export type PlaceReviewStatisticsResponse = {
   ratingCounts: Record<string, number>
 }
 
-export type PlaceReviewsByRatingResponse = {
+export interface PlaceReviewsByRatingResponse {
   reviewsByRating: Record<string, PlaceReviewListItemResponse[]>
   allReviews: PlaceReviewListItemResponse[]
   totalReviewCount: number
 }
 
-export type PlaceBestListItemResponse = {
+export interface PlaceBestListItemResponse {
   id: number
   name: string
   imageUrl: string
@@ -212,7 +212,7 @@ export type PlaceBestListItemResponse = {
   foodTypes: PlaceFoodType[]
 }
 
-export type PlaceChoiceListItemResponse = {
+export interface PlaceChoiceListItemResponse {
   id: number
   name: string
   imageUrl: string
@@ -221,7 +221,7 @@ export type PlaceChoiceListItemResponse = {
   products: ProductChoiceListItemResponse[]
 }
 
-export type PlaceLatestListItemResponse = {
+export interface PlaceLatestListItemResponse {
   id: number
   name: string
   imageUrl: string
@@ -233,26 +233,26 @@ export type PlaceLatestListItemResponse = {
   foodTypes: PlaceFoodType[]
 }
 
-export type PlaceMapListItemResponse = {
+export interface PlaceMapListItemResponse {
   id: number
   name: string
   latitude: number
   longitude: number
 }
 
-export type PlaceOrderMethodResponse = {
+export interface PlaceOrderMethodResponse {
   placeId: number
   orderMethods: OrderMethodItem[]
 }
 
-export type PlaceMapMarkerResponse = {
+export interface PlaceMapMarkerResponse {
   id: number
   latitude: number
   longitude: number
   name: string
 }
 
-export type ProductTodayDiscountListItemResponse = {
+export interface ProductTodayDiscountListItemResponse {
   id: number
   name: string
   placeName: string

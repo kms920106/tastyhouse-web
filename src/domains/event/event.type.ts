@@ -1,4 +1,4 @@
-export type Event = {
+export interface Event {
   id: number
   title: string
   imageUrl: string
@@ -13,18 +13,18 @@ export type Event = {
 
 export type EventStatus = 'ACTIVE' | 'ENDED'
 
-export type EventListQuery = {
+export interface EventListQuery {
   status: EventStatus
   page: number
   size: number
 }
 
-export type EventAnnouncementListQuery = {
+export interface EventAnnouncementListQuery {
   page: number
   size: number
 }
 
-export type EventListItem = {
+export interface EventListItem {
   id: number
   name: string
   thumbnailImageUrl: string
@@ -32,12 +32,12 @@ export type EventListItem = {
   endAt: string
 }
 
-export type EventWinner = {
+export interface EventWinner {
   name: string
   phoneNumber: string
 }
 
-export type EventPrizeResponse = {
+export interface EventPrizeResponse {
   id: number
   prizeRank: number
   name: string
@@ -45,16 +45,16 @@ export type EventPrizeResponse = {
   imageUrl: string
 }
 
-export type EventRankDurationResponse = {
+export interface EventRankDurationResponse {
   startAt: Date
   endAt: Date
 }
 
-export type EventDetailResponse = {
+export interface EventDetailResponse {
   bannerImageUrl: string
 }
 
-export type WinnerEventListItem = {
+export interface WinnerEventListItem {
   id: number
   name: string
   announcedAt: string

@@ -1,9 +1,9 @@
-export type NoticeListQuery = {
+export interface NoticeListQuery {
   page: number
   size: number
 }
 
-export type NoticeListItem = {
+export interface NoticeListItem {
   id: number
   title: string
   content: string

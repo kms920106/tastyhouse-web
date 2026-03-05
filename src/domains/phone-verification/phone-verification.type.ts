@@ -1,12 +1,12 @@
-export type SendVerificationCodeRequest = {
+export interface SendVerificationCodeRequest {
   phoneNumber: string
 }
 
-export type ConfirmVerificationCodeRequest = {
+export interface ConfirmVerificationCodeRequest {
   phoneNumber: string
   verificationCode: string
 }
 
-export type PhoneVerifyTokenResponse = {
+export interface PhoneVerifyTokenResponse {
   phoneVerifyToken: string
 }

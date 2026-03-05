@@ -1,6 +1,6 @@
 import { MemberGradeCode } from '@/domains/member'
 
-export type MyGradeResponse = {
+export interface MyGradeResponse {
   currentGrade: MemberGradeCode
   currentGradeDisplayName: string
   nextGrade: MemberGradeCode | null
@@ -9,7 +9,7 @@ export type MyGradeResponse = {
   reviewsNeededForNextGrade: number | null
 }
 
-export type GradeInfoItem = {
+export interface GradeInfoItem {
   grade: MemberGradeCode
   displayName: string
   minReviewCount: number

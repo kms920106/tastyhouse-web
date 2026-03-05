@@ -1,6 +1,6 @@
 import type { PaginationParams } from '@/types/common'
 
-export type Banner = {
+export interface Banner {
   id: number
   imageUrl: string
   linkUrl: string | null

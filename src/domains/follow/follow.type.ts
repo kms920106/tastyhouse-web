@@ -1,6 +1,6 @@
 import { MemberGradeCode } from '../member'
 
-export type FollowMemberResponse = {
+export interface FollowMemberResponse {
   memberId: number
   nickname: string
   memberGrade: MemberGradeCode

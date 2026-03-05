@@ -1,4 +1,4 @@
-export type Product = {
+export interface Product {
   id: number
   name: string
   placeName: string
@@ -8,14 +8,14 @@ export type Product = {
   discountRate: number
 }
 
-export type ProductOption = {
+export interface ProductOption {
   id: number
   name: string
   additionalPrice: number
   isSoldOut: boolean
 }
 
-export type ProductOptionGroup = {
+export interface ProductOptionGroup {
   id: number
   name: string
   description: string | null
@@ -27,7 +27,7 @@ export type ProductOptionGroup = {
   options: ProductOption[]
 }
 
-export type ProductDetailResponse = {
+export interface ProductDetailResponse {
   id: number
   placeId: number
   placeName: string
@@ -45,7 +45,7 @@ export type ProductDetailResponse = {
   optionGroups: ProductOptionGroup[]
 }
 
-export type ProductReviewListItemResponse = {
+export interface ProductReviewListItemResponse {
   id: number
   imageUrls: string[]
   totalRating: number
@@ -57,7 +57,7 @@ export type ProductReviewListItemResponse = {
   productName: string
 }
 
-export type ProductReviewStatisticsResponse = {
+export interface ProductReviewStatisticsResponse {
   totalRating: number | null
   totalReviewCount: number
   averageTasteRating: number
@@ -65,13 +65,13 @@ export type ProductReviewStatisticsResponse = {
   averagePriceRating: number
 }
 
-export type ProductReviewsByRatingResponse = {
+export interface ProductReviewsByRatingResponse {
   reviewsByRating: Record<string, ProductReviewListItemResponse[]>
   allReviews: ProductReviewListItemResponse[]
   totalReviewCount: number
 }
 
-export type ProductReviewsByRatingQuery = {
+export interface ProductReviewsByRatingQuery {
   page?: number
   size?: number
 }

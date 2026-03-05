@@ -4,7 +4,7 @@ export type OrderMethod = 'TABLE_ORDER' | 'RESERVATION' | 'DELIVERY' | 'TAKEOUT'
 
 export type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'COMPLETED' | 'CANCELLED'
 
-export type OrderMethodItem = {
+export interface OrderMethodItem {
   code: OrderMethod
   name: string
 }
@@ -77,7 +77,7 @@ export interface PaymentSummaryResponse {
 
 export type OrderListResponse = OrderListItemResponse[]
 
-type OrderListItemResponse = {
+interface OrderListItemResponse {
   id: number
   placeName: string
   placeThumbnailImageUrl: string

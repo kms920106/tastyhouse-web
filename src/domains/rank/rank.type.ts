@@ -12,16 +12,16 @@ export const rankPeriodToRankType = (period: RankPeriod): RankType => {
   return periodMap[period]
 }
 
-export type RankMemberQuery = {
+export interface RankMemberQuery {
   type: RankType
   limit: number
 }
 
-export type RankMembersMeQuery = {
+export interface RankMembersMeQuery {
   type: RankType
 }
 
-export type RankMemberMeResponse = {
+export interface RankMemberMeResponse {
   nickname: string
   profileImageUrl: string
   reviewCount: number
@@ -29,7 +29,7 @@ export type RankMemberMeResponse = {
   grade: MemberGradeCode
 }
 
-export type RankMemberListItemResponse = {
+export interface RankMemberListItemResponse {
   memberId: number
   nickname: string
   profileImageUrl: string

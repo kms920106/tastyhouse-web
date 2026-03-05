@@ -1,3 +1,3 @@
-export type PrivacyItem = {
+export interface PrivacyItem {
   content: string
 }

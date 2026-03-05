@@ -2,7 +2,7 @@ import { PaymentStatus } from '../payment'
 
 export type MemberGradeCode = 'NEWCOMER' | 'ACTIVE' | 'INSIDER' | 'GOURMET' | 'TEHA'
 
-export type MemberInfo = {
+export interface MemberInfo {
   id: number
   nickname: string
   grade: MemberGradeCode
@@ -13,7 +13,7 @@ export type MemberInfo = {
   email: string
 }
 
-export type MemberCouponListItemResponse = {
+export interface MemberCouponListItemResponse {
   id: number
   couponId: number
   name: string
@@ -30,20 +30,20 @@ export type MemberCouponListItemResponse = {
   daysRemaining: number
 }
 
-export type UsablePointResponse = {
+export interface UsablePointResponse {
   usablePoints: number
 }
 
-export type MyReviewListItemResponse = {
+export interface MyReviewListItemResponse {
   id: number
   imageUrl: string
 }
 
-export type MyReviewStatsResponse = {
+export interface MyReviewStatsResponse {
   totalReviewCount: number
 }
 
-export type MyPaymentListItemResponse = {
+export interface MyPaymentListItemResponse {
   paymentId: number
   placeName: string
   placeThumbnailImageUrl: string
@@ -54,7 +54,7 @@ export type MyPaymentListItemResponse = {
   paymentDate: string
 }
 
-export type MyBookmarkedPlaceListItemResponse = {
+export interface MyBookmarkedPlaceListItemResponse {
   placeId: number
   bookmarkId: number
   placeName: string
@@ -107,25 +107,25 @@ export interface PointHistoryResponse {
   histories: PointHistoryItem[]
 }
 
-export type LoginParams = {
+export interface LoginParams {
   username: string
   password: string
 }
 
 export type LoginResult = { success: true; data: LoginResponse } | { success: false; error: string }
 
-export type LoginRequest = {
+export interface LoginRequest {
   username: string
   password: string
 }
 
-export type LoginResponse = {
+export interface LoginResponse {
   accessToken: string
   refreshToken: string
   tokenType: string
 }
 
-export type OtherMemberProfileResponse = {
+export interface OtherMemberProfileResponse {
   id: number
   nickname: string
   memberGrade: MemberGradeCode
@@ -137,23 +137,23 @@ export type OtherMemberProfileResponse = {
   isFollowing: boolean
 }
 
-export type UpdateProfileRequest = {
+export interface UpdateProfileRequest {
   nickname?: string
   statusMessage?: string
   profileImageFileId?: number
 }
 
-export type VerifyPasswordRequest = {
+export interface VerifyPasswordRequest {
   password: string
 }
 
-export type VerifyPasswordResponse = {
+export interface VerifyPasswordResponse {
   verifyToken: string
 }
 
 export type Gender = 'MALE' | 'FEMALE'
 
-export type UpdatePersonalInfoRequest = {
+export interface UpdatePersonalInfoRequest {
   fullName: string
   phoneNumber?: string
   birthDate?: number
@@ -163,7 +163,7 @@ export type UpdatePersonalInfoRequest = {
   eventInfoEnabled?: boolean
 }
 
-export type PersonalInfoResponse = {
+export interface PersonalInfoResponse {
   email: string
   fullName: string
   phoneNumber: string
@@ -189,12 +189,12 @@ export const WITHDRAW_REASON_LABEL: Record<WithdrawReason, string> = {
   OTHER: '기타',
 }
 
-export type WithdrawRequest = {
+export interface WithdrawRequest {
   reason: WithdrawReason
   reasonDetail?: string
 }
 
-export type UpdatePasswordRequest = {
+export interface UpdatePasswordRequest {
   newPassword: string
   newPasswordConfirm: string
 }
