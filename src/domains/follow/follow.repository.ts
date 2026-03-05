@@ -2,7 +2,7 @@ import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import { FollowMemberResponse } from './follow.type'
 
-const ENDPOINT = '/api/members'
+const ENDPOINT = '/api/follows'
 
 export const followRepository = {
   async getFollowingList(memberId: number, params: PaginationParams) {
