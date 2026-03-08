@@ -71,8 +71,8 @@ export interface PaymentSummaryResponse {
   approvedAt: string
   paymentMethod: PaymentMethod
   paymentStatus: PaymentStatus
-  cardCompany?: string
-  cardNumber?: string
+  cardCompany: string | null
+  cardNumber: string | null
 }
 
 export type OrderListResponse = OrderListItemResponse[]

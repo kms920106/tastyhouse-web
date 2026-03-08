@@ -23,7 +23,7 @@ export interface RankMembersMeQuery {
 
 export interface RankMemberMeResponse {
   nickname: string
-  profileImageUrl: string
+  profileImageUrl: string | null
   reviewCount: number
   rankNo: number
   grade: MemberGradeCode
@@ -32,7 +32,7 @@ export interface RankMemberMeResponse {
 export interface RankMemberListItemResponse {
   memberId: number
   nickname: string
-  profileImageUrl: string
+  profileImageUrl: string | null
   reviewCount: number
   rankNo: number
   grade: MemberGradeCode

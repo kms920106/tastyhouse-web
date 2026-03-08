@@ -36,7 +36,7 @@ type Comment = {
   memberProfileImageUrl: string | null
   content: string
   createdAt: string
-  replies?: Reply[]
+  replies: Reply[]
 }
 
 interface CommentItemProps {
@@ -96,7 +96,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
           </Drawer>
         )}
       </div>
-      {comment.replies && comment.replies.length > 0 && (
+      {comment.replies.length > 0 && (
         <div className="ml-[34px] mt-4 space-y-4">
           {comment.replies.map((reply) => {
             const isMyReply = currentMemberId !== null && reply.memberId === currentMemberId

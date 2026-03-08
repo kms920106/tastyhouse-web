@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 interface RankItemProps {
   rankNo: number
-  profileImageUrl: string
+  profileImageUrl: string | null
   nickname: string
   grade: MemberGradeCode
   reviewCount: number

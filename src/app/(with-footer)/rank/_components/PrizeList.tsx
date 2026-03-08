@@ -1,6 +1,6 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { eventRepository } from "@/domains/event"
+import { eventRepository } from '@/domains/event'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'

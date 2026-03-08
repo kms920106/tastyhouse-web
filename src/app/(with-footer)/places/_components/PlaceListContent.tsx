@@ -93,9 +93,9 @@ function PlaceListItem({
 }
 
 interface PlaceListContentProps {
-  stationId: number | null
-  foodTypes: PlaceFoodType[] | null
-  amenities: PlaceAmenityCode[] | null
+  stationId?: number
+  foodTypes?: PlaceFoodType[]
+  amenities?: PlaceAmenityCode[]
 }
 
 export default function PlaceListContent({

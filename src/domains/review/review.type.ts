@@ -12,7 +12,7 @@ export interface ReviewComment {
   memberProfileImageUrl: string | null
   content: string
   createdAt: string
-  replies?: ReviewReply[]
+  replies: ReviewReply[]
 }
 
 export interface ReviewReply {

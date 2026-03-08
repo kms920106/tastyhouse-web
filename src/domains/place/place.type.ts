@@ -67,9 +67,9 @@ export interface PlaceClosedDay {
 }
 
 export interface PlaceFilterParams {
-  stationId: number | null
-  foodTypes: PlaceFoodType[] | null
-  amenities: PlaceAmenityCode[] | null
+  stationId?: number
+  foodTypes?: PlaceFoodType[]
+  amenities?: PlaceAmenityCode[]
 }
 
 export interface PlaceStation {
@@ -91,9 +91,9 @@ export type PlaceBestQuery = PaginationParams
 export type PlaceChoiceQuery = PaginationParams
 
 export type PlaceLatestQuery = PaginationParams & {
-  stationId: number | null
-  foodTypes: PlaceFoodType[] | null
-  amenities: PlaceAmenityCode[] | null
+  stationId?: number
+  foodTypes?: PlaceFoodType[]
+  amenities?: PlaceAmenityCode[]
 }
 
 export type PlaceReviewsByRatingQuery = PaginationParams

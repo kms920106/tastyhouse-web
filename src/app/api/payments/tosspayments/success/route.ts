@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
 
     // 백엔드 응답의 승인 금액과 요청 금액 불일치 감지
     const { approvedAmount, orderId } = result.data
-    if (approvedAmount !== undefined && approvedAmount !== amountNumber) {
+    if (approvedAmount !== null && approvedAmount !== amountNumber) {
       console.error(
         `결제 금액 불일치 감지 — pgOrderId: ${pgOrderId}, 요청 금액: ${amountNumber}, 승인 금액: ${approvedAmount}`,
       )

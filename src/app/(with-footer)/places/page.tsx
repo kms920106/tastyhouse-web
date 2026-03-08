@@ -12,9 +12,9 @@ interface PlacePageProps {
 export default async function PlacePage({ searchParams }: PlacePageProps) {
   const params = await searchParams
 
-  const stationId = params.stationId ? Number(params.stationId) : null
-  const foodTypes = params.foodTypes?.split(',').filter(Boolean) as PlaceFoodType[] | null
-  const amenities = params.amenities?.split(',').filter(Boolean) as PlaceAmenityCode[] | null
+  const stationId = params.stationId ? Number(params.stationId) : undefined
+  const foodTypes = params.foodTypes?.split(',').filter(Boolean) as PlaceFoodType[] | undefined
+  const amenities = params.amenities?.split(',').filter(Boolean) as PlaceAmenityCode[] | undefined
 
   return <PlaceListSection stationId={stationId} foodTypes={foodTypes} amenities={amenities} />
 }
