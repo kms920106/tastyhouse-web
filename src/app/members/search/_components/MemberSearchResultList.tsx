@@ -41,8 +41,6 @@ export default function MemberSearchResultList({ searchQuery }: MemberSearchResu
     enabled: searchQuery.trim().length > 0,
   })
 
-  console.log(data)
-
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,
     rootMargin: '100px',
