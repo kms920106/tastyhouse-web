@@ -1,4 +1,6 @@
 import { api } from '@/lib/api'
+import { MyReviewListItemResponse } from '@/domains/member/member.type'
+import { PaginationParams } from '@/types/common'
 import {
   CommentCreateRequest,
   CommentCreateResponse,
@@ -58,5 +60,9 @@ export const reviewRepository = {
   },
   async createReview(request: ReviewCreateRequest) {
     return api.post<ReviewCreateResponse>(`${ENDPOINT}/v1`, request)
+  },
+  // 특정 회원의 리뷰 목록 조회
+  async getMemberReviews(memberId: number | string, params: PaginationParams) {
+    return api.get<MyReviewListItemResponse[]>(`${ENDPOINT}/v1/members/${memberId}`, { params })
   },
 }

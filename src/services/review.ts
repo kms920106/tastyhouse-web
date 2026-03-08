@@ -53,3 +53,7 @@ export async function createOrderReview(request: ReviewCreateRequest) {
 
   return result
 }
+
+export async function getMemberReviews(memberId: number | string, page: number = 0, size: number = 9) {
+  return reviewRepository.getMemberReviews(memberId, { page, size })
+}

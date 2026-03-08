@@ -35,6 +35,10 @@ export async function getMyReviews(page: number = 0, size: number = 9) {
   return memberService.getMyReviews(page, size)
 }
 
+export async function getOtherMemberProfile(memberId: number | string) {
+  return memberRepository.getOtherMemberProfile(memberId)
+}
+
 export async function getMyBookmarks(page: number = 0, size: number = 10) {
   return memberService.getMyBookmarks(page, size)
 }
