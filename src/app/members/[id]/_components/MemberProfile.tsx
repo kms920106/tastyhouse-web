@@ -1,8 +1,8 @@
 'use client'
 
+import ProfileImage from '@/components/account/profile/ProfileImage'
 import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
-import Avatar from '@/components/ui/Avatar'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { getMemberStats, getOtherMemberProfile } from '@/services/member'
 import { useQuery } from '@tanstack/react-query'
@@ -66,7 +66,7 @@ export default function MemberProfile({ memberId }: MemberProfileProps) {
   return (
     <div className="flex-1 flex flex-col items-center bg-white">
       <div className="-mt-[63px] relative z-10">
-        <Avatar src={profileImageUrl} alt={nickname ?? ''} size="bg" />
+        <ProfileImage profileImageUrl={profileImageUrl} />
       </div>
       <div className="flex items-center gap-0.5 mt-[21px]">
         <h1 className="text-base leading-[16px] font-bold">{nickname}</h1>

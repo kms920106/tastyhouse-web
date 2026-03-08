@@ -1,9 +1,9 @@
 'use client'
 
 import ProfileImage from '@/components/account/profile/ProfileImage'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
+import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { getMemberStats, getOtherMemberProfile } from '@/services/member'
 import { useQuery } from '@tanstack/react-query'
@@ -87,12 +87,6 @@ export default function MyPageProfile() {
         reviewCount={reviewCount ?? 0}
         followingCount={followingCount ?? 0}
         followerCount={followerCount ?? 0}
-        reviewSlot={
-          <button className="flex items-center gap-1">
-            <span className="text-xs leading-[12px]">리뷰</span>
-            <span className="text-xs leading-[12px] font-bold">{reviewCount ?? 0}</span>
-          </button>
-        }
       />
     </div>
   )
