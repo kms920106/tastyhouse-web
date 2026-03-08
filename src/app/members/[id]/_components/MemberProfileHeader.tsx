@@ -1,10 +1,9 @@
 'use client'
 
 import Header, { HeaderLeft, HeaderRight } from '@/components/layouts/Header'
-import { useFollowMutation } from '@/hooks/useFollowMutation'
-import { useOtherMemberProfile } from '@/hooks/useOtherMemberProfile'
 import { useRouter } from 'next/navigation'
-import { IoChevronBack, IoPersonAdd, IoPersonRemove } from 'react-icons/io5'
+import { IoChevronBack } from 'react-icons/io5'
+import FollowButton from './FollowButton'
 
 interface MemberProfileHeaderProps {
   memberId: number
@@ -12,11 +11,6 @@ interface MemberProfileHeaderProps {
 
 export default function MemberProfileHeader({ memberId }: MemberProfileHeaderProps) {
   const router = useRouter()
-  const { handleFollowToggle } = useFollowMutation()
-
-  const { data: profileData } = useOtherMemberProfile(memberId)
-
-  const isFollowing = profileData?.isFollowing ?? false
 
   return (
     <div className="flex-1 bg-main">
@@ -30,16 +24,7 @@ export default function MemberProfileHeader({ memberId }: MemberProfileHeaderPro
           </button>
         </HeaderLeft>
         <HeaderRight>
-          <button
-            onClick={() => handleFollowToggle({ memberId, following: isFollowing })}
-            className="flex items-center justify-center w-10 h-10"
-          >
-            {isFollowing ? (
-              <IoPersonRemove size={24} className="text-white" />
-            ) : (
-              <IoPersonAdd size={24} className="text-white" />
-            )}
-          </button>
+          <FollowButton memberId={memberId} />
         </HeaderRight>
       </Header>
     </div>

@@ -132,7 +132,7 @@ export interface OtherMemberProfileResponse {
   memberGrade: MemberGradeCode
   statusMessage: string | null
   profileImageUrl: string | null
-  isFollowing: boolean
+  following: boolean
 }
 
 export interface UpdateProfileRequest {
