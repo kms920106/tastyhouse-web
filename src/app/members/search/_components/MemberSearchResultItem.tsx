@@ -4,6 +4,7 @@ import FollowButton from '@/components/ui/FollowButton'
 import MemberProfileCell, { MemberProfileCellSkeleton } from '@/components/ui/MemberProfileCell'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { MemberSocialResponse } from '@/domains/follow'
+import Link from 'next/link'
 
 interface MemberSearchResultItemProps {
   member: MemberSocialResponse
@@ -25,11 +26,13 @@ export default function MemberSearchResultItem({
 }: MemberSearchResultItemProps) {
   return (
     <div className="flex items-center justify-between">
-      <MemberProfileCell
-        nickname={member.nickname}
-        memberGrade={member.memberGrade}
-        profileImageUrl={member.profileImageUrl}
-      />
+      <Link href={`/members/${member.memberId}`} className="flex-1">
+        <MemberProfileCell
+          nickname={member.nickname}
+          memberGrade={member.memberGrade}
+          profileImageUrl={member.profileImageUrl}
+        />
+      </Link>
       <FollowButton following={member.following} onClick={() => onFollowToggle(member)} />
     </div>
   )
