@@ -15,8 +15,12 @@ export async function getMemberMe() {
   return memberRepository.getMemberMe()
 }
 
-export async function getMyReviewStats() {
-  return memberRepository.getMyReviewStats()
+export async function getMyStats() {
+  return memberRepository.getMyStats()
+}
+
+export async function getMemberStats(memberId: number | string) {
+  return memberRepository.getMemberStats(memberId)
 }
 
 export async function getMemberAvailableCoupons() {

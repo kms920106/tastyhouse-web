@@ -1,10 +1,10 @@
 'use client'
 
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { OtherMemberProfileResponse } from '@/domains/member/member.type'
-import Avatar from '@/components/ui/Avatar'
 import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
+import Avatar from '@/components/ui/Avatar'
+import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import { MemberStatsResponse, OtherMemberProfileResponse } from '@/domains/member/member.type'
 
 export function MemberProfileSectionSkeleton() {
   return (
@@ -38,12 +38,14 @@ export function MemberProfileSectionSkeleton() {
   )
 }
 
-interface MemberProfileSectionProps {
+interface MemberProfileProps {
   profile: OtherMemberProfileResponse
+  stats: MemberStatsResponse
 }
 
-export default function MemberProfileSection({ profile }: MemberProfileSectionProps) {
-  const { id, nickname, profileImageUrl, memberGrade, statusMessage, reviewCount, followingCount, followerCount } = profile
+export default function MemberProfile({ profile, stats }: MemberProfileProps) {
+  const { id, nickname, profileImageUrl, memberGrade, statusMessage } = profile
+  const { reviewCount, followingCount, followerCount } = stats
 
   return (
     <div className="flex-1 flex flex-col items-center bg-white">

@@ -3,11 +3,11 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getOtherMemberProfile } from '@/services/member'
+import { getMemberStats, getOtherMemberProfile } from '@/services/member'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import MemberProfileHeader from './MemberProfileHeader'
-import MemberProfileSection, { MemberProfileSectionSkeleton } from './MemberProfileSection'
+import MemberProfile, { MemberProfileSectionSkeleton } from './MemberProfile'
 import MemberReviewListFetcher from './MemberReviewListFetcher'
 
 function MemberProfileContentSkeleton() {
@@ -31,7 +31,7 @@ interface MemberProfileContentProps {
 }
 
 export default function MemberProfileContent({ memberId }: MemberProfileContentProps) {
-  const { data, isLoading, error } = useQuery({
+  const { data: profileData, isLoading: isProfileLoading, error: profileError } = useQuery({
     queryKey: ['member', memberId, 'profile'],
     queryFn: async () => {
       const response = await getOtherMemberProfile(memberId)
@@ -39,11 +39,19 @@ export default function MemberProfileContent({ memberId }: MemberProfileContentP
     },
   })
 
-  if (isLoading) {
+  const { data: statsData, isLoading: isStatsLoading, error: statsError } = useQuery({
+    queryKey: ['member', memberId, 'stats'],
+    queryFn: async () => {
+      const response = await getMemberStats(memberId)
+      return response.data ?? null
+    },
+  })
+
+  if (isProfileLoading || isStatsLoading) {
     return <MemberProfileContentSkeleton />
   }
 
-  if (error || !data) {
+  if (profileError || statsError || !profileData || !statsData) {
     return (
       <ErrorMessage
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('프로필')}
@@ -55,8 +63,8 @@ export default function MemberProfileContent({ memberId }: MemberProfileContentP
   return (
     <div className="flex flex-col min-h-dvh bg-white">
       <div className="flex flex-col h-[50dvh]">
-        <MemberProfileHeader memberId={data.id} isFollowing={data.isFollowing} />
-        <MemberProfileSection profile={data} />
+        <MemberProfileHeader memberId={profileData.id} isFollowing={profileData.isFollowing} />
+        <MemberProfile profile={profileData} stats={statsData} />
       </div>
       <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
         <div className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0 flex">
@@ -65,7 +73,7 @@ export default function MemberProfileContent({ memberId }: MemberProfileContentP
           </div>
         </div>
         <div className="mt-0 flex-1 min-h-[50dvh] bg-[#f9f9f9] flex flex-col">
-          <MemberReviewListFetcher memberId={data.id} />
+          <MemberReviewListFetcher memberId={profileData.id} />
         </div>
       </div>
     </div>

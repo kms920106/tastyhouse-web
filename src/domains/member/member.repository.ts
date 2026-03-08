@@ -3,9 +3,9 @@ import { PaginationParams } from '@/types/common'
 import {
   MemberCouponListItemResponse,
   MemberInfo,
+  MemberStatsResponse,
   MyBookmarkedPlaceListItemResponse,
   MyReviewListItemResponse,
-  MyReviewStatsResponse,
   OtherMemberProfileResponse,
   PersonalInfoResponse,
   PointHistoryResponse,
@@ -29,9 +29,13 @@ export const memberRepository = {
   async getMemberMe() {
     return api.get<MemberInfo>(`${ENDPOINT}/v1/me`)
   },
-  // 내 리뷰 통계 조회
-  async getMyReviewStats() {
-    return api.get<MyReviewStatsResponse>(`${ENDPOINT}/v1/me/review-stats`)
+  // 내 통계 조회 (리뷰 수, 팔로잉 수, 팔로워 수)
+  async getMyStats() {
+    return api.get<MemberStatsResponse>(`${ENDPOINT}/v1/me/stats`)
+  },
+  // 특정 회원 통계 조회 (리뷰 수, 팔로잉 수, 팔로워 수)
+  async getMemberStats(memberId: number | string) {
+    return api.get<MemberStatsResponse>(`${ENDPOINT}/v1/${memberId}/stats`)
   },
   // 사용 가능한 쿠폰 목록 조회
   async getMyAvailableCoupons() {

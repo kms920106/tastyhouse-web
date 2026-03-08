@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
-import { useMyReviewStats } from '@/hooks/useMyReviewStats'
+import { useMyStats } from '@/hooks/useMyStats'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -44,9 +44,9 @@ function MyPageProfileSkeleton() {
 
 export default function MyPageProfile() {
   const { memberProfile, isLoading: isProfileLoading } = useMemberProfile()
-  const { totalReviewCount, isLoading: isReviewStatsLoading } = useMyReviewStats()
+  const { reviewCount, followingCount, followerCount, isLoading: isStatsLoading } = useMyStats()
 
-  if (isProfileLoading || isReviewStatsLoading) {
+  if (isProfileLoading || isStatsLoading) {
     return <MyPageProfileSkeleton />
   }
 
@@ -69,13 +69,13 @@ export default function MyPageProfile() {
       )}
       <MemberProfileStats
         memberId={memberId ?? ''}
-        reviewCount={totalReviewCount ?? 0}
-        followingCount={0}
-        followerCount={0}
+        reviewCount={reviewCount}
+        followingCount={followingCount}
+        followerCount={followerCount}
         reviewSlot={
           <button className="flex items-center gap-1">
             <span className="text-xs leading-[12px]">리뷰</span>
-            <span className="text-xs leading-[12px] font-bold">{totalReviewCount}</span>
+            <span className="text-xs leading-[12px] font-bold">{reviewCount}</span>
           </button>
         }
       />

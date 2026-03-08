@@ -8,8 +8,11 @@ export const memberService = {
   async getMemberMe() {
     return await memberRepository.getMemberMe()
   },
-  async getMyReviewStats() {
-    return await memberRepository.getMyReviewStats()
+  async getMyStats() {
+    return await memberRepository.getMyStats()
+  },
+  async getMemberStats(memberId: number | string) {
+    return await memberRepository.getMemberStats(memberId)
   },
   async getMyAvailableCoupons() {
     return await memberRepository.getMyAvailableCoupons()

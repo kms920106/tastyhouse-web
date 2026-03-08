@@ -1,5 +1,4 @@
 import { PaymentStatus } from '../payment'
-
 export type MemberGradeCode = 'NEWCOMER' | 'ACTIVE' | 'INSIDER' | 'GOURMET' | 'TEHA'
 
 export interface MemberInfo {
@@ -39,8 +38,10 @@ export interface MyReviewListItemResponse {
   imageUrl: string
 }
 
-export interface MyReviewStatsResponse {
-  totalReviewCount: number
+export interface MemberStatsResponse {
+  reviewCount: number
+  followingCount: number
+  followerCount: number
 }
 
 export interface MyPaymentListItemResponse {
@@ -131,9 +132,6 @@ export interface OtherMemberProfileResponse {
   memberGrade: MemberGradeCode
   statusMessage: string | null
   profileImageUrl: string | null
-  reviewCount: number
-  followingCount: number
-  followerCount: number
   isFollowing: boolean
 }
 
