@@ -5,7 +5,8 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
-import { useMyStats } from '@/hooks/useMyStats'
+import { getMemberStats, getOtherMemberProfile } from '@/services/member'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -44,13 +45,27 @@ function MyPageProfileSkeleton() {
 
 export default function MyPageProfile() {
   const { memberProfile, isLoading: isProfileLoading } = useMemberProfile()
-  const { reviewCount, followingCount, followerCount, isLoading: isStatsLoading } = useMyStats()
 
-  if (isProfileLoading || isStatsLoading) {
+  const memberId = memberProfile?.id
+
+  const { data: otherProfileData, isLoading: isOtherProfileLoading } = useQuery({
+    queryKey: ['member', 'profile', memberId],
+    queryFn: () => getOtherMemberProfile(memberId!),
+    enabled: !!memberId,
+  })
+
+  const { data: statsData, isLoading: isStatsLoading } = useQuery({
+    queryKey: ['member', 'stats', memberId],
+    queryFn: () => getMemberStats(memberId!),
+    enabled: !!memberId,
+  })
+
+  if (isProfileLoading || isOtherProfileLoading || isStatsLoading) {
     return <MyPageProfileSkeleton />
   }
 
-  const { id: memberId, nickname, profileImageUrl, grade: memberGrade, statusMessage } = memberProfile ?? {}
+  const { nickname, profileImageUrl, memberGrade, statusMessage } = otherProfileData?.data ?? {}
+  const { reviewCount, followingCount, followerCount } = statsData?.data ?? {}
 
   return (
     <div className="flex-1 flex flex-col items-center bg-white">
@@ -69,13 +84,13 @@ export default function MyPageProfile() {
       )}
       <MemberProfileStats
         memberId={memberId ?? ''}
-        reviewCount={reviewCount}
-        followingCount={followingCount}
-        followerCount={followerCount}
+        reviewCount={reviewCount ?? 0}
+        followingCount={followingCount ?? 0}
+        followerCount={followerCount ?? 0}
         reviewSlot={
           <button className="flex items-center gap-1">
             <span className="text-xs leading-[12px]">리뷰</span>
-            <span className="text-xs leading-[12px] font-bold">{reviewCount}</span>
+            <span className="text-xs leading-[12px] font-bold">{reviewCount ?? 0}</span>
           </button>
         }
       />

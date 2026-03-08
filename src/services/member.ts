@@ -15,10 +15,6 @@ export async function getMemberMe() {
   return memberRepository.getMemberMe()
 }
 
-export async function getMyStats() {
-  return memberRepository.getMyStats()
-}
-
 export async function getMemberStats(memberId: number | string) {
   return memberRepository.getMemberStats(memberId)
 }

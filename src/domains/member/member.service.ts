@@ -8,9 +8,6 @@ export const memberService = {
   async getMemberMe() {
     return await memberRepository.getMemberMe()
   },
-  async getMyStats() {
-    return await memberRepository.getMyStats()
-  },
   async getMemberStats(memberId: number | string) {
     return await memberRepository.getMemberStats(memberId)
   },
