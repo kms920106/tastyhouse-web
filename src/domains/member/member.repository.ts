@@ -35,9 +35,7 @@ export const memberRepository = {
   },
   // 사용 가능한 쿠폰 목록 조회
   async getMyAvailableCoupons() {
-    return api.get<MemberCouponListItemResponse[]>(
-      `${ENDPOINT}/v1/me/coupons/available`,
-    )
+    return api.get<MemberCouponListItemResponse[]>(`${ENDPOINT}/v1/me/coupons/available`)
   },
   // 보유 쿠폰 목록 조회
   async getMyCoupons() {
@@ -55,12 +53,9 @@ export const memberRepository = {
     })
   },
   async getMyBookmarks(params: PaginationParams) {
-    return api.get<MyBookmarkedPlaceListItemResponse[]>(
-      `${ENDPOINT}/v1/me/bookmarks`,
-      {
-        params,
-      },
-    )
+    return api.get<MyBookmarkedPlaceListItemResponse[]>(`${ENDPOINT}/v1/me/bookmarks`, {
+      params,
+    })
   },
   // 프로필 수정
   async updateMyProfile(data: UpdateProfileRequest) {

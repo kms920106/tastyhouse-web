@@ -22,3 +22,11 @@ export async function unfollowMember(memberId: number) {
 export async function removeFollower(followerId: number) {
   return followRepository.removeFollower(followerId)
 }
+
+export async function searchMembersByNickname(
+  nickname: string,
+  page: number = 0,
+  size: number = 20,
+) {
+  return followRepository.searchMembersByNickname(nickname, { page, size })
+}

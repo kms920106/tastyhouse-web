@@ -5,7 +5,8 @@ import Header, {
   HeaderTitle,
 } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import { memberRepository } from "@/domains/member"
+import { memberRepository } from '@/domains/member'
+import Link from 'next/link'
 import { AiOutlinePlus } from 'react-icons/ai'
 
 interface FollowsHeaderProps {
@@ -25,7 +26,9 @@ export default async function FollowsHeader({ memberId }: FollowsHeaderProps) {
         <HeaderTitle>{memberNickname}</HeaderTitle>
       </HeaderCenter>
       <HeaderRight>
-        <AiOutlinePlus size={22} />
+        <Link href={'/members/search'}>
+          <AiOutlinePlus size={22} />
+        </Link>
       </HeaderRight>
     </Header>
   )

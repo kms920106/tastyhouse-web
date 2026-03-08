@@ -48,7 +48,8 @@ export default function FollowsTabs({ memberId, initialTab }: FollowsTabsProps) 
     (tab: string) => {
       const params = new URLSearchParams()
       params.set('tab', tab)
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
+      // router.push(`${pathname}?${params.toString()}`, { scroll: false })
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
       setSearchQuery('')
     },
     [router, pathname],

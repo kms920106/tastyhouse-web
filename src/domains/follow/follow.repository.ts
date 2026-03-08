@@ -1,6 +1,6 @@
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
-import { FollowMemberResponse } from './follow.type'
+import { FollowMemberResponse, MemberSearchResponse } from './follow.type'
 
 const ENDPOINT = '/api/follows'
 
@@ -23,5 +23,10 @@ export const followRepository = {
 
   async removeFollower(followerId: number) {
     return api.delete<void>(`${ENDPOINT}/v1/followers/${followerId}`)
+  },
+  async searchMembersByNickname(nickname: string, params: PaginationParams) {
+    return api.get<MemberSearchResponse[]>(`${ENDPOINT}/v1/search`, {
+      params: { nickname, ...params },
+    })
   },
 }
