@@ -7,5 +7,7 @@ interface MemberProfilePageProps {
 export default async function MemberProfilePage({ params }: MemberProfilePageProps) {
   const { id } = await params
 
-  return <MemberProfileContent memberId={id} />
+  const memberId = Number(id)
+
+  return <MemberProfileContent memberId={memberId} />
 }

@@ -4,7 +4,8 @@ import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
 import Avatar from '@/components/ui/Avatar'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { MemberStatsResponse, OtherMemberProfileResponse } from '@/domains/member/member.type'
+import { getMemberStats, getOtherMemberProfile } from '@/services/member'
+import { useQuery } from '@tanstack/react-query'
 
 export function MemberProfileSectionSkeleton() {
   return (
@@ -39,18 +40,33 @@ export function MemberProfileSectionSkeleton() {
 }
 
 interface MemberProfileProps {
-  profile: OtherMemberProfileResponse
-  stats: MemberStatsResponse
+  memberId: number
 }
 
-export default function MemberProfile({ profile, stats }: MemberProfileProps) {
-  const { id, nickname, profileImageUrl, memberGrade, statusMessage } = profile
-  const { reviewCount, followingCount, followerCount } = stats
+export default function MemberProfile({ memberId }: MemberProfileProps) {
+  const { data: profileData } = useQuery({
+    queryKey: ['member', memberId, 'profile'],
+    queryFn: async () => {
+      const response = await getOtherMemberProfile(memberId)
+      return response.data ?? null
+    },
+  })
+
+  const { data: statsData } = useQuery({
+    queryKey: ['member', memberId, 'stats'],
+    queryFn: async () => {
+      const response = await getMemberStats(memberId)
+      return response.data ?? null
+    },
+  })
+
+  const { nickname, profileImageUrl, memberGrade, statusMessage } = profileData ?? {}
+  const { reviewCount, followingCount, followerCount } = statsData ?? {}
 
   return (
     <div className="flex-1 flex flex-col items-center bg-white">
       <div className="-mt-[63px] relative z-10">
-        <Avatar src={profileImageUrl} alt={nickname} size="bg" />
+        <Avatar src={profileImageUrl} alt={nickname ?? ''} size="bg" />
       </div>
       <div className="flex items-center gap-0.5 mt-[21px]">
         <h1 className="text-base leading-[16px] font-bold">{nickname}</h1>
@@ -60,10 +76,10 @@ export default function MemberProfile({ profile, stats }: MemberProfileProps) {
         <p className="text-sm leading-[14px] text-center mt-[15px] px-8">{statusMessage}</p>
       )}
       <MemberProfileStats
-        memberId={id}
-        reviewCount={reviewCount}
-        followingCount={followingCount}
-        followerCount={followerCount}
+        memberId={memberId}
+        reviewCount={reviewCount ?? 0}
+        followingCount={followingCount ?? 0}
+        followerCount={followerCount ?? 0}
       />
     </div>
   )
