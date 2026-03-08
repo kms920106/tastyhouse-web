@@ -13,7 +13,13 @@ interface ReviewListItemProps {
 function ReviewListItem({ id, imageUrl }: ReviewListItemProps) {
   return (
     <Link key={id} href={PAGE_PATHS.REVIEW_DETAIL(id)} className="relative aspect-square">
-      <Image src={resolveImageUrl(imageUrl ?? '')} alt="리뷰 이미지" fill sizes="33vw" className="object-cover" />
+      <Image
+        src={resolveImageUrl(imageUrl ?? '')}
+        alt="리뷰 이미지"
+        fill
+        sizes="33vw"
+        className="object-cover"
+      />
     </Link>
   )
 }
@@ -26,7 +32,7 @@ interface ReviewListProps {
 export default function ReviewList({ reviews, hasMoreReviews }: ReviewListProps) {
   if (reviews.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full pb-[70px]">
+      <div className="flex flex-col items-center justify-center flex-1 h-full pb-[70px]">
         <div className="relative w-[35px] h-[40px]">
           <Image src="/images/mypage/logo-gray.png" alt="로고" width={35} height={40} />
         </div>

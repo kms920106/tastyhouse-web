@@ -1,11 +1,11 @@
 'use client'
 
+import ReviewList from '@/components/reviews/ReviewList'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { getMyReviews } from '@/services/member'
 import { useQuery } from '@tanstack/react-query'
-import ReviewList from './ReviewList'
 
 function ReviewListSkeleton() {
   return (

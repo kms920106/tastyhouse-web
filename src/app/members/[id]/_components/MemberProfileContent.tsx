@@ -59,12 +59,12 @@ export default function MemberProfileContent({ memberId }: MemberProfileContentP
         <MemberProfileSection profile={data} />
       </div>
       <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
-        <div className="sticky top-0 w-full h-[50px] bg-white border-b border-[#eeeeee] z-40 flex items-center justify-center">
+        <div className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0 flex">
           <div className="flex-1 h-full flex items-center justify-center border-b-2 border-main">
             <Image src="/images/mypage/icon-review-on.png" alt="리뷰" width={22} height={25} />
           </div>
         </div>
-        <div className="flex-1 bg-[#f9f9f9]">
+        <div className="mt-0 flex-1 min-h-[50dvh] bg-[#f9f9f9] flex flex-col">
           <MemberReviewListFetcher memberId={data.id} />
         </div>
       </div>
