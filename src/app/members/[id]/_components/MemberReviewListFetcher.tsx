@@ -1,26 +1,11 @@
 'use client'
 
 import ReviewList from '@/components/reviews/ReviewList'
+import ReviewListSkeleton from '@/components/reviews/ReviewListSkeleton'
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { getMemberReviews } from '@/services/review'
 import { useQuery } from '@tanstack/react-query'
-
-function ReviewListSkeleton() {
-  return (
-    <>
-      <div className="py-[1px]">
-        <div className="grid grid-cols-3 gap-[1.5px]">
-          {Array.from({ length: 9 }).map((_, index) => (
-            <Skeleton key={index} className="relative aspect-square" />
-          ))}
-        </div>
-      </div>
-      <div className="h-[70px]"></div>
-    </>
-  )
-}
 
 interface MemberReviewListFetcherProps {
   memberId: number

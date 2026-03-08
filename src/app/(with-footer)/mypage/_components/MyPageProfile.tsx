@@ -2,11 +2,10 @@
 
 import ProfileImage from '@/components/account/profile/ProfileImage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
+import MemberGradeInfo from '@/components/member/MemberGradeInfo'
+import MemberProfileStats from '@/components/member/MemberProfileStats'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { useMyReviewStats } from '@/hooks/useMyReviewStats'
-import { cn } from '@/lib/utils'
-import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -53,10 +52,6 @@ export default function MyPageProfile() {
 
   const { id: memberId, nickname, profileImageUrl, grade: memberGrade, statusMessage } = memberProfile ?? {}
 
-  const gradeName = getMemberGradeName(memberGrade ?? 'NEWCOMER')
-  const gradeIcon = getMemberGradeIcon(memberGrade ?? 'NEWCOMER')
-  const gradeColor = getMemberGradeColor(memberGrade ?? 'NEWCOMER')
-
   return (
     <div className="flex-1 flex flex-col items-center bg-white">
       <div className="-mt-[63px] relative z-10">
@@ -68,35 +63,22 @@ export default function MyPageProfile() {
           <Image src="/images/mypage/icon-pen.png" alt="pencil" width={18} height={16} />
         </Link>
       </div>
-      <div className="flex items-center gap-1.5 mt-2">
-        <div className="relative w-[14px] h-[14px]">
-          <Image
-            src={`/images/rank/icon-level-${gradeIcon}-40.png`}
-            alt={gradeName}
-            fill
-            style={{ objectFit: 'contain' }}
-            sizes="16px"
-          />
-        </div>
-        <span className={cn('text-sm leading-[14px] font-bold', gradeColor)}>{gradeName}</span>
-      </div>
+      <MemberGradeInfo memberGrade={memberGrade} />
       {statusMessage && (
         <p className="text-sm leading-[14px] text-center mt-[15px] px-8">{statusMessage}</p>
       )}
-      <div className="flex items-center justify-center gap-10 mt-[53px] mb-[30px]">
-        <button className="flex items-center gap-1">
-          <span className="text-xs leading-[12px]">리뷰</span>
-          <span className="text-xs leading-[12px] font-bold">{totalReviewCount}</span>
-        </button>
-        <Link href={PAGE_PATHS.MEMBER_FOLLOWS(memberId ?? '', 'following')} className="flex items-center gap-1">
-          <span className="text-xs leading-[12px]">팔로잉</span>
-          <span className="text-xs leading-[12px] font-bold">{0}</span>
-        </Link>
-        <Link href={PAGE_PATHS.MEMBER_FOLLOWS(memberId ?? '', 'follower')} className="flex items-center gap-1">
-          <span className="text-xs leading-[12px]">팔로워</span>
-          <span className="text-xs leading-[12px] font-bold">{0}</span>
-        </Link>
-      </div>
+      <MemberProfileStats
+        memberId={memberId ?? ''}
+        reviewCount={totalReviewCount ?? 0}
+        followingCount={0}
+        followerCount={0}
+        reviewSlot={
+          <button className="flex items-center gap-1">
+            <span className="text-xs leading-[12px]">리뷰</span>
+            <span className="text-xs leading-[12px] font-bold">{totalReviewCount}</span>
+          </button>
+        }
+      />
     </div>
   )
 }
