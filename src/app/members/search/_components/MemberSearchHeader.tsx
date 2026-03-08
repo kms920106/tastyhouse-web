@@ -1,7 +1,8 @@
 'use client'
 
+import Header from '@/components/layouts/Header'
+import { BackButton, SearchButton } from '@/components/layouts/header-parts'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useRef } from 'react'
 
 interface MemberSearchHeaderProps {
@@ -11,7 +12,6 @@ interface MemberSearchHeaderProps {
 }
 
 export default function MemberSearchHeader({ value, onChange, onSearch }: MemberSearchHeaderProps) {
-  const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -26,10 +26,8 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Member
   }
 
   return (
-    <div className="flex items-center gap-3 px-[15px] h-[55px] bg-white border-b border-[#eeeeee]">
-      <button onClick={() => router.back()} className="shrink-0 cursor-pointer">
-        <Image src="/images/layout/nav-left-black.png" alt="뒤로가기" width={9} height={16} />
-      </button>
+    <Header variant="white" height={55}>
+      <BackButton />
       <div className="relative flex items-center flex-1">
         <input
           ref={inputRef}
@@ -37,7 +35,7 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Member
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="닉네임검색하기"
+          placeholder="닉네임을 입력해 주세요."
           autoFocus
           className="w-full bg-transparent border-none outline-none text-sm leading-[14px] text-[#333333] placeholder:text-[#999999] pr-[24px]"
         />
@@ -50,9 +48,7 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Member
           </button>
         )}
       </div>
-      <button onClick={onSearch} className="shrink-0 cursor-pointer">
-        <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
-      </button>
-    </div>
+      <SearchButton onClick={onSearch} />
+    </Header>
   )
 }
