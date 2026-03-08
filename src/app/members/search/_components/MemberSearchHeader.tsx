@@ -44,7 +44,7 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Member
             onClick={handleClear}
             className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"
           >
-            <Image src="/images/icon-delete-circle.png" alt="초기화" width={18} height={18} />
+            <Image src="/images/icon-clear.png" alt="초기화" width={15} height={15} />
           </button>
         )}
       </div>
