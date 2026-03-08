@@ -67,7 +67,6 @@ export default function FollowListItem({
             <FollowButton
               following={member.following}
               onClick={() => onFollowToggle(member)}
-              variant="outlined"
             />
             <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
               <FiMoreVertical size={22} color="#999999" />
