@@ -7,6 +7,7 @@ import { toast } from '@/components/ui/AppToaster'
 import { Spinner } from '@/components/ui/shadcn/spinner'
 import useFileUpload from '@/hooks/useFileUpload'
 import { extractZodFieldErrors } from '@/lib/form'
+import { cn } from '@/lib/utils'
 import { createBugReport } from '@/services/bug-report'
 import Image from 'next/image'
 import { useState, useTransition } from 'react'
@@ -99,9 +100,12 @@ export default function BugReportsForm() {
               <select
                 value={formData.device}
                 onChange={(e) => handleChange('device', e.target.value)}
-                className={`w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border box-border appearance-none bg-white focus:outline-none ${
-                  !formData.device ? 'text-[#999999]' : 'text-[#333333]'
-                } ${errors.device ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
+                className={cn(
+                  'w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border box-border appearance-none bg-white focus:outline-none',
+                  !formData.device ? 'text-[#999999]' : 'text-[#333333]',
+                  errors.device ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]',
+                  className,
+                )}
               >
                 <option value="">선택</option>
                 <option value="android">Android</option>
@@ -131,7 +135,11 @@ export default function BugReportsForm() {
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
               placeholder="제목을 입력해 주세요."
-              className={`w-full h-[50px] pl-[16px] pr-4 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333] ${errors.title ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]'} ${className ?? ''}`}
+              className={cn(
+                'w-full h-[50px] pl-[16px] pr-4 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333]',
+                errors.title ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]',
+                className,
+              )}
             />
           )}
         </AppFormField>

@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import type { ReviewSortType } from '@/domains/review'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { PAGE_PATHS } from '@/lib/paths'
+import { cn } from '@/lib/utils'
 import { getPlaceReviews } from '@/services/place'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -95,11 +96,10 @@ function ReviewFilter({
       <div className="flex gap-2.5">
         <button
           onClick={() => onRatingChange(null)}
-          className={`px-[21px] py-[14px] bg-white text-sm leading-[14px] border-1 box-border rounded-[1px] cursor-pointer ${
-            selectedRating === null
-              ? 'text-[#a11420] font-bold border-main'
-              : 'text-[#aaaaaa] border-[#eeeeee]'
-          }`}
+          className={cn(
+            'px-[21px] py-[14px] bg-white text-sm leading-[14px] border-1 box-border rounded-[1px] cursor-pointer',
+            selectedRating === null ? 'text-[#a11420] font-bold border-main' : 'text-[#aaaaaa] border-[#eeeeee]',
+          )}
         >
           전체
         </button>
@@ -107,11 +107,10 @@ function ReviewFilter({
           <button
             key={rating}
             onClick={() => onRatingChange(rating)}
-            className={`px-[21px] py-[14px] bg-white text-sm leading-[14px] border-1 box-border rounded-[1px] cursor-pointer ${
-              selectedRating === rating
-                ? 'text-[#a11420] font-bold border-main'
-                : 'text-[#aaaaaa] border-[#eeeeee]'
-            }`}
+            className={cn(
+              'px-[21px] py-[14px] bg-white text-sm leading-[14px] border-1 box-border rounded-[1px] cursor-pointer',
+              selectedRating === rating ? 'text-[#a11420] font-bold border-main' : 'text-[#aaaaaa] border-[#eeeeee]',
+            )}
           >
             {rating}점
           </button>

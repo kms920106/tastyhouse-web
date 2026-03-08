@@ -4,6 +4,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import type { OrderMethod, OrderMethodItem } from '@/domains/order'
+import { cn } from '@/lib/utils'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -90,9 +91,10 @@ export default function PlaceOrderMethodSection({
               <button
                 key={method.id}
                 onClick={() => setSelectedMethod(method.id)}
-                className={`flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer ${
-                  selectedMethod === method.id ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]'
-                }`}
+                className={cn(
+                  'flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer',
+                  selectedMethod === method.id ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]',
+                )}
                 style={{ aspectRatio: '165/100' }}
               >
                 <div className="relative flex items-center justify-center w-full h-12 mb-2.5">
@@ -106,9 +108,10 @@ export default function PlaceOrderMethodSection({
                   />
                 </div>
                 <span
-                  className={`text-[13px] leading-[13px] ${
-                    selectedMethod === method.id ? 'text-main' : 'text-[#cccccc]'
-                  }`}
+                  className={cn(
+                    'text-[13px] leading-[13px]',
+                    selectedMethod === method.id ? 'text-main' : 'text-[#cccccc]',
+                  )}
                 >
                   {method.title}
                 </span>

@@ -11,6 +11,7 @@ import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
 import { extractZodFieldErrors } from '@/lib/form'
+import { cn } from '@/lib/utils'
 import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/services/member'
 import {
   confirmPhoneVerificationCode,
@@ -252,7 +253,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                     if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
                   }}
                   placeholder="이름을 입력해 주세요."
-                  className={`pr-4 ${className ?? ''}`}
+                  className={cn('pr-4', className)}
                 />
               )}
             </AppFormField>
@@ -270,7 +271,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                       placeholder="01012345678"
                       disabled={isVerified}
                       maxLength={11}
-                      className={`flex-1 pr-4 ${isVerified ? 'bg-[#f8f8f8] text-[#aaaaaa]' : ''} ${className ?? ''}`}
+                      className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]', className)}
                     />
                     <AppOutlineButton
                       onClick={handleSendVerification}
@@ -295,7 +296,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                         disabled={isVerified}
                         placeholder="123456"
                         maxLength={6}
-                        className={`flex-1 pr-4 ${isVerified ? 'bg-[#f8f8f8] text-[#aaaaaa]' : ''}`}
+                        className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]')}
                       />
                       <AppOutlineButton
                         className="shrink-0 w-auto px-4"
@@ -367,21 +368,19 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
               {() => (
                 <div className="flex">
                   <AppOutlineButton
-                    className={`flex-1 transition-colors ${
-                      gender === 'MALE'
-                        ? 'border-[#a91201] text-[#a91201]'
-                        : 'border-[#eeeeee] text-[#333333]'
-                    }`}
+                    className={cn(
+                      'flex-1 transition-colors',
+                      gender === 'MALE' ? 'border-[#a91201] text-[#a91201]' : 'border-[#eeeeee] text-[#333333]',
+                    )}
                     onClick={() => setGender('MALE')}
                   >
                     남성
                   </AppOutlineButton>
                   <AppOutlineButton
-                    className={`flex-1 transition-colors ${
-                      gender === 'FEMALE'
-                        ? 'border-[#a91201] text-[#a91201]'
-                        : 'border-[#eeeeee] text-[#333333]'
-                    }`}
+                    className={cn(
+                      'flex-1 transition-colors',
+                      gender === 'FEMALE' ? 'border-[#a91201] text-[#a91201]' : 'border-[#eeeeee] text-[#333333]',
+                    )}
                     onClick={() => setGender('FEMALE')}
                   >
                     여성

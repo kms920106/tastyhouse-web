@@ -108,9 +108,10 @@ export default function BestReviewSwiper({ reviews }: BestReviewSwiperProps) {
             {({ isActive }) => (
               <Link
                 href={PAGE_PATHS.REVIEW_DETAIL(review.id)}
-                className={`block h-full overflow-hidden transition-all duration-300 ${
-                  isActive ? 'scale-100 opacity-100' : 'scale-90 opacity-60'
-                }`}
+                className={cn(
+                  'block h-full overflow-hidden transition-all duration-300',
+                  isActive ? 'scale-100 opacity-100' : 'scale-90 opacity-60',
+                )}
               >
                 <div className="relative mb-[15px] w-full bg-gray-100 pt-[75%]">
                   <Image

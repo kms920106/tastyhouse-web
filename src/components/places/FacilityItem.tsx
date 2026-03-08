@@ -3,6 +3,7 @@
 import { getPlaceAmenityCodeName } from '@/constants/place'
 import { PlaceAmenity } from '@/domains/place'
 import { resolveImageUrl } from '@/lib/image'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Skeleton } from '../ui/shadcn/skeleton'
 
@@ -38,9 +39,10 @@ function FacilityItemContent({ name, imageUrl, isSelected }: FacilityItemContent
         />
       </div>
       <span
-        className={`text-xs leading-[12px] whitespace-nowrap ${
-          isSelected ? 'text-main' : 'text-[#cccccc] opacity-50'
-        }`}
+        className={cn(
+          'text-xs leading-[12px] whitespace-nowrap',
+          isSelected ? 'text-main' : 'text-[#cccccc] opacity-50',
+        )}
       >
         {name}
       </span>
@@ -58,9 +60,10 @@ export function FacilityButton({ amenity, isSelected, onClick }: FacilityButtonP
   return (
     <button
       onClick={onClick}
-      className={`flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer ${
-        isSelected ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]'
-      }`}
+      className={cn(
+        'flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer',
+        isSelected ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]',
+      )}
       style={{ aspectRatio: '80 / 95' }}
     >
       <FacilityItemContent

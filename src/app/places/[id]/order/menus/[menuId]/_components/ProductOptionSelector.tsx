@@ -9,6 +9,7 @@ import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import type { ProductOption, ProductOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
+import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/io'
@@ -249,7 +250,10 @@ function OptionItem({ option, isMultiple, isSelected, onSelect }: OptionItemProp
       type="button"
       onClick={onSelect}
       disabled={isDisabled}
-      className={`flex items-center gap-2.5 w-full text-left cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      className={cn(
+        'flex items-center gap-2.5 w-full text-left cursor-pointer',
+        isDisabled && 'opacity-50 cursor-not-allowed',
+      )}
     >
       {isMultiple ? (
         isSelected ? (

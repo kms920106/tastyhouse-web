@@ -2,6 +2,7 @@
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
+import { cn } from '@/lib/utils'
 import { getNoticeList } from '@/services/notice'
 import {
   Accordion,
@@ -20,7 +21,10 @@ function NoticeListSkeleton() {
       {Array.from({ length: PAGE_SIZE }).map((_, i) => (
         <div
           key={i}
-          className={`px-[16px] py-[18px] animate-pulse border-b border-[#eeeeee] last:border-b-0 ${i === 0 ? 'pt-0' : ''}`}
+          className={cn(
+            'px-[16px] py-[18px] animate-pulse border-b border-[#eeeeee] last:border-b-0',
+            i === 0 && 'pt-0',
+          )}
         >
           <div className="h-3.5 bg-gray-200 rounded w-3/4" />
           <div className="mt-3 h-3 bg-gray-200 rounded w-1/4" />
@@ -75,7 +79,7 @@ export default function NoticeList() {
             className="border-[#eeeeee]"
           >
             <AccordionTrigger
-              className={`w-full px-[16px] py-[18px] hover:no-underline ${index === 0 ? 'pt-0' : ''}`}
+              className={cn('w-full px-[16px] py-[18px] hover:no-underline', index === 0 && 'pt-0')}
               showIcon={false}
             >
               <div className="flex flex-col items-start gap-3">

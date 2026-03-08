@@ -3,6 +3,7 @@
 import type { MemberCouponListItemResponse } from '@/domains/member'
 import { formatDate } from '@/lib/date'
 import { formatNumber } from '@/lib/number'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 interface CouponCardProps {
@@ -28,7 +29,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
               ? `${formatNumber(coupon.discountAmount)}p`
               : `${coupon.discountAmount}%`}
           </span>
-          <span className={`mt-[15px] text-sm leading-[18px] ${isExpired ? 'text-gray-400' : ''}`}>
+          <span className={cn('mt-[15px] text-sm leading-[18px]', isExpired && 'text-gray-400')}>
             {coupon.name}
           </span>
           <div className="flex flex-col gap-1 mt-2.5">
@@ -50,7 +51,7 @@ export default function CouponCard({ coupon }: CouponCardProps) {
         </div>
         <div className="flex items-center justify-center w-[30%]">
           <span
-            className={`text-base leading-[16px] ${isExpired ? 'text-gray-400' : 'text-[#666666]'}`}
+            className={cn('text-base leading-[16px]', isExpired ? 'text-gray-400' : 'text-[#666666]')}
           >
             {isExpired ? '만료' : `D-${coupon.daysRemaining}`}
           </span>

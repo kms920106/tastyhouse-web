@@ -1,5 +1,6 @@
 import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
 import { MemberGradeCode } from '@/domains/member'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 interface MemberGradeBadgeProps {
@@ -22,7 +23,7 @@ export default function MemberGradeBadge({ grade }: MemberGradeBadgeProps) {
           sizes="14px"
         />
       </div>
-      <span className={`text-xs leading-[12px] ${gradeColor}`}>{gradeName}</span>
+      <span className={cn('text-xs leading-[12px]', gradeColor)}>{gradeName}</span>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { Skeleton } from '../ui/shadcn/skeleton'
 import { MenuItemSkeleton } from './MenuItem'
 
@@ -26,7 +27,7 @@ export default function MenuCategoryItem({
   className = '',
 }: MenuCategoryItemProps) {
   return (
-    <div className={`pt-[30px] ${className}`}>
+    <div className={cn('pt-[30px]', className)}>
       <h3 className="mb-[5px] text-base leading-[16px] font-bold">{categoryName}</h3>
       <div className="divide-y divide-[#eeeeee]">{children}</div>
     </div>

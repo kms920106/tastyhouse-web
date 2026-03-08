@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/shadcn/accordion'
 import { PAYMENT_METHODS } from '@/constants/payment'
 import type { PaymentMethod } from '@/domains/payment'
+import { cn } from '@/lib/utils'
 
 interface PaymentMethodSelectorProps {
   selectedPaymentMethod: PaymentMethod | null
@@ -31,9 +32,10 @@ export default function PaymentMethodSelector({
                 <button
                   key={method.type}
                   onClick={() => onPaymentMethodSelect(method.type)}
-                  className={`relative flex items-center justify-center py-[19px] text-sm leading-[14px] border box-border overflow-hidden ${
-                    selectedPaymentMethod === method.type ? 'border-[#a91201]' : 'border-[#cccccc]'
-                  }`}
+                  className={cn(
+                    'relative flex items-center justify-center py-[19px] text-sm leading-[14px] border box-border overflow-hidden',
+                    selectedPaymentMethod === method.type ? 'border-[#a91201]' : 'border-[#cccccc]',
+                  )}
                 >
                   {method.badge && (
                     <>

@@ -4,6 +4,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import styles from './ReviewImageGallery.module.css'
 
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -26,7 +27,7 @@ export default function ImageSwiper({ imageUrls, onImageClick }: ImageSwiperProp
         formatFractionCurrent: (number) => number,
         formatFractionTotal: (number) => number,
       }}
-      className={`aspect-[345/190] ${styles.reviewSwiper} ${imageUrls.length === 1 ? styles.reviewSwiperSingleImage : ''}`}
+      className={cn('aspect-[345/190]', styles.reviewSwiper, imageUrls.length === 1 && styles.reviewSwiperSingleImage)}
     >
       {imageUrls.map((imageUrl: string, index: number) => (
         <SwiperSlide key={index}>

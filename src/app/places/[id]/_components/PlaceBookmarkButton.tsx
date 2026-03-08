@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa'
 
 interface PlaceBookmarkButtonProps {
@@ -14,7 +15,10 @@ export default function PlaceBookmarkButton({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center justify-center w-[35px] h-[35px] shrink-0 border rounded-full cursor-pointer box-border ${isBookmarked ? 'border-main' : 'border-[#eeeeee]'}`}
+      className={cn(
+        'flex items-center justify-center w-[35px] h-[35px] shrink-0 border rounded-full cursor-pointer box-border',
+        isBookmarked ? 'border-main' : 'border-[#eeeeee]',
+      )}
       disabled={disabled}
     >
       {isBookmarked ? (

@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -82,9 +83,10 @@ export default function Footer() {
                     />
                   </div>
                   <span
-                    className={`text-[10px] leading-[10px] transition-colors duration-200 ${
-                      active ? 'text-main' : 'text-[#aaaaaa]'
-                    }`}
+                    className={cn(
+                      'text-[10px] leading-[10px] transition-colors duration-200',
+                      active ? 'text-main' : 'text-[#aaaaaa]',
+                    )}
                   >
                     {item.label}
                   </span>

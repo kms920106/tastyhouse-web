@@ -8,6 +8,7 @@ import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import { extractZodFieldErrors } from '@/lib/form'
+import { cn } from '@/lib/utils'
 import { createPartnershipRequest } from '@/services/partnership'
 import { useState } from 'react'
 import type { Address } from 'react-daum-postcode'
@@ -173,7 +174,7 @@ export default function AdvertisingForm() {
                   value={formData.address}
                   readOnly
                   placeholder="도로명 주소를 검색해 주세요."
-                  className={`flex-1 pr-4 bg-white ${className ?? ''}`}
+                  className={cn('flex-1 pr-4 bg-white', className)}
                 />
                 <button
                   type="button"
@@ -213,7 +214,7 @@ export default function AdvertisingForm() {
               value={formData.contactPhone}
               onChange={(e) => handlePhoneChange(e.target.value)}
               placeholder="010-0000-0000"
-              className={`pr-4 ${className ?? ''}`}
+              className={cn('pr-4', className)}
             />
           )}
         </AppFormField>
@@ -230,18 +231,24 @@ export default function AdvertisingForm() {
                   value={formData.consultationDate}
                   min={today}
                   onChange={(e) => handleChange('consultationDate', e.target.value)}
-                  className={`w-full h-[50px] pl-[16px] pr-[16px] text-sm leading-[14px] border border-[#eeeeee] box-border bg-white focus:outline-none focus:border-[#666666] ${
-                    !formData.consultationDate ? 'text-[#999999]' : 'text-[#333333]'
-                  } ${errors.consultationDate ? 'border-[#bc4040] focus:border-[#bc4040]' : ''} ${className ?? ''}`}
+                  className={cn(
+                    'w-full h-[50px] pl-[16px] pr-[16px] text-sm leading-[14px] border border-[#eeeeee] box-border bg-white focus:outline-none focus:border-[#666666]',
+                    !formData.consultationDate ? 'text-[#999999]' : 'text-[#333333]',
+                    errors.consultationDate && 'border-[#bc4040] focus:border-[#bc4040]',
+                    className,
+                  )}
                 />
               </div>
               <div className="relative flex-1">
                 <select
                   value={formData.consultationHour}
                   onChange={(e) => handleChange('consultationHour', e.target.value)}
-                  className={`w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666] ${
-                    !formData.consultationHour ? 'text-[#999999]' : 'text-[#333333]'
-                  } ${errors.consultationHour ? 'border-[#bc4040] focus:border-[#bc4040]' : ''} ${className ?? ''}`}
+                  className={cn(
+                    'w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666]',
+                    !formData.consultationHour ? 'text-[#999999]' : 'text-[#333333]',
+                    errors.consultationHour && 'border-[#bc4040] focus:border-[#bc4040]',
+                    className,
+                  )}
                 >
                   <option value="">시간 선택</option>
                   {CONSULTATION_HOURS.map((hour) => (

@@ -3,6 +3,7 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { PlaceFoodType } from '@/domains/place'
 import { resolveImageUrl } from '@/lib/image'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useFilterState } from './FilterStateProvider'
 
@@ -44,13 +45,14 @@ export default function FoodTypeSelector({ foods }: FoodTypeSelectorProps) {
           <button
             key={foodType.code}
             onClick={() => toggleFoodType(foodType.code)}
-            className={`flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer ${
-              isSelected ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]'
-            }`}
+            className={cn(
+              'flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer',
+              isSelected ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]',
+            )}
             style={{ aspectRatio: '80 / 95' }}
           >
             <div
-              className={`relative flex items-center justify-center w-full h-12 mb-[15px] ${!isSelected ? 'opacity-50' : ''}`}
+              className={cn('relative flex items-center justify-center w-full h-12 mb-[15px]', !isSelected && 'opacity-50')}
             >
               <Image
                 src={resolveImageUrl(foodType.imageUrl)}
@@ -62,7 +64,7 @@ export default function FoodTypeSelector({ foods }: FoodTypeSelectorProps) {
               />
             </div>
             <span
-              className={`text-xs leading-[12px] whitespace-nowrap ${isSelected ? 'text-main' : 'text-[#cccccc] opacity-50'}`}
+              className={cn('text-xs leading-[12px] whitespace-nowrap', isSelected ? 'text-main' : 'text-[#cccccc] opacity-50')}
             >
               {foodType.name}
             </span>

@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
 import { FaqCategoryItem, FaqItem } from '@/domains/faq'
+import { cn } from '@/lib/utils'
 import { getFaqList } from '@/services/faq'
 import { useEffect, useState } from 'react'
 import 'swiper/css'
@@ -60,11 +61,12 @@ export default function FaqSection({
           <SwiperSlide style={{ width: 'auto' }}>
             <button
               onClick={() => setSelectedCategoryId(ALL_CATEGORY_ID)}
-              className={`px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border ${
+              className={cn(
+                'px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border',
                 selectedCategoryId === ALL_CATEGORY_ID
                   ? 'text-[#a11c20] border-[#a11c20]'
-                  : 'text-[#aaaaaa] border-[#eeeeee]'
-              }`}
+                  : 'text-[#aaaaaa] border-[#eeeeee]',
+              )}
             >
               전체
             </button>
@@ -73,11 +75,12 @@ export default function FaqSection({
             <SwiperSlide key={category.id} style={{ width: 'auto' }}>
               <button
                 onClick={() => setSelectedCategoryId(category.id)}
-                className={`px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border ${
+                className={cn(
+                  'px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border',
                   selectedCategoryId === category.id
                     ? 'text-[#a11c20] border-[#a11c20]'
-                    : 'text-[#aaaaaa] border-[#eeeeee]'
-                }`}
+                    : 'text-[#aaaaaa] border-[#eeeeee]',
+                )}
               >
                 {category.name}
               </button>

@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { CSSProperties, RefObject } from 'react'
 
 interface TextContentProps {
@@ -11,7 +12,7 @@ export default function TextContent({ text, className = '', style, innerRef }: T
   return (
     <p
       ref={innerRef}
-      className={`text-sm leading-[23px] whitespace-pre-wrap break-words ${className}`}
+      className={cn('text-sm leading-[23px] whitespace-pre-wrap break-words', className)}
       style={style}
     >
       {text}

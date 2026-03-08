@@ -8,6 +8,7 @@ import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
 import MemberNickname from '@/components/ui/MemberNickname'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { FollowMemberResponse } from '@/domains/follow'
+import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
@@ -76,11 +77,12 @@ export default function FollowListItem({
           <>
             <AppButton
               onClick={() => onFollowToggle(member)}
-              className={`h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px] ${
+              className={cn(
+                'h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px]',
                 member.following
                   ? 'bg-white text-main border border-main box-border'
-                  : 'bg-main text-white'
-              }`}
+                  : 'bg-main text-white',
+              )}
             >
               {member.following ? '팔로잉' : '팔로우'}
             </AppButton>

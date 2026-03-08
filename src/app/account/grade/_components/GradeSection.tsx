@@ -4,6 +4,7 @@ import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/constants/member'
 import { MemberGradeCode } from '@/domains/member'
+import { cn } from '@/lib/utils'
 import { getGradeInfoList, getMyGrade } from '@/services/grade'
 import { getMemberMe } from '@/services/member'
 import Image from 'next/image'
@@ -47,7 +48,7 @@ export default async function GradeSection() {
             )}
             {myGrade && (
               <p
-                className={`mt-5 text-[23px] leading-[23px] font-bold ${getMemberGradeColor(myGrade.currentGrade as MemberGradeCode)}`}
+                className={cn('mt-5 text-[23px] leading-[23px] font-bold', getMemberGradeColor(myGrade.currentGrade as MemberGradeCode))}
               >
                 {myGrade.currentGradeDisplayName}
               </p>
@@ -65,7 +66,7 @@ export default async function GradeSection() {
                     className="ml-1"
                   />
                   <span
-                    className={`font-bold ${getMemberGradeColor(myGrade.nextGrade as MemberGradeCode)}`}
+                    className={cn('font-bold', getMemberGradeColor(myGrade.nextGrade as MemberGradeCode))}
                   >
                     {myGrade.nextGradeDisplayName}
                   </span>{' '}
@@ -102,7 +103,7 @@ export default async function GradeSection() {
                   />
                   <div className="flex flex-col gap-2.5">
                     <p
-                      className={`text-base leading-[16px] font-bold ${getMemberGradeColor(item.grade as MemberGradeCode)}`}
+                      className={cn('text-base leading-[16px] font-bold', getMemberGradeColor(item.grade as MemberGradeCode))}
                     >
                       {item.displayName}
                     </p>

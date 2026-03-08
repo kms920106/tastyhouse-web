@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils'
+
 const sizeMap = {
   sm: 'text-xs leading-[12px]',
   md: 'text-sm leading-[14px]',
@@ -18,7 +20,7 @@ export default function MemberNickname({
   truncate = true,
 }: MemberNicknameProps) {
   return (
-    <p className={`font-bold ${sizeMap[size]} ${truncate ? 'truncate' : ''} ${className}`}>
+    <p className={cn('font-bold', sizeMap[size], truncate && 'truncate', className)}>
       {children}
     </p>
   )

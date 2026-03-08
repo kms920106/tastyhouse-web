@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { useMyReviewStats } from '@/hooks/useMyReviewStats'
+import { cn } from '@/lib/utils'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -77,7 +78,7 @@ export default function MyPageProfile() {
             sizes="16px"
           />
         </div>
-        <span className={`text-sm leading-[14px] font-bold ${gradeColor}`}>{gradeName}</span>
+        <span className={cn('text-sm leading-[14px] font-bold', gradeColor)}>{gradeName}</span>
       </div>
       {statusMessage && (
         <p className="text-sm leading-[14px] text-center mt-[15px] px-8">{statusMessage}</p>

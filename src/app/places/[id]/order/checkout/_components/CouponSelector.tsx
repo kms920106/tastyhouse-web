@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/shadcn/drawer'
 import type { MemberCouponListItemResponse } from '@/domains/member'
 import { formatNumber } from '@/lib/number'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -91,7 +92,7 @@ export default function CouponSelector({
             className="w-full h-[50px] px-[15px] py-[17px] flex items-center justify-between border box-border border-[#eeeeee]"
           >
             <span
-              className={`text-sm leading-[14px] ${selectedCoupon ? 'text-black' : 'text-[#aaaaaa]'}`}
+              className={cn('text-sm leading-[14px]', selectedCoupon ? 'text-black' : 'text-[#aaaaaa]')}
             >
               {selectedCoupon
                 ? selectedCoupon.discountType === 'AMOUNT'
@@ -112,9 +113,10 @@ export default function CouponSelector({
                 return (
                   <div
                     key={coupon.id}
-                    className={`relative overflow-hidden rounded-[10px] border ${
-                      isSelected ? 'border-[#a91201]' : 'border-[#eeeeee]'
-                    }`}
+                    className={cn(
+                      'relative overflow-hidden rounded-[10px] border',
+                      isSelected ? 'border-[#a91201]' : 'border-[#eeeeee]',
+                    )}
                   >
                     <button
                       onClick={() => setTempSelectedCoupon(coupon)}
@@ -145,9 +147,10 @@ export default function CouponSelector({
                       </div>
                       <div className="relative w-[120px] flex items-center justify-center">
                         <div
-                          className={`absolute left-0 top-0 bottom-0 border-l border-dashed ${
-                            isSelected ? 'border-[#a91201]' : 'border-[#eeeeee]'
-                          }`}
+                          className={cn(
+                            'absolute left-0 top-0 bottom-0 border-l border-dashed',
+                            isSelected ? 'border-[#a91201]' : 'border-[#eeeeee]',
+                          )}
                         />
                         <div className="absolute left-[-8px] top-[-8px] w-4 h-4 rounded-full bg-white" />
                         <div className="absolute left-[-8px] bottom-[-8px] w-4 h-4 rounded-full bg-white" />

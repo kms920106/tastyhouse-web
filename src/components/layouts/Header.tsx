@@ -68,7 +68,11 @@ export default function Header({
   return (
     <HeaderContext.Provider value={{ variant }}>
       <header
-        className={`relative flex items-center ${showBorder ? 'border-b border-[#eeeeee] box-border' : ''} ${isPrimary ? 'bg-main text-white' : 'bg-white text-black'}`}
+        className={cn(
+          'relative flex items-center',
+          showBorder && 'border-b border-[#eeeeee] box-border',
+          isPrimary ? 'bg-main text-white' : 'bg-white text-black',
+        )}
         style={{ height: `${height}px` }}
       >
         {children}

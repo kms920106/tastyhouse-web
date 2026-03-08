@@ -7,6 +7,7 @@ import styles from './BannerSwiper.module.css'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { Banner } from '@/domains/banner'
 import { resolveImageUrl } from '@/lib/image'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Autoplay, Pagination } from 'swiper/modules'
@@ -44,7 +45,7 @@ export default function BannerSwiper({ banners }: BannerSwiperProps) {
         disableOnInteraction: false,
       }}
       loop={true}
-      className={`w-full aspect-[375/475] ${styles.bannerSwiper} ${banners.length === 1 ? styles.bannerSwiperSingleImage : ''}`}
+      className={cn('w-full aspect-[375/475]', styles.bannerSwiper, banners.length === 1 && styles.bannerSwiperSingleImage)}
     >
       {banners.map((banner, index) => (
         <SwiperSlide key={banner.id}>

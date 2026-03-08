@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { ReactNode } from 'react'
 
 interface BorderedSectionProps {
@@ -7,7 +8,7 @@ interface BorderedSectionProps {
 
 export default function BorderedSection({ children, className = '' }: BorderedSectionProps) {
   return (
-    <section className={`bg-white border-y border-[#eeeeee] box-border ${className}`}>
+    <section className={cn('bg-white border-y border-[#eeeeee] box-border', className)}>
       {children}
     </section>
   )

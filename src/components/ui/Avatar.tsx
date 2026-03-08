@@ -1,4 +1,5 @@
 import { resolveImageUrl } from '@/lib/image'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 const DEFAULT_PROFILE_IMAGE_SM = '/images/account/profile/profile-random-sm.png'
@@ -32,7 +33,7 @@ export default function Avatar({
       alt={alt}
       width={dimension}
       height={dimension}
-      className={`flex-shrink-0 rounded-full ${sizeClassName} ${className}`}
+      className={cn('flex-shrink-0 rounded-full', sizeClassName, className)}
       priority={priority}
     />
   )

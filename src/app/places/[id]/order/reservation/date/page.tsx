@@ -1,6 +1,7 @@
 'use client'
 
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { IoChevronBack } from 'react-icons/io5'
@@ -182,9 +183,10 @@ export default function ReservationDatePage() {
             {WEEKDAYS.map((day, index) => (
               <div
                 key={day}
-                className={`text-sm leading-[14px] text-center py-2 ${
-                  index === 0 ? 'text-[#ff0000]' : index === 6 ? 'text-[#0066ff]' : 'text-black'
-                }`}
+                className={cn(
+                  'text-sm leading-[14px] text-center py-2',
+                  index === 0 ? 'text-[#ff0000]' : index === 6 ? 'text-[#0066ff]' : 'text-black',
+                )}
               >
                 {day}
               </div>
@@ -199,20 +201,20 @@ export default function ReservationDatePage() {
               const saturday = isSaturday(date)
               const unavailable = isUnavailable(date)
 
-              let className = 'aspect-square flex items-center justify-center '
-              if (selected) className += 'bg-[#d32f2f] text-white '
-              if (!currentMonth) className += 'text-[#cccccc] '
-              if (currentMonth && !selected && sunday) className += 'text-[#ff0000] '
-              if (currentMonth && !selected && saturday) className += 'text-[#0066ff] '
-              if (currentMonth && !selected && !sunday && !saturday) className += 'text-black '
-              if (unavailable) className += 'text-[#cccccc] cursor-not-allowed '
-
               return (
                 <button
                   key={index}
                   onClick={() => handleDateClick(date)}
                   disabled={!currentMonth || unavailable}
-                  className={className}
+                  className={cn(
+                    'aspect-square flex items-center justify-center',
+                    selected && 'bg-[#d32f2f] text-white',
+                    !currentMonth && 'text-[#cccccc]',
+                    currentMonth && !selected && sunday && 'text-[#ff0000]',
+                    currentMonth && !selected && saturday && 'text-[#0066ff]',
+                    currentMonth && !selected && !sunday && !saturday && 'text-black',
+                    unavailable && 'text-[#cccccc] cursor-not-allowed',
+                  )}
                 >
                   {date.getDate()}
                 </button>
@@ -241,11 +243,10 @@ export default function ReservationDatePage() {
                 <button
                   key={time}
                   onClick={() => setSelectedTime(time)}
-                  className={`py-3 text-[15px] border rounded ${
-                    isSelected
-                      ? 'border-[#d32f2f] text-[#d32f2f]'
-                      : 'border-[#eeeeee] text-[#666666]'
-                  }`}
+                  className={cn(
+                    'py-3 text-[15px] border rounded',
+                    isSelected ? 'border-[#d32f2f] text-[#d32f2f]' : 'border-[#eeeeee] text-[#666666]',
+                  )}
                 >
                   {time}
                 </button>
@@ -258,19 +259,18 @@ export default function ReservationDatePage() {
             {AFTERNOON_TIMES.map((time) => {
               const unavailable = isTimeUnavailable(time)
               const isSelected = selectedTime === time
-              let className = 'py-3 text-[15px] border rounded '
-              if (isSelected) className += 'border-[#d32f2f] text-[#d32f2f] '
-              if (unavailable)
-                className += 'border-[#eeeeee] bg-[#f5f5f5] text-[#cccccc] cursor-not-allowed '
-              if (!unavailable && !isSelected)
-                className += 'border-[#eeeeee] text-[#666666] hover:border-[#d32f2f] '
 
               return (
                 <button
                   key={time}
                   onClick={() => !unavailable && setSelectedTime(time)}
                   disabled={unavailable}
-                  className={className}
+                  className={cn(
+                    'py-3 text-[15px] border rounded',
+                    isSelected && 'border-[#d32f2f] text-[#d32f2f]',
+                    unavailable && 'border-[#eeeeee] bg-[#f5f5f5] text-[#cccccc] cursor-not-allowed',
+                    !unavailable && !isSelected && 'border-[#eeeeee] text-[#666666] hover:border-[#d32f2f]',
+                  )}
                 >
                   {time}
                 </button>
@@ -328,9 +328,10 @@ export default function ReservationDatePage() {
             <div className="flex items-center gap-3 pb-3 border-b border-[#eeeeee]">
               <button
                 onClick={handleAllAgree}
-                className={`flex-shrink-0 w-6 h-6 border-2 rounded flex items-center justify-center ${
-                  allAgreed ? 'border-[#d32f2f] bg-[#d32f2f]' : 'border-[#cccccc]'
-                }`}
+                className={cn(
+                  'flex-shrink-0 w-6 h-6 border-2 rounded flex items-center justify-center',
+                  allAgreed ? 'border-[#d32f2f] bg-[#d32f2f]' : 'border-[#cccccc]',
+                )}
               >
                 {allAgreed && <CheckIcon />}
               </button>
@@ -341,9 +342,10 @@ export default function ReservationDatePage() {
               <div key={index} className="flex items-center gap-3">
                 <button
                   onClick={() => handleAgreementChange(index)}
-                  className={`flex-shrink-0 w-6 h-6 border-2 rounded flex items-center justify-center ${
-                    agreements[index] ? 'border-[#d32f2f] bg-[#d32f2f]' : 'border-[#cccccc]'
-                  }`}
+                  className={cn(
+                    'flex-shrink-0 w-6 h-6 border-2 rounded flex items-center justify-center',
+                    agreements[index] ? 'border-[#d32f2f] bg-[#d32f2f]' : 'border-[#cccccc]',
+                  )}
                 >
                   {agreements[index] && <CheckIcon />}
                 </button>
@@ -360,11 +362,10 @@ export default function ReservationDatePage() {
       <FixedBottomSection>
         <button
           disabled={!isBookingEnabled()}
-          className={`w-full py-4 text-[17px] rounded ${
-            isBookingEnabled()
-              ? 'bg-[#d32f2f] text-white'
-              : 'bg-[#cccccc] text-white cursor-not-allowed'
-          }`}
+          className={cn(
+            'w-full py-4 text-[17px] rounded',
+            isBookingEnabled() ? 'bg-[#d32f2f] text-white' : 'bg-[#cccccc] text-white cursor-not-allowed',
+          )}
         >
           예약하기
         </button>

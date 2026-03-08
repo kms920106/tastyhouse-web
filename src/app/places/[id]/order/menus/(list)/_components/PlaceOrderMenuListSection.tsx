@@ -8,6 +8,7 @@ import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import SectionStack from '@/components/ui/SectionStack'
 import type { MenuCategory } from '@/domains/place'
 import { PAGE_PATHS } from '@/lib/paths'
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import CartItemCount from './CartItemCount'
 
@@ -34,7 +35,7 @@ export default function PlaceOrderMenuListSection({
         {menuCategories.map((menuCategory, index) => (
           <BorderedSection
             key={menuCategory.categoryName}
-            className={`px-[15px] ${index === 0 ? '!border-t-0' : ''}`}
+            className={cn('px-[15px]', index === 0 && '!border-t-0')}
           >
             <MenuCategoryItem categoryName={menuCategory.categoryName}>
               {menuCategory.menus.map((menu) => (

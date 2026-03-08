@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import TextContent from './TextContent'
@@ -19,7 +20,7 @@ export function MoreButton({ onClick, className = '' }: MoreButtonProps) {
   return (
     <button
       onClick={onClick}
-      className={`absolute bottom-1 right-0 text-sm leading-[14px] text-[#cccccc] bg-white pl-1 ${className}`}
+      className={cn('absolute bottom-1 right-0 text-sm leading-[14px] text-[#cccccc] bg-white pl-1', className)}
     >
       <span className="text-black">... </span>
       <span className="cursor-pointer">더보기</span>

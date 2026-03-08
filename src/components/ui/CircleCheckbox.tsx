@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import { BsCheckLg } from 'react-icons/bs'
 
 interface CircleCheckboxProps {
@@ -13,11 +14,12 @@ export default function CircleCheckbox({ checked, onChange }: CircleCheckboxProp
       className="w-[25px] h-[25px] flex items-center justify-center cursor-pointer"
     >
       <div
-        className={`w-[25px] h-[25px] rounded-full flex items-center justify-center ${
-          checked ? 'bg-main' : 'border-[1.5px] border-[#dddddd] box-border'
-        }`}
+        className={cn(
+          'w-[25px] h-[25px] rounded-full flex items-center justify-center',
+          checked ? 'bg-main' : 'border-[1.5px] border-[#dddddd] box-border',
+        )}
       >
-        <BsCheckLg size={20} className={checked ? 'text-white' : 'text-[#dddddd]'} />
+        <BsCheckLg size={20} className={cn(checked ? 'text-white' : 'text-[#dddddd]')} />
       </div>
     </button>
   )

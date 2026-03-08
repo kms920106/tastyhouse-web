@@ -1,5 +1,7 @@
 'use client'
 
+import { cn } from '@/lib/utils'
+
 interface ErrorFallbackProps {
   message?: string
   showRetry?: boolean
@@ -15,7 +17,7 @@ export default function ErrorFallback({
 }: ErrorFallbackProps) {
   return (
     <div
-      className={`flex flex-col items-center justify-center py-12 px-4 bg-white rounded-lg ${className}`}
+      className={cn('flex flex-col items-center justify-center py-12 px-4 bg-white rounded-lg', className)}
     >
       <div className="text-center space-y-3">
         <svg

@@ -2,6 +2,7 @@
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
+import { cn } from '@/lib/utils'
 import { getEventAnnouncementList } from '@/services/event'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -15,7 +16,10 @@ function AnnouncementListSkeleton() {
       {Array.from({ length: PAGE_SIZE }).map((_, i) => (
         <div
           key={i}
-          className={`px-[16px] py-[18px] animate-pulse border-b border-[#eeeeee] last:border-b-0 ${i === 0 ? 'pt-0' : ''}`}
+          className={cn(
+            'px-[16px] py-[18px] animate-pulse border-b border-[#eeeeee] last:border-b-0',
+            i === 0 && 'pt-0',
+          )}
         >
           <div className="h-3.5 bg-gray-200 rounded w-3/4" />
           <div className="mt-3 h-3 bg-gray-200 rounded w-1/4" />
@@ -71,7 +75,10 @@ export default function WinnerEventList() {
           >
             <AccordionPrimitive.Header>
               <AccordionPrimitive.Trigger
-                className={`w-full flex items-start justify-between px-[16px] py-[18px] ${index === 0 ? 'pt-0' : ''} [&[data-state=open]>img]:rotate-180 group`}
+                className={cn(
+                  'w-full flex items-start justify-between px-[16px] py-[18px] [&[data-state=open]>img]:rotate-180 group',
+                  index === 0 && 'pt-0',
+                )}
               >
                 <div className="flex flex-col items-start gap-3">
                   <span className="text-sm leading-[14px]">{event.name}</span>

@@ -2,6 +2,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
+import { cn } from '@/lib/utils'
 import { getMyPointHistory } from '@/services/member'
 
 export default async function PointSection() {
@@ -43,9 +44,10 @@ export default async function PointSection() {
                       <p className="text-[11px] leading-[11px] text-[#aaaaaa]">{history.date}</p>
                     </div>
                     <p
-                      className={`text-sm leading-[14px] ${
-                        history.pointType === 'EARNED' ? 'text-[#a91201]' : 'text-gray-900'
-                      }`}
+                      className={cn(
+                        'text-sm leading-[14px]',
+                        history.pointType === 'EARNED' ? 'text-[#a91201]' : 'text-gray-900',
+                      )}
                     >
                       {history.pointType === 'EARNED' ? '+' : '-'}
                       {history.pointAmount.toLocaleString()} p
