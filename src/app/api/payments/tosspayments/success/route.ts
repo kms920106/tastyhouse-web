@@ -1,3 +1,4 @@
+import { env } from '@/lib/env'
 import { PAGE_PATHS } from '@/lib/paths'
 import { confirmPaymentToss } from '@/services/payment'
 import { NextRequest, NextResponse } from 'next/server'
@@ -12,7 +13,7 @@ import { NextRequest, NextResponse } from 'next/server'
  * - amount: 결제 금액
  */
 export async function GET(request: NextRequest) {
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || request.nextUrl.origin
+  const origin = env.NEXT_PUBLIC_SITE_URL
 
   const searchParams = request.nextUrl.searchParams
   const pgOrderId = searchParams.get('orderId')

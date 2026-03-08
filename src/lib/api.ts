@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import { env } from '@/lib/env'
 
 type RequestConfig = RequestInit & {
   params?: Record<
@@ -25,7 +26,7 @@ export interface ApiResponse<T = unknown> {
 class ApiClient {
   private baseURL: string
 
-  constructor(baseURL: string = process.env.NEXT_PUBLIC_API_URL || '') {
+  constructor(baseURL: string = env.NEXT_PUBLIC_API_URL) {
     this.baseURL = baseURL
   }
 

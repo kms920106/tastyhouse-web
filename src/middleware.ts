@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { env } from '@/lib/env'
 
 /**
  * CSRF Origin 검증
@@ -13,8 +14,7 @@ function validateCsrfOrigin(request: NextRequest): boolean {
     return true
   }
 
-  const allowedOrigin = process.env.NEXT_PUBLIC_SITE_URL
-  if (!allowedOrigin) return true
+  const allowedOrigin = env.NEXT_PUBLIC_SITE_URL
 
   const origin = request.headers.get('origin')
   const referer = request.headers.get('referer')
@@ -61,7 +61,7 @@ export async function middleware(request: NextRequest) {
 
   // 토큰 갱신 시도
   try {
-    const baseURL = process.env.NEXT_PUBLIC_API_URL || ''
+    const baseURL = env.NEXT_PUBLIC_API_URL
 
     const response = await fetch(`${baseURL}/api/auth/refresh`, {
       method: 'POST',

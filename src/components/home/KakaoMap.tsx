@@ -4,6 +4,7 @@ import { getMapMarkers } from '@/services/place'
 import { PlaceMapMarkerResponse } from '@/domains/place'
 import Script from 'next/script'
 import { useCallback, useRef, useState } from 'react'
+import { env } from '@/lib/env'
 
 interface KakaoLatLng {
   getLat(): number
@@ -186,7 +187,7 @@ export default function KakaoMap() {
           strategy="afterInteractive"
           type="text/javascript"
           onReady={loadKakaoMap}
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
         />
         <div id="map" className="w-full h-full" />
       </div>

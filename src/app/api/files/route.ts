@@ -1,4 +1,5 @@
 import { readFile, stat } from 'fs/promises'
+import { env } from '@/lib/env'
 import { NextRequest, NextResponse } from 'next/server'
 import path from 'path'
 
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // 업로드 디렉토리의 절대 경로 구성
-    const uploadDir = process.env.UPLOAD_DIR || path.join(process.cwd(), '..', 'upload')
+    const uploadDir = env.UPLOAD_DIR ?? path.join(process.cwd(), '..', 'upload')
     const absolutePath = path.join(uploadDir, filePath)
 
     // 경로 탐색 공격 방지
