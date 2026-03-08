@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 import MemberProfile from './MemberProfile'
 import MemberProfileHeader from './MemberProfileHeader'

@@ -5,7 +5,7 @@ import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import MemberProfileStats from '@/components/member/MemberProfileStats'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
-import { getMemberStats, getOtherMemberProfile } from '@/services/member'
+import { getOtherMemberProfile } from '@/services/member'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -25,20 +25,6 @@ function MyPageProfileSkeleton() {
         <Skeleton className="h-[14px] w-[50px]" />
       </div>
       <Skeleton className="h-[14px] w-[160px] mt-[15px]" />
-      <div className="flex items-center justify-center gap-10 mt-[53px] mb-[30px]">
-        <div className="flex items-center gap-1">
-          <span className="text-xs leading-[12px]">리뷰</span>
-          <Skeleton className="h-[12px] w-[16px]" />
-        </div>
-        <div className="flex items-center gap-1">
-          <span className="text-xs leading-[12px]">팔로잉</span>
-          <Skeleton className="h-[12px] w-[16px]" />
-        </div>
-        <div className="flex items-center gap-1">
-          <span className="text-xs leading-[12px]">팔로워</span>
-          <Skeleton className="h-[12px] w-[16px]" />
-        </div>
-      </div>
     </div>
   )
 }
@@ -54,18 +40,11 @@ export default function MyPageProfile() {
     enabled: !!memberId,
   })
 
-  const { data: statsData, isLoading: isStatsLoading } = useQuery({
-    queryKey: ['member', 'stats', memberId],
-    queryFn: () => getMemberStats(memberId!),
-    enabled: !!memberId,
-  })
-
-  if (isProfileLoading || isOtherProfileLoading || isStatsLoading) {
+  if (isProfileLoading || isOtherProfileLoading) {
     return <MyPageProfileSkeleton />
   }
 
   const { nickname, profileImageUrl, memberGrade, statusMessage } = otherProfileData?.data ?? {}
-  const { reviewCount, followingCount, followerCount } = statsData?.data ?? {}
 
   return (
     <div className="flex-1 flex flex-col items-center bg-white">
@@ -82,12 +61,7 @@ export default function MyPageProfile() {
       {statusMessage && (
         <p className="text-sm leading-[14px] text-center mt-[15px] px-8">{statusMessage}</p>
       )}
-      <MemberProfileStats
-        memberId={memberId ?? ''}
-        reviewCount={reviewCount ?? 0}
-        followingCount={followingCount ?? 0}
-        followerCount={followerCount ?? 0}
-      />
+      <MemberProfileStats memberId={memberId ?? ''} />
     </div>
   )
 }
