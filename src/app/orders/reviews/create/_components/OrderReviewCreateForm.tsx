@@ -9,11 +9,10 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import useFileUpload from '@/hooks/useFileUpload'
 import { extractZodFieldErrors } from '@/lib/form'
 import { createOrderReview } from '@/services/review'
 import { useRouter } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useCallback, useState, useTransition } from 'react'
 import { FaStar } from 'react-icons/fa'
 import { z } from 'zod'
 
@@ -71,13 +70,9 @@ export default function OrderReviewCreateForm({
 
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadedFileIds, setUploadedFileIds] = useState<number[]>([])
   const [isSubmitting, startSubmitting] = useTransition()
-
-  const { files, uploadedFiles, isUploading, handleFilesChange } = useFileUpload({
-    maxCount: 5,
-    allowedTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-    maxFileSize: 5 * 1024 * 1024,
-  })
 
   const handleRatingChange = (key: 'taste' | 'amount' | 'price', value: number) => {
     setFormData((prev) => ({ ...prev, ratings: { ...prev.ratings, [key]: value } }))
@@ -96,6 +91,14 @@ export default function OrderReviewCreateForm({
   const handleTagsChange = (tags: string[]) => {
     setFormData((prev) => ({ ...prev, tags }))
   }
+
+  const handleUploadedFileIdsChange = useCallback((fileIds: number[]) => {
+    setUploadedFileIds(fileIds)
+  }, [])
+
+  const handleUploadingChange = useCallback((uploading: boolean) => {
+    setIsUploading(uploading)
+  }, [])
 
   const validateForm = (): boolean => {
     const trimmedData = {
@@ -137,7 +140,7 @@ export default function OrderReviewCreateForm({
         amountRating: formData.ratings.amount,
         priceRating: formData.ratings.price,
         content: formData.content,
-        uploadedFileIds: uploadedFiles.map((f) => f.fileId),
+        uploadedFileIds,
         tags: formData.tags,
       })
 
@@ -205,7 +208,12 @@ export default function OrderReviewCreateForm({
           </AppFormField>
           <div className="flex flex-col gap-5">
             <AppFormField label="사진">
-              {() => <PhotoUploader value={files} onChange={handleFilesChange} />}
+              {() => (
+                <PhotoUploader
+                  onUploadedFileIdsChange={handleUploadedFileIdsChange}
+                  onUploadingChange={handleUploadingChange}
+                />
+              )}
             </AppFormField>
             <div>
               <p className="text-sm leading-relaxed text-[#999999]">
