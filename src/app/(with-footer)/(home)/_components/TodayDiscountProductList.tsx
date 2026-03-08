@@ -4,7 +4,8 @@ import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import type { ProductTodayDiscountListItemResponse, ProductTodayDiscountQuery } from '@/domains/place'
 import { api } from '@/lib/api'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { API_ENDPOINTS } from '@/lib/endpoints'
+
+const PRODUCTS_TODAY_DISCOUNTS_ENDPOINT = '/api/products/v1/today-discounts'
 
 export function TodayDiscountProductListSkeleton() {
   return (
@@ -27,7 +28,7 @@ export default async function TodayDiscountProductList() {
     } satisfies ProductTodayDiscountQuery,
   }
   const { data, error } = await api.get<ProductTodayDiscountListItemResponse[]>(
-    API_ENDPOINTS.PRODUCTS_TODAY_DISCOUNTS,
+    PRODUCTS_TODAY_DISCOUNTS_ENDPOINT,
     query,
   )
 

@@ -2,10 +2,11 @@
 
 import type { LoginParams, LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
 import { api } from '@/lib/api'
-import { API_ENDPOINTS } from '@/lib/endpoints'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+
+const AUTH_LOGIN_ENDPOINT = '/api/auth/login'
 
 // 입력 검증 함수 분리
 function validateLoginInput(username: string, password: string): string | null {
@@ -42,7 +43,7 @@ export async function login(params: LoginParams): Promise<LoginResult> {
       username,
       password,
     } as LoginRequest
-    const { data, error } = await api.post<LoginResponse>(API_ENDPOINTS.AUTH_LOGIN, request)
+    const { data, error } = await api.post<LoginResponse>(AUTH_LOGIN_ENDPOINT, request)
 
     if (error || !data) {
       return { success: false, error: error || '로그인에 실패했습니다.' }
