@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    scrollRestoration: true,
   },
   images: {
     remotePatterns: [

@@ -3,6 +3,7 @@
 import Header from '@/components/layouts/Header'
 import { BackButton, SearchButton } from '@/components/layouts/header-parts'
 import Image from 'next/image'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useRef } from 'react'
 
 interface MemberSearchHeaderProps {
@@ -12,6 +13,8 @@ interface MemberSearchHeaderProps {
 }
 
 export default function MemberSearchHeader({ value, onChange, onSearch }: MemberSearchHeaderProps) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -23,6 +26,9 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Member
   const handleClear = () => {
     onChange('')
     inputRef.current?.focus()
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('q')
+    router.replace(`?${params.toString()}`)
   }
 
   return (
