@@ -1,9 +1,10 @@
 'use client'
 
 import { MemberSearchResponse } from '@/domains/follow'
+import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { followMember, searchMembersByNickname, unfollowMember } from '@/services/follow'
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { searchMembersByNickname } from '@/services/follow'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import MemberSearchResultItem, { MemberSearchResultItemSkeleton } from './MemberSearchResultItem'
@@ -25,7 +26,7 @@ function MemberSearchResultListSkeleton() {
 }
 
 export default function MemberSearchResultList({ searchQuery }: MemberSearchResultListProps) {
-  const queryClient = useQueryClient()
+  const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
     queryKey: ['memberSearch', searchQuery],
@@ -53,43 +54,6 @@ export default function MemberSearchResultList({ searchQuery }: MemberSearchResu
       fetchNextPage()
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
-
-  const updateFollowingState = (targetMemberId: number, isFollowing: boolean) => {
-    queryClient.setQueryData(['memberSearch', searchQuery], (old: typeof data) => {
-      if (!old) return old
-      return {
-        ...old,
-        pages: old.pages.map((page) => ({
-          ...page,
-          data: page.data?.map((m) =>
-            m.memberId === targetMemberId ? { ...m, following: isFollowing } : m,
-          ),
-        })),
-      }
-    })
-  }
-
-  const followMutation = useMutation({
-    mutationFn: (targetMemberId: number) => followMember(targetMemberId),
-    onSuccess: (_, targetMemberId) => {
-      updateFollowingState(targetMemberId, true)
-    },
-  })
-
-  const unfollowMutation = useMutation({
-    mutationFn: (targetMemberId: number) => unfollowMember(targetMemberId),
-    onSuccess: (_, targetMemberId) => {
-      updateFollowingState(targetMemberId, false)
-    },
-  })
-
-  const handleFollowToggle = (member: MemberSearchResponse) => {
-    if (member.following) {
-      unfollowMutation.mutate(member.memberId)
-    } else {
-      followMutation.mutate(member.memberId)
-    }
-  }
 
   if (!searchQuery.trim()) {
     return null
@@ -120,7 +84,7 @@ export default function MemberSearchResultList({ searchQuery }: MemberSearchResu
         {allMembers.map((member) => (
           <MemberSearchResultItem
             key={member.memberId}
-            member={member}
+            member={member as MemberSearchResponse}
             onFollowToggle={handleFollowToggle}
           />
         ))}

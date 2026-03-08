@@ -1,9 +1,10 @@
 'use client'
 
 import { FollowMemberResponse } from '@/domains/follow'
+import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { followMember, getFollowingList, unfollowMember } from '@/services/follow'
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { getFollowingList } from '@/services/follow'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import FollowListItem, { FollowListItemSkeleton } from './FollowListItem'
@@ -26,7 +27,7 @@ function FollowingListSkeleton() {
 }
 
 export default function FollowingList({ memberId, searchQuery }: FollowingListProps) {
-  const queryClient = useQueryClient()
+  const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
     queryKey: ['following', memberId],
@@ -43,6 +44,8 @@ export default function FollowingList({ memberId, searchQuery }: FollowingListPr
       const { page, totalPages } = lastPage.pagination
       return page + 1 < totalPages ? page + 1 : undefined
     },
+    staleTime: Infinity,
+    refetchOnMount: false,
   })
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
@@ -57,43 +60,6 @@ export default function FollowingList({ memberId, searchQuery }: FollowingListPr
       fetchNextPage()
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
-
-  const updateFollowingState = (targetMemberId: number, following: boolean) => {
-    queryClient.setQueryData(['following', memberId], (old: typeof data) => {
-      if (!old) return old
-      return {
-        ...old,
-        pages: old.pages.map((page) => ({
-          ...page,
-          data: page.data?.map((m) =>
-            m.memberId === targetMemberId ? { ...m, following } : m,
-          ),
-        })),
-      }
-    })
-  }
-
-  const followMutation = useMutation({
-    mutationFn: (targetMemberId: number) => followMember(targetMemberId),
-    onSuccess: (_, targetMemberId) => {
-      updateFollowingState(targetMemberId, true)
-    },
-  })
-
-  const unfollowMutation = useMutation({
-    mutationFn: (targetMemberId: number) => unfollowMember(targetMemberId),
-    onSuccess: (_, targetMemberId) => {
-      updateFollowingState(targetMemberId, false)
-    },
-  })
-
-  const handleFollowToggle = (member: FollowMemberResponse) => {
-    if (member.following) {
-      unfollowMutation.mutate(member.memberId)
-    } else {
-      followMutation.mutate(member.memberId)
-    }
-  }
 
   if (isLoading) {
     return <FollowingListSkeleton />
@@ -125,7 +91,7 @@ export default function FollowingList({ memberId, searchQuery }: FollowingListPr
         {filtered.map((member) => (
           <FollowListItem
             key={member.memberId}
-            member={member}
+            member={member as FollowMemberResponse}
             tab="following"
             onFollowToggle={handleFollowToggle}
             onRemoveFollower={() => {}}
