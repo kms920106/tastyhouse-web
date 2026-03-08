@@ -1,5 +1,7 @@
-import { PAGE_PATHS } from '@/lib/paths'
+'use client'
+
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import { PAGE_PATHS } from '@/lib/paths'
 import { getMemberStats } from '@/services/member'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'

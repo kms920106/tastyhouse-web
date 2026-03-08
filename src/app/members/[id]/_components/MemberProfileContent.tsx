@@ -1,5 +1,5 @@
+import MemberProfileCard from '@/components/member/MemberProfileCard'
 import Image from 'next/image'
-import MemberProfile from './MemberProfile'
 import MemberProfileHeader from './MemberProfileHeader'
 import MemberReviewListFetcher from './MemberReviewListFetcher'
 
@@ -12,7 +12,7 @@ export default function MemberProfileContent({ memberId }: MemberProfileContentP
     <div className="flex flex-col min-h-dvh bg-white">
       <div className="flex flex-col h-[50dvh]">
         <MemberProfileHeader memberId={memberId} />
-        <MemberProfile memberId={memberId} />
+        <MemberProfileCard memberId={memberId} />
       </div>
       <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
         <div className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0 flex">

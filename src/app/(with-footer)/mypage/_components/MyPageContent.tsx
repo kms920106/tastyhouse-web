@@ -1,5 +1,5 @@
-import MyPageHeader from './MyPageHeader'
 import MyPageProfile from './MyPageProfile'
+import MyPageHeader from './MyPageHeader'
 import MyPageTabs from './MyPageTabs'
 
 export type MyPageTabValue = 'reviews' | 'payments' | 'bookmarks'

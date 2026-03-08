@@ -2,8 +2,7 @@
 
 import Header, { HeaderLeft, HeaderRight } from '@/components/layouts/Header'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
-import { getOtherMemberProfile } from '@/services/member'
-import { useQuery } from '@tanstack/react-query'
+import { useOtherMemberProfile } from '@/hooks/useOtherMemberProfile'
 import { useRouter } from 'next/navigation'
 import { IoChevronBack, IoPersonAdd, IoPersonRemove } from 'react-icons/io5'
 
@@ -15,13 +14,7 @@ export default function MemberProfileHeader({ memberId }: MemberProfileHeaderPro
   const router = useRouter()
   const { handleFollowToggle } = useFollowMutation()
 
-  const { data: profileData } = useQuery({
-    queryKey: ['member', memberId, 'profile'],
-    queryFn: async () => {
-      const response = await getOtherMemberProfile(memberId)
-      return response.data ?? null
-    },
-  })
+  const { data: profileData } = useOtherMemberProfile(memberId)
 
   const isFollowing = profileData?.isFollowing ?? false
 
