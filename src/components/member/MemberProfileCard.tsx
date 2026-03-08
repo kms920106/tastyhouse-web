@@ -3,7 +3,7 @@ import MemberProfileStats from '@/components/member/MemberProfileStats'
 import { ReactNode } from 'react'
 
 interface MemberProfileCardProps {
-  memberId: number
+  memberId: number | null
   editSlot?: ReactNode
 }
 

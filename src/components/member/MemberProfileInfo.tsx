@@ -7,7 +7,7 @@ import { useOtherMemberProfile } from '@/hooks/useOtherMemberProfile'
 import { ReactNode } from 'react'
 
 interface MemberProfileInfoProps {
-  memberId: number
+  memberId: number | null
   editSlot?: ReactNode
 }
 
@@ -31,9 +31,9 @@ function MemberProfileInfoSkeleton({ editSlot }: { editSlot?: ReactNode }) {
 }
 
 export default function MemberProfileInfo({ memberId, editSlot }: MemberProfileInfoProps) {
-  const { data, isLoading } = useOtherMemberProfile(memberId)
+  const { data, isLoading } = useOtherMemberProfile(memberId ?? undefined)
 
-  if (isLoading) {
+  if (!memberId || isLoading) {
     return <MemberProfileInfoSkeleton editSlot={editSlot} />
   }
 

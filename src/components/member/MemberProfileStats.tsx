@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 
 interface MemberProfileStatsProps {
-  memberId: number | string
+  memberId: number | string | null
 }
 
 function StatLabel({ children }: { children: ReactNode }) {
@@ -42,13 +42,13 @@ export default function MemberProfileStats({ memberId }: MemberProfileStatsProps
   const { data: statsData, isLoading } = useQuery({
     queryKey: ['member', memberId, 'stats'],
     queryFn: async () => {
-      const response = await getMemberStats(memberId)
+      const response = await getMemberStats(memberId!)
       return response.data ?? null
     },
     enabled: !!memberId,
   })
 
-  if (isLoading) {
+  if (!memberId || isLoading) {
     return <MemberProfileStatsSkeleton />
   }
 
