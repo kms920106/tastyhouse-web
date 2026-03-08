@@ -56,6 +56,12 @@ export function useFollowMutation() {
       { queryKey: ['memberSearch'], exact: false },
       (old) => updateFollowingStateInCache(old, targetMemberId, following),
     )
+
+    // ['member', memberId, 'profile'] 캐시 업데이트 → FollowButton 상태 반영
+    queryClient.setQueryData<{ following: boolean }>(
+      ['member', targetMemberId, 'profile'],
+      (old) => old ? { ...old, following } : old,
+    )
   }
 
   const followMutation = useMutation({

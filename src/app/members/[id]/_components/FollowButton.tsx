@@ -22,7 +22,7 @@ export default function FollowButton({ memberId }: FollowButtonProps) {
   return (
     <button
       onClick={() => handleFollowToggle({ memberId, following })}
-      className="flex items-center justify-center w-10 h-10"
+      className="flex items-center justify-center w-10 h-10 cursor-pointer"
     >
       {following ? (
         <IoPersonRemove size={24} className="text-white" />
