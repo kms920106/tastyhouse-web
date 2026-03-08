@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={nanumMyeongjo.variable}>
+    <html lang="ko" className={nanumMyeongjo.variable}>
       <head>
         <link rel="icon" href={PAGE_PATHS.FAVICON} sizes="any" />
       </head>
