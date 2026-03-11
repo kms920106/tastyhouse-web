@@ -2,7 +2,11 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import AccountInfoVerifyForm from './AccountInfoVerifyForm'
 
-export default function AccountInfoVerifySection() {
+interface AccountInfoVerifySectionProps {
+  onVerified: (verifyToken: string) => void
+}
+
+export default function AccountInfoVerifySection({ onVerified }: AccountInfoVerifySectionProps) {
   return (
     <section className="min-h-screen bg-white">
       <Header variant="white" height={55}>
@@ -13,7 +17,7 @@ export default function AccountInfoVerifySection() {
           <HeaderTitle>개인정보 수정</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <AccountInfoVerifyForm />
+      <AccountInfoVerifyForm onVerified={onVerified} />
     </section>
   )
 }

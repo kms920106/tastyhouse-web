@@ -6,7 +6,6 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { extractZodFieldErrors } from '@/lib/form'
 import { verifyMemberPassword } from '@/services/member'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
 
@@ -22,9 +21,11 @@ const INITIAL_FORM_DATA: FormData = {
   password: '',
 }
 
-export default function AccountInfoVerifyForm() {
-  const router = useRouter()
+interface AccountInfoVerifyFormProps {
+  onVerified: (verifyToken: string) => void
+}
 
+export default function AccountInfoVerifyForm({ onVerified }: AccountInfoVerifyFormProps) {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -66,7 +67,7 @@ export default function AccountInfoVerifyForm() {
         return
       }
 
-      router.push(`/account/info/edit?verifyToken=${verifyToken}`)
+      onVerified(verifyToken)
     } catch {
       toast('오류가 발생했습니다. 다시 시도해 주세요.')
     } finally {
