@@ -11,6 +11,9 @@ import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import type { LoginParams } from '@/domains/member'
 import { useRouter } from 'next/navigation'
 import { useActionState, useState } from 'react'
+import { FaFacebookF } from 'react-icons/fa'
+import { RiKakaoTalkFill } from 'react-icons/ri'
+import { SiNaver } from 'react-icons/si'
 
 export default function LoginSection() {
   const router = useRouter()
@@ -96,32 +99,32 @@ export default function LoginSection() {
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('kakao')}
-            className="gap-3 bg-[#FEE500] text-black"
+            className="relative bg-[#FEE500] text-black"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 3C6.75 3 2.5 6.37 2.5 10.5c0 2.63 1.77 4.93 4.42 6.24-.18.66-.68 2.49-.78 2.89-.12.47.17.46.36.33.15-.09 2.42-1.61 3.18-2.12.47.07.96.1 1.46.10 5.25 0 9.5-3.37 9.5-7.5S17.25 3 12 3z" />
-            </svg>
-            카카오톡으로 로그인
+            <span className="absolute left-4">
+              <RiKakaoTalkFill className="size-6" />
+            </span>
+            <span className="flex-1 text-center">카카오톡으로 로그인</span>
           </AppFullButton>
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('naver')}
-            className="gap-3 bg-[#03C75A] text-white"
+            className="relative bg-[#03A94D] text-white"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-              <path d="M16.273 12.845L7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845z" />
-            </svg>
-            네이버로 로그인
+            <span className="absolute left-5">
+              <SiNaver className="size-4" />
+            </span>
+            <span className="flex-1 text-center">네이버로 로그인</span>
           </AppFullButton>
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('facebook')}
-            className="gap-3 bg-[#1877F2] text-white"
+            className="relative bg-[#4267b2] text-white"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
-            페이스북으로 로그인
+            <span className="absolute left-4">
+              <FaFacebookF className="size-6" />
+            </span>
+            <span className="flex-1 text-center">페이스북으로 로그인</span>
           </AppFullButton>
         </div>
       </div>
