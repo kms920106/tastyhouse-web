@@ -15,9 +15,7 @@ export default function FollowButton({ following, onClick, className }: FollowBu
       onClick={onClick}
       className={cn(
         'h-[31px] px-[23px] py-2.5 text-xs leading-[12px] rounded-[2.5px]',
-        following
-          ? 'bg-white text-main border border-main box-border'
-          : 'bg-main text-white',
+        following ? 'bg-white text-main border border-main box-border' : 'bg-main text-white',
         className,
       )}
     >
