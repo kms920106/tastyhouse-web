@@ -1,13 +1,11 @@
-import AppButton, { type AppButtonProps } from '@/components/ui/AppButton'
+import { type AppButtonProps } from '@/components/ui/AppButton'
+import AppFullButton from '@/components/ui/AppFullButton'
 import { cn } from '@/lib/utils'
 
 export default function AppPrimaryButton({ className, ...props }: AppButtonProps) {
   return (
-    <AppButton
-      className={cn(
-        'w-full h-[50px] bg-[#a91201] text-base leading-[16px] text-white hover:bg-[#a91201]/90 hover:text-white border-0',
-        className,
-      )}
+    <AppFullButton
+      className={cn('bg-[#a91201] text-white hover:bg-[#a91201]/90', className)}
       {...props}
     />
   )
