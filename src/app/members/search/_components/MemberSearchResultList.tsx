@@ -13,7 +13,7 @@ interface MemberSearchResultListProps {
   searchQuery: string
 }
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 10
 
 function MemberSearchResultListSkeleton() {
   return (
