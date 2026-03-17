@@ -113,7 +113,10 @@ export interface LoginParams {
   password: string
 }
 
-export type LoginResult = { success: true; data: LoginResponse } | { success: false; error: string }
+export type LoginResult = {
+  success: false
+  error: string
+}
 
 export interface LoginRequest {
   username: string
