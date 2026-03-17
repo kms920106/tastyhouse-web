@@ -1,10 +1,11 @@
 name: E2E Tests
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  # push:
+  #   branches: [main, master]
+  # pull_request:
+  #   branches: [main, master]
+  workflow_dispatch: # 임시 비활성화 - 수동 실행만 가능
 
 jobs:
   e2e:
