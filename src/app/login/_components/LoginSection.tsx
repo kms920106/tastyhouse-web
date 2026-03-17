@@ -58,6 +58,7 @@ export default function LoginSection() {
               <CircleCheckbox checked={keepLoggedIn} onChange={setKeepLoggedIn} />
               <span className="text-sm leading-[14px] text-[#666666]">로그인 상태 유지</span>
             </label>
+            <input type="hidden" name="rememberMe" value={String(keepLoggedIn)} />
           </div>
           <div className="mt-[30px]">
             <AppPrimaryButton type="submit" disabled={isPending}>

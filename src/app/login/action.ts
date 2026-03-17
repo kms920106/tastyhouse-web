@@ -25,6 +25,7 @@ export async function loginFormAction(
 ): Promise<LoginResult> {
   const username = formData.get('username')?.toString() ?? ''
   const password = formData.get('password')?.toString() ?? ''
+  const rememberMe = formData.get('rememberMe') === 'true'
 
   // 검증
   const validationError = validateLoginInput(username, password)
@@ -44,20 +45,22 @@ export async function loginFormAction(
   }
 
   const cookieStore = await cookies()
+  const baseOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const, // 외부 리다이렉트(토스페이먼츠) 허용
+    path: '/',
+  }
 
   cookieStore.set('accessToken', data.accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax', // 외부 리다이렉트(토스페이먼츠) 허용
-    path: '/',
-    maxAge: 60 * 60 * 24, // 1 day
+    ...baseOptions,
+    // rememberMe: 30일 / 일반: 세션 쿠키 (브라우저 닫으면 소멸)
+    ...(rememberMe ? { maxAge: 60 * 60 * 24 * 30 } : {}),
   })
   cookieStore.set('refreshToken', data.refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax', // 외부 리다이렉트(토스페이먼츠) 허용
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    ...baseOptions,
+    // rememberMe: 30일 / 일반: 세션 쿠키 (브라우저 닫으면 소멸)
+    ...(rememberMe ? { maxAge: 60 * 60 * 24 * 30 } : {}),
   })
 
   revalidatePath('/')
