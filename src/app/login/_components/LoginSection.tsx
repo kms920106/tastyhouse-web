@@ -78,7 +78,7 @@ export default function LoginSection() {
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('kakao')}
-            className="relative bg-[#FEE500] text-black"
+            className="relative bg-[#FEE500] text-black hover:bg-[#FEE500]/90 hover:text-black"
           >
             <span className="absolute left-4">
               <RiKakaoTalkFill className="size-6" />
@@ -88,7 +88,7 @@ export default function LoginSection() {
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('naver')}
-            className="relative bg-[#03A94D] text-white"
+            className="relative bg-[#03A94D] text-white hover:bg-[#03A94D]/90"
           >
             <span className="absolute left-5">
               <SiNaver className="size-4" />
@@ -98,7 +98,7 @@ export default function LoginSection() {
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('facebook')}
-            className="relative bg-[#4267b2] text-white"
+            className="relative bg-[#4267b2] text-white hover:bg-[#4267b2]/90"
           >
             <span className="absolute left-4">
               <FaFacebookF className="size-6" />
