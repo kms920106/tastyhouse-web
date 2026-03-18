@@ -24,7 +24,6 @@ import {
   confirmPhoneVerificationCode,
   sendPhoneVerificationCode,
 } from '@/services/phone-verification'
-import Image from 'next/image'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { MdChevronRight } from 'react-icons/md'
 import { z } from 'zod'
@@ -36,7 +35,12 @@ const BIRTH_DAYS = Array.from({ length: 31 }, (_, i) => i + 1)
 const TERMS_LIST = [
   { key: 'agreedTerms', label: '이용약관 동의 (필수)', required: true, href: '/terms' },
   { key: 'agreedPrivacy', label: '개인정보처리방침 동의 (필수)', required: true, href: '/privacy' },
-  { key: 'agreedFinance', label: '전자금융거래 이용약관 동의 (필수)', required: true, href: '/terms/finance' },
+  {
+    key: 'agreedFinance',
+    label: '전자금융거래 이용약관 동의 (필수)',
+    required: true,
+    href: '/terms/finance',
+  },
   { key: 'agreedAge', label: '만 14세 이상 이용 동의 (필수)', required: true, href: null },
   { key: 'agreedMarketing', label: '이벤트 정보 수신 동의 (선택)', required: false, href: null },
 ] as const
@@ -45,7 +49,7 @@ type TermsKey = (typeof TERMS_LIST)[number]['key']
 
 const signupSchema = z
   .object({
-    email: z.string().email('올바른 이메일 주소를 입력해 주세요.'),
+    email: z.email('올바른 이메일 주소를 입력해 주세요.'),
     password: z
       .string()
       .min(8, '비밀번호는 8자 이상이어야 합니다.')
@@ -297,6 +301,27 @@ export default function SignupSection() {
     return false
   }
 
+  const handleSubmit = (formData: FormData) => {
+    if (!validateForm()) return
+    if (!isEmailVerified) {
+      toast('이메일 인증을 완료해 주세요.')
+      return
+    }
+    if (!isNicknameChecked) {
+      toast('닉네임 중복확인을 해 주세요.')
+      return
+    }
+    if (!isPhoneVerified) {
+      toast('휴대폰 인증을 완료해 주세요.')
+      return
+    }
+    if (TERMS_LIST.filter((t) => t.required).some(({ key }) => !agreedTerms[key])) {
+      toast('필수 약관에 동의해 주세요.')
+      return
+    }
+    formAction(formData)
+  }
+
   return (
     <section className="min-h-screen">
       <Header variant="white" height={55}>
@@ -307,44 +332,19 @@ export default function SignupSection() {
           <HeaderTitle>회원가입</HeaderTitle>
         </HeaderCenter>
       </Header>
-
-      <form
-        action={(formData) => {
-          if (!validateForm()) return
-          if (!isEmailVerified) {
-            toast('이메일 인증을 완료해 주세요.')
-            return
-          }
-          if (!isNicknameChecked) {
-            toast('닉네임 중복확인을 해 주세요.')
-            return
-          }
-          if (!isPhoneVerified) {
-            toast('휴대폰 인증을 완료해 주세요.')
-            return
-          }
-          if (!gender) {
-            toast('성별을 선택해 주세요.')
-            return
-          }
-          const requiredTerms = TERMS_LIST.filter((t) => t.required)
-          if (requiredTerms.some(({ key }) => !agreedTerms[key])) {
-            toast('필수 약관에 동의해 주세요.')
-            return
-          }
-          formData.set('emailVerifyToken', emailVerifyToken)
-          formData.set('phoneVerifyToken', phoneVerifyToken)
-          formData.set('birthDate', String(buildBirthDate() ?? ''))
-          formData.set('gender', gender)
-          formData.set('agreedTerms', String(agreedTerms.agreedTerms))
-          formData.set('agreedPrivacy', String(agreedTerms.agreedPrivacy))
-          formData.set('agreedFinance', String(agreedTerms.agreedFinance))
-          formData.set('agreedAge', String(agreedTerms.agreedAge))
-          formData.set('agreedMarketing', String(agreedTerms.agreedMarketing))
-          formAction(formData)
-        }}
-      >
+      <form action={handleSubmit}>
         <div className="px-[15px] py-[30px] flex flex-col gap-5">
+          {/* hidden */}
+          <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
+          <input type="hidden" name="phoneVerifyToken" value={phoneVerifyToken} />
+          <input type="hidden" name="birthDate" value={String(buildBirthDate() ?? '')} />
+          <input type="hidden" name="gender" value={gender ?? ''} />
+          <input type="hidden" name="agreedTerms" value={String(agreedTerms.agreedTerms)} />
+          <input type="hidden" name="agreedPrivacy" value={String(agreedTerms.agreedPrivacy)} />
+          <input type="hidden" name="agreedFinance" value={String(agreedTerms.agreedFinance)} />
+          <input type="hidden" name="agreedAge" value={String(agreedTerms.agreedAge)} />
+          <input type="hidden" name="agreedMarketing" value={String(agreedTerms.agreedMarketing)} />
+
           {/* 아이디 */}
           <AppFormField label="아이디" required error={errors.email}>
             {({ className }) => (
@@ -363,7 +363,11 @@ export default function SignupSection() {
                       if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
                     }}
                     readOnly={isEmailVerified}
-                    className={cn('flex-1', isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]', className)}
+                    className={cn(
+                      'flex-1',
+                      isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                      className,
+                    )}
                   />
                   <AppOutlineButton
                     type="button"
@@ -371,7 +375,11 @@ export default function SignupSection() {
                     disabled={isEmailVerified || isSendingEmailCode}
                     className="shrink-0 w-auto h-auto px-4"
                   >
-                    {isSendingEmailCode ? '발송 중' : isEmailCodeVisible ? '재발송' : '인증메일 받기'}
+                    {isSendingEmailCode
+                      ? '발송 중'
+                      : isEmailCodeVisible
+                        ? '재발송'
+                        : '인증메일 받기'}
                   </AppOutlineButton>
                 </div>
                 {isEmailCodeVisible && (
@@ -385,7 +393,10 @@ export default function SignupSection() {
                       disabled={isEmailVerified}
                       placeholder="123456"
                       maxLength={6}
-                      className={cn('flex-1 pr-4', isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]')}
+                      className={cn(
+                        'flex-1 pr-4',
+                        isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                      )}
                     />
                     <AppOutlineButton
                       type="button"
@@ -426,9 +437,14 @@ export default function SignupSection() {
                   value={passwordConfirm}
                   onChange={(e) => {
                     setPasswordConfirm(e.target.value)
-                    if (errors.passwordConfirm) setErrors((prev) => ({ ...prev, passwordConfirm: undefined }))
+                    if (errors.passwordConfirm)
+                      setErrors((prev) => ({ ...prev, passwordConfirm: undefined }))
                   }}
-                  className={errors.passwordConfirm ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined}
+                  className={
+                    errors.passwordConfirm
+                      ? 'border-[#bc4040] focus-visible:border-[#bc4040]'
+                      : undefined
+                  }
                 />
                 {errors.passwordConfirm && (
                   <p className="text-xs leading-[12px] text-[#bc4040]">{errors.passwordConfirm}</p>
@@ -501,13 +517,18 @@ export default function SignupSection() {
                       setIsPhoneVerified(false)
                       setIsPhoneCodeVisible(false)
                       setPhoneVerifyToken('')
-                      if (errors.phoneNumber) setErrors((prev) => ({ ...prev, phoneNumber: undefined }))
+                      if (errors.phoneNumber)
+                        setErrors((prev) => ({ ...prev, phoneNumber: undefined }))
                     }}
                     readOnly={isPhoneVerified}
                     disabled={isPhoneVerified}
                     placeholder="숫자만 입력하세요."
                     maxLength={11}
-                    className={cn('flex-1 pr-4', isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]', className)}
+                    className={cn(
+                      'flex-1 pr-4',
+                      isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                      className,
+                    )}
                   />
                   <AppOutlineButton
                     type="button"
@@ -515,7 +536,11 @@ export default function SignupSection() {
                     disabled={isPhoneVerified || isSendingPhoneCode}
                     className="shrink-0 w-auto h-auto px-4"
                   >
-                    {isSendingPhoneCode ? '발송 중' : isPhoneCodeVisible ? '재발송' : '인증번호 받기'}
+                    {isSendingPhoneCode
+                      ? '발송 중'
+                      : isPhoneCodeVisible
+                        ? '재발송'
+                        : '인증번호 받기'}
                   </AppOutlineButton>
                 </div>
                 {isPhoneCodeVisible && (
@@ -529,7 +554,10 @@ export default function SignupSection() {
                       disabled={isPhoneVerified}
                       placeholder="123456"
                       maxLength={6}
-                      className={cn('flex-1 pr-4', isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]')}
+                      className={cn(
+                        'flex-1 pr-4',
+                        isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                      )}
                     />
                     <AppOutlineButton
                       type="button"
@@ -678,9 +706,7 @@ export default function SignupSection() {
                 <label className="flex items-center gap-3 cursor-pointer">
                   <CircleCheckbox
                     checked={agreedTerms[key]}
-                    onChange={(checked) =>
-                      setAgreedTerms((prev) => ({ ...prev, [key]: checked }))
-                    }
+                    onChange={(checked) => setAgreedTerms((prev) => ({ ...prev, [key]: checked }))}
                   />
                   <span className="text-sm leading-[14px] text-[#666666]">{label}</span>
                 </label>
