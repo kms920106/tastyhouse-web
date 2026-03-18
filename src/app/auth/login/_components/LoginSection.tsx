@@ -1,6 +1,6 @@
 'use client'
 
-import { loginFormAction } from '@/app/login/action'
+import { loginFormAction } from '@/app/auth/login/action'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { CloseButton } from '@/components/layouts/header-parts'
 import AppFullButton from '@/components/ui/AppFullButton'
