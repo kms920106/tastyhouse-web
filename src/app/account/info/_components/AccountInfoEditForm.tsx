@@ -271,7 +271,11 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                       placeholder="01012345678"
                       disabled={isVerified}
                       maxLength={11}
-                      className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]', className)}
+                      className={cn(
+                        'flex-1 pr-4',
+                        isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                        className,
+                      )}
                     />
                     <AppOutlineButton
                       onClick={handleSendVerification}
@@ -282,7 +286,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                         ? '발송 중'
                         : isVerificationVisible
                           ? '재발송'
-                          : '인증번호 발송'}
+                          : '인증번호 받기'}
                     </AppOutlineButton>
                   </div>
                   {isVerificationVisible && (
@@ -370,7 +374,9 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                   <AppOutlineButton
                     className={cn(
                       'flex-1 transition-colors',
-                      gender === 'MALE' ? 'border-[#a91201] text-[#a91201]' : 'border-[#eeeeee] text-[#333333]',
+                      gender === 'MALE'
+                        ? 'border-[#a91201] text-[#a91201]'
+                        : 'border-[#eeeeee] text-[#333333]',
                     )}
                     onClick={() => setGender('MALE')}
                   >
@@ -379,7 +385,9 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                   <AppOutlineButton
                     className={cn(
                       'flex-1 transition-colors',
-                      gender === 'FEMALE' ? 'border-[#a91201] text-[#a91201]' : 'border-[#eeeeee] text-[#333333]',
+                      gender === 'FEMALE'
+                        ? 'border-[#a91201] text-[#a91201]'
+                        : 'border-[#eeeeee] text-[#333333]',
                     )}
                     onClick={() => setGender('FEMALE')}
                   >
