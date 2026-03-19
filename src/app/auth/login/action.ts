@@ -1,6 +1,7 @@
 'use server'
 
 import { LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
+import { getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { api } from '@/lib/api'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
@@ -52,16 +53,27 @@ export async function loginFormAction(
     path: '/',
   }
 
+  const tokenMaxAge = getTokenMaxAge(rememberMe)
+
   cookieStore.set('accessToken', data.accessToken, {
     ...baseOptions,
     // rememberMe: 30일 / 일반: 세션 쿠키 (브라우저 닫으면 소멸)
-    ...(rememberMe ? { maxAge: 60 * 60 * 24 * 30 } : {}),
+    ...(rememberMe ? { maxAge: tokenMaxAge.accessToken } : {}),
   })
   cookieStore.set('refreshToken', data.refreshToken, {
     ...baseOptions,
     // rememberMe: 30일 / 일반: 세션 쿠키 (브라우저 닫으면 소멸)
-    ...(rememberMe ? { maxAge: 60 * 60 * 24 * 30 } : {}),
+    ...(rememberMe ? { maxAge: tokenMaxAge.refreshToken } : {}),
   })
+
+  // 미들웨어에서 토큰 갱신 시 동일한 maxAge 적용을 위해 rememberMe 상태 저장
+  if (rememberMe) {
+    cookieStore.set('rememberMe', 'true', {
+      ...baseOptions,
+      httpOnly: false, // JS에서 읽을 필요는 없으나 미들웨어(Next.js Edge)에서 읽기 위해 non-httpOnly
+      maxAge: TOKEN_MAX_AGE.REMEMBER_ME,
+    })
+  }
 
   revalidatePath('/')
   redirect('/')

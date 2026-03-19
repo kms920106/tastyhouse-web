@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getTokenMaxAge } from '@/lib/auth-config'
 import { env } from '@/lib/env'
 
 /**
@@ -43,6 +44,7 @@ export async function middleware(request: NextRequest) {
 
   const accessToken = request.cookies.get('accessToken')?.value
   const refreshToken = request.cookies.get('refreshToken')?.value
+  const rememberMe = request.cookies.get('rememberMe')?.value === 'true'
 
   // refreshToken이 없으면 로그인 필요 (갱신 불가)
   if (!refreshToken) {
@@ -82,20 +84,24 @@ export async function middleware(request: NextRequest) {
     const data = json?.data ?? json
 
     // 새 토큰으로 쿠키 업데이트하여 다음 요청으로 진행
+    // rememberMe 사용자는 로그인 시 설정한 maxAge(30일)를 유지
+    const { accessToken: accessTokenMaxAge, refreshToken: refreshTokenMaxAge } =
+      getTokenMaxAge(rememberMe)
+
     const res = NextResponse.next()
     res.cookies.set('accessToken', data.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax', // 외부 리다이렉트(토스페이먼츠) 허용
       path: '/',
-      maxAge: 60 * 60, // 1 hour
+      maxAge: accessTokenMaxAge,
     })
     res.cookies.set('refreshToken', data.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax', // 외부 리다이렉트(토스페이먼츠) 허용
       path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: refreshTokenMaxAge,
     })
 
     return res
