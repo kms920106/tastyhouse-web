@@ -29,27 +29,18 @@ export async function share(data: ShareData): Promise<boolean> {
 
 /**
  * 텍스트를 클립보드에 복사합니다.
- * Clipboard API 실패 시 execCommand fallback을 사용합니다.
+ * Clipboard API를 지원하지 않는 환경에서는 false를 반환합니다.
  */
 export async function copyToClipboard(text: string): Promise<boolean> {
+  if (!navigator.clipboard) {
+    return false
+  }
+
   try {
     await navigator.clipboard.writeText(text)
     return true
   } catch {
-    // Clipboard API 실패 시 fallback
-    try {
-      const textArea = document.createElement('textarea')
-      textArea.value = text
-      textArea.style.position = 'fixed'
-      textArea.style.left = '-9999px'
-      document.body.appendChild(textArea)
-      textArea.select()
-      document.execCommand('copy')
-      document.body.removeChild(textArea)
-      return true
-    } catch {
-      return false
-    }
+    return false
   }
 }
 
