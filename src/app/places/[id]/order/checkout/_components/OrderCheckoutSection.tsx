@@ -4,6 +4,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import SectionStack from '@/components/ui/SectionStack'
 import type { MemberCouponListItemResponse, MemberInfo } from '@/domains/member'
 import type { PaymentMethod } from '@/domains/payment'
@@ -84,7 +85,7 @@ export default function OrderCheckoutSection({
 
     const orderId = orderResult.data?.id
     if (!orderId) {
-      toast('주문 생성에 실패했습니다.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       return
     }
 
@@ -100,13 +101,13 @@ export default function OrderCheckoutSection({
     }
 
     if (!paymentResult.data) {
-      toast('결제 생성에 실패했습니다.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       return
     }
 
     const paymentId = paymentResult.data.id
     if (!paymentId) {
-      toast('결제 생성에 실패했습니다.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       return
     }
 

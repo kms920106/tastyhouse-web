@@ -1,6 +1,7 @@
 'use client'
 
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { createComment, createReply } from '@/services/review'
 import { useState } from 'react'
 import CommentSubmitButton from './CommentSubmitButton'
@@ -42,7 +43,7 @@ export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitBut
       const { error, data } = await createComment(reviewId, request)
 
       if (error || !data) {
-        toast('댓글 등록에 실패했습니다.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         setIsSubmitting(false)
         return
       }
@@ -56,7 +57,7 @@ export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitBut
       const { error, data } = await createReply(reviewId, replyTarget.commentId, request)
 
       if (error || !data) {
-        toast('답글 등록에 실패했습니다.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         setIsSubmitting(false)
         return
       }

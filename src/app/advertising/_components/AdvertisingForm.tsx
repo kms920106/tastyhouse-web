@@ -7,6 +7,7 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
 import { createPartnershipRequest } from '@/services/partnership'
@@ -132,7 +133,7 @@ export default function AdvertisingForm() {
       })
 
       if (error || !data) {
-        toast(error || '신청 중 오류가 발생했습니다.')
+        toast(error || COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
 

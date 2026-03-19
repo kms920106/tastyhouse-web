@@ -1,6 +1,7 @@
 'use client'
 
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { toggleReviewLike } from '@/services/review'
 import { useState, useTransition } from 'react'
 import ReviewLikeButton from './ReviewLikeButton'
@@ -24,7 +25,7 @@ export default function ReviewLikeButtonClient({
       const { error, data } = await toggleReviewLike(reviewId)
 
       if (error || !data) {
-        toast(error || '좋아요 처리에 실패했습니다.')
+        toast(error || COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
 

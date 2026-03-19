@@ -1,6 +1,7 @@
 'use client'
 
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { followMember, unfollowMember } from '@/services/follow'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -71,7 +72,7 @@ export function useFollowMutation() {
       syncFollowState(targetMemberId, true)
     },
     onError: () => {
-      toast('팔로우에 실패했습니다. 다시 시도해 주세요.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
     },
   })
 
@@ -81,7 +82,7 @@ export function useFollowMutation() {
       syncFollowState(targetMemberId, false)
     },
     onError: () => {
-      toast('팔로우 취소에 실패했습니다. 다시 시도해 주세요.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
     },
   })
 

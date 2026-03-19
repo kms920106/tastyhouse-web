@@ -8,6 +8,7 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import SectionStack from '@/components/ui/SectionStack'
 import { extractZodFieldErrors } from '@/lib/form'
 import { createOrderReview } from '@/services/review'
@@ -145,7 +146,7 @@ export default function OrderReviewCreateForm({
       })
 
       if (error) {
-        toast('리뷰 등록에 실패했습니다.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
 

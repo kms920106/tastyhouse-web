@@ -4,6 +4,7 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { updateMemberPassword } from '@/services/member'
 import { useRouter } from 'next/navigation'
@@ -75,7 +76,7 @@ export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormPr
         if (status === 400) {
           toast('현재 비밀번호와 동일한 비밀번호로 변경할 수 없습니다.')
         } else {
-          toast('비밀번호 변경에 실패했습니다. 다시 시도해 주세요.')
+          toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         }
         return
       }
@@ -83,7 +84,7 @@ export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormPr
       toast('비밀번호가 변경되었습니다.')
       router.back()
     } catch {
-      toast('오류가 발생했습니다. 다시 시도해 주세요.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
     } finally {
       setIsSubmitting(false)
     }

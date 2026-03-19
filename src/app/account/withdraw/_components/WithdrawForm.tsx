@@ -7,6 +7,7 @@ import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import SectionStack from '@/components/ui/SectionStack'
 import { WITHDRAW_REASON_LABEL, WithdrawReason } from '@/domains/member/member.type'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -64,7 +65,7 @@ export default function WithdrawForm() {
       const response = await withdrawMember({ reason: pendingReason })
 
       if (response?.error) {
-        toast('탈퇴 처리 중 오류가 발생했습니다. 다시 시도해 주세요.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
 

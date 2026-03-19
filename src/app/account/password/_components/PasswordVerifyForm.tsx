@@ -4,6 +4,7 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { verifyMemberPassword } from '@/services/member'
 import { useState } from 'react'
@@ -62,13 +63,13 @@ export default function PasswordVerifyForm({ onVerified }: PasswordVerifyFormPro
 
       const verifyToken = response?.data?.verifyToken
       if (!verifyToken) {
-        toast('인증에 실패했습니다. 다시 시도해 주세요.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
 
       onVerified(verifyToken)
     } catch {
-      toast('오류가 발생했습니다. 다시 시도해 주세요.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
     } finally {
       setIsSubmitting(false)
     }

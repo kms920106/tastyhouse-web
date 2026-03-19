@@ -1,11 +1,12 @@
 'use client'
 
 import { toast } from '../ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import ReviewOptionButton from './ReviewOptionButton'
 
 export default function ReviewOptionError() {
   const handleClick = () => {
-    toast('오류가 발생했습니다')
+    toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
   }
 
   return <ReviewOptionButton onClick={handleClick} />

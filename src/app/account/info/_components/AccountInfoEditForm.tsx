@@ -8,6 +8,7 @@ import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -134,7 +135,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
         setIsVerificationVisible(true)
         toast('인증번호가 발송되었습니다.')
       } catch {
-        toast('인증번호 발송에 실패했습니다. 다시 시도해 주세요.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }
     })
   }
@@ -154,13 +155,13 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
         }
         const token = response?.data?.phoneVerifyToken
         if (!token) {
-          toast('인증에 실패했습니다. 다시 시도해 주세요.')
+          toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
           return
         }
         setPhoneVerifyToken(token)
         setIsVerified(true)
       } catch {
-        toast('인증번호 확인에 실패했습니다. 다시 시도해 주세요.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }
     })
   }
@@ -193,7 +194,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
 
   const handleSubmit = () => {
     if (!verifyToken) {
-      toast('인증 정보가 없습니다. 다시 시도해 주세요.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       return
     }
 
@@ -222,7 +223,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
 
         toast('개인정보가 수정되었습니다.')
       } catch {
-        toast('오류가 발생했습니다. 다시 시도해 주세요.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }
     })
   }

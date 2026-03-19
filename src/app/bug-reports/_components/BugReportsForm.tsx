@@ -5,6 +5,7 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import AppTextarea from '@/components/ui/AppTextarea'
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
 import { createBugReport } from '@/services/bug-report'
@@ -87,11 +88,11 @@ export default function BugReportsForm() {
           setErrors({})
           setPhotoUploaderKey((prev) => prev + 1)
         } else {
-          toast('버그 제보 접수에 실패했습니다.')
+          toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         }
       } catch (error) {
         console.error('버그 제보 실패:', error)
-        toast('버그 제보 중 오류가 발생했습니다.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }
     })
   }

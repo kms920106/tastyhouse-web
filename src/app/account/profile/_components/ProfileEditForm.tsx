@@ -5,6 +5,7 @@ import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
 import { updateMemberProfile } from '@/services/member'
@@ -83,12 +84,12 @@ export default function ProfileEditForm() {
       if (response?.data) {
         setProfileImageFileId(response.data)
       } else {
-        toast('이미지 업로드에 실패했습니다.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         setProfileImageUrl(null)
       }
     } catch (error) {
       console.error('이미지 업로드 실패:', error)
-      toast('이미지 업로드 중 오류가 발생했습니다.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       setProfileImageUrl(null)
     } finally {
       setIsUploading(false)
@@ -122,11 +123,11 @@ export default function ProfileEditForm() {
         toast('프로필이 변경됐습니다.')
         router.back()
       } else {
-        toast('프로필 수정에 실패했습니다.')
+        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }
     } catch (error) {
       console.error('프로필 수정 실패:', error)
-      toast('프로필 수정 중 오류가 발생했습니다.')
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
     } finally {
       setIsSubmitting(false)
     }
