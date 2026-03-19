@@ -1,3 +1,4 @@
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { env } from '@/lib/env'
 import { cookies } from 'next/headers'
 
@@ -39,7 +40,7 @@ class ApiClient {
       : { 'Content-Type': 'application/json' }
 
     const cookieStore = await cookies()
-    const accessToken = cookieStore.get('accessToken')?.value
+    const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)?.value
 
     if (accessToken) {
       requestHeaders['Authorization'] = `Bearer ${accessToken}`

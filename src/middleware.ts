@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTokenMaxAge } from '@/lib/auth-config'
+import { AUTH_COOKIE_KEYS, getTokenMaxAge } from '@/lib/auth-config'
 import { env } from '@/lib/env'
 
 /**
@@ -42,9 +42,9 @@ export async function middleware(request: NextRequest) {
     return new NextResponse('Forbidden', { status: 403 })
   }
 
-  const accessToken = request.cookies.get('accessToken')?.value
-  const refreshToken = request.cookies.get('refreshToken')?.value
-  const rememberMe = request.cookies.get('rememberMe')?.value === 'true'
+  const accessToken = request.cookies.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)?.value
+  const refreshToken = request.cookies.get(AUTH_COOKIE_KEYS.REFRESH_TOKEN)?.value
+  const rememberMe = request.cookies.get(AUTH_COOKIE_KEYS.REMEMBER_ME)?.value === 'true'
 
   // refreshToken이 없으면 로그인 필요 (갱신 불가)
   if (!refreshToken) {
@@ -75,8 +75,8 @@ export async function middleware(request: NextRequest) {
 
     if (!response.ok) {
       const res = NextResponse.next()
-      res.cookies.delete('accessToken')
-      res.cookies.delete('refreshToken')
+      res.cookies.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
+      res.cookies.delete(AUTH_COOKIE_KEYS.REFRESH_TOKEN)
       return res
     }
 
@@ -89,14 +89,14 @@ export async function middleware(request: NextRequest) {
       getTokenMaxAge(rememberMe)
 
     const res = NextResponse.next()
-    res.cookies.set('accessToken', data.accessToken, {
+    res.cookies.set(AUTH_COOKIE_KEYS.ACCESS_TOKEN, data.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax', // 외부 리다이렉트(토스페이먼츠) 허용
       path: '/',
       maxAge: accessTokenMaxAge,
     })
-    res.cookies.set('refreshToken', data.refreshToken, {
+    res.cookies.set(AUTH_COOKIE_KEYS.REFRESH_TOKEN, data.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax', // 외부 리다이렉트(토스페이먼츠) 허용
@@ -110,8 +110,8 @@ export async function middleware(request: NextRequest) {
 
     // 갱신 실패 시 만료된 토큰 제거 — 각 페이지에서 비인증 상태로 적절히 처리
     const res = NextResponse.next()
-    res.cookies.delete('accessToken')
-    res.cookies.delete('refreshToken')
+    res.cookies.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
+    res.cookies.delete(AUTH_COOKIE_KEYS.REFRESH_TOKEN)
     return res
   }
 }

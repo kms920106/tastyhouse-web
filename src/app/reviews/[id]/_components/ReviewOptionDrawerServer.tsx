@@ -2,6 +2,7 @@ import ReviewOptionButton from '@/components/reviews/ReviewOptionButton'
 import ReviewOptionDrawer from '@/components/reviews/ReviewOptionDrawer'
 import ReviewOptionError from '@/components/reviews/ReviewOptionError'
 import { reviewRepository } from "@/domains/review"
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
@@ -14,7 +15,7 @@ export default async function ReviewOptionDrawerServer({
   reviewId,
 }: ReviewOptionDrawerServerProps) {
   const cookieStore = await cookies()
-  const accessToken = cookieStore.get('accessToken')
+  const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
 
   if (!accessToken) {
     return (

@@ -9,6 +9,7 @@ import {
   VerifyPasswordRequest,
   WithdrawRequest,
 } from '@/domains/member'
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { cookies } from 'next/headers'
 
 export async function getMemberMe() {
@@ -72,8 +73,8 @@ export async function withdrawMember(data: WithdrawRequest) {
 
   if (!result?.error) {
     const cookieStore = await cookies()
-    cookieStore.delete('accessToken')
-    cookieStore.delete('refreshToken')
+    cookieStore.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
+    cookieStore.delete(AUTH_COOKIE_KEYS.REFRESH_TOKEN)
   }
 
   return result

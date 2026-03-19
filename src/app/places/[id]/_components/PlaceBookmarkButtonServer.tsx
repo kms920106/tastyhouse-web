@@ -1,4 +1,5 @@
 import { placeRepository } from "@/domains/place"
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
@@ -13,7 +14,7 @@ export default async function PlaceBookmarkButtonServer({
   placeId,
 }: PlaceBookmarkButtonServerProps) {
   const cookieStore = await cookies()
-  const accessToken = cookieStore.get('accessToken')
+  const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
 
   if (!accessToken) {
     return (

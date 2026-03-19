@@ -1,6 +1,7 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { RankPeriod, rankPeriodToRankType, rankRepository } from "@/domains/rank"
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { cookies } from 'next/headers'
 import RankItem from './RankItem'
@@ -30,7 +31,7 @@ export function MyRankInfoSkeleton() {
 
 export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPeriod }) {
   const cookieStore = await cookies()
-  const accessToken = cookieStore.get('accessToken')
+  const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
 
   if (!accessToken) {
     return (

@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { api } from '@/lib/api'
 import { PAGE_PATHS } from '@/lib/paths'
 
@@ -14,8 +15,8 @@ export async function logout() {
     await api.post(AUTH_LOGOUT_ENDPOINT)
 
     const cookieStore = await cookies()
-    cookieStore.delete('accessToken')
-    cookieStore.delete('refreshToken')
+    cookieStore.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
+    cookieStore.delete(AUTH_COOKIE_KEYS.REFRESH_TOKEN)
 
     revalidatePath('/', 'layout')
   } catch (error) {
