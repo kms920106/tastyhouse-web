@@ -1,5 +1,6 @@
 'use client'
 
+import { toast } from '@/components/ui/AppToaster'
 import { followMember, unfollowMember } from '@/services/follow'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -69,12 +70,18 @@ export function useFollowMutation() {
     onSuccess: (_, targetMemberId) => {
       syncFollowState(targetMemberId, true)
     },
+    onError: () => {
+      toast('팔로우에 실패했습니다. 다시 시도해 주세요.')
+    },
   })
 
   const unfollowMutation = useMutation({
     mutationFn: (targetMemberId: number) => unfollowMember(targetMemberId),
     onSuccess: (_, targetMemberId) => {
       syncFollowState(targetMemberId, false)
+    },
+    onError: () => {
+      toast('팔로우 취소에 실패했습니다. 다시 시도해 주세요.')
     },
   })
 
