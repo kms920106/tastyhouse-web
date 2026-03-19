@@ -5,6 +5,7 @@ import { PlaceMapMarkerResponse } from '@/domains/place'
 import Script from 'next/script'
 import { useCallback, useRef, useState } from 'react'
 import { env } from '@/lib/env'
+import { escapeHtml } from '@/lib/sanitize'
 
 interface KakaoLatLng {
   getLat(): number
@@ -111,7 +112,7 @@ export default function KakaoMap() {
 
       const content = `
         <div class="label" style="padding: 0 13px; background-color: white; border: 1px solid silver; border-radius: 10px">
-          <span class="center" style="font-size: 13px!important; font-weight: bold">${place.name}</span>
+          <span class="center" style="font-size: 13px!important; font-weight: bold">${escapeHtml(place.name)}</span>
         </div>
       `
 
