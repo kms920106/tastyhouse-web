@@ -74,6 +74,8 @@ declare global {
 export default function KakaoMap() {
   const [latitude, setLatitude] = useState(37.5666103)
   const [longitude, setLongitude] = useState(126.9783882)
+  const [isMapReady, setIsMapReady] = useState(false)
+  const [fetchError, setFetchError] = useState(false)
 
   // useRef로 마커들을 관리하여 최신 상태를 항상 참조
   const markersRef = useRef<KakaoMarker[]>([])
@@ -130,12 +132,14 @@ export default function KakaoMap() {
   const fetchAndUpdatePlaces = useCallback(
     async (lat: number, lng: number, mapInstance: KakaoMap) => {
       try {
+        setFetchError(false)
         const markers = await getMapMarkers({ latitude: lat, longitude: lng })
         clearMarkers()
         clearOverlay()
         createMarkers(markers, mapInstance)
       } catch (error) {
         console.error('장소 데이터를 가져오는 중 오류 발생:', error)
+        setFetchError(true)
         clearMarkers()
         clearOverlay()
       }
@@ -161,6 +165,7 @@ export default function KakaoMap() {
 
       // 지도 생성
       const newMap = new window.kakao.maps.Map(mapContainer, mapOption)
+      setIsMapReady(true)
 
       // 초기 장소 데이터 로드
       await fetchAndUpdatePlaces(latitude, longitude, newMap)
@@ -183,6 +188,16 @@ export default function KakaoMap() {
   return (
     <div className="flex h-screen">
       <div className="flex-1 relative">
+        {!isMapReady && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
+            <span className="text-gray-500">지도를 불러오는 중...</span>
+          </div>
+        )}
+        {fetchError && (
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-red-50 text-red-600 px-4 py-2 rounded-lg shadow z-10">
+            장소 정보를 불러오지 못했습니다.
+          </div>
+        )}
         <Script
           strategy="afterInteractive"
           type="text/javascript"
