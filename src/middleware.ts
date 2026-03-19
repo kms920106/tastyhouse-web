@@ -107,7 +107,12 @@ export async function middleware(request: NextRequest) {
     return res
   } catch (error) {
     console.error('[middleware] Token refresh error:', error)
-    return NextResponse.next()
+
+    // 갱신 실패 시 만료된 토큰 제거 — 각 페이지에서 비인증 상태로 적절히 처리
+    const res = NextResponse.next()
+    res.cookies.delete('accessToken')
+    res.cookies.delete('refreshToken')
+    return res
   }
 }
 
