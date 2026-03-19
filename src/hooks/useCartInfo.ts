@@ -9,6 +9,7 @@ import {
   calculateTotalProductDiscount,
   calculateTotalProductPaymentAmount,
 } from '@/lib/paymentCalculation'
+import { toast } from '@/components/ui/AppToaster'
 import { getProductById } from '@/services/product'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -83,11 +84,19 @@ async function fetchProductDetails(
   const results = await Promise.allSettled(productIds.map((id) => getProductById(id)))
   const detailMap = new Map<number, ProductDetailResponse>()
 
+  let failedCount = 0
+
   results.forEach((result, index) => {
     if (result.status === 'fulfilled' && result.value.data) {
       detailMap.set(productIds[index], result.value.data)
+    } else {
+      failedCount++
     }
   })
+
+  if (failedCount > 0) {
+    toast(`${failedCount}개 상품 정보를 불러오지 못했습니다.`)
+  }
 
   return detailMap
 }
