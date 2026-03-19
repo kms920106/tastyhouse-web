@@ -97,6 +97,13 @@ class ApiClient {
 
       // 백엔드 응답 { success, data, message, pagination } 구조를 자동 언래핑
       if (json && typeof json === 'object' && 'success' in json) {
+        if (!json.success) {
+          return {
+            error: json.message || 'An error occurred',
+            status,
+          }
+        }
+
         return {
           data: json.data as T,
           status,
