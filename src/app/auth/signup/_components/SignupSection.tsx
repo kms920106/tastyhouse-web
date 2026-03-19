@@ -17,6 +17,7 @@ import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
+import FormCheckbox from '@/components/ui/FormCheckbox'
 import type { Gender } from '@/domains/member'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
@@ -149,11 +150,14 @@ export default function SignupSection() {
     startSendingEmailCode(async () => {
       try {
         const response = await sendEmailVerificationCode(email)
+
         if (response?.error) {
           toast(response.error)
           return
         }
+
         setIsEmailCodeVisible(true)
+
         toast('인증 메일이 발송되었습니다.')
       } catch {
         toast('인증 메일 발송에 실패했습니다. 다시 시도해 주세요.')
@@ -165,15 +169,19 @@ export default function SignupSection() {
     startConfirmingEmailCode(async () => {
       try {
         const response = await confirmEmailVerificationCode(email, emailVerifyCode)
+
         if (response?.error) {
           toast(response.error)
           return
         }
+
         const token = response?.data?.emailVerifyToken
+
         if (!token) {
           toast('인증에 실패했습니다. 다시 시도해 주세요.')
           return
         }
+
         setEmailVerifyToken(token)
         setIsEmailVerified(true)
       } catch {
@@ -191,17 +199,21 @@ export default function SignupSection() {
     startCheckingNickname(async () => {
       try {
         const response = await checkNicknameDuplicate(nickname)
+
         if (response?.error) {
           toast(response.error)
           return
         }
+
         if (response?.data?.available === false) {
           setErrors((prev) => ({ ...prev, nickname: '이미 사용 중인 닉네임입니다.' }))
           setIsNicknameChecked(false)
           return
         }
+
         setIsNicknameChecked(true)
         setErrors((prev) => ({ ...prev, nickname: undefined }))
+
         toast('사용 가능한 닉네임입니다.')
       } catch {
         toast('닉네임 확인에 실패했습니다. 다시 시도해 주세요.')
@@ -271,13 +283,6 @@ export default function SignupSection() {
     })
   }
 
-  const buildBirthDate = (): number | undefined => {
-    if (!birthYear || !birthMonth || !birthDay) return undefined
-    const mm = String(birthMonth).padStart(2, '0')
-    const dd = String(birthDay).padStart(2, '0')
-    return Number(`${birthYear}${mm}${dd}`)
-  }
-
   const validateForm = (): boolean => {
     const result = signupSchema.safeParse({
       email,
@@ -337,13 +342,6 @@ export default function SignupSection() {
           {/* hidden */}
           <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
           <input type="hidden" name="phoneVerifyToken" value={phoneVerifyToken} />
-          <input type="hidden" name="birthDate" value={String(buildBirthDate() ?? '')} />
-          <input type="hidden" name="gender" value={gender ?? ''} />
-          <input type="hidden" name="agreedTerms" value={String(agreedTerms.agreedTerms)} />
-          <input type="hidden" name="agreedPrivacy" value={String(agreedTerms.agreedPrivacy)} />
-          <input type="hidden" name="agreedFinance" value={String(agreedTerms.agreedFinance)} />
-          <input type="hidden" name="agreedAge" value={String(agreedTerms.agreedAge)} />
-          <input type="hidden" name="agreedMarketing" value={String(agreedTerms.agreedMarketing)} />
 
           {/* 아이디 */}
           <AppFormField label="아이디" required error={errors.email}>
@@ -633,36 +631,30 @@ export default function SignupSection() {
           <AppFormField label="성별" required error={errors.gender}>
             {() => (
               <div className="flex">
-                <AppOutlineButton
-                  type="button"
-                  className={cn(
-                    'flex-1 transition-colors',
-                    gender === 'MALE'
-                      ? 'border-[#a91201] text-[#a91201]'
-                      : 'border-[#eeeeee] text-[#333333]',
-                  )}
-                  onClick={() => {
-                    setGender('MALE')
-                    if (errors.gender) setErrors((prev) => ({ ...prev, gender: undefined }))
-                  }}
-                >
-                  남성
-                </AppOutlineButton>
-                <AppOutlineButton
-                  type="button"
-                  className={cn(
-                    'flex-1 transition-colors',
-                    gender === 'FEMALE'
-                      ? 'border-[#a91201] text-[#a91201]'
-                      : 'border-[#eeeeee] text-[#333333]',
-                  )}
-                  onClick={() => {
-                    setGender('FEMALE')
-                    if (errors.gender) setErrors((prev) => ({ ...prev, gender: undefined }))
-                  }}
-                >
-                  여성
-                </AppOutlineButton>
+                {(['MALE', 'FEMALE'] as const).map((value) => (
+                  <label
+                    key={value}
+                    className={cn(
+                      'flex-1 flex items-center justify-center h-[45px] border cursor-pointer transition-colors',
+                      gender === value
+                        ? 'border-[#a91201] text-[#a91201]'
+                        : 'border-[#eeeeee] text-[#333333]',
+                    )}
+                  >
+                    <input
+                      type="radio"
+                      name="gender"
+                      value={value}
+                      checked={gender === value}
+                      onChange={() => {
+                        setGender(value)
+                        if (errors.gender) setErrors((prev) => ({ ...prev, gender: undefined }))
+                      }}
+                      className="sr-only"
+                    />
+                    {value === 'MALE' ? '남성' : '여성'}
+                  </label>
+                ))}
               </div>
             )}
           </AppFormField>
@@ -704,7 +696,8 @@ export default function SignupSection() {
             {TERMS_LIST.map(({ key, label, href }) => (
               <div key={key} className="flex items-center justify-between">
                 <label className="flex items-center gap-3 cursor-pointer">
-                  <CircleCheckbox
+                  <FormCheckbox
+                    name={key}
                     checked={agreedTerms[key]}
                     onChange={(checked) => setAgreedTerms((prev) => ({ ...prev, [key]: checked }))}
                   />
