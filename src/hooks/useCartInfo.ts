@@ -101,21 +101,29 @@ async function fetchProductDetails(
   return detailMap
 }
 
+interface CartState {
+  items: OrderItem[]
+  placeName: string
+  firstProductName: string
+  totalItemCount: number
+  isLoading: boolean
+}
+
+const initialCartState: CartState = {
+  items: [],
+  placeName: '',
+  firstProductName: '',
+  totalItemCount: 0,
+  isLoading: true,
+}
+
 export function useCartInfo(): CartInfo {
-  const [items, setItems] = useState<OrderItem[]>([])
-  const [placeName, setPlaceName] = useState('')
-  const [firstProductName, setFirstProductName] = useState('')
-  const [totalItemCount, setTotalItemCount] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
+  const [state, setState] = useState<CartState>(initialCartState)
 
   const loadCartInfo = useCallback(async () => {
     const cart = getCartData()
     if (!cart || cart.products.length === 0) {
-      setItems([])
-      setPlaceName('')
-      setFirstProductName('')
-      setTotalItemCount(0)
-      setIsLoading(false)
+      setState({ ...initialCartState, isLoading: false })
       return
     }
 
@@ -123,7 +131,6 @@ export function useCartInfo(): CartInfo {
     const productDetailMap = await fetchProductDetails(uniqueProductIds)
 
     const firstDetail = productDetailMap.values().next().value
-    setPlaceName(firstDetail?.placeName ?? '')
 
     const orderItems: OrderItem[] = cart.products
       .map((cartProduct) => {
@@ -151,28 +158,27 @@ export function useCartInfo(): CartInfo {
       })
       .filter((item): item is OrderItem => item !== null)
 
-    setItems(orderItems)
-    setFirstProductName(orderItems[0]?.name ?? '')
-    setTotalItemCount(getCartProductTypeCount())
-    setIsLoading(false)
+    setState({
+      items: orderItems,
+      placeName: firstDetail?.placeName ?? '',
+      firstProductName: orderItems[0]?.name ?? '',
+      totalItemCount: getCartProductTypeCount(),
+      isLoading: false,
+    })
   }, [])
 
   useEffect(() => {
     loadCartInfo()
   }, [loadCartInfo])
 
-  const totalProductAmount = calculateTotalProductAmount(items)
-  const totalProductDiscount = calculateTotalProductDiscount(items)
-  const totalProductPaymentAmount = calculateTotalProductPaymentAmount(items)
+  const totalProductAmount = calculateTotalProductAmount(state.items)
+  const totalProductDiscount = calculateTotalProductDiscount(state.items)
+  const totalProductPaymentAmount = calculateTotalProductPaymentAmount(state.items)
 
   return {
-    items,
-    placeName,
-    firstProductName,
-    totalItemCount,
+    ...state,
     totalProductAmount,
     totalProductDiscount,
     totalProductPaymentAmount,
-    isLoading,
   }
 }
