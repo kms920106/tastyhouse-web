@@ -638,13 +638,14 @@ export default function SignupSection() {
           <AppFormField label="성별" required error={errors.gender}>
             {() => (
               <div className="flex">
-                {(['MALE', 'FEMALE'] as const).map((value) => (
+                {(['MALE', 'FEMALE'] as const).map((value, index) => (
                   <label
                     key={value}
                     className={cn(
                       'flex-1 flex items-center justify-center h-[45px] border cursor-pointer transition-colors',
+                      index > 0 && '-ml-px',
                       gender === value
-                        ? 'border-[#a91201] text-[#a91201]'
+                        ? 'border-[#a91201] text-[#a91201] z-10'
                         : errors.gender
                           ? 'border-[#bc4040] text-[#333333]'
                           : 'border-[#eeeeee] text-[#333333]',
