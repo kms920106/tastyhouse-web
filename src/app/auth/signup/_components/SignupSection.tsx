@@ -51,11 +51,18 @@ type TermsKey = (typeof TERMS_LIST)[number]['key']
 const signupSchema = z
   .object({
     email: z.email('올바른 이메일 주소를 입력해 주세요.'),
-    password: z
-      .string()
-      .min(8, '비밀번호는 8자 이상이어야 합니다.')
-      .regex(/[A-Za-z]/, '영문자를 포함해야 합니다.')
-      .regex(/[0-9]/, '숫자를 포함해야 합니다.'),
+    password: z.string().superRefine((val, ctx) => {
+      if (val.length === 0) {
+        ctx.addIssue({ code: 'custom', message: '비밀번호를 입력해 주세요.' })
+        return
+      }
+      if (val.length < 8 || !/[A-Za-z]/.test(val) || !/[0-9]/.test(val)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: '비밀번호는 8자 이상, 영문자와 숫자를 포함해야 합니다.',
+        })
+      }
+    }),
     passwordConfirm: z.string().min(1, '비밀번호를 확인해 주세요.'),
     fullName: z.string().min(1, '이름을 입력해 주세요.'),
     nickname: z.string().min(1, '닉네임을 입력해 주세요.'),
@@ -576,7 +583,7 @@ export default function SignupSection() {
 
           {/* 생년월일 */}
           <AppFormField label="생년월일" required error={errors.birthYear}>
-            {() => (
+            {({ className }) => (
               <div className="flex gap-2">
                 <AppSelect
                   value={birthYear}
@@ -584,7 +591,7 @@ export default function SignupSection() {
                     setBirthYear(e.target.value)
                     if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
                   }}
-                  className="flex-1"
+                  className={cn('flex-1', className)}
                 >
                   <option value="">년도</option>
                   {BIRTH_YEARS.map((year) => (
@@ -599,7 +606,7 @@ export default function SignupSection() {
                     setBirthMonth(e.target.value)
                     if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
                   }}
-                  className="flex-1"
+                  className={cn('flex-1', className)}
                 >
                   <option value="">월</option>
                   {BIRTH_MONTHS.map((month) => (
@@ -614,7 +621,7 @@ export default function SignupSection() {
                     setBirthDay(e.target.value)
                     if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
                   }}
-                  className="flex-1"
+                  className={cn('flex-1', className)}
                 >
                   <option value="">일</option>
                   {BIRTH_DAYS.map((day) => (
@@ -638,7 +645,9 @@ export default function SignupSection() {
                       'flex-1 flex items-center justify-center h-[45px] border cursor-pointer transition-colors',
                       gender === value
                         ? 'border-[#a91201] text-[#a91201]'
-                        : 'border-[#eeeeee] text-[#333333]',
+                        : errors.gender
+                          ? 'border-[#bc4040] text-[#333333]'
+                          : 'border-[#eeeeee] text-[#333333]',
                     )}
                   >
                     <input
