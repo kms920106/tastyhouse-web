@@ -453,7 +453,7 @@ export default function SignupSection() {
                       <AppOutlineButton
                         type="button"
                         onClick={handleSendEmailCode}
-                        disabled={isEmailVerified || isSendingEmailCode}
+                        disabled={!email.trim() || isEmailVerified || isSendingEmailCode}
                         className="shrink-0 w-auto h-auto px-4"
                       >
                         {isSendingEmailCode
@@ -583,7 +583,7 @@ export default function SignupSection() {
                       <AppOutlineButton
                         type="button"
                         onClick={handleCheckNickname}
-                        disabled={isCheckingNickname}
+                        disabled={!nickname.trim() || isCheckingNickname}
                         className="shrink-0 w-auto h-auto px-4"
                       >
                         {isCheckingNickname ? '확인 중' : '중복확인'}
@@ -628,7 +628,7 @@ export default function SignupSection() {
                       <AppOutlineButton
                         type="button"
                         onClick={handleSendPhoneCode}
-                        disabled={isPhoneVerified || isSendingPhoneCode}
+                        disabled={!phoneNumber.trim() || isPhoneVerified || isSendingPhoneCode}
                         className="shrink-0 w-auto h-auto px-4"
                       >
                         {isSendingPhoneCode

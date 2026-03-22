@@ -18,10 +18,11 @@ export default function AppButton({
   asChild,
   ...props
 }: AppButtonProps) {
+  // m-0 CSS 적용 금지
+
   return (
     <Button
-      // className={cn('m-0 p-0 rounded-none shadow-none cursor-pointer', className)}
-      className={cn('p-0 rounded-none shadow-none cursor-pointer', className)}
+      className={cn('p-0 rounded-none shadow-none cursor-pointer disabled:opacity-100', className)}
       variant={variant}
       size={size}
       asChild={asChild}
