@@ -362,10 +362,8 @@ export default function SignupSection() {
     const hasMonth = birthMonth.length > 0
     const hasDay = birthDay.length > 0
 
-    if (!hasYear && !hasMonth && !hasDay) {
+    if (!hasYear || !hasMonth || !hasDay) {
       fieldErrors.birthDate = '생년월일을 선택해 주세요.'
-    } else if (!hasYear || !hasMonth || !hasDay) {
-      fieldErrors.birthDate = '생년월일을 모두 선택해 주세요.'
     }
 
     const hasErrors = Object.values(fieldErrors).some((v) => v !== undefined)
@@ -655,7 +653,7 @@ export default function SignupSection() {
 
           {/* 생년월일 */}
           <AppFormField label="생년월일" required error={errors.birthDate}>
-            {({ className }) => (
+            {() => (
               <div className="flex gap-2">
                 <AppSelect
                   value={birthYear}
@@ -663,7 +661,10 @@ export default function SignupSection() {
                     setBirthYear(e.target.value)
                     if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
-                  className={cn('flex-1', className)}
+                  className={cn(
+                    'flex-1',
+                    errors.birthDate && !birthYear && 'border-[#bc4040]',
+                  )}
                 >
                   <option value="">년도</option>
                   {BIRTH_YEARS.map((year) => (
@@ -678,7 +679,10 @@ export default function SignupSection() {
                     setBirthMonth(e.target.value)
                     if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
-                  className={cn('flex-1', className)}
+                  className={cn(
+                    'flex-1',
+                    errors.birthDate && !birthMonth && 'border-[#bc4040]',
+                  )}
                 >
                   <option value="">월</option>
                   {BIRTH_MONTHS.map((month) => (
@@ -693,7 +697,10 @@ export default function SignupSection() {
                     setBirthDay(e.target.value)
                     if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
-                  className={cn('flex-1', className)}
+                  className={cn(
+                    'flex-1',
+                    errors.birthDate && !birthDay && 'border-[#bc4040]',
+                  )}
                 >
                   <option value="">일</option>
                   {BIRTH_DAYS.map((day) => (
