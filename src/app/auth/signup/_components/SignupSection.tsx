@@ -71,7 +71,8 @@ const signupSchema = z.object({
     ) {
       ctx.addIssue({
         code: 'custom',
-        message: '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
+        message:
+          '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
       })
     }
   }),
@@ -88,7 +89,8 @@ const signupSchema = z.object({
     ) {
       ctx.addIssue({
         code: 'custom',
-        message: '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
+        message:
+          '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
       })
     }
   }),
@@ -661,10 +663,7 @@ export default function SignupSection() {
                     setBirthYear(e.target.value)
                     if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
-                  className={cn(
-                    'flex-1',
-                    errors.birthDate && !birthYear && 'border-[#bc4040]',
-                  )}
+                  className={cn('flex-1', errors.birthDate && !birthYear && 'border-[#bc4040]')}
                 >
                   <option value="">년도</option>
                   {BIRTH_YEARS.map((year) => (
@@ -679,10 +678,7 @@ export default function SignupSection() {
                     setBirthMonth(e.target.value)
                     if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
-                  className={cn(
-                    'flex-1',
-                    errors.birthDate && !birthMonth && 'border-[#bc4040]',
-                  )}
+                  className={cn('flex-1', errors.birthDate && !birthMonth && 'border-[#bc4040]')}
                 >
                   <option value="">월</option>
                   {BIRTH_MONTHS.map((month) => (
@@ -697,10 +693,7 @@ export default function SignupSection() {
                     setBirthDay(e.target.value)
                     if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
-                  className={cn(
-                    'flex-1',
-                    errors.birthDate && !birthDay && 'border-[#bc4040]',
-                  )}
+                  className={cn('flex-1', errors.birthDate && !birthDay && 'border-[#bc4040]')}
                 >
                   <option value="">일</option>
                   {BIRTH_DAYS.map((day) => (
@@ -721,7 +714,7 @@ export default function SignupSection() {
                   <label
                     key={value}
                     className={cn(
-                      'flex-1 flex items-center justify-center h-[45px] border cursor-pointer transition-colors',
+                      'flex-1 flex items-center justify-center h-[45px] text-sm leading-[14px] border cursor-pointer transition-colors',
                       index > 0 && '-ml-px',
                       gender === value
                         ? 'border-[#a91201] text-[#a91201] z-10'
