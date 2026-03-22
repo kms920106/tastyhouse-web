@@ -454,7 +454,7 @@ export default function SignupSection() {
                         type="button"
                         onClick={handleSendEmailCode}
                         disabled={!email.trim() || isEmailVerified || isSendingEmailCode}
-                        className="shrink-0 w-auto h-auto px-4"
+                        className="shrink-0"
                       >
                         {isSendingEmailCode
                           ? '발송 중'
@@ -481,7 +481,7 @@ export default function SignupSection() {
                         />
                         <AppOutlineButton
                           type="button"
-                          className="shrink-0 w-auto px-4"
+                          className="shrink-0"
                           onClick={handleConfirmEmailCode}
                           disabled={
                             !emailVerifyCode.trim() || isEmailVerified || isConfirmingEmailCode
@@ -586,7 +586,7 @@ export default function SignupSection() {
                         type="button"
                         onClick={handleCheckNickname}
                         disabled={!nickname.trim() || isCheckingNickname}
-                        className="shrink-0 w-auto h-auto px-4"
+                        className="shrink-0"
                       >
                         {isCheckingNickname ? '확인 중' : '중복확인'}
                       </AppOutlineButton>
@@ -631,7 +631,7 @@ export default function SignupSection() {
                         type="button"
                         onClick={handleSendPhoneCode}
                         disabled={!phoneNumber.trim() || isPhoneVerified || isSendingPhoneCode}
-                        className="shrink-0 w-auto h-auto px-4"
+                        className="shrink-0"
                       >
                         {isSendingPhoneCode
                           ? '발송 중'
@@ -658,7 +658,7 @@ export default function SignupSection() {
                         />
                         <AppOutlineButton
                           type="button"
-                          className="shrink-0 w-auto px-4"
+                          className="shrink-0"
                           onClick={handleConfirmPhoneCode}
                           disabled={
                             !phoneVerifyCode.trim() || isPhoneVerified || isConfirmingPhoneCode
@@ -787,7 +787,7 @@ export default function SignupSection() {
                       type="button"
                       onClick={handleCheckReferrer}
                       disabled={!referrerNickname.trim() || isCheckingReferrer}
-                      className="shrink-0 w-auto h-auto px-4"
+                      className="shrink-0"
                     >
                       {isCheckingReferrer ? '확인 중' : '추천인 확인'}
                     </AppOutlineButton>
