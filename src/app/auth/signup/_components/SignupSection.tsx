@@ -48,39 +48,71 @@ const TERMS_LIST = [
 
 type TermsKey = (typeof TERMS_LIST)[number]['key']
 
-const signupSchema = z
-  .object({
-    email: z.email('올바른 이메일 주소를 입력해 주세요.'),
-    password: z.string().superRefine((val, ctx) => {
-      if (val.length === 0) {
-        ctx.addIssue({ code: 'custom', message: '비밀번호를 입력해 주세요.' })
-        return
-      }
-      if (val.length < 8 || !/[A-Za-z]/.test(val) || !/[0-9]/.test(val)) {
-        ctx.addIssue({
-          code: 'custom',
-          message: '비밀번호는 8자 이상, 영문자와 숫자를 포함해야 합니다.',
-        })
-      }
-    }),
-    passwordConfirm: z.string().min(1, '비밀번호를 확인해 주세요.'),
-    fullName: z.string().min(1, '이름을 입력해 주세요.'),
-    nickname: z.string().min(1, '닉네임을 입력해 주세요.'),
-    phoneNumber: z
-      .string()
-      .min(1, '휴대폰 번호를 입력해 주세요.')
-      .regex(/^01[0-9]{8,9}$/, '올바른 휴대폰 번호를 입력해 주세요.'),
-    birthYear: z.string().min(1, '생년월일을 선택해 주세요.'),
-    birthMonth: z.string().min(1, '생년월일을 선택해 주세요.'),
-    birthDay: z.string().min(1, '생년월일을 선택해 주세요.'),
-    gender: z.enum(['MALE', 'FEMALE'], { message: '성별을 선택해 주세요.' }),
-  })
-  .refine((data) => data.password === data.passwordConfirm, {
-    message: '비밀번호가 일치하지 않습니다.',
-    path: ['passwordConfirm'],
-  })
+const signupSchema = z.object({
+  email: z.string().superRefine((val, ctx) => {
+    if (val.length === 0) {
+      ctx.addIssue({ code: 'custom', message: '이메일 주소를 입력해 주세요.' })
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      ctx.addIssue({ code: 'custom', message: '올바른 이메일 주소 형식이 아닙니다.' })
+    }
+  }),
+  password: z.string().superRefine((val, ctx) => {
+    if (val.length === 0) {
+      ctx.addIssue({ code: 'custom', message: '비밀번호를 입력해 주세요.' })
+      return
+    }
+    if (
+      val.length < 8 ||
+      !/[A-Za-z]/.test(val) ||
+      !/[0-9]/.test(val) ||
+      !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val)
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
+      })
+    }
+  }),
+  passwordConfirm: z.string().superRefine((val, ctx) => {
+    if (val.length === 0) {
+      ctx.addIssue({ code: 'custom', message: '비밀번호를 입력해 주세요.' })
+      return
+    }
+    if (
+      val.length < 8 ||
+      !/[A-Za-z]/.test(val) ||
+      !/[0-9]/.test(val) ||
+      !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val)
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
+      })
+    }
+  }),
+  fullName: z.string().min(1, '이름을 입력해 주세요.'),
+  nickname: z.string().min(1, '닉네임을 입력해 주세요.'),
+  phoneNumber: z.string().superRefine((val, ctx) => {
+    if (val.length === 0) {
+      ctx.addIssue({ code: 'custom', message: '휴대폰 번호를 입력해 주세요.' })
+      return
+    }
+    if (!/^01[0-9]{8,9}$/.test(val)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: '올바른 휴대폰 번호 형식이 아닙니다. ("-" 없이 숫자만 입력)',
+      })
+    }
+  }),
+  birthYear: z.string(),
+  birthMonth: z.string(),
+  birthDay: z.string(),
+  gender: z.enum(['MALE', 'FEMALE'], { message: '성별을 선택해 주세요.' }),
+})
 
-type FormErrors = Partial<Record<keyof z.infer<typeof signupSchema>, string>>
+type FormErrors = Partial<Record<keyof z.infer<typeof signupSchema> | 'birthDate', string>>
 
 export default function SignupSection() {
   const [email, setEmail] = useState('')
@@ -229,8 +261,15 @@ export default function SignupSection() {
   }
 
   const handleSendPhoneCode = () => {
+    if (phoneNumber.length === 0) {
+      setErrors((prev) => ({ ...prev, phoneNumber: '휴대폰 번호를 입력해 주세요.' }))
+      return
+    }
     if (!phoneNumber.match(/^01[0-9]{8,9}$/)) {
-      setErrors((prev) => ({ ...prev, phoneNumber: '올바른 휴대폰 번호를 입력해 주세요.' }))
+      setErrors((prev) => ({
+        ...prev,
+        phoneNumber: '올바른 휴대폰 번호 형식이 아닙니다. ("-" 없이 숫자만 입력)',
+      }))
       return
     }
 
@@ -304,16 +343,44 @@ export default function SignupSection() {
       gender: gender ?? '',
     })
 
-    if (result.success) {
-      setErrors({})
-      return true
+    const fieldErrors: FormErrors = result.success
+      ? {}
+      : (extractZodFieldErrors(result.error) as FormErrors)
+
+    // 비밀번호 일치 검사
+    if (
+      !fieldErrors.passwordConfirm &&
+      password.length > 0 &&
+      passwordConfirm.length > 0 &&
+      password !== passwordConfirm
+    ) {
+      fieldErrors.passwordConfirm = '비밀번호가 일치하지 않습니다.'
     }
 
-    setErrors(extractZodFieldErrors(result.error) as FormErrors)
-    return false
+    // 생년월일 검사
+    const hasYear = birthYear.length > 0
+    const hasMonth = birthMonth.length > 0
+    const hasDay = birthDay.length > 0
+
+    if (!hasYear && !hasMonth && !hasDay) {
+      fieldErrors.birthDate = '생년월일을 선택해 주세요.'
+    } else if (!hasYear || !hasMonth || !hasDay) {
+      fieldErrors.birthDate = '생년월일을 모두 선택해 주세요.'
+    }
+
+    const hasErrors = Object.values(fieldErrors).some((v) => v !== undefined)
+
+    if (hasErrors) {
+      setErrors(fieldErrors)
+      return false
+    }
+
+    setErrors({})
+    return true
   }
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (!validateForm()) return
     if (!isEmailVerified) {
       toast('이메일 인증을 완료해 주세요.')
@@ -331,7 +398,7 @@ export default function SignupSection() {
       toast('필수 약관에 동의해 주세요.')
       return
     }
-    formAction(formData)
+    formAction(new FormData(e.currentTarget))
   }
 
   return (
@@ -344,7 +411,7 @@ export default function SignupSection() {
           <HeaderTitle>회원가입</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <form action={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="px-[15px] py-[30px] flex flex-col gap-5">
           {/* hidden */}
           <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
@@ -358,7 +425,7 @@ export default function SignupSection() {
                   <AppInputText
                     id="email"
                     name="email"
-                    placeholder="이메일을 입력하세요."
+                    placeholder="이메일을 입력해 주세요."
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value)
@@ -421,24 +488,29 @@ export default function SignupSection() {
           </AppFormField>
 
           {/* 비밀번호 */}
-          <AppFormField label="비밀번호" required error={errors.password}>
-            {({ className }) => (
+          <AppFormField label="비밀번호" required>
+            {() => (
               <div className="flex flex-col gap-2.5">
                 <AppInputPassword
                   id="password"
                   name="password"
-                  placeholder="비밀번호를 입력하세요."
+                  placeholder="비밀번호를 입력해 주세요."
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value)
                     if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }))
                   }}
-                  className={className}
+                  className={
+                    errors.password ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined
+                  }
                 />
+                {errors.password && (
+                  <p className="text-xs leading-[12px] text-[#bc4040]">{errors.password}</p>
+                )}
                 <AppInputPassword
                   id="passwordConfirm"
                   name="passwordConfirm"
-                  placeholder="비밀번호를 확인하세요."
+                  placeholder="비밀번호를 확인해 주세요."
                   value={passwordConfirm}
                   onChange={(e) => {
                     setPasswordConfirm(e.target.value)
@@ -464,7 +536,7 @@ export default function SignupSection() {
               <AppInputText
                 id="fullName"
                 name="fullName"
-                placeholder="이름을 입력하세요."
+                placeholder="이름을 입력해 주세요."
                 value={fullName}
                 onChange={(e) => {
                   setFullName(e.target.value)
@@ -483,7 +555,7 @@ export default function SignupSection() {
                   <AppInputText
                     id="nickname"
                     name="nickname"
-                    placeholder="닉네임을 입력하세요."
+                    placeholder="닉네임을 입력해 주세요."
                     value={nickname}
                     onChange={(e) => {
                       setNickname(e.target.value)
@@ -508,8 +580,8 @@ export default function SignupSection() {
             )}
           </AppFormField>
 
-          {/* 휴대폰번호 */}
-          <AppFormField label="휴대폰번호" required error={errors.phoneNumber}>
+          {/* 휴대폰 번호 */}
+          <AppFormField label="휴대폰 번호" required error={errors.phoneNumber}>
             {({ className }) => (
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
@@ -527,7 +599,7 @@ export default function SignupSection() {
                     }}
                     readOnly={isPhoneVerified}
                     disabled={isPhoneVerified}
-                    placeholder="숫자만 입력하세요."
+                    placeholder="숫자만 입력해 주세요."
                     maxLength={11}
                     className={cn(
                       'flex-1 pr-4',
@@ -582,14 +654,14 @@ export default function SignupSection() {
           </AppFormField>
 
           {/* 생년월일 */}
-          <AppFormField label="생년월일" required error={errors.birthYear}>
+          <AppFormField label="생년월일" required error={errors.birthDate}>
             {({ className }) => (
               <div className="flex gap-2">
                 <AppSelect
                   value={birthYear}
                   onChange={(e) => {
                     setBirthYear(e.target.value)
-                    if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
+                    if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
                   className={cn('flex-1', className)}
                 >
@@ -604,7 +676,7 @@ export default function SignupSection() {
                   value={birthMonth}
                   onChange={(e) => {
                     setBirthMonth(e.target.value)
-                    if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
+                    if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
                   className={cn('flex-1', className)}
                 >
@@ -619,7 +691,7 @@ export default function SignupSection() {
                   value={birthDay}
                   onChange={(e) => {
                     setBirthDay(e.target.value)
-                    if (errors.birthYear) setErrors((prev) => ({ ...prev, birthYear: undefined }))
+                    if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
                   }}
                   className={cn('flex-1', className)}
                 >
@@ -676,7 +748,7 @@ export default function SignupSection() {
                 <AppInputText
                   id="referrerNickname"
                   name="referrerNickname"
-                  placeholder="추천인 닉네임을 입력하세요."
+                  placeholder="추천인 닉네임을 입력해 주세요."
                   value={referrerNickname}
                   onChange={(e) => setReferrerNickname(e.target.value)}
                   className="flex-1"
