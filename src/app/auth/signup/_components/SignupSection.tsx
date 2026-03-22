@@ -9,8 +9,6 @@ import {
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppFormField from '@/components/ui/AppFormField'
-import BorderedSection from '@/components/ui/BorderedSection'
-import SectionStack from '@/components/ui/SectionStack'
 import AppInputNumber from '@/components/ui/AppInputNumber'
 import AppInputPassword from '@/components/ui/AppInputPassword'
 import AppInputText from '@/components/ui/AppInputText'
@@ -18,8 +16,10 @@ import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
+import BorderedSection from '@/components/ui/BorderedSection'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FormCheckbox from '@/components/ui/FormCheckbox'
+import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
@@ -420,397 +420,416 @@ export default function SignupSection() {
       </Header>
       <form onSubmit={handleSubmit}>
         <SectionStack>
-        <BorderedSection className="border-t-0">
-        <div className="px-[15px] py-[30px] flex flex-col gap-5">
-          {/* hidden */}
-          <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
-          <input type="hidden" name="phoneVerifyToken" value={phoneVerifyToken} />
+          <BorderedSection className="border-t-0">
+            <div className="px-[15px] py-[30px] flex flex-col gap-5">
+              {/* hidden */}
+              <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
+              <input type="hidden" name="phoneVerifyToken" value={phoneVerifyToken} />
 
-          {/* 아이디 */}
-          <AppFormField label="아이디" required error={errors.email}>
-            {({ className }) => (
-              <div className="flex flex-col gap-2">
-                <div className="flex gap-2">
-                  <AppInputText
-                    id="email"
-                    name="email"
-                    placeholder="이메일을 입력해 주세요."
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value)
-                      setIsEmailVerified(false)
-                      setIsEmailCodeVisible(false)
-                      setEmailVerifyToken('')
-                      if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
-                    }}
-                    readOnly={isEmailVerified}
-                    className={cn(
-                      'flex-1',
-                      isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                      className,
+              {/* 아이디 */}
+              <AppFormField label="아이디" required error={errors.email}>
+                {({ className }) => (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-2">
+                      <AppInputText
+                        id="email"
+                        name="email"
+                        placeholder="이메일을 입력해 주세요."
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value)
+                          setIsEmailVerified(false)
+                          setIsEmailCodeVisible(false)
+                          setEmailVerifyToken('')
+                          if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
+                        }}
+                        readOnly={isEmailVerified}
+                        className={cn(
+                          'flex-1',
+                          isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                          className,
+                        )}
+                      />
+                      <AppOutlineButton
+                        type="button"
+                        onClick={handleSendEmailCode}
+                        disabled={isEmailVerified || isSendingEmailCode}
+                        className="shrink-0 w-auto h-auto px-4"
+                      >
+                        {isSendingEmailCode
+                          ? '발송 중'
+                          : isEmailCodeVisible
+                            ? '재발송'
+                            : '인증메일 받기'}
+                      </AppOutlineButton>
+                    </div>
+                    {isEmailCodeVisible && (
+                      <div className="flex gap-2">
+                        <AppInputNumber
+                          value={emailVerifyCode}
+                          onChange={(e) => {
+                            if (e.target.value.length <= 6) setEmailVerifyCode(e.target.value)
+                          }}
+                          readOnly={isEmailVerified}
+                          disabled={isEmailVerified}
+                          placeholder="123456"
+                          maxLength={6}
+                          className={cn(
+                            'flex-1 pr-4',
+                            isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                          )}
+                        />
+                        <AppOutlineButton
+                          type="button"
+                          className="shrink-0 w-auto px-4"
+                          onClick={handleConfirmEmailCode}
+                          disabled={isEmailVerified || isConfirmingEmailCode}
+                        >
+                          {isConfirmingEmailCode ? '확인 중' : '확인'}
+                        </AppOutlineButton>
+                      </div>
                     )}
-                  />
-                  <AppOutlineButton
-                    type="button"
-                    onClick={handleSendEmailCode}
-                    disabled={isEmailVerified || isSendingEmailCode}
-                    className="shrink-0 w-auto h-auto px-4"
-                  >
-                    {isSendingEmailCode
-                      ? '발송 중'
-                      : isEmailCodeVisible
-                        ? '재발송'
-                        : '인증메일 받기'}
-                  </AppOutlineButton>
-                </div>
-                {isEmailCodeVisible && (
-                  <div className="flex gap-2">
-                    <AppInputNumber
-                      value={emailVerifyCode}
+                    {isEmailVerified && (
+                      <p className="text-xs leading-[12px] text-[#666666]">
+                        인증이 완료되었습니다.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </AppFormField>
+
+              {/* 비밀번호 */}
+              <AppFormField label="비밀번호" required>
+                {() => (
+                  <div className="flex flex-col gap-2.5">
+                    <AppInputPassword
+                      id="password"
+                      name="password"
+                      placeholder="비밀번호를 입력해 주세요."
+                      value={password}
                       onChange={(e) => {
-                        if (e.target.value.length <= 6) setEmailVerifyCode(e.target.value)
+                        setPassword(e.target.value)
+                        if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }))
                       }}
-                      readOnly={isEmailVerified}
-                      disabled={isEmailVerified}
-                      placeholder="123456"
-                      maxLength={6}
+                      className={
+                        errors.password
+                          ? 'border-[#bc4040] focus-visible:border-[#bc4040]'
+                          : undefined
+                      }
+                    />
+                    {errors.password && (
+                      <p className="text-xs leading-[12px] text-[#bc4040]">{errors.password}</p>
+                    )}
+                    <AppInputPassword
+                      id="passwordConfirm"
+                      name="passwordConfirm"
+                      placeholder="비밀번호를 확인해 주세요."
+                      value={passwordConfirm}
+                      onChange={(e) => {
+                        setPasswordConfirm(e.target.value)
+                        if (errors.passwordConfirm)
+                          setErrors((prev) => ({ ...prev, passwordConfirm: undefined }))
+                      }}
+                      className={
+                        errors.passwordConfirm
+                          ? 'border-[#bc4040] focus-visible:border-[#bc4040]'
+                          : undefined
+                      }
+                    />
+                    {errors.passwordConfirm && (
+                      <p className="text-xs leading-[12px] text-[#bc4040]">
+                        {errors.passwordConfirm}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </AppFormField>
+
+              {/* 이름 */}
+              <AppFormField label="이름" required error={errors.fullName}>
+                {({ className }) => (
+                  <AppInputText
+                    id="fullName"
+                    name="fullName"
+                    placeholder="이름을 입력해 주세요."
+                    value={fullName}
+                    onChange={(e) => {
+                      setFullName(e.target.value)
+                      if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }))
+                    }}
+                    className={className}
+                  />
+                )}
+              </AppFormField>
+
+              {/* 닉네임 */}
+              <AppFormField label="닉네임" required error={errors.nickname}>
+                {({ className }) => (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-2">
+                      <AppInputText
+                        id="nickname"
+                        name="nickname"
+                        placeholder="닉네임을 입력해 주세요."
+                        value={nickname}
+                        onChange={(e) => {
+                          setNickname(e.target.value)
+                          setIsNicknameChecked(false)
+                          if (errors.nickname)
+                            setErrors((prev) => ({ ...prev, nickname: undefined }))
+                        }}
+                        className={cn('flex-1', className)}
+                      />
+                      <AppOutlineButton
+                        type="button"
+                        onClick={handleCheckNickname}
+                        disabled={isCheckingNickname}
+                        className="shrink-0 w-auto h-auto px-4"
+                      >
+                        {isCheckingNickname ? '확인 중' : '중복확인'}
+                      </AppOutlineButton>
+                    </div>
+                    {isNicknameChecked && (
+                      <p className="text-xs leading-[12px] text-[#666666]">
+                        사용 가능한 닉네임입니다.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </AppFormField>
+
+              {/* 휴대폰 번호 */}
+              <AppFormField label="휴대폰 번호" required error={errors.phoneNumber}>
+                {({ className }) => (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-2">
+                      <AppInputNumber
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        value={phoneNumber}
+                        onChange={(e) => {
+                          if (e.target.value.length <= 11) setPhoneNumber(e.target.value)
+                          setIsPhoneVerified(false)
+                          setIsPhoneCodeVisible(false)
+                          setPhoneVerifyToken('')
+                          if (errors.phoneNumber)
+                            setErrors((prev) => ({ ...prev, phoneNumber: undefined }))
+                        }}
+                        readOnly={isPhoneVerified}
+                        disabled={isPhoneVerified}
+                        placeholder="숫자만 입력해 주세요."
+                        maxLength={11}
+                        className={cn(
+                          'flex-1 pr-4',
+                          isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                          className,
+                        )}
+                      />
+                      <AppOutlineButton
+                        type="button"
+                        onClick={handleSendPhoneCode}
+                        disabled={isPhoneVerified || isSendingPhoneCode}
+                        className="shrink-0 w-auto h-auto px-4"
+                      >
+                        {isSendingPhoneCode
+                          ? '발송 중'
+                          : isPhoneCodeVisible
+                            ? '재발송'
+                            : '인증번호 받기'}
+                      </AppOutlineButton>
+                    </div>
+                    {isPhoneCodeVisible && (
+                      <div className="flex gap-2">
+                        <AppInputNumber
+                          value={phoneVerifyCode}
+                          onChange={(e) => {
+                            if (e.target.value.length <= 6) setPhoneVerifyCode(e.target.value)
+                          }}
+                          readOnly={isPhoneVerified}
+                          disabled={isPhoneVerified}
+                          placeholder="123456"
+                          maxLength={6}
+                          className={cn(
+                            'flex-1 pr-4',
+                            isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                          )}
+                        />
+                        <AppOutlineButton
+                          type="button"
+                          className="shrink-0 w-auto px-4"
+                          onClick={handleConfirmPhoneCode}
+                          disabled={isPhoneVerified || isConfirmingPhoneCode}
+                        >
+                          {isConfirmingPhoneCode ? '확인 중' : '확인'}
+                        </AppOutlineButton>
+                      </div>
+                    )}
+                    {isPhoneVerified && (
+                      <p className="text-xs leading-[12px] text-[#666666]">
+                        인증이 완료되었습니다.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </AppFormField>
+
+              {/* 생년월일 */}
+              <AppFormField label="생년월일" required error={errors.birthDate}>
+                {() => (
+                  <div className="flex gap-2">
+                    <AppSelect
+                      value={birthYear}
+                      onChange={(e) => {
+                        setBirthYear(e.target.value)
+                        if (errors.birthDate)
+                          setErrors((prev) => ({ ...prev, birthDate: undefined }))
+                      }}
+                      className={cn('flex-1', errors.birthDate && !birthYear && 'border-[#bc4040]')}
+                    >
+                      <option value="">년도</option>
+                      {BIRTH_YEARS.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </AppSelect>
+                    <AppSelect
+                      value={birthMonth}
+                      onChange={(e) => {
+                        setBirthMonth(e.target.value)
+                        if (errors.birthDate)
+                          setErrors((prev) => ({ ...prev, birthDate: undefined }))
+                      }}
                       className={cn(
-                        'flex-1 pr-4',
-                        isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
+                        'flex-1',
+                        errors.birthDate && !birthMonth && 'border-[#bc4040]',
                       )}
+                    >
+                      <option value="">월</option>
+                      {BIRTH_MONTHS.map((month) => (
+                        <option key={month} value={month}>
+                          {month}
+                        </option>
+                      ))}
+                    </AppSelect>
+                    <AppSelect
+                      value={birthDay}
+                      onChange={(e) => {
+                        setBirthDay(e.target.value)
+                        if (errors.birthDate)
+                          setErrors((prev) => ({ ...prev, birthDate: undefined }))
+                      }}
+                      className={cn('flex-1', errors.birthDate && !birthDay && 'border-[#bc4040]')}
+                    >
+                      <option value="">일</option>
+                      {BIRTH_DAYS.map((day) => (
+                        <option key={day} value={day}>
+                          {day}
+                        </option>
+                      ))}
+                    </AppSelect>
+                  </div>
+                )}
+              </AppFormField>
+
+              {/* 성별 */}
+              <AppFormField label="성별" required error={errors.gender}>
+                {() => (
+                  <div className="flex">
+                    {(['MALE', 'FEMALE'] as const).map((value, index) => (
+                      <label
+                        key={value}
+                        className={cn(
+                          'flex-1 flex items-center justify-center h-[45px] text-sm leading-[14px] text-[#aaaaaa] border cursor-pointer transition-colors',
+                          index > 0 && '-ml-px',
+                          gender === value
+                            ? 'border-[#a91201] text-[#a91201] z-10'
+                            : errors.gender
+                              ? 'border-[#bc4040]'
+                              : 'border-[#eeeeee]',
+                        )}
+                      >
+                        <input
+                          type="radio"
+                          name="gender"
+                          value={value}
+                          checked={gender === value}
+                          onChange={() => {
+                            setGender(value)
+                            if (errors.gender) setErrors((prev) => ({ ...prev, gender: undefined }))
+                          }}
+                          className="sr-only"
+                        />
+                        {value === 'MALE' ? '남성' : '여성'}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </AppFormField>
+
+              {/* 추천인 닉네임 */}
+              <AppFormField label="추천인 닉네임">
+                {() => (
+                  <div className="flex gap-2">
+                    <AppInputText
+                      id="referrerNickname"
+                      name="referrerNickname"
+                      placeholder="추천인 닉네임을 입력해 주세요."
+                      value={referrerNickname}
+                      onChange={(e) => setReferrerNickname(e.target.value)}
+                      className="flex-1"
                     />
                     <AppOutlineButton
                       type="button"
-                      className="shrink-0 w-auto px-4"
-                      onClick={handleConfirmEmailCode}
-                      disabled={isEmailVerified || isConfirmingEmailCode}
+                      onClick={handleCheckReferrer}
+                      disabled={!referrerNickname.trim() || isCheckingReferrer}
+                      className="shrink-0 w-auto h-auto px-4"
                     >
-                      {isConfirmingEmailCode ? '확인 중' : '확인'}
+                      {isCheckingReferrer ? '확인 중' : '추천인 확인'}
                     </AppOutlineButton>
                   </div>
                 )}
-                {isEmailVerified && (
-                  <p className="text-xs leading-[12px] text-[#666666]">인증이 완료되었습니다.</p>
-                )}
-              </div>
-            )}
-          </AppFormField>
+              </AppFormField>
+            </div>
+          </BorderedSection>
 
-          {/* 비밀번호 */}
-          <AppFormField label="비밀번호" required>
-            {() => (
-              <div className="flex flex-col gap-2.5">
-                <AppInputPassword
-                  id="password"
-                  name="password"
-                  placeholder="비밀번호를 입력해 주세요."
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                    if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }))
-                  }}
-                  className={
-                    errors.password ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined
-                  }
-                />
-                {errors.password && (
-                  <p className="text-xs leading-[12px] text-[#bc4040]">{errors.password}</p>
-                )}
-                <AppInputPassword
-                  id="passwordConfirm"
-                  name="passwordConfirm"
-                  placeholder="비밀번호를 확인해 주세요."
-                  value={passwordConfirm}
-                  onChange={(e) => {
-                    setPasswordConfirm(e.target.value)
-                    if (errors.passwordConfirm)
-                      setErrors((prev) => ({ ...prev, passwordConfirm: undefined }))
-                  }}
-                  className={
-                    errors.passwordConfirm
-                      ? 'border-[#bc4040] focus-visible:border-[#bc4040]'
-                      : undefined
-                  }
-                />
-                {errors.passwordConfirm && (
-                  <p className="text-xs leading-[12px] text-[#bc4040]">{errors.passwordConfirm}</p>
-                )}
-              </div>
-            )}
-          </AppFormField>
-
-          {/* 이름 */}
-          <AppFormField label="이름" required error={errors.fullName}>
-            {({ className }) => (
-              <AppInputText
-                id="fullName"
-                name="fullName"
-                placeholder="이름을 입력해 주세요."
-                value={fullName}
-                onChange={(e) => {
-                  setFullName(e.target.value)
-                  if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }))
-                }}
-                className={className}
-              />
-            )}
-          </AppFormField>
-
-          {/* 닉네임 */}
-          <AppFormField label="닉네임" required error={errors.nickname}>
-            {({ className }) => (
-              <div className="flex flex-col gap-2">
-                <div className="flex gap-2">
-                  <AppInputText
-                    id="nickname"
-                    name="nickname"
-                    placeholder="닉네임을 입력해 주세요."
-                    value={nickname}
-                    onChange={(e) => {
-                      setNickname(e.target.value)
-                      setIsNicknameChecked(false)
-                      if (errors.nickname) setErrors((prev) => ({ ...prev, nickname: undefined }))
-                    }}
-                    className={cn('flex-1', className)}
-                  />
-                  <AppOutlineButton
-                    type="button"
-                    onClick={handleCheckNickname}
-                    disabled={isCheckingNickname}
-                    className="shrink-0 w-auto h-auto px-4"
-                  >
-                    {isCheckingNickname ? '확인 중' : '중복확인'}
-                  </AppOutlineButton>
-                </div>
-                {isNicknameChecked && (
-                  <p className="text-xs leading-[12px] text-[#666666]">사용 가능한 닉네임입니다.</p>
-                )}
-              </div>
-            )}
-          </AppFormField>
-
-          {/* 휴대폰 번호 */}
-          <AppFormField label="휴대폰 번호" required error={errors.phoneNumber}>
-            {({ className }) => (
-              <div className="flex flex-col gap-2">
-                <div className="flex gap-2">
-                  <AppInputNumber
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    value={phoneNumber}
-                    onChange={(e) => {
-                      if (e.target.value.length <= 11) setPhoneNumber(e.target.value)
-                      setIsPhoneVerified(false)
-                      setIsPhoneCodeVisible(false)
-                      setPhoneVerifyToken('')
-                      if (errors.phoneNumber)
-                        setErrors((prev) => ({ ...prev, phoneNumber: undefined }))
-                    }}
-                    readOnly={isPhoneVerified}
-                    disabled={isPhoneVerified}
-                    placeholder="숫자만 입력해 주세요."
-                    maxLength={11}
-                    className={cn(
-                      'flex-1 pr-4',
-                      isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                      className,
+          {/* 약관 동의 */}
+          <BorderedSection className="border-b-0">
+            <div className="flex flex-col px-[15px] pt-[18px]">
+              <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
+                <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />
+                <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
+              </label>
+              <div className="flex flex-col gap-[13px] px-[5px] py-5">
+                {TERMS_LIST.map(({ key, label, href }) => (
+                  <div key={key} className="flex items-center justify-between">
+                    <label className="flex items-center gap-[15px] cursor-pointer">
+                      <FormCheckbox
+                        name={key}
+                        checked={agreedTerms[key]}
+                        onChange={(checked) =>
+                          setAgreedTerms((prev) => ({ ...prev, [key]: checked }))
+                        }
+                      />
+                      <span className="text-[13px] leading-[13px] font-light">{label}</span>
+                    </label>
+                    {href && (
+                      <a href={href}>
+                        <Image src="/images/icon-nav-right.svg" alt="" width={6} height={10} />
+                      </a>
                     )}
-                  />
-                  <AppOutlineButton
-                    type="button"
-                    onClick={handleSendPhoneCode}
-                    disabled={isPhoneVerified || isSendingPhoneCode}
-                    className="shrink-0 w-auto h-auto px-4"
-                  >
-                    {isSendingPhoneCode
-                      ? '발송 중'
-                      : isPhoneCodeVisible
-                        ? '재발송'
-                        : '인증번호 받기'}
-                  </AppOutlineButton>
-                </div>
-                {isPhoneCodeVisible && (
-                  <div className="flex gap-2">
-                    <AppInputNumber
-                      value={phoneVerifyCode}
-                      onChange={(e) => {
-                        if (e.target.value.length <= 6) setPhoneVerifyCode(e.target.value)
-                      }}
-                      readOnly={isPhoneVerified}
-                      disabled={isPhoneVerified}
-                      placeholder="123456"
-                      maxLength={6}
-                      className={cn(
-                        'flex-1 pr-4',
-                        isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                      )}
-                    />
-                    <AppOutlineButton
-                      type="button"
-                      className="shrink-0 w-auto px-4"
-                      onClick={handleConfirmPhoneCode}
-                      disabled={isPhoneVerified || isConfirmingPhoneCode}
-                    >
-                      {isConfirmingPhoneCode ? '확인 중' : '확인'}
-                    </AppOutlineButton>
                   </div>
-                )}
-                {isPhoneVerified && (
-                  <p className="text-xs leading-[12px] text-[#666666]">인증이 완료되었습니다.</p>
-                )}
-              </div>
-            )}
-          </AppFormField>
-
-          {/* 생년월일 */}
-          <AppFormField label="생년월일" required error={errors.birthDate}>
-            {() => (
-              <div className="flex gap-2">
-                <AppSelect
-                  value={birthYear}
-                  onChange={(e) => {
-                    setBirthYear(e.target.value)
-                    if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
-                  }}
-                  className={cn('flex-1', errors.birthDate && !birthYear && 'border-[#bc4040]')}
-                >
-                  <option value="">년도</option>
-                  {BIRTH_YEARS.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </AppSelect>
-                <AppSelect
-                  value={birthMonth}
-                  onChange={(e) => {
-                    setBirthMonth(e.target.value)
-                    if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
-                  }}
-                  className={cn('flex-1', errors.birthDate && !birthMonth && 'border-[#bc4040]')}
-                >
-                  <option value="">월</option>
-                  {BIRTH_MONTHS.map((month) => (
-                    <option key={month} value={month}>
-                      {month}
-                    </option>
-                  ))}
-                </AppSelect>
-                <AppSelect
-                  value={birthDay}
-                  onChange={(e) => {
-                    setBirthDay(e.target.value)
-                    if (errors.birthDate) setErrors((prev) => ({ ...prev, birthDate: undefined }))
-                  }}
-                  className={cn('flex-1', errors.birthDate && !birthDay && 'border-[#bc4040]')}
-                >
-                  <option value="">일</option>
-                  {BIRTH_DAYS.map((day) => (
-                    <option key={day} value={day}>
-                      {day}
-                    </option>
-                  ))}
-                </AppSelect>
-              </div>
-            )}
-          </AppFormField>
-
-          {/* 성별 */}
-          <AppFormField label="성별" required error={errors.gender}>
-            {() => (
-              <div className="flex">
-                {(['MALE', 'FEMALE'] as const).map((value, index) => (
-                  <label
-                    key={value}
-                    className={cn(
-                      'flex-1 flex items-center justify-center h-[45px] text-sm leading-[14px] border cursor-pointer transition-colors',
-                      index > 0 && '-ml-px',
-                      gender === value
-                        ? 'border-[#a91201] text-[#a91201] z-10'
-                        : errors.gender
-                          ? 'border-[#bc4040] text-[#333333]'
-                          : 'border-[#eeeeee] text-[#333333]',
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      name="gender"
-                      value={value}
-                      checked={gender === value}
-                      onChange={() => {
-                        setGender(value)
-                        if (errors.gender) setErrors((prev) => ({ ...prev, gender: undefined }))
-                      }}
-                      className="sr-only"
-                    />
-                    {value === 'MALE' ? '남성' : '여성'}
-                  </label>
                 ))}
               </div>
-            )}
-          </AppFormField>
 
-          {/* 추천인 닉네임 */}
-          <AppFormField label="추천인 닉네임">
-            {() => (
-              <div className="flex gap-2">
-                <AppInputText
-                  id="referrerNickname"
-                  name="referrerNickname"
-                  placeholder="추천인 닉네임을 입력해 주세요."
-                  value={referrerNickname}
-                  onChange={(e) => setReferrerNickname(e.target.value)}
-                  className="flex-1"
-                />
-                <AppOutlineButton
-                  type="button"
-                  onClick={handleCheckReferrer}
-                  disabled={!referrerNickname.trim() || isCheckingReferrer}
-                  className="shrink-0 w-auto h-auto px-4"
-                >
-                  {isCheckingReferrer ? '확인 중' : '추천인 확인'}
-                </AppOutlineButton>
+              {/* 가입하기 버튼 */}
+              <div className="mt-5">
+                <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
+                  가입하기
+                </AppSubmitButton>
               </div>
-            )}
-          </AppFormField>
-        </div>
-        </BorderedSection>
-
-        {/* 약관 동의 */}
-        <BorderedSection className="border-b-0">
-          <div className="flex flex-col px-[15px] pt-[18px]">
-            <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
-              <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />
-              <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
-            </label>
-            <div className="flex flex-col gap-[13px] px-[5px] py-5">
-              {TERMS_LIST.map(({ key, label, href }) => (
-                <div key={key} className="flex items-center justify-between">
-                  <label className="flex items-center gap-[15px] cursor-pointer">
-                    <FormCheckbox
-                      name={key}
-                      checked={agreedTerms[key]}
-                      onChange={(checked) => setAgreedTerms((prev) => ({ ...prev, [key]: checked }))}
-                    />
-                    <span className="text-[13px] leading-[13px] font-light">{label}</span>
-                  </label>
-                  {href && (
-                    <a href={href}>
-                      <Image src="/images/icon-nav-right.svg" alt="" width={6} height={10} />
-                    </a>
-                  )}
-                </div>
-              ))}
             </div>
-
-            {/* 가입하기 버튼 */}
-            <div className="mt-5">
-              <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
-                가입하기
-              </AppSubmitButton>
-            </div>
-          </div>
-        </BorderedSection>
+          </BorderedSection>
         </SectionStack>
       </form>
     </section>

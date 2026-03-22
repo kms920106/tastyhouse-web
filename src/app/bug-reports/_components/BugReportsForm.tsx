@@ -2,6 +2,7 @@
 
 import PhotoUploader from '@/components/reviews/PhotoUploader'
 import AppFormField from '@/components/ui/AppFormField'
+import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import AppTextarea from '@/components/ui/AppTextarea'
 import { toast } from '@/components/ui/AppToaster'
@@ -109,7 +110,9 @@ export default function BugReportsForm() {
                 className={cn(
                   'w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border box-border appearance-none bg-white focus:outline-none',
                   !formData.device ? 'text-[#999999]' : 'text-[#333333]',
-                  errors.device ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]',
+                  errors.device
+                    ? 'border-[#bc4040] focus:border-[#bc4040]'
+                    : 'border-[#eeeeee] focus:border-[#666666]',
                   className,
                 )}
               >
@@ -136,14 +139,12 @@ export default function BugReportsForm() {
         </AppFormField>
         <AppFormField label="제목" required error={errors.title}>
           {({ className }) => (
-            <input
-              type="text"
+            <AppInputText
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
               placeholder="제목을 입력해 주세요."
               className={cn(
-                'w-full h-[50px] pl-[16px] pr-4 text-sm leading-[14px] border box-border bg-white focus:outline-none placeholder:text-[#999999] text-[#333333]',
-                errors.title ? 'border-[#bc4040] focus:border-[#bc4040]' : 'border-[#eeeeee] focus:border-[#666666]',
+                errors.title && 'border-[#bc4040] focus-visible:border-[#bc4040]',
                 className,
               )}
             />

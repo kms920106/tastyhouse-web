@@ -307,7 +307,7 @@ export default function ReservationDatePage() {
             value={requirements}
             onChange={(e) => setRequirements(e.target.value)}
             placeholder="업체에 요청하실 내용을 적어주세요."
-            className="w-full h-32 p-4 border border-[#eeeeee] rounded text-[15px] placeholder:text-[#cccccc] resize-none"
+            className="w-full h-32 p-4 border border-[#eeeeee] rounded text-[15px] placeholder:text-[#aaaaaa] resize-none"
           />
         </div>
 
