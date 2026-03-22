@@ -25,8 +25,8 @@ import {
   confirmPhoneVerificationCode,
   sendPhoneVerificationCode,
 } from '@/services/phone-verification'
+import Image from 'next/image'
 import { useActionState, useEffect, useState, useTransition } from 'react'
-import { MdChevronRight } from 'react-icons/md'
 import { z } from 'zod'
 
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
@@ -42,7 +42,12 @@ const TERMS_LIST = [
     required: true,
     href: '/terms/finance',
   },
-  { key: 'agreedAge', label: '만 14세 이상 이용 동의 (필수)', required: true, href: null },
+  {
+    key: 'agreedAge',
+    label: '만 14세 이상 이용 동의 (필수)',
+    required: true,
+    href: '/terms/finance',
+  },
   { key: 'agreedMarketing', label: '이벤트 정보 수신 동의 (선택)', required: false, href: null },
 ] as const
 
@@ -767,39 +772,37 @@ export default function SignupSection() {
         </div>
 
         {/* 약관 동의 */}
-        <div className="border-t border-[#eeeeee] px-[15px] py-[30px] flex flex-col gap-5">
-          <label className="flex items-center gap-3 cursor-pointer">
+        <div className="flex flex-col px-[15px] pt-[18px]">
+          <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
             <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />
-            <span className="text-base font-semibold leading-[16px] text-[#333333]">
-              약관에 모두 동의합니다.
-            </span>
+            <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
           </label>
-          <div className="flex flex-col gap-4 pl-1">
+          <div className="flex flex-col gap-[13px] px-[5px] py-5">
             {TERMS_LIST.map(({ key, label, href }) => (
               <div key={key} className="flex items-center justify-between">
-                <label className="flex items-center gap-3 cursor-pointer">
+                <label className="flex items-center gap-[15px] cursor-pointer">
                   <FormCheckbox
                     name={key}
                     checked={agreedTerms[key]}
                     onChange={(checked) => setAgreedTerms((prev) => ({ ...prev, [key]: checked }))}
                   />
-                  <span className="text-sm leading-[14px] text-[#666666]">{label}</span>
+                  <span className="text-[13px] leading-[13px] font-light">{label}</span>
                 </label>
                 {href && (
-                  <a href={href} className="text-[#aaaaaa]">
-                    <MdChevronRight size={20} />
+                  <a href={href}>
+                    <Image src="/images/icon-nav-right.svg" alt="" width={6} height={10} />
                   </a>
                 )}
               </div>
             ))}
           </div>
-        </div>
 
-        {/* 가입하기 버튼 */}
-        <div className="px-[15px] pb-[30px]">
-          <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
-            가입하기
-          </AppSubmitButton>
+          {/* 가입하기 버튼 */}
+          <div className="mt-5">
+            <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
+              가입하기
+            </AppSubmitButton>
+          </div>
         </div>
       </form>
     </section>

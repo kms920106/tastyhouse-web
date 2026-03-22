@@ -1,5 +1,4 @@
-import { cn } from '@/lib/utils'
-import { BsCheckLg } from 'react-icons/bs'
+import Image from 'next/image'
 
 interface CircleCheckboxProps {
   checked: boolean
@@ -11,16 +10,14 @@ export default function CircleCheckbox({ checked, onChange }: CircleCheckboxProp
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="w-[25px] h-[25px] flex items-center justify-center cursor-pointer"
+      className="flex items-center justify-center shrink-0 w-[25px] h-[25px] cursor-pointer"
     >
-      <div
-        className={cn(
-          'w-[25px] h-[25px] rounded-full flex items-center justify-center',
-          checked ? 'bg-main' : 'border-[1.5px] border-[#dddddd] box-border',
-        )}
-      >
-        <BsCheckLg size={20} className={cn(checked ? 'text-white' : 'text-[#dddddd]')} />
-      </div>
+      <Image
+        src={checked ? '/images/icon-allcheck-on.png' : '/images/icon-allcheck-off.png'}
+        alt={checked ? '전체 동의 선택됨' : '전체 동의 선택 안됨'}
+        width={25}
+        height={25}
+      />
     </button>
   )
 }

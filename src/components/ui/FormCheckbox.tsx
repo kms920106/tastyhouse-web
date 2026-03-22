@@ -1,5 +1,4 @@
-import { cn } from '@/lib/utils'
-import { BsCheckLg } from 'react-icons/bs'
+import Image from 'next/image'
 
 interface FormCheckboxProps {
   name: string
@@ -9,7 +8,7 @@ interface FormCheckboxProps {
 
 export default function FormCheckbox({ name, checked, onChange }: FormCheckboxProps) {
   return (
-    <label className="w-[25px] h-[25px] flex items-center justify-center cursor-pointer">
+    <label className="w-[20px] h-[20px] flex items-center justify-center cursor-pointer shrink-0">
       <input
         type="checkbox"
         name={name}
@@ -17,14 +16,12 @@ export default function FormCheckbox({ name, checked, onChange }: FormCheckboxPr
         onChange={(e) => onChange(e.target.checked)}
         className="sr-only"
       />
-      <div
-        className={cn(
-          'w-[25px] h-[25px] rounded-full flex items-center justify-center',
-          checked ? 'bg-main' : 'border-[1.5px] border-[#dddddd] box-border',
-        )}
-      >
-        <BsCheckLg size={20} className={cn(checked ? 'text-white' : 'text-[#dddddd]')} />
-      </div>
+      <Image
+        src={checked ? '/images/icon-check-on.png' : '/images/icon-check-off.png'}
+        alt={checked ? '선택됨' : '선택 안됨'}
+        width={14}
+        height={10}
+      />
     </label>
   )
 }
