@@ -9,6 +9,8 @@ import {
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppFormField from '@/components/ui/AppFormField'
+import BorderedSection from '@/components/ui/BorderedSection'
+import SectionStack from '@/components/ui/SectionStack'
 import AppInputNumber from '@/components/ui/AppInputNumber'
 import AppInputPassword from '@/components/ui/AppInputPassword'
 import AppInputText from '@/components/ui/AppInputText'
@@ -417,6 +419,8 @@ export default function SignupSection() {
         </HeaderCenter>
       </Header>
       <form onSubmit={handleSubmit}>
+        <SectionStack>
+        <BorderedSection className="border-t-0">
         <div className="px-[15px] py-[30px] flex flex-col gap-5">
           {/* hidden */}
           <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
@@ -770,40 +774,44 @@ export default function SignupSection() {
             )}
           </AppFormField>
         </div>
+        </BorderedSection>
 
         {/* 약관 동의 */}
-        <div className="flex flex-col px-[15px] pt-[18px]">
-          <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
-            <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />
-            <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
-          </label>
-          <div className="flex flex-col gap-[13px] px-[5px] py-5">
-            {TERMS_LIST.map(({ key, label, href }) => (
-              <div key={key} className="flex items-center justify-between">
-                <label className="flex items-center gap-[15px] cursor-pointer">
-                  <FormCheckbox
-                    name={key}
-                    checked={agreedTerms[key]}
-                    onChange={(checked) => setAgreedTerms((prev) => ({ ...prev, [key]: checked }))}
-                  />
-                  <span className="text-[13px] leading-[13px] font-light">{label}</span>
-                </label>
-                {href && (
-                  <a href={href}>
-                    <Image src="/images/icon-nav-right.svg" alt="" width={6} height={10} />
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
+        <BorderedSection className="border-b-0">
+          <div className="flex flex-col px-[15px] pt-[18px]">
+            <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
+              <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />
+              <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
+            </label>
+            <div className="flex flex-col gap-[13px] px-[5px] py-5">
+              {TERMS_LIST.map(({ key, label, href }) => (
+                <div key={key} className="flex items-center justify-between">
+                  <label className="flex items-center gap-[15px] cursor-pointer">
+                    <FormCheckbox
+                      name={key}
+                      checked={agreedTerms[key]}
+                      onChange={(checked) => setAgreedTerms((prev) => ({ ...prev, [key]: checked }))}
+                    />
+                    <span className="text-[13px] leading-[13px] font-light">{label}</span>
+                  </label>
+                  {href && (
+                    <a href={href}>
+                      <Image src="/images/icon-nav-right.svg" alt="" width={6} height={10} />
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
 
-          {/* 가입하기 버튼 */}
-          <div className="mt-5">
-            <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
-              가입하기
-            </AppSubmitButton>
+            {/* 가입하기 버튼 */}
+            <div className="mt-5">
+              <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
+                가입하기
+              </AppSubmitButton>
+            </div>
           </div>
-        </div>
+        </BorderedSection>
+        </SectionStack>
       </form>
     </section>
   )
