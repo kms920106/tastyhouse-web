@@ -21,6 +21,10 @@ import {
 const ENDPOINT = '/api/members'
 
 export const memberRepository = {
+  // 닉네임 중복 확인
+  async checkNicknameDuplicate(nickname: string) {
+    return api.get<{ available: boolean }>(`${ENDPOINT}/v1/nickname/check`, { params: { nickname } })
+  },
   // 다른 회원 프로필 조회
   async getOtherMemberProfile(memberId: number | string) {
     return api.get<OtherMemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)

@@ -443,7 +443,7 @@ export default function SignupSection() {
                           setEmailVerifyToken('')
                           if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
                         }}
-                        readOnly={isEmailVerified}
+                        disabled={isEmailVerified}
                         className={cn(
                           'flex-1',
                           isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
@@ -483,14 +483,16 @@ export default function SignupSection() {
                           type="button"
                           className="shrink-0 w-auto px-4"
                           onClick={handleConfirmEmailCode}
-                          disabled={isEmailVerified || isConfirmingEmailCode}
+                          disabled={
+                            !emailVerifyCode.trim() || isEmailVerified || isConfirmingEmailCode
+                          }
                         >
                           {isConfirmingEmailCode ? '확인 중' : '확인'}
                         </AppOutlineButton>
                       </div>
                     )}
                     {isEmailVerified && (
-                      <p className="text-xs leading-[12px] text-[#666666]">
+                      <p className="text-xs leading-[12px] text-[#999999]">
                         인증이 완료되었습니다.
                       </p>
                     )}
@@ -590,7 +592,7 @@ export default function SignupSection() {
                       </AppOutlineButton>
                     </div>
                     {isNicknameChecked && (
-                      <p className="text-xs leading-[12px] text-[#666666]">
+                      <p className="text-xs leading-[12px] text-[#999999]">
                         사용 가능한 닉네임입니다.
                       </p>
                     )}
@@ -658,14 +660,16 @@ export default function SignupSection() {
                           type="button"
                           className="shrink-0 w-auto px-4"
                           onClick={handleConfirmPhoneCode}
-                          disabled={isPhoneVerified || isConfirmingPhoneCode}
+                          disabled={
+                            !phoneVerifyCode.trim() || isPhoneVerified || isConfirmingPhoneCode
+                          }
                         >
                           {isConfirmingPhoneCode ? '확인 중' : '확인'}
                         </AppOutlineButton>
                       </div>
                     )}
                     {isPhoneVerified && (
-                      <p className="text-xs leading-[12px] text-[#666666]">
+                      <p className="text-xs leading-[12px] text-[#999999]">
                         인증이 완료되었습니다.
                       </p>
                     )}
