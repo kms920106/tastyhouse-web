@@ -2,22 +2,19 @@
 
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
-import AppInputNumber from '@/components/ui/AppInputNumber'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
+import { usePhoneVerification } from '@/hooks/usePhoneVerification'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
 import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/services/member'
-import {
-  confirmPhoneVerificationCode,
-  sendPhoneVerificationCode,
-} from '@/services/phone-verification'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState, useTransition } from 'react'
@@ -76,14 +73,7 @@ interface AccountInfoEditFormProps {
 export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditFormProps) {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
   const [originalPhone, setOriginalPhone] = useState('')
-  const [verificationCode, setVerificationCode] = useState('')
-  const [isVerificationVisible, setIsVerificationVisible] = useState(false)
-  const [isVerified, setIsVerified] = useState(false)
-  const [phoneVerifyToken, setPhoneVerifyToken] = useState('')
-  const [isSendingCode, startSendingCode] = useTransition()
-  const [isConfirmingCode, startConfirmingCode] = useTransition()
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDay, setBirthDay] = useState('')
@@ -94,6 +84,8 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, startSubmitting] = useTransition()
 
+  const phoneVerification = usePhoneVerification({ originalPhone })
+
   useEffect(() => {
     getMemberPersonalInfo().then(({ data }) => {
       const info = data
@@ -101,7 +93,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
       const { year, month, day } = parseBirthDate(info.birthDate)
       setEmail(info.email)
       setName(info.fullName)
-      setPhone(info.phoneNumber)
+      phoneVerification.setPhone(info.phoneNumber)
       setOriginalPhone(info.phoneNumber)
       setBirthYear(year)
       setBirthMonth(month)
@@ -111,60 +103,8 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
       setMarketingNotification(info.marketingInfoEnabled)
       setEventNotification(info.eventInfoEnabled)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const handleSendVerification = () => {
-    const rawPhone = phone.replace(/-/g, '')
-    if (!rawPhone.match(/^01[0-9]{8,9}$/)) {
-      setErrors((prev) => ({ ...prev, phone: '올바른 휴대폰 번호를 입력해 주세요.' }))
-      return
-    }
-
-    if (rawPhone === originalPhone.replace(/-/g, '')) {
-      setErrors((prev) => ({ ...prev, phone: '현재 등록된 휴대폰 번호와 동일합니다.' }))
-      return
-    }
-
-    startSendingCode(async () => {
-      try {
-        const response = await sendPhoneVerificationCode({ phoneNumber: rawPhone })
-        if (response?.error) {
-          toast(response.error)
-          return
-        }
-        setIsVerificationVisible(true)
-        toast('인증번호가 발송되었습니다.')
-      } catch {
-        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
-      }
-    })
-  }
-
-  const handleConfirmVerification = () => {
-    const rawPhone = phone.replace(/-/g, '')
-
-    startConfirmingCode(async () => {
-      try {
-        const response = await confirmPhoneVerificationCode({
-          phoneNumber: rawPhone,
-          verificationCode,
-        })
-        if (response?.error) {
-          toast(response.error)
-          return
-        }
-        const token = response?.data?.phoneVerifyToken
-        if (!token) {
-          toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
-          return
-        }
-        setPhoneVerifyToken(token)
-        setIsVerified(true)
-      } catch {
-        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
-      }
-    })
-  }
 
   const buildBirthDate = (): number | undefined => {
     if (!birthYear || !birthMonth || !birthDay) return undefined
@@ -176,7 +116,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
   const validateForm = (): boolean => {
     const result = accountInfoSchema.safeParse({
       name: name.trim(),
-      phone: phone.replace(/-/g, ''),
+      phone: phoneVerification.phone.replace(/-/g, ''),
       birthYear,
       birthMonth,
       birthDay,
@@ -205,7 +145,9 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
         const response = await updateMemberPersonalInfo(
           {
             fullName: name,
-            phoneNumber: isVerified ? phone.replace(/-/g, '') : undefined,
+            phoneNumber: phoneVerification.isVerified
+              ? phoneVerification.phone.replace(/-/g, '')
+              : undefined,
             birthDate: buildBirthDate(),
             gender,
             pushNotificationEnabled: pushNotification,
@@ -213,7 +155,7 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
             eventInfoEnabled: eventNotification,
           },
           verifyToken,
-          isVerified ? phoneVerifyToken : undefined,
+          phoneVerification.isVerified ? phoneVerification.phoneVerifyToken : undefined,
         )
 
         if (response?.error) {
@@ -244,6 +186,8 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                 />
               )}
             </AppFormField>
+
+            {/* 이름 */}
             <AppFormField label="이름" required error={errors.name}>
               {({ className }) => (
                 <AppInput
@@ -258,66 +202,17 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                 />
               )}
             </AppFormField>
-            <AppFormField label="휴대폰 번호" required error={errors.phone}>
-              {({ className }) => (
-                <div className="flex flex-col gap-2">
-                  <div className="flex gap-2">
-                    <AppInputNumber
-                      value={phone}
-                      onChange={(e) => {
-                        if (e.target.value.length <= 11) setPhone(e.target.value)
-                        if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }))
-                      }}
-                      readOnly={isVerified}
-                      placeholder="01012345678"
-                      disabled={isVerified}
-                      maxLength={11}
-                      className={cn(
-                        'flex-1 pr-4',
-                        isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                        className,
-                      )}
-                    />
-                    <AppOutlineButton
-                      onClick={handleSendVerification}
-                      disabled={isVerified || isSendingCode}
-                      className="shrink-0 w-auto h-auto px-4"
-                    >
-                      {isSendingCode
-                        ? '발송 중'
-                        : isVerificationVisible
-                          ? '재발송'
-                          : '인증번호 받기'}
-                    </AppOutlineButton>
-                  </div>
-                  {isVerificationVisible && (
-                    <div className="flex gap-2">
-                      <AppInputNumber
-                        value={verificationCode}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 6) setVerificationCode(e.target.value)
-                        }}
-                        readOnly={isVerified}
-                        disabled={isVerified}
-                        placeholder="123456"
-                        maxLength={6}
-                        className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]')}
-                      />
-                      <AppOutlineButton
-                        className="shrink-0 w-auto px-4"
-                        onClick={handleConfirmVerification}
-                        disabled={isVerified || isConfirmingCode}
-                      >
-                        {isConfirmingCode ? '확인 중' : '확인'}
-                      </AppOutlineButton>
-                    </div>
-                  )}
-                  {isVerified && (
-                    <p className="text-xs leading-[12px] text-[#666666]">인증이 완료되었습니다.</p>
-                  )}
-                </div>
-              )}
-            </AppFormField>
+
+            {/* 휴대폰 번호 */}
+            <PhoneVerificationField
+              verification={phoneVerification}
+              error={errors.phone}
+              originalPhone={originalPhone}
+              onClearError={() => setErrors((prev) => ({ ...prev, phone: undefined }))}
+              onInvalidPhone={(message) => setErrors((prev) => ({ ...prev, phone: message }))}
+            />
+
+            {/* 생년월일 */}
             <AppFormField label="생년월일" required error={errors.birthYear}>
               {() => (
                 <div className="flex gap-2">
@@ -369,6 +264,8 @@ export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditForm
                 </div>
               )}
             </AppFormField>
+
+            {/* 성별 */}
             <AppFormField label="성별" required error={errors.gender}>
               {() => (
                 <div className="flex">

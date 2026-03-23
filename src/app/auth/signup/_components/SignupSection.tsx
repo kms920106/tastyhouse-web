@@ -19,14 +19,12 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FormCheckbox from '@/components/ui/FormCheckbox'
+import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
 import type { Gender } from '@/domains/member'
+import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
-import {
-  confirmPhoneVerificationCode,
-  sendPhoneVerificationCode,
-} from '@/services/phone-verification'
 import Image from 'next/image'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
@@ -141,13 +139,7 @@ export default function SignupSection() {
   const [isNicknameChecked, setIsNicknameChecked] = useState(false)
   const [isCheckingNickname, startCheckingNickname] = useTransition()
 
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [phoneVerifyCode, setPhoneVerifyCode] = useState('')
-  const [isPhoneCodeVisible, setIsPhoneCodeVisible] = useState(false)
-  const [isPhoneVerified, setIsPhoneVerified] = useState(false)
-  const [phoneVerifyToken, setPhoneVerifyToken] = useState('')
-  const [isSendingPhoneCode, startSendingPhoneCode] = useTransition()
-  const [isConfirmingPhoneCode, startConfirmingPhoneCode] = useTransition()
+  const phoneVerification = usePhoneVerification()
 
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
@@ -267,58 +259,6 @@ export default function SignupSection() {
     })
   }
 
-  const handleSendPhoneCode = () => {
-    if (phoneNumber.length === 0) {
-      setErrors((prev) => ({ ...prev, phoneNumber: '휴대폰 번호를 입력해 주세요.' }))
-      return
-    }
-    if (!phoneNumber.match(/^01[0-9]{8,9}$/)) {
-      setErrors((prev) => ({
-        ...prev,
-        phoneNumber: '올바른 휴대폰 번호 형식이 아닙니다. ("-" 없이 숫자만 입력)',
-      }))
-      return
-    }
-
-    startSendingPhoneCode(async () => {
-      try {
-        const response = await sendPhoneVerificationCode({ phoneNumber })
-        if (response?.error) {
-          toast(response.error)
-          return
-        }
-        setIsPhoneCodeVisible(true)
-        toast('인증번호가 발송되었습니다.')
-      } catch {
-        toast('인증번호 발송에 실패했습니다. 다시 시도해 주세요.')
-      }
-    })
-  }
-
-  const handleConfirmPhoneCode = () => {
-    startConfirmingPhoneCode(async () => {
-      try {
-        const response = await confirmPhoneVerificationCode({
-          phoneNumber,
-          verificationCode: phoneVerifyCode,
-        })
-        if (response?.error) {
-          toast(response.error)
-          return
-        }
-        const token = response?.data?.phoneVerifyToken
-        if (!token) {
-          toast('인증에 실패했습니다. 다시 시도해 주세요.')
-          return
-        }
-        setPhoneVerifyToken(token)
-        setIsPhoneVerified(true)
-      } catch {
-        toast('인증번호 확인에 실패했습니다. 다시 시도해 주세요.')
-      }
-    })
-  }
-
   const handleCheckReferrer = () => {
     if (!referrerNickname.trim()) return
 
@@ -343,7 +283,7 @@ export default function SignupSection() {
       passwordConfirm,
       fullName,
       nickname,
-      phoneNumber,
+      phoneNumber: phoneVerification.phone,
       birthYear,
       birthMonth,
       birthDay,
@@ -395,7 +335,7 @@ export default function SignupSection() {
       toast('닉네임 중복확인을 해 주세요.')
       return
     }
-    if (!isPhoneVerified) {
+    if (!phoneVerification.isVerified) {
       toast('휴대폰 인증을 완료해 주세요.')
       return
     }
@@ -422,7 +362,11 @@ export default function SignupSection() {
             <div className="px-[15px] py-[30px] flex flex-col gap-5">
               {/* hidden */}
               <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
-              <input type="hidden" name="phoneVerifyToken" value={phoneVerifyToken} />
+              <input
+                type="hidden"
+                name="phoneVerifyToken"
+                value={phoneVerification.phoneVerifyToken}
+              />
 
               {/* 아이디 */}
               <AppFormField label="아이디" required error={errors.email}>
@@ -599,81 +543,14 @@ export default function SignupSection() {
               </AppFormField>
 
               {/* 휴대폰 번호 */}
-              <AppFormField label="휴대폰 번호" required error={errors.phoneNumber}>
-                {({ className }) => (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex gap-2">
-                      <AppInputNumber
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        value={phoneNumber}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 11) setPhoneNumber(e.target.value)
-                          setIsPhoneVerified(false)
-                          setIsPhoneCodeVisible(false)
-                          setPhoneVerifyToken('')
-                          if (errors.phoneNumber)
-                            setErrors((prev) => ({ ...prev, phoneNumber: undefined }))
-                        }}
-                        readOnly={isPhoneVerified}
-                        disabled={isPhoneVerified}
-                        placeholder="숫자만 입력해 주세요."
-                        maxLength={11}
-                        className={cn(
-                          'flex-1 pr-4',
-                          isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                          className,
-                        )}
-                      />
-                      <AppOutlineButton
-                        type="button"
-                        onClick={handleSendPhoneCode}
-                        disabled={!phoneNumber.trim() || isPhoneVerified || isSendingPhoneCode}
-                        className="shrink-0"
-                      >
-                        {isSendingPhoneCode
-                          ? '발송 중'
-                          : isPhoneCodeVisible
-                            ? '재발송'
-                            : '인증번호 받기'}
-                      </AppOutlineButton>
-                    </div>
-                    {isPhoneCodeVisible && (
-                      <div className="flex gap-2">
-                        <AppInputNumber
-                          value={phoneVerifyCode}
-                          onChange={(e) => {
-                            if (e.target.value.length <= 6) setPhoneVerifyCode(e.target.value)
-                          }}
-                          readOnly={isPhoneVerified}
-                          disabled={isPhoneVerified}
-                          placeholder="123456"
-                          maxLength={6}
-                          className={cn(
-                            'flex-1 pr-4',
-                            isPhoneVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                          )}
-                        />
-                        <AppOutlineButton
-                          type="button"
-                          className="shrink-0"
-                          onClick={handleConfirmPhoneCode}
-                          disabled={
-                            !phoneVerifyCode.trim() || isPhoneVerified || isConfirmingPhoneCode
-                          }
-                        >
-                          {isConfirmingPhoneCode ? '확인 중' : '확인'}
-                        </AppOutlineButton>
-                      </div>
-                    )}
-                    {isPhoneVerified && (
-                      <p className="text-xs leading-[12px] text-[#999999]">
-                        인증이 완료되었습니다.
-                      </p>
-                    )}
-                  </div>
-                )}
-              </AppFormField>
+              <PhoneVerificationField
+                verification={phoneVerification}
+                error={errors.phoneNumber}
+                phoneInputName="phoneNumber"
+                placeholder="숫자만 입력해 주세요."
+                onClearError={() => setErrors((prev) => ({ ...prev, phoneNumber: undefined }))}
+                onInvalidPhone={(message) => setErrors((prev) => ({ ...prev, phoneNumber: message }))}
+              />
 
               {/* 생년월일 */}
               <AppFormField label="생년월일" required error={errors.birthDate}>
