@@ -6,6 +6,7 @@ import {
   MemberStatsResponse,
   MyBookmarkedPlaceListItemResponse,
   MyReviewListItemResponse,
+  NicknameAvailabilityResponse,
   OtherMemberProfileResponse,
   PersonalInfoResponse,
   PointHistoryResponse,
@@ -21,9 +22,9 @@ import {
 const ENDPOINT = '/api/members'
 
 export const memberRepository = {
-  // 닉네임 중복 확인
-  async checkNicknameDuplicate(nickname: string) {
-    return api.get<{ available: boolean }>(`${ENDPOINT}/v1/nickname/check`, { params: { nickname } })
+  // 닉네임 사용 가능 여부 확인
+  async checkNicknameAvailability(nickname: string) {
+    return api.get<NicknameAvailabilityResponse>(`${ENDPOINT}/v1/nickname/availability`, { params: { nickname } })
   },
   // 다른 회원 프로필 조회
   async getOtherMemberProfile(memberId: number | string) {

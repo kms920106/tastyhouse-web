@@ -199,3 +199,7 @@ export interface UpdatePasswordRequest {
   newPassword: string
   newPasswordConfirm: string
 }
+
+export interface NicknameAvailabilityResponse {
+  available: boolean
+}

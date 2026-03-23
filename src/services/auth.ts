@@ -32,8 +32,8 @@ export async function confirmEmailVerificationCode(email: string, verificationCo
   return emailVerificationRepository.confirmVerificationCode({ email, verificationCode })
 }
 
-export async function checkNicknameDuplicate(nickname: string) {
-  return memberService.checkNicknameDuplicate(nickname)
+export async function checkNicknameAvailability(nickname: string) {
+  return memberService.checkNicknameAvailability(nickname)
 }
 
 export async function signup(

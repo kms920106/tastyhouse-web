@@ -2,8 +2,8 @@ import { memberRepository } from './member.repository'
 import { UpdatePasswordRequest, UpdatePersonalInfoRequest, UpdateProfileRequest, VerifyPasswordRequest, WithdrawRequest } from './member.type'
 
 export const memberService = {
-  async checkNicknameDuplicate(nickname: string) {
-    return await memberRepository.checkNicknameDuplicate(nickname)
+  async checkNicknameAvailability(nickname: string) {
+    return await memberRepository.checkNicknameAvailability(nickname)
   },
   async getOtherMemberProfile(memberId: number | string) {
     return await memberRepository.getOtherMemberProfile(memberId)

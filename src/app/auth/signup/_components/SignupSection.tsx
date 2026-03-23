@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  checkNicknameDuplicate,
+  checkNicknameAvailability,
   confirmEmailVerificationCode,
   sendEmailVerificationCode,
   signupFormAction,
@@ -246,7 +246,7 @@ export default function SignupSection() {
 
     startCheckingNickname(async () => {
       try {
-        const response = await checkNicknameDuplicate(nickname)
+        const response = await checkNicknameAvailability(nickname)
 
         if (response?.error) {
           toast(response.error)
@@ -261,8 +261,6 @@ export default function SignupSection() {
 
         setIsNicknameChecked(true)
         setErrors((prev) => ({ ...prev, nickname: undefined }))
-
-        toast('사용 가능한 닉네임입니다.')
       } catch {
         toast('닉네임 확인에 실패했습니다. 다시 시도해 주세요.')
       }
@@ -326,7 +324,7 @@ export default function SignupSection() {
 
     startCheckingReferrer(async () => {
       try {
-        const response = await checkNicknameDuplicate(referrerNickname)
+        const response = await checkNicknameAvailability(referrerNickname)
         if (response?.error || response?.data?.available !== false) {
           toast('존재하지 않는 닉네임입니다.')
           return
@@ -585,7 +583,7 @@ export default function SignupSection() {
                       <AppOutlineButton
                         type="button"
                         onClick={handleCheckNickname}
-                        disabled={!nickname.trim() || isCheckingNickname}
+                        disabled={!nickname.trim() || isCheckingNickname || isNicknameChecked}
                         className="shrink-0"
                       >
                         {isCheckingNickname ? '확인 중' : '중복확인'}

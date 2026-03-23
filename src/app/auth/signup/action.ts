@@ -14,8 +14,8 @@ export async function confirmEmailVerificationCode(email: string, verificationCo
   return authService.confirmEmailVerificationCode(email, verificationCode)
 }
 
-export async function checkNicknameDuplicate(nickname: string) {
-  return authService.checkNicknameDuplicate(nickname)
+export async function checkNicknameAvailability(nickname: string) {
+  return authService.checkNicknameAvailability(nickname)
 }
 
 export async function signupFormAction(
