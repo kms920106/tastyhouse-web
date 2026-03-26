@@ -706,7 +706,7 @@ export default function SignupSection() {
               </div>
 
               {/* 가입하기 버튼 */}
-              <div className="mt-5">
+              <div className="my-5">
                 <AppSubmitButton isSubmitting={isSubmitting} loadingText="가입 중">
                   가입하기
                 </AppSubmitButton>
