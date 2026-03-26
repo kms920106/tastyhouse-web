@@ -164,7 +164,8 @@ export default function SignupSection() {
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
-  const [state, formAction, isPending] = useActionState(signupFormAction, null)
+  const [state, formAction] = useActionState(signupFormAction, null)
+  const [isSubmitting, startSubmitTransition] = useTransition()
 
   useEffect(() => {
     if (state && !state.success) {
@@ -348,7 +349,9 @@ export default function SignupSection() {
       toast('필수 약관에 동의해 주세요.')
       return
     }
-    formAction(new FormData(e.currentTarget))
+    startSubmitTransition(() => {
+      formAction(new FormData(e.currentTarget))
+    })
   }
 
   return (
@@ -704,7 +707,7 @@ export default function SignupSection() {
 
               {/* 가입하기 버튼 */}
               <div className="mt-5">
-                <AppSubmitButton isSubmitting={isPending} loadingText="가입 중">
+                <AppSubmitButton isSubmitting={isSubmitting} loadingText="가입 중">
                   가입하기
                 </AppSubmitButton>
               </div>
