@@ -9,7 +9,7 @@ import {
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppFormField from '@/components/ui/AppFormField'
-import AppInputNumber from '@/components/ui/AppInputNumber'
+import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppInputPassword from '@/components/ui/AppInputPassword'
 import AppInputText from '@/components/ui/AppInputText'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
@@ -21,6 +21,7 @@ import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FormCheckbox from '@/components/ui/FormCheckbox'
 import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
+import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import type { Gender } from '@/domains/member'
 import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -103,14 +104,11 @@ const signupSchema = z.object({
   nickname: z.string().min(1, '닉네임을 입력해 주세요.'),
   phoneNumber: z.string().superRefine((val, ctx) => {
     if (val.length === 0) {
-      ctx.addIssue({ code: 'custom', message: '휴대폰 번호를 입력해 주세요.' })
+      ctx.addIssue({ code: 'custom', message: PHONE_ERROR_MESSAGES.REQUIRED })
       return
     }
-    if (!/^01[0-9]{8,9}$/.test(val)) {
-      ctx.addIssue({
-        code: 'custom',
-        message: '올바른 휴대폰 번호 형식이 아닙니다. ("-" 없이 숫자만 입력)',
-      })
+    if (!PHONE_REGEX.test(val)) {
+      ctx.addIssue({ code: 'custom', message: PHONE_ERROR_MESSAGES.INVALID })
     }
   }),
   birthYear: z.string(),
@@ -407,7 +405,7 @@ export default function SignupSection() {
                     </div>
                     {isEmailCodeVisible && (
                       <div className="flex gap-2">
-                        <AppInputNumber
+                        <AppInputPhone
                           value={emailVerifyCode}
                           onChange={(e) => {
                             if (e.target.value.length <= 6) setEmailVerifyCode(e.target.value)
@@ -547,9 +545,10 @@ export default function SignupSection() {
                 verification={phoneVerification}
                 error={errors.phoneNumber}
                 phoneInputName="phoneNumber"
-                placeholder="숫자만 입력해 주세요."
                 onClearError={() => setErrors((prev) => ({ ...prev, phoneNumber: undefined }))}
-                onInvalidPhone={(message) => setErrors((prev) => ({ ...prev, phoneNumber: message }))}
+                onInvalidPhone={(message) =>
+                  setErrors((prev) => ({ ...prev, phoneNumber: message }))
+                }
               />
 
               {/* 생년월일 */}

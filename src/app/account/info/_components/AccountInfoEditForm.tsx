@@ -13,6 +13,7 @@ import type { Gender } from '@/domains/member'
 import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
+import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import { cn } from '@/lib/utils'
 import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/services/member'
 import Image from 'next/image'
@@ -28,8 +29,8 @@ const accountInfoSchema = z.object({
   name: z.string().min(1, '이름을 입력해 주세요.'),
   phone: z
     .string()
-    .min(1, '휴대폰 번호를 입력해 주세요.')
-    .regex(/^01[0-9]{8,9}$/, '올바른 휴대폰 번호를 입력해 주세요.'),
+    .min(1, PHONE_ERROR_MESSAGES.REQUIRED)
+    .regex(PHONE_REGEX, PHONE_ERROR_MESSAGES.INVALID),
   birthYear: z.string().min(1, '생년월일을 선택해 주세요.'),
   birthMonth: z.string().min(1, '생년월일을 선택해 주세요.'),
   birthDay: z.string().min(1, '생년월일을 선택해 주세요.'),

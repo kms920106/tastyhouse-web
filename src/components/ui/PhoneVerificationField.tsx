@@ -1,8 +1,9 @@
 'use client'
 
 import AppFormField from '@/components/ui/AppFormField'
-import AppInputNumber from '@/components/ui/AppInputNumber'
+import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
+import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import type { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { cn } from '@/lib/utils'
 
@@ -10,7 +11,6 @@ interface PhoneVerificationFieldProps {
   verification: ReturnType<typeof usePhoneVerification>
   error?: string
   phoneInputName?: string
-  placeholder?: string
   originalPhone?: string
   onPhoneChange?: (phone: string) => void
   onClearError?: () => void
@@ -21,7 +21,6 @@ export default function PhoneVerificationField({
   verification,
   error,
   phoneInputName,
-  placeholder = '01012345678',
   originalPhone,
   onPhoneChange,
   onClearError,
@@ -45,7 +44,7 @@ export default function PhoneVerificationField({
       {({ className }) => (
         <div className="flex flex-col gap-2">
           <div className="flex gap-2">
-            <AppInputNumber
+            <AppInputPhone
               name={phoneInputName}
               value={phone}
               onChange={(e) => {
@@ -57,7 +56,7 @@ export default function PhoneVerificationField({
               }}
               readOnly={isVerified}
               disabled={isVerified}
-              placeholder={placeholder}
+              placeholder="숫자만 입력해 주세요."
               maxLength={11}
               className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]', className)}
             />
@@ -65,8 +64,8 @@ export default function PhoneVerificationField({
               type="button"
               onClick={() => {
                 const rawPhone = phone.replace(/-/g, '')
-                if (!rawPhone.match(/^01[0-9]{8,9}$/)) {
-                  onInvalidPhone?.('올바른 휴대폰 번호 형식이 아닙니다. ("-" 없이 숫자만 입력)')
+                if (!PHONE_REGEX.test(rawPhone)) {
+                  onInvalidPhone?.(PHONE_ERROR_MESSAGES.INVALID)
                   return
                 }
                 if (originalPhone && rawPhone === originalPhone.replace(/-/g, '')) {
@@ -83,14 +82,14 @@ export default function PhoneVerificationField({
           </div>
           {isCodeVisible && (
             <div className="flex gap-2">
-              <AppInputNumber
+              <AppInputPhone
                 value={verifyCode}
                 onChange={(e) => {
                   if (e.target.value.length <= 6) setVerifyCode(e.target.value)
                 }}
                 readOnly={isVerified}
                 disabled={isVerified}
-                placeholder="123456"
+                placeholder="숫자만 입력해 주세요."
                 maxLength={6}
                 className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]')}
               />

@@ -2,11 +2,13 @@
 
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
+import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
@@ -25,11 +27,8 @@ const advertisingSchema = z.object({
   contactName: z.string().min(1, '성함을 입력해 주세요.'),
   contactPhone: z
     .string()
-    .min(1, '연락처를 입력해 주세요.')
-    .regex(
-      /^01[0-9]-[0-9]{3,4}-[0-9]{4}$/,
-      '올바른 휴대폰 번호 형식이 아닙니다. (예: 010-1234-5678)',
-    ),
+    .min(1, PHONE_ERROR_MESSAGES.REQUIRED)
+    .regex(PHONE_REGEX, PHONE_ERROR_MESSAGES.INVALID),
   consultationDate: z.string().min(1, '상담 날짜를 선택해 주세요.'),
   consultationHour: z.string().min(1, '상담 시간을 선택해 주세요.'),
 })
@@ -40,12 +39,6 @@ interface FormData extends z.infer<typeof advertisingSchema> {
 
 type FormErrors = Partial<Record<keyof z.infer<typeof advertisingSchema>, string>>
 
-function formatPhoneNumber(value: string): string {
-  const digits = value.replace(/[^0-9]/g, '')
-  if (digits.length <= 3) return digits
-  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`
-  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7, 11)}`
-}
 
 function buildConsultationDateTime(date: string, hour: string): string {
   return `${date}T${hour}:00:00`
@@ -76,7 +69,7 @@ export default function AdvertisingForm() {
   }
 
   const handlePhoneChange = (value: string) => {
-    handleChange('contactPhone', formatPhoneNumber(value))
+    if (value.length <= 11) handleChange('contactPhone', value)
   }
 
   const handlePostcodeComplete = (data: Address) => {
@@ -208,13 +201,13 @@ export default function AdvertisingForm() {
             />
           )}
         </AppFormField>
-        <AppFormField label="연락처" required error={errors.contactPhone}>
+        <AppFormField label="휴대폰 번호" required error={errors.contactPhone}>
           {({ className }) => (
-            <AppInput
-              type="tel"
+            <AppInputPhone
               value={formData.contactPhone}
               onChange={(e) => handlePhoneChange(e.target.value)}
-              placeholder="010-0000-0000"
+              placeholder="숫자만 입력해 주세요."
+              maxLength={11}
               className={cn('pr-4', className)}
             />
           )}
