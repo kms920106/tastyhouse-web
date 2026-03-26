@@ -1,8 +1,8 @@
-import { memberService } from '@/domains/member'
+import { getMyCoupons } from '@/services/member'
 import CouponCard from './CouponCard'
 
 export default async function CouponList() {
-  const coupons = await memberService.getMyCoupons()
+  const coupons = await getMyCoupons()
 
   return (
     <div className="flex flex-col gap-5">

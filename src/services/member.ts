@@ -9,6 +9,11 @@ import {
   VerifyPasswordRequest,
   WithdrawRequest,
 } from '@/domains/member'
+
+export async function getMyCoupons() {
+  return memberService.getMyCoupons()
+}
+
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { cookies } from 'next/headers'
 
@@ -33,7 +38,7 @@ export async function getMyPointHistory() {
 }
 
 export async function getMyReviews(page: number = 0, size: number = 9) {
-  return memberService.getMyReviews(page, size)
+  return memberRepository.getMyReviews({ page, size })
 }
 
 export async function getOtherMemberProfile(memberId: number | string) {
@@ -41,7 +46,7 @@ export async function getOtherMemberProfile(memberId: number | string) {
 }
 
 export async function getMyBookmarks(page: number = 0, size: number = 10) {
-  return memberService.getMyBookmarks(page, size)
+  return memberRepository.getMyBookmarks({ page, size })
 }
 
 export async function updateMemberProfile(data: UpdateProfileRequest) {

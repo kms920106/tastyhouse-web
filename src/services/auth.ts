@@ -1,7 +1,7 @@
 'use server'
 
 import { emailVerificationRepository } from '@/domains/email-verification'
-import { memberService } from '@/domains/member'
+import { memberRepository } from '@/domains/member'
 import { api } from '@/lib/api'
 
 const SIGNUP_ENDPOINT = '/api/auth/signup'
@@ -36,7 +36,7 @@ export async function confirmEmailVerificationCode(email: string, verificationCo
 }
 
 export async function checkNicknameAvailability(nickname: string) {
-  return memberService.checkNicknameAvailability(nickname)
+  return memberRepository.checkNicknameAvailability(nickname)
 }
 
 export async function signup(payload: SignupPayload): Promise<SignupResult | null> {
