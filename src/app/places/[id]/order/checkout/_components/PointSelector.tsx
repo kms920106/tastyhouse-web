@@ -33,11 +33,8 @@ export default function PointSelector({
       return
     }
 
-    if (numericValue > availablePoints) {
-      onPointInputChange(availablePoints.toString())
-    } else {
-      onPointInputChange(value)
-    }
+    const clampedValue = Math.min(Math.max(numericValue, 0), availablePoints)
+    onPointInputChange(clampedValue.toString())
   }
 
   return (

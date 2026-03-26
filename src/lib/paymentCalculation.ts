@@ -56,7 +56,7 @@ export function calculatePaymentSummary(
   // 상품 금액에서 상품 할인을 제외한 금액
   const amountAfterProductDiscount = productTotal - productDiscount
 
-  const couponDiscount = selectedCoupon
+  const rawCouponDiscount = selectedCoupon
     ? selectedCoupon.discountType === 'AMOUNT'
       ? selectedCoupon.discountAmount
       : Math.min(
@@ -64,15 +64,18 @@ export function calculatePaymentSummary(
           selectedCoupon.maxDiscountAmount || Infinity,
         )
     : 0
+  const couponDiscount = Math.min(rawCouponDiscount, amountAfterProductDiscount)
 
-  const pointsUsed = parseInt(pointInput) || 0
+  const amountAfterCoupon = amountAfterProductDiscount - couponDiscount
+  const pointsUsed = Math.min(Math.max(parseInt(pointInput) || 0, 0), amountAfterCoupon)
+
   const totalDiscount = productDiscount + couponDiscount + pointsUsed
-  const finalTotal = productTotal - totalDiscount
+  const paymentAmount = Math.max(productTotal - totalDiscount, 0)
 
   return {
     totalDiscountAmount: totalDiscount,
     couponDiscount,
     pointsUsed,
-    paymentAmount: finalTotal,
+    paymentAmount,
   }
 }
