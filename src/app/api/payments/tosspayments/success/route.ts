@@ -49,26 +49,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(failUrl)
     }
 
-    // 백엔드 응답의 승인 금액과 요청 금액 불일치 감지
-    const { approvedAmount, orderId } = result.data
-    if (approvedAmount !== null && approvedAmount !== amountNumber) {
-      console.error(
-        `결제 금액 불일치 감지 — pgOrderId: ${pgOrderId}, 요청 금액: ${amountNumber}, 승인 금액: ${approvedAmount}`,
-      )
-      const failUrl = new URL('/payments/fail', origin)
-      failUrl.searchParams.set('message', '결제 금액이 일치하지 않습니다.')
-      return NextResponse.redirect(failUrl)
-    }
-
     // 결제 승인 성공 시 주문 완료 페이지로 리다이렉트
     // 백엔드 응답에서 실제 주문 ID 사용
+    const { orderId } = result.data
     if (!orderId) {
       const failUrl = new URL('/payments/fail', origin)
       failUrl.searchParams.set('message', '주문 정보를 찾을 수 없습니다.')
       return NextResponse.redirect(failUrl)
     }
 
-    const successUrl = new URL(PAGE_PATHS.ORDER_COMPLETE(orderId!), origin)
+    const successUrl = new URL(PAGE_PATHS.ORDER_COMPLETE(orderId), origin)
     return NextResponse.redirect(successUrl)
   } catch (error) {
     console.error('결제 승인 중 오류 발생:', error)

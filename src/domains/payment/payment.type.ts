@@ -47,5 +47,4 @@ export interface PaymentResponse {
   id: number
   orderId: number
   pgOrderId: string
-  approvedAmount: number | null
 }
