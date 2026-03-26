@@ -383,12 +383,8 @@ export default function SignupSection() {
                           setEmailVerifyToken('')
                           if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
                         }}
-                        disabled={isEmailVerified}
-                        className={cn(
-                          'flex-1',
-                          isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                          className,
-                        )}
+                        readOnly={isEmailVerified}
+                        className={cn('flex-1', className)}
                       />
                       <AppOutlineButton
                         type="button"
@@ -411,13 +407,9 @@ export default function SignupSection() {
                             if (e.target.value.length <= 6) setEmailVerifyCode(e.target.value)
                           }}
                           readOnly={isEmailVerified}
-                          disabled={isEmailVerified}
                           placeholder="123456"
                           maxLength={6}
-                          className={cn(
-                            'flex-1 pr-4',
-                            isEmailVerified && 'bg-[#f8f8f8] text-[#aaaaaa]',
-                          )}
+                          className="flex-1 pr-4"
                         />
                         <AppOutlineButton
                           type="button"

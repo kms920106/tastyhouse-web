@@ -55,10 +55,9 @@ export default function PhoneVerificationField({
                 if (error) onClearError?.()
               }}
               readOnly={isVerified}
-              disabled={isVerified}
               placeholder="숫자만 입력해 주세요."
               maxLength={11}
-              className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]', className)}
+              className={cn('flex-1 pr-4', className)}
             />
             <AppOutlineButton
               type="button"
@@ -88,10 +87,9 @@ export default function PhoneVerificationField({
                   if (e.target.value.length <= 6) setVerifyCode(e.target.value)
                 }}
                 readOnly={isVerified}
-                disabled={isVerified}
                 placeholder="숫자만 입력해 주세요."
                 maxLength={6}
-                className={cn('flex-1 pr-4', isVerified && 'bg-[#f8f8f8] text-[#aaaaaa]')}
+                className="flex-1 pr-4"
               />
               <AppOutlineButton
                 type="button"
