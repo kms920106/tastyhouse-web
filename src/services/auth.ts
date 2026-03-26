@@ -3,12 +3,11 @@
 import { emailVerificationRepository } from '@/domains/email-verification'
 import { memberService } from '@/domains/member'
 import { api } from '@/lib/api'
-import { redirect } from 'next/navigation'
 
 const SIGNUP_ENDPOINT = '/api/auth/signup'
 
 export interface SignupPayload {
-  email: string
+  username: string
   password: string
   fullName: string
   nickname: string
@@ -17,6 +16,10 @@ export interface SignupPayload {
   gender: string
   referrerNickname?: string
   marketingInfoEnabled: boolean
+  eventInfoEnabled: boolean
+  pushNotificationEnabled: boolean
+  emailVerifyToken: string
+  phoneVerifyToken: string
 }
 
 export type SignupResult = {
@@ -36,21 +39,12 @@ export async function checkNicknameAvailability(nickname: string) {
   return memberService.checkNicknameAvailability(nickname)
 }
 
-export async function signup(
-  payload: SignupPayload,
-  emailVerifyToken: string,
-  phoneVerifyToken: string,
-): Promise<SignupResult | void> {
-  const { error } = await api.post<void>(SIGNUP_ENDPOINT, payload, {
-    headers: {
-      'X-Email-Verify-Token': emailVerifyToken,
-      'X-Phone-Verify-Token': phoneVerifyToken,
-    },
-  })
+export async function signup(payload: SignupPayload): Promise<SignupResult | null> {
+  const { error } = await api.post<void>(SIGNUP_ENDPOINT, payload)
 
   if (error) {
     return { success: false, error: '회원가입에 실패했습니다. 다시 시도해 주세요.' }
   }
 
-  redirect('/auth/login')
+  return null
 }

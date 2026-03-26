@@ -49,7 +49,13 @@ const TERMS_LIST = [
     required: true,
     href: '/terms/finance',
   },
-  { key: 'agreedMarketing', label: '이벤트 정보 수신 동의 (선택)', required: false, href: null },
+  { key: 'agreedMarketing', label: '마케팅 정보 수신 동의 (선택)', required: false, href: null },
+  {
+    key: 'agreedPushNotification',
+    label: '푸시 알림 수신 동의 (선택)',
+    required: false,
+    href: null,
+  },
 ] as const
 
 type TermsKey = (typeof TERMS_LIST)[number]['key']
@@ -154,6 +160,7 @@ export default function SignupSection() {
     agreedFinance: false,
     agreedAge: false,
     agreedMarketing: false,
+    agreedPushNotification: false,
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
@@ -548,6 +555,7 @@ export default function SignupSection() {
                 {() => (
                   <div className="flex gap-2">
                     <AppSelect
+                      name="birthYear"
                       value={birthYear}
                       onChange={(e) => {
                         setBirthYear(e.target.value)
@@ -564,6 +572,7 @@ export default function SignupSection() {
                       ))}
                     </AppSelect>
                     <AppSelect
+                      name="birthMonth"
                       value={birthMonth}
                       onChange={(e) => {
                         setBirthMonth(e.target.value)
@@ -583,6 +592,7 @@ export default function SignupSection() {
                       ))}
                     </AppSelect>
                     <AppSelect
+                      name="birthDay"
                       value={birthDay}
                       onChange={(e) => {
                         setBirthDay(e.target.value)

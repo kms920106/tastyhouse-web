@@ -3,6 +3,7 @@
 import * as authService from '@/services/auth'
 import type { SignupResult } from '@/services/auth'
 import { signup } from '@/services/auth'
+import { redirect } from 'next/navigation'
 
 export type { SignupResult }
 
@@ -37,24 +38,25 @@ export async function signupFormAction(
   const emailVerifyToken = formData.get('emailVerifyToken')?.toString() ?? ''
   const phoneVerifyToken = formData.get('phoneVerifyToken')?.toString() ?? ''
   const agreedMarketing = formData.has('agreedMarketing')
+  const agreedPushNotification = formData.has('agreedPushNotification')
 
-  const result = await signup(
-    {
-      email,
-      password,
-      fullName,
-      nickname,
-      phoneNumber,
-      birthDate: Number(birthDate),
-      gender,
-      referrerNickname: referrerNickname || undefined,
-      marketingInfoEnabled: agreedMarketing,
-    },
+  const result = await signup({
+    username: email,
+    password,
+    fullName,
+    nickname,
+    phoneNumber,
+    birthDate: Number(birthDate),
+    gender,
+    referrerNickname: referrerNickname || undefined,
+    marketingInfoEnabled: agreedMarketing,
+    eventInfoEnabled: agreedMarketing,
+    pushNotificationEnabled: agreedPushNotification,
     emailVerifyToken,
     phoneVerifyToken,
-  )
+  })
 
   if (result) return result
 
-  return { success: false, error: '회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  redirect('/auth/login')
 }
