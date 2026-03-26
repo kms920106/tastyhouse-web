@@ -2,7 +2,6 @@
 
 import {
   memberRepository,
-  memberService,
   UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
   UpdateProfileRequest,
@@ -11,7 +10,7 @@ import {
 } from '@/domains/member'
 
 export async function getMyCoupons() {
-  return memberService.getMyCoupons()
+  return memberRepository.getMyCoupons()
 }
 
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
