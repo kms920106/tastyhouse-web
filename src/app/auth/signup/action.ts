@@ -27,7 +27,7 @@ export async function signupFormAction(
   const password = formData.get('password')?.toString() ?? ''
   const fullName = formData.get('fullName')?.toString() ?? ''
   const nickname = formData.get('nickname')?.toString() ?? ''
-  const phoneNumber = formData.get('phoneNumber')?.toString() ?? ''
+  const phoneNumber = (formData.get('phoneNumber')?.toString() ?? '').replace(/-/g, '')
   const birthYear = formData.get('birthYear')?.toString() ?? ''
   const birthMonth = formData.get('birthMonth')?.toString().padStart(2, '0') ?? ''
   const birthDay = formData.get('birthDay')?.toString().padStart(2, '0') ?? ''

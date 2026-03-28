@@ -289,7 +289,7 @@ export default function SignupSection() {
       passwordConfirm,
       fullName,
       nickname,
-      phoneNumber: phoneVerification.phone,
+      phoneNumber: phoneVerification.phone.replace(/-/g, ''),
       birthYear,
       birthMonth,
       birthDay,
@@ -353,6 +353,10 @@ export default function SignupSection() {
       formAction(new FormData(e.currentTarget))
     })
   }
+
+  // TODO
+  // 휴대폰번호 중복 회원가입 금지
+  // 존재하지 않는 추천인 닉네임입니다.
 
   return (
     <section className="min-h-screen">
