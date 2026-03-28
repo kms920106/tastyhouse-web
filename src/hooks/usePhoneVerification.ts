@@ -3,6 +3,7 @@
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import {
+  checkPhoneAvailability,
   confirmPhoneVerificationCode,
   sendPhoneVerificationCode,
 } from '@/services/phone-verification'
@@ -60,6 +61,16 @@ export function usePhoneVerification(
 
     startSending(async () => {
       try {
+        const availabilityResponse = await checkPhoneAvailability(rawPhone)
+        if (availabilityResponse?.error) {
+          toast(availabilityResponse.error)
+          return
+        }
+        if (!availabilityResponse?.data?.available) {
+          toast('이미 가입된 휴대폰번호입니다.')
+          return
+        }
+
         const response = await sendPhoneVerificationCode({ phoneNumber: rawPhone })
         if (response?.error) {
           toast(response.error)

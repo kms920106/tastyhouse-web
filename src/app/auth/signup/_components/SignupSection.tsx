@@ -355,7 +355,6 @@ export default function SignupSection() {
   }
 
   // TODO
-  // 휴대폰번호 중복 회원가입 금지
   // 존재하지 않는 추천인 닉네임입니다.
 
   return (

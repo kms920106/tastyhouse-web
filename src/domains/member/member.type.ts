@@ -203,3 +203,7 @@ export interface UpdatePasswordRequest {
 export interface NicknameAvailabilityResponse {
   available: boolean
 }
+
+export interface PhoneAvailabilityResponse {
+  available: boolean
+}
