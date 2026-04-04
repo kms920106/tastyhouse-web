@@ -90,7 +90,7 @@ class ApiClient {
 
       if (!response.ok) {
         return {
-          error: json?.message || response.statusText || 'An error occurred',
+          error: json?.message || response.statusText || '오류가 발생했습니다. 다시 시도해 주세요.',
           status,
         }
       }
@@ -99,7 +99,7 @@ class ApiClient {
       if (json && typeof json === 'object' && 'success' in json) {
         if (!json.success) {
           return {
-            error: json.message || 'An error occurred',
+            error: json.message || '오류가 발생했습니다. 다시 시도해 주세요.',
             status,
           }
         }
