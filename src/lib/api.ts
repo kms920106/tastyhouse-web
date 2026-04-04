@@ -8,6 +8,7 @@ type RequestConfig = RequestInit & {
     string | number | boolean | Array<string | number | boolean> | null | undefined
   >
   isFormData?: boolean
+  timeout?: number
 }
 
 type PageInfo = {
@@ -54,7 +55,7 @@ class ApiClient {
   }
 
   private async request<T>(endpoint: string, config: RequestConfig = {}): Promise<ApiResponse<T>> {
-    const { params, headers, isFormData, ...restConfig } = config
+    const { params, headers, isFormData, timeout = 30_000, ...restConfig } = config
 
     let url = `${this.baseURL}${endpoint}`
     if (params) {
@@ -76,12 +77,16 @@ class ApiClient {
       }
     }
 
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeout)
+
     try {
       const requestHeaders = await this.getRequestHeaders(headers, isFormData)
 
       const response = await fetch(url, {
         headers: requestHeaders,
         cache: 'no-store',
+        signal: controller.signal,
         ...restConfig,
       })
 
@@ -113,10 +118,15 @@ class ApiClient {
 
       return { data: json as T, status }
     } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        return { error: '요청 시간이 초과되었습니다.', status: 0 }
+      }
       return {
         error: error instanceof Error ? error.message : 'Network error',
         status: 0,
       }
+    } finally {
+      clearTimeout(timeoutId)
     }
   }
 
