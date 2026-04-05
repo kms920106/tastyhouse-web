@@ -1,8 +1,13 @@
 'use client'
 
+import AppTermsDialog from '@/app/auth/signup/_components/AppTermsDialog'
 import {
   checkNicknameAvailability,
   confirmEmailVerificationCode,
+  fetchAgeVerificationContent,
+  fetchElectronicFinancialTransactionsContent,
+  fetchPrivacyPolicyContent,
+  fetchTermsOfServiceContent,
   sendEmailVerificationCode,
   signupFormAction,
 } from '@/app/auth/signup/action'
@@ -47,7 +52,7 @@ const TERMS_LIST = [
     key: 'agreedAge',
     label: '만 14세 이상 이용 동의 (필수)',
     required: true,
-    href: '/terms/finance',
+    href: '/terms/age-verification',
   },
   { key: 'agreedMarketing', label: '마케팅 정보 수신 동의 (선택)', required: false, href: null },
   {
@@ -153,6 +158,29 @@ export default function SignupSection() {
   const [referrerNickname, setReferrerNickname] = useState('')
   const [isReferrerVerified, setIsReferrerVerified] = useState(false)
   const [isCheckingReferrer, startCheckingReferrer] = useTransition()
+
+  const [termsDialog, setTermsDialog] = useState<{
+    open: boolean
+    title: string
+    htmlContent: string
+  }>({ open: false, title: '', htmlContent: '' })
+
+  const handleOpenTermsDialog = async (termKey: TermsKey, label: string) => {
+    try {
+      const fetchMap: Partial<Record<TermsKey, () => Promise<string>>> = {
+        agreedTerms: fetchTermsOfServiceContent,
+        agreedPrivacy: fetchPrivacyPolicyContent,
+        agreedFinance: fetchElectronicFinancialTransactionsContent,
+        agreedAge: fetchAgeVerificationContent,
+      }
+      const fetcher = fetchMap[termKey]
+      if (!fetcher) return
+      const htmlContent = await fetcher()
+      setTermsDialog({ open: true, title: label, htmlContent })
+    } catch {
+      toast('약관 내용을 불러오는데 실패했습니다.')
+    }
+  }
 
   const [agreedAll, setAgreedAll] = useState(false)
   const [agreedTerms, setAgreedTerms] = useState<Record<TermsKey, boolean>>({
@@ -712,9 +740,18 @@ export default function SignupSection() {
                       <span className="text-[13px] leading-[13px] font-light">{label}</span>
                     </label>
                     {href && (
-                      <a href={href}>
-                        <Image src="/images/icon-nav-right.svg" alt="" width={6} height={10} />
-                      </a>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenTermsDialog(key, label)}
+                        className="shrink-0 cursor-pointer"
+                      >
+                        <Image
+                          src="/images/icon-nav-right.svg"
+                          alt="약관 보기"
+                          width={6}
+                          height={10}
+                        />
+                      </button>
                     )}
                   </div>
                 ))}
@@ -730,6 +767,13 @@ export default function SignupSection() {
           </BorderedSection>
         </SectionStack>
       </form>
+      <AppTermsDialog
+        open={termsDialog.open}
+        onOpenChange={(open) => setTermsDialog((prev) => ({ ...prev, open }))}
+        title={termsDialog.title}
+      >
+        <div dangerouslySetInnerHTML={{ __html: termsDialog.htmlContent }} />
+      </AppTermsDialog>
     </section>
   )
 }

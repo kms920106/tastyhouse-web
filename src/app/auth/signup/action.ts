@@ -3,9 +3,30 @@
 import * as authService from '@/services/auth'
 import type { SignupResult } from '@/services/auth'
 import { signup } from '@/services/auth'
+import { policyRepository } from '@/domains/policy'
 import { redirect } from 'next/navigation'
 
 export type { SignupResult }
+
+export async function fetchTermsOfServiceContent(): Promise<string> {
+  const { data } = await policyRepository.getLatestTermsOfService()
+  return data?.content ?? ''
+}
+
+export async function fetchPrivacyPolicyContent(): Promise<string> {
+  const { data } = await policyRepository.getLatestPrivacyPolicy()
+  return data?.content ?? ''
+}
+
+export async function fetchElectronicFinancialTransactionsContent(): Promise<string> {
+  const { data } = await policyRepository.getLatestElectronicFinancialTransactions()
+  return data?.content ?? ''
+}
+
+export async function fetchAgeVerificationContent(): Promise<string> {
+  const { data } = await policyRepository.getLatestAgeVerification()
+  return data?.content ?? ''
+}
 
 export async function sendEmailVerificationCode(email: string) {
   return authService.sendEmailVerificationCode(email)
