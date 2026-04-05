@@ -151,6 +151,7 @@ export default function SignupSection() {
   const [gender, setGender] = useState<Gender | null>(null)
 
   const [referrerNickname, setReferrerNickname] = useState('')
+  const [isReferrerVerified, setIsReferrerVerified] = useState(false)
   const [isCheckingReferrer, startCheckingReferrer] = useTransition()
 
   const [agreedAll, setAgreedAll] = useState(false)
@@ -273,8 +274,10 @@ export default function SignupSection() {
         const response = await checkNicknameAvailability(referrerNickname)
         if (response?.error || response?.data?.available !== false) {
           toast('존재하지 않는 닉네임입니다.')
+          setIsReferrerVerified(false)
           return
         }
+        setIsReferrerVerified(true)
         toast('추천인이 확인되었습니다.')
       } catch {
         toast('추천인 확인에 실패했습니다. 다시 시도해 주세요.')
@@ -663,8 +666,16 @@ export default function SignupSection() {
                       name="referrerNickname"
                       placeholder="추천인 닉네임을 입력해 주세요."
                       value={referrerNickname}
-                      onChange={(e) => setReferrerNickname(e.target.value)}
+                      onChange={(e) => {
+                        setReferrerNickname(e.target.value)
+                        setIsReferrerVerified(false)
+                      }}
                       className="flex-1"
+                    />
+                    <input
+                      type="hidden"
+                      name="verifiedReferrerNickname"
+                      value={isReferrerVerified ? referrerNickname : ''}
                     />
                     <AppOutlineButton
                       type="button"

@@ -34,7 +34,7 @@ export async function signupFormAction(
   const birthDate =
     birthYear && birthMonth && birthDay ? `${birthYear}${birthMonth}${birthDay}` : ''
   const gender = formData.get('gender')?.toString() ?? ''
-  const referrerNickname = formData.get('referrerNickname')?.toString() ?? ''
+  const referrerNickname = formData.get('verifiedReferrerNickname')?.toString() ?? ''
   const emailVerifyToken = formData.get('emailVerifyToken')?.toString() ?? ''
   const phoneVerifyToken = formData.get('phoneVerifyToken')?.toString() ?? ''
   const agreedMarketing = formData.has('agreedMarketing')
