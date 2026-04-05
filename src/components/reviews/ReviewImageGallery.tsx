@@ -7,7 +7,6 @@ import 'yet-another-react-lightbox/styles.css'
 import { useState } from 'react'
 
 import 'yet-another-react-lightbox/plugins/counter.css'
-import { resolveImageUrl } from '@/lib/image'
 import { Skeleton } from '../ui/shadcn/skeleton'
 import ImageLightbox from './ImageLightbox'
 import ImageSwiper from './ImageSwiper'
@@ -26,8 +25,6 @@ export default function ReviewImageGallery({ imageUrls }: ReviewImageGalleryProp
 
   if (imageUrls.length === 0) return null
 
-  const resolvedImageUrls = imageUrls.map(resolveImageUrl)
-
   const openLightbox = (index: number) => {
     setLightboxIndex(index)
     setLightboxOpen(true)
@@ -35,9 +32,9 @@ export default function ReviewImageGallery({ imageUrls }: ReviewImageGalleryProp
 
   return (
     <>
-      <ImageSwiper imageUrls={resolvedImageUrls} onImageClick={openLightbox} />
+      <ImageSwiper imageUrls={imageUrls} onImageClick={openLightbox} />
       <ImageLightbox
-        imageUrls={resolvedImageUrls}
+        imageUrls={imageUrls}
         isOpen={lightboxOpen}
         currentIndex={lightboxIndex}
         onClose={() => setLightboxOpen(false)}

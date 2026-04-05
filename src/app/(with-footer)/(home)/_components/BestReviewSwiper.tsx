@@ -6,7 +6,6 @@ import 'swiper/css/pagination'
 
 import Rating from '@/components/ui/Rating'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { resolveImageUrl } from '@/lib/image'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -115,7 +114,7 @@ export default function BestReviewSwiper({ reviews }: BestReviewSwiperProps) {
               >
                 <div className="relative mb-[15px] w-full bg-gray-100 pt-[75%]">
                   <Image
-                    src={resolveImageUrl(review.imageUrl)}
+                    src={review.imageUrl}
                     alt={review.title}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 33vw"

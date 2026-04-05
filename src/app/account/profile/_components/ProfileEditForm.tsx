@@ -34,6 +34,8 @@ export default function ProfileEditForm() {
   const queryClient = useQueryClient()
   const { memberProfile, isLoading } = useMemberProfile()
 
+  console.log(memberProfile)
+
   const [nickname, setNickname] = useState('')
   const [statusMessage, setStatusMessage] = useState('')
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null)

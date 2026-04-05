@@ -8,7 +8,6 @@ import ProductItem, { ProductItemSkeleton } from '@/components/products/ProductI
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import type { Place } from '@/domains/place'
 import type { Product } from '@/domains/product'
-import { resolveImageUrl } from '@/lib/image'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -66,7 +65,7 @@ export default function ChoiceSwiper({ places }: ChoiceSwiperProps) {
             <Link href={PAGE_PATHS.PLACE_DETAIL(place.id)}>
               <div className="relative w-full aspect-[2/3] overflow-hidden">
                 <Image
-                  src={resolveImageUrl(place.imageUrl)}
+                  src={place.imageUrl}
                   alt={place.name}
                   fill
                   className="object-cover"

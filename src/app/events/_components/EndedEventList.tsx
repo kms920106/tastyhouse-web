@@ -2,7 +2,6 @@
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
-import { resolveImageUrl } from '@/lib/image'
 import { getEventList } from '@/services/event'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
@@ -69,7 +68,7 @@ export default function EndedEventList() {
           <Link key={event.id} href={`/events/${event.id}`} className="cursor-pointer">
             <div className="relative w-full aspect-[2/1]">
               <Image
-                src={resolveImageUrl(event.thumbnailImageUrl)}
+                src={event.thumbnailImageUrl}
                 alt={event.name}
                 fill
                 className="object-cover"

@@ -1,5 +1,4 @@
 import { eventRepository } from "@/domains/event"
-import { resolveImageUrl } from '@/lib/image'
 import Image from 'next/image'
 import HeaderSection from './HeaderSection'
 
@@ -15,7 +14,7 @@ export default async function EventDetailSection({ eventId }: EventDetailSection
       <HeaderSection />
       {data && (
         <Image
-          src={resolveImageUrl(data.bannerImageUrl)}
+          src={data.bannerImageUrl}
           alt="이벤트 배너"
           width={1080}
           height={1436}

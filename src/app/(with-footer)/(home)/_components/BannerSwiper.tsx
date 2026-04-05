@@ -6,7 +6,6 @@ import styles from './BannerSwiper.module.css'
 
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { Banner } from '@/domains/banner'
-import { resolveImageUrl } from '@/lib/image'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -45,7 +44,11 @@ export default function BannerSwiper({ banners }: BannerSwiperProps) {
         disableOnInteraction: false,
       }}
       loop={true}
-      className={cn('w-full aspect-[375/475]', styles.bannerSwiper, banners.length === 1 && styles.bannerSwiperSingleImage)}
+      className={cn(
+        'w-full aspect-[375/475]',
+        styles.bannerSwiper,
+        banners.length === 1 && styles.bannerSwiperSingleImage,
+      )}
     >
       {banners.map((banner, index) => (
         <SwiperSlide key={banner.id}>
@@ -56,7 +59,7 @@ export default function BannerSwiper({ banners }: BannerSwiperProps) {
               className="relative block w-full h-full"
             >
               <Image
-                src={resolveImageUrl(banner.imageUrl)}
+                src={banner.imageUrl}
                 alt={banner.title}
                 fill
                 sizes="(max-width: 500px) 100vw, 500px"
@@ -67,7 +70,7 @@ export default function BannerSwiper({ banners }: BannerSwiperProps) {
           ) : (
             <div className="relative w-full h-full">
               <Image
-                src={resolveImageUrl(banner.imageUrl)}
+                src={banner.imageUrl}
                 alt={banner.title}
                 fill
                 sizes="(max-width: 500px) 100vw, 500px"

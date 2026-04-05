@@ -1,4 +1,3 @@
-import { resolveImageUrl } from '@/lib/image'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
@@ -29,7 +28,7 @@ export default function Avatar({
   const { dimension, className: sizeClassName, defaultImage } = sizeMap[size]
   return (
     <Image
-      src={src ? resolveImageUrl(src) : defaultImage}
+      src={src ? src : defaultImage}
       alt={alt}
       width={dimension}
       height={dimension}

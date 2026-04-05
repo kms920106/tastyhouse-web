@@ -2,7 +2,6 @@
 
 import { getPlaceAmenityCodeName } from '@/constants/place'
 import { PlaceAmenity } from '@/domains/place'
-import { resolveImageUrl } from '@/lib/image'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Skeleton } from '../ui/shadcn/skeleton'
@@ -30,7 +29,7 @@ function FacilityItemContent({ name, imageUrl, isSelected }: FacilityItemContent
     <>
       <div className="relative flex items-center justify-center w-full h-12 mb-[15px]">
         <Image
-          src={resolveImageUrl(imageUrl)}
+          src={imageUrl}
           alt={name}
           width={32}
           height={25}
