@@ -385,10 +385,6 @@ export default function SignupSection() {
     })
   }
 
-  // TODO
-  // 존재하지 않는 추천인 닉네임입니다.
-  // 확인 버튼을 클릭하지 않으면, submit 클릭 시, form에 담지 않기
-
   return (
     <section className="min-h-screen">
       <Header variant="white" height={55}>

@@ -1,9 +1,9 @@
 'use server'
 
-import * as authService from '@/services/auth'
-import type { SignupResult } from '@/services/auth'
-import { signup } from '@/services/auth'
 import { policyRepository } from '@/domains/policy'
+import type { SignupResult } from '@/services/auth'
+import * as authService from '@/services/auth'
+import { signup } from '@/services/auth'
 import { redirect } from 'next/navigation'
 
 export type { SignupResult }
@@ -79,5 +79,5 @@ export async function signupFormAction(
 
   if (result) return result
 
-  redirect('/auth/login')
+  redirect('/auth/signup/complete')
 }
