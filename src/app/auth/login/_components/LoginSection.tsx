@@ -79,6 +79,7 @@ export default function LoginSection() {
       <div className="px-[15px] py-[30px]">
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
+            {/* 이메일 */}
             <div className="flex flex-col gap-2">
               <AppInputText
                 id="username"
@@ -89,12 +90,16 @@ export default function LoginSection() {
                   setUsername(e.target.value)
                   if (errors.username) setErrors((prev) => ({ ...prev, username: undefined }))
                 }}
-                className={errors.username ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined}
+                className={
+                  errors.username ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined
+                }
               />
               {errors.username && (
                 <p className="text-xs leading-[12px] text-[#bc4040]">{errors.username}</p>
               )}
             </div>
+
+            {/* 비밀번호 */}
             <div className="flex flex-col gap-2">
               <AppInputPassword
                 id="password"
@@ -105,7 +110,9 @@ export default function LoginSection() {
                   setPassword(e.target.value)
                   if (errors.password) setErrors((prev) => ({ ...prev, password: undefined }))
                 }}
-                className={errors.password ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined}
+                className={
+                  errors.password ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined
+                }
               />
               {errors.password && (
                 <p className="text-xs leading-[12px] text-[#bc4040]">{errors.password}</p>
@@ -133,6 +140,7 @@ export default function LoginSection() {
           </Link>
         </div>
         <div className="mt-[60px] space-y-2.5">
+          {/* 카카오톡 로그인 */}
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('kakao')}
@@ -143,6 +151,8 @@ export default function LoginSection() {
             </span>
             <span className="flex-1 text-center">카카오톡으로 로그인</span>
           </AppFullButton>
+
+          {/* 네이버 로그인 */}
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('naver')}
@@ -153,6 +163,8 @@ export default function LoginSection() {
             </span>
             <span className="flex-1 text-center">네이버로 로그인</span>
           </AppFullButton>
+
+          {/* 페이스북 로그인 */}
           <AppFullButton
             type="button"
             onClick={() => handleSocialLogin('facebook')}
