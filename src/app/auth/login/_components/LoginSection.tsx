@@ -135,7 +135,7 @@ export default function LoginSection() {
             회원가입
           </Link>
           <span className="text-sm leading-[14px] text-[#666666]">|</span>
-          <Link href={'/forgot-password'} className="text-sm leading-[14px] text-[#666666]">
+          <Link href={'/auth/forgot-password'} className="text-sm leading-[14px] text-[#666666]">
             비밀번호 찾기
           </Link>
         </div>
