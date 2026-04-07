@@ -12,6 +12,16 @@ export async function verifyPasswordReset(username: string, verificationCode: st
   return api.post<{ passwordResetToken: string }>(`${BASE}/verify`, { username, verificationCode })
 }
 
+export async function verifyPasswordResetForEmailField(
+  email: string,
+  verificationCode: string,
+): Promise<{ error?: string; data?: { token: string } } | null> {
+  const response = await verifyPasswordReset(email, verificationCode)
+  if (!response || response.error) return response as { error: string } | null
+  const token = response.data?.passwordResetToken
+  return { data: { token: token ?? '' } }
+}
+
 export async function confirmPasswordReset(
   passwordResetToken: string,
   newPassword: string,

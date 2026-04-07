@@ -3,7 +3,7 @@
 import AppTermsDialog from '@/app/auth/signup/_components/AppTermsDialog'
 import {
   checkNicknameAvailability,
-  confirmEmailVerificationCode,
+  confirmEmailVerificationCodeForEmailField,
   fetchAgeVerificationContent,
   fetchElectronicFinancialTransactionsContent,
   fetchPrivacyPolicyContent,
@@ -15,7 +15,6 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputPassword from '@/components/ui/AppInputPassword'
-import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppInputText from '@/components/ui/AppInputText'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import AppSelect from '@/components/ui/AppSelect'
@@ -23,11 +22,13 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
+import EmailVerificationField from '@/components/ui/EmailVerificationField'
 import FormCheckbox from '@/components/ui/FormCheckbox'
 import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
-import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
+import { EMAIL_ERROR_MESSAGES, EMAIL_REGEX, PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import type { Gender } from '@/domains/member'
+import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
@@ -68,11 +69,11 @@ type TermsKey = (typeof TERMS_LIST)[number]['key']
 const signupSchema = z.object({
   email: z.string().superRefine((val, ctx) => {
     if (val.length === 0) {
-      ctx.addIssue({ code: 'custom', message: '이메일 주소를 입력해 주세요.' })
+      ctx.addIssue({ code: 'custom', message: EMAIL_ERROR_MESSAGES.REQUIRED })
       return
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-      ctx.addIssue({ code: 'custom', message: '올바른 이메일 주소 형식이 아닙니다.' })
+    if (!EMAIL_REGEX.test(val)) {
+      ctx.addIssue({ code: 'custom', message: EMAIL_ERROR_MESSAGES.INVALID })
     }
   }),
   password: z.string().superRefine((val, ctx) => {
@@ -131,13 +132,10 @@ const signupSchema = z.object({
 type FormErrors = Partial<Record<keyof z.infer<typeof signupSchema> | 'birthDate', string>>
 
 export default function SignupSection() {
-  const [email, setEmail] = useState('')
-  const [emailVerifyCode, setEmailVerifyCode] = useState('')
-  const [isEmailCodeVisible, setIsEmailCodeVisible] = useState(false)
-  const [isEmailVerified, setIsEmailVerified] = useState(false)
-  const [emailVerifyToken, setEmailVerifyToken] = useState('')
-  const [isSendingEmailCode, startSendingEmailCode] = useTransition()
-  const [isConfirmingEmailCode, startConfirmingEmailCode] = useTransition()
+  const emailVerification = useEmailVerification({
+    sendFn: sendEmailVerificationCode,
+    confirmFn: confirmEmailVerificationCodeForEmailField,
+  })
 
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
@@ -216,55 +214,6 @@ export default function SignupSection() {
     setAgreedTerms(updated)
   }
 
-  const handleSendEmailCode = () => {
-    if (!email.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      setErrors((prev) => ({ ...prev, email: '올바른 이메일 주소를 입력해 주세요.' }))
-      return
-    }
-
-    startSendingEmailCode(async () => {
-      try {
-        const response = await sendEmailVerificationCode(email)
-
-        if (response?.error) {
-          toast(response.error)
-          return
-        }
-
-        setIsEmailCodeVisible(true)
-
-        toast('인증 메일이 발송되었습니다.')
-      } catch {
-        toast('인증 메일 발송에 실패했습니다. 다시 시도해 주세요.')
-      }
-    })
-  }
-
-  const handleConfirmEmailCode = () => {
-    startConfirmingEmailCode(async () => {
-      try {
-        const response = await confirmEmailVerificationCode(email, emailVerifyCode)
-
-        if (response?.error) {
-          toast(response.error)
-          return
-        }
-
-        const token = response?.data?.emailVerifyToken
-
-        if (!token) {
-          toast('인증에 실패했습니다. 다시 시도해 주세요.')
-          return
-        }
-
-        setEmailVerifyToken(token)
-        setIsEmailVerified(true)
-      } catch {
-        toast('인증번호 확인에 실패했습니다. 다시 시도해 주세요.')
-      }
-    })
-  }
-
   const handleCheckNickname = () => {
     if (!nickname.trim()) {
       setErrors((prev) => ({ ...prev, nickname: '닉네임을 입력해 주세요.' }))
@@ -315,7 +264,7 @@ export default function SignupSection() {
 
   const validateForm = (): boolean => {
     const result = signupSchema.safeParse({
-      email,
+      email: emailVerification.email,
       password,
       passwordConfirm,
       fullName,
@@ -364,7 +313,7 @@ export default function SignupSection() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!validateForm()) return
-    if (!isEmailVerified) {
+    if (!emailVerification.isVerified) {
       toast('이메일 인증을 완료해 주세요.')
       return
     }
@@ -400,7 +349,7 @@ export default function SignupSection() {
           <BorderedSection className="border-t-0">
             <div className="px-[15px] py-[30px] flex flex-col gap-5">
               {/* hidden */}
-              <input type="hidden" name="emailVerifyToken" value={emailVerifyToken} />
+              <input type="hidden" name="emailVerifyToken" value={emailVerification.token} />
               <input
                 type="hidden"
                 name="phoneVerifyToken"
@@ -408,70 +357,12 @@ export default function SignupSection() {
               />
 
               {/* 아이디 */}
-              <AppFormField label="아이디" required error={errors.email}>
-                {({ className }) => (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex gap-2">
-                      <AppInputText
-                        id="email"
-                        name="email"
-                        placeholder="이메일을 입력해 주세요."
-                        value={email}
-                        onChange={(e) => {
-                          setEmail(e.target.value)
-                          setIsEmailVerified(false)
-                          setIsEmailCodeVisible(false)
-                          setEmailVerifyToken('')
-                          if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }))
-                        }}
-                        readOnly={isEmailVerified}
-                        className={cn('flex-1', className)}
-                      />
-                      <AppOutlineButton
-                        type="button"
-                        onClick={handleSendEmailCode}
-                        disabled={!email.trim() || isEmailVerified || isSendingEmailCode}
-                        className="shrink-0"
-                      >
-                        {isSendingEmailCode
-                          ? '발송 중'
-                          : isEmailCodeVisible
-                            ? '재발송'
-                            : '인증메일 받기'}
-                      </AppOutlineButton>
-                    </div>
-                    {isEmailCodeVisible && (
-                      <div className="flex gap-2">
-                        <AppInputPhone
-                          value={emailVerifyCode}
-                          onChange={(e) => {
-                            if (e.target.value.length <= 6) setEmailVerifyCode(e.target.value)
-                          }}
-                          readOnly={isEmailVerified}
-                          placeholder="123456"
-                          maxLength={6}
-                          className="flex-1 pr-4"
-                        />
-                        <AppOutlineButton
-                          type="button"
-                          className="shrink-0"
-                          onClick={handleConfirmEmailCode}
-                          disabled={
-                            !emailVerifyCode.trim() || isEmailVerified || isConfirmingEmailCode
-                          }
-                        >
-                          {isConfirmingEmailCode ? '확인 중' : '확인'}
-                        </AppOutlineButton>
-                      </div>
-                    )}
-                    {isEmailVerified && (
-                      <p className="text-xs leading-[12px] text-[#999999]">
-                        인증이 완료되었습니다.
-                      </p>
-                    )}
-                  </div>
-                )}
-              </AppFormField>
+              <EmailVerificationField
+                verification={emailVerification}
+                label="아이디"
+                error={errors.email}
+                onClearError={() => setErrors((prev) => ({ ...prev, email: undefined }))}
+              />
 
               {/* 비밀번호 */}
               <AppFormField label="비밀번호" required>

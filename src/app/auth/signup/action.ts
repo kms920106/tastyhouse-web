@@ -36,6 +36,16 @@ export async function confirmEmailVerificationCode(email: string, verificationCo
   return authService.confirmEmailVerificationCode(email, verificationCode)
 }
 
+export async function confirmEmailVerificationCodeForEmailField(
+  email: string,
+  verificationCode: string,
+): Promise<{ error?: string; data?: { token: string } } | null> {
+  const response = await authService.confirmEmailVerificationCode(email, verificationCode)
+  if (!response || response.error) return response as { error: string } | null
+  const token = response.data?.emailVerifyToken
+  return { data: { token: token ?? '' } }
+}
+
 export async function checkNicknameAvailability(nickname: string) {
   return authService.checkNicknameAvailability(nickname)
 }

@@ -4,8 +4,8 @@ import { loginFormAction } from '@/app/auth/login/action'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { CloseButton } from '@/components/layouts/header-parts'
 import AppFullButton from '@/components/ui/AppFullButton'
+import AppInputEmail from '@/components/ui/AppInputEmail'
 import AppInputPassword from '@/components/ui/AppInputPassword'
-import AppInputText from '@/components/ui/AppInputText'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
@@ -81,7 +81,7 @@ export default function LoginSection() {
           <div className="space-y-4">
             {/* 이메일 */}
             <div className="flex flex-col gap-2">
-              <AppInputText
+              <AppInputEmail
                 id="username"
                 name="username"
                 placeholder="아이디(이메일주소)를 입력해 주세요."
