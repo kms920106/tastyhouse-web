@@ -1,6 +1,6 @@
 'use client'
 
-import { getMapMarkers } from '@/services/place'
+import { getMapMarkers } from '@/actions/place'
 import { PlaceMapMarkerResponse } from '@/domains/place'
 import Script from 'next/script'
 import { useCallback, useRef, useState } from 'react'

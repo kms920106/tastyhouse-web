@@ -4,7 +4,7 @@ import ReviewImageGallery, {
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getPlacePhotos } from '@/services/place'
+import { getPlacePhotos } from '@/actions/place'
 import { useQuery } from '@tanstack/react-query'
 
 export function PlacePhotoListSkeleton() {

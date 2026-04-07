@@ -2,7 +2,7 @@
 
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { followMember, unfollowMember } from '@/services/follow'
+import { followMember, unfollowMember } from '@/actions/follow'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface FollowableMember {

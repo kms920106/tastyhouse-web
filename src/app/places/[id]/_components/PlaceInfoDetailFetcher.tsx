@@ -1,6 +1,6 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getPlaceInfo } from '@/services/place'
+import { getPlaceInfo } from '@/actions/place'
 import { useQuery } from '@tanstack/react-query'
 import PlaceInfoDetail, { PlaceInfoDetailSkeleton } from './PlaceInfoDetail'
 

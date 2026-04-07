@@ -3,7 +3,7 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getMyBookmarks } from '@/services/member'
+import { getMyBookmarks } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 import BookmarkList from './BookmarkList'
 

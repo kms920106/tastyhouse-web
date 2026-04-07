@@ -3,7 +3,7 @@
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
 import { cn } from '@/lib/utils'
-import { getNoticeList } from '@/services/notice'
+import { getNoticeList } from '@/actions/notice'
 import {
   Accordion,
   AccordionContent,

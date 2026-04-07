@@ -6,7 +6,7 @@ import RatingStar from '@/components/ui/RatingStar'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { formatDecimal, formatNumber } from '@/lib/number'
-import { getPlaceReviewStatistics } from '@/services/place'
+import { getPlaceReviewStatistics } from '@/actions/place'
 import { useQuery } from '@tanstack/react-query'
 import RatingDistributionChart from './RatingDistributionChart'
 

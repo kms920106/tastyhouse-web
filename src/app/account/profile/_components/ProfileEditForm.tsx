@@ -8,7 +8,7 @@ import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberPro
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
-import { updateMemberProfile } from '@/services/member'
+import { updateMemberProfile } from '@/actions/member'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'

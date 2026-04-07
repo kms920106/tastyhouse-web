@@ -2,7 +2,7 @@
 
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { toggleReviewLike } from '@/services/review'
+import { toggleReviewLike } from '@/actions/review'
 import { useState, useTransition } from 'react'
 import ReviewLikeButton from './ReviewLikeButton'
 

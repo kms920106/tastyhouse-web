@@ -11,14 +11,14 @@ import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getOrderDetail } from '@/services/order'
+import { orderRepository } from '@/domains/order'
 
 interface OrderDetailSectionProps {
   orderId: number
 }
 
 export default async function OrderDetailSection({ orderId }: OrderDetailSectionProps) {
-  const { data } = await getOrderDetail(orderId)
+  const { data } = await orderRepository.getOrderDetail(orderId)
 
   if (!data) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문')} />

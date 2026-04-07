@@ -1,6 +1,6 @@
 'use client'
 
-import KakaoMap from '@/components/home/KakaoMap'
+import KakaoMap from '@/app/map/_components/KakaoMap'
 import ReviewButton from '@/components/home/ReviewButton'
 import SideBar from '@/components/home/SideBar'
 import SideBarButton from '@/components/home/SideBarButton'

@@ -10,7 +10,7 @@ import {
   fetchTermsOfServiceContent,
   sendEmailVerificationCode,
   signupFormAction,
-} from '@/app/auth/signup/action'
+} from '@/actions/signup'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppFormField from '@/components/ui/AppFormField'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { getFollowerList, removeFollower } from '@/services/follow'
+import { getFollowerList, removeFollower } from '@/actions/follow'
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'

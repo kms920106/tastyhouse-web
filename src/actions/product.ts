@@ -1,6 +1,6 @@
 'use server'
 
-import { ProductReviewsByRatingQuery, productRepository } from '@/domains/product'
+import { productRepository, ProductReviewsByRatingQuery } from '@/domains/product'
 
 export async function getProductById(productId: number) {
   return productRepository.getProductById(productId)

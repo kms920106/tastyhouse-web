@@ -1,4 +1,4 @@
-import { getReviewWriteInfo } from '@/services/review'
+import { reviewRepository } from '@/domains/review'
 import { notFound } from 'next/navigation'
 import OrderReviewCreateSection from './_components/OrderReviewCreateSection'
 
@@ -13,7 +13,7 @@ export default async function OrderReviewCreatePage({ searchParams }: OrderRevie
     notFound()
   }
 
-  const { data, error } = await getReviewWriteInfo(Number(orderItemId))
+  const { data, error } = await reviewRepository.getReviewWriteInfo(Number(orderItemId))
 
   if (error || !data) {
     notFound()

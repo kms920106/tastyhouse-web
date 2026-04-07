@@ -3,7 +3,7 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getOrderList } from '@/services/order'
+import { getOrderList } from '@/actions/order'
 import { useQuery } from '@tanstack/react-query'
 import OrderList from './OrderList'
 

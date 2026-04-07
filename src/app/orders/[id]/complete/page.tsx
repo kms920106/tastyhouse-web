@@ -1,6 +1,6 @@
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getOrderDetail } from '@/services/order'
+import { orderRepository } from '@/domains/order'
 import OrderCompleteSection from './_components/OrderCompleteSection'
 
 interface OrderCompletePageProps {
@@ -12,7 +12,7 @@ interface OrderCompletePageProps {
 export default async function OrderCompletePage({ params }: OrderCompletePageProps) {
   const { id } = await params
 
-  const orderDetailResult = await getOrderDetail(Number(id))
+  const orderDetailResult = await orderRepository.getOrderDetail(Number(id))
 
   const orderDetail = orderDetailResult.data
 

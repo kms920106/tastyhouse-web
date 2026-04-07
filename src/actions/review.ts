@@ -1,16 +1,24 @@
 'use server'
 
-import type {
+import {
+  reviewRepository,
   CommentCreateRequest,
   ReplyCreateRequest,
   ReviewCreateRequest,
   ReviewLatestQuery,
 } from '@/domains/review'
-import { reviewRepository } from '@/domains/review'
 import { revalidatePath } from 'next/cache'
 
 export async function getLatestReviews(params: ReviewLatestQuery) {
   return reviewRepository.getLatestReviews(params)
+}
+
+export async function getMemberReviews(
+  memberId: number | string,
+  page: number = 0,
+  size: number = 9,
+) {
+  return reviewRepository.getMemberReviews(memberId, { page, size })
 }
 
 export async function toggleReviewLike(reviewId: number) {
@@ -33,6 +41,7 @@ export async function createReply(
   request: ReplyCreateRequest,
 ) {
   const result = await reviewRepository.createReviewReply(reviewId, commentId, request)
+
   if (!result.error && result.data) {
     revalidatePath(`/reviews/${reviewId}`)
   }
@@ -52,8 +61,4 @@ export async function createOrderReview(request: ReviewCreateRequest) {
   }
 
   return result
-}
-
-export async function getMemberReviews(memberId: number | string, page: number = 0, size: number = 9) {
-  return reviewRepository.getMemberReviews(memberId, { page, size })
 }

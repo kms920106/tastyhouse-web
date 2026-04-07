@@ -5,15 +5,15 @@ import SectionStack from '@/components/ui/SectionStack'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/constants/member'
 import { MemberGradeCode } from '@/domains/member'
 import { cn } from '@/lib/utils'
-import { getGradeInfoList, getMyGrade } from '@/services/grade'
-import { getMemberMe } from '@/services/member'
+import { gradeRepository } from '@/domains/grade'
+import { memberRepository } from '@/domains/member'
 import Image from 'next/image'
 
 export default async function GradeSection() {
   const [meResult, myGradeResult, gradeInfoListResult] = await Promise.all([
-    getMemberMe(),
-    getMyGrade(),
-    getGradeInfoList(),
+    memberRepository.getMemberMe(),
+    gradeRepository.getMyGrade(),
+    gradeRepository.getGradeInfoList(),
   ])
 
   const me = meResult.data

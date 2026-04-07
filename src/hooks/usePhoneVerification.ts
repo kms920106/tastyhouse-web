@@ -6,7 +6,7 @@ import {
   checkPhoneAvailability,
   confirmPhoneVerificationCode,
   sendPhoneVerificationCode,
-} from '@/services/phone-verification'
+} from '@/actions/phone-verification'
 import { useState, useTransition } from 'react'
 
 interface UsePhoneVerificationOptions {

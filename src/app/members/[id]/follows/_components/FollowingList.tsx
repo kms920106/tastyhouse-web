@@ -3,7 +3,7 @@
 import { FollowMemberResponse } from '@/domains/follow'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { getFollowingList } from '@/services/follow'
+import { getFollowingList } from '@/actions/follow'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'

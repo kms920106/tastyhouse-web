@@ -1,6 +1,6 @@
 import { env } from '@/lib/env'
 import { PAGE_PATHS } from '@/lib/paths'
-import { confirmPaymentToss } from '@/services/payment'
+import { confirmPaymentToss } from '@/actions/payment'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**

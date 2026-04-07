@@ -2,7 +2,7 @@
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
-import { getEventList } from '@/services/event'
+import { getEventList } from '@/actions/event'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'

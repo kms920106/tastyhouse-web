@@ -1,12 +1,33 @@
 'use server'
 
+import { emailVerificationRepository } from '@/domains/email-verification'
+import { memberRepository } from '@/domains/member'
 import { policyRepository } from '@/domains/policy'
-import type { SignupResult } from '@/services/auth'
-import * as authService from '@/services/auth'
-import { signup } from '@/services/auth'
+import { api } from '@/lib/api'
 import { redirect } from 'next/navigation'
 
-export type { SignupResult }
+const SIGNUP_ENDPOINT = '/api/auth/signup'
+
+export type SignupResult = {
+  success: false
+  error: string
+}
+
+export interface SignupPayload {
+  username: string
+  password: string
+  fullName: string
+  nickname: string
+  phoneNumber: string
+  birthDate: number
+  gender: string
+  referrerNickname?: string
+  marketingInfoEnabled: boolean
+  eventInfoEnabled: boolean
+  pushNotificationEnabled: boolean
+  emailVerifyToken: string
+  phoneVerifyToken: string
+}
 
 export async function fetchTermsOfServiceContent(): Promise<string> {
   const { data } = await policyRepository.getLatestTermsOfService()
@@ -29,25 +50,38 @@ export async function fetchAgeVerificationContent(): Promise<string> {
 }
 
 export async function sendEmailVerificationCode(email: string) {
-  return authService.sendEmailVerificationCode(email)
+  return emailVerificationRepository.sendVerificationCode({ email })
 }
 
 export async function confirmEmailVerificationCode(email: string, verificationCode: string) {
-  return authService.confirmEmailVerificationCode(email, verificationCode)
+  return emailVerificationRepository.confirmVerificationCode({ email, verificationCode })
 }
 
 export async function confirmEmailVerificationCodeForEmailField(
   email: string,
   verificationCode: string,
 ): Promise<{ error?: string; data?: { token: string } } | null> {
-  const response = await authService.confirmEmailVerificationCode(email, verificationCode)
+  const response = await emailVerificationRepository.confirmVerificationCode({
+    email,
+    verificationCode,
+  })
   if (!response || response.error) return response as { error: string } | null
   const token = response.data?.emailVerifyToken
   return { data: { token: token ?? '' } }
 }
 
 export async function checkNicknameAvailability(nickname: string) {
-  return authService.checkNicknameAvailability(nickname)
+  return memberRepository.checkNicknameAvailability(nickname)
+}
+
+async function signup(payload: SignupPayload): Promise<SignupResult | null> {
+  const { error } = await api.post<void>(SIGNUP_ENDPOINT, payload)
+
+  if (error) {
+    return { success: false, error: '회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  return null
 }
 
 export async function signupFormAction(

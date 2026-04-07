@@ -1,6 +1,6 @@
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { togglePlaceBookmark } from '@/services/place'
+import { togglePlaceBookmark } from '@/actions/place'
 import { useState, useTransition } from 'react'
 
 interface UsePlaceBookmarkProps {

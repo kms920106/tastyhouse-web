@@ -9,7 +9,7 @@ import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
-import { createBugReport } from '@/services/bug-report'
+import { createBugReport } from '@/actions/bug-report'
 import { useCallback, useState, useTransition } from 'react'
 import { z } from 'zod'
 

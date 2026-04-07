@@ -1,6 +1,6 @@
 'use client'
 
-import { confirmPasswordReset } from '@/app/auth/forgot-password/action'
+import { confirmPasswordReset } from '@/actions/auth'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputPassword from '@/components/ui/AppInputPassword'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'

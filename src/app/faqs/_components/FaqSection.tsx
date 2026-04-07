@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/shadcn/accordion'
 import { FaqCategoryItem, FaqItem } from '@/domains/faq'
 import { cn } from '@/lib/utils'
-import { getFaqList } from '@/services/faq'
+import { getFaqList } from '@/actions/faq'
 import { useEffect, useState } from 'react'
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'

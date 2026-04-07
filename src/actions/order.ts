@@ -1,7 +1,6 @@
 'use server'
 
-import type { OrderCreateRequest } from '@/domains/order'
-import { orderRepository } from '@/domains/order'
+import { orderRepository, OrderCreateRequest } from '@/domains/order'
 
 export async function createOrder(request: OrderCreateRequest) {
   return orderRepository.createOrder(request)

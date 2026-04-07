@@ -3,7 +3,7 @@
 import { MemberSearchResponse } from '@/domains/follow'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { searchMembersByNickname } from '@/services/follow'
+import { searchMembersByNickname } from '@/actions/follow'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'

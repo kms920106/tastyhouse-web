@@ -2,7 +2,7 @@
 
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { createComment, createReply } from '@/services/review'
+import { createComment, createReply } from '@/actions/review'
 import { useState } from 'react'
 import CommentSubmitButton from './CommentSubmitButton'
 import { useReply } from './ReplyContext'

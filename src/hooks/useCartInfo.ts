@@ -10,7 +10,7 @@ import {
   calculateTotalProductPaymentAmount,
 } from '@/lib/paymentCalculation'
 import { toast } from '@/components/ui/AppToaster'
-import { getProductById } from '@/services/product'
+import { getProductById } from '@/actions/product'
 import { useCallback, useEffect, useState } from 'react'
 
 export interface CartInfo {

@@ -3,7 +3,7 @@
 import {
   requestPasswordReset,
   verifyPasswordResetForEmailField,
-} from '@/app/auth/forgot-password/action'
+} from '@/actions/auth'
 import EmailVerificationField from '@/components/ui/EmailVerificationField'
 import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { useEffect } from 'react'

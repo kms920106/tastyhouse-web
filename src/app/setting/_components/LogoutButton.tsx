@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
-import { logout } from '@/app/setting/action'
+import { logout } from '@/actions/auth'
 
 function ArrowIcon() {
   return <Image src="/images/layout/nav-right.png" alt="" width={7} height={12} />

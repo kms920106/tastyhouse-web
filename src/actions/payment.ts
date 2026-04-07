@@ -1,7 +1,11 @@
 'use server'
 
-import type { PaymentCancelRequest, PaymentConfirmRequest, PaymentCreateRequest } from '@/domains/payment'
-import { paymentRepository } from '@/domains/payment'
+import {
+  paymentRepository,
+  PaymentCancelRequest,
+  PaymentConfirmRequest,
+  PaymentCreateRequest,
+} from '@/domains/payment'
 
 export async function createPayment(request: PaymentCreateRequest) {
   return paymentRepository.createPayment(request)

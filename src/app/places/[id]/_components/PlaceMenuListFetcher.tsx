@@ -4,7 +4,7 @@ import ErrorMessage from '@/components/ui/ErrorMessage'
 import type { MenuCategory } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { PAGE_PATHS } from '@/lib/paths'
-import { getPlaceMenus } from '@/services/place'
+import { getPlaceMenus } from '@/actions/place'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 

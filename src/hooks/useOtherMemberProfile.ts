@@ -1,6 +1,6 @@
 'use client'
 
-import { getOtherMemberProfile } from '@/services/member'
+import { getOtherMemberProfile } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 
 export const otherMemberProfileQueryKey = (memberId: number) => ['member', memberId, 'profile']

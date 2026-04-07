@@ -1,6 +1,6 @@
 'use server'
 
-import { EventAnnouncementListQuery, EventListQuery, eventRepository } from '@/domains/event'
+import { eventRepository, EventAnnouncementListQuery, EventListQuery } from '@/domains/event'
 
 export async function getEventList(params: EventListQuery) {
   return eventRepository.getEventList(params)

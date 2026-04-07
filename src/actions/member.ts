@@ -1,5 +1,7 @@
 'use server'
 
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
+import { cookies } from 'next/headers'
 import {
   memberRepository,
   UpdatePasswordRequest,
@@ -8,13 +10,6 @@ import {
   VerifyPasswordRequest,
   WithdrawRequest,
 } from '@/domains/member'
-
-export async function getMyCoupons() {
-  return memberRepository.getMyCoupons()
-}
-
-import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
-import { cookies } from 'next/headers'
 
 export async function getMemberMe() {
   return memberRepository.getMemberMe()
@@ -32,8 +27,8 @@ export async function getMemberUsablePoint() {
   return memberRepository.getMyUsablePoint()
 }
 
-export async function getMyPointHistory() {
-  return memberRepository.getMyPointHistory()
+export async function getMyBookmarks(page: number = 0, size: number = 10) {
+  return memberRepository.getMyBookmarks({ page, size })
 }
 
 export async function getMyReviews(page: number = 0, size: number = 9) {
@@ -44,16 +39,12 @@ export async function getOtherMemberProfile(memberId: number | string) {
   return memberRepository.getOtherMemberProfile(memberId)
 }
 
-export async function getMyBookmarks(page: number = 0, size: number = 10) {
-  return memberRepository.getMyBookmarks({ page, size })
+export async function getMemberPersonalInfo() {
+  return memberRepository.getMyPersonalInfo()
 }
 
 export async function updateMemberProfile(data: UpdateProfileRequest) {
   return memberRepository.updateMyProfile(data)
-}
-
-export async function getMemberPersonalInfo() {
-  return memberRepository.getMyPersonalInfo()
 }
 
 export async function verifyMemberPassword(data: VerifyPasswordRequest) {

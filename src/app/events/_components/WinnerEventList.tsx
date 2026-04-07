@@ -3,7 +3,7 @@
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
 import { cn } from '@/lib/utils'
-import { getEventAnnouncementList } from '@/services/event'
+import { getEventAnnouncementList } from '@/actions/event'
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'

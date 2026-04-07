@@ -1,5 +1,5 @@
-import { getMemberAvailableCoupons, getMemberMe, getMemberUsablePoint } from '@/services/member'
-import { getPlaceName } from '@/services/place'
+import { memberRepository } from '@/domains/member'
+import { placeRepository } from '@/domains/place'
 import OrderCheckoutSection from './_components/OrderCheckoutSection'
 
 interface OrderCheckoutPageProps {
@@ -14,10 +14,10 @@ export default async function OrderCheckoutPage({ params }: OrderCheckoutPagePro
   const placeId = Number(id)
 
   const [placeNameResult, memberResult, couponsResult, usablePointResult] = await Promise.all([
-    getPlaceName(placeId),
-    getMemberMe(),
-    getMemberAvailableCoupons(),
-    getMemberUsablePoint(),
+    placeRepository.getPlaceName(placeId),
+    memberRepository.getMemberMe(),
+    memberRepository.getMyAvailableCoupons(),
+    memberRepository.getMyUsablePoint(),
   ])
 
   const placeName = placeNameResult.data?.name ?? ''

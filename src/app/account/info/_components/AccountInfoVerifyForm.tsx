@@ -6,7 +6,7 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
-import { verifyMemberPassword } from '@/services/member'
+import { verifyMemberPassword } from '@/actions/member'
 import { useState } from 'react'
 import { z } from 'zod'
 

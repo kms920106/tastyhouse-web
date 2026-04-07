@@ -3,7 +3,7 @@
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import type { PaymentCancelCode, PaymentStatus } from '@/domains/payment'
-import { cancelPayment } from '@/services/payment'
+import { cancelPayment } from '@/actions/payment'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import CancelResultDialog from './CancelResultDialog'

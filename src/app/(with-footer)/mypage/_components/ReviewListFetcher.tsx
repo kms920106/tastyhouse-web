@@ -4,7 +4,7 @@ import ReviewList from '@/components/reviews/ReviewList'
 import ReviewListSkeleton from '@/components/reviews/ReviewListSkeleton'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getMyReviews } from '@/services/member'
+import { getMyReviews } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 
 export default function ReviewListFetcher() {

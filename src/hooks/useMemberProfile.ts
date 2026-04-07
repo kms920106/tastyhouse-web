@@ -1,7 +1,7 @@
 'use client'
 
 import type { MemberInfo } from '@/domains/member'
-import { getMemberMe } from '@/services/member'
+import { getMemberMe } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 
 export const MEMBER_PROFILE_QUERY_KEY = ['member', 'profile']

@@ -1,6 +1,11 @@
 'use server'
 
-import { PlaceLatestQuery, PlaceMapMarkerResponse, PlaceReviewsByRatingQuery, placeRepository } from '@/domains/place'
+import {
+  placeRepository,
+  PlaceLatestQuery,
+  PlaceMapMarkerResponse,
+  PlaceReviewsByRatingQuery,
+} from '@/domains/place'
 
 export async function getMapMarkers(params: {
   latitude: number
@@ -10,20 +15,16 @@ export async function getMapMarkers(params: {
   return response.data ?? []
 }
 
+export async function togglePlaceBookmark(placeId: number) {
+  return placeRepository.togglePlaceBookmark(placeId)
+}
+
 export async function getLatestPlaces(query: PlaceLatestQuery) {
   return placeRepository.getLatestPlaces(query)
 }
 
 export async function getPlaceInfo(placeId: number) {
   return placeRepository.getPlaceInfo(placeId)
-}
-
-export async function getPlaceName(placeId: number) {
-  return placeRepository.getPlaceName(placeId)
-}
-
-export async function togglePlaceBookmark(placeId: number) {
-  return placeRepository.togglePlaceBookmark(placeId)
 }
 
 export async function getPlaceMenus(placeId: number) {
