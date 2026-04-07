@@ -1,21 +1,21 @@
 'use server'
 
 import { api } from '@/lib/api'
-import * as authService from '@/services/auth'
 
-export async function sendEmailVerificationCode(email: string) {
-  return authService.sendEmailVerificationCode(email)
+const BASE = '/api/auth/v1/password-reset'
+
+export async function requestPasswordReset(username: string) {
+  return api.post<void>(`${BASE}/request`, { username })
 }
 
-export async function confirmEmailVerificationCode(email: string, verificationCode: string) {
-  return authService.confirmEmailVerificationCode(email, verificationCode)
+export async function verifyPasswordReset(username: string, verificationCode: string) {
+  return api.post<{ passwordResetToken: string }>(`${BASE}/verify`, { username, verificationCode })
 }
 
-export async function resetForgotPassword(
-  data: { newPassword: string; newPasswordConfirm: string },
-  emailVerifyToken: string,
+export async function confirmPasswordReset(
+  passwordResetToken: string,
+  newPassword: string,
+  newPasswordConfirm: string,
 ) {
-  return api.put<void>('/api/members/v1/password/reset', data, {
-    headers: { 'X-Email-Verify-Token': emailVerifyToken },
-  })
+  return api.post<void>(`${BASE}/confirm`, { passwordResetToken, newPassword, newPasswordConfirm })
 }

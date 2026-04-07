@@ -1,14 +1,10 @@
 'use client'
 
-import {
-  confirmEmailVerificationCode,
-  sendEmailVerificationCode,
-} from '@/app/auth/forgot-password/action'
+import { requestPasswordReset, verifyPasswordReset } from '@/app/auth/forgot-password/action'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppInputText from '@/components/ui/AppInputText'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
-import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { cn } from '@/lib/utils'
 import { useState, useTransition } from 'react'
@@ -16,16 +12,16 @@ import { z } from 'zod'
 
 const emailSchema = z.string().superRefine((val, ctx) => {
   if (val.length === 0) {
-    ctx.addIssue({ code: 'custom', message: '이메일을 입력해 주세요.' })
+    ctx.addIssue({ code: 'custom', message: '아이디를 입력해 주세요.' })
     return
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-    ctx.addIssue({ code: 'custom', message: '올바른 이메일 주소 형식이 아닙니다.' })
+  if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(val)) {
+    ctx.addIssue({ code: 'custom', message: '유효한 이메일 형식으로 입력해주세요.' })
   }
 })
 
 interface ForgotPasswordEmailStepProps {
-  onVerified: (email: string, emailVerifyToken: string) => void
+  onVerified: (email: string, passwordResetToken: string) => void
 }
 
 export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEmailStepProps) {
@@ -54,7 +50,7 @@ export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEm
 
     startSending(async () => {
       try {
-        const response = await sendEmailVerificationCode(email)
+        const response = await requestPasswordReset(email)
 
         if (response?.error) {
           toast(response.error)
@@ -72,14 +68,14 @@ export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEm
   const handleConfirmCode = () => {
     startConfirming(async () => {
       try {
-        const response = await confirmEmailVerificationCode(email, verifyCode)
+        const response = await verifyPasswordReset(email, verifyCode)
 
         if (response?.error) {
           toast(response.error)
           return
         }
 
-        const token = response?.data?.emailVerifyToken
+        const token = response?.data?.passwordResetToken
         if (!token) {
           toast('인증에 실패했습니다. 다시 시도해 주세요.')
           return
@@ -102,7 +98,6 @@ export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEm
               <AppInputText
                 id="email"
                 name="email"
-                // type="email"
                 placeholder="이메일을 입력해 주세요."
                 value={email}
                 onChange={(e) => {
@@ -114,16 +109,14 @@ export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEm
                 readOnly={isEmailVerified}
                 className={cn('flex-1', className)}
               />
-              {isCodeVisible && (
-                <AppOutlineButton
-                  type="button"
-                  onClick={handleSendCode}
-                  disabled={isEmailVerified || isSending}
-                  className="shrink-0"
-                >
-                  {isSending ? '발송 중' : '재발송'}
-                </AppOutlineButton>
-              )}
+              <AppOutlineButton
+                type="button"
+                onClick={handleSendCode}
+                disabled={isEmailVerified || isSending}
+                className="shrink-0"
+              >
+                {isSending ? '발송 중' : isCodeVisible ? '재발송' : '인증메일 받기'}
+              </AppOutlineButton>
             </div>
 
             {isCodeVisible && (
@@ -156,16 +149,6 @@ export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEm
         )}
       </AppFormField>
 
-      <div className="mt-[10px]">
-        <AppSubmitButton
-          onClick={handleSendCode}
-          isSubmitting={isSending}
-          loadingText="발송 중"
-          disabled={isEmailVerified}
-        >
-          {isCodeVisible ? '재발송' : '인증메일 받기'}
-        </AppSubmitButton>
-      </div>
     </div>
   )
 }

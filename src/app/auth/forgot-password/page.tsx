@@ -7,7 +7,7 @@ import { BackButton } from '@/components/layouts/header-parts'
 import { useState } from 'react'
 
 export default function ForgotPasswordPage() {
-  const [emailVerifyToken, setEmailVerifyToken] = useState<string | null>(null)
+  const [passwordResetToken, setPasswordResetToken] = useState<string | null>(null)
 
   return (
     <section className="min-h-screen bg-white">
@@ -19,10 +19,10 @@ export default function ForgotPasswordPage() {
           <HeaderTitle>비밀번호 찾기</HeaderTitle>
         </HeaderCenter>
       </Header>
-      {emailVerifyToken ? (
-        <ForgotPasswordResetStep emailVerifyToken={emailVerifyToken} />
+      {passwordResetToken ? (
+        <ForgotPasswordResetStep passwordResetToken={passwordResetToken} />
       ) : (
-        <ForgotPasswordEmailStep onVerified={(_, token) => setEmailVerifyToken(token)} />
+        <ForgotPasswordEmailStep onVerified={(_, token) => setPasswordResetToken(token)} />
       )}
     </section>
   )

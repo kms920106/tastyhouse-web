@@ -1,6 +1,6 @@
 'use client'
 
-import { resetForgotPassword } from '@/app/auth/forgot-password/action'
+import { confirmPasswordReset } from '@/app/auth/forgot-password/action'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputPassword from '@/components/ui/AppInputPassword'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
@@ -19,18 +19,15 @@ const resetSchema = z
         return
       }
       if (
-        val.length < 8 ||
-        !/[A-Za-z]/.test(val) ||
-        !/[0-9]/.test(val) ||
-        !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val)
+        !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,20}$/.test(val)
       ) {
         ctx.addIssue({
           code: 'custom',
-          message: '올바른 비밀번호 형식이 아닙니다. (8자 이상, 영문자·숫자·특수문자를 각각 1개 이상 포함)',
+          message: '비밀번호는 영문, 숫자, 특수문자를 포함하여 8~20자로 입력해주세요.',
         })
       }
     }),
-    newPasswordConfirm: z.string().min(1, '비밀번호 확인을 입력해 주세요.'),
+    newPasswordConfirm: z.string().min(1, '새 비밀번호 확인을 입력해 주세요.'),
   })
   .refine((data) => data.newPassword === data.newPasswordConfirm, {
     message: '비밀번호가 일치하지 않습니다.',
@@ -41,10 +38,10 @@ type FormData = { newPassword: string; newPasswordConfirm: string }
 type FormErrors = Partial<Record<keyof FormData, string>>
 
 interface ForgotPasswordResetStepProps {
-  emailVerifyToken: string
+  passwordResetToken: string
 }
 
-export default function ForgotPasswordResetStep({ emailVerifyToken }: ForgotPasswordResetStepProps) {
+export default function ForgotPasswordResetStep({ passwordResetToken }: ForgotPasswordResetStepProps) {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>({ newPassword: '', newPasswordConfirm: '' })
   const [errors, setErrors] = useState<FormErrors>({})
@@ -70,10 +67,14 @@ export default function ForgotPasswordResetStep({ emailVerifyToken }: ForgotPass
 
     setIsSubmitting(true)
     try {
-      const { error } = await resetForgotPassword(formData, emailVerifyToken)
+      const { error } = await confirmPasswordReset(
+        passwordResetToken,
+        formData.newPassword,
+        formData.newPasswordConfirm,
+      )
 
       if (error) {
-        toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
+        toast(error || COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
 

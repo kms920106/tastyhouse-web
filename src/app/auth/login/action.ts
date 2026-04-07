@@ -1,13 +1,13 @@
 'use server'
 
 import { LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
-import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { api } from '@/lib/api'
+import { AUTH_COOKIE_KEYS, TOKEN_MAX_AGE, getTokenMaxAge } from '@/lib/auth-config'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-const AUTH_LOGIN_ENDPOINT = '/api/auth/login'
+const AUTH_LOGIN_ENDPOINT = '/api/auth/v1/login'
 
 // 입력 검증 함수 분리
 function validateLoginInput(username: string, password: string): string | null {
