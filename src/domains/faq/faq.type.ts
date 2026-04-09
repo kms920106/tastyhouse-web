@@ -12,6 +12,6 @@ export interface FaqItem {
   sort: number
 }
 
-export interface FaqListQuery {
+export type FaqListQuery = {
   categoryId?: number
 }

@@ -4,7 +4,7 @@ import PhotoUploader from '@/components/reviews/PhotoUploader'
 import ReviewTextarea from '@/components/reviews/ReviewTextarea'
 import SubmitButton from '@/components/reviews/SubmitButton'
 import TagInput from '@/components/reviews/TagInput'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 
 export default function ReviewCreatePage() {
@@ -12,14 +12,24 @@ export default function ReviewCreatePage() {
     placeName: '',
     menuName: '',
     content: '',
-    photos: [] as File[],
     tags: [] as string[],
   })
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadedFileIds, setUploadedFileIds] = useState<number[]>([])
+  console.log(uploadedFileIds)
 
   type FormType = typeof form
   const handleChange = <K extends keyof FormType>(key: K, value: FormType[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }))
   }
+
+  const handleUploadedFileIdsChange = useCallback((fileIds: number[]) => {
+    setUploadedFileIds(fileIds)
+  }, [])
+
+  const handleUploadingChange = useCallback((uploading: boolean) => {
+    setIsUploading(uploading)
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -55,7 +65,10 @@ export default function ReviewCreatePage() {
           ></input>
         </div>
         <ReviewTextarea value={form.content} onChange={(val) => handleChange('content', val)} />
-        <PhotoUploader value={form.photos} onChange={(val) => handleChange('photos', val)} />
+        <PhotoUploader
+          onUploadedFileIdsChange={handleUploadedFileIdsChange}
+          onUploadingChange={handleUploadingChange}
+        />
         <TagInput value={form.tags} onChange={(val) => handleChange('tags', val)} />
         <div className="px-4 py-6 bg-white">
           <p className="text-gray-900 mb-2">리뷰 작성 시 주의 사항</p>
@@ -66,7 +79,7 @@ export default function ReviewCreatePage() {
             </li>
           </ul>
         </div>
-        <SubmitButton form={form} />
+        <SubmitButton form={form} disabled={isUploading} />
       </div>
     </div>
   )

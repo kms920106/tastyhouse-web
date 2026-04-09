@@ -13,13 +13,13 @@ export interface Event {
 
 export type EventStatus = 'ACTIVE' | 'ENDED'
 
-export interface EventListQuery {
+export type EventListQuery = {
   status: EventStatus
   page: number
   size: number
 }
 
-export interface EventAnnouncementListQuery {
+export type EventAnnouncementListQuery = {
   page: number
   size: number
 }

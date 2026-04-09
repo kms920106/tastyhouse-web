@@ -8,7 +8,6 @@ interface SubmitButtonProps {
     placeName?: string
     menuName?: string
     content: string
-    photos: File[]
     tags: string[]
   }
   disabled?: boolean

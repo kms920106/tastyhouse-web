@@ -71,7 +71,7 @@ export interface ProductReviewsByRatingResponse {
   totalReviewCount: number
 }
 
-export interface ProductReviewsByRatingQuery {
+export type ProductReviewsByRatingQuery = {
   page?: number
   size?: number
 }

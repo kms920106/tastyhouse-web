@@ -12,12 +12,12 @@ export const rankPeriodToRankType = (period: RankPeriod): RankType => {
   return periodMap[period]
 }
 
-export interface RankMemberQuery {
+export type RankMemberQuery = {
   type: RankType
   limit: number
 }
 
-export interface RankMembersMeQuery {
+export type RankMembersMeQuery = {
   type: RankType
 }
 

@@ -1,4 +1,4 @@
-export interface NoticeListQuery {
+export type NoticeListQuery = {
   page: number
   size: number
 }

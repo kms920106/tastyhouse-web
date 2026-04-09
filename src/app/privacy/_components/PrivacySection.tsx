@@ -1,11 +1,14 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import { privacyRepository } from "@/domains/privacy"
+import { privacyRepository } from '@/domains/privacy'
+import { notFound } from 'next/navigation'
 
 export default async function PrivacySection() {
   const { data } = await privacyRepository.getPrivacy()
 
-  const privacy = data.data
+  if (!data) notFound()
+
+  const { content } = data
 
   return (
     <section className="min-h-screen bg-white">
@@ -19,7 +22,7 @@ export default async function PrivacySection() {
       </Header>
       <div
         className="px-[15px] py-7 text-sm leading-relaxed"
-        dangerouslySetInnerHTML={{ __html: privacy.content }}
+        dangerouslySetInnerHTML={{ __html: content }}
       />
     </section>
   )

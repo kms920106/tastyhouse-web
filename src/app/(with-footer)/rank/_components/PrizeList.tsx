@@ -30,7 +30,7 @@ function PrizeListItemSkeleton() {
 
 export default async function PrizeList() {
   // API 호출
-  const { error, data } = await eventRepository.getRankEventPrizes()
+  const { error, data } = await eventRepository.getEventRankPrizes()
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {
