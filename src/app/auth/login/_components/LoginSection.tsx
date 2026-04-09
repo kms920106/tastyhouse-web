@@ -9,6 +9,7 @@ import AppInputPassword from '@/components/ui/AppInputPassword'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
+import { env } from '@/lib/env'
 import Link from 'next/link'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { FaFacebookF } from 'react-icons/fa'
@@ -32,9 +33,21 @@ export default function LoginSection() {
   const [state, formAction] = useActionState(loginFormAction, null)
   const [isSubmitting, startSubmitTransition] = useTransition()
 
-  const handleSocialLogin = (provider: string) => {
+  const handleSocialLogin = (provider: 'kakao' | 'naver' | 'facebook') => {
+    if (provider === 'kakao') {
+      const kakaoAuthUrl = new URL('https://kauth.kakao.com/oauth/authorize')
+      kakaoAuthUrl.searchParams.set('client_id', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY ?? '')
+      kakaoAuthUrl.searchParams.set(
+        'redirect_uri',
+        `${env.NEXT_PUBLIC_SITE_URL}/auth/callback/kakao`,
+      )
+      kakaoAuthUrl.searchParams.set('response_type', 'code')
+      kakaoAuthUrl.searchParams.set('scope', 'profile_nickname profile_image account_email')
+      window.location.href = kakaoAuthUrl.toString()
+      return
+    }
+    // TODO: 네이버, 페이스북 소셜 로그인 구현
     alert(provider)
-    // TODO: 소셜 로그인 구현
   }
 
   useEffect(() => {

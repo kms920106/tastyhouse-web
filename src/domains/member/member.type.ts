@@ -207,3 +207,33 @@ export interface NicknameAvailabilityResponse {
 export interface PhoneAvailabilityResponse {
   available: boolean
 }
+
+// 카카오 소셜 로그인/회원가입
+export interface KakaoProfile {
+  providerId: string
+  email: string
+  nickname: string
+  profileImageUrl: string
+  name: string | null
+  phoneNumber: string | null
+}
+
+export interface KakaoLoginResponse {
+  needsSignUp: boolean
+  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
+  kakaoProfile: KakaoProfile | null
+}
+
+export interface KakaoSignUpPayload {
+  code: string
+  nickname: string
+  fullName: string
+  gender: Gender
+  birthDate: number
+  phoneNumber?: string
+  phoneVerifyToken?: string
+  pushNotificationEnabled?: boolean
+  marketingInfoEnabled?: boolean
+  eventInfoEnabled?: boolean
+  referrerNickname?: string
+}

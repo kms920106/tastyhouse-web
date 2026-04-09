@@ -1,6 +1,6 @@
 'use server'
 
-import { LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
+import { KakaoLoginResponse, KakaoSignUpPayload, LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
 import { api } from '@/lib/api'
 import { AUTH_COOKIE_KEYS, TOKEN_MAX_AGE, getTokenMaxAge } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
@@ -11,6 +11,8 @@ import { redirect } from 'next/navigation'
 const AUTH_LOGIN_ENDPOINT = '/api/auth/v1/login'
 const AUTH_LOGOUT_ENDPOINT = '/api/auth/v1/logout'
 const PASSWORD_RESET_BASE = '/api/auth/v1/password-reset'
+const KAKAO_LOGIN_ENDPOINT = '/api/auth/v1/login/kakao'
+const KAKAO_SIGNUP_ENDPOINT = '/api/auth/v1/signup/kakao'
 
 function validateLoginInput(username: string, password: string): string | null {
   if (!username?.trim()) {
@@ -123,4 +125,62 @@ export async function confirmPasswordReset(
     newPassword,
     newPasswordConfirm,
   })
+}
+
+async function setAuthCookies(accessToken: string, refreshToken: string) {
+  const cookieStore = await cookies()
+  const baseOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    path: '/',
+  }
+  cookieStore.set(AUTH_COOKIE_KEYS.ACCESS_TOKEN, accessToken, baseOptions)
+  cookieStore.set(AUTH_COOKIE_KEYS.REFRESH_TOKEN, refreshToken, baseOptions)
+}
+
+export type KakaoLoginResult =
+  | { success: true; needsSignUp: false }
+  | { success: true; needsSignUp: true; kakaoProfile: KakaoLoginResponse['kakaoProfile'] & { code: string } }
+  | { success: false; error: string }
+
+export async function kakaoLoginAction(code: string): Promise<KakaoLoginResult> {
+  const { data, error } = await api.post<KakaoLoginResponse>(KAKAO_LOGIN_ENDPOINT, { code })
+
+  if (error || !data) {
+    return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  if (!data.needsSignUp && data.jwt) {
+    await setAuthCookies(data.jwt.accessToken, data.jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, needsSignUp: false }
+  }
+
+  if (data.needsSignUp && data.kakaoProfile) {
+    return {
+      success: true,
+      needsSignUp: true,
+      kakaoProfile: { ...data.kakaoProfile, code },
+    }
+  }
+
+  return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
+}
+
+export type KakaoSignUpResult = { success: false; error: string }
+
+export async function kakaoSignUpAction(payload: KakaoSignUpPayload): Promise<KakaoSignUpResult | null> {
+  const { data, error } = await api.post<{ accessToken: string; refreshToken: string; tokenType: string }>(
+    KAKAO_SIGNUP_ENDPOINT,
+    payload,
+  )
+
+  if (error || !data) {
+    return { success: false, error: '카카오 회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  await setAuthCookies(data.accessToken, data.refreshToken)
+  revalidatePath('/')
+  return null
 }

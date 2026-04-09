@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         hostname: 'firebasestorage.googleapis.com',
       },
       {
+        protocol: 'http',
+        hostname: 'k.kakaocdn.net',
+      },
+      {
         protocol: 'https',
         hostname: 'static.bbqorder.co.kr',
       },

@@ -79,6 +79,11 @@ export const PAGE_PATHS = {
   // 인증
   LOGIN: '/login',
   REGISTER: '/register',
+  AUTH_LOGIN: '/auth/login',
+  AUTH_SIGNUP: '/auth/signup',
+  AUTH_SIGNUP_SOCIAL: '/auth/signup/social',
+  AUTH_SIGNUP_COMPLETE: '/auth/signup/complete',
+  AUTH_CALLBACK_KAKAO: '/auth/callback/kakao',
 
   FAVICON: '/favicon.ico',
 } as const

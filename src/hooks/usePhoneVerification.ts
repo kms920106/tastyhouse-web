@@ -15,6 +15,10 @@ interface UsePhoneVerificationOptions {
    * AccountInfoEditForm처럼 기존 번호 변경 여부를 검증할 때 사용합니다.
    */
   originalPhone?: string
+  /**
+   * 초기 전화번호 — 카카오 프로필 등 외부에서 전화번호를 미리 채울 때 사용합니다.
+   */
+  initialPhone?: string
 }
 
 export interface UsePhoneVerificationReturn {
@@ -35,9 +39,9 @@ export interface UsePhoneVerificationReturn {
 export function usePhoneVerification(
   options: UsePhoneVerificationOptions = {},
 ): UsePhoneVerificationReturn {
-  const { originalPhone } = options
+  const { originalPhone, initialPhone } = options
 
-  const [phone, setPhone] = useState('')
+  const [phone, setPhone] = useState(initialPhone ?? '')
   const [verifyCode, setVerifyCode] = useState('')
   const [isCodeVisible, setIsCodeVisible] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
