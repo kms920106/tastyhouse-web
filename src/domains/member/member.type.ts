@@ -108,27 +108,6 @@ export interface PointHistoryResponse {
   histories: PointHistoryItem[]
 }
 
-export interface LoginParams {
-  username: string
-  password: string
-}
-
-export type LoginResult = {
-  success: false
-  error: string
-}
-
-export interface LoginRequest {
-  username: string
-  password: string
-}
-
-export interface LoginResponse {
-  accessToken: string
-  refreshToken: string
-  tokenType: string
-}
-
 export interface OtherMemberProfileResponse {
   id: number
   nickname: string
@@ -208,32 +187,3 @@ export interface PhoneAvailabilityResponse {
   available: boolean
 }
 
-// 카카오 소셜 로그인/회원가입
-export interface KakaoProfile {
-  providerId: string
-  email: string
-  nickname: string
-  profileImageUrl: string
-  name: string | null
-  phoneNumber: string | null
-}
-
-export interface KakaoLoginResponse {
-  needsSignUp: boolean
-  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
-  kakaoProfile: KakaoProfile | null
-}
-
-export interface KakaoSignUpPayload {
-  code: string
-  nickname: string
-  fullName: string
-  gender: Gender
-  birthDate: number
-  phoneNumber?: string
-  phoneVerifyToken?: string
-  pushNotificationEnabled?: boolean
-  marketingInfoEnabled?: boolean
-  eventInfoEnabled?: boolean
-  referrerNickname?: string
-}

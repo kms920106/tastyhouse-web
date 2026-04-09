@@ -1,18 +1,11 @@
 'use server'
 
-import { KakaoLoginResponse, KakaoSignUpPayload, LoginRequest, LoginResponse, LoginResult } from '@/domains/member'
-import { api } from '@/lib/api'
+import { authRepository, KakaoLoginResponse, KakaoSignUpPayload, LoginResult } from '@/domains/auth'
 import { AUTH_COOKIE_KEYS, TOKEN_MAX_AGE, getTokenMaxAge } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
-const AUTH_LOGIN_ENDPOINT = '/api/auth/v1/login'
-const AUTH_LOGOUT_ENDPOINT = '/api/auth/v1/logout'
-const PASSWORD_RESET_BASE = '/api/auth/v1/password-reset'
-const KAKAO_LOGIN_ENDPOINT = '/api/auth/v1/login/kakao'
-const KAKAO_SIGNUP_ENDPOINT = '/api/auth/v1/signup/kakao'
 
 function validateLoginInput(username: string, password: string): string | null {
   if (!username?.trim()) {
@@ -37,11 +30,7 @@ export async function loginFormAction(
     return { success: false, error: validationError }
   }
 
-  const request = {
-    username,
-    password,
-  } as LoginRequest
-  const { data, error } = await api.post<LoginResponse>(AUTH_LOGIN_ENDPOINT, request)
+  const { data, error } = await authRepository.login({ username, password })
 
   if (error || !data) {
     return { success: false, error: '아이디 또는 비밀번호가 올바르지 않습니다.' }
@@ -80,7 +69,7 @@ export async function loginFormAction(
 
 export async function logout() {
   try {
-    await api.post(AUTH_LOGOUT_ENDPOINT)
+    await authRepository.logout()
 
     const cookieStore = await cookies()
     cookieStore.delete(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
@@ -95,14 +84,11 @@ export async function logout() {
 }
 
 export async function requestPasswordReset(username: string) {
-  return api.post<void>(`${PASSWORD_RESET_BASE}/request`, { username })
+  return authRepository.requestPasswordReset(username)
 }
 
 export async function verifyPasswordReset(username: string, verificationCode: string) {
-  return api.post<{ passwordResetToken: string }>(`${PASSWORD_RESET_BASE}/verify`, {
-    username,
-    verificationCode,
-  })
+  return authRepository.verifyPasswordReset({ username, verificationCode })
 }
 
 export async function verifyPasswordResetForEmailField(
@@ -120,11 +106,7 @@ export async function confirmPasswordReset(
   newPassword: string,
   newPasswordConfirm: string,
 ) {
-  return api.post<void>(`${PASSWORD_RESET_BASE}/confirm`, {
-    passwordResetToken,
-    newPassword,
-    newPasswordConfirm,
-  })
+  return authRepository.confirmPasswordReset({ passwordResetToken, newPassword, newPasswordConfirm })
 }
 
 async function setAuthCookies(accessToken: string, refreshToken: string) {
@@ -145,7 +127,7 @@ export type KakaoLoginResult =
   | { success: false; error: string }
 
 export async function kakaoLoginAction(code: string): Promise<KakaoLoginResult> {
-  const { data, error } = await api.post<KakaoLoginResponse>(KAKAO_LOGIN_ENDPOINT, { code })
+  const { data, error } = await authRepository.kakaoLogin({ code })
 
   if (error || !data) {
     return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
@@ -171,10 +153,7 @@ export async function kakaoLoginAction(code: string): Promise<KakaoLoginResult> 
 export type KakaoSignUpResult = { success: false; error: string }
 
 export async function kakaoSignUpAction(payload: KakaoSignUpPayload): Promise<KakaoSignUpResult | null> {
-  const { data, error } = await api.post<{ accessToken: string; refreshToken: string; tokenType: string }>(
-    KAKAO_SIGNUP_ENDPOINT,
-    payload,
-  )
+  const { data, error } = await authRepository.kakaoSignUp(payload)
 
   if (error || !data) {
     return { success: false, error: '카카오 회원가입에 실패했습니다. 다시 시도해 주세요.' }
