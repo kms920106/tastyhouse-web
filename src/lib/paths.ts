@@ -82,8 +82,10 @@ export const PAGE_PATHS = {
   AUTH_LOGIN: '/auth/login',
   AUTH_SIGNUP: '/auth/signup',
   AUTH_SIGNUP_SOCIAL: '/auth/signup/social',
+  AUTH_PHONE_VERIFICATION: '/auth/phone-verification',
   AUTH_SIGNUP_COMPLETE: '/auth/signup/complete',
   AUTH_CALLBACK_KAKAO: '/auth/callback/kakao',
+  AUTH_LINK_KAKAO: '/auth/link/kakao',
 
   FAVICON: '/favicon.ico',
 } as const

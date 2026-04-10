@@ -1,5 +1,6 @@
 import { api } from '@/lib/api'
 import {
+  KakaoAccountLinkPayload,
   KakaoLoginPayload,
   KakaoLoginResponse,
   KakaoSignUpPayload,
@@ -9,6 +10,8 @@ import {
   PasswordResetConfirmPayload,
   PasswordResetVerifyPayload,
   PasswordResetVerifyResponse,
+  PhoneLoginPayload,
+  PhoneLoginResponse,
 } from './auth.type'
 
 const AUTH_BASE = '/api/auth/v1'
@@ -39,7 +42,15 @@ export const authRepository = {
     return api.post<KakaoLoginResponse>(`${AUTH_BASE}/login/kakao`, payload)
   },
 
+  async kakaoLinkAccount(payload: KakaoAccountLinkPayload) {
+    return api.post<KakaoSignUpResponse>(`${AUTH_BASE}/link/kakao`, payload)
+  },
+
   async kakaoSignUp(payload: KakaoSignUpPayload) {
     return api.post<KakaoSignUpResponse>(`${AUTH_BASE}/signup/kakao`, payload)
+  },
+
+  async phoneLogin(payload: PhoneLoginPayload) {
+    return api.post<PhoneLoginResponse>(`${AUTH_BASE}/login/phone`, payload)
   },
 }

@@ -1,7 +1,7 @@
 'use server'
 
 import { authRepository, KakaoLoginResponse, KakaoSignUpPayload, LoginResult } from '@/domains/auth'
-import { AUTH_COOKIE_KEYS, TOKEN_MAX_AGE, getTokenMaxAge } from '@/lib/auth-config'
+import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
@@ -106,7 +106,11 @@ export async function confirmPasswordReset(
   newPassword: string,
   newPasswordConfirm: string,
 ) {
-  return authRepository.confirmPasswordReset({ passwordResetToken, newPassword, newPasswordConfirm })
+  return authRepository.confirmPasswordReset({
+    passwordResetToken,
+    newPassword,
+    newPasswordConfirm,
+  })
 }
 
 async function setAuthCookies(accessToken: string, refreshToken: string) {
@@ -122,15 +126,80 @@ async function setAuthCookies(accessToken: string, refreshToken: string) {
 }
 
 export type KakaoLoginResult =
-  | { success: true; needsSignUp: false }
-  | { success: true; needsSignUp: true; kakaoProfile: KakaoLoginResponse['kakaoProfile'] & { code: string } }
+  | { success: true; status: 'LOGIN' }
+  | {
+      success: true
+      status: 'NEEDS_SIGN_UP'
+      kakaoProfile: KakaoLoginResponse['kakaoProfile'] & { kakaoAccessToken: string }
+    }
+  | {
+      success: true
+      status: 'NEEDS_LINKING'
+      kakaoProfile: KakaoLoginResponse['kakaoProfile'] & { accessToken: string }
+    }
   | { success: false; error: string }
 
 export async function kakaoLoginAction(code: string): Promise<KakaoLoginResult> {
   const { data, error } = await authRepository.kakaoLogin({ code })
 
+  console.log(data)
+
   if (error || !data) {
     return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  if (data.status === 'LOGIN' && data.jwt) {
+    await setAuthCookies(data.jwt.accessToken, data.jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, status: 'LOGIN' }
+  }
+
+  if (data.status === 'NEEDS_SIGN_UP' && data.kakaoProfile) {
+    return {
+      success: true,
+      status: 'NEEDS_SIGN_UP',
+      kakaoProfile: { ...data.kakaoProfile, kakaoAccessToken: data.kakaoAccessToken },
+    }
+  }
+
+  if (data.status === 'NEEDS_LINKING' && data.kakaoProfile) {
+    return {
+      success: true,
+      status: 'NEEDS_LINKING',
+      kakaoProfile: { ...data.kakaoProfile, accessToken: data.kakaoAccessToken },
+    }
+  }
+
+  return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
+}
+
+export type KakaoLinkAccountResult = { success: true } | { success: false; error: string }
+
+export async function kakaoLinkAccountAction(
+  accessToken: string,
+  phoneVerifyToken: string,
+): Promise<KakaoLinkAccountResult> {
+  const { data, error } = await authRepository.kakaoLinkAccount({ accessToken, phoneVerifyToken })
+
+  if (error || !data) {
+    return { success: false, error: '카카오 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  await setAuthCookies(data.accessToken, data.refreshToken)
+  revalidatePath('/')
+  return { success: true }
+}
+
+export type PhoneLoginResult =
+  | { success: true; needsSignUp: false }
+  | { success: true; needsSignUp: true }
+  | { success: false; error: string }
+
+export async function phoneLoginAction(phoneVerifyToken: string): Promise<PhoneLoginResult> {
+  const { data, error } = await authRepository.phoneLogin({ phoneVerifyToken })
+
+  if (error || !data) {
+    return { success: false, error: '휴대폰 인증 로그인에 실패했습니다. 다시 시도해 주세요.' }
   }
 
   if (!data.needsSignUp && data.jwt) {
@@ -139,20 +208,14 @@ export async function kakaoLoginAction(code: string): Promise<KakaoLoginResult> 
     return { success: true, needsSignUp: false }
   }
 
-  if (data.needsSignUp && data.kakaoProfile) {
-    return {
-      success: true,
-      needsSignUp: true,
-      kakaoProfile: { ...data.kakaoProfile, code },
-    }
-  }
-
-  return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
+  return { success: true, needsSignUp: true }
 }
 
 export type KakaoSignUpResult = { success: false; error: string }
 
-export async function kakaoSignUpAction(payload: KakaoSignUpPayload): Promise<KakaoSignUpResult | null> {
+export async function kakaoSignUpAction(
+  payload: KakaoSignUpPayload,
+): Promise<KakaoSignUpResult | null> {
   const { data, error } = await authRepository.kakaoSignUp(payload)
 
   if (error || !data) {

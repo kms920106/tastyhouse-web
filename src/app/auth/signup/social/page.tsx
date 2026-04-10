@@ -4,7 +4,7 @@ import KakaoSignupSection from './_components/KakaoSignupSection'
 
 interface KakaoSignupPageProps {
   searchParams: Promise<{
-    code?: string
+    kakaoAccessToken?: string
     email?: string
     nickname?: string
     profileImageUrl?: string
@@ -14,17 +14,15 @@ interface KakaoSignupPageProps {
 }
 
 export default async function KakaoSignupPage({ searchParams }: KakaoSignupPageProps) {
-  const { code, email, nickname, profileImageUrl, name, phoneNumber } = await searchParams
+  const { kakaoAccessToken, email, nickname, profileImageUrl, name, phoneNumber } = await searchParams
 
-  if (!code || !email) {
+  if (!kakaoAccessToken || !email) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  console.log(searchParams)
-
   return (
     <KakaoSignupSection
-      code={code}
+      kakaoAccessToken={kakaoAccessToken}
       email={email}
       prefillNickname={nickname ?? ''}
       prefillProfileImageUrl={profileImageUrl ?? ''}

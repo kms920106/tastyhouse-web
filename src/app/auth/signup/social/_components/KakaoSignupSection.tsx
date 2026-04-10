@@ -84,7 +84,7 @@ const kakaoSignupSchema = z.object({
 type FormErrors = Partial<Record<keyof z.infer<typeof kakaoSignupSchema> | 'birthDate', string>>
 
 interface KakaoSignupSectionProps {
-  code: string
+  kakaoAccessToken: string
   email: string
   prefillNickname: string
   prefillProfileImageUrl: string
@@ -93,7 +93,7 @@ interface KakaoSignupSectionProps {
 }
 
 export default function KakaoSignupSection({
-  code,
+  kakaoAccessToken,
   email,
   prefillNickname,
   prefillProfileImageUrl,
@@ -249,7 +249,7 @@ export default function KakaoSignupSection({
 
     startSubmitTransition(async () => {
       const result = await kakaoSignUpAction({
-        code,
+        kakaoAccessToken,
         nickname,
         fullName,
         gender: gender!,
