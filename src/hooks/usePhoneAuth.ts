@@ -8,6 +8,10 @@ import {
 } from '@/actions/phone-verification'
 import { useState, useTransition } from 'react'
 
+export interface UsePhoneAuthOptions {
+  onVerified?: (phoneVerifyToken: string) => void
+}
+
 export interface UsePhoneAuthReturn {
   phone: string
   setPhone: (phone: string) => void
@@ -22,7 +26,7 @@ export interface UsePhoneAuthReturn {
   handleConfirmCode: () => void
 }
 
-export function usePhoneAuth(): UsePhoneAuthReturn {
+export function usePhoneAuth(options?: UsePhoneAuthOptions): UsePhoneAuthReturn {
   const [phone, setPhone] = useState('')
   const [verifyCode, setVerifyCode] = useState('')
   const [isCodeVisible, setIsCodeVisible] = useState(false)
@@ -70,6 +74,7 @@ export function usePhoneAuth(): UsePhoneAuthReturn {
         }
         setPhoneVerifyToken(token)
         setIsVerified(true)
+        options?.onVerified?.(token)
       } catch {
         toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }

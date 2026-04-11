@@ -50,26 +50,35 @@ export interface KakaoProfile {
 
 export interface KakaoLoginResponse {
   status: KakaoLoginStatus
-  kakaoAccessToken: string
+  kakaoTempToken: string | null
   jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
   kakaoProfile: KakaoProfile | null
 }
 
 export interface KakaoAccountLinkPayload {
-  accessToken: string
+  kakaoTempToken: string
   phoneVerifyToken: string
+}
+
+export type KakaoLinkAccountStatus = 'LOGIN' | 'NEEDS_SIGN_UP'
+
+export interface KakaoLinkAccountResponse {
+  status: KakaoLinkAccountStatus
+  kakaoTempToken: string | null
+  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
+  kakaoProfile: KakaoProfile | null
 }
 
 export type Gender = 'MALE' | 'FEMALE'
 
 export interface KakaoSignUpPayload {
-  kakaoAccessToken: string
+  kakaoTempToken: string
+  username: string
   nickname: string
   fullName: string
   gender: Gender
   birthDate: number
-  phoneNumber?: string
-  phoneVerifyToken?: string
+  phoneNumber: string
   pushNotificationEnabled?: boolean
   marketingInfoEnabled?: boolean
   eventInfoEnabled?: boolean

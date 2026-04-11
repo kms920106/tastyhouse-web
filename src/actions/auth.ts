@@ -46,11 +46,13 @@ export async function loginFormAction(
 
   const tokenMaxAge = getTokenMaxAge(rememberMe)
 
-  cookieStore.set(AUTH_COOKIE_KEYS.ACCESS_TOKEN, data.accessToken, {
+  const { accessToken, refreshToken } = data
+
+  cookieStore.set(AUTH_COOKIE_KEYS.ACCESS_TOKEN, accessToken, {
     ...baseOptions,
     ...(rememberMe ? { maxAge: tokenMaxAge.accessToken } : {}),
   })
-  cookieStore.set(AUTH_COOKIE_KEYS.REFRESH_TOKEN, data.refreshToken, {
+  cookieStore.set(AUTH_COOKIE_KEYS.REFRESH_TOKEN, refreshToken, {
     ...baseOptions,
     ...(rememberMe ? { maxAge: tokenMaxAge.refreshToken } : {}),
   })
@@ -125,69 +127,49 @@ async function setAuthCookies(accessToken: string, refreshToken: string) {
   cookieStore.set(AUTH_COOKIE_KEYS.REFRESH_TOKEN, refreshToken, baseOptions)
 }
 
-export type KakaoLoginResult =
+export type KakaoLinkAccountResult =
   | { success: true; status: 'LOGIN' }
   | {
       success: true
       status: 'NEEDS_SIGN_UP'
-      kakaoProfile: KakaoLoginResponse['kakaoProfile'] & { kakaoAccessToken: string }
-    }
-  | {
-      success: true
-      status: 'NEEDS_LINKING'
-      kakaoProfile: KakaoLoginResponse['kakaoProfile'] & { accessToken: string }
+      kakaoTempToken: string
+      kakaoProfile: KakaoLoginResponse['kakaoProfile']
     }
   | { success: false; error: string }
 
-export async function kakaoLoginAction(code: string): Promise<KakaoLoginResult> {
-  const { data, error } = await authRepository.kakaoLogin({ code })
-
-  console.log(data)
-
-  if (error || !data) {
-    return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  if (data.status === 'LOGIN' && data.jwt) {
-    await setAuthCookies(data.jwt.accessToken, data.jwt.refreshToken)
-    revalidatePath('/')
-    return { success: true, status: 'LOGIN' }
-  }
-
-  if (data.status === 'NEEDS_SIGN_UP' && data.kakaoProfile) {
-    return {
-      success: true,
-      status: 'NEEDS_SIGN_UP',
-      kakaoProfile: { ...data.kakaoProfile, kakaoAccessToken: data.kakaoAccessToken },
-    }
-  }
-
-  if (data.status === 'NEEDS_LINKING' && data.kakaoProfile) {
-    return {
-      success: true,
-      status: 'NEEDS_LINKING',
-      kakaoProfile: { ...data.kakaoProfile, accessToken: data.kakaoAccessToken },
-    }
-  }
-
-  return { success: false, error: '카카오 로그인에 실패했습니다. 다시 시도해 주세요.' }
-}
-
-export type KakaoLinkAccountResult = { success: true } | { success: false; error: string }
-
 export async function kakaoLinkAccountAction(
-  accessToken: string,
+  kakaoTempToken: string,
   phoneVerifyToken: string,
 ): Promise<KakaoLinkAccountResult> {
-  const { data, error } = await authRepository.kakaoLinkAccount({ accessToken, phoneVerifyToken })
+  const { data, error } = await authRepository.kakaoLinkAccount({
+    kakaoTempToken,
+    phoneVerifyToken,
+  })
 
   if (error || !data) {
     return { success: false, error: '카카오 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
   }
 
-  await setAuthCookies(data.accessToken, data.refreshToken)
-  revalidatePath('/')
-  return { success: true }
+  const { status, jwt, kakaoProfile } = data
+
+  // 기존 일반 계정과 카카오 계정 연동이 완료되었으므로 JWT를 쿠키에 저장하고 로그인 처리한다.
+  if (status === 'LOGIN' && jwt) {
+    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, status: 'LOGIN' }
+  }
+
+  // 해당 전화번호로 가입된 계정이 없는 신규 고객이므로 회원가입 페이지로 안내한다.
+  if (status === 'NEEDS_SIGN_UP' && kakaoTempToken && kakaoProfile) {
+    return {
+      success: true,
+      status: 'NEEDS_SIGN_UP',
+      kakaoTempToken,
+      kakaoProfile,
+    }
+  }
+
+  return { success: false, error: '카카오 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
 }
 
 export type PhoneLoginResult =
@@ -202,8 +184,10 @@ export async function phoneLoginAction(phoneVerifyToken: string): Promise<PhoneL
     return { success: false, error: '휴대폰 인증 로그인에 실패했습니다. 다시 시도해 주세요.' }
   }
 
-  if (!data.needsSignUp && data.jwt) {
-    await setAuthCookies(data.jwt.accessToken, data.jwt.refreshToken)
+  const { needsSignUp, jwt } = data
+
+  if (!needsSignUp && jwt) {
+    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
     revalidatePath('/')
     return { success: true, needsSignUp: false }
   }
@@ -222,7 +206,9 @@ export async function kakaoSignUpAction(
     return { success: false, error: '카카오 회원가입에 실패했습니다. 다시 시도해 주세요.' }
   }
 
-  await setAuthCookies(data.accessToken, data.refreshToken)
+  const { accessToken, refreshToken } = data
+
+  await setAuthCookies(accessToken, refreshToken)
   revalidatePath('/')
   return null
 }

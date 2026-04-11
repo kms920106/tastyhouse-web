@@ -1,33 +1,58 @@
+'use client'
+
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
+import { BackButton } from '@/components/layouts/header-parts'
+import type { KakaoProfile } from '@/domains/auth'
 import { PAGE_PATHS } from '@/lib/paths'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { use, useState } from 'react'
+import KakaoPhoneVerificationStep from './_components/KakaoPhoneVerificationStep'
 import KakaoSignupSection from './_components/KakaoSignupSection'
 
-interface KakaoSignupPageProps {
-  searchParams: Promise<{
-    kakaoAccessToken?: string
-    email?: string
-    nickname?: string
-    profileImageUrl?: string
-    name?: string
-    phoneNumber?: string
-  }>
+interface SignupStepData {
+  kakaoTempToken: string
+  kakaoProfile: KakaoProfile
+  phone: string
+  phoneVerifyToken: string
 }
 
-export default async function KakaoSignupPage({ searchParams }: KakaoSignupPageProps) {
-  const { kakaoAccessToken, email, nickname, profileImageUrl, name, phoneNumber } = await searchParams
+interface KakaoSocialSignupPageProps {
+  searchParams: Promise<{ kakaoTempToken?: string }>
+}
 
-  if (!kakaoAccessToken || !email) {
-    redirect(PAGE_PATHS.AUTH_LOGIN)
+export default function KakaoSocialSignupPage({ searchParams }: KakaoSocialSignupPageProps) {
+  const { kakaoTempToken } = use(searchParams)
+  const router = useRouter()
+  const [signupData, setSignupData] = useState<SignupStepData | null>(null)
+
+  if (!kakaoTempToken) {
+    router.replace(PAGE_PATHS.AUTH_LOGIN)
+    return null
   }
 
   return (
-    <KakaoSignupSection
-      kakaoAccessToken={kakaoAccessToken}
-      email={email}
-      prefillNickname={nickname ?? ''}
-      prefillProfileImageUrl={profileImageUrl ?? ''}
-      prefillName={name ?? ''}
-      prefillPhoneNumber={phoneNumber ?? ''}
-    />
+    <section className="min-h-screen">
+      <Header variant="white" height={55}>
+        <HeaderLeft>
+          <BackButton />
+        </HeaderLeft>
+        <HeaderCenter>
+          <HeaderTitle>{signupData ? '회원가입' : '본인 인증'}</HeaderTitle>
+        </HeaderCenter>
+      </Header>
+      {signupData ? (
+        <KakaoSignupSection
+          kakaoTempToken={signupData.kakaoTempToken}
+          kakaoProfile={signupData.kakaoProfile}
+          phone={signupData.phone}
+        />
+      ) : (
+        <KakaoPhoneVerificationStep
+          kakaoTempToken={kakaoTempToken}
+          onLinked={() => router.replace(PAGE_PATHS.HOME)}
+          onNeedsSignUp={(params) => setSignupData(params)}
+        />
+      )}
+    </section>
   )
 }
