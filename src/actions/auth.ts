@@ -1,6 +1,13 @@
 'use server'
 
-import { authRepository, KakaoLoginResponse, KakaoSignUpPayload, LoginResult } from '@/domains/auth'
+import {
+  authRepository,
+  KakaoLoginResponse,
+  KakaoSignUpPayload,
+  LoginResult,
+  NaverLoginResponse,
+  NaverSignUpPayload,
+} from '@/domains/auth'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
@@ -204,6 +211,67 @@ export async function kakaoSignUpAction(
 
   if (error || !data) {
     return { success: false, error: '카카오 회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { accessToken, refreshToken } = data
+
+  await setAuthCookies(accessToken, refreshToken)
+  revalidatePath('/')
+  return null
+}
+
+export type NaverLinkAccountResult =
+  | { success: true; status: 'LOGIN' }
+  | {
+      success: true
+      status: 'NEEDS_SIGN_UP'
+      naverTempToken: string
+      naverProfile: NaverLoginResponse['naverProfile']
+    }
+  | { success: false; error: string }
+
+export async function naverLinkAccountAction(
+  naverTempToken: string,
+  phoneVerifyToken: string,
+): Promise<NaverLinkAccountResult> {
+  const { data, error } = await authRepository.naverLinkAccount({
+    naverTempToken,
+    phoneVerifyToken,
+  })
+
+  if (error || !data) {
+    return { success: false, error: '네이버 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { status, jwt, naverProfile } = data
+
+  if (status === 'LOGIN' && jwt) {
+    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, status: 'LOGIN' }
+  }
+
+  if (status === 'NEEDS_SIGN_UP' && naverTempToken && naverProfile) {
+    return {
+      success: true,
+      status: 'NEEDS_SIGN_UP',
+      naverTempToken,
+      naverProfile,
+    }
+  }
+
+  return { success: false, error: '네이버 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+}
+
+export type NaverSignUpResult = { success: false; error: string }
+
+export async function naverSignUpAction(
+  payload: NaverSignUpPayload,
+): Promise<NaverSignUpResult | null> {
+  const { data, error } = await authRepository.naverSignUp(payload)
+
+  if (error || !data) {
+    return { success: false, error: '네이버 회원가입에 실패했습니다. 다시 시도해 주세요.' }
   }
 
   const { accessToken, refreshToken } = data

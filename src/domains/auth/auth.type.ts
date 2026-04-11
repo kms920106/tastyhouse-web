@@ -99,3 +99,61 @@ export interface PhoneLoginResponse {
   needsSignUp: boolean
   jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
 }
+
+// 네이버 로그인
+export interface NaverLoginPayload {
+  code: string
+  state: string
+}
+
+export type NaverLoginStatus = 'LOGIN' | 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'
+
+export interface NaverProfile {
+  providerId: string
+  email: string
+  nickname: string
+  profileImageUrl: string
+  name: string | null
+  phoneNumber: string | null
+}
+
+export interface NaverLoginResponse {
+  status: NaverLoginStatus
+  naverTempToken: string | null
+  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
+  naverProfile: NaverProfile | null
+}
+
+export interface NaverAccountLinkPayload {
+  naverTempToken: string
+  phoneVerifyToken: string
+}
+
+export type NaverLinkAccountStatus = 'LOGIN' | 'NEEDS_SIGN_UP'
+
+export interface NaverLinkAccountResponse {
+  status: NaverLinkAccountStatus
+  naverTempToken: string | null
+  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
+  naverProfile: NaverProfile | null
+}
+
+export interface NaverSignUpPayload {
+  naverTempToken: string
+  username: string
+  nickname: string
+  fullName: string
+  gender: Gender
+  birthDate: number
+  phoneNumber: string
+  pushNotificationEnabled?: boolean
+  marketingInfoEnabled?: boolean
+  eventInfoEnabled?: boolean
+  referrerNickname?: string
+}
+
+export interface NaverSignUpResponse {
+  accessToken: string
+  refreshToken: string
+  tokenType: string
+}

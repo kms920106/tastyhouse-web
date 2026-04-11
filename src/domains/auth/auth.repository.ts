@@ -8,6 +8,12 @@ import {
   KakaoSignUpResponse,
   LoginRequest,
   LoginResponse,
+  NaverAccountLinkPayload,
+  NaverLinkAccountResponse,
+  NaverLoginPayload,
+  NaverLoginResponse,
+  NaverSignUpPayload,
+  NaverSignUpResponse,
   PasswordResetConfirmPayload,
   PasswordResetVerifyPayload,
   PasswordResetVerifyResponse,
@@ -53,5 +59,17 @@ export const authRepository = {
 
   async phoneLogin(payload: PhoneLoginPayload) {
     return api.post<PhoneLoginResponse>(`${AUTH_BASE}/login/phone`, payload)
+  },
+
+  async naverLogin(payload: NaverLoginPayload) {
+    return api.post<NaverLoginResponse>(`${AUTH_BASE}/login/naver`, payload)
+  },
+
+  async naverLinkAccount(payload: NaverAccountLinkPayload) {
+    return api.post<NaverLinkAccountResponse>(`${AUTH_BASE}/link/naver`, payload)
+  },
+
+  async naverSignUp(payload: NaverSignUpPayload) {
+    return api.post<NaverSignUpResponse>(`${AUTH_BASE}/signup/naver`, payload)
   },
 }

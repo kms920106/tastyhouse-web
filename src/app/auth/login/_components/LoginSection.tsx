@@ -46,7 +46,22 @@ export default function LoginSection() {
       window.location.href = kakaoAuthUrl.toString()
       return
     }
-    // TODO: 네이버, 페이스북 소셜 로그인 구현
+
+    if (provider === 'naver') {
+      const state = crypto.randomUUID()
+      const naverAuthUrl = new URL('https://nid.naver.com/oauth2.0/authorize')
+      naverAuthUrl.searchParams.set('response_type', 'code')
+      naverAuthUrl.searchParams.set('client_id', env.NEXT_PUBLIC_NAVER_CLIENT_ID)
+      naverAuthUrl.searchParams.set(
+        'redirect_uri',
+        `${env.NEXT_PUBLIC_SITE_URL}/auth/callback/naver`,
+      )
+      naverAuthUrl.searchParams.set('state', state)
+      window.location.href = naverAuthUrl.toString()
+      return
+    }
+
+    // TODO: 페이스북 소셜 로그인 구현
     alert(provider)
   }
 
