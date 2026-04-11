@@ -1,5 +1,11 @@
 import { api } from '@/lib/api'
 import {
+  FacebookAccountLinkPayload,
+  FacebookLinkAccountResponse,
+  FacebookLoginPayload,
+  FacebookLoginResponse,
+  FacebookSignUpPayload,
+  FacebookSignUpResponse,
   KakaoAccountLinkPayload,
   KakaoLinkAccountResponse,
   KakaoLoginPayload,
@@ -71,5 +77,17 @@ export const authRepository = {
 
   async naverSignUp(payload: NaverSignUpPayload) {
     return api.post<NaverSignUpResponse>(`${AUTH_BASE}/signup/naver`, payload)
+  },
+
+  async facebookLogin(payload: FacebookLoginPayload) {
+    return api.post<FacebookLoginResponse>(`${AUTH_BASE}/login/facebook`, payload)
+  },
+
+  async facebookLinkAccount(payload: FacebookAccountLinkPayload) {
+    return api.post<FacebookLinkAccountResponse>(`${AUTH_BASE}/link/facebook`, payload)
+  },
+
+  async facebookSignUp(payload: FacebookSignUpPayload) {
+    return api.post<FacebookSignUpResponse>(`${AUTH_BASE}/signup/facebook`, payload)
   },
 }

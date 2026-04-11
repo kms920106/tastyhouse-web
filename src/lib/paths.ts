@@ -86,6 +86,7 @@ export const PAGE_PATHS = {
   AUTH_SIGNUP_COMPLETE: '/auth/signup/complete',
   AUTH_CALLBACK_KAKAO: '/auth/callback/kakao',
   AUTH_CALLBACK_NAVER: '/auth/callback/naver',
+  AUTH_CALLBACK_FACEBOOK: '/auth/callback/facebook',
 
   FAVICON: '/favicon.ico',
 } as const

@@ -1,6 +1,6 @@
 'use client'
 
-import { loginFormAction } from '@/actions/auth'
+import { facebookLoginAction, loginFormAction } from '@/actions/auth'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { CloseButton } from '@/components/layouts/header-parts'
 import AppFullButton from '@/components/ui/AppFullButton'
@@ -10,7 +10,9 @@ import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import { env } from '@/lib/env'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { FaFacebookF } from 'react-icons/fa'
 import { RiKakaoTalkFill } from 'react-icons/ri'
@@ -25,6 +27,7 @@ const loginSchema = z.object({
 type FormErrors = Partial<Record<keyof z.infer<typeof loginSchema>, string>>
 
 export default function LoginSection() {
+  const router = useRouter()
   const [keepLoggedIn, setKeepLoggedIn] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -61,8 +64,41 @@ export default function LoginSection() {
       return
     }
 
-    // TODO: 페이스북 소셜 로그인 구현
-    alert(provider)
+    if (provider === 'facebook') {
+      if (typeof window === 'undefined' || !window.FB) {
+        toast('페이스북 SDK가 로드되지 않았습니다. 잠시 후 다시 시도해 주세요.')
+        return
+      }
+
+      window.FB.login(
+        async (response) => {
+          if (response.status !== 'connected' || !response.authResponse?.accessToken) {
+            toast('페이스북 로그인이 취소되었습니다.')
+            return
+          }
+
+          const result = await facebookLoginAction(response.authResponse.accessToken)
+
+          if (!result.success) {
+            toast(result.error)
+            return
+          }
+
+          if (result.status === 'LOGIN') {
+            window.location.href = PAGE_PATHS.HOME
+            return
+          }
+
+          if (result.status === 'NEEDS_SIGN_UP' || result.status === 'NEEDS_LINKING') {
+            router.push(
+              `${PAGE_PATHS.AUTH_SIGNUP_SOCIAL}?facebookTempToken=${result.facebookTempToken}`,
+            )
+            return
+          }
+        },
+        { scope: 'public_profile,email' },
+      )
+    }
   }
 
   useEffect(() => {

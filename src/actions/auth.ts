@@ -2,6 +2,8 @@
 
 import {
   authRepository,
+  FacebookLoginResponse,
+  FacebookSignUpPayload,
   KakaoLoginResponse,
   KakaoSignUpPayload,
   LoginResult,
@@ -272,6 +274,94 @@ export async function naverSignUpAction(
 
   if (error || !data) {
     return { success: false, error: '네이버 회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { accessToken, refreshToken } = data
+
+  await setAuthCookies(accessToken, refreshToken)
+  revalidatePath('/')
+  return null
+}
+
+export type FacebookLoginResult =
+  | { success: true; status: 'LOGIN' }
+  | { success: true; status: 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'; facebookTempToken: string }
+  | { success: false; error: string }
+
+export async function facebookLoginAction(accessToken: string): Promise<FacebookLoginResult> {
+  const { data, error } = await authRepository.facebookLogin({ accessToken })
+
+  if (error || !data) {
+    return { success: false, error: '페이스북 로그인에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { status, jwt, facebookTempToken } = data
+
+  if (status === 'LOGIN' && jwt) {
+    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, status: 'LOGIN' }
+  }
+
+  if ((status === 'NEEDS_SIGN_UP' || status === 'NEEDS_LINKING') && facebookTempToken) {
+    return { success: true, status, facebookTempToken }
+  }
+
+  return { success: false, error: '페이스북 로그인에 실패했습니다. 다시 시도해 주세요.' }
+}
+
+export type FacebookLinkAccountResult =
+  | { success: true; status: 'LOGIN' }
+  | {
+      success: true
+      status: 'NEEDS_SIGN_UP'
+      facebookTempToken: string
+      facebookProfile: FacebookLoginResponse['facebookProfile']
+    }
+  | { success: false; error: string }
+
+export async function facebookLinkAccountAction(
+  facebookTempToken: string,
+  phoneVerifyToken: string,
+): Promise<FacebookLinkAccountResult> {
+  const { data, error } = await authRepository.facebookLinkAccount({
+    facebookTempToken,
+    phoneVerifyToken,
+  })
+
+  if (error || !data) {
+    return { success: false, error: '페이스북 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { status, jwt, facebookProfile } = data
+
+  if (status === 'LOGIN' && jwt) {
+    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, status: 'LOGIN' }
+  }
+
+  if (status === 'NEEDS_SIGN_UP' && facebookTempToken && facebookProfile) {
+    return {
+      success: true,
+      status: 'NEEDS_SIGN_UP',
+      facebookTempToken,
+      facebookProfile,
+    }
+  }
+
+  return { success: false, error: '페이스북 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+}
+
+export type FacebookSignUpResult = { success: false; error: string }
+
+export async function facebookSignUpAction(
+  payload: FacebookSignUpPayload,
+): Promise<FacebookSignUpResult | null> {
+  const { data, error } = await authRepository.facebookSignUp(payload)
+
+  if (error || !data) {
+    return { success: false, error: '페이스북 회원가입에 실패했습니다. 다시 시도해 주세요.' }
   }
 
   const { accessToken, refreshToken } = data

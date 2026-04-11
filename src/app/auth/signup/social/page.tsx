@@ -2,16 +2,18 @@
 
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import type { KakaoProfile, NaverProfile } from '@/domains/auth'
+import type { FacebookProfile, KakaoProfile, NaverProfile } from '@/domains/auth'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import { use, useState } from 'react'
+import FacebookPhoneVerificationStep from './_components/FacebookPhoneVerificationStep'
+import FacebookSignupSection from './_components/FacebookSignupSection'
 import KakaoPhoneVerificationStep from './_components/KakaoPhoneVerificationStep'
 import KakaoSignupSection from './_components/KakaoSignupSection'
 import NaverPhoneVerificationStep from './_components/NaverPhoneVerificationStep'
 import NaverSignupSection from './_components/NaverSignupSection'
 
-type Provider = 'kakao' | 'naver'
+type Provider = 'kakao' | 'naver' | 'facebook'
 
 interface KakaoSignupStepData {
   provider: 'kakao'
@@ -29,18 +31,36 @@ interface NaverSignupStepData {
   phoneVerifyToken: string
 }
 
-type SignupStepData = KakaoSignupStepData | NaverSignupStepData
+interface FacebookSignupStepData {
+  provider: 'facebook'
+  facebookTempToken: string
+  facebookProfile: FacebookProfile
+  phone: string
+  phoneVerifyToken: string
+}
+
+type SignupStepData = KakaoSignupStepData | NaverSignupStepData | FacebookSignupStepData
 
 interface SocialSignupPageProps {
-  searchParams: Promise<{ kakaoTempToken?: string; naverTempToken?: string }>
+  searchParams: Promise<{
+    kakaoTempToken?: string
+    naverTempToken?: string
+    facebookTempToken?: string
+  }>
 }
 
 export default function SocialSignupPage({ searchParams }: SocialSignupPageProps) {
-  const { kakaoTempToken, naverTempToken } = use(searchParams)
+  const { kakaoTempToken, naverTempToken, facebookTempToken } = use(searchParams)
   const router = useRouter()
   const [signupData, setSignupData] = useState<SignupStepData | null>(null)
 
-  const provider: Provider | null = kakaoTempToken ? 'kakao' : naverTempToken ? 'naver' : null
+  const provider: Provider | null = kakaoTempToken
+    ? 'kakao'
+    : naverTempToken
+      ? 'naver'
+      : facebookTempToken
+        ? 'facebook'
+        : null
 
   if (!provider) {
     router.replace(PAGE_PATHS.AUTH_LOGIN)
@@ -89,6 +109,24 @@ export default function SocialSignupPage({ searchParams }: SocialSignupPageProps
               naverTempToken={naverTempToken!}
               onLinked={() => router.replace(PAGE_PATHS.HOME)}
               onNeedsSignUp={(params) => setSignupData({ provider: 'naver', ...params })}
+            />
+          )}
+        </>
+      )}
+
+      {provider === 'facebook' && (
+        <>
+          {signupData?.provider === 'facebook' ? (
+            <FacebookSignupSection
+              facebookTempToken={signupData.facebookTempToken}
+              facebookProfile={signupData.facebookProfile}
+              phone={signupData.phone}
+            />
+          ) : (
+            <FacebookPhoneVerificationStep
+              facebookTempToken={facebookTempToken!}
+              onLinked={() => router.replace(PAGE_PATHS.HOME)}
+              onNeedsSignUp={(params) => setSignupData({ provider: 'facebook', ...params })}
             />
           )}
         </>
