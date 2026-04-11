@@ -14,7 +14,7 @@ import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect, useState, useTransition } from 'react'
-import { FaFacebookF } from 'react-icons/fa'
+import { FaApple, FaFacebookF } from 'react-icons/fa'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 import { SiNaver } from 'react-icons/si'
 import { z } from 'zod'
@@ -36,7 +36,22 @@ export default function LoginSection() {
   const [state, formAction] = useActionState(loginFormAction, null)
   const [isSubmitting, startSubmitTransition] = useTransition()
 
-  const handleSocialLogin = (provider: 'kakao' | 'naver' | 'facebook') => {
+  const handleSocialLogin = (provider: 'kakao' | 'naver' | 'facebook' | 'apple') => {
+    if (provider === 'apple') {
+      const appleAuthUrl = new URL('https://appleid.apple.com/auth/authorize')
+      appleAuthUrl.searchParams.set('client_id', env.NEXT_PUBLIC_APPLE_CLIENT_ID)
+      appleAuthUrl.searchParams.set(
+        'redirect_uri',
+        `${env.NEXT_PUBLIC_SITE_URL}/auth/callback/apple`,
+      )
+      appleAuthUrl.searchParams.set('response_type', 'code id_token')
+      appleAuthUrl.searchParams.set('scope', 'name email')
+      appleAuthUrl.searchParams.set('response_mode', 'form_post')
+      appleAuthUrl.searchParams.set('state', crypto.randomUUID())
+      window.location.href = appleAuthUrl.toString()
+      return
+    }
+
     if (provider === 'kakao') {
       const kakaoAuthUrl = new URL('https://kauth.kakao.com/oauth/authorize')
       kakaoAuthUrl.searchParams.set('client_id', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY ?? '')
@@ -238,6 +253,18 @@ export default function LoginSection() {
               <FaFacebookF className="size-6" />
             </span>
             <span className="flex-1 text-center">페이스북으로 로그인</span>
+          </AppFullButton>
+
+          {/* 애플 로그인 */}
+          <AppFullButton
+            type="button"
+            onClick={() => handleSocialLogin('apple')}
+            className="relative bg-black text-white hover:bg-black/90"
+          >
+            <span className="absolute left-4">
+              <FaApple className="size-6" />
+            </span>
+            <span className="flex-1 text-center">Apple로 로그인</span>
           </AppFullButton>
         </div>
       </div>

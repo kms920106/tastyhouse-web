@@ -1,5 +1,11 @@
 import { api } from '@/lib/api'
 import {
+  AppleAccountLinkPayload,
+  AppleLinkAccountResponse,
+  AppleLoginPayload,
+  AppleLoginResponse,
+  AppleSignUpPayload,
+  AppleSignUpResponse,
   FacebookAccountLinkPayload,
   FacebookLinkAccountResponse,
   FacebookLoginPayload,
@@ -89,5 +95,17 @@ export const authRepository = {
 
   async facebookSignUp(payload: FacebookSignUpPayload) {
     return api.post<FacebookSignUpResponse>(`${AUTH_BASE}/signup/facebook`, payload)
+  },
+
+  async appleLogin(payload: AppleLoginPayload) {
+    return api.post<AppleLoginResponse>(`${AUTH_BASE}/login/apple`, payload)
+  },
+
+  async appleLinkAccount(payload: AppleAccountLinkPayload) {
+    return api.post<AppleLinkAccountResponse>(`${AUTH_BASE}/link/apple`, payload)
+  },
+
+  async appleSignUp(payload: AppleSignUpPayload) {
+    return api.post<AppleSignUpResponse>(`${AUTH_BASE}/signup/apple`, payload)
   },
 }

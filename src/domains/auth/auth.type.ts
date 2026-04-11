@@ -214,3 +214,61 @@ export interface FacebookSignUpResponse {
   refreshToken: string
   tokenType: string
 }
+
+// 애플 로그인
+export interface AppleLoginPayload {
+  code: string
+  idToken: string
+}
+
+export type AppleLoginStatus = 'LOGIN' | 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'
+
+export interface AppleProfile {
+  providerId: string
+  email: string
+  nickname: string
+  profileImageUrl: string
+  name: string | null
+  phoneNumber: string | null
+}
+
+export interface AppleLoginResponse {
+  status: AppleLoginStatus
+  appleTempToken: string | null
+  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
+  appleProfile: AppleProfile | null
+}
+
+export interface AppleAccountLinkPayload {
+  appleTempToken: string
+  phoneVerifyToken: string
+}
+
+export type AppleLinkAccountStatus = 'LOGIN' | 'NEEDS_SIGN_UP'
+
+export interface AppleLinkAccountResponse {
+  status: AppleLinkAccountStatus
+  appleTempToken: string | null
+  jwt: { accessToken: string; refreshToken: string; tokenType: string } | null
+  appleProfile: AppleProfile | null
+}
+
+export interface AppleSignUpPayload {
+  appleTempToken: string
+  username: string
+  nickname: string
+  fullName: string
+  gender: Gender
+  birthDate: number
+  phoneNumber: string
+  pushNotificationEnabled?: boolean
+  marketingInfoEnabled?: boolean
+  eventInfoEnabled?: boolean
+  referrerNickname?: string
+}
+
+export interface AppleSignUpResponse {
+  accessToken: string
+  refreshToken: string
+  tokenType: string
+}

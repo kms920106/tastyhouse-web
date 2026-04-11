@@ -1,6 +1,8 @@
 'use server'
 
 import {
+  AppleLoginResponse,
+  AppleSignUpPayload,
   authRepository,
   FacebookLoginResponse,
   FacebookSignUpPayload,
@@ -362,6 +364,67 @@ export async function facebookSignUpAction(
 
   if (error || !data) {
     return { success: false, error: '페이스북 회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { accessToken, refreshToken } = data
+
+  await setAuthCookies(accessToken, refreshToken)
+  revalidatePath('/')
+  return null
+}
+
+export type AppleLinkAccountResult =
+  | { success: true; status: 'LOGIN' }
+  | {
+      success: true
+      status: 'NEEDS_SIGN_UP'
+      appleTempToken: string
+      appleProfile: AppleLoginResponse['appleProfile']
+    }
+  | { success: false; error: string }
+
+export async function appleLinkAccountAction(
+  appleTempToken: string,
+  phoneVerifyToken: string,
+): Promise<AppleLinkAccountResult> {
+  const { data, error } = await authRepository.appleLinkAccount({
+    appleTempToken,
+    phoneVerifyToken,
+  })
+
+  if (error || !data) {
+    return { success: false, error: '애플 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  const { status, jwt, appleProfile } = data
+
+  if (status === 'LOGIN' && jwt) {
+    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
+    revalidatePath('/')
+    return { success: true, status: 'LOGIN' }
+  }
+
+  if (status === 'NEEDS_SIGN_UP' && appleTempToken && appleProfile) {
+    return {
+      success: true,
+      status: 'NEEDS_SIGN_UP',
+      appleTempToken,
+      appleProfile,
+    }
+  }
+
+  return { success: false, error: '애플 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+}
+
+export type AppleSignUpResult = { success: false; error: string }
+
+export async function appleSignUpAction(
+  payload: AppleSignUpPayload,
+): Promise<AppleSignUpResult | null> {
+  const { data, error } = await authRepository.appleSignUp(payload)
+
+  if (error || !data) {
+    return { success: false, error: '애플 회원가입에 실패했습니다. 다시 시도해 주세요.' }
   }
 
   const { accessToken, refreshToken } = data

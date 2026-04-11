@@ -2,10 +2,12 @@
 
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import type { FacebookProfile, KakaoProfile, NaverProfile } from '@/domains/auth'
+import type { AppleProfile, FacebookProfile, KakaoProfile, NaverProfile } from '@/domains/auth'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import { use, useState } from 'react'
+import ApplePhoneVerificationStep from './_components/ApplePhoneVerificationStep'
+import AppleSignupSection from './_components/AppleSignupSection'
 import FacebookPhoneVerificationStep from './_components/FacebookPhoneVerificationStep'
 import FacebookSignupSection from './_components/FacebookSignupSection'
 import KakaoPhoneVerificationStep from './_components/KakaoPhoneVerificationStep'
@@ -13,7 +15,7 @@ import KakaoSignupSection from './_components/KakaoSignupSection'
 import NaverPhoneVerificationStep from './_components/NaverPhoneVerificationStep'
 import NaverSignupSection from './_components/NaverSignupSection'
 
-type Provider = 'kakao' | 'naver' | 'facebook'
+type Provider = 'kakao' | 'naver' | 'facebook' | 'apple'
 
 interface KakaoSignupStepData {
   provider: 'kakao'
@@ -39,18 +41,31 @@ interface FacebookSignupStepData {
   phoneVerifyToken: string
 }
 
-type SignupStepData = KakaoSignupStepData | NaverSignupStepData | FacebookSignupStepData
+interface AppleSignupStepData {
+  provider: 'apple'
+  appleTempToken: string
+  appleProfile: AppleProfile
+  phone: string
+  phoneVerifyToken: string
+}
+
+type SignupStepData =
+  | KakaoSignupStepData
+  | NaverSignupStepData
+  | FacebookSignupStepData
+  | AppleSignupStepData
 
 interface SocialSignupPageProps {
   searchParams: Promise<{
     kakaoTempToken?: string
     naverTempToken?: string
     facebookTempToken?: string
+    appleTempToken?: string
   }>
 }
 
 export default function SocialSignupPage({ searchParams }: SocialSignupPageProps) {
-  const { kakaoTempToken, naverTempToken, facebookTempToken } = use(searchParams)
+  const { kakaoTempToken, naverTempToken, facebookTempToken, appleTempToken } = use(searchParams)
   const router = useRouter()
   const [signupData, setSignupData] = useState<SignupStepData | null>(null)
 
@@ -60,7 +75,9 @@ export default function SocialSignupPage({ searchParams }: SocialSignupPageProps
       ? 'naver'
       : facebookTempToken
         ? 'facebook'
-        : null
+        : appleTempToken
+          ? 'apple'
+          : null
 
   if (!provider) {
     router.replace(PAGE_PATHS.AUTH_LOGIN)
@@ -127,6 +144,24 @@ export default function SocialSignupPage({ searchParams }: SocialSignupPageProps
               facebookTempToken={facebookTempToken!}
               onLinked={() => router.replace(PAGE_PATHS.HOME)}
               onNeedsSignUp={(params) => setSignupData({ provider: 'facebook', ...params })}
+            />
+          )}
+        </>
+      )}
+
+      {provider === 'apple' && (
+        <>
+          {signupData?.provider === 'apple' ? (
+            <AppleSignupSection
+              appleTempToken={signupData.appleTempToken}
+              appleProfile={signupData.appleProfile}
+              phone={signupData.phone}
+            />
+          ) : (
+            <ApplePhoneVerificationStep
+              appleTempToken={appleTempToken!}
+              onLinked={() => router.replace(PAGE_PATHS.HOME)}
+              onNeedsSignUp={(params) => setSignupData({ provider: 'apple', ...params })}
             />
           )}
         </>
