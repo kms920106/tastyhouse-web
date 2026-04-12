@@ -96,7 +96,7 @@ class ApiClient {
       if (!response.ok) {
         const errorMessage = json?.message || response.statusText
         console.error(
-          `[API] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
+          `[API ERROR] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
         )
         return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
       }
@@ -106,7 +106,7 @@ class ApiClient {
         if (!json.success) {
           const errorMessage = json.message
           console.error(
-            `[API] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
+            `[API ERROR] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
           )
           return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
         }
@@ -121,20 +121,15 @@ class ApiClient {
       return { data: json as T, status }
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
-        console.error('[API] Request timeout', {
-          method: restConfig.method ?? 'GET',
-          url,
-          timeoutMs: timeout,
-        })
+        console.error(
+          `[API TIMEOUT] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, timeoutMs: timeout })}`,
+        )
         return { error: '요청 시간이 초과되었습니다.', status: 0 }
       }
       const errorMessage = error instanceof Error ? error.message : 'Network error'
-      console.error('[API] Unexpected error', {
-        method: restConfig.method ?? 'GET',
-        url,
-        message: errorMessage,
-        cause: error,
-      })
+      console.error(
+        `[API ERROR] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, message: errorMessage })}`,
+      )
       return { error: errorMessage, status: 0 }
     } finally {
       clearTimeout(timeoutId)
