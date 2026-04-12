@@ -85,7 +85,7 @@ class ApiClient {
     const timeoutId = setTimeout(() => controller.abort(), timeout)
     const startTime = Date.now()
 
-    requestLogger.info('[REQUEST]')
+    requestLogger.info('[API REQUEST]')
 
     try {
       const requestHeaders = await this.getRequestHeaders(headers, isFormData)
@@ -106,9 +106,9 @@ class ApiClient {
         const logPayload = { status, durationMs, message }
 
         if (status >= 500) {
-          requestLogger.error(logPayload, '[RESPONSE]')
+          requestLogger.error(logPayload, '[API RESPONSE]')
         } else {
-          requestLogger.warn(logPayload, '[RESPONSE]')
+          requestLogger.warn(logPayload, '[API RESPONSE]')
         }
 
         return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
@@ -117,12 +117,12 @@ class ApiClient {
       // 백엔드 응답 { success, data, message, pagination } 구조를 자동 언래핑
       if (json && typeof json === 'object' && 'success' in json) {
         if (!json.success) {
-          requestLogger.warn({ status, durationMs, message: json.message }, '[RESPONSE]')
+          requestLogger.warn({ status, durationMs, message: json.message }, '[API RESPONSE]')
           return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
         }
 
-        requestLogger.debug({ body: json.data }, '[RESPONSE BODY]')
-        requestLogger.info({ status, durationMs }, '[RESPONSE]')
+        requestLogger.debug({ body: json.data }, '[API RESPONSE BODY]')
+        requestLogger.info({ status, durationMs }, '[API RESPONSE]')
 
         return {
           data: json.data as T,
@@ -131,8 +131,8 @@ class ApiClient {
         }
       }
 
-      requestLogger.info({ status, durationMs }, '[RESPONSE]')
-      requestLogger.debug({ body: json }, '[RESPONSE BODY]')
+      requestLogger.info({ status, durationMs }, '[API RESPONSE]')
+      requestLogger.debug({ body: json }, '[API RESPONSE BODY]')
 
       return { data: json as T, status }
     } catch (error) {
