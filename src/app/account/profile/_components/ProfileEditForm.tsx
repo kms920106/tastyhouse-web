@@ -1,5 +1,6 @@
 'use client'
 
+import { updateMemberProfile } from '@/actions/member'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
@@ -8,7 +9,6 @@ import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberPro
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
-import { updateMemberProfile } from '@/actions/member'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -33,8 +33,6 @@ export default function ProfileEditForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const { memberProfile, isLoading } = useMemberProfile()
-
-  console.log(memberProfile)
 
   const [nickname, setNickname] = useState('')
   const [statusMessage, setStatusMessage] = useState('')
