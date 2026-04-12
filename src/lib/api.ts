@@ -1,5 +1,6 @@
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { env } from '@/lib/env'
+import logger from '@/lib/logger'
 import { cookies } from 'next/headers'
 
 type RequestConfig = RequestInit & {
@@ -56,6 +57,9 @@ class ApiClient {
 
   private async request<T>(endpoint: string, config: RequestConfig = {}): Promise<ApiResponse<T>> {
     const { params, headers, isFormData, timeout = 30_000, ...restConfig } = config
+    const method = restConfig.method ?? 'GET'
+    const correlationId = crypto.randomUUID().slice(0, 8)
+    const requestLogger = logger.child({ correlationId, method, path: endpoint })
 
     let url = `${this.baseURL}${endpoint}`
     if (params) {
@@ -79,6 +83,9 @@ class ApiClient {
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeout)
+    const startTime = Date.now()
+
+    requestLogger.info('[REQUEST]')
 
     try {
       const requestHeaders = await this.getRequestHeaders(headers, isFormData)
@@ -91,25 +98,31 @@ class ApiClient {
       })
 
       const status = response.status
+      const durationMs = Date.now() - startTime
       const json = await response.json().catch(() => null)
 
       if (!response.ok) {
-        const errorMessage = json?.message || response.statusText
-        console.error(
-          `[API ERROR] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
-        )
+        const message = json?.message || response.statusText
+        const logPayload = { status, durationMs, message }
+
+        if (status >= 500) {
+          requestLogger.error(logPayload, '[RESPONSE]')
+        } else {
+          requestLogger.warn(logPayload, '[RESPONSE]')
+        }
+
         return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
       }
 
       // 백엔드 응답 { success, data, message, pagination } 구조를 자동 언래핑
       if (json && typeof json === 'object' && 'success' in json) {
         if (!json.success) {
-          const errorMessage = json.message
-          console.error(
-            `[API ERROR] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
-          )
+          requestLogger.warn({ status, durationMs, message: json.message }, '[RESPONSE]')
           return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
         }
+
+        requestLogger.debug({ body: json.data }, '[RESPONSE BODY]')
+        requestLogger.info({ status, durationMs }, '[RESPONSE]')
 
         return {
           data: json.data as T,
@@ -118,19 +131,20 @@ class ApiClient {
         }
       }
 
+      requestLogger.info({ status, durationMs }, '[RESPONSE]')
+      requestLogger.debug({ body: json }, '[RESPONSE BODY]')
+
       return { data: json as T, status }
     } catch (error) {
+      const durationMs = Date.now() - startTime
+
       if (error instanceof DOMException && error.name === 'AbortError') {
-        console.error(
-          `[API TIMEOUT] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, timeoutMs: timeout })}`,
-        )
+        requestLogger.error({ durationMs, timeoutMs: timeout }, '[TIMEOUT]')
         return { error: '요청 시간이 초과되었습니다.', status: 0 }
       }
-      const errorMessage = error instanceof Error ? error.message : 'Network error'
-      console.error(
-        `[API ERROR] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, message: errorMessage })}`,
-      )
-      return { error: errorMessage, status: 0 }
+
+      requestLogger.error({ err: error, durationMs }, '[ERROR]')
+      return { error: error instanceof Error ? error.message : 'Network error', status: 0 }
     } finally {
       clearTimeout(timeoutId)
     }
