@@ -1,17 +1,12 @@
 'use server'
 
 import {
-  AppleLoginResponse,
-  AppleSignUpPayload,
   authRepository,
-  FacebookLoginResponse,
-  FacebookSignUpPayload,
-  KakaoLoginResponse,
-  KakaoSignUpPayload,
   LoginResult,
-  NaverLoginResponse,
-  NaverSignUpPayload,
+  SocialProfile,
+  SocialSignUpRequest,
 } from '@/domains/auth'
+import type { Provider } from '@/types/auth'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
@@ -138,32 +133,49 @@ async function setAuthCookies(accessToken: string, refreshToken: string) {
   cookieStore.set(AUTH_COOKIE_KEYS.REFRESH_TOKEN, refreshToken, baseOptions)
 }
 
-export type KakaoLinkAccountResult =
+export type SocialLinkAccountResult =
   | { success: true; status: 'LOGIN' }
   | {
       success: true
       status: 'NEEDS_SIGN_UP'
-      kakaoTempToken: string
-      kakaoProfile: KakaoLoginResponse['kakaoProfile']
+      tempToken: string
+      socialProfile: SocialProfile | null
     }
   | { success: false; error: string }
 
-export async function kakaoLinkAccountAction(
-  kakaoTempToken: string,
+export async function socialLinkAccountAction(
+  provider: Provider,
+  tempToken: string,
   phoneVerifyToken: string,
-): Promise<KakaoLinkAccountResult> {
-  const { data, error } = await authRepository.kakaoLinkAccount({
-    kakaoTempToken,
-    phoneVerifyToken,
-  })
+): Promise<SocialLinkAccountResult> {
+  const LINK_ERROR = '계정 연동에 실패했습니다. 다시 시도해 주세요.'
+  const request = { tempToken, phoneVerifyToken }
 
-  if (error || !data) {
-    return { success: false, error: '카카오 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+  let result
+  switch (provider) {
+    case 'kakao':
+      result = await authRepository.kakaoLinkAccount(request)
+      break
+    case 'naver':
+      result = await authRepository.naverLinkAccount(request)
+      break
+    case 'facebook':
+      result = await authRepository.facebookLinkAccount(request)
+      break
+    case 'apple':
+      result = await authRepository.appleLinkAccount(request)
+      break
   }
 
-  const { status, jwt, kakaoProfile } = data
+  const { data, error } = result
 
-  // 기존 일반 계정과 카카오 계정 연동이 완료되었으므로 JWT를 쿠키에 저장하고 로그인 처리한다.
+  if (error || !data) {
+    return { success: false, error: LINK_ERROR }
+  }
+
+  const { status, jwt, socialProfile } = data
+
+  // 기존 일반 계정과 소셜 계정 연동이 완료되었으므로 JWT를 쿠키에 저장하고 로그인 처리한다.
   if (status === 'LOGIN' && jwt) {
     await setAuthCookies(jwt.accessToken, jwt.refreshToken)
     revalidatePath('/')
@@ -171,16 +183,11 @@ export async function kakaoLinkAccountAction(
   }
 
   // 해당 전화번호로 가입된 계정이 없는 신규 고객이므로 회원가입 페이지로 안내한다.
-  if (status === 'NEEDS_SIGN_UP' && kakaoTempToken && kakaoProfile) {
-    return {
-      success: true,
-      status: 'NEEDS_SIGN_UP',
-      kakaoTempToken,
-      kakaoProfile,
-    }
+  if (status === 'NEEDS_SIGN_UP' && tempToken) {
+    return { success: true, status: 'NEEDS_SIGN_UP', tempToken, socialProfile }
   }
 
-  return { success: false, error: '카카오 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
+  return { success: false, error: LINK_ERROR }
 }
 
 export type PhoneLoginResult =
@@ -206,88 +213,12 @@ export async function phoneLoginAction(phoneVerifyToken: string): Promise<PhoneL
   return { success: true, needsSignUp: true }
 }
 
-export type KakaoSignUpResult = { success: false; error: string }
 
-export async function kakaoSignUpAction(
-  payload: KakaoSignUpPayload,
-): Promise<KakaoSignUpResult | null> {
-  const { data, error } = await authRepository.kakaoSignUp(payload)
 
-  if (error || !data) {
-    return { success: false, error: '카카오 회원가입에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  const { accessToken, refreshToken } = data
-
-  await setAuthCookies(accessToken, refreshToken)
-  revalidatePath('/')
-  return null
-}
-
-export type NaverLinkAccountResult =
-  | { success: true; status: 'LOGIN' }
-  | {
-      success: true
-      status: 'NEEDS_SIGN_UP'
-      naverTempToken: string
-      naverProfile: NaverLoginResponse['naverProfile']
-    }
-  | { success: false; error: string }
-
-export async function naverLinkAccountAction(
-  naverTempToken: string,
-  phoneVerifyToken: string,
-): Promise<NaverLinkAccountResult> {
-  const { data, error } = await authRepository.naverLinkAccount({
-    naverTempToken,
-    phoneVerifyToken,
-  })
-
-  if (error || !data) {
-    return { success: false, error: '네이버 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  const { status, jwt, naverProfile } = data
-
-  if (status === 'LOGIN' && jwt) {
-    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
-    revalidatePath('/')
-    return { success: true, status: 'LOGIN' }
-  }
-
-  if (status === 'NEEDS_SIGN_UP' && naverTempToken && naverProfile) {
-    return {
-      success: true,
-      status: 'NEEDS_SIGN_UP',
-      naverTempToken,
-      naverProfile,
-    }
-  }
-
-  return { success: false, error: '네이버 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
-}
-
-export type NaverSignUpResult = { success: false; error: string }
-
-export async function naverSignUpAction(
-  payload: NaverSignUpPayload,
-): Promise<NaverSignUpResult | null> {
-  const { data, error } = await authRepository.naverSignUp(payload)
-
-  if (error || !data) {
-    return { success: false, error: '네이버 회원가입에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  const { accessToken, refreshToken } = data
-
-  await setAuthCookies(accessToken, refreshToken)
-  revalidatePath('/')
-  return null
-}
 
 export type FacebookLoginResult =
   | { success: true; status: 'LOGIN' }
-  | { success: true; status: 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'; facebookTempToken: string }
+  | { success: true; status: 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'; tempToken: string }
   | { success: false; error: string }
 
 export async function facebookLoginAction(accessToken: string): Promise<FacebookLoginResult> {
@@ -297,7 +228,7 @@ export async function facebookLoginAction(accessToken: string): Promise<Facebook
     return { success: false, error: '페이스북 로그인에 실패했습니다. 다시 시도해 주세요.' }
   }
 
-  const { status, jwt, facebookTempToken } = data
+  const { status, jwt, tempToken } = data
 
   if (status === 'LOGIN' && jwt) {
     await setAuthCookies(jwt.accessToken, jwt.refreshToken)
@@ -305,126 +236,44 @@ export async function facebookLoginAction(accessToken: string): Promise<Facebook
     return { success: true, status: 'LOGIN' }
   }
 
-  if ((status === 'NEEDS_SIGN_UP' || status === 'NEEDS_LINKING') && facebookTempToken) {
-    return { success: true, status, facebookTempToken }
+  if ((status === 'NEEDS_SIGN_UP' || status === 'NEEDS_LINKING') && tempToken) {
+    return { success: true, status, tempToken }
   }
 
   return { success: false, error: '페이스북 로그인에 실패했습니다. 다시 시도해 주세요.' }
 }
 
-export type FacebookLinkAccountResult =
-  | { success: true; status: 'LOGIN' }
-  | {
-      success: true
-      status: 'NEEDS_SIGN_UP'
-      facebookTempToken: string
-      facebookProfile: FacebookLoginResponse['facebookProfile']
-    }
-  | { success: false; error: string }
 
-export async function facebookLinkAccountAction(
-  facebookTempToken: string,
-  phoneVerifyToken: string,
-): Promise<FacebookLinkAccountResult> {
-  const { data, error } = await authRepository.facebookLinkAccount({
-    facebookTempToken,
-    phoneVerifyToken,
-  })
+
+
+export type SocialSignUpResult = { success: false; error: string }
+
+export async function socialSignUpAction(
+  provider: Provider,
+  request: SocialSignUpRequest,
+): Promise<SocialSignUpResult | null> {
+  const SIGN_UP_ERROR = '회원가입에 실패했습니다. 다시 시도해 주세요.'
+
+  let result
+  switch (provider) {
+    case 'kakao':
+      result = await authRepository.kakaoSignUp(request)
+      break
+    case 'naver':
+      result = await authRepository.naverSignUp(request)
+      break
+    case 'facebook':
+      result = await authRepository.facebookSignUp(request)
+      break
+    case 'apple':
+      result = await authRepository.appleSignUp(request)
+      break
+  }
+
+  const { data, error } = result
 
   if (error || !data) {
-    return { success: false, error: '페이스북 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  const { status, jwt, facebookProfile } = data
-
-  if (status === 'LOGIN' && jwt) {
-    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
-    revalidatePath('/')
-    return { success: true, status: 'LOGIN' }
-  }
-
-  if (status === 'NEEDS_SIGN_UP' && facebookTempToken && facebookProfile) {
-    return {
-      success: true,
-      status: 'NEEDS_SIGN_UP',
-      facebookTempToken,
-      facebookProfile,
-    }
-  }
-
-  return { success: false, error: '페이스북 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
-}
-
-export type FacebookSignUpResult = { success: false; error: string }
-
-export async function facebookSignUpAction(
-  payload: FacebookSignUpPayload,
-): Promise<FacebookSignUpResult | null> {
-  const { data, error } = await authRepository.facebookSignUp(payload)
-
-  if (error || !data) {
-    return { success: false, error: '페이스북 회원가입에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  const { accessToken, refreshToken } = data
-
-  await setAuthCookies(accessToken, refreshToken)
-  revalidatePath('/')
-  return null
-}
-
-export type AppleLinkAccountResult =
-  | { success: true; status: 'LOGIN' }
-  | {
-      success: true
-      status: 'NEEDS_SIGN_UP'
-      appleTempToken: string
-      appleProfile: AppleLoginResponse['appleProfile']
-    }
-  | { success: false; error: string }
-
-export async function appleLinkAccountAction(
-  appleTempToken: string,
-  phoneVerifyToken: string,
-): Promise<AppleLinkAccountResult> {
-  const { data, error } = await authRepository.appleLinkAccount({
-    appleTempToken,
-    phoneVerifyToken,
-  })
-
-  if (error || !data) {
-    return { success: false, error: '애플 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
-  }
-
-  const { status, jwt, appleProfile } = data
-
-  if (status === 'LOGIN' && jwt) {
-    await setAuthCookies(jwt.accessToken, jwt.refreshToken)
-    revalidatePath('/')
-    return { success: true, status: 'LOGIN' }
-  }
-
-  if (status === 'NEEDS_SIGN_UP' && appleTempToken && appleProfile) {
-    return {
-      success: true,
-      status: 'NEEDS_SIGN_UP',
-      appleTempToken,
-      appleProfile,
-    }
-  }
-
-  return { success: false, error: '애플 계정 연동에 실패했습니다. 다시 시도해 주세요.' }
-}
-
-export type AppleSignUpResult = { success: false; error: string }
-
-export async function appleSignUpAction(
-  payload: AppleSignUpPayload,
-): Promise<AppleSignUpResult | null> {
-  const { data, error } = await authRepository.appleSignUp(payload)
-
-  if (error || !data) {
-    return { success: false, error: '애플 회원가입에 실패했습니다. 다시 시도해 주세요.' }
+    return { success: false, error: SIGN_UP_ERROR }
   }
 
   const { accessToken, refreshToken } = data

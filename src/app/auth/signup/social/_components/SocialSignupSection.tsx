@@ -1,6 +1,5 @@
 'use client'
 
-import { kakaoSignUpAction } from '@/actions/auth'
 import {
   checkNicknameAvailability,
   confirmEmailVerificationCodeForEmailField,
@@ -22,7 +21,7 @@ import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import EmailVerificationField from '@/components/ui/EmailVerificationField'
 import FormCheckbox from '@/components/ui/FormCheckbox'
 import SectionStack from '@/components/ui/SectionStack'
-import type { KakaoProfile } from '@/domains/auth'
+import type { SocialProfile } from '@/domains/auth'
 import type { Gender } from '@/domains/member'
 import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -63,7 +62,7 @@ const TERMS_LIST = [
 
 type TermsKey = (typeof TERMS_LIST)[number]['key']
 
-const kakaoSignupSchema = z.object({
+const signupSchema = z.object({
   nickname: z
     .string()
     .min(2, '닉네임은 2자 이상 입력해 주세요.')
@@ -76,20 +75,33 @@ const kakaoSignupSchema = z.object({
 })
 
 type FormErrors = Partial<
-  Record<keyof z.infer<typeof kakaoSignupSchema> | 'birthDate' | 'email', string>
+  Record<keyof z.infer<typeof signupSchema> | 'birthDate' | 'email', string>
 >
 
-interface KakaoSignupSectionProps {
-  kakaoTempToken: string
-  kakaoProfile: KakaoProfile
-  phone: string
+export interface SocialSignupFormData {
+  username: string
+  nickname: string
+  fullName: string
+  gender: Gender
+  birthDate: number
+  phoneNumber: string
+  pushNotificationEnabled?: boolean
+  marketingInfoEnabled?: boolean
+  eventInfoEnabled?: boolean
+  referrerNickname?: string
 }
 
-export default function KakaoSignupSection({
-  kakaoTempToken,
-  kakaoProfile,
+interface SocialSignupSectionProps {
+  socialProfile: SocialProfile | null
+  phone: string
+  onSignUp: (formData: SocialSignupFormData) => Promise<{ success: false; error: string } | null>
+}
+
+export default function SocialSignupSection({
+  socialProfile,
   phone,
-}: KakaoSignupSectionProps) {
+  onSignUp,
+}: SocialSignupSectionProps) {
   const router = useRouter()
 
   const emailVerification = useEmailVerification({
@@ -132,9 +144,14 @@ export default function KakaoSignupSection({
   const [isSubmitting, startSubmitTransition] = useTransition()
 
   useEffect(() => {
-    if (kakaoProfile.email) emailVerification.setEmail(kakaoProfile.email)
-    setNickname(kakaoProfile.nickname)
-    if (kakaoProfile.name) setFullName(kakaoProfile.name)
+    if (socialProfile?.email) emailVerification.setEmail(socialProfile.email)
+    if (socialProfile?.nickname) setNickname(socialProfile.nickname)
+    if (socialProfile?.name) setFullName(socialProfile.name)
+    if (socialProfile?.birthYear) setBirthYear(socialProfile.birthYear)
+    if (socialProfile?.birthMonth) setBirthMonth(socialProfile.birthMonth)
+    if (socialProfile?.birthDay) setBirthDay(socialProfile.birthDay)
+    if (socialProfile?.gender === 'MALE' || socialProfile?.gender === 'FEMALE')
+      setGender(socialProfile.gender)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -212,7 +229,7 @@ export default function KakaoSignupSection({
   }
 
   const validateForm = (): boolean => {
-    const result = kakaoSignupSchema.safeParse({
+    const result = signupSchema.safeParse({
       nickname,
       fullName,
       birthYear,
@@ -259,14 +276,13 @@ export default function KakaoSignupSection({
     )
 
     startSubmitTransition(async () => {
-      const result = await kakaoSignUpAction({
-        kakaoTempToken,
+      const result = await onSignUp({
         username: emailVerification.email,
         nickname,
         fullName,
         gender: gender!,
         birthDate,
-        phoneNumber: phone || kakaoProfile.phoneNumber || '',
+        phoneNumber: phone || socialProfile?.phoneNumber || '',
         pushNotificationEnabled: agreedTerms.agreedPushNotification,
         marketingInfoEnabled: agreedTerms.agreedMarketing,
         eventInfoEnabled: agreedTerms.agreedMarketing,
@@ -507,7 +523,7 @@ export default function KakaoSignupSection({
 
             <div className="my-5">
               <AppSubmitButton isSubmitting={isSubmitting} loadingText="가입 중">
-                카카오로 가입하기
+                가입하기
               </AppSubmitButton>
             </div>
           </div>

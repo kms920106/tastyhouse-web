@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(loginFailedUrl)
   }
 
-  const { status, jwt, naverTempToken } = data
+  const { status, jwt, tempToken } = data
 
   if (status === 'LOGIN' && jwt) {
     const cookieStore = await cookies()
@@ -41,9 +41,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL(PAGE_PATHS.HOME, request.url))
   }
 
-  if ((status === 'NEEDS_SIGN_UP' || status === 'NEEDS_LINKING') && naverTempToken) {
+  if ((status === 'NEEDS_SIGN_UP' || status === 'NEEDS_LINKING') && tempToken) {
     const signupUrl = new URL(PAGE_PATHS.AUTH_SIGNUP_SOCIAL, request.url)
-    signupUrl.searchParams.set('naverTempToken', naverTempToken)
+    signupUrl.searchParams.set('provider', 'naver')
+    signupUrl.searchParams.set('tempToken', tempToken)
     return NextResponse.redirect(signupUrl)
   }
 

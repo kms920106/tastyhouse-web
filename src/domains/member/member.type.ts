@@ -1,5 +1,17 @@
 import { PaymentStatus } from '../payment'
+
 export type MemberGradeCode = 'NEWCOMER' | 'ACTIVE' | 'INSIDER' | 'GOURMET' | 'TEHA'
+
+export type Gender = 'MALE' | 'FEMALE'
+
+export type PointType = 'EARNED' | 'USE'
+
+export type WithdrawReason =
+  | 'LOW_USAGE_FREQUENCY'
+  | 'INSUFFICIENT_CONTENT'
+  | 'SWITCH_TO_ANOTHER_SERVICE'
+  | 'PRIVACY_CONCERNS'
+  | 'OTHER'
 
 export interface MemberInfo {
   id: number
@@ -93,8 +105,6 @@ export interface CouponListResponse {
   totalCount: number
 }
 
-export type PointType = 'EARNED' | 'USE'
-
 export interface PointHistoryItem {
   reason: string
   date: string
@@ -131,8 +141,6 @@ export interface VerifyPasswordResponse {
   verifyToken: string
 }
 
-export type Gender = 'MALE' | 'FEMALE'
-
 export interface UpdatePersonalInfoRequest {
   fullName: string
   phoneNumber?: string
@@ -153,13 +161,6 @@ export interface PersonalInfoResponse {
   marketingInfoEnabled: boolean
   eventInfoEnabled: boolean
 }
-
-export type WithdrawReason =
-  | 'LOW_USAGE_FREQUENCY'
-  | 'INSUFFICIENT_CONTENT'
-  | 'SWITCH_TO_ANOTHER_SERVICE'
-  | 'PRIVACY_CONCERNS'
-  | 'OTHER'
 
 export const WITHDRAW_REASON_LABEL: Record<WithdrawReason, string> = {
   LOW_USAGE_FREQUENCY: '서비스 이용 빈도가 낮아서',
@@ -186,4 +187,3 @@ export interface NicknameAvailabilityResponse {
 export interface PhoneAvailabilityResponse {
   available: boolean
 }
-

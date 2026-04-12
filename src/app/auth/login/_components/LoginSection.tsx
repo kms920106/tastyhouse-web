@@ -106,7 +106,7 @@ export default function LoginSection() {
 
           if (result.status === 'NEEDS_SIGN_UP' || result.status === 'NEEDS_LINKING') {
             router.push(
-              `${PAGE_PATHS.AUTH_SIGNUP_SOCIAL}?facebookTempToken=${result.facebookTempToken}`,
+              `${PAGE_PATHS.AUTH_SIGNUP_SOCIAL}?provider=facebook&tempToken=${result.tempToken}`,
             )
             return
           }

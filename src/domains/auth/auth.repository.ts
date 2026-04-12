@@ -1,36 +1,21 @@
 import { api } from '@/lib/api'
 import {
-  AppleAccountLinkPayload,
-  AppleLinkAccountResponse,
-  AppleLoginPayload,
-  AppleLoginResponse,
-  AppleSignUpPayload,
-  AppleSignUpResponse,
-  FacebookAccountLinkPayload,
-  FacebookLinkAccountResponse,
-  FacebookLoginPayload,
-  FacebookLoginResponse,
-  FacebookSignUpPayload,
-  FacebookSignUpResponse,
-  KakaoAccountLinkPayload,
-  KakaoLinkAccountResponse,
-  KakaoLoginPayload,
-  KakaoLoginResponse,
-  KakaoSignUpPayload,
-  KakaoSignUpResponse,
+  AppleLoginRequest,
+  FacebookLoginRequest,
+  KakaoLoginRequest,
   LoginRequest,
   LoginResponse,
-  NaverAccountLinkPayload,
-  NaverLinkAccountResponse,
-  NaverLoginPayload,
-  NaverLoginResponse,
-  NaverSignUpPayload,
-  NaverSignUpResponse,
-  PasswordResetConfirmPayload,
-  PasswordResetVerifyPayload,
+  NaverLoginRequest,
+  PasswordResetConfirmRequest,
+  PasswordResetVerifyRequest,
   PasswordResetVerifyResponse,
-  PhoneLoginPayload,
+  PhoneLoginRequest,
   PhoneLoginResponse,
+  SocialAccountLinkRequest,
+  SocialLinkResponse,
+  SocialLoginResponse,
+  SocialSignUpRequest,
+  SocialSignUpResponse,
 } from './auth.type'
 
 const AUTH_BASE = '/api/auth/v1'
@@ -49,63 +34,63 @@ export const authRepository = {
     return api.post<void>(`${PASSWORD_RESET_BASE}/request`, { username })
   },
 
-  async verifyPasswordReset(payload: PasswordResetVerifyPayload) {
-    return api.post<PasswordResetVerifyResponse>(`${PASSWORD_RESET_BASE}/verify`, payload)
+  async verifyPasswordReset(request: PasswordResetVerifyRequest) {
+    return api.post<PasswordResetVerifyResponse>(`${PASSWORD_RESET_BASE}/verify`, request)
   },
 
-  async confirmPasswordReset(payload: PasswordResetConfirmPayload) {
-    return api.post<void>(`${PASSWORD_RESET_BASE}/confirm`, payload)
+  async confirmPasswordReset(request: PasswordResetConfirmRequest) {
+    return api.post<void>(`${PASSWORD_RESET_BASE}/confirm`, request)
   },
 
-  async kakaoLogin(payload: KakaoLoginPayload) {
-    return api.post<KakaoLoginResponse>(`${AUTH_BASE}/login/kakao`, payload)
+  async kakaoLogin(request: KakaoLoginRequest) {
+    return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/kakao`, request)
   },
 
-  async kakaoLinkAccount(payload: KakaoAccountLinkPayload) {
-    return api.post<KakaoLinkAccountResponse>(`${AUTH_BASE}/link/kakao`, payload)
+  async kakaoLinkAccount(request: SocialAccountLinkRequest) {
+    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/kakao`, request)
   },
 
-  async kakaoSignUp(payload: KakaoSignUpPayload) {
-    return api.post<KakaoSignUpResponse>(`${AUTH_BASE}/signup/kakao`, payload)
+  async kakaoSignUp(request: SocialSignUpRequest) {
+    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/kakao`, request)
   },
 
-  async phoneLogin(payload: PhoneLoginPayload) {
-    return api.post<PhoneLoginResponse>(`${AUTH_BASE}/login/phone`, payload)
+  async phoneLogin(request: PhoneLoginRequest) {
+    return api.post<PhoneLoginResponse>(`${AUTH_BASE}/login/phone`, request)
   },
 
-  async naverLogin(payload: NaverLoginPayload) {
-    return api.post<NaverLoginResponse>(`${AUTH_BASE}/login/naver`, payload)
+  async naverLogin(request: NaverLoginRequest) {
+    return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/naver`, request)
   },
 
-  async naverLinkAccount(payload: NaverAccountLinkPayload) {
-    return api.post<NaverLinkAccountResponse>(`${AUTH_BASE}/link/naver`, payload)
+  async naverLinkAccount(request: SocialAccountLinkRequest) {
+    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/naver`, request)
   },
 
-  async naverSignUp(payload: NaverSignUpPayload) {
-    return api.post<NaverSignUpResponse>(`${AUTH_BASE}/signup/naver`, payload)
+  async naverSignUp(request: SocialSignUpRequest) {
+    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/naver`, request)
   },
 
-  async facebookLogin(payload: FacebookLoginPayload) {
-    return api.post<FacebookLoginResponse>(`${AUTH_BASE}/login/facebook`, payload)
+  async facebookLogin(request: FacebookLoginRequest) {
+    return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/facebook`, request)
   },
 
-  async facebookLinkAccount(payload: FacebookAccountLinkPayload) {
-    return api.post<FacebookLinkAccountResponse>(`${AUTH_BASE}/link/facebook`, payload)
+  async facebookLinkAccount(request: SocialAccountLinkRequest) {
+    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/facebook`, request)
   },
 
-  async facebookSignUp(payload: FacebookSignUpPayload) {
-    return api.post<FacebookSignUpResponse>(`${AUTH_BASE}/signup/facebook`, payload)
+  async facebookSignUp(request: SocialSignUpRequest) {
+    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/facebook`, request)
   },
 
-  async appleLogin(payload: AppleLoginPayload) {
-    return api.post<AppleLoginResponse>(`${AUTH_BASE}/login/apple`, payload)
+  async appleLogin(request: AppleLoginRequest) {
+    return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/apple`, request)
   },
 
-  async appleLinkAccount(payload: AppleAccountLinkPayload) {
-    return api.post<AppleLinkAccountResponse>(`${AUTH_BASE}/link/apple`, payload)
+  async appleLinkAccount(request: SocialAccountLinkRequest) {
+    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/apple`, request)
   },
 
-  async appleSignUp(payload: AppleSignUpPayload) {
-    return api.post<AppleSignUpResponse>(`${AUTH_BASE}/signup/apple`, payload)
+  async appleSignUp(request: SocialSignUpRequest) {
+    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/apple`, request)
   },
 }

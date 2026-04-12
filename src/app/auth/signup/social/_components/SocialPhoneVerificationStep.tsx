@@ -1,41 +1,53 @@
 'use client'
 
-import { appleLinkAccountAction } from '@/actions/auth'
+import { socialLinkAccountAction } from '@/actions/auth'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import { toast } from '@/components/ui/AppToaster'
 import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
-import type { AppleProfile } from '@/domains/auth'
+import type { SocialProfile } from '@/domains/auth'
 import { usePhoneAuth } from '@/hooks/usePhoneAuth'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
-interface ApplePhoneVerificationStepProps {
-  appleTempToken: string
+type Provider = 'kakao' | 'naver' | 'facebook' | 'apple'
+
+interface SocialPhoneVerificationStepProps {
+  provider: Provider
+  tempToken: string
   onLinked: (params: { phone: string; phoneVerifyToken: string }) => void
   onNeedsSignUp: (params: {
-    appleTempToken: string
-    appleProfile: AppleProfile
+    tempToken: string
+    socialProfile: SocialProfile | null
     phone: string
     phoneVerifyToken: string
   }) => void
 }
 
-export default function ApplePhoneVerificationStep({
-  appleTempToken,
+const PROVIDER_ERROR_MESSAGES: Record<Provider, string> = {
+  kakao: '카카오 인증 정보가 없습니다. 다시 로그인해 주세요.',
+  naver: '네이버 인증 정보가 없습니다. 다시 로그인해 주세요.',
+  facebook: '페이스북 인증 정보가 없습니다. 다시 로그인해 주세요.',
+  apple: '애플 인증 정보가 없습니다. 다시 로그인해 주세요.',
+}
+
+
+export default function SocialPhoneVerificationStep({
+  provider,
+  tempToken,
   onLinked,
   onNeedsSignUp,
-}: ApplePhoneVerificationStepProps) {
+}: SocialPhoneVerificationStepProps) {
   const router = useRouter()
   const [phoneError, setPhoneError] = useState<string | undefined>()
   const [isProcessing, startProcessing] = useTransition()
 
   const handleVerified = (verifiedPhone: string, phoneVerifyToken: string) => {
     startProcessing(async () => {
-      const result = await appleLinkAccountAction(appleTempToken, phoneVerifyToken)
+      const result = await socialLinkAccountAction(provider, tempToken, phoneVerifyToken)
 
       if (!result.success) {
         toast(result.error)
@@ -49,15 +61,15 @@ export default function ApplePhoneVerificationStep({
 
       if (result.status === 'NEEDS_SIGN_UP') {
         onNeedsSignUp({
-          appleTempToken: result.appleTempToken,
-          appleProfile: result.appleProfile!,
+          tempToken,
+          socialProfile: result.socialProfile,
           phone: verifiedPhone,
           phoneVerifyToken,
         })
         return
       }
 
-      toast('애플 인증 정보가 없습니다. 다시 로그인해 주세요.')
+      toast(PROVIDER_ERROR_MESSAGES[provider])
       router.replace(PAGE_PATHS.AUTH_LOGIN)
     })
   }

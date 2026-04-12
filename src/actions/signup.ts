@@ -13,7 +13,7 @@ export type SignupResult = {
   error: string
 }
 
-export interface SignupPayload {
+export interface SignupRequest {
   username: string
   password: string
   fullName: string
@@ -74,7 +74,7 @@ export async function checkNicknameAvailability(nickname: string) {
   return memberRepository.checkNicknameAvailability(nickname)
 }
 
-async function signup(payload: SignupPayload): Promise<SignupResult | null> {
+async function signup(payload: SignupRequest): Promise<SignupResult | null> {
   const { error } = await api.post<void>(SIGNUP_ENDPOINT, payload)
 
   if (error) {
