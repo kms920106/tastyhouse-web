@@ -1,32 +1,14 @@
 'use server'
 
+import { authRepository, type SignupRequest } from '@/domains/auth'
 import { emailVerificationRepository } from '@/domains/email-verification'
 import { memberRepository } from '@/domains/member'
 import { policyRepository } from '@/domains/policy'
-import { api } from '@/lib/api'
 import { redirect } from 'next/navigation'
-
-const SIGNUP_ENDPOINT = '/api/auth/signup'
 
 export type SignupResult = {
   success: false
   error: string
-}
-
-export interface SignupRequest {
-  username: string
-  password: string
-  fullName: string
-  nickname: string
-  phoneNumber: string
-  birthDate: number
-  gender: string
-  referrerNickname?: string
-  marketingInfoEnabled: boolean
-  eventInfoEnabled: boolean
-  pushNotificationEnabled: boolean
-  emailVerifyToken: string
-  phoneVerifyToken: string
 }
 
 export async function fetchTermsOfServiceContent(): Promise<string> {
@@ -75,7 +57,7 @@ export async function checkNicknameAvailability(nickname: string) {
 }
 
 async function signup(payload: SignupRequest): Promise<SignupResult | null> {
-  const { error } = await api.post<void>(SIGNUP_ENDPOINT, payload)
+  const { error } = await authRepository.signup(payload)
 
   if (error) {
     return { success: false, error: '회원가입에 실패했습니다. 다시 시도해 주세요.' }

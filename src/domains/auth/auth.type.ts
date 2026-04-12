@@ -117,6 +117,23 @@ export interface AppleLoginRequest {
   idToken: string
 }
 
+// 일반 회원가입
+export interface SignupRequest {
+  username: string
+  password: string
+  fullName: string
+  nickname: string
+  phoneNumber: string
+  birthDate: number
+  gender: string
+  referrerNickname?: string
+  marketingInfoEnabled: boolean
+  eventInfoEnabled: boolean
+  pushNotificationEnabled: boolean
+  emailVerifyToken: string
+  phoneVerifyToken: string
+}
+
 // 소셜 회원가입 (공통)
 export interface SocialSignUpRequest {
   provider: SocialProvider

@@ -12,6 +12,7 @@ import {
   PasswordResetVerifyResponse,
   PhoneLoginRequest,
   PhoneLoginResponse,
+  SignupRequest,
   SocialAccountLinkRequest,
   SocialLinkResponse,
   SocialLoginResponse,
@@ -19,9 +20,14 @@ import {
 } from './auth.type'
 
 const AUTH_BASE = '/api/auth/v1'
+const AUTH_SIGNUP_ENDPOINT = '/api/auth/signup'
 const PASSWORD_RESET_BASE = `${AUTH_BASE}/password-reset`
 
 export const authRepository = {
+  async signup(payload: SignupRequest) {
+    return api.post<void>(AUTH_SIGNUP_ENDPOINT, payload)
+  },
+
   async login(payload: LoginRequest) {
     return api.post<LoginResponse>(`${AUTH_BASE}/login`, payload)
   },
