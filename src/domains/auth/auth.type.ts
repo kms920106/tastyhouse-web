@@ -1,5 +1,11 @@
 import type { Gender } from '@/domains/member'
 
+export type SocialProvider = 'KAKAO' | 'NAVER' | 'FACEBOOK' | 'APPLE'
+
+export type SocialLoginStatus = 'LOGIN' | 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'
+
+export type SocialLinkStatus = 'LOGIN' | 'NEEDS_SIGN_UP'
+
 export interface LoginRequest {
   username: string
   password: string
@@ -54,15 +60,11 @@ export interface JwtResponse {
   tokenType: string
 }
 
-export type SocialLoginStatus = 'LOGIN' | 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'
-
 export interface SocialLoginResponse {
   status: SocialLoginStatus
   tempToken: string | null
   jwt: JwtResponse | null
 }
-
-export type SocialLinkStatus = 'LOGIN' | 'NEEDS_SIGN_UP'
 
 export interface SocialLinkResponse {
   status: SocialLinkStatus
@@ -88,6 +90,7 @@ export interface PhoneLoginResponse {
 
 // 소셜 계정 연동 (공통)
 export interface SocialAccountLinkRequest {
+  provider: SocialProvider
   tempToken: string
   phoneVerifyToken: string
 }
@@ -116,6 +119,7 @@ export interface AppleLoginRequest {
 
 // 소셜 회원가입 (공통)
 export interface SocialSignUpRequest {
+  provider: SocialProvider
   tempToken: string
   username: string
   nickname: string

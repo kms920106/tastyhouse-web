@@ -4,9 +4,9 @@ import {
   authRepository,
   LoginResult,
   SocialProfile,
+  SocialProvider,
   SocialSignUpRequest,
 } from '@/domains/auth'
-import type { Provider } from '@/types/auth'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
@@ -144,30 +144,13 @@ export type SocialLinkAccountResult =
   | { success: false; error: string }
 
 export async function socialLinkAccountAction(
-  provider: Provider,
+  provider: SocialProvider,
   tempToken: string,
   phoneVerifyToken: string,
 ): Promise<SocialLinkAccountResult> {
   const LINK_ERROR = '계정 연동에 실패했습니다. 다시 시도해 주세요.'
-  const request = { tempToken, phoneVerifyToken }
 
-  let result
-  switch (provider) {
-    case 'kakao':
-      result = await authRepository.kakaoLinkAccount(request)
-      break
-    case 'naver':
-      result = await authRepository.naverLinkAccount(request)
-      break
-    case 'facebook':
-      result = await authRepository.facebookLinkAccount(request)
-      break
-    case 'apple':
-      result = await authRepository.appleLinkAccount(request)
-      break
-  }
-
-  const { data, error } = result
+  const { data, error } = await authRepository.linkSocialAccount({ provider, tempToken, phoneVerifyToken })
 
   if (error || !data) {
     return { success: false, error: LINK_ERROR }
@@ -249,28 +232,11 @@ export async function facebookLoginAction(accessToken: string): Promise<Facebook
 export type SocialSignUpResult = { success: false; error: string }
 
 export async function socialSignUpAction(
-  provider: Provider,
   request: SocialSignUpRequest,
 ): Promise<SocialSignUpResult | null> {
   const SIGN_UP_ERROR = '회원가입에 실패했습니다. 다시 시도해 주세요.'
 
-  let result
-  switch (provider) {
-    case 'kakao':
-      result = await authRepository.kakaoSignUp(request)
-      break
-    case 'naver':
-      result = await authRepository.naverSignUp(request)
-      break
-    case 'facebook':
-      result = await authRepository.facebookSignUp(request)
-      break
-    case 'apple':
-      result = await authRepository.appleSignUp(request)
-      break
-  }
-
-  const { data, error } = result
+  const { data, error } = await authRepository.signUpSocial(request)
 
   if (error || !data) {
     return { success: false, error: SIGN_UP_ERROR }

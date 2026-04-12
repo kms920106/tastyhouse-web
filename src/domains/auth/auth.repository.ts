@@ -2,6 +2,7 @@ import { api } from '@/lib/api'
 import {
   AppleLoginRequest,
   FacebookLoginRequest,
+  JwtResponse,
   KakaoLoginRequest,
   LoginRequest,
   LoginResponse,
@@ -15,7 +16,6 @@ import {
   SocialLinkResponse,
   SocialLoginResponse,
   SocialSignUpRequest,
-  SocialSignUpResponse,
 } from './auth.type'
 
 const AUTH_BASE = '/api/auth/v1'
@@ -46,51 +46,27 @@ export const authRepository = {
     return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/kakao`, request)
   },
 
-  async kakaoLinkAccount(request: SocialAccountLinkRequest) {
-    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/kakao`, request)
-  },
-
-  async kakaoSignUp(request: SocialSignUpRequest) {
-    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/kakao`, request)
-  },
-
-  async phoneLogin(request: PhoneLoginRequest) {
-    return api.post<PhoneLoginResponse>(`${AUTH_BASE}/login/phone`, request)
-  },
-
   async naverLogin(request: NaverLoginRequest) {
     return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/naver`, request)
-  },
-
-  async naverLinkAccount(request: SocialAccountLinkRequest) {
-    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/naver`, request)
-  },
-
-  async naverSignUp(request: SocialSignUpRequest) {
-    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/naver`, request)
   },
 
   async facebookLogin(request: FacebookLoginRequest) {
     return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/facebook`, request)
   },
 
-  async facebookLinkAccount(request: SocialAccountLinkRequest) {
-    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/facebook`, request)
-  },
-
-  async facebookSignUp(request: SocialSignUpRequest) {
-    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/facebook`, request)
-  },
-
   async appleLogin(request: AppleLoginRequest) {
     return api.post<SocialLoginResponse>(`${AUTH_BASE}/login/apple`, request)
   },
 
-  async appleLinkAccount(request: SocialAccountLinkRequest) {
-    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/apple`, request)
+  async phoneLogin(request: PhoneLoginRequest) {
+    return api.post<PhoneLoginResponse>(`${AUTH_BASE}/login/phone`, request)
   },
 
-  async appleSignUp(request: SocialSignUpRequest) {
-    return api.post<SocialSignUpResponse>(`${AUTH_BASE}/signup/apple`, request)
+  async linkSocialAccount(request: SocialAccountLinkRequest) {
+    return api.post<SocialLinkResponse>(`${AUTH_BASE}/link/social`, request)
+  },
+
+  async signUpSocial(request: SocialSignUpRequest) {
+    return api.post<JwtResponse>(`${AUTH_BASE}/signup/social`, request)
   },
 }

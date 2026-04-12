@@ -6,17 +6,15 @@ import AppInputPhone from '@/components/ui/AppInputPhone'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import { toast } from '@/components/ui/AppToaster'
 import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
-import type { SocialProfile } from '@/domains/auth'
+import type { SocialProfile, SocialProvider } from '@/domains/auth'
 import { usePhoneAuth } from '@/hooks/usePhoneAuth'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
-type Provider = 'kakao' | 'naver' | 'facebook' | 'apple'
-
 interface SocialPhoneVerificationStepProps {
-  provider: Provider
+  provider: SocialProvider
   tempToken: string
   onLinked: (params: { phone: string; phoneVerifyToken: string }) => void
   onNeedsSignUp: (params: {
@@ -27,11 +25,11 @@ interface SocialPhoneVerificationStepProps {
   }) => void
 }
 
-const PROVIDER_ERROR_MESSAGES: Record<Provider, string> = {
-  kakao: '카카오 인증 정보가 없습니다. 다시 로그인해 주세요.',
-  naver: '네이버 인증 정보가 없습니다. 다시 로그인해 주세요.',
-  facebook: '페이스북 인증 정보가 없습니다. 다시 로그인해 주세요.',
-  apple: '애플 인증 정보가 없습니다. 다시 로그인해 주세요.',
+const PROVIDER_ERROR_MESSAGES: Record<SocialProvider, string> = {
+  KAKAO: '카카오 인증 정보가 없습니다. 다시 로그인해 주세요.',
+  NAVER: '네이버 인증 정보가 없습니다. 다시 로그인해 주세요.',
+  FACEBOOK: '페이스북 인증 정보가 없습니다. 다시 로그인해 주세요.',
+  APPLE: '애플 인증 정보가 없습니다. 다시 로그인해 주세요.',
 }
 
 
@@ -45,35 +43,6 @@ export default function SocialPhoneVerificationStep({
   const [phoneError, setPhoneError] = useState<string | undefined>()
   const [isProcessing, startProcessing] = useTransition()
 
-  const handleVerified = (verifiedPhone: string, phoneVerifyToken: string) => {
-    startProcessing(async () => {
-      const result = await socialLinkAccountAction(provider, tempToken, phoneVerifyToken)
-
-      if (!result.success) {
-        toast(result.error)
-        return
-      }
-
-      if (result.status === 'LOGIN') {
-        onLinked({ phone: verifiedPhone, phoneVerifyToken })
-        return
-      }
-
-      if (result.status === 'NEEDS_SIGN_UP') {
-        onNeedsSignUp({
-          tempToken,
-          socialProfile: result.socialProfile,
-          phone: verifiedPhone,
-          phoneVerifyToken,
-        })
-        return
-      }
-
-      toast(PROVIDER_ERROR_MESSAGES[provider])
-      router.replace(PAGE_PATHS.AUTH_LOGIN)
-    })
-  }
-
   const {
     phone,
     setPhone,
@@ -85,9 +54,37 @@ export default function SocialPhoneVerificationStep({
     isConfirming,
     handleSendCode: sendCode,
     handleConfirmCode,
+    resetVerified,
   } = usePhoneAuth({
     onVerified: (phoneVerifyToken) => {
-      handleVerified(phone.replace(/-/g, ''), phoneVerifyToken)
+      const verifiedPhone = phone.replace(/-/g, '')
+      startProcessing(async () => {
+        const result = await socialLinkAccountAction(provider, tempToken, phoneVerifyToken)
+
+        if (!result.success) {
+          toast(result.error)
+          resetVerified()
+          return
+        }
+
+        if (result.status === 'LOGIN') {
+          onLinked({ phone: verifiedPhone, phoneVerifyToken })
+          return
+        }
+
+        if (result.status === 'NEEDS_SIGN_UP') {
+          onNeedsSignUp({
+            tempToken,
+            socialProfile: result.socialProfile,
+            phone: verifiedPhone,
+            phoneVerifyToken,
+          })
+          return
+        }
+
+        toast(PROVIDER_ERROR_MESSAGES[provider])
+        router.replace(PAGE_PATHS.AUTH_LOGIN)
+      })
     },
   })
 

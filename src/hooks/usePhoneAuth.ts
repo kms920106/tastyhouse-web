@@ -24,6 +24,7 @@ export interface UsePhoneAuthReturn {
   isConfirming: boolean
   handleSendCode: () => void
   handleConfirmCode: () => void
+  resetVerified: () => void
 }
 
 export function usePhoneAuth(options?: UsePhoneAuthOptions): UsePhoneAuthReturn {
@@ -81,6 +82,11 @@ export function usePhoneAuth(options?: UsePhoneAuthOptions): UsePhoneAuthReturn 
     })
   }
 
+  const resetVerified = () => {
+    setIsVerified(false)
+    setPhoneVerifyToken('')
+  }
+
   return {
     phone,
     setPhone,
@@ -93,5 +99,6 @@ export function usePhoneAuth(options?: UsePhoneAuthOptions): UsePhoneAuthReturn 
     isConfirming,
     handleSendCode,
     handleConfirmCode,
+    resetVerified,
   }
 }

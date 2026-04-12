@@ -3,16 +3,22 @@
 import { socialSignUpAction } from '@/actions/auth'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import type { SocialProfile } from '@/domains/auth'
+import type { SocialProfile, SocialProvider } from '@/domains/auth'
 import { PAGE_PATHS } from '@/lib/paths'
-import { Provider } from '@/types/auth'
 import { useRouter } from 'next/navigation'
 import { use, useState } from 'react'
 import SocialPhoneVerificationStep from './_components/SocialPhoneVerificationStep'
 import SocialSignupSection from './_components/SocialSignupSection'
 
+const PROVIDER_MAP: Record<string, SocialProvider> = {
+  kakao: 'KAKAO',
+  naver: 'NAVER',
+  facebook: 'FACEBOOK',
+  apple: 'APPLE',
+}
+
 interface SignupStepData {
-  provider: Provider
+  provider: SocialProvider
   tempToken: string
   socialProfile: SocialProfile | null
   phone: string
@@ -33,14 +39,7 @@ export default function SocialSignupPage({ searchParams }: SocialSignupPageProps
 
   const [signupData, setSignupData] = useState<SignupStepData | null>(null)
 
-  const provider: Provider | null =
-    providerParam === 'kakao' ||
-    providerParam === 'naver' ||
-    providerParam === 'facebook' ||
-    providerParam === 'apple'
-      ? providerParam
-      : null
-
+  const provider: SocialProvider | null = providerParam ? (PROVIDER_MAP[providerParam] ?? null) : null
   const tempToken = tempTokenParam ?? ''
 
   if (!provider) {
@@ -64,7 +63,8 @@ export default function SocialSignupPage({ searchParams }: SocialSignupPageProps
           socialProfile={signupData.socialProfile}
           phone={signupData.phone}
           onSignUp={(formData) =>
-            socialSignUpAction(signupData.provider, {
+            socialSignUpAction({
+              provider: signupData.provider,
               tempToken: signupData.tempToken,
               ...formData,
             })
