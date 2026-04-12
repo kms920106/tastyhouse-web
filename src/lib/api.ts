@@ -94,19 +94,21 @@ class ApiClient {
       const json = await response.json().catch(() => null)
 
       if (!response.ok) {
-        return {
-          error: json?.message || response.statusText || '오류가 발생했습니다. 다시 시도해 주세요.',
-          status,
-        }
+        const errorMessage = json?.message || response.statusText
+        console.error(
+          `[API] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
+        )
+        return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
       }
 
       // 백엔드 응답 { success, data, message, pagination } 구조를 자동 언래핑
       if (json && typeof json === 'object' && 'success' in json) {
         if (!json.success) {
-          return {
-            error: json.message || '오류가 발생했습니다. 다시 시도해 주세요.',
-            status,
-          }
+          const errorMessage = json.message
+          console.error(
+            `[API] ${JSON.stringify({ method: restConfig.method ?? 'GET', url, status, message: errorMessage })}`,
+          )
+          return { error: '오류가 발생했습니다. 다시 시도해 주세요.', status }
         }
 
         return {
@@ -119,12 +121,21 @@ class ApiClient {
       return { data: json as T, status }
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') {
+        console.error('[API] Request timeout', {
+          method: restConfig.method ?? 'GET',
+          url,
+          timeoutMs: timeout,
+        })
         return { error: '요청 시간이 초과되었습니다.', status: 0 }
       }
-      return {
-        error: error instanceof Error ? error.message : 'Network error',
-        status: 0,
-      }
+      const errorMessage = error instanceof Error ? error.message : 'Network error'
+      console.error('[API] Unexpected error', {
+        method: restConfig.method ?? 'GET',
+        url,
+        message: errorMessage,
+        cause: error,
+      })
+      return { error: errorMessage, status: 0 }
     } finally {
       clearTimeout(timeoutId)
     }
