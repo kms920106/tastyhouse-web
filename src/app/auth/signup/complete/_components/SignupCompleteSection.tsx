@@ -1,7 +1,6 @@
 import Header, { HeaderCenter, HeaderTitle } from '@/components/layouts/Header'
-import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import Image from 'next/image'
-import Link from 'next/link'
+import SignupCompleteConfirmButton from './SignupCompleteConfirmButton'
 
 export default function SignupCompleteSection() {
   return (
@@ -23,9 +22,7 @@ export default function SignupCompleteSection() {
         </div>
       </div>
       <div className="px-[15px] py-2.5">
-        <Link href="/">
-          <AppPrimaryButton>확인</AppPrimaryButton>
-        </Link>
+        <SignupCompleteConfirmButton />
       </div>
     </section>
   )
