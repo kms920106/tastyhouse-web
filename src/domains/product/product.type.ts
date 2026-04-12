@@ -75,3 +75,18 @@ export type ProductReviewsByRatingQuery = {
   page?: number
   size?: number
 }
+
+export type ProductTodayDiscountQuery = {
+  page?: number
+  size?: number
+}
+
+export interface ProductTodayDiscountListItemResponse {
+  id: number
+  name: string
+  placeName: string
+  imageUrl: string
+  originalPrice: number
+  discountPrice: number
+  discountRate: number
+}

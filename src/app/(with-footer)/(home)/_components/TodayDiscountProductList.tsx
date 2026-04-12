@@ -1,11 +1,8 @@
 import ProductItem, { ProductItemSkeleton } from '@/components/products/ProductItem'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import type { ProductTodayDiscountListItemResponse, ProductTodayDiscountQuery } from '@/domains/place'
-import { api } from '@/lib/api'
+import { productRepository } from '@/domains/product'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-
-const PRODUCTS_TODAY_DISCOUNTS_ENDPOINT = '/api/products/v1/today-discounts'
 
 export function TodayDiscountProductListSkeleton() {
   return (
@@ -20,17 +17,10 @@ export function TodayDiscountProductListSkeleton() {
 }
 
 export default async function TodayDiscountProductList() {
-  // API 호출
-  const query = {
-    params: {
-      page: 0,
-      size: 4,
-    } satisfies ProductTodayDiscountQuery,
-  }
-  const { data, error } = await api.get<ProductTodayDiscountListItemResponse[]>(
-    PRODUCTS_TODAY_DISCOUNTS_ENDPOINT,
-    query,
-  )
+  const { data, error } = await productRepository.getTodayDiscountProducts({
+    page: 0,
+    size: 4,
+  })
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {

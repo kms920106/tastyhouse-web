@@ -4,11 +4,18 @@ import {
   ProductReviewStatisticsResponse,
   ProductReviewsByRatingQuery,
   ProductReviewsByRatingResponse,
+  ProductTodayDiscountListItemResponse,
+  ProductTodayDiscountQuery,
 } from './product.type'
 
 const ENDPOINT = '/api/products'
 
 export const productRepository = {
+  async getTodayDiscountProducts(params: ProductTodayDiscountQuery) {
+    return api.get<ProductTodayDiscountListItemResponse[]>(`${ENDPOINT}/v1/today-discounts`, {
+      params,
+    })
+  },
   async getProductById(productId: number) {
     return api.get<ProductDetailResponse>(`${ENDPOINT}/v1/${productId}`)
   },

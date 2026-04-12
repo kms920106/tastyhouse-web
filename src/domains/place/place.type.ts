@@ -84,8 +84,6 @@ export interface PlaceAmenity {
   imageUrlOff: string
 }
 
-export type ProductTodayDiscountQuery = PaginationParams
-
 export type PlaceBestQuery = PaginationParams
 
 export type PlaceChoiceQuery = PaginationParams
@@ -252,12 +250,3 @@ export interface PlaceMapMarkerResponse {
   name: string
 }
 
-export interface ProductTodayDiscountListItemResponse {
-  id: number
-  name: string
-  placeName: string
-  imageUrl: string
-  originalPrice: number
-  discountPrice: number
-  discountRate: number
-}
