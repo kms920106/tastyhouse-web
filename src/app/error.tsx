@@ -2,6 +2,7 @@
 
 import AppButton from '@/components/ui/AppButton'
 import ErrorMessage from '@/components/ui/ErrorMessage'
+import { useEffect } from 'react'
 import { MdRefresh } from 'react-icons/md'
 
 interface ErrorPageProps {
@@ -10,9 +11,14 @@ interface ErrorPageProps {
 }
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
-  if (process.env.NODE_ENV === 'development') {
-    console.error('[ErrorBoundary]', error)
-  }
+  useEffect(() => {
+    import('@/lib/logger-browser').then(({ default: browserLogger }) => {
+      browserLogger.error({
+        type: 'route_error_boundary',
+        digest: error.digest,
+      }, '[CLIENT ERROR] %s', error.message)
+    })
+  }, [error])
 
   return (
     <section className="flex flex-col min-h-screen">

@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { MdRefresh } from 'react-icons/md'
 
 interface GlobalErrorPageProps {
@@ -8,6 +9,15 @@ interface GlobalErrorPageProps {
 }
 
 export default function GlobalErrorPage({ error, reset }: GlobalErrorPageProps) {
+  useEffect(() => {
+    import('@/lib/logger-browser').then(({ default: browserLogger }) => {
+      browserLogger.error({
+        type: 'global_error_boundary',
+        digest: error.digest,
+      }, '[CLIENT ERROR] %s', error.message)
+    })
+  }, [error])
+
   return (
     <html lang="ko">
       <body>
