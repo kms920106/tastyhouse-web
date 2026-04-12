@@ -22,3 +22,23 @@ window.addEventListener('unhandledrejection', (event) => {
     String(event.reason),
   )
 })
+
+// React 렌더링 중 발생하는 에러 캐치
+// React는 렌더링 에러를 console.error로 출력하므로 이를 가로채서 로깅합니다.
+const originalConsoleError = console.error
+console.error = (...args: unknown[]) => {
+  originalConsoleError.apply(console, args)
+
+  const message = args
+    .map((arg) => (arg instanceof Error ? arg.message : String(arg)))
+    .join(' ')
+
+  // pino write에서 출력한 포맷된 메시지의 재귀 호출 방지
+  if (message.startsWith('[') && message.includes('] ERROR:')) return
+
+  browserLogger.error(
+    { type: 'console_error' },
+    '[CLIENT ERROR] %s',
+    message,
+  )
+}

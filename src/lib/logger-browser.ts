@@ -26,25 +26,27 @@ const browserLogger = pino({
   browser: {
     asObject: true,
     write(logObject) {
-      const { level, time, msg } = logObject as {
-        level: number
-        time: number
-        msg: string
-      }
-      const label = LEVEL_LABELS[level] ?? 'LOG'
-      const timestamp = formatTimestamp(time)
-      const formatted = `[${timestamp}] ${label}: ${msg}`
+      if (isDev) {
+        const { level, time, msg } = logObject as {
+          level: number
+          time: number
+          msg: string
+        }
+        const label = LEVEL_LABELS[level] ?? 'LOG'
+        const timestamp = formatTimestamp(time)
+        const formatted = `[${timestamp}] ${label}: ${msg}`
 
-      if (level >= 50) console.error(formatted)
-      else if (level >= 40) console.warn(formatted)
-      else console.log(formatted)
+        if (level >= 50) console.error(formatted)
+        else if (level >= 40) console.warn(formatted)
+        else console.log(formatted)
+      }
     },
     transmit: {
       // error 이상만 서버로 전송
       level: 'error',
       send(level, logEvent) {
         const body = JSON.stringify({
-          level: level,
+          level,
           ts: logEvent.ts,
           messages: logEvent.messages,
           bindings: logEvent.bindings,
