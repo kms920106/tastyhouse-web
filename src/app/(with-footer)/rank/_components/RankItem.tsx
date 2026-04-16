@@ -1,5 +1,7 @@
 import Avatar from '@/components/ui/Avatar'
 import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
+import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
+import MemberGradeName from '@/components/ui/MemberGradeName'
 import MemberNickname from '@/components/ui/MemberNickname'
 import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
@@ -24,6 +26,7 @@ export default function RankItem({
   return (
     <div className="flex justify-between items-center w-full">
       <div className="flex items-center gap-2.5">
+        {/* 순위 표시: 1~3위는 아이콘, 4위 이상은 숫자 */}
         <div className="relative flex flex-col items-center flex-shrink-0 w-[22px] h-[30px]">
           {rankNo <= 3 ? (
             <Image
@@ -37,7 +40,11 @@ export default function RankItem({
             <p className="text-xs">{rankNo}</p>
           )}
         </div>
+
+        {/* 프로필 이미지 */}
         <Avatar src={profileImageUrl} alt={nickname} />
+
+        {/* 닉네임 및 등급 정보 */}
         <div className="flex flex-col gap-2 min-w-0">
           <div className="flex items-center gap-1">
             {isMe && (
@@ -47,7 +54,10 @@ export default function RankItem({
             )}
             <MemberNickname>{nickname}</MemberNickname>
           </div>
-          <MemberGradeBadge grade={grade} />
+          <MemberGradeBadge
+            gradeIcon={<MemberGradeIcon grade={grade} size={14} />}
+            gradeName={<MemberGradeName grade={grade} size="xs" />}
+          />
         </div>
       </div>
       <div className="text-xs leading-[12px] text-[#666666]">{reviewCount}개</div>

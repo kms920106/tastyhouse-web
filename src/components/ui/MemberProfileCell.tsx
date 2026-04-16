@@ -1,5 +1,7 @@
 import Avatar from '@/components/ui/Avatar'
 import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
+import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
+import MemberGradeName from '@/components/ui/MemberGradeName'
 import MemberNickname from '@/components/ui/MemberNickname'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { MemberGradeCode } from '@/domains/member'
@@ -32,7 +34,10 @@ export default function MemberProfileCell({
       <Avatar src={profileImageUrl} alt={nickname} />
       <div className="flex flex-col gap-[9px]">
         <MemberNickname>{nickname}</MemberNickname>
-        <MemberGradeBadge grade={memberGrade} />
+        <MemberGradeBadge
+          gradeIcon={<MemberGradeIcon grade={memberGrade} size={14} />}
+          gradeName={<MemberGradeName grade={memberGrade} size="xs" />}
+        />
       </div>
     </div>
   )
