@@ -147,6 +147,40 @@ interface FoodCategory {
   subMenus: SubMenu[]
 }
 
+interface MenuGridButtonProps {
+  onClick?: () => void
+  disabled?: boolean
+  children: React.ReactNode
+}
+
+interface MenuGridItemProps {
+  icon: string
+  name: string
+}
+
+function MenuGridItem({ icon, name }: MenuGridItemProps) {
+  return (
+    <>
+      <div className="relative w-14 h-8">
+        <Image src={icon} alt={name} fill style={{ objectFit: 'contain' }} />
+      </div>
+      <span className="text-[13px] text-[#333333]">{name}</span>
+    </>
+  )
+}
+
+function MenuGridButton({ onClick, disabled, children }: MenuGridButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
+    >
+      {children}
+    </button>
+  )
+}
+
 export default function MenuSidebar() {
   const { setOpenMobile } = useSidebar()
 
@@ -266,58 +300,27 @@ export default function MenuSidebar() {
           <div className="grid grid-cols-2 gap-2.5 px-[15px] py-10">
             {step === 'category'
               ? visibleCategories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => handleCategorySelect(category)}
-                    className="flex flex-col items-center justify-center h-24 bg-[#fdfdfd] border border-[#eeeeee]"
-                  >
-                    <div className="relative w-14 h-8 mb-2">
-                      <Image
-                        src={category.icon}
-                        alt={category.name}
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                    <span className="text-[13px] text-[#333333]">{category.name}</span>
-                  </button>
+                  <MenuGridButton key={category.id} onClick={() => handleCategorySelect(category)}>
+                    <MenuGridItem icon={category.icon} name={category.name} />
+                  </MenuGridButton>
                 ))
               : visibleSubMenus.map((subMenu) => (
-                  <button
-                    key={subMenu.id}
-                    className="flex flex-col items-center justify-center h-24 bg-[#fdfdfd] border border-[#eeeeee]"
-                  >
-                    <div className="relative w-14 h-8 mb-2">
-                      <Image
-                        src={subMenu.icon}
-                        alt={subMenu.name}
-                        fill
-                        style={{ objectFit: 'contain' }}
-                      />
-                    </div>
-                    <span className="text-[13px] text-[#333333]">{subMenu.name}</span>
-                  </button>
+                  <MenuGridButton key={subMenu.id}>
+                    <MenuGridItem icon={subMenu.icon} name={subMenu.name} />
+                  </MenuGridButton>
                 ))}
-            <button
-              onClick={handlePrev}
-              disabled={isPrevDisabled}
-              className="flex flex-col items-center justify-center h-24 bg-[#fdfdfd] border border-[#eeeeee]"
-            >
+            <MenuGridButton onClick={handlePrev} disabled={isPrevDisabled}>
               <TfiArrowCircleLeft size={25} color="#333333" />
               <span className="text-[13px] text-[#333333]">이전</span>
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={isNextDisabled}
-              className="flex flex-col items-center justify-center h-24 bg-[#fdfdfd] border border-[#eeeeee]"
-            >
+            </MenuGridButton>
+            <MenuGridButton onClick={handleNext} disabled={isNextDisabled}>
               <TfiArrowCircleRight size={25} color="#333333" />
               <span className="text-[13px] text-[#333333]">다음</span>
-            </button>
+            </MenuGridButton>
           </div>
         </div>
 
-        {/* 하단 배너 (Swiper) */}
+        {/* 하단 배너 */}
         <div className="relative w-full shrink-0 pb-10">
           <Swiper
             modules={[Autoplay, Pagination]}
