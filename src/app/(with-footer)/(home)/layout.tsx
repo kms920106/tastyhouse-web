@@ -1,7 +1,7 @@
 import Header, { HeaderCenter, HeaderLeft } from '@/components/layouts/Header'
 import { MenuButton } from '@/components/layouts/header-parts'
 import MenuSidebar from '@/components/layouts/MenuSidebar'
-import { SidebarProvider, SidebarInset } from '@/components/ui/shadcn/sidebar'
+import { SidebarInset, SidebarProvider } from '@/components/ui/shadcn/sidebar'
 import Image from 'next/image'
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
