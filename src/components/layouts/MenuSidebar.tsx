@@ -90,7 +90,7 @@ export default function MenuSidebar() {
       {/* 헤더: 설정/검색/닫기 + 프로필 */}
       <SidebarHeader className="gap-0 p-0">
         {/* 상단 아이콘 바 */}
-        <div className="flex items-center justify-end gap-[18px] px-[15px] pt-[15px]">
+        <div className="flex items-center justify-end gap-[18px] p-[15px]">
           {/* 설정 */}
           <button className="flex items-center justify-center w-[18px] h-[18px]">
             <Image src="/images/icon-setting-black.png" alt="설정" width={18} height={18} />
@@ -109,7 +109,8 @@ export default function MenuSidebar() {
             <Image src="/images/icon-close.png" alt="닫기" width={16} height={16} />
           </button>
         </div>
-
+      </SidebarHeader>
+      <SidebarContent className="p-0 flex flex-col overflow-y-auto">
         {/* 유저 프로필 */}
         <div className="flex items-start gap-3 px-[15px] mt-10">
           <Avatar src={profileImageUrl} alt={nickname} />
@@ -131,9 +132,7 @@ export default function MenuSidebar() {
             </div>
           </div>
         </div>
-      </SidebarHeader>
 
-      <SidebarContent className="p-0 flex flex-col overflow-y-auto">
         {/* 공통 그리드 + 이전/다음 */}
         <div className="flex flex-col flex-1">
           <div className="grid grid-cols-2 gap-2.5 px-[15px] py-10">
@@ -147,10 +146,14 @@ export default function MenuSidebar() {
                 <MenuGridItem icon={foodType.imageUrl} name={foodType.name} />
               </Link>
             ))}
+
+            {/* 이전 버튼 */}
             <MenuGridButton onClick={handlePrev} disabled={isPrevDisabled}>
               <TfiArrowCircleLeft size={25} color="#333333" />
               <span className="text-[13px] text-[#333333]">이전</span>
             </MenuGridButton>
+
+            {/* 다음 버튼 */}
             <MenuGridButton onClick={handleNext} disabled={isNextDisabled}>
               <TfiArrowCircleRight size={25} color="#333333" />
               <span className="text-[13px] text-[#333333]">다음</span>
