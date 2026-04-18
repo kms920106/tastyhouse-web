@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge } from '@/lib/auth-config'
 import { env } from '@/lib/env'
+import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * CSRF Origin 검증
@@ -65,7 +65,7 @@ export async function middleware(request: NextRequest) {
   try {
     const baseURL = env.NEXT_PUBLIC_API_URL
 
-    const response = await fetch(`${baseURL}/api/auth/refresh`, {
+    const response = await fetch(`${baseURL}/api/auth/v1/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
