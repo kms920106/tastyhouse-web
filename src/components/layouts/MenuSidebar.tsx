@@ -9,8 +9,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'
 import 'swiper/css'
-import 'swiper/css/pagination'
-import { Autoplay, Pagination } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Avatar from '../ui/Avatar'
 import MemberGradeBadge from '../ui/MemberGradeBadge'
@@ -162,13 +161,13 @@ export default function MenuSidebar() {
         {/* 하단 배너 */}
         <div className="relative w-full shrink-0 pb-10">
           <Swiper
-            modules={[Autoplay, Pagination]}
+            modules={[Autoplay]}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            loop
             spaceBetween={10}
-            slidesPerView={1.15}
-            centeredSlides
+            slidesPerView={1.2}
+            centeredSlidesBounds={true}
+            centeredSlides={true}
+            initialSlide={0}
             className="w-full py-2"
           >
             {banners.map((banner, index) => (
