@@ -1,5 +1,6 @@
 'use client'
 
+import PenIcon from '@/components/ui/PenIcon'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { useMyReviewCount } from '@/hooks/useMyReviewCount'
 import Avatar from '../../ui/Avatar'
@@ -20,11 +21,14 @@ export default function MenuSidebarProfile() {
     <div className="flex items-start gap-3 px-[15px] mt-10">
       <Avatar src={profileImageUrl} alt={nickname} />
       <div className="flex flex-col gap-2 min-w-0">
-        <MemberNickname>{nickname}</MemberNickname>
-        <div className="flex gap-1">
+        <div className="flex items-center gap-[2.5px]">
+          <MemberNickname size="md">{nickname}</MemberNickname>
+          <PenIcon />
+        </div>
+        <div className="flex gap-[1px]">
           <MemberGradeBadge
             gradeIcon={<MemberGradeIcon grade={grade} size={14} />}
-            gradeName={<MemberGradeName grade={grade} size="sm" />}
+            gradeName={<MemberGradeName grade={grade} size="sm" bold />}
           />
           <p className="text-sm leading-[14px]">
             (리뷰 <span className="font-bold">{reviewCount}</span>개)
