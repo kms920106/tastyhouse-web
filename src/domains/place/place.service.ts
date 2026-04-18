@@ -1,6 +1,5 @@
-import 'server-only'
-import { placeRepository } from './place.repository'
 import { getPlaceFoodTypeCodeName } from './place.constants'
+import { placeRepository } from './place.repository'
 
 export const placeService = {
   async getPlaceFoodTypes() {
