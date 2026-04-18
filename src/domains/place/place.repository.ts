@@ -21,7 +21,7 @@ import {
   PlaceReviewsByRatingResponse,
   PlaceStationListItemResponse,
   PlaceSummaryResponse,
-} from './place.type'
+} from './place.dto'
 
 const ENDPOINT = '/api/places'
 

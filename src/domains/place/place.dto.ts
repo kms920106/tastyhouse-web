@@ -1,28 +1,7 @@
-import type { PaginationParams } from '@/types/common'
 import type { Product } from '@/domains/product'
+import type { PaginationParams } from '@/types/common'
 import type { OrderMethodItem } from '../order/order.type'
-
-export type PlaceFoodType =
-  | 'KOREAN'
-  | 'JAPANESE'
-  | 'WESTERN'
-  | 'CHINESE'
-  | 'WORLD'
-  | 'SNACK'
-  | 'BAR'
-  | 'CAFE'
-
-export type PlaceAmenityCode =
-  | 'PARKING'
-  | 'RESTROOM'
-  | 'RESERVATION'
-  | 'BABY_CHAIR'
-  | 'PET_FRIENDLY'
-  | 'OUTLET'
-  | 'TAKEOUT'
-  | 'DELIVERY'
-
-export type PlaceImageCategoryCode = 'EXTERIOR' | 'INTERIOR' | 'FOOD' | 'OTHER'
+import type { PlaceAmenityCode, PlaceFoodType } from './place.types'
 
 export interface Place {
   id: number
@@ -249,4 +228,3 @@ export interface PlaceMapMarkerResponse {
   longitude: number
   name: string
 }
-

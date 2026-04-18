@@ -1,2 +1,5 @@
 export * from './place.repository'
-export * from './place.type'
+export * from './place.service'
+export * from './place.types'
+export * from './place.dto'
+export * from './place.constants'
