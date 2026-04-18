@@ -11,8 +11,7 @@ import {
 } from '@/components/places/PlaceCard'
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { getPlaceFoodTypeCodeName } from '@/constants/place'
-import { PlaceFoodType, placeRepository } from "@/domains/place"
+import { getPlaceFoodTypeCodeName, PlaceFoodType, placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 
 export function BestPlaceListSkeleton() {

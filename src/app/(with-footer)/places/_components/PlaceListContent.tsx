@@ -13,8 +13,7 @@ import {
   PlaceCardTags,
 } from '@/components/places/PlaceCard'
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { getPlaceFoodTypeCodeName } from '@/constants/place'
-import { PlaceAmenityCode, PlaceFoodType } from '@/domains/place'
+import { getPlaceFoodTypeCodeName, PlaceAmenityCode, PlaceFoodType } from '@/domains/place'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { getLatestPlaces } from '@/actions/place'

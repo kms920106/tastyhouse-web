@@ -2,6 +2,7 @@
 
 import {
   placeRepository,
+  placeService,
   PlaceLatestQuery,
   PlaceMapMarkerResponse,
   PlaceReviewsByRatingQuery,
@@ -41,4 +42,8 @@ export async function getPlaceReviewStatistics(placeId: number) {
 
 export async function getPlaceReviews(placeId: number, query: PlaceReviewsByRatingQuery) {
   return placeRepository.getPlaceReviews(placeId, query)
+}
+
+export async function getPlaceFoodTypes() {
+  return placeService.getPlaceFoodTypes()
 }

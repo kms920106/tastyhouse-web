@@ -2,7 +2,9 @@
 
 import { Sidebar, SidebarContent, SidebarHeader, useSidebar } from '@/components/ui/shadcn/sidebar'
 import { MemberGradeCode } from '@/domains/member'
+import { usePlaceFoodTypes } from '@/hooks/usePlaceFoodTypes'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'
 import 'swiper/css'
@@ -21,141 +23,19 @@ const BANNER_IMAGES = [
   '/images/sample/sidebar/artisee_banner_3.png',
 ]
 
-const FOOD_CATEGORIES: FoodCategory[] = [
-  {
-    id: 'korean',
-    name: '한식',
-    icon: '/images/place/icon-filter-korean.png',
-    subMenus: [
-      { id: 'samgyeopsal', name: '삼겹살', icon: '/images/place/icon-filter-korean.png' },
-      { id: 'jokbal', name: '족발', icon: '/images/place/icon-filter-korean.png' },
-      { id: 'tteokbokki', name: '떡볶이', icon: '/images/place/icon-filter-korean.png' },
-      { id: 'kalguksu', name: '칼국수', icon: '/images/place/icon-filter-korean.png' },
-      { id: 'steak', name: '스테이크', icon: '/images/place/icon-filter-korean.png' },
-      { id: 'mandu', name: '만두', icon: '/images/place/icon-filter-korean.png' },
-    ],
-  },
-  {
-    id: 'western',
-    name: '양식',
-    icon: '/images/place/icon-filter-western.png',
-    subMenus: [
-      { id: 'pasta', name: '파스타', icon: '/images/place/icon-filter-western.png' },
-      { id: 'pizza', name: '피자', icon: '/images/place/icon-filter-western.png' },
-      { id: 'burger', name: '버거', icon: '/images/place/icon-filter-western.png' },
-      { id: 'steak2', name: '스테이크', icon: '/images/place/icon-filter-western.png' },
-      { id: 'salad', name: '샐러드', icon: '/images/place/icon-filter-western.png' },
-      { id: 'sandwich', name: '샌드위치', icon: '/images/place/icon-filter-western.png' },
-    ],
-  },
-  {
-    id: 'japanese',
-    name: '일식',
-    icon: '/images/place/icon-filter-japanese.png',
-    subMenus: [
-      { id: 'sushi', name: '초밥', icon: '/images/place/icon-filter-japanese.png' },
-      { id: 'ramen', name: '라멘', icon: '/images/place/icon-filter-japanese.png' },
-      { id: 'tonkatsu', name: '돈카츠', icon: '/images/place/icon-filter-japanese.png' },
-      { id: 'yakitori', name: '야키토리', icon: '/images/place/icon-filter-japanese.png' },
-      { id: 'udon', name: '우동', icon: '/images/place/icon-filter-japanese.png' },
-      { id: 'soba', name: '소바', icon: '/images/place/icon-filter-japanese.png' },
-    ],
-  },
-  {
-    id: 'chinese',
-    name: '중식',
-    icon: '/images/place/icon-filter-chinese.png',
-    subMenus: [
-      { id: 'jjajang', name: '짜장면', icon: '/images/place/icon-filter-chinese.png' },
-      { id: 'jjamppong', name: '짬뽕', icon: '/images/place/icon-filter-chinese.png' },
-      { id: 'tangsuyuk', name: '탕수육', icon: '/images/place/icon-filter-chinese.png' },
-      { id: 'malatang', name: '마라탕', icon: '/images/place/icon-filter-chinese.png' },
-      { id: 'dimsum', name: '딤섬', icon: '/images/place/icon-filter-chinese.png' },
-      { id: 'peking', name: '베이징덕', icon: '/images/place/icon-filter-chinese.png' },
-    ],
-  },
-  {
-    id: 'world',
-    name: '세계음식',
-    icon: '/images/place/icon-filter-world.png',
-    subMenus: [
-      { id: 'vietnamese', name: '베트남', icon: '/images/place/icon-filter-world.png' },
-      { id: 'thai', name: '태국', icon: '/images/place/icon-filter-world.png' },
-      { id: 'indian', name: '인도', icon: '/images/place/icon-filter-world.png' },
-      { id: 'mexican', name: '멕시코', icon: '/images/place/icon-filter-world.png' },
-      { id: 'turkish', name: '터키', icon: '/images/place/icon-filter-world.png' },
-      { id: 'spanish', name: '스페인', icon: '/images/place/icon-filter-world.png' },
-    ],
-  },
-  {
-    id: 'bunsik',
-    name: '분식',
-    icon: '/images/place/icon-filter-bunsik.png',
-    subMenus: [
-      { id: 'tteokbokki2', name: '떡볶이', icon: '/images/place/icon-filter-bunsik.png' },
-      { id: 'sundae', name: '순대', icon: '/images/place/icon-filter-bunsik.png' },
-      { id: 'rabokki', name: '라볶이', icon: '/images/place/icon-filter-bunsik.png' },
-      { id: 'kimbap', name: '김밥', icon: '/images/place/icon-filter-bunsik.png' },
-      { id: 'odeng', name: '오뎅', icon: '/images/place/icon-filter-bunsik.png' },
-      { id: 'twigim', name: '튀김', icon: '/images/place/icon-filter-bunsik.png' },
-    ],
-  },
-  {
-    id: 'pub',
-    name: '주점',
-    icon: '/images/place/icon-filter-pub.png',
-    subMenus: [
-      { id: 'pojang', name: '포장마차', icon: '/images/place/icon-filter-pub.png' },
-      { id: 'izakaya', name: '이자카야', icon: '/images/place/icon-filter-pub.png' },
-      { id: 'beer', name: '호프', icon: '/images/place/icon-filter-pub.png' },
-      { id: 'makgeolli', name: '막걸리', icon: '/images/place/icon-filter-pub.png' },
-      { id: 'soju', name: '소주방', icon: '/images/place/icon-filter-pub.png' },
-      { id: 'wine', name: '와인바', icon: '/images/place/icon-filter-pub.png' },
-    ],
-  },
-  {
-    id: 'cafe',
-    name: '카페',
-    icon: '/images/place/icon-filter-cafe.png',
-    subMenus: [
-      { id: 'coffee', name: '커피', icon: '/images/place/icon-filter-cafe.png' },
-      { id: 'dessert', name: '디저트', icon: '/images/place/icon-filter-cafe.png' },
-      { id: 'bakery', name: '베이커리', icon: '/images/place/icon-filter-cafe.png' },
-      { id: 'juice', name: '주스', icon: '/images/place/icon-filter-cafe.png' },
-      { id: 'tea', name: '티', icon: '/images/place/icon-filter-cafe.png' },
-      { id: 'icecream', name: '아이스크림', icon: '/images/place/icon-filter-cafe.png' },
-    ],
-  },
-]
-
 const PAGE_SIZE = 6
 const USER_GRADE: MemberGradeCode = 'GOURMET'
 const USER_POINT = 2147
 
-type SidebarStep = 'category' | 'subMenu'
-
-interface SubMenu {
-  id: string
-  name: string
+interface MenuGridItemProps {
   icon: string
-}
-
-interface FoodCategory {
-  id: string
   name: string
-  icon: string
-  subMenus: SubMenu[]
 }
 
 interface MenuGridButtonProps {
   onClick?: () => void
   disabled?: boolean
   children: React.ReactNode
-}
-
-interface MenuGridItemProps {
-  icon: string
-  name: string
 }
 
 function MenuGridItem({ icon, name }: MenuGridItemProps) {
@@ -184,64 +64,28 @@ function MenuGridButton({ onClick, disabled, children }: MenuGridButtonProps) {
 export default function MenuSidebar() {
   const { setOpenMobile } = useSidebar()
 
-  const [step, setStep] = useState<SidebarStep>('category')
+  const { foodTypes } = usePlaceFoodTypes()
+
   const [categoryPage, setCategoryPage] = useState(0)
-  const [selectedCategory, setSelectedCategory] = useState<FoodCategory | null>(null)
-  const [subMenuPage, setSubMenuPage] = useState(0)
 
-  const categoryTotalPages = Math.ceil(FOOD_CATEGORIES.length / PAGE_SIZE)
-  const visibleCategories = FOOD_CATEGORIES.slice(
-    categoryPage * PAGE_SIZE,
-    (categoryPage + 1) * PAGE_SIZE,
-  )
-
-  const handleCategorySelect = (category: FoodCategory) => {
-    setSelectedCategory(category)
-    setSubMenuPage(0)
-    setStep('subMenu')
-  }
+  const categoryTotalPages = Math.ceil(foodTypes.length / PAGE_SIZE)
+  const visibleFoodTypes = foodTypes.slice(categoryPage * PAGE_SIZE, (categoryPage + 1) * PAGE_SIZE)
 
   const handleClose = () => {
-    setStep('category')
-    setSelectedCategory(null)
-    setSubMenuPage(0)
     setCategoryPage(0)
     setOpenMobile(false)
   }
 
   const handlePrev = () => {
-    if (step === 'subMenu') {
-      if (subMenuPage > 0) {
-        setSubMenuPage((p) => p - 1)
-      } else {
-        setSelectedCategory(null)
-        setStep('category')
-      }
-    } else {
-      if (categoryPage > 0) setCategoryPage((p) => p - 1)
-    }
+    if (categoryPage > 0) setCategoryPage((p) => p - 1)
   }
 
   const handleNext = () => {
-    if (step === 'subMenu') {
-      if (!selectedCategory) return
-      const totalPages = Math.ceil(selectedCategory.subMenus.length / PAGE_SIZE)
-      if (subMenuPage < totalPages - 1) setSubMenuPage((p) => p + 1)
-    } else {
-      if (categoryPage < categoryTotalPages - 1) setCategoryPage((p) => p + 1)
-    }
+    if (categoryPage < categoryTotalPages - 1) setCategoryPage((p) => p + 1)
   }
 
-  const visibleSubMenus = selectedCategory
-    ? selectedCategory.subMenus.slice(subMenuPage * PAGE_SIZE, (subMenuPage + 1) * PAGE_SIZE)
-    : []
-
-  const isNextDisabled =
-    step === 'subMenu'
-      ? subMenuPage >= Math.ceil((selectedCategory?.subMenus.length ?? 0) / PAGE_SIZE) - 1
-      : categoryPage >= categoryTotalPages - 1
-
-  const isPrevDisabled = step === 'category' && categoryPage === 0
+  const isPrevDisabled = categoryPage === 0
+  const isNextDisabled = categoryPage >= categoryTotalPages - 1
 
   const profileImageUrl = '/images/sample/profile/default.png'
   const nickname = '테스트'
@@ -298,17 +142,16 @@ export default function MenuSidebar() {
         {/* 공통 그리드 + 이전/다음 */}
         <div className="flex flex-col flex-1">
           <div className="grid grid-cols-2 gap-2.5 px-[15px] py-10">
-            {step === 'category'
-              ? visibleCategories.map((category) => (
-                  <MenuGridButton key={category.id} onClick={() => handleCategorySelect(category)}>
-                    <MenuGridItem icon={category.icon} name={category.name} />
-                  </MenuGridButton>
-                ))
-              : visibleSubMenus.map((subMenu) => (
-                  <MenuGridButton key={subMenu.id}>
-                    <MenuGridItem icon={subMenu.icon} name={subMenu.name} />
-                  </MenuGridButton>
-                ))}
+            {visibleFoodTypes.map((foodType) => (
+              <Link
+                key={foodType.code}
+                href={`/places?foodTypes=${foodType.code}`}
+                onClick={() => setOpenMobile(false)}
+                className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
+              >
+                <MenuGridItem icon={foodType.imageUrl} name={foodType.name} />
+              </Link>
+            ))}
             <MenuGridButton onClick={handlePrev} disabled={isPrevDisabled}>
               <TfiArrowCircleLeft size={25} color="#333333" />
               <span className="text-[13px] text-[#333333]">이전</span>

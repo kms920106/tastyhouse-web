@@ -1,7 +1,6 @@
 'use client'
 
-import { getPlaceAmenityCodeName } from '@/constants/place'
-import { PlaceAmenity } from '@/domains/place'
+import { getPlaceAmenityCodeName, PlaceAmenity } from '@/domains/place'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Skeleton } from '../ui/shadcn/skeleton'
