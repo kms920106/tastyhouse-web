@@ -5,6 +5,7 @@ import {
   MemberInfo,
   MemberStatsResponse,
   MyBookmarkedPlaceListItemResponse,
+  MyReviewCountResponse,
   MyReviewListItemResponse,
   NicknameAvailabilityResponse,
   PhoneAvailabilityResponse,
@@ -56,6 +57,9 @@ export const memberRepository = {
   },
   async getMyPointHistory() {
     return api.get<PointHistoryResponse>(`${ENDPOINT}/v1/me/point/history`)
+  },
+  async getMyReviewCount() {
+    return api.get<MyReviewCountResponse>(`${ENDPOINT}/v1/me/reviews/count`)
   },
   async getMyReviews(params: PaginationParams) {
     return api.get<MyReviewListItemResponse[]>(`${ENDPOINT}/v1/me/reviews`, {

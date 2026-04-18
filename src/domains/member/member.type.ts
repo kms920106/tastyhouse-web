@@ -187,3 +187,7 @@ export interface NicknameAvailabilityResponse {
 export interface PhoneAvailabilityResponse {
   available: boolean
 }
+
+export interface MyReviewCountResponse {
+  reviewCount: number
+}

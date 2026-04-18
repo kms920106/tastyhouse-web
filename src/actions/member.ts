@@ -31,6 +31,10 @@ export async function getMyBookmarks(page: number = 0, size: number = 10) {
   return memberRepository.getMyBookmarks({ page, size })
 }
 
+export async function getMyReviewCount() {
+  return memberRepository.getMyReviewCount()
+}
+
 export async function getMyReviews(page: number = 0, size: number = 9) {
   return memberRepository.getMyReviews({ page, size })
 }
