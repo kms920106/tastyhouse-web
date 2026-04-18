@@ -1,0 +1,94 @@
+'use client'
+
+import { useSidebar } from '@/components/ui/shadcn/sidebar'
+import { usePlaceFoodTypes } from '@/hooks/usePlaceFoodTypes'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'
+
+const PAGE_SIZE = 6
+
+interface MenuGridItemProps {
+  icon: string
+  name: string
+}
+
+interface MenuGridButtonProps {
+  onClick?: () => void
+  disabled?: boolean
+  children: React.ReactNode
+}
+
+function MenuGridItem({ icon, name }: MenuGridItemProps) {
+  return (
+    <>
+      <div className="relative w-14 h-8">
+        <Image src={icon} alt={name} fill style={{ objectFit: 'contain' }} />
+      </div>
+      <span className="text-[13px] text-[#333333]">{name}</span>
+    </>
+  )
+}
+
+function MenuGridButton({ onClick, disabled, children }: MenuGridButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
+    >
+      {children}
+    </button>
+  )
+}
+
+export default function MenuSidebarFoodTypes() {
+  const { setOpenMobile } = useSidebar()
+  const { foodTypes } = usePlaceFoodTypes()
+  const [categoryPage, setCategoryPage] = useState(0)
+
+  const categoryTotalPages = Math.ceil(foodTypes.length / PAGE_SIZE)
+  const visibleFoodTypes = foodTypes.slice(categoryPage * PAGE_SIZE, (categoryPage + 1) * PAGE_SIZE)
+
+  const isPrevDisabled = categoryPage === 0
+  const isNextDisabled = categoryPage >= categoryTotalPages - 1
+
+  const handlePrev = () => {
+    if (categoryPage > 0) setCategoryPage((p) => p - 1)
+  }
+
+  const handleNext = () => {
+    if (categoryPage < categoryTotalPages - 1) setCategoryPage((p) => p + 1)
+  }
+
+  return (
+    <div className="flex flex-col flex-1">
+      <div className="grid grid-cols-2 gap-2.5 px-[15px] py-10">
+        {/* 음식 버튼 */}
+        {visibleFoodTypes.map((foodType) => (
+          <Link
+            key={foodType.code}
+            href={`/places?foodTypes=${foodType.code}`}
+            onClick={() => setOpenMobile(false)}
+            className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
+          >
+            <MenuGridItem icon={foodType.imageUrl} name={foodType.name} />
+          </Link>
+        ))}
+
+        {/* 이전 버튼 */}
+        <MenuGridButton onClick={handlePrev} disabled={isPrevDisabled}>
+          <TfiArrowCircleLeft size={25} color="#333333" />
+          <span className="text-[13px] text-[#333333]">이전</span>
+        </MenuGridButton>
+
+        {/* 다음 버튼 */}
+        <MenuGridButton onClick={handleNext} disabled={isNextDisabled}>
+          <TfiArrowCircleRight size={25} color="#333333" />
+          <span className="text-[13px] text-[#333333]">다음</span>
+        </MenuGridButton>
+      </div>
+    </div>
+  )
+}

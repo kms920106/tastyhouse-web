@@ -1,6 +1,6 @@
 import Header, { HeaderCenter, HeaderLeft } from '@/components/layouts/Header'
 import { MenuButton } from '@/components/layouts/header-parts'
-import MenuSidebar from '@/components/layouts/MenuSidebar'
+import MenuSidebar from '@/components/layouts/menu-sidebar/MenuSidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/shadcn/sidebar'
 import Image from 'next/image'
 
