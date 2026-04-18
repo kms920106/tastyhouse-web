@@ -3,6 +3,7 @@
 import { Sidebar, SidebarContent, SidebarHeader, useSidebar } from '@/components/ui/shadcn/sidebar'
 import { MemberGradeCode } from '@/domains/member'
 import { usePlaceFoodTypes } from '@/hooks/usePlaceFoodTypes'
+import { useSidebarBanners } from '@/hooks/useSidebarBanners'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -16,12 +17,6 @@ import MemberGradeBadge from '../ui/MemberGradeBadge'
 import MemberGradeIcon from '../ui/MemberGradeIcon'
 import MemberGradeName from '../ui/MemberGradeName'
 import MemberNickname from '../ui/MemberNickname'
-
-const BANNER_IMAGES = [
-  '/images/sample/sidebar/artisee_banner_1.png',
-  '/images/sample/sidebar/artisee_banner_2.png',
-  '/images/sample/sidebar/artisee_banner_3.png',
-]
 
 const PAGE_SIZE = 6
 const USER_GRADE: MemberGradeCode = 'GOURMET'
@@ -65,6 +60,7 @@ export default function MenuSidebar() {
   const { setOpenMobile } = useSidebar()
 
   const { foodTypes } = usePlaceFoodTypes()
+  const { banners } = useSidebarBanners()
 
   const [categoryPage, setCategoryPage] = useState(0)
 
@@ -175,10 +171,32 @@ export default function MenuSidebar() {
             centeredSlides
             className="w-full py-2"
           >
-            {BANNER_IMAGES.map((src, index) => (
-              <SwiperSlide key={index}>
+            {banners.map((banner, index) => (
+              <SwiperSlide key={banner.id}>
                 <div className="relative w-full aspect-[3/1] rounded-[5px] overflow-hidden">
-                  <Image src={src} alt={`배너 ${index + 1}`} fill className="object-cover" />
+                  {banner.linkUrl ? (
+                    <Link
+                      href={banner.linkUrl}
+                      rel="noopener noreferrer"
+                      className="relative block w-full h-full"
+                    >
+                      <Image
+                        src={banner.imageUrl}
+                        alt={banner.title}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                      />
+                    </Link>
+                  ) : (
+                    <Image
+                      src={banner.imageUrl}
+                      alt={banner.title}
+                      fill
+                      className="object-cover"
+                      priority={index === 0}
+                    />
+                  )}
                 </div>
               </SwiperSlide>
             ))}

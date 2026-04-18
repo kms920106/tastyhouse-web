@@ -1,15 +1,14 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { bannerRepository } from "@/domains/banner"
+import { bannerRepository } from '@/domains/banner'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import BannerSwiper from './BannerSwiper'
 
 export default async function BannerContent() {
-  // API 호출
   const query = {
     page: 0,
     size: 10,
   }
-  const { data, error } = await bannerRepository.getBanners(query)
+  const { data, error } = await bannerRepository.getHomeBanners(query)
 
   // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {
