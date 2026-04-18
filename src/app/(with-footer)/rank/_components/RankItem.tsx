@@ -52,7 +52,7 @@ export default function RankItem({
                 나
               </p>
             )}
-            <MemberNickname>{nickname}</MemberNickname>
+            <MemberNickname size="md">{nickname}</MemberNickname>
           </div>
           <MemberGradeBadge
             gradeIcon={<MemberGradeIcon grade={grade} size={14} />}

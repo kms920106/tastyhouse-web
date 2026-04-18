@@ -5,6 +5,7 @@ import MemberGradeInfo from '@/components/member/MemberGradeInfo'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { useOtherMemberProfile } from '@/hooks/useOtherMemberProfile'
 import { ReactNode } from 'react'
+import MemberNickname from '../ui/MemberNickname'
 
 interface MemberProfileInfoProps {
   memberId: number | null
@@ -44,8 +45,8 @@ export default function MemberProfileInfo({ memberId, editSlot }: MemberProfileI
       <div className="-mt-[63px] relative z-10">
         <ProfileImage profileImageUrl={profileImageUrl} />
       </div>
-      <div className="flex items-center gap-0.5 mt-[21px]">
-        <h1 className="text-base leading-[16px] font-bold">{nickname}</h1>
+      <div className="flex items-center gap-[1.5px] mt-[21px]">
+        <MemberNickname size="lg">{nickname ?? ''}</MemberNickname>
         {editSlot}
       </div>
       <MemberGradeInfo memberGrade={memberGrade} />

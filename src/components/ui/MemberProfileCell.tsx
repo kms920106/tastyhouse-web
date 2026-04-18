@@ -33,7 +33,7 @@ export default function MemberProfileCell({
     <div className="flex items-center gap-3">
       <Avatar src={profileImageUrl} alt={nickname} />
       <div className="flex flex-col gap-[9px]">
-        <MemberNickname>{nickname}</MemberNickname>
+        <MemberNickname size="md">{nickname}</MemberNickname>
         <MemberGradeBadge
           gradeIcon={<MemberGradeIcon grade={memberGrade} size={14} />}
           gradeName={<MemberGradeName grade={memberGrade} size="xs" />}
