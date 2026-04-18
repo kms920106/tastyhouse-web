@@ -13,12 +13,17 @@ const sizeClass: Record<MemberGradeNameSize, string> = {
 
 interface MemberGradeNameProps {
   grade: MemberGradeCode
-  size?: MemberGradeNameSize
+  size: MemberGradeNameSize
+  bold?: boolean
 }
 
-export default function MemberGradeName({ grade, size = 'xs' }: MemberGradeNameProps) {
+export default function MemberGradeName({
+  grade,
+  size = 'xs',
+  bold = false,
+}: MemberGradeNameProps) {
   const gradeName = getMemberGradeName(grade)
   const gradeColor = getMemberGradeColor(grade)
 
-  return <span className={cn(sizeClass[size], gradeColor)}>{gradeName}</span>
+  return <span className={cn(sizeClass[size], gradeColor, bold && 'font-bold')}>{gradeName}</span>
 }
