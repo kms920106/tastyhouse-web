@@ -1,12 +1,14 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import BorderedSection from '@/components/ui/BorderedSection'
+import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
+import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
+import MemberGradeName from '@/components/ui/MemberGradeName'
 import SectionStack from '@/components/ui/SectionStack'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/constants/member'
-import { MemberGradeCode } from '@/domains/member'
-import { cn } from '@/lib/utils'
 import { gradeRepository } from '@/domains/grade'
-import { memberRepository } from '@/domains/member'
+import { MemberGradeCode, memberRepository } from '@/domains/member'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 export default async function GradeSection() {
@@ -48,30 +50,25 @@ export default async function GradeSection() {
             )}
             {myGrade && (
               <p
-                className={cn('mt-5 text-[23px] leading-[23px] font-bold', getMemberGradeColor(myGrade.currentGrade as MemberGradeCode))}
+                className={cn(
+                  'mt-5 text-[23px] leading-[23px] font-bold',
+                  getMemberGradeColor(myGrade.currentGrade as MemberGradeCode),
+                )}
               >
                 {myGrade.currentGradeDisplayName}
               </p>
             )}
             {myGrade && myGrade.nextGrade && (
               <div className="mt-[30px] py-5 bg-[#fcfcfc] border border-[#eeeeee] box-border">
-                <p className="flex items-center justify-center flex-wrap gap-x-0.5 text-sm leading-[14px]">
+                <div className="flex items-center justify-center flex-wrap gap-x-0.5 text-sm leading-[14px]">
                   리뷰 <span className="font-bold">{myGrade.reviewsNeededForNextGrade}</span> 개
                   추가 작성 시
-                  <Image
-                    src={`/images/rank/icon-level-${getMemberGradeIcon(myGrade.nextGrade as MemberGradeCode)}-40.png`}
-                    alt={myGrade.nextGrade}
-                    width={14}
-                    height={15}
-                    className="ml-1"
+                  <MemberGradeBadge
+                    gradeIcon={<MemberGradeIcon grade={myGrade.nextGrade} size={14} />}
+                    gradeName={<MemberGradeName grade={myGrade.nextGrade} size="sm" bold />}
                   />
-                  <span
-                    className={cn('font-bold', getMemberGradeColor(myGrade.nextGrade as MemberGradeCode))}
-                  >
-                    {myGrade.nextGradeDisplayName}
-                  </span>{' '}
                   달성
-                </p>
+                </div>
                 <p className="mt-2.5 text-xs leading-[12px] text-[#999999]">
                   현재 작성 리뷰 수{' '}
                   <span className="font-bold">{myGrade.currentReviewCount} 개</span>
@@ -103,15 +100,26 @@ export default async function GradeSection() {
                   />
                   <div className="flex flex-col gap-2.5">
                     <p
-                      className={cn('text-base leading-[16px] font-bold', getMemberGradeColor(item.grade as MemberGradeCode))}
+                      className={cn(
+                        'text-base leading-[16px] font-bold',
+                        getMemberGradeColor(item.grade as MemberGradeCode),
+                      )}
                     >
                       {item.displayName}
                     </p>
                     <p className="text-sm leading-[14px]">
                       {item.maxReviewCount !== null && item.minReviewCount === 0 ? (
-                        <>리뷰 작성 개수 <span className="font-bold">{item.maxReviewCount.toLocaleString()}</span> 개 이하</>
+                        <>
+                          리뷰 작성 개수{' '}
+                          <span className="font-bold">{item.maxReviewCount.toLocaleString()}</span>{' '}
+                          개 이하
+                        </>
                       ) : (
-                        <>리뷰 작성 개수 <span className="font-bold">{item.minReviewCount.toLocaleString()}</span> 개 이상</>
+                        <>
+                          리뷰 작성 개수{' '}
+                          <span className="font-bold">{item.minReviewCount.toLocaleString()}</span>{' '}
+                          개 이상
+                        </>
                       )}
                     </p>
                   </div>
