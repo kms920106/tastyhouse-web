@@ -18,7 +18,7 @@ export default function MenuSidebarProfile() {
 
   return (
     <div className="flex items-start gap-3 px-[15px] mt-10">
-      <Avatar src={profileImageUrl ?? '/images/sample/profile/default.png'} alt={nickname} />
+      <Avatar src={profileImageUrl} alt={nickname} />
       <div className="flex flex-col gap-2 min-w-0">
         <MemberNickname>{nickname}</MemberNickname>
         <div className="flex gap-1">
