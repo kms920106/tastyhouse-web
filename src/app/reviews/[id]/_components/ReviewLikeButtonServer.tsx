@@ -1,8 +1,7 @@
 import ReviewLikeButtonError from '@/app/reviews/[id]/_components/ReviewLikeButtonError'
 import { reviewRepository } from "@/domains/review"
-import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
+import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 import ReviewLikeButton from './ReviewLikeButton'
 import ReviewLikeButtonClient from './ReviewLikeButtonClient'
@@ -12,10 +11,9 @@ interface ReviewLikeButtonServerProps {
 }
 
 export default async function ReviewLikeButtonServer({ reviewId }: ReviewLikeButtonServerProps) {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
+  const isLoggedIn = await getIsLoggedIn()
 
-  if (!accessToken) {
+  if (!isLoggedIn) {
     return (
       <Link href={PAGE_PATHS.LOGIN}>
         <ReviewLikeButton isLiked={false} />

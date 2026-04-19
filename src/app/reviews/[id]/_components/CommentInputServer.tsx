@@ -1,5 +1,4 @@
-import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
-import { cookies } from 'next/headers'
+import { getIsLoggedIn } from '@/lib/auth-config'
 import CommentInput from './CommentInput'
 
 interface CommentInputServerProps {
@@ -7,11 +6,10 @@ interface CommentInputServerProps {
 }
 
 export default async function CommentInputServer({ params }: CommentInputServerProps) {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
+  const isLoggedIn = await getIsLoggedIn()
 
   const { id } = await params
   const reviewId = Number(id)
 
-  return <CommentInput isLoggedIn={!!accessToken} reviewId={reviewId} />
+  return <CommentInput isLoggedIn={isLoggedIn} reviewId={reviewId} />
 }
