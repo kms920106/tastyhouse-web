@@ -12,13 +12,15 @@ interface ReviewListItemProps {
 function ReviewListItem({ id, imageUrl }: ReviewListItemProps) {
   return (
     <Link key={id} href={PAGE_PATHS.REVIEW_DETAIL(id)} className="relative aspect-square">
-      <Image
-        src={imageUrl ?? ''}
-        alt="리뷰 이미지"
-        fill
-        sizes="33vw"
-        className="object-cover"
-      />
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt="리뷰 이미지"
+          fill
+          sizes="33vw"
+          className="object-cover"
+        />
+      )}
     </Link>
   )
 }

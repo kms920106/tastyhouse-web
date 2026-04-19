@@ -24,7 +24,7 @@ function MenuGridItem({ icon, name }: MenuGridItemProps) {
   return (
     <>
       <div className="relative w-14 h-8">
-        <Image src={icon} alt={name} fill style={{ objectFit: 'contain' }} />
+        {icon && <Image src={icon} alt={name} fill style={{ objectFit: 'contain' }} />}
       </div>
       <span className="text-[13px] text-[#333333]">{name}</span>
     </>
@@ -73,7 +73,7 @@ export default function MenuSidebarFoodTypes() {
             onClick={() => setOpenMobile(false)}
             className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
           >
-            <MenuGridItem icon={foodType.imageUrl} name={foodType.name} />
+            <MenuGridItem icon={foodType.activeImageUrl} name={foodType.name} />
           </Link>
         ))}
 

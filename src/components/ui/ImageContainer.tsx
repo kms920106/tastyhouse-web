@@ -35,7 +35,7 @@ export default function ImageContainer({
         rounded === '2.5px' && 'rounded-[2.5px]',
       )}
     >
-      <Image src={src ?? ''} alt={alt} fill className="object-cover" sizes={sizeValue} />
+      {src && <Image src={src} alt={alt} fill className="object-cover" sizes={sizeValue} />}
     </div>
   )
 }
