@@ -10,7 +10,7 @@ interface PlaceMenuListSectionProps {
 
 export default function PlaceMenuListSection({ placeId }: PlaceMenuListSectionProps) {
   return (
-    <section className="px-[15px]">
+    <section className="px-[15px] pb-[70px]">
       <PlaceMenuListFetcher placeId={placeId} />
       <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
         <Link href={PAGE_PATHS.ORDER_METHOD(placeId)}>
