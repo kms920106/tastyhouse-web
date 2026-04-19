@@ -87,7 +87,6 @@ export type PlaceMapQuery = PaginationParams
 export interface PlaceFoodTypeListItemResponse {
   code: PlaceFoodType
   name: string
-  imageUrl: string
   activeImageUrl: string
   inactiveImageUrl: string
 }
