@@ -1,26 +1,22 @@
+import ReviewDetailHeaderSection from '@/app/reviews/[id]/ReviewDetailHeaderSection'
 import { reviewRepository } from '@/domains/review/review.repository'
 import type { Metadata } from 'next'
-import ReviewDetailHeaderSection from '@/components/reviews/ReviewDetailHeaderSection'
 import CommentInputSection from './_components/CommentInputSection'
 import CommentListSection from './_components/CommentListSection'
 import { ReplyProvider } from './_components/ReplyContext'
 import ReviewInfoSection from './_components/ReviewInfoSection'
 
-interface ReviewDetailPageProps {
-  params: Promise<{ id: string }>
-}
-
-export async function generateMetadata({ params }: ReviewDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const reviewId = Number(id)
 
-  const { data: review } = await reviewRepository.getReviewDetail(reviewId)
+  const { data } = await reviewRepository.getReviewDetail(reviewId)
 
-  if (!review) return {}
+  if (!data) return {}
 
-  const title = `${review.placeName} 리뷰`
-  const description = review.content
-  const thumbnailUrl = review.imageUrls[0]
+  const title = `${data.placeName} 리뷰`
+  const description = data.content
+  const thumbnailUrl = data.imageUrls[0]
 
   return {
     title,
@@ -33,7 +29,11 @@ export async function generateMetadata({ params }: ReviewDetailPageProps): Promi
   }
 }
 
-export default async function ReviewDetailPage({ params }: ReviewDetailPageProps) {
+interface Props {
+  params: Promise<{ id: string }>
+}
+
+export default async function Page({ params }: Props) {
   const { id } = await params
 
   const reviewId = Number(id)
