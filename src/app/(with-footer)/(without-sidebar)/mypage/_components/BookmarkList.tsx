@@ -1,7 +1,7 @@
+import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { MyBookmarkedPlaceListItemResponse } from '@/domains/member/member.type'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
 import BookmarkListItem from './BookmarkListItem'
 
 interface BookmarkListProps {
@@ -11,16 +11,7 @@ interface BookmarkListProps {
 
 export default function BookmarkList({ bookmarks, hasMoreBookmarks }: BookmarkListProps) {
   if (bookmarks.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full pb-[70px]">
-        <div className="relative w-[35px] h-[40px]">
-          <Image src="/images/mypage/logo-gray.png" alt="로고" width={35} height={40} />
-        </div>
-        <div className="mt-[15px]">
-          <p className="text-sm leading-[14px] text-[#aaaaaa]">저장된 즐겨찾기가 없습니다.</p>
-        </div>
-      </div>
-    )
+    return <EmptyState message="저장된 즐겨찾기가 없습니다." />
   }
 
   return (

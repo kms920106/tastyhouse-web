@@ -1,3 +1,4 @@
+import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import ImageContainer from '@/components/ui/ImageContainer'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { getPaymentStatusColor, getPaymentStatusName } from '@/constants/payment'
@@ -7,7 +8,6 @@ import { formatDate } from '@/lib/date'
 import { formatNumber } from '@/lib/number'
 import { formatOrderSummary } from '@/lib/order'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
 import Link from 'next/link'
 
 interface OrderListItemProps {
@@ -66,16 +66,7 @@ interface OrderListProps {
 
 export default function OrderList({ orders, hasMoreOrders }: OrderListProps) {
   if (orders.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full pb-[70px]">
-        <div className="relative w-[35px] h-[40px]">
-          <Image src="/images/mypage/logo-gray.png" alt="로고" width={35} height={40} />
-        </div>
-        <div className="mt-[15px]">
-          <p className="text-sm leading-[14px] text-[#aaaaaa]">결제 내역이 없습니다.</p>
-        </div>
-      </div>
-    )
+    return <EmptyState message="결제 내역이 없습니다." />
   }
 
   return (

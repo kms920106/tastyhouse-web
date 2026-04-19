@@ -12,7 +12,7 @@ import ReviewListFetcher from './ReviewListFetcher'
 const TAB_TRIGGER_CLASS =
   'flex-1 h-full rounded-none border-0 border-b border-[#eeeeee] shadow-none cursor-pointer data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
 
-const TAB_CONTENT_CLASS = 'mt-0 flex-1 bg-[#f9f9f9]'
+const TAB_CONTENT_CLASS = 'mt-0 flex flex-col flex-1 bg-[#f9f9f9]'
 
 interface MyPageTabsProps {
   initialTab: MyPageTabValue
@@ -33,7 +33,7 @@ export default function MyPageTabs({ initialTab }: MyPageTabsProps) {
 
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
-      <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0 min-h-[50dvh]">
+      <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0 flex flex-col flex-1">
         <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0">
           <TabsTrigger value="reviews" className={TAB_TRIGGER_CLASS}>
             <Image
