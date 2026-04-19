@@ -60,7 +60,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
         <Avatar src={comment.memberProfileImageUrl} alt={comment.memberNickname} />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-[15px] mb-2.5">
-            <MemberNickname>{comment.memberNickname}</MemberNickname>
+            <MemberNickname size="sm">{comment.memberNickname}</MemberNickname>
             <TimeAgo date={comment.createdAt} />
           </div>
           <p className="text-xs leading-relaxed whitespace-pre-wrap break-words">
