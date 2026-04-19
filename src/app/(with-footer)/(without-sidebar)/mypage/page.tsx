@@ -1,4 +1,4 @@
-import MyPageContent, { MyPageTabValue } from '@/app/(with-footer)/mypage/_components/MyPageContent'
+import MyPageContent, { MyPageTabValue } from './_components/MyPageContent'
 
 interface MyPageProps {
   searchParams: Promise<{ tab?: string }>
