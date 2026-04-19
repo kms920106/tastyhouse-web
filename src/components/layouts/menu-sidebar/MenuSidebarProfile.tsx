@@ -25,12 +25,12 @@ export default function MenuSidebarProfile() {
           <MemberNickname size="md">{nickname}</MemberNickname>
           <PenIcon />
         </div>
-        <div className="flex gap-[1px]">
+        <div className="flex items-end gap-[1px]">
           <MemberGradeBadge
             gradeIcon={<MemberGradeIcon grade={grade} size={14} />}
             gradeName={<MemberGradeName grade={grade} size="sm" bold />}
           />
-          <p className="text-sm leading-[14px]">
+          <p className="text-xs leading-[12px]">
             (리뷰 <span className="font-bold">{reviewCount}</span>개)
           </p>
         </div>
