@@ -67,7 +67,7 @@ export function FacilityButton({ amenity, isSelected, onClick }: FacilityButtonP
     >
       <FacilityItemContent
         name={getPlaceAmenityCodeName(amenity.code)}
-        imageUrl={isSelected ? amenity.imageUrlOn : amenity.imageUrlOff}
+        imageUrl={isSelected ? amenity.activeImageUrl : amenity.inactiveImageUrl}
         isSelected={isSelected}
       />
     </button>
@@ -86,7 +86,7 @@ export function FacilityDiv({ amenity }: FacilityDivProps) {
     >
       <FacilityItemContent
         name={getPlaceAmenityCodeName(amenity.code)}
-        imageUrl={amenity.imageUrlOn}
+        imageUrl={amenity.activeImageUrl}
         isSelected={true}
       />
     </div>

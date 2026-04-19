@@ -56,11 +56,18 @@ export interface PlaceStation {
   name: string
 }
 
+export interface PlaceFood {
+  code: PlaceFoodType
+  name: string
+  activeImageUrl: string
+  inactiveImageUrl: string
+}
+
 export interface PlaceAmenity {
   code: PlaceAmenityCode
   name: string
-  imageUrlOn: string
-  imageUrlOff: string
+  activeImageUrl: string
+  inactiveImageUrl: string
 }
 
 export type PlaceBestQuery = PaginationParams
@@ -81,6 +88,8 @@ export interface PlaceFoodTypeListItemResponse {
   code: PlaceFoodType
   name: string
   imageUrl: string
+  activeImageUrl: string
+  inactiveImageUrl: string
 }
 
 export interface PlaceStationListItemResponse {
