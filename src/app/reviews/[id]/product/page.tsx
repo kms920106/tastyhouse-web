@@ -6,7 +6,6 @@ interface ReviewProductDetailPageProps {
 
 export default async function ReviewProductDetailPage({ params }: ReviewProductDetailPageProps) {
   const { id } = await params
-
   const reviewId = Number(id)
 
   return <ReviewProductSection reviewId={reviewId} />

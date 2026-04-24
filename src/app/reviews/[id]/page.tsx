@@ -1,10 +1,10 @@
-import ReviewDetailHeaderSection from '@/app/reviews/[id]/ReviewDetailHeaderSection'
 import { reviewRepository } from '@/domains/review/review.repository'
 import type { Metadata } from 'next'
-import CommentInputSection from './_components/CommentInputSection'
-import CommentListSection from './_components/CommentListSection'
-import { ReplyProvider } from './_components/ReplyContext'
-import ReviewInfoSection from './_components/ReviewInfoSection'
+import ReviewDetailPage from './_components/ReviewDetailPage'
+
+interface Props {
+  params: Promise<{ id: string }>
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
@@ -29,23 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-interface Props {
-  params: Promise<{ id: string }>
-}
-
 export default async function Page({ params }: Props) {
   const { id } = await params
-
   const reviewId = Number(id)
 
-  return (
-    <ReplyProvider>
-      <ReviewDetailHeaderSection reviewId={reviewId} />
-      <div className="pb-20">
-        <ReviewInfoSection reviewId={reviewId} />
-        <CommentListSection params={params} />
-      </div>
-      <CommentInputSection params={params} />
-    </ReplyProvider>
-  )
+  return <ReviewDetailPage reviewId={reviewId} />
 }

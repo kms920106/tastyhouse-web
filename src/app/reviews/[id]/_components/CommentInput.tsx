@@ -25,6 +25,7 @@ interface CommentInputProps {
 
 export default function CommentInput({ isLoggedIn, reviewId }: CommentInputProps) {
   const router = useRouter()
+
   const { memberProfile } = useMemberProfile()
 
   const containerRef = useRef<HTMLDivElement>(null)

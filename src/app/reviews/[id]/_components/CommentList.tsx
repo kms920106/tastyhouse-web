@@ -1,5 +1,7 @@
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { ReviewComment } from '@/domains/review'
+import { reviewRepository } from '@/domains/review'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import CommentItem from './CommentItem'
 
 export function CommentListSkeleton() {
@@ -28,12 +30,24 @@ function CommentListItemSkeleton() {
   )
 }
 
-interface CommentListProps {
-  comments: ReviewComment[]
+interface Props {
+  reviewId: number
 }
 
-export default async function CommentList({ comments }: CommentListProps) {
-  if (comments.length === 0) {
+export default async function CommentList({ reviewId }: Props) {
+  const { error, data } = await reviewRepository.getReviewComments(reviewId)
+
+  // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  }
+
+  // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
+  if (!data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('댓글')} />
+  }
+
+  if (data.comments.length === 0) {
     return (
       <div className="flex flex-col gap-1">
         <p className="text-sm leading-[14px] text-[#999999] text-center">
@@ -44,5 +58,5 @@ export default async function CommentList({ comments }: CommentListProps) {
     )
   }
 
-  return comments.map((comment) => <CommentItem key={comment.id} comment={comment} />)
+  return data.comments.map((comment) => <CommentItem key={comment.id} comment={comment} />)
 }

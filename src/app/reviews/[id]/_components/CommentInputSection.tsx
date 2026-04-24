@@ -1,18 +1,18 @@
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import { Suspense } from 'react'
-import { CommentInputSkeleton } from './CommentInput'
-import CommentInputServer from './CommentInputServer'
+import CommentInput, { CommentInputSkeleton } from './CommentInput'
 
-interface CommentInputSectionProps {
-  params: Promise<{ id: string }>
+interface Props {
+  isLoggedIn: boolean
+  reviewId: number
 }
 
-export default function CommentInputSection({ params }: CommentInputSectionProps) {
+export default function CommentInputSection({ isLoggedIn, reviewId }: Props) {
   return (
     <FixedBottomSection className="p-[15px]">
       <div className="flex items-center gap-[17px]">
         <Suspense fallback={<CommentInputSkeleton />}>
-          <CommentInputServer params={params} />
+          <CommentInput isLoggedIn={isLoggedIn} reviewId={reviewId} />
         </Suspense>
       </div>
     </FixedBottomSection>
