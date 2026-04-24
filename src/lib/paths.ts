@@ -77,7 +77,6 @@ export const PAGE_PATHS = {
     `/members/${id}/follows${tab ? `?tab=${tab}` : ''}`,
 
   // 인증
-  LOGIN: '/login',
   REGISTER: '/register',
   AUTH_LOGIN: '/auth/login',
   AUTH_SIGNUP: '/auth/signup',

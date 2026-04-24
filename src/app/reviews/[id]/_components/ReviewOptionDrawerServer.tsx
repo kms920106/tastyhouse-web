@@ -20,7 +20,7 @@ export default function ReviewOptionDrawerServer({
 }: ReviewOptionDrawerServerProps) {
   if (!isLoggedIn) {
     return (
-      <Link href={PAGE_PATHS.LOGIN}>
+      <Link href={PAGE_PATHS.AUTH_LOGIN}>
         <ReviewOptionButton />
       </Link>
     )

@@ -1,4 +1,4 @@
-import { placeRepository } from "@/domains/place"
+import { placeRepository } from '@/domains/place'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
@@ -17,7 +17,7 @@ export default async function PlaceBookmarkButtonServer({
   if (!isLoggedIn) {
     return (
       <Link
-        href={PAGE_PATHS.LOGIN}
+        href={PAGE_PATHS.AUTH_LOGIN}
         className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-[#eeeeee] box-border rounded-full cursor-pointer"
       >
         <FaRegBookmark size={16} className="text-[#eeeeee]" />

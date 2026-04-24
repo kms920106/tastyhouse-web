@@ -50,7 +50,7 @@ export default function CommentInput({ isLoggedIn, reviewId }: CommentInputProps
 
   const handleFocus = useCallback(() => {
     if (!isLoggedIn) {
-      router.push(PAGE_PATHS.LOGIN)
+      router.push(PAGE_PATHS.AUTH_LOGIN)
       return
     }
     setIsFocused(true)
