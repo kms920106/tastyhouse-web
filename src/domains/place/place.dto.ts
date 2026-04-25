@@ -226,7 +226,6 @@ export interface PlaceMapListItemResponse {
 }
 
 export interface PlaceOrderMethodResponse {
-  placeId: number
   orderMethods: OrderMethodItem[]
 }
 

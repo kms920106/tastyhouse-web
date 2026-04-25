@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
-import { placeRepository } from "@/domains/place"
+import { placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import PlaceOrderMethodSection from './_components/PlaceOrderMethodSection'
 

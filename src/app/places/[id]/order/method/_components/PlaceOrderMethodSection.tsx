@@ -4,8 +4,8 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import type { OrderMethod, OrderMethodItem } from '@/domains/order'
-import { cn } from '@/lib/utils'
 import { PAGE_PATHS } from '@/lib/paths'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -33,23 +33,23 @@ export default function PlaceOrderMethodSection({
     {
       TABLE_ORDER: {
         title: '바로 주문하기',
-        imageOff: '/images/place/method/icon-table-off.png',
-        imageOn: '/images/place/method/icon-table-on.png',
+        imageOff: '/images/place/order-method/icon-table-off.png',
+        imageOn: '/images/place/order-method/icon-table-on.png',
       },
       RESERVATION: {
         title: '예약하기',
-        imageOff: '/images/place/method/icon-reservation-off.png',
-        imageOn: '/images/place/method/icon-reservation-on.png',
+        imageOff: '/images/place/order-method/icon-reservation-off.png',
+        imageOn: '/images/place/order-method/icon-reservation-on.png',
       },
       DELIVERY: {
         title: '배달하기',
-        imageOff: '/images/place/icon-delivery-off.png',
-        imageOn: '/images/place/icon-delivery-on.png',
+        imageOff: '/images/place/order-method/icon-delivery-off.png',
+        imageOn: '/images/place/order-method/icon-delivery-on.png',
       },
       TAKEOUT: {
         title: '포장하기',
-        imageOff: '/images/place/method/icon-packaging-off.png',
-        imageOn: '/images/place/method/icon-packaging-on.png',
+        imageOff: '/images/place/order-method/icon-packaging-off.png',
+        imageOn: '/images/place/order-method/icon-packaging-on.png',
       },
     }
 
