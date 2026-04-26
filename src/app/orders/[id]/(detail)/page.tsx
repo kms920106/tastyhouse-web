@@ -1,21 +1,19 @@
-import { Suspense } from 'react'
-import OrderDetailSection from './_components/OrderDetailSection'
-import OrderDetailSkeleton from './_components/OrderDetailSkeleton'
+import { getIsLoggedIn } from '@/lib/auth-config'
+import { redirect } from 'next/navigation'
+import OrderDetailPage from './_components/OrderDetailPage'
 
-interface OrderDetailPageProps {
-  params: Promise<{
-    id: string
-  }>
+interface Props {
+  params: Promise<{ id: string }>
 }
 
-export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
+export default async function Page({ params }: Props) {
   const { id } = await params
-
   const orderId = Number(id)
 
-  return (
-    <Suspense fallback={<OrderDetailSkeleton />}>
-      <OrderDetailSection orderId={orderId} />
-    </Suspense>
-  )
+  const isLoggedIn = await getIsLoggedIn()
+  if (!isLoggedIn) {
+    redirect('/auth/login')
+  }
+
+  return <OrderDetailPage orderId={orderId} />
 }
