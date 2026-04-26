@@ -56,7 +56,7 @@ class ApiClient {
   }
 
   private async request<T>(endpoint: string, config: RequestConfig = {}): Promise<ApiResponse<T>> {
-    const { params, headers, isFormData, timeout = 30_000, ...restConfig } = config
+    const { params, headers, isFormData, timeout = 3000, ...restConfig } = config
     const method = restConfig.method ?? 'GET'
     const correlationId = crypto.randomUUID().slice(0, 8)
     const requestLogger = logger.child({ correlationId, method, path: endpoint })
