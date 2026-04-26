@@ -1,24 +1,19 @@
-import ErrorStateSection from '@/components/ui/ErrorStateSection'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { orderRepository } from '@/domains/order'
-import OrderCompleteSection from './_components/OrderCompleteSection'
+import { getIsLoggedIn } from '@/lib/auth-config'
+import { redirect } from 'next/navigation'
+import OrderCompletePage from './_components/OrderCompletePage'
 
-interface OrderCompletePageProps {
-  params: Promise<{
-    id: string
-  }>
+interface Props {
+  params: Promise<{ id: string }>
 }
 
-export default async function OrderCompletePage({ params }: OrderCompletePageProps) {
+export default async function Page({ params }: Props) {
   const { id } = await params
+  const orderId = Number(id)
 
-  const orderDetailResult = await orderRepository.getOrderDetail(Number(id))
-
-  const orderDetail = orderDetailResult.data
-
-  if (!orderDetail) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문')} />
+  const isLoggedIn = await getIsLoggedIn()
+  if (!isLoggedIn) {
+    redirect('/auth/login')
   }
 
-  return <OrderCompleteSection orderDetail={orderDetail} />
+  return <OrderCompletePage orderId={orderId} />
 }
