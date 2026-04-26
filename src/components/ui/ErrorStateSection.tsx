@@ -7,11 +7,12 @@ import { BackButton } from '../layouts/header-parts'
 import AppPrimaryButton from './AppPrimaryButton'
 import ErrorMessage from './ErrorMessage'
 
-interface ErrorStateSectionProps {
+interface Props {
+  title?: string
   message: string
 }
 
-export default function ErrorStateSection({ message }: ErrorStateSectionProps) {
+export default function ErrorStateSection({ title = 'ERROR', message }: Props) {
   const router = useRouter()
 
   const handleRetry = () => {
@@ -25,7 +26,7 @@ export default function ErrorStateSection({ message }: ErrorStateSectionProps) {
           <BackButton />
         </HeaderLeft>
         <HeaderCenter>
-          <HeaderTitle>ERROR</HeaderTitle>
+          <HeaderTitle>{title}</HeaderTitle>
         </HeaderCenter>
       </Header>
       <div className="flex-1 flex items-center justify-center">
