@@ -1,35 +1,34 @@
 import ImageGallery from '@/app/places/[id]/_components/ImageGallery'
-import Header, { HeaderLeft, HeaderRight } from '@/components/layouts/Header'
-import { BackButton, CartButton } from '@/components/layouts/header-parts'
 import BorderedSection from '@/components/ui/BorderedSection'
+import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'
-import type { ProductDetailResponse } from '@/domains/product'
+import { productRepository } from '@/domains/product'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { formatDecimal, formatNumber } from '@/lib/number'
+import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
 import ProductOptionSelector from './ProductOptionSelector'
-import ShareButtonClient from './ShareButtonClient'
 
-interface PlaceOrderMenuDetailSectionProps {
+interface Props {
   placeId: number
-  product: ProductDetailResponse
+  productId: number
 }
 
-export default function PlaceOrderMenuDetailSection({
-  placeId,
-  product,
-}: PlaceOrderMenuDetailSectionProps) {
-  const basePrice = product.discountPrice ?? product.originalPrice
+export default async function PlaceOrderMenuDetailContent({ placeId, productId }: Props) {
+  const { error, data } = await productRepository.getProductById(productId)
+
+  if (error || !data) {
+    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('상품 정보')} />
+  }
+
+  const product = data
 
   return (
-    <section>
-      <Header variant="white" height={55}>
-        <HeaderLeft>
-          <BackButton />
-        </HeaderLeft>
-        <HeaderRight>
-          <ShareButtonClient placeId={placeId} productId={product.id} productName={product.name} />
-          <CartButton placeId={placeId} />
-        </HeaderRight>
-      </Header>
+    <>
+      <PlaceOrderMenuDetailHeader
+        placeId={placeId}
+        productId={product.id}
+        productName={product.name}
+      />
       <SectionStack>
         <BorderedSection className="border-t-0">
           <ImageGallery imageUrls={product.imageUrls} />
@@ -38,7 +37,9 @@ export default function PlaceOrderMenuDetailSection({
             <p className="mt-[13px] text-sm leading-relaxed">{product.description}</p>
             <div className="mt-[17px]">
               {product.discountRate == null ? (
-                <p className="mt-[13px] text-base leading-[16px]">{formatNumber(basePrice)}원</p>
+                <p className="mt-[13px] text-base leading-[16px]">
+                  {formatNumber(product.originalPrice)}원
+                </p>
               ) : (
                 <div className="flex items-end leading-[21px]">
                   <p className="text-base leading-[16px]">
@@ -63,6 +64,6 @@ export default function PlaceOrderMenuDetailSection({
         />
       </SectionStack>
       <div className="h-[71px] bg-white" />
-    </section>
+    </>
   )
 }

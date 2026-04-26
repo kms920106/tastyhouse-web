@@ -5,16 +5,11 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ConfirmModal from '@/components/ui/ConfirmModal'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
-import SectionStack from '@/components/ui/SectionStack'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import type { ProductOption, ProductOptionGroup } from '@/domains/product'
+import type { ProductOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
-import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/io'
-import { RiRadioButtonFill } from 'react-icons/ri'
-import ProductReviewTab from './ProductReviewTab'
+import ProductOptionTabs from './ProductOptionTabs'
 
 interface ProductOptionSelectorProps {
   productId: number
@@ -31,7 +26,6 @@ export default function ProductOptionSelector({
 }: ProductOptionSelectorProps) {
   const router = useRouter()
 
-  const [activeTab, setActiveTab] = useState('options')
   const [showPlaceChangeModal, setShowPlaceChangeModal] = useState(false)
 
   // 각 옵션 그룹별 선택 상태 관리
@@ -169,58 +163,14 @@ export default function ProductOptionSelector({
   return (
     <>
       <BorderedSection className="border-b-0">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="gap-0">
-          <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0">
-            <TabsTrigger
-              value="options"
-              className="flex-1 h-full text-sm leading-[14px] text-[#333333]/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-black data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-black"
-            >
-              옵션
-            </TabsTrigger>
-            <TabsTrigger
-              value="reviews"
-              className="flex-1 h-full text-sm leading-[14px] text-[#333333]/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-black data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-black"
-            >
-              리뷰 ({reviewCount})
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="options" className="mt-0">
-            <SectionStack>
-              {optionGroups.map((group) => (
-                <BorderedSection key={group.id}>
-                  <div className="px-4 py-5">
-                    <h3 className="text-base leading-[16px] font-bold">
-                      {group.name}
-                      {group.isRequired && <span className="text-main ml-1">*</span>}
-                    </h3>
-                    <div className="flex flex-col gap-[15px] mt-5">
-                      {group.options.map((option) => (
-                        <OptionItem
-                          key={option.id}
-                          option={option}
-                          isMultiple={group.isMultipleSelect}
-                          isSelected={
-                            group.isMultipleSelect
-                              ? (selectedOptions[group.id] as number[]).includes(option.id)
-                              : selectedOptions[group.id] === option.id
-                          }
-                          onSelect={() =>
-                            group.isMultipleSelect
-                              ? handleCheckboxToggle(group.id, option.id, group.maxSelect)
-                              : handleRadioSelect(group.id, option.id)
-                          }
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </BorderedSection>
-              ))}
-            </SectionStack>
-          </TabsContent>
-          <TabsContent value="reviews" className="mt-0">
-            <ProductReviewTab productId={productId} />
-          </TabsContent>
-        </Tabs>
+        <ProductOptionTabs
+          productId={productId}
+          optionGroups={optionGroups}
+          reviewCount={reviewCount}
+          selectedOptions={selectedOptions}
+          onRadioSelect={handleRadioSelect}
+          onCheckboxToggle={handleCheckboxToggle}
+        />
       </BorderedSection>
       <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
         <AppPrimaryButton onClick={handleAddToCart}>장바구니 담기</AppPrimaryButton>
@@ -232,47 +182,5 @@ export default function ProductOptionSelector({
         onCancel={() => setShowPlaceChangeModal(false)}
       />
     </>
-  )
-}
-
-interface OptionItemProps {
-  option: ProductOption
-  isMultiple: boolean
-  isSelected: boolean
-  onSelect: () => void
-}
-
-function OptionItem({ option, isMultiple, isSelected, onSelect }: OptionItemProps) {
-  const isDisabled = option.isSoldOut
-
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      disabled={isDisabled}
-      className={cn(
-        'flex items-center gap-2.5 w-full text-left cursor-pointer',
-        isDisabled && 'opacity-50 cursor-not-allowed',
-      )}
-    >
-      {isMultiple ? (
-        isSelected ? (
-          <IoIosCheckbox size={28} className="text-main flex-shrink-0" />
-        ) : (
-          <IoIosCheckboxOutline size={28} className="text-[#dddddd] flex-shrink-0" />
-        )
-      ) : isSelected ? (
-        <RiRadioButtonFill size={28} className="text-main flex-shrink-0" />
-      ) : (
-        <RiRadioButtonFill size={28} className="text-[#dddddd] flex-shrink-0" />
-      )}
-      <span className="flex-1 text-sm leading-[14px]">
-        {option.name}
-        {option.isSoldOut && <span className="text-[#aaaaaa] ml-2">(품절)</span>}
-      </span>
-      {option.additionalPrice > 0 && (
-        <span className="text-sm leading-[14px]">+{option.additionalPrice.toLocaleString()}원</span>
-      )}
-    </button>
   )
 }

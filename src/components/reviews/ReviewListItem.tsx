@@ -5,7 +5,8 @@ import Rating from '@/components/ui/Rating'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
-interface PlaceReviewListItemProps {
+export interface ReviewListItemData {
+  id: number
   memberProfileImageUrl: string | null
   memberNickname: string
   createdAt: string
@@ -13,47 +14,40 @@ interface PlaceReviewListItemProps {
   productId: number | null
   productName: string | null
   content: string
-  id: number
   imageUrls: string[]
 }
 
-export default function PlaceReviewListItem({
-  memberProfileImageUrl,
-  memberNickname,
-  createdAt,
-  totalRating,
-  productId,
-  productName,
-  content,
-  id,
-  imageUrls,
-}: PlaceReviewListItemProps) {
+interface ReviewListItemProps {
+  review: ReviewListItemData
+}
+
+export default function ReviewListItem({ review }: ReviewListItemProps) {
   return (
     <div className="py-5">
       <div className="flex justify-between">
         <ReviewAuthorInfo
-          profileImageUrl={memberProfileImageUrl}
-          nickname={memberNickname}
-          createdAt={createdAt}
+          profileImageUrl={review.memberProfileImageUrl}
+          nickname={review.memberNickname}
+          createdAt={review.createdAt}
         />
-        <Rating as="p" value={totalRating} />
+        <Rating as="p" value={review.totalRating} />
       </div>
-      {productId && (
+      {review.productId && (
         <div className="mt-[25px]">
           <Link
-            href={PAGE_PATHS.PRODUCT_DETAIL(productId)}
+            href={PAGE_PATHS.PRODUCT_DETAIL(review.productId)}
             className="block text-sm leading-[14px] text-[#999999]"
           >
-            [선택] {productName}
+            [선택] {review.productName}
           </Link>
         </div>
       )}
       <div className="mt-[15px]">
-        <ClampedText text={content} href={PAGE_PATHS.REVIEW_PRODUCT_DETAIL(id)} />
+        <ClampedText text={review.content} href={PAGE_PATHS.REVIEW_PRODUCT_DETAIL(review.id)} />
       </div>
-      {imageUrls.length > 0 && (
+      {review.imageUrls.length > 0 && (
         <div className="mt-5">
-          <ReviewImageGallery imageUrls={imageUrls} />
+          <ReviewImageGallery imageUrls={review.imageUrls} />
         </div>
       )}
     </div>

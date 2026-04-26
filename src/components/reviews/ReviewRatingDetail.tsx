@@ -120,7 +120,7 @@ function ReviewRatingDetailItem({ label, rating }: ReviewRatingDetailItemProps) 
   )
 }
 
-interface ReviewRatingDetailProps {
+interface Props {
   averageAtmosphereRating: number
   averageKindnessRating: number
   averageTasteRating: number
@@ -138,7 +138,7 @@ export default function ReviewRatingDetail({
   averageHygieneRating,
   averagePriceRating,
   willRevisitPercentage,
-}: ReviewRatingDetailProps) {
+}: Props) {
   return (
     <div className="flex flex-row justify-between">
       <div className="space-y-2.5">
