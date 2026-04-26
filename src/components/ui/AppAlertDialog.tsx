@@ -1,4 +1,4 @@
-import AppButton from './AppButton'
+import AppPrimaryButton from './AppPrimaryButton'
 import {
   Dialog,
   DialogClose,
@@ -49,12 +49,7 @@ export default function AppAlertDialog({
         </DialogHeader>
         <DialogFooter className="flex-row gap-0 sm:flex-row">
           <DialogClose asChild>
-            <AppButton
-              className="flex-1 py-4 bg-main text-base leading-[16px] text-white cursor-pointer"
-              onClick={onConfirm}
-            >
-              {confirmLabel}
-            </AppButton>
+            <AppPrimaryButton onClick={onConfirm}>{confirmLabel}</AppPrimaryButton>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
