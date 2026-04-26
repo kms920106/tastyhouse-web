@@ -1,27 +1,12 @@
-import ErrorStateSection from '@/components/ui/ErrorStateSection'
-import type { MenuCategory } from "@/domains/place"
-import { placeRepository } from "@/domains/place"
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import PlaceOrderMenuListSection from './_components/PlaceOrderMenuListSection'
+import OrderMenuPage from './_components/OrderMenuPage'
 
-interface PlaceOrderMenuListPageProps {
-  params: Promise<{
-    id: string
-  }>
+interface Props {
+  params: Promise<{ id: string }>
 }
 
-export default async function PlaceOrderMenuListPage({ params }: PlaceOrderMenuListPageProps) {
+export default async function Page({ params }: Props) {
   const { id } = await params
-
   const placeId = Number(id)
 
-  const { error, data } = await placeRepository.getPlaceMenus(placeId)
-
-  if (error || !data) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
-  }
-
-  const menuCategories: MenuCategory[] = data
-
-  return <PlaceOrderMenuListSection placeId={placeId} menuCategories={menuCategories} />
+  return <OrderMenuPage placeId={placeId} />
 }
