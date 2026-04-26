@@ -1,4 +1,4 @@
-import CartSection from './_components/CartSection'
+import PlaceOrderCartPage from './_components/PlaceOrderCartPage'
 
 interface CartPageProps {
   params: Promise<{
@@ -8,8 +8,7 @@ interface CartPageProps {
 
 export default async function CartPage({ params }: CartPageProps) {
   const { id } = await params
-
   const placeId = Number(id)
 
-  return <CartSection placeId={placeId} />
+  return <PlaceOrderCartPage placeId={placeId} />
 }

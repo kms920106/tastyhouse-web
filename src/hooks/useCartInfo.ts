@@ -1,7 +1,9 @@
 'use client'
 
-import type { ProductDetailResponse } from '@/domains/product'
+import { getProductById } from '@/actions/product'
+import { toast } from '@/components/ui/AppToaster'
 import type { OrderItem, OrderItemOption } from '@/domains/order'
+import type { ProductDetailResponse } from '@/domains/product'
 import type { CartSelectedOption } from '@/lib/cart'
 import { getCartData, getCartProductTypeCount } from '@/lib/cart'
 import {
@@ -9,8 +11,6 @@ import {
   calculateTotalProductDiscount,
   calculateTotalProductPaymentAmount,
 } from '@/lib/paymentCalculation'
-import { toast } from '@/components/ui/AppToaster'
-import { getProductById } from '@/actions/product'
 import { useCallback, useEffect, useState } from 'react'
 
 export interface CartInfo {
@@ -74,9 +74,6 @@ function resolveOptionDetails(
 
 /**
  * 상품 상세 정보를 조회합니다.
- *
- * @param productIds - 상품 ID 목록
- * @returns 상품 상세 정보 맵
  */
 async function fetchProductDetails(
   productIds: number[],
