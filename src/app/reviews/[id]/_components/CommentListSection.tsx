@@ -11,7 +11,6 @@ export default function CommentListSection({ reviewId }: Props) {
       <div className="px-[15px] py-5">
         <div className="space-y-[30px]">
           <Suspense fallback={<CommentListSkeleton />}>
-            {/* <CommentList comments={comments} /> */}
             <CommentList reviewId={reviewId} />
           </Suspense>
         </div>
