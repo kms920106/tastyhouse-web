@@ -1,50 +1,24 @@
-'use client'
-
-import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import type { OrderMethod, OrderMethodItem } from '@/domains/order'
-import { PAGE_PATHS } from '@/lib/paths'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import OrderMethodGrid from './OrderMethodGrid'
+import ErrorMessage from '@/components/ui/ErrorMessage'
+import { placeRepository } from '@/domains/place'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import OrderMethodContentClient from './OrderMethodContentClient'
 
 interface Props {
   placeId: number
-  orderMethods: OrderMethodItem[]
 }
 
-export default function OrderMethodContent({ placeId, orderMethods }: Props) {
-  const router = useRouter()
+export default async function OrderMethodContent({ placeId }: Props) {
+  const { error, data } = await placeRepository.getPlaceOrderMethods(placeId)
 
-  const [selectedMethod, setSelectedMethod] = useState<OrderMethod | null>(null)
-
-  const handleNext = () => {
-    if (selectedMethod) {
-      router.push(PAGE_PATHS.ORDER_MENUS(placeId, selectedMethod))
-    }
+  if (error) {
+    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  return (
-    <>
-      <div className="flex-1 flex flex-col justify-center px-[15px]">
-        <div className="flex flex-col gap-[21px] text-center">
-          <h2 className="text-[23px] leading-[23px]">원하시는 주문방법을 선택해 주세요.</h2>
-          <p className="text-sm leading-[21px] text-[#999999]">
-            가게 사정에 따라 가능한 주문방법이 달라질 수 있으며,
-            <br />
-            자세한 사항은 가게 정보를 확인해 주세요.
-          </p>
-        </div>
-        <OrderMethodGrid
-          orderMethods={orderMethods}
-          selectedMethod={selectedMethod}
-          onSelect={setSelectedMethod}
-        />
-      </div>
-      <div className="px-[15px] py-2.5">
-        <AppPrimaryButton onClick={handleNext} disabled={!selectedMethod}>
-          다음
-        </AppPrimaryButton>
-      </div>
-    </>
-  )
+  if (!data) {
+    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 수단')} />
+  }
+
+  const { orderMethods } = data
+
+  return <OrderMethodContentClient placeId={placeId} orderMethods={orderMethods} />
 }
