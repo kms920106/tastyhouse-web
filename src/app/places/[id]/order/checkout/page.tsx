@@ -1,37 +1,14 @@
-import { memberRepository } from '@/domains/member'
-import { placeRepository } from '@/domains/place'
-import OrderCheckoutSection from './_components/OrderCheckoutSection'
+import PlaceOrderCheckoutPage from './_components/PlaceOrderCheckoutPage'
 
-interface OrderCheckoutPageProps {
+interface Props {
   params: Promise<{
     id: string
   }>
 }
 
-export default async function OrderCheckoutPage({ params }: OrderCheckoutPageProps) {
+export default async function Page({ params }: Props) {
   const { id } = await params
-
   const placeId = Number(id)
 
-  const [placeNameResult, memberResult, couponsResult, usablePointResult] = await Promise.all([
-    placeRepository.getPlaceName(placeId),
-    memberRepository.getMemberMe(),
-    memberRepository.getMyAvailableCoupons(),
-    memberRepository.getMyUsablePoint(),
-  ])
-
-  const placeName = placeNameResult.data?.name ?? ''
-  const memberInfo = memberResult.data ?? null
-  const availableCoupons = couponsResult.data ?? []
-  const usablePoints = usablePointResult.data?.usablePoints ?? 0
-
-  return (
-    <OrderCheckoutSection
-      placeId={placeId}
-      placeName={placeName}
-      memberInfo={memberInfo}
-      availableCoupons={availableCoupons}
-      usablePoints={usablePoints}
-    />
-  )
+  return <PlaceOrderCheckoutPage placeId={placeId} />
 }
