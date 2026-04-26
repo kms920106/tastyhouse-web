@@ -8,3 +8,5 @@ return ErrorStateSection
 if (!data) {
 return FetchErrorState
 }
+
+COMMON_ERROR_MESSAGES 문구 정리
