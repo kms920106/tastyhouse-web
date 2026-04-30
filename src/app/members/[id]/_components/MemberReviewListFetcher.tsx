@@ -31,5 +31,5 @@ export default function MemberReviewListFetcher({ memberId }: MemberReviewListFe
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
-  ;<ReviewList reviews={data.reviews} hasMoreReviews={data.hasMore} />
+  return <ReviewList reviews={data.reviews} hasMoreReviews={data.hasMore} />
 }
