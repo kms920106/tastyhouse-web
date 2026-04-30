@@ -1,6 +1,6 @@
 import ErrorMessage from '@/components/ui/ErrorMessage'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { RankPeriod, rankPeriodToRankType, rankRepository } from "@/domains/rank"
+import { RankPeriod, rankPeriodToRankType, rankRepository } from '@/domains/rank'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import RankItem from './RankItem'
@@ -45,12 +45,10 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
   }
   const { error, data } = await rankRepository.getRankMembersMe(params)
 
-  // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
   if (!data) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('내 랭킹')} />
   }
