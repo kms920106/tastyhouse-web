@@ -21,7 +21,6 @@ export default async function ReviewLikeButtonServer({ reviewId }: ReviewLikeBut
     )
   }
 
-  // API 호출
   const { error, data } = await reviewRepository.getReviewLike(reviewId)
 
   if (error) {

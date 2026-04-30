@@ -29,7 +29,6 @@ function PrizeListItemSkeleton() {
 }
 
 export default async function PrizeList() {
-  // API 호출
   const { error, data } = await eventRepository.getEventRankPrizes()
 
   if (error) {

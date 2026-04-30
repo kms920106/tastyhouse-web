@@ -25,7 +25,6 @@ export default async function PlaceBookmarkButtonServer({
     )
   }
 
-  // API 호출
   const { error, data } = await placeRepository.getPlaceBookmark(placeId)
 
   if (error) {

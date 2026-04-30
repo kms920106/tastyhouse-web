@@ -8,7 +8,6 @@ interface PlaceImageGalleryServerProps {
 }
 
 export default async function PlaceImageGalleryServer({ placeId }: PlaceImageGalleryServerProps) {
-  // API 호출
   const { data, error } = await placeRepository.getPlaceBanners(placeId)
 
   if (error) {

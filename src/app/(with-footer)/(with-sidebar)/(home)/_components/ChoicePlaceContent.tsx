@@ -4,12 +4,10 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import ChoiceSwiper from './ChoiceSwiper'
 
 export default async function ChoicePlaceContent() {
-  // API 호출
-  const query = {
+  const { data, error } = await placeRepository.getChoicePlaces({
     page: 0,
     size: 4,
-  }
-  const { data, error } = await placeRepository.getChoicePlaces(query)
+  })
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />

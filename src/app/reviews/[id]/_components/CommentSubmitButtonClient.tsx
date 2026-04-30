@@ -1,8 +1,8 @@
 'use client'
 
+import { createComment, createReply } from '@/actions/review'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { createComment, createReply } from '@/actions/review'
 import { useState } from 'react'
 import CommentSubmitButton from './CommentSubmitButton'
 import { useReply } from './ReplyContext'
@@ -38,7 +38,6 @@ export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitBut
 
     if (!replyTarget) {
       // 댓글 등록
-      // API 호출
       const request = { content }
       const { error, data } = await createComment(reviewId, request)
 
@@ -49,12 +48,10 @@ export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitBut
       }
     } else {
       // 답글 등록
-      // API 호출
-      const request = {
+      const { error, data } = await createReply(reviewId, replyTarget.commentId, {
         content,
         replyToMemberId: replyTarget.memberId,
-      }
-      const { error, data } = await createReply(reviewId, replyTarget.commentId, request)
+      })
 
       if (error || !data) {
         toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)

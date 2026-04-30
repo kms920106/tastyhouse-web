@@ -42,12 +42,10 @@ function RankListItemSkeleton() {
 }
 
 export default async function RankList({ rankPeriod }: { rankPeriod: RankPeriod }) {
-  // API 호출
-  const params = {
+  const { error, data } = await rankRepository.getRankMembers({
     type: rankPeriodToRankType(rankPeriod),
     limit: 100,
-  }
-  const { error, data } = await rankRepository.getRankMembers(params)
+  })
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />

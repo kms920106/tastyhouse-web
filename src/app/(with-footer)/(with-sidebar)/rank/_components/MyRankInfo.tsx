@@ -39,11 +39,9 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
     )
   }
 
-  // API 호출
-  const params = {
+  const { error, data } = await rankRepository.getRankMembersMe({
     type: rankPeriodToRankType(rankPeriod),
-  }
-  const { error, data } = await rankRepository.getRankMembersMe(params)
+  })
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />

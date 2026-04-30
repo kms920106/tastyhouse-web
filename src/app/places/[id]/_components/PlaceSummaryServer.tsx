@@ -13,7 +13,6 @@ export default async function PlaceSummaryServer({
   placeId,
   bookmarkButton,
 }: PlaceSummaryServerProps) {
-  // API 호출
   const { error, data } = await placeRepository.getPlaceSummary(placeId)
 
   if (error) {

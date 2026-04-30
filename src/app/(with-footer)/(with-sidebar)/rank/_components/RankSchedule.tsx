@@ -2,7 +2,6 @@ import { eventRepository } from '@/domains/event'
 import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
 
 export default async function RankSchedule() {
-  // API 호출
   const { error, data } = await eventRepository.getEventRankDuration()
 
   if (error) {

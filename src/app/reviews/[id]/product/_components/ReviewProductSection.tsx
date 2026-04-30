@@ -20,7 +20,6 @@ interface ReviewProductSectionProps {
 }
 
 export default async function ReviewProductSection({ reviewId }: ReviewProductSectionProps) {
-  // API 호출
   const { error, data } = await reviewRepository.getReviewProductDetail(reviewId)
 
   if (error) {

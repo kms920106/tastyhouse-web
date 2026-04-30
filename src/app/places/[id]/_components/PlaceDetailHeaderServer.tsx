@@ -6,7 +6,6 @@ interface PlaceDetailHeaderServerProps {
 }
 
 export default async function PlaceDetailHeaderServer({ placeId }: PlaceDetailHeaderServerProps) {
-  // API 호출
   const { error, data } = await placeRepository.getPlaceName(placeId)
 
   if (error) {
