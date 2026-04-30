@@ -4,7 +4,6 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import styles from './BannerSwiper.module.css'
 
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { Banner } from '@/domains/banner'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -12,23 +11,11 @@ import Link from 'next/link'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-export function BannerSwiperSkeleton() {
-  return (
-    <div className="w-full aspect-[375/475]">
-      <Skeleton className="w-full h-full rounded-none" />
-    </div>
-  )
-}
-
-interface BannerSwiperProps {
+interface Props {
   banners: Banner[]
 }
 
-export default function BannerSwiper({ banners }: BannerSwiperProps) {
-  if (banners.length === 0) {
-    return null
-  }
-
+export default function BannerSwiper({ banners }: Props) {
   return (
     <Swiper
       modules={[Autoplay, Pagination]}

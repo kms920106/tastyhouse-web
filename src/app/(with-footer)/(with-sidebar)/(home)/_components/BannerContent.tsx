@@ -4,20 +4,21 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import BannerSwiper from './BannerSwiper'
 
 export default async function BannerContent() {
-  const query = {
+  const { error, status, data } = await bannerRepository.getHomeBanners({
     page: 0,
     size: 10,
-  }
-  const { data, error } = await bannerRepository.getHomeBanners(query)
+  })
 
-  // Expected Error: API 호출 실패 (네트워크 오류, timeout 등)
   if (error) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
   }
 
-  // Expected Error: API 응답은 받았지만 데이터가 없거나 실패 응답
-  if (!data) {
+  if ((error && status === 404) || !data) {
     return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} className="py-10" />
+  }
+
+  if (data.length === 0) {
+    return null
   }
 
   return <BannerSwiper banners={data} />

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import BannerContent from './BannerContent'
-import { BannerSwiperSkeleton } from './BannerSwiper'
+import { BannerSwiperSkeleton } from './BannerSwiperSkeleton'
 
 export default function BannerSection() {
   return (
