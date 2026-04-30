@@ -9,7 +9,7 @@ import {
   PlaceCardStation,
   PlaceCardTags,
 } from '@/components/places/PlaceCard'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { PlaceFoodType, getPlaceFoodTypeCodeName, placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
@@ -60,11 +60,11 @@ export default async function BestPlaceList() {
   })
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
   }
 
   return (

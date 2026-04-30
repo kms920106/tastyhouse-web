@@ -2,7 +2,7 @@ import ReviewAuthorInfo from '@/components/reviews/ReviewAuthorInfo'
 import ReviewImageGallery from '@/components/reviews/ReviewImageGallery'
 import ReviewRatingDetail from '@/components/reviews/ReviewRatingDetail'
 import BorderedSection from '@/components/ui/BorderedSection'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import Rating from '@/components/ui/Rating'
 import SectionStack from '@/components/ui/SectionStack'
 import TextContent from '@/components/ui/TextContent'
@@ -32,7 +32,7 @@ export default async function ReviewProductInfoSection({
     return (
       <Layout>
         <div className="relative -top-[55px] flex items-center justify-center min-h-screen">
-          <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+          <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
         </div>
       </Layout>
     )
@@ -42,7 +42,7 @@ export default async function ReviewProductInfoSection({
     return (
       <Layout>
         <div className="relative -top-[55px] flex items-center justify-center min-h-screen">
-          <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
+          <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
         </div>
       </Layout>
     )

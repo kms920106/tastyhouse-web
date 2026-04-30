@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { eventRepository } from '@/domains/event'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
@@ -33,11 +33,11 @@ export default async function PrizeList() {
   const { error, data } = await eventRepository.getEventRankPrizes()
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} className="py-10" />
   }
 
   const prizes = data

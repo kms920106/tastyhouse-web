@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { RankPeriod, rankPeriodToRankType, rankRepository } from '@/domains/rank'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
@@ -50,11 +50,11 @@ export default async function RankList({ rankPeriod }: { rankPeriod: RankPeriod 
   const { error, data } = await rankRepository.getRankMembers(params)
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('랭킹')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('랭킹')} />
   }
 
   const memberRankItems = data

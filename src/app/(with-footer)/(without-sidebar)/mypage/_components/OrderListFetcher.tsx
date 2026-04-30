@@ -1,9 +1,9 @@
 'use client'
 
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import { getOrderList } from '@/actions/order'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getOrderList } from '@/actions/order'
 import { useQuery } from '@tanstack/react-query'
 import OrderList from './OrderList'
 
@@ -54,7 +54,7 @@ export default function OrderListFetcher() {
 
   if (error) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 내역')}
         className="py-10 bg-white"
       />
@@ -63,7 +63,7 @@ export default function OrderListFetcher() {
 
   if (!data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 내역')}
         className="py-10 bg-white"
       />

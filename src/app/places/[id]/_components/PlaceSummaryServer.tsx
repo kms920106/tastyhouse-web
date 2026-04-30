@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { ReactNode } from 'react'
@@ -17,11 +17,11 @@ export default async function PlaceSummaryServer({
   const { error, data } = await placeRepository.getPlaceSummary(placeId)
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('기본 정보')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('기본 정보')} />
   }
 
   const { id, name, roadAddress, lotAddress, rating } = data

@@ -5,7 +5,7 @@ import { MdRefresh } from 'react-icons/md'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
 import AppPrimaryButton from './AppPrimaryButton'
-import ErrorMessage from './ErrorMessage'
+import FetchErrorState from './ErrorMessage'
 
 interface Props {
   title?: string
@@ -30,7 +30,7 @@ export default function ErrorStateSection({ title = 'ERROR', message }: Props) {
         </HeaderCenter>
       </Header>
       <div className="flex-1 flex items-center justify-center">
-        <ErrorMessage message={message} />
+        <FetchErrorState message={message} />
       </div>
       <div className="p-4">
         <AppPrimaryButton onClick={handleRetry}>

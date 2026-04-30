@@ -3,14 +3,14 @@
 import ReviewFilter from '@/components/reviews/ReviewFilter'
 import ReviewListItem from '@/components/reviews/ReviewListItem'
 import ReviewPanelSkeleton from '@/components/reviews/ReviewPanelSkeleton'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import type { ReviewPanelData } from '@/hooks/useReviewPanel'
 import { useReviewPanel } from '@/hooks/useReviewPanel'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import type { ApiResponse } from '@/lib/api'
-import { useQuery } from '@tanstack/react-query'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import type { UseQueryOptions } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 interface ReviewPanelProps {
   queryOptions: UseQueryOptions<ApiResponse<ReviewPanelData>>
@@ -34,12 +34,12 @@ export default function ReviewPanel({ queryOptions, viewMoreHref }: ReviewPanelP
 
   if (error)
     return (
-      <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
+      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
     )
 
   if (!data?.data)
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
         className="py-10 bg-white"
       />

@@ -1,7 +1,7 @@
 import { getPlaceReviewStatistics } from '@/actions/place'
 import ReviewRatingDetail from '@/components/reviews/ReviewRatingDetail'
 import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
 import RatingDistributionChart from './RatingDistributionChart'
@@ -23,13 +23,13 @@ export default function ReviewStatistic({ placeId }: Props) {
 
   if (error) {
     return (
-      <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
+      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
     )
   }
 
   if (!data?.data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰 통계')}
         className="py-10 bg-white"
       />

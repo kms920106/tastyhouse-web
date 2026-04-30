@@ -1,5 +1,5 @@
 import ProductItem, { ProductItemSkeleton } from '@/components/products/ProductItem'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { productRepository } from '@/domains/product'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
@@ -23,11 +23,11 @@ export default async function TodayDiscountProductList() {
   })
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
   }
 
   return (

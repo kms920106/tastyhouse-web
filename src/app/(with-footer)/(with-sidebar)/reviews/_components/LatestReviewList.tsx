@@ -1,11 +1,11 @@
 'use client'
 
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import { getLatestReviews } from '@/actions/review'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { ReviewType } from '@/domains/review'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getLatestReviews } from '@/actions/review'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import LatestReviewListItem from './LatestReviewListItem'
@@ -113,7 +113,7 @@ export default function LatestReviewList({ reviewType }: LatestReviewListProps) 
 
   if (isError) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={error?.message || COMMON_ERROR_MESSAGES.API_FETCH_ERROR}
         className="py-10 bg-white"
       />
@@ -122,7 +122,7 @@ export default function LatestReviewList({ reviewType }: LatestReviewListProps) 
 
   if (!data?.pages || data.pages.length === 0) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
         className="py-10 bg-white"
       />

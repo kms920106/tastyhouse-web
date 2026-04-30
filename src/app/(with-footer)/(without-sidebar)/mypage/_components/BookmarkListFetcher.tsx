@@ -1,9 +1,9 @@
 'use client'
 
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import { getMyBookmarks } from '@/actions/member'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getMyBookmarks } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 import BookmarkList from './BookmarkList'
 
@@ -50,7 +50,7 @@ export default function BookmarkListFetcher() {
 
   if (error) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('즐겨찾기')}
         className="py-10 bg-white"
       />
@@ -59,7 +59,7 @@ export default function BookmarkListFetcher() {
 
   if (!data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('즐겨찾기')}
         className="py-10 bg-white"
       />

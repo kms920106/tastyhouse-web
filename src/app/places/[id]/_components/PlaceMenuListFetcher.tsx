@@ -1,10 +1,10 @@
+import { getPlaceMenus } from '@/actions/place'
 import MenuCategoryItem, { MenuCategoryItemSkeleton } from '@/components/menus/MenuCategoryItem'
 import MenuItem from '@/components/menus/MenuItem'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import type { MenuCategory } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { PAGE_PATHS } from '@/lib/paths'
-import { getPlaceMenus } from '@/actions/place'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
@@ -30,13 +30,13 @@ export default function PlaceMenuListFetcher({ placeId }: PlaceMenuListFetcherPr
 
   if (error) {
     return (
-      <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
+      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
     )
   }
 
   if (!data?.data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')}
         className="py-10 bg-white"
       />

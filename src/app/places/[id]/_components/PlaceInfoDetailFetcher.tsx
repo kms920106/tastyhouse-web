@@ -1,6 +1,6 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { getPlaceInfo } from '@/actions/place'
+import FetchErrorState from '@/components/ui/FetchErrorState'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
 import PlaceInfoDetail, { PlaceInfoDetailSkeleton } from './PlaceInfoDetail'
 
@@ -20,13 +20,13 @@ export default function PlaceInfoDetailFetcher({ placeId }: PlaceInfoDetailFetch
 
   if (error) {
     return (
-      <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
+      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
     )
   }
 
   if (!data?.data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('정보')}
         className="py-10 bg-white"
       />

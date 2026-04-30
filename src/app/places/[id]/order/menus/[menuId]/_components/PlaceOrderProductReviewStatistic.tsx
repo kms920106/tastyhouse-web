@@ -1,7 +1,7 @@
 import { getProductReviewStatistics } from '@/actions/product'
 import ReviewRatingDetailItem from '@/components/reviews/ReviewRatingDetailItem'
 import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
 import { PlaceOrderProductReviewStatisticSkeleton } from './PlaceOrderProductReviewStatisticSkeleton'
@@ -22,13 +22,13 @@ export default function PlaceOrderProductReviewStatistic({ productId }: Props) {
 
   if (error) {
     return (
-      <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
+      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
     )
   }
 
   if (!data?.data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰 통계')}
         className="py-10 bg-white"
       />

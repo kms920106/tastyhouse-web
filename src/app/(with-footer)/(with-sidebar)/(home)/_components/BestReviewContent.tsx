@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { reviewRepository } from '@/domains/review'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import BestReviewSwiper from './BestReviewSwiper'
@@ -12,11 +12,11 @@ export default async function BestReviewContent() {
   const { data, error } = await reviewRepository.getBestReviews(query)
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
   return <BestReviewSwiper reviews={data} />

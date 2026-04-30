@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { RankPeriod, rankPeriodToRankType, rankRepository } from '@/domains/rank'
 import { getIsLoggedIn } from '@/lib/auth-config'
@@ -46,11 +46,11 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
   const { error, data } = await rankRepository.getRankMembersMe(params)
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('내 랭킹')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('내 랭킹')} />
   }
 
   const info = data

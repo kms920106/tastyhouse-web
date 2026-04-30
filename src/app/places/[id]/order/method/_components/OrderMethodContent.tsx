@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import OrderMethodContentClient from './OrderMethodContentClient'
@@ -11,11 +11,11 @@ export default async function OrderMethodContent({ placeId }: Props) {
   const { error, data } = await placeRepository.getPlaceOrderMethods(placeId)
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 수단')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 수단')} />
   }
 
   const { orderMethods } = data

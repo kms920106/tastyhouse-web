@@ -1,10 +1,10 @@
 'use client'
 
+import { getMemberReviews } from '@/actions/review'
 import ReviewList from '@/components/reviews/ReviewList'
 import ReviewListSkeleton from '@/components/reviews/ReviewListSkeleton'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getMemberReviews } from '@/actions/review'
 import { useQuery } from '@tanstack/react-query'
 
 interface MemberReviewListFetcherProps {
@@ -29,7 +29,7 @@ export default function MemberReviewListFetcher({ memberId }: MemberReviewListFe
 
   if (error || !data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
         className="py-10 bg-white"
       />

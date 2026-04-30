@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { bannerRepository } from '@/domains/banner'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import BannerSwiper from './BannerSwiper'
@@ -10,11 +10,11 @@ export default async function BannerContent() {
   })
 
   if (error) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
   }
 
   if ((error && status === 404) || !data) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} className="py-10" />
   }
 
   if (data.length === 0) {

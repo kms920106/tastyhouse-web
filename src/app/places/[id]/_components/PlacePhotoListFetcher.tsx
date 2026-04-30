@@ -1,10 +1,10 @@
+import { getPlacePhotos } from '@/actions/place'
 import ReviewImageGallery, {
   ReviewImageGallerySkeleton,
 } from '@/components/reviews/ReviewImageGallery'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getPlacePhotos } from '@/actions/place'
 import { useQuery } from '@tanstack/react-query'
 
 export function PlacePhotoListSkeleton() {
@@ -36,13 +36,13 @@ export default function PlacePhotoListFetcher({ placeId }: PlacePhotoListFetcher
 
   if (error) {
     return (
-      <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
+      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
     )
   }
 
   if (!data?.data) {
     return (
-      <ErrorMessage
+      <FetchErrorState
         message={COMMON_ERROR_MESSAGES.FETCH_ERROR('사진')}
         className="py-10 bg-white"
       />

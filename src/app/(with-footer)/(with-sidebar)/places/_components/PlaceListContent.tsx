@@ -1,5 +1,6 @@
 'use client'
 
+import { getLatestPlaces } from '@/actions/place'
 import {
   PlaceCard,
   PlaceCardContent,
@@ -12,12 +13,11 @@ import {
   PlaceCardStats,
   PlaceCardTags,
 } from '@/components/places/PlaceCard'
-import ErrorMessage from '@/components/ui/ErrorMessage'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { getPlaceFoodTypeCodeName } from '@/domains/place/place.constants'
 import type { PlaceAmenityCode, PlaceFoodType } from '@/domains/place/place.types'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { getLatestPlaces } from '@/actions/place'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import PlaceFilterBar from './PlaceFilterBar'
@@ -161,11 +161,11 @@ export default function PlaceListContent({
   }
 
   if (isError) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data?.pages || data.pages.length === 0) {
-    return <ErrorMessage message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
   }
 
   const places = data.pages.flatMap((page) => page.data ?? [])
