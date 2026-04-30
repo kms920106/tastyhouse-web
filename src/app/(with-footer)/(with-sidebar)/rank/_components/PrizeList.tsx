@@ -33,11 +33,11 @@ export default async function PrizeList() {
   const { error, data } = await eventRepository.getEventRankPrizes()
 
   if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} />
   }
 
   const prizes = data

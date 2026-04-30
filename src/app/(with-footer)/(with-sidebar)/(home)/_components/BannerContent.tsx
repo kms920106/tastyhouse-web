@@ -10,11 +10,11 @@ export default async function BannerContent() {
   })
 
   if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if ((error && status === 404) || !data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} className="py-10" />
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} />
   }
 
   if (data.length === 0) {
