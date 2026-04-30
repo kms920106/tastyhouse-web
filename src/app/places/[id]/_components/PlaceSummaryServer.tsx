@@ -13,14 +13,14 @@ export default async function PlaceSummaryServer({
   placeId,
   bookmarkButton,
 }: PlaceSummaryServerProps) {
-  const { error, data } = await placeRepository.getPlaceSummary(placeId)
+  const { error, status, data } = await placeRepository.getPlaceSummary(placeId)
+
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('기본 정보')} />
+  }
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('기본 정보')} />
   }
 
   const { id, name, roadAddress, lotAddress, rating } = data

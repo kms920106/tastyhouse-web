@@ -39,16 +39,16 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
     )
   }
 
-  const { error, data } = await rankRepository.getRankMembersMe({
+  const { error, status, data } = await rankRepository.getRankMembersMe({
     type: rankPeriodToRankType(rankPeriod),
   })
 
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('내 랭킹')} />
   }
 
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('내 랭킹')} />
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   const info = data

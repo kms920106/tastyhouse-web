@@ -8,14 +8,14 @@ interface PlaceImageGalleryServerProps {
 }
 
 export default async function PlaceImageGalleryServer({ placeId }: PlaceImageGalleryServerProps) {
-  const { data, error } = await placeRepository.getPlaceBanners(placeId)
+  const { error, status, data } = await placeRepository.getPlaceBanners(placeId)
+
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} />
+  }
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('배너')} />
   }
 
   const imageUrls = data.map((banner) => banner.imageUrl)

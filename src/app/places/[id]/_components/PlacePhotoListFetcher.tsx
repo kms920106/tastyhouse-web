@@ -35,18 +35,11 @@ export default function PlacePhotoListFetcher({ placeId }: PlacePhotoListFetcher
   }
 
   if (error) {
-    return (
-      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data?.data) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('사진')}
-        className="py-10 bg-white"
-      />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('사진')} />
   }
 
   const categories = data.data

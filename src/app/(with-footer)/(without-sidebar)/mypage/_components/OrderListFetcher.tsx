@@ -52,22 +52,8 @@ export default function OrderListFetcher() {
     return <OrderListSkeleton />
   }
 
-  if (error) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 내역')}
-        className="py-10 bg-white"
-      />
-    )
-  }
-
-  if (!data) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 내역')}
-        className="py-10 bg-white"
-      />
-    )
+  if (error || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 내역')} />
   }
 
   return <OrderList orders={data.orders} hasMoreOrders={data.hasMoreOrders} />

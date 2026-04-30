@@ -112,21 +112,11 @@ export default function LatestReviewList({ reviewType }: LatestReviewListProps) 
   }
 
   if (isError) {
-    return (
-      <FetchErrorState
-        message={error?.message || COMMON_ERROR_MESSAGES.API_FETCH_ERROR}
-        className="py-10 bg-white"
-      />
-    )
+    return <FetchErrorState message={error?.message || COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data?.pages || data.pages.length === 0) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
-        className="py-10 bg-white"
-      />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
   // 모든 페이지의 리뷰를 평탄화

@@ -42,17 +42,17 @@ function RankListItemSkeleton() {
 }
 
 export default async function RankList({ rankPeriod }: { rankPeriod: RankPeriod }) {
-  const { error, data } = await rankRepository.getRankMembers({
+  const { error, status, data } = await rankRepository.getRankMembers({
     type: rankPeriodToRankType(rankPeriod),
     limit: 100,
   })
 
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('랭킹')} />
   }
 
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('랭킹')} />
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   const memberRankItems = data

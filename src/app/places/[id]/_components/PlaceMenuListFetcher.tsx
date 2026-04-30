@@ -2,7 +2,6 @@ import { getPlaceMenus } from '@/actions/place'
 import MenuCategoryItem, { MenuCategoryItemSkeleton } from '@/components/menus/MenuCategoryItem'
 import MenuItem from '@/components/menus/MenuItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import type { MenuCategory } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useQuery } from '@tanstack/react-query'
@@ -29,29 +28,20 @@ export default function PlaceMenuListFetcher({ placeId }: PlaceMenuListFetcherPr
   }
 
   if (error) {
-    return (
-      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data?.data) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')}
-        className="py-10 bg-white"
-      />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
   }
 
-  const menuCategories: MenuCategory[] = data.data
-
-  if (menuCategories.length === 0) {
+  if (data.data.length === 0) {
     return <div className="py-10 bg-white text-center text-sm text-[#aaaaaa]">메뉴가 없습니다.</div>
   }
 
   return (
     <>
-      {menuCategories.map((menuCategory) => (
+      {data.data.map((menuCategory) => (
         <MenuCategoryItem
           key={menuCategory.categoryName}
           categoryName={menuCategory.categoryName}

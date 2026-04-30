@@ -4,16 +4,14 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import StationSelector from './StationSelector'
 
 export default async function StationContent() {
-  const { data, error } = await placeRepository.getPlaceStations()
+  const { error, status, data } = await placeRepository.getPlaceStations()
 
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-2" />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('지하철역')} />
   }
 
-  if (!data) {
-    return (
-      <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('지하철역')} className="py-2" />
-    )
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   return <StationSelector stations={data} />

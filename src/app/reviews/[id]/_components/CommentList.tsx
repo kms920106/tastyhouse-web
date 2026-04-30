@@ -35,14 +35,14 @@ interface Props {
 }
 
 export default async function CommentList({ reviewId }: Props) {
-  const { error, data } = await reviewRepository.getReviewComments(reviewId)
+  const { error, status, data } = await reviewRepository.getReviewComments(reviewId)
+
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('댓글')} />
+  }
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('댓글')} />
   }
 
   if (data.comments.length === 0) {

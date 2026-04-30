@@ -1,5 +1,5 @@
 import ReviewDetailHeader from '@/components/reviews/ReviewDetailHeader'
-import ErrorStateSection from '@/components/ui/ErrorStateSection'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { reviewRepository } from '@/domains/review'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
@@ -13,17 +13,17 @@ interface Props {
 }
 
 export default async function ReviewDetailPage({ reviewId }: Props) {
-  const [{ error, data }, isLoggedIn] = await Promise.all([
+  const [{ error, status, data }, isLoggedIn] = await Promise.all([
     reviewRepository.getReviewDetail(reviewId),
     getIsLoggedIn(),
   ])
 
-  if (error) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
-  if (!data) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   const {

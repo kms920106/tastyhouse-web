@@ -48,22 +48,8 @@ export default function BookmarkListFetcher() {
     return <BookmarkListSkeleton />
   }
 
-  if (error) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('즐겨찾기')}
-        className="py-10 bg-white"
-      />
-    )
-  }
-
-  if (!data) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('즐겨찾기')}
-        className="py-10 bg-white"
-      />
-    )
+  if (error || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('즐겨찾기')} />
   }
 
   return <BookmarkList bookmarks={data.bookmarks} hasMoreBookmarks={data.hasMoreBookmarks} />

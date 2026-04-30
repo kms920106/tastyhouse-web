@@ -32,18 +32,9 @@ export default function ReviewPanel({ queryOptions, viewMoreHref }: ReviewPanelP
 
   if (isLoading) return <ReviewPanelSkeleton />
 
-  if (error)
-    return (
-      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
-    )
+  if (error) return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
 
-  if (!data?.data)
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
-        className="py-10 bg-white"
-      />
-    )
+  if (!data?.data) return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
 
   const { sortedReviews, photoReviewCount } = deriveReviews(data.data)
 

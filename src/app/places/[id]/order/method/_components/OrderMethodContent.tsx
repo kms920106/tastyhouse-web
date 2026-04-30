@@ -8,14 +8,14 @@ interface Props {
 }
 
 export default async function OrderMethodContent({ placeId }: Props) {
-  const { error, data } = await placeRepository.getPlaceOrderMethods(placeId)
+  const { error, status, data } = await placeRepository.getPlaceOrderMethods(placeId)
+
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 수단')} />
+  }
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 수단')} />
   }
 
   const { orderMethods } = data

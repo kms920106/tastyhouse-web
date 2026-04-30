@@ -19,18 +19,11 @@ export default function PlaceInfoDetailFetcher({ placeId }: PlaceInfoDetailFetch
   }
 
   if (error) {
-    return (
-      <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} className="py-10 bg-white" />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (!data?.data) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('정보')}
-        className="py-10 bg-white"
-      />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('정보')} />
   }
 
   return <PlaceInfoDetail placeInfo={data.data} />

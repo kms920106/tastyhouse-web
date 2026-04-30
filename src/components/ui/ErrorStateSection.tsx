@@ -5,7 +5,7 @@ import { MdRefresh } from 'react-icons/md'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
 import AppPrimaryButton from './AppPrimaryButton'
-import FetchErrorState from './ErrorMessage'
+import FetchErrorState from './FetchErrorState'
 
 interface Props {
   title?: string

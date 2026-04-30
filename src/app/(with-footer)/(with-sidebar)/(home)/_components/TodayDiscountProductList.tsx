@@ -17,17 +17,17 @@ export function TodayDiscountProductListSkeleton() {
 }
 
 export default async function TodayDiscountProductList() {
-  const { data, error } = await productRepository.getTodayDiscountProducts({
+  const { error, status, data } = await productRepository.getTodayDiscountProducts({
     page: 0,
     size: 4,
   })
 
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
   }
 
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   return (

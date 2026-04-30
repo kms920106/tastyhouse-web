@@ -4,17 +4,17 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import BestReviewSwiper from './BestReviewSwiper'
 
 export default async function BestReviewContent() {
-  const { data, error } = await reviewRepository.getBestReviews({
+  const { error, status, data } = await reviewRepository.getBestReviews({
     page: 0,
     size: 5,
   })
 
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   return <BestReviewSwiper reviews={data} />

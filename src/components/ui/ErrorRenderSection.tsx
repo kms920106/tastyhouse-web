@@ -1,6 +1,6 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
-import FetchErrorState from './ErrorMessage'
+import FetchErrorState from './FetchErrorState'
 
 interface Props {
   title: string
@@ -18,9 +18,7 @@ export default function ErrorRenderSection({ title = 'ERROR', message }: Props) 
           <HeaderTitle>{title}</HeaderTitle>
         </HeaderCenter>
       </Header>
-      <div className="flex-1 flex items-center justify-center">
-        <FetchErrorState message={message} />
-      </div>
+      <FetchErrorState message={message} />
     </section>
   )
 }

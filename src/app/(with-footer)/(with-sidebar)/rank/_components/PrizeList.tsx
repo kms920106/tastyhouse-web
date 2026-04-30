@@ -29,14 +29,14 @@ function PrizeListItemSkeleton() {
 }
 
 export default async function PrizeList() {
-  const { error, data } = await eventRepository.getEventRankPrizes()
+  const { error, status, data } = await eventRepository.getEventRankPrizes()
+
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} />
+  }
 
   if (error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
-  if (!data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} />
   }
 
   const prizes = data

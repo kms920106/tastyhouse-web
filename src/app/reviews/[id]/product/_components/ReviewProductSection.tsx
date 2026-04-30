@@ -3,7 +3,7 @@ import ReviewDetailHeader from '@/components/reviews/ReviewDetailHeader'
 import ReviewImageGallery from '@/components/reviews/ReviewImageGallery'
 import ReviewRatingDetail from '@/components/reviews/ReviewRatingDetail'
 import BorderedSection from '@/components/ui/BorderedSection'
-import ErrorStateSection from '@/components/ui/ErrorStateSection'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import Rating from '@/components/ui/Rating'
 import SectionStack from '@/components/ui/SectionStack'
 import TextContent from '@/components/ui/TextContent'
@@ -20,14 +20,14 @@ interface ReviewProductSectionProps {
 }
 
 export default async function ReviewProductSection({ reviewId }: ReviewProductSectionProps) {
-  const { error, data } = await reviewRepository.getReviewProductDetail(reviewId)
+  const { error, status, data } = await reviewRepository.getReviewProductDetail(reviewId)
 
-  if (error) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
-  if (!data) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   const {

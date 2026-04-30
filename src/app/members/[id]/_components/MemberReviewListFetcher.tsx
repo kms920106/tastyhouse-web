@@ -28,13 +28,8 @@ export default function MemberReviewListFetcher({ memberId }: MemberReviewListFe
   }
 
   if (error || !data) {
-    return (
-      <FetchErrorState
-        message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')}
-        className="py-10 bg-white"
-      />
-    )
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
-  return <ReviewList reviews={data.reviews} hasMoreReviews={data.hasMore} />
+  ;<ReviewList reviews={data.reviews} hasMoreReviews={data.hasMore} />
 }
