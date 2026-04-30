@@ -1,60 +1,11 @@
-import {
-  PlaceCard,
-  PlaceCardContent,
-  PlaceCardHeader,
-  PlaceCardImage,
-  PlaceCardName,
-  PlaceCardRating,
-  PlaceCardSkeleton,
-  PlaceCardStation,
-  PlaceCardTags,
-} from '@/components/places/PlaceCard'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { PlaceFoodType, getPlaceFoodTypeCodeName, placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-
-export function BestPlaceListSkeleton() {
-  return (
-    <div className="grid grid-cols-2 gap-3 mb-[25px]">
-      {[...Array(4)].map((_, i) => (
-        <PlaceCardSkeleton key={i} />
-      ))}
-    </div>
-  )
-}
-
-type PlaceListItemProps = {
-  id: number
-  name: string
-  imageUrl: string
-  stationName: string
-  rating: number
-  foodTypes: PlaceFoodType[]
-}
-
-function PlaceListItem({ id, name, imageUrl, stationName, rating, foodTypes }: PlaceListItemProps) {
-  const foodNames = foodTypes.map((foodType) => getPlaceFoodTypeCodeName(foodType))
-
-  return (
-    <li key={id}>
-      <PlaceCard placeId={id}>
-        <PlaceCardImage src={imageUrl} alt={name} />
-        <PlaceCardContent>
-          <PlaceCardHeader>
-            <PlaceCardStation>{stationName}</PlaceCardStation>
-            <PlaceCardRating value={rating} />
-          </PlaceCardHeader>
-          <PlaceCardName>{name}</PlaceCardName>
-          <PlaceCardTags tags={foodNames} />
-        </PlaceCardContent>
-      </PlaceCard>
-    </li>
-  )
-}
+import { PlaceListItem } from './BestPlaceListItem'
 
 export default async function BestPlaceList() {
-  const { data, error } = await placeRepository.getBestPlaces({
+  const { error, status, data } = await placeRepository.getBestPlaces({
     page: 0,
     size: 4,
   })
@@ -63,8 +14,12 @@ export default async function BestPlaceList() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  if (!data) {
+  if ((error && status === 404) || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
+  }
+
+  if (data.length === 0) {
+    return null
   }
 
   return (

@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
-import BestPlaceList, { BestPlaceListSkeleton } from './BestPlaceList'
+import BestPlaceList from './BestPlaceList'
+import { BestPlaceListSkeleton } from './BestPlaceListSkeleton'
 import SectionHeader from './SectionHeader'
 
 export default async function BestPlaceSection() {
