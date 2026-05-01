@@ -1,10 +1,9 @@
 'use server'
 
-import { authRepository } from '@/domains/auth/auth.repository'
-import type { LoginResult } from '@/domains/auth/auth.types'
-import type { SocialSignUpRequest } from '@/domains/auth/auth.dto'
 import type { SocialProfile } from '@/domains/auth/auth.model'
+import { authRepository } from '@/domains/auth/auth.repository'
 import type { SocialProvider } from '@/domains/auth/auth.types'
+import type { Gender } from '@/domains/member/member.type'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
@@ -19,6 +18,11 @@ function validateLoginInput(username: string, password: string): string | null {
     return '비밀번호를 입력해 주세요.'
   }
   return null
+}
+
+export type LoginResult = {
+  success: false
+  error: string
 }
 
 export async function loginFormAction(
@@ -148,7 +152,11 @@ export async function socialLinkAccountAction(
 ): Promise<SocialLinkAccountResult> {
   const LINK_ERROR = '계정 연동에 실패했습니다. 다시 시도해 주세요.'
 
-  const { data, error } = await authRepository.linkSocialAccount({ provider, tempToken, phoneVerifyToken })
+  const { data, error } = await authRepository.linkSocialAccount({
+    provider,
+    tempToken,
+    phoneVerifyToken,
+  })
 
   if (error || !data) {
     return { success: false, error: LINK_ERROR }
@@ -194,9 +202,6 @@ export async function phoneLoginAction(phoneVerifyToken: string): Promise<PhoneL
   return { success: true, needsSignUp: true }
 }
 
-
-
-
 export type FacebookLoginResult =
   | { success: true; status: 'LOGIN' }
   | { success: true; status: 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'; tempToken: string }
@@ -224,17 +229,51 @@ export async function facebookLoginAction(accessToken: string): Promise<Facebook
   return { success: false, error: '페이스북 로그인에 실패했습니다. 다시 시도해 주세요.' }
 }
 
-
-
-
 export type SocialSignUpResult = { success: false; error: string }
 
-export async function socialSignUpAction(
-  request: SocialSignUpRequest,
-): Promise<SocialSignUpResult | null> {
+export async function socialSignUpAction({
+  provider,
+  tempToken,
+  username,
+  nickname,
+  fullName,
+  gender,
+  birthDate,
+  phoneNumber,
+  pushNotificationEnabled,
+  marketingInfoEnabled,
+  eventInfoEnabled,
+  referrerNickname,
+}: {
+  provider: SocialProvider
+  tempToken: string
+  username: string
+  nickname: string
+  fullName: string
+  gender: Gender
+  birthDate: number
+  phoneNumber: string
+  pushNotificationEnabled?: boolean
+  marketingInfoEnabled?: boolean
+  eventInfoEnabled?: boolean
+  referrerNickname?: string
+}): Promise<SocialSignUpResult | null> {
   const SIGN_UP_ERROR = '회원가입에 실패했습니다. 다시 시도해 주세요.'
 
-  const { data, error } = await authRepository.signUpSocial(request)
+  const { data, error } = await authRepository.signUpSocial({
+    provider,
+    tempToken,
+    username,
+    nickname,
+    fullName,
+    gender,
+    birthDate,
+    phoneNumber,
+    pushNotificationEnabled,
+    marketingInfoEnabled,
+    eventInfoEnabled,
+    referrerNickname,
+  })
 
   if (error || !data) {
     return { success: false, error: SIGN_UP_ERROR }

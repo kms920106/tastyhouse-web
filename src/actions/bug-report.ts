@@ -1,8 +1,17 @@
 'use server'
 
-import type { BugReportCreateRequest } from '@/domains/bug-report'
 import { bugReportRepository } from '@/domains/bug-report/bug-report.repository'
 
-export async function createBugReport(request: BugReportCreateRequest) {
-  return bugReportRepository.createBugReport(request)
+export async function createBugReport({
+  device,
+  title,
+  content,
+  uploadedFileIds,
+}: {
+  device: string
+  title: string
+  content: string
+  uploadedFileIds?: number[]
+}) {
+  return bugReportRepository.createBugReport({ device, title, content, uploadedFileIds })
 }
