@@ -1,7 +1,6 @@
 'use server'
 
 import { authRepository } from '@/domains/auth/auth.repository'
-import type { SignupRequest } from '@/domains/auth/auth.dto'
 import { emailVerificationRepository } from '@/domains/email-verification/email-verification.repository'
 import { memberRepository } from '@/domains/member'
 import { policyRepository } from '@/domains/policy'
@@ -57,7 +56,21 @@ export async function checkNicknameAvailability(nickname: string) {
   return memberRepository.checkNicknameAvailability(nickname)
 }
 
-async function signup(payload: SignupRequest): Promise<SignupResult | null> {
+async function signup(payload: {
+  username: string
+  password: string
+  fullName: string
+  nickname: string
+  phoneNumber: string
+  birthDate: number
+  gender: string
+  referrerNickname?: string
+  marketingInfoEnabled: boolean
+  eventInfoEnabled: boolean
+  pushNotificationEnabled: boolean
+  emailVerifyToken: string
+  phoneVerifyToken: string
+}): Promise<SignupResult | null> {
   const { error } = await authRepository.signup(payload)
 
   if (error) {
