@@ -2,20 +2,9 @@ import type { Gender } from '@/domains/member'
 import type { JwtToken, SocialProfile } from './auth.model'
 import type { SocialLoginStatus, SocialLinkStatus, SocialProvider } from './auth.types'
 
-export type LoginResult = {
-  success: false
-  error: string
-}
-
 export interface LoginRequest {
   username: string
   password: string
-}
-
-export interface LoginResponse {
-  accessToken: string
-  refreshToken: string
-  tokenType: string
 }
 
 export interface PasswordResetRequest {
@@ -48,12 +37,6 @@ export interface SocialLinkResponse {
   tempToken: string | null
   jwt: JwtToken | null
   socialProfile: SocialProfile | null
-}
-
-export interface SocialSignUpResponse {
-  accessToken: string
-  refreshToken: string
-  tokenType: string
 }
 
 export interface PhoneLoginRequest {

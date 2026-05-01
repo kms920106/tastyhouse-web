@@ -5,7 +5,6 @@ import type {
   FacebookLoginRequest,
   KakaoLoginRequest,
   LoginRequest,
-  LoginResponse,
   NaverLoginRequest,
   PasswordResetConfirmRequest,
   PasswordResetVerifyRequest,
@@ -30,7 +29,7 @@ export const authRepository = {
   },
 
   async login(payload: LoginRequest) {
-    return api.post<LoginResponse>(`${AUTH_BASE}/login`, payload)
+    return api.post<JwtToken>(`${AUTH_BASE}/login`, payload)
   },
 
   async logout() {

@@ -1,7 +1,8 @@
 'use server'
 
 import { authRepository } from '@/domains/auth/auth.repository'
-import type { LoginResult, SocialSignUpRequest } from '@/domains/auth/auth.dto'
+import type { LoginResult } from '@/domains/auth/auth.types'
+import type { SocialSignUpRequest } from '@/domains/auth/auth.dto'
 import type { SocialProfile } from '@/domains/auth/auth.model'
 import type { SocialProvider } from '@/domains/auth/auth.types'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
