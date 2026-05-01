@@ -6,6 +6,7 @@ import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
+import { otherMemberProfileQueryKey } from '@/hooks/useOtherMemberProfile'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
@@ -118,8 +119,10 @@ export default function ProfileEditForm() {
       })
 
       if (!response?.error) {
-        // 프로필 캐시 무효화하여 최신 데이터 다시 가져오기
         await queryClient.invalidateQueries({ queryKey: MEMBER_PROFILE_QUERY_KEY })
+        if (memberProfile?.id) {
+          await queryClient.invalidateQueries({ queryKey: otherMemberProfileQueryKey(memberProfile.id) })
+        }
         toast('프로필이 변경됐습니다.')
         router.back()
       } else {
