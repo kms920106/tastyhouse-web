@@ -2,7 +2,7 @@
 
 import { authRepository } from '@/domains/auth/auth.repository'
 import type { SignupRequest } from '@/domains/auth/auth.dto'
-import { emailVerificationRepository } from '@/domains/email-verification'
+import { emailVerificationRepository } from '@/domains/email-verification/email-verification.repository'
 import { memberRepository } from '@/domains/member'
 import { policyRepository } from '@/domains/policy'
 import { redirect } from 'next/navigation'

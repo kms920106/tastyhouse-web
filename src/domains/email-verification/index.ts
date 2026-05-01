@@ -1,2 +1,1 @@
-export * from './email-verification.repository'
-export * from './email-verification.type'
+export * from './email-verification.dto'
