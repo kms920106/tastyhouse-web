@@ -1,5 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { RankPeriod, rankPeriodToRankType, rankRepository } from '@/domains/rank'
+import { RankPeriod, rankPeriodToRankType } from '@/domains/rank'
+import { rankRepository } from '@/domains/rank/rank.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import RankItem from './RankItem'
@@ -27,15 +28,15 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  const info = data
+  const { nickname, profileImageUrl, reviewCount, rankNo, grade } = data
 
   return (
     <RankItem
-      rankNo={info.rankNo}
-      profileImageUrl={info.profileImageUrl}
-      nickname={info.nickname}
-      grade={info.grade}
-      reviewCount={info.reviewCount}
+      rankNo={rankNo}
+      profileImageUrl={profileImageUrl}
+      nickname={nickname}
+      grade={grade}
+      reviewCount={reviewCount}
       isMe
     />
   )

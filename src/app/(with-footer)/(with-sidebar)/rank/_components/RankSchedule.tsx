@@ -1,8 +1,9 @@
-import { eventRepository } from '@/domains/event/event.repository'
+import type { RankDuration } from '@/domains/rank'
+import { rankRepository } from '@/domains/rank/rank.repository'
 import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
 
 export default async function RankSchedule() {
-  const { error, data } = await eventRepository.getEventRankDuration()
+  const { error, data } = await rankRepository.getRankDuration()
 
   if (error) {
     return <div>-</div>
@@ -12,7 +13,7 @@ export default async function RankSchedule() {
     return <div>-</div>
   }
 
-  const rankEventInfo = data
+  const rankEventInfo: RankDuration = data
 
   const timeDifference = getTimeDifference(rankEventInfo.endAt)
   const remainingTime = formatRemainingTime(timeDifference)

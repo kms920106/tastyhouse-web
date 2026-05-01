@@ -1,10 +1,11 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { eventRepository } from '@/domains/event/event.repository'
+import type { RankPrize } from '@/domains/rank'
+import { rankRepository } from '@/domains/rank/rank.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import Image from 'next/image'
 
 export default async function PrizeList() {
-  const { error, status, data } = await eventRepository.getEventRankPrizes()
+  const { error, status, data } = await rankRepository.getRankPrizes()
 
   if ((error && status === 404) || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('경품')} />
@@ -14,13 +15,11 @@ export default async function PrizeList() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  const prizes = data
-
-  if (prizes.length === 0) {
+  if (data.length === 0) {
     return <div className="w-full py-10 text-[#999999] text-center">경품 데이터가 없습니다.</div>
   }
 
-  return prizes.map((prize) => (
+  return data.map((prize: RankPrize) => (
     <div key={prize.id} className="flex flex-col flex-1 items-center min-w-0">
       <div className="relative w-full max-w-[144px] mb-[15px] aspect-square">
         <div className="absolute top-0 left-0 z-10 w-[25%]">

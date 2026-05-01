@@ -1,1 +1,1 @@
-export type EventStatus = 'ACTIVE' | 'ENDED'
+export type EventStatus = 'SCHEDULED' | 'ACTIVE' | 'ENDED'

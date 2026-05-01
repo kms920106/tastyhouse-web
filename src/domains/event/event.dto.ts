@@ -14,26 +14,13 @@ export interface EventListItemResponse {
   endAt: string
 }
 
-export interface EventPrizeResponse {
-  id: number
-  prizeRank: number
-  name: string
-  brand: string
-  imageUrl: string
-}
-
-export interface EventRankDurationResponse {
-  startAt: string
-  endAt: string
-}
-
 export interface EventDetailResponse {
   bannerImageUrl: string
 }
 
-export interface WinnerEventListItemResponse {
+export interface EventAnnouncementListItemResponse {
   id: number
   name: string
-  announcedAt: string
   content: string
+  announcedAt: string
 }
