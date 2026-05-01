@@ -3,11 +3,8 @@ import { env } from '@/lib/env'
 import logger from '@/lib/logger'
 import { cookies } from 'next/headers'
 
-type RequestConfig = RequestInit & {
-  params?: Record<
-    string,
-    string | number | boolean | Array<string | number | boolean> | null | undefined
-  >
+type RequestConfig<P extends object = object> = RequestInit & {
+  params?: P
   isFormData?: boolean
   timeout?: number
 }
@@ -55,7 +52,7 @@ class ApiClient {
     return requestHeaders
   }
 
-  private async request<T>(endpoint: string, config: RequestConfig = {}): Promise<ApiResponse<T>> {
+  private async request<T, P extends object>(endpoint: string, config: RequestConfig<P> = {}): Promise<ApiResponse<T>> {
     const { params, headers, isFormData, timeout = 3000, ...restConfig } = config
     const method = restConfig.method ?? 'GET'
     const correlationId = crypto.randomUUID().slice(0, 8)
@@ -150,43 +147,43 @@ class ApiClient {
     }
   }
 
-  async get<T = unknown>(endpoint: string, config?: RequestConfig): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, {
+  async get<T = unknown, P extends object = object>(endpoint: string, config?: RequestConfig<P>): Promise<ApiResponse<T>> {
+    return this.request<T, P>(endpoint, {
       method: 'GET',
       ...config,
     })
   }
 
-  async post<T = unknown>(
+  async post<T = unknown, P extends object = object>(
     endpoint: string,
     body?: unknown,
-    config?: RequestConfig,
+    config?: RequestConfig<P>,
   ): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, {
+    return this.request<T, P>(endpoint, {
       method: 'POST',
       body: body ? JSON.stringify(body) : undefined,
       ...config,
     })
   }
 
-  async put<T = unknown>(
+  async put<T = unknown, P extends object = object>(
     endpoint: string,
     body?: unknown,
-    config?: RequestConfig,
+    config?: RequestConfig<P>,
   ): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, {
+    return this.request<T, P>(endpoint, {
       method: 'PUT',
       body: body ? JSON.stringify(body) : undefined,
       ...config,
     })
   }
 
-  async upload<T = unknown>(
+  async upload<T = unknown, P extends object = object>(
     endpoint: string,
     formData: FormData,
-    config?: RequestConfig,
+    config?: RequestConfig<P>,
   ): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, {
+    return this.request<T, P>(endpoint, {
       ...config,
       method: 'POST',
       body: formData,
@@ -194,12 +191,12 @@ class ApiClient {
     })
   }
 
-  async delete<T = unknown>(
+  async delete<T = unknown, P extends object = object>(
     endpoint: string,
     body?: unknown,
-    config?: RequestConfig,
+    config?: RequestConfig<P>,
   ): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, {
+    return this.request<T, P>(endpoint, {
       method: 'DELETE',
       body: body ? JSON.stringify(body) : undefined,
       ...config,
