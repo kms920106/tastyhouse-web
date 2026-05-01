@@ -1,6 +1,7 @@
 'use server'
 
-import { authRepository, type SignupRequest } from '@/domains/auth'
+import { authRepository } from '@/domains/auth/auth.repository'
+import type { SignupRequest } from '@/domains/auth/auth.dto'
 import { emailVerificationRepository } from '@/domains/email-verification'
 import { memberRepository } from '@/domains/member'
 import { policyRepository } from '@/domains/policy'

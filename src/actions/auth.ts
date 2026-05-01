@@ -1,12 +1,9 @@
 'use server'
 
-import {
-  authRepository,
-  LoginResult,
-  SocialProfile,
-  SocialProvider,
-  SocialSignUpRequest,
-} from '@/domains/auth'
+import { authRepository } from '@/domains/auth/auth.repository'
+import type { LoginResult, SocialSignUpRequest } from '@/domains/auth/auth.dto'
+import type { SocialProfile } from '@/domains/auth/auth.model'
+import type { SocialProvider } from '@/domains/auth/auth.types'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'

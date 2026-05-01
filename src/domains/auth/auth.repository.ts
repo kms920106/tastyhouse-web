@@ -1,8 +1,8 @@
+import 'server-only'
 import { api } from '@/lib/api'
-import {
+import type {
   AppleLoginRequest,
   FacebookLoginRequest,
-  JwtResponse,
   KakaoLoginRequest,
   LoginRequest,
   LoginResponse,
@@ -17,7 +17,8 @@ import {
   SocialLinkResponse,
   SocialLoginResponse,
   SocialSignUpRequest,
-} from './auth.type'
+} from './auth.dto'
+import type { JwtToken } from './auth.model'
 
 const AUTH_BASE = '/api/auth/v1'
 const AUTH_SIGNUP_ENDPOINT = '/api/auth/signup'
@@ -73,6 +74,6 @@ export const authRepository = {
   },
 
   async signUpSocial(request: SocialSignUpRequest) {
-    return api.post<JwtResponse>(`${AUTH_BASE}/signup/social`, request)
+    return api.post<JwtToken>(`${AUTH_BASE}/signup/social`, request)
   },
 }

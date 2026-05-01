@@ -1,10 +1,11 @@
 import type { Gender } from '@/domains/member'
+import type { JwtToken, SocialProfile } from './auth.model'
+import type { SocialLoginStatus, SocialLinkStatus, SocialProvider } from './auth.types'
 
-export type SocialProvider = 'KAKAO' | 'NAVER' | 'FACEBOOK' | 'APPLE'
-
-export type SocialLoginStatus = 'LOGIN' | 'NEEDS_SIGN_UP' | 'NEEDS_LINKING'
-
-export type SocialLinkStatus = 'LOGIN' | 'NEEDS_SIGN_UP'
+export type LoginResult = {
+  success: false
+  error: string
+}
 
 export interface LoginRequest {
   username: string
@@ -15,11 +16,6 @@ export interface LoginResponse {
   accessToken: string
   refreshToken: string
   tokenType: string
-}
-
-export type LoginResult = {
-  success: false
-  error: string
 }
 
 export interface PasswordResetRequest {
@@ -41,35 +37,16 @@ export interface PasswordResetConfirmRequest {
   newPasswordConfirm: string
 }
 
-export interface SocialProfile {
-  providerId: string
-  email: string | null
-  nickname: string | null
-  profileImageUrl: string | null
-  name: string | null
-  phoneNumber: string | null
-  gender: Gender | null
-  birthYear: string | null
-  birthMonth: string | null
-  birthDay: string | null
-}
-
-export interface JwtResponse {
-  accessToken: string
-  refreshToken: string
-  tokenType: string
-}
-
 export interface SocialLoginResponse {
   status: SocialLoginStatus
   tempToken: string | null
-  jwt: JwtResponse | null
+  jwt: JwtToken | null
 }
 
 export interface SocialLinkResponse {
   status: SocialLinkStatus
   tempToken: string | null
-  jwt: JwtResponse | null
+  jwt: JwtToken | null
   socialProfile: SocialProfile | null
 }
 
@@ -85,39 +62,33 @@ export interface PhoneLoginRequest {
 
 export interface PhoneLoginResponse {
   needsSignUp: boolean
-  jwt: JwtResponse | null
+  jwt: JwtToken | null
 }
 
-// 소셜 계정 연동 (공통)
 export interface SocialAccountLinkRequest {
   provider: SocialProvider
   tempToken: string
   phoneVerifyToken: string
 }
 
-// 카카오
 export interface KakaoLoginRequest {
   code: string
 }
 
-// 네이버
 export interface NaverLoginRequest {
   code: string
   state: string
 }
 
-// 페이스북
 export interface FacebookLoginRequest {
   accessToken: string
 }
 
-// 애플
 export interface AppleLoginRequest {
   code: string
   idToken: string
 }
 
-// 일반 회원가입
 export interface SignupRequest {
   username: string
   password: string
@@ -134,7 +105,6 @@ export interface SignupRequest {
   phoneVerifyToken: string
 }
 
-// 소셜 회원가입 (공통)
 export interface SocialSignUpRequest {
   provider: SocialProvider
   tempToken: string

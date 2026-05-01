@@ -1,4 +1,4 @@
-import { authRepository } from '@/domains/auth'
+import { authRepository } from '@/domains/auth/auth.repository'
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
