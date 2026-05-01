@@ -1,5 +1,5 @@
 import { memberRepository } from '@/domains/member'
-import { placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
 import PlaceOrderCheckoutContentClient from './PlaceOrderCheckoutContentClient'
 
 interface Props {

@@ -1,6 +1,6 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
 import type { Metadata } from 'next'
 import PlaceDetailHeaderSection from './_components/PlaceDetailHeaderSection'
 import PlaceImageGallery from './_components/PlaceImageGallerySection'

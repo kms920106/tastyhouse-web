@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { PlaceListItem } from './BestPlaceListItem'
 

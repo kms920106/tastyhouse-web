@@ -1,6 +1,8 @@
 'use server'
 
-import { PlaceMapMarkerResponse, placeRepository, placeService } from '@/domains/place'
+import { PlaceMapMarkerResponse } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
+import { placeService } from '@/domains/place/place.service'
 
 export async function getMapMarkers(params: {
   latitude: number
@@ -34,7 +36,10 @@ export async function getPlaceReviewStatistics(placeId: number) {
   return placeRepository.getPlaceReviewStatistics(placeId)
 }
 
-export async function getPlaceReviews(placeId: number, { page, size }: { page: number; size: number }) {
+export async function getPlaceReviews(
+  placeId: number,
+  { page, size }: { page: number; size: number },
+) {
   return placeRepository.getPlaceReviews(placeId, { page, size })
 }
 

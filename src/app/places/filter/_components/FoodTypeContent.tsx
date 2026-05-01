@@ -1,5 +1,5 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { placeService } from '@/domains/place'
+import { placeService } from '@/domains/place/place.service'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import FoodTypeSelector from './FoodTypeSelector'
 

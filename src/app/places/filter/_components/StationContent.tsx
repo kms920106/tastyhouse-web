@@ -1,5 +1,5 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import StationSelector from './StationSelector'
 

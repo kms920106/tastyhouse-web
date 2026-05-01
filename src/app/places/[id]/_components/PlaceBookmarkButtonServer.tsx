@@ -1,4 +1,4 @@
-import { placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
@@ -9,9 +9,7 @@ interface Props {
   placeId: number
 }
 
-export default async function PlaceBookmarkButtonServer({
-  placeId,
-}: Props) {
+export default async function PlaceBookmarkButtonServer({ placeId }: Props) {
   const isLoggedIn = await getIsLoggedIn()
 
   if (!isLoggedIn) {

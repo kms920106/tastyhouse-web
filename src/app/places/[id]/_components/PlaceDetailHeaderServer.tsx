@@ -1,4 +1,4 @@
-import { placeRepository } from '@/domains/place'
+import { placeRepository } from '@/domains/place/place.repository'
 import PlaceDetailHeader from './PlaceDetailHeader'
 
 interface Props {
