@@ -205,6 +205,8 @@ export interface PlaceInfoResponse {
 - ✅ Suffix 규칙: `Response` / `Query` / `Request`
 - ✅ 리스트 아이템: `[Domain][Context]ListItemResponse` (e.g. `PlaceLatestListItemResponse`)
 - ✅ null 가능 필드는 `| null` 명시 (Backend 응답과 일치)
+- ✅ Query DTO에 추가 필드가 없으면 `PaginationParams`를 dto.ts에 정의하지 않고 repository.ts에서 직접 사용
+- ❌ 추가 필드 없이 `interface XxxQuery extends PaginationParams {}` 빈 인터페이스 정의 금지 — `PaginationParams`를 직접 사용할 것
 - ❌ 비즈니스 로직, getter 함수 금지 (오직 타입 선언만)
 
 ---
