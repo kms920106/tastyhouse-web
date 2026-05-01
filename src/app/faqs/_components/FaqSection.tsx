@@ -1,5 +1,6 @@
 'use client'
 
+import { getFaqList } from '@/actions/faq'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import {
@@ -8,9 +9,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
-import { FaqCategoryItem, FaqItem } from '@/domains/faq'
+import { Faq, FaqCategory } from '@/domains/faq'
 import { cn } from '@/lib/utils'
-import { getFaqList } from '@/actions/faq'
 import { useEffect, useState } from 'react'
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -19,17 +19,13 @@ const ALL_CATEGORY_ID = 0
 
 interface Props {
   initialCategoryId: number
-  initialCategories: FaqCategoryItem[]
-  initialFaqs: FaqItem[]
+  initialCategories: FaqCategory[]
+  initialFaqs: Faq[]
 }
 
-export default function FaqSection({
-  initialCategoryId,
-  initialCategories,
-  initialFaqs,
-}: Props) {
+export default function FaqSection({ initialCategoryId, initialCategories, initialFaqs }: Props) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(initialCategoryId)
-  const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqs)
+  const [faqs, setFaqs] = useState<Faq[]>(initialFaqs)
 
   useEffect(() => {
     const fetchFaqs = async () => {

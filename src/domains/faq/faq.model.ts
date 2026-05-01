@@ -1,10 +1,10 @@
-export interface FaqCategoryItem {
+export interface FaqCategory {
   id: number
   name: string
   sort: number
 }
 
-export interface FaqItem {
+export interface Faq {
   id: number
   categoryId: number
   question: string
