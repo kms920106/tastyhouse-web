@@ -17,9 +17,5 @@ export default async function BannerContent() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  if (data.length === 0) {
-    return null
-  }
-
   return <BannerSwiper banners={data} />
 }

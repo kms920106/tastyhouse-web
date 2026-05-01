@@ -21,12 +21,21 @@ interface Props {
 export default function ChoiceSwiper({ places }: Props) {
   const [isMounted, setIsMounted] = useState(false)
 
+  // Swiper는 초기화 시 DOM을 직접 조작하고 window 객체에 접근하기 때문에
+  // SSR 결과와 클라이언트 렌더링 결과가 달라져 React hydration mismatch가 발생한다.
+  // 이는 Swiper 라이브러리의 구조적 문제로 2026년 현재도 미해결 상태이며,
+  // next/dynamic ssr:false 또는 isMounted 패턴이 공식 권장 우회책이다.
+  // Swiper GitHub Discussion #8068, Issue #6443 참고.
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
   if (!isMounted) {
     return <ChoiceSwiperSkeleton />
+  }
+
+  if (places.length === 0) {
+    return null
   }
 
   return (
