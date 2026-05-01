@@ -654,6 +654,32 @@ import type { PlaceFoodType, PlaceAmenity } from '@/domains/place'
 import { getPlaceFoodTypeCodeName } from '@/domains/place'
 ```
 
+### 8.7. `src/app/` 컴포넌트 Props에 DTO 타입 직접 사용 (지양)
+
+```typescript
+// ❌ 지양 — client component Props에 DTO 타입 직접 사용
+import type { BannerResponse } from '@/domains/banner'
+
+interface Props {
+  banners: BannerResponse[]  // ← DTO를 Props에 사용하면 안 됨
+}
+```
+
+```typescript
+// ✅ 권장 — model.ts에 정의한 타입을 Props에 사용
+import type { Banner } from '@/domains/banner'
+
+interface Props {
+  banners: Banner[]  // ← model 타입 사용
+}
+```
+
+> **이유**: 컴포넌트가 DTO에 직접 의존하면 Backend API 변경 시 컴포넌트까지 수정해야 합니다.
+> model 타입을 분리하면 repository/service 계층만 수정하면 됩니다.
+>
+> **판단 기준**: `src/app/` 컴포넌트 Props에 `*Response`, `*Request`, `*Query` suffix 타입이 보이면 model.ts로 분리하세요.
+> model.ts 생성 조건(§3.4)과 연동: `src/app/` 컴포넌트에서 직접 참조하는 객체 타입은 반드시 model.ts에 정의합니다.
+
 ---
 
 ## 9. 자가 검증 체크리스트
@@ -665,6 +691,7 @@ import { getPlaceFoodTypeCodeName } from '@/domains/place'
 - [ ] 필수 파일(`index.ts`, `types.ts`, `dto.ts`, `repository.ts`)이 모두 존재하는가?
 - [ ] 조건부 파일(`constants.ts`, `model.ts`, `service.ts`)을 생성한 경우, 그 파일에 들어갈 실질적인 내용이 있는가? (빈 파일이면 생략)
 - [ ] `src/app/` 컴포넌트에서 직접 참조하는 객체 타입이 있다면 `model.ts`에 정의했는가?
+- [ ] `src/app/` 컴포넌트 Props에 `*Response`, `*Request`, `*Query` suffix DTO 타입을 직접 사용하지 않았는가? (§8.7)
 - [ ] `index.ts`가 client-safe layer(`types`, `constants`, `model`, `dto`)만 `export *`로 재내보내는가?
 - [ ] `index.ts`에 `repository`, `service` export가 **없는가**?
 
