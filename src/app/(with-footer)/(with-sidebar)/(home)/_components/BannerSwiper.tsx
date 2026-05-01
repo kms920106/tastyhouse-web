@@ -4,7 +4,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import styles from './BannerSwiper.module.css'
 
-import { Banner } from '@/domains/banner'
+import type { BannerResponse } from '@/domains/banner'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { BannerSwiperSkeleton } from './BannerSwiperSkeleton'
 
 interface Props {
-  banners: Banner[]
+  banners: BannerResponse[]
 }
 
 export default function BannerSwiper({ banners }: Props) {

@@ -1,14 +1,16 @@
+import 'server-only'
 import { api } from '@/lib/api'
-import { Banner, BannerQuery } from './banner.type'
+import { PaginationParams } from '@/types/common'
+import { BannerResponse } from './banner.dto'
 
 const ENDPOINT = '/api/banners'
 
 export const bannerRepository = {
-  async getHomeBanners(params: BannerQuery) {
-    return api.get<Banner[]>(`${ENDPOINT}/v1/home`, { params })
+  async getHomeBanners(params: PaginationParams) {
+    return api.get<BannerResponse[]>(`${ENDPOINT}/v1/home`, { params })
   },
 
-  async getSidebarBanners(params: BannerQuery) {
-    return api.get<Banner[]>(`${ENDPOINT}/v1/sidebar`, { params })
+  async getSidebarBanners(params: PaginationParams) {
+    return api.get<BannerResponse[]>(`${ENDPOINT}/v1/sidebar`, { params })
   },
 }

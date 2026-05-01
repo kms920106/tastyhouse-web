@@ -1,2 +1,2 @@
-export * from './banner.repository'
-export * from './banner.type'
+export * from './banner.dto'
+export * from './banner.types'
