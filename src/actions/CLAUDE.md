@@ -91,6 +91,7 @@ import { cookies } from 'next/headers'
 - **타입 / DTO / constants**: barrel(`@/domains/[domain]`)에서 import 가능
 - **repository / service**: 항상 명시 경로(`@/domains/[domain]/[domain].repository`) 사용
   - **이유**: barrel은 client-safe layer만 export합니다 (`src/domains/CLAUDE.md` 참고). repository/service는 `import 'server-only'`이므로 명시 경로가 의도를 더 명확히 드러냅니다.
+- **단, DTO/Request 타입을 server action 파라미터 타입으로 그대로 노출하는 것은 금지** — 8.8 참조. barrel import는 함수 내부 가공/타입 보강용으로만 사용합니다.
 
 > **기존 코드 안내**: [review.ts:3-9](review.ts)는 barrel로 repository를 가져오지만 — 이는 점진 정리 대상입니다. 신규 작업에서는 명시 경로를 사용하세요.
 
@@ -527,29 +528,44 @@ export async function createComment(reviewId: number, request: CommentCreateRequ
 
 ---
 
-### 8.8. 페이지네이션 파라미터에 `PaginationParams` 사용 (지양)
+### 8.8. 도메인 DTO / 공용 타입을 server action 파라미터 타입으로 사용 (지양)
+
+server action의 파라미터 타입은 **인라인 객체 타입**으로 선언합니다. `@/domains/[domain]`의 Request/DTO 타입이나 `@/types/common`의 공용 타입(`PaginationParams` 등)을 server action의 파라미터 타입으로 그대로 노출하지 않습니다.
 
 ```typescript
-// ❌ 지양 — server action에서 @/types/common의 PaginationParams를 import
+// ❌ 지양 — 도메인 DTO를 파라미터 타입으로 노출
+import { SocialSignUpRequest } from '@/domains/auth/auth.dto'
 import { PaginationParams } from '@/types/common'
 
-export async function getLatestPlaces(params: PaginationParams) {
-  return placeRepository.getLatestPlaces(params)
-}
+export async function socialSignUpAction(request: SocialSignUpRequest) { ... }
+export async function getLatestPlaces(params: PaginationParams) { ... }
 ```
 
 ```typescript
 // ✅ 권장 — 인라인 타입으로 직접 선언
+export async function socialSignUpAction({
+  username,
+  password,
+  phoneVerifyToken,
+}: {
+  username: string
+  password: string
+  phoneVerifyToken: string
+}) {
+  return authRepository.signUpSocial({ username, password, phoneVerifyToken })
+}
+
 export async function getLatestPlaces({ page, size }: { page: number; size: number }) {
   return placeRepository.getLatestPlaces({ page, size })
 }
 ```
 
-- `PaginationParams`는 도메인 layer(repository/service/type)에서 사용하는 타입입니다.
-- server action은 호출자(client component)와의 경계면이므로 파라미터를 인라인으로 명시해 의존성을 최소화합니다.
-- **이유**: server action이 `@/types/common`에 의존하면 타입 변경 시 영향 범위가 불필요하게 넓어지고, 호출자가 파라미터 구조를 파일을 열지 않고도 바로 파악할 수 있습니다.
+- DTO/공용 타입은 도메인 layer(repository/service)의 경계 타입입니다. server action은 client component와의 또 다른 경계이므로, 두 경계를 분리하기 위해 파라미터를 인라인으로 선언합니다.
+- 필드 수와 무관하게 인라인을 유지합니다 (필드가 5개 이상이라도 동일). 호출자가 시그니처만 보고 파라미터 구조를 바로 파악할 수 있는 이점이 더 큽니다.
+- DTO 타입을 import해서 함수 **내부**에서 payload를 조립·repository로 그대로 전달하는 용도는 허용됩니다. 금지되는 것은 **파라미터 타입으로의 노출**뿐입니다.
+- **이유**: server action이 도메인 DTO에 직접 의존하면 (1) DTO 필드 추가/이름 변경이 client component까지 전파되고, (2) 호출자가 server action 시그니처만 보고는 어떤 필드를 넘겨야 할지 알 수 없어 항상 도메인 파일을 열어봐야 합니다. 또한 Best Practice 레퍼런스인 [place.ts:19](place.ts)도 동일 원칙으로 작성되어 있습니다.
 
-> **기존 코드 안내**: [banner.ts](banner.ts), [follow.ts](follow.ts)는 `PaginationParams`를 사용하지만 — 이는 점진 정리 대상입니다. 신규 작업에서는 인라인 타입을 사용하세요.
+> **기존 코드 안내**: 일부 기존 파일([auth.ts](auth.ts), [bug-report.ts](bug-report.ts), [member.ts](member.ts), [order.ts](order.ts), [partnership.ts](partnership.ts), [payment.ts](payment.ts), [phone-verification.ts](phone-verification.ts), [review.ts](review.ts), [banner.ts](banner.ts), [follow.ts](follow.ts) 등)은 도메인 DTO/`PaginationParams`를 파라미터로 받지만 점진 정리 대상입니다. 신규 작업에서는 인라인 타입을 사용하고, 기존 파일을 수정할 때 함께 정리하세요.
 
 ---
 
@@ -568,7 +584,8 @@ export async function getLatestPlaces({ page, size }: { page: number; size: numb
 
 - [ ] repository/service를 명시 경로(`@/domains/[domain]/[domain].repository`)로 import했는가?
 - [ ] 타입/DTO/constants는 barrel(`@/domains/[domain]`)에서 가져왔는가?
-- [ ] 페이지네이션 파라미터를 `PaginationParams` 대신 `{ page, size }` 인라인 타입으로 선언했는가?
+- [ ] server action 파라미터 타입을 도메인 DTO/Request나 `PaginationParams` 대신 인라인 객체 타입으로 선언했는가? (8.8 참조)
+- [ ] DTO를 import한 경우, 파라미터 타입 노출이 아니라 함수 내부 payload 조립 용도로만 사용하는가?
 
 ### 책임 분리
 
