@@ -1,2 +1,2 @@
-export * from './grade.repository'
-export * from './grade.type'
+export * from './grade.dto'
+export * from './grade.model'

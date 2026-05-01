@@ -5,12 +5,13 @@ import {
   MemberInfo,
   MemberStatsResponse,
   MyBookmarkedPlaceListItemResponse,
+  MyGradeResponse,
   MyReviewCountResponse,
   MyReviewListItemResponse,
   NicknameAvailabilityResponse,
-  PhoneAvailabilityResponse,
   OtherMemberProfileResponse,
   PersonalInfoResponse,
+  PhoneAvailabilityResponse,
   PointHistoryResponse,
   UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
@@ -26,11 +27,15 @@ const ENDPOINT = '/api/members'
 export const memberRepository = {
   // 닉네임 사용 가능 여부 확인
   async checkNicknameAvailability(nickname: string) {
-    return api.get<NicknameAvailabilityResponse>(`${ENDPOINT}/v1/nickname/availability`, { params: { nickname } })
+    return api.get<NicknameAvailabilityResponse>(`${ENDPOINT}/v1/nickname/availability`, {
+      params: { nickname },
+    })
   },
   // 휴대폰번호 가입 가능 여부 확인
   async checkPhoneAvailability(phoneNumber: string) {
-    return api.get<PhoneAvailabilityResponse>(`${ENDPOINT}/v1/phone/availability`, { params: { phoneNumber } })
+    return api.get<PhoneAvailabilityResponse>(`${ENDPOINT}/v1/phone/availability`, {
+      params: { phoneNumber },
+    })
   },
   // 다른 회원 프로필 조회
   async getOtherMemberProfile(memberId: number | string) {
@@ -95,6 +100,10 @@ export const memberRepository = {
         ...(phoneVerifyToken ? { 'X-Phone-Verify-Token': phoneVerifyToken } : {}),
       },
     })
+  },
+  // 내 등급 조회
+  async getMyGrade() {
+    return api.get<MyGradeResponse>(`${ENDPOINT}/v1/me/grade`)
   },
   // 비밀번호 변경
   async updateMyPassword(data: UpdatePasswordRequest, verifyToken: string) {

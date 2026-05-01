@@ -6,7 +6,8 @@ import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
 import MemberGradeName from '@/components/ui/MemberGradeName'
 import SectionStack from '@/components/ui/SectionStack'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/constants/member'
-import { gradeRepository } from '@/domains/grade'
+import { GradeInfo } from '@/domains/grade'
+import { gradeRepository } from '@/domains/grade/grade.repository'
 import { MemberGradeCode, memberRepository } from '@/domains/member'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -14,7 +15,7 @@ import Image from 'next/image'
 export default async function GradeSection() {
   const [meResult, myGradeResult, gradeInfoListResult] = await Promise.all([
     memberRepository.getMemberMe(),
-    gradeRepository.getMyGrade(),
+    memberRepository.getMyGrade(),
     gradeRepository.getGradeInfoList(),
   ])
 
@@ -87,7 +88,7 @@ export default async function GradeSection() {
             </p>
 
             <div className="flex flex-col gap-[13px] mt-[25px]">
-              {gradeInfoList.map((item) => (
+              {gradeInfoList.map((item: GradeInfo) => (
                 <div
                   key={item.grade}
                   className="flex items-center gap-4 p-5 border border-[#eeeeee]"

@@ -1,14 +1,11 @@
 import { api } from '@/lib/api'
-import { GradeInfoItem, MyGradeResponse } from './grade.type'
+import 'server-only'
+import { GradeInfoItemResponse } from './grade.dto'
 
-const MEMBER_ENDPOINT = '/api/members'
-const GRADE_ENDPOINT = '/api/grades'
+const ENDPOINT = '/api/grades'
 
 export const gradeRepository = {
-  async getMyGrade() {
-    return api.get<MyGradeResponse>(`${MEMBER_ENDPOINT}/v1/me/grade`)
-  },
   async getGradeInfoList() {
-    return api.get<GradeInfoItem[]>(`${GRADE_ENDPOINT}/v1`)
+    return api.get<GradeInfoItemResponse[]>(`${ENDPOINT}/v1`)
   },
 }

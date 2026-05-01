@@ -191,3 +191,12 @@ export interface PhoneAvailabilityResponse {
 export interface MyReviewCountResponse {
   reviewCount: number
 }
+
+export interface MyGradeResponse {
+  currentGrade: MemberGradeCode
+  currentGradeDisplayName: string
+  nextGrade: MemberGradeCode | null
+  nextGradeDisplayName: string | null
+  currentReviewCount: number
+  reviewsNeededForNextGrade: number | null
+}
