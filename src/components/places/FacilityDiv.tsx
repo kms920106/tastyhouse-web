@@ -1,7 +1,7 @@
 'use client'
 
 import { getPlaceAmenityCodeName } from '@/domains/place/place.constants'
-import type { PlaceAmenity } from '@/domains/place/place.dto'
+import type { PlaceAmenity } from '@/domains/place/place.model'
 import FacilityItemContent from './FacilityItemContent'
 
 interface Props {

@@ -3,14 +3,14 @@
 import { getLatestPlaces } from '@/actions/place'
 import { PlaceCardSkeleton } from '@/components/places/PlaceCardSkeleton'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import type { PlaceAmenityCode, PlaceFoodType } from '@/domains/place/place.types'
+import type { PlaceAmenityCode, PlaceFoodType } from '@/domains/place'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import PlaceFilterBar from './PlaceFilterBar'
-import PlaceListItem from './PlaceListItem'
 import { PlaceListContentSkeleton } from './PlaceListContentSkeleton'
+import PlaceListItem from './PlaceListItem'
 
 const PAGE_SIZE = 6
 
@@ -32,11 +32,7 @@ interface Props {
   amenities?: PlaceAmenityCode[]
 }
 
-export default function PlaceListContent({
-  stationId,
-  foodTypes,
-  amenities,
-}: Props) {
+export default function PlaceListContent({ stationId, foodTypes, amenities }: Props) {
   const filterParams = {
     stationId,
     foodTypes,

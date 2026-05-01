@@ -1,7 +1,7 @@
 'use client'
 
 import { FacilityButton } from '@/components/places/FacilityItem'
-import { PlaceAmenity } from '@/domains/place'
+import { PlaceAmenity } from '@/domains/place/place.model'
 import { useFilterState } from './FilterStateProvider'
 
 interface Props {
