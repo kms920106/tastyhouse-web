@@ -1,4 +1,4 @@
-import { faqRepository } from "@/domains/faq"
+import { faqRepository } from '@/domains/faq/faq.repository'
 import FaqSection from './_components/FaqSection'
 
 interface Props {

@@ -1,2 +1,2 @@
-export * from './faq.repository'
-export * from './faq.type'
+export * from './faq.dto'
+export * from './faq.model'

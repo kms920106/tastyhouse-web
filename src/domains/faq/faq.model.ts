@@ -11,7 +11,3 @@ export interface FaqItem {
   answer: string
   sort: number
 }
-
-export type FaqListQuery = {
-  categoryId?: number
-}

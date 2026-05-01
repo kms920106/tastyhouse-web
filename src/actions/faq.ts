@@ -1,7 +1,7 @@
 'use server'
 
-import { faqRepository, FaqListQuery } from '@/domains/faq'
+import { faqRepository } from '@/domains/faq/faq.repository'
 
-export async function getFaqList(params?: FaqListQuery) {
+export async function getFaqList(params?: { categoryId?: number }) {
   return faqRepository.getFaqList(params)
 }
