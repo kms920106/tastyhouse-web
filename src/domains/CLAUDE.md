@@ -57,15 +57,17 @@ index.ts (모두 export)
 
 **예시**:
 ```typescript
+// client-safe layer만 export (types, constants, model, dto)
 export * from './place.constants'
 export * from './place.dto'
 export * from './place.model'
-export * from './place.repository'
-export * from './place.service'
 export * from './place.types'
+// repository, service는 포함하지 않음 — 명시 경로로만 접근 가능
 ```
 
 - ✅ `export *` 만 사용
+- ✅ client-safe layer(`types`, `constants`, `model`, `dto`)만 re-export
+- ❌ `repository`, `service` export 금지 — `server-only` 코드이므로 barrel에 포함하면 client component에서 빌드 에러 발생
 - ❌ 로직, 조건부 export, 변수 선언 금지
 
 ---
@@ -209,6 +211,7 @@ export interface PlaceInfoResponse {
 
 **예시** (`place.repository.ts`):
 ```typescript
+import 'server-only'
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import {
@@ -235,6 +238,7 @@ export const placeRepository = {
 }
 ```
 
+- ✅ 파일 최상단 첫 줄: `import 'server-only'`
 - ✅ singleton 객체 패턴 (`export const [domain]Repository = { ... }`)
 - ✅ 파일 상단에 `const ENDPOINT = '/api/[domain]'` 단일 변수
 - ✅ 메서드명: HTTP 의미 + 리소스 (`getXxx`, `createXxx`, `updateXxx`, `deleteXxx`, `toggleXxx`)
@@ -250,6 +254,7 @@ export const placeRepository = {
 
 **예시** (`place.service.ts`):
 ```typescript
+import 'server-only'
 import { getPlaceAmenityCodeName, getPlaceFoodTypeCodeName } from './place.constants'
 import { placeRepository } from './place.repository'
 
@@ -267,6 +272,7 @@ export const placeService = {
 }
 ```
 
+- ✅ 파일 최상단 첫 줄: `import 'server-only'`
 - ✅ repository 호출 → 응답 가공 (코드를 한국어 라벨로 변환 등)
 - ✅ `response.data` 존재 여부 체크 후 가공 (defensive)
 - ✅ `Promise.all`로 여러 repository 호출 조합 가능
@@ -414,6 +420,7 @@ export interface CouponIssueRequest {
 
 **5단계 — `coupon.repository.ts`**
 ```typescript
+import 'server-only'
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import { CouponListItemResponse, CouponIssueRequest } from './coupon.dto'
@@ -432,6 +439,7 @@ export const couponRepository = {
 
 **6단계 — `coupon.service.ts`**
 ```typescript
+import 'server-only'
 import { getCouponStatusName } from './coupon.constants'
 import { couponRepository } from './coupon.repository'
 
@@ -451,11 +459,11 @@ export const couponService = {
 
 **7단계 — `index.ts`**
 ```typescript
+// client-safe layer만 export
 export * from './coupon.constants'
 export * from './coupon.dto'
-export * from './coupon.repository'
-export * from './coupon.service'
 export * from './coupon.types'
+// repository, service는 제외 — 명시 경로로 접근: '@/domains/coupon/coupon.repository'
 ```
 
 ---
@@ -587,6 +595,27 @@ export const placeService = {
 - 도메인 내부에서만 쓰는 객체인데 dto.ts에 `Response` suffix로 정의 → ❌
 - 판단이 어려우면 **6번 섹션의 판단 기준**을 다시 확인하세요.
 
+### 8.6. client component에서 repository/service import (금지)
+```typescript
+// ❌ 금지 — client component에서 repository 직접 import
+'use client'
+import { placeRepository } from '@/domains/place/place.repository'
+
+// ❌ 금지 — barrel export로도 repository 접근 불가 (index.ts에서 제외됨)
+import { placeRepository } from '@/domains/place'
+```
+> **이유**: `repository.ts`와 `service.ts`는 `import 'server-only'`를 포함합니다. client component에서 import 시 빌드 에러가 발생합니다.
+
+```typescript
+// ✅ client component에서 사용 가능한 것
+import type { PlaceFoodType } from '@/domains/place/place.types'
+import type { PlaceAmenity } from '@/domains/place/place.model'
+import { getPlaceFoodTypeCodeName } from '@/domains/place/place.constants'
+// 또는 barrel을 통해
+import type { PlaceFoodType, PlaceAmenity } from '@/domains/place'
+import { getPlaceFoodTypeCodeName } from '@/domains/place'
+```
+
 ---
 
 ## 9. 자가 검증 체크리스트
@@ -596,9 +625,12 @@ export const placeService = {
 ### 파일 구성
 - [ ] 필수 파일(`index.ts`, `types.ts`, `dto.ts`, `repository.ts`)이 모두 존재하는가?
 - [ ] 조건부 파일(`constants.ts`, `model.ts`, `service.ts`)을 생성한 경우, 그 파일에 들어갈 실질적인 내용이 있는가? (빈 파일이면 생략)
-- [ ] `index.ts`가 모든 파일을 `export *`로 재내보내는가?
+- [ ] `index.ts`가 client-safe layer(`types`, `constants`, `model`, `dto`)만 `export *`로 재내보내는가?
+- [ ] `index.ts`에 `repository`, `service` export가 **없는가**?
 
 ### 의존성
+- [ ] `repository.ts` 첫 줄이 `import 'server-only'`인가?
+- [ ] `service.ts`가 존재한다면 첫 줄이 `import 'server-only'`인가?
 - [ ] `repository.ts`에 비즈니스 로직(map/filter/조합 등)이 없는가?
 - [ ] `service.ts`에서 `api.get(...)` 같은 직접 호출이 없는가?
 - [ ] self-import (`from '.'`) 대신 명시적 경로(`./[domain].types`)를 사용했는가?
@@ -629,5 +661,6 @@ export const placeService = {
 
 **핵심 한 줄 요약**:
 - `types.ts` = 코드 집합 / `model.ts` = 재사용 객체 / `dto.ts` = API 통신용 객체
-- `repository.ts` = HTTP만 / `service.ts` = 가공·조합 / `constants.ts` = 코드↔라벨
-- `index.ts`는 그냥 barrel, 의존 방향은 항상 단방향
+- `repository.ts` = `import 'server-only'` + HTTP만 / `service.ts` = `import 'server-only'` + 가공·조합 / `constants.ts` = 코드↔라벨
+- `index.ts` = client-safe layer만 barrel export (`types`, `constants`, `model`, `dto`만, repository/service 제외)
+- 의존 방향은 항상 단방향 / client component는 명시 경로(`@/domains/place/place.constants`)로 import
