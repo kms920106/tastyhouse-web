@@ -206,10 +206,12 @@ export interface PlaceInfoResponse {
 }
 ```
 
+- ✅ 모든 타입 선언은 반드시 `interface`를 사용할 것 (`type` 키워드 금지)
 - ✅ Suffix 규칙: `Response` / `Query` / `Request`
 - ✅ 리스트 아이템: `[Domain][Context]ListItemResponse` (e.g. `PlaceLatestListItemResponse`)
 - ✅ null 가능 필드는 `| null` 명시 (Backend 응답과 일치)
 - ✅ Query DTO에 추가 필드가 없으면 `PaginationParams`를 dto.ts에 정의하지 않고 repository.ts에서 직접 사용
+- ❌ `type` 키워드로 DTO 정의 금지 — `interface`만 사용할 것
 - ❌ 추가 필드 없이 `interface XxxQuery extends PaginationParams {}` 빈 인터페이스 정의 금지 — `PaginationParams`를 직접 사용할 것
 - ❌ 비즈니스 로직, getter 함수 금지 (오직 타입 선언만)
 
@@ -690,6 +692,7 @@ import { getPlaceFoodTypeCodeName } from '@/domains/place'
 
 ### 타입 안정성
 
+- [ ] DTO 타입을 `interface`로 선언했는가? (`type` 키워드를 사용하지 않았는가?)
 - [ ] DTO에서 null 가능 필드에 `| null`을 명시했는가?
 - [ ] `Record<T, string>` 매핑에 모든 enum 값이 포함되었는가? (TypeScript가 강제)
 
