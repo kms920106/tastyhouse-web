@@ -1,7 +1,7 @@
 import 'server-only'
 import { api } from '@/lib/api'
-import { FaqCategoryItem, FaqItem } from './faq.model'
 import { FaqListQuery } from './faq.dto'
+import { FaqCategoryItem, FaqItem } from './faq.model'
 
 const ENDPOINT = '/api/faqs'
 
