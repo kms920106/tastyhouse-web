@@ -3,11 +3,11 @@
 import { useSidebar } from '@/components/ui/shadcn/sidebar'
 import { RxHamburgerMenu } from 'react-icons/rx'
 
-interface MenuButtonProps {
+interface Props {
   onClick?: () => void
 }
 
-export default function MenuButton({ onClick }: MenuButtonProps) {
+export default function MenuButton({ onClick }: Props) {
   const { setOpenMobile } = useSidebar()
 
   const handleClick = () => {

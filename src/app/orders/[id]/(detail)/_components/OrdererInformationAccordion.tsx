@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/shadcn/accordion'
 import { formatPhoneNumber } from '@/lib/utils'
 
-interface OrdererInformationAccordionProps {
+interface Props {
   ordererName: string
   ordererPhone: string
   ordererEmail: string
@@ -16,7 +16,7 @@ export default function OrdererInformationAccordion({
   ordererName,
   ordererPhone,
   ordererEmail,
-}: OrdererInformationAccordionProps) {
+}: Props) {
   return (
     <Accordion type="single" collapsible defaultValue="customer-info">
       <AccordionItem value="customer-info" className="border-b-0">

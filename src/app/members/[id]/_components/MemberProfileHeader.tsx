@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation'
 import { IoChevronBack } from 'react-icons/io5'
 import FollowButton from './FollowButton'
 
-interface MemberProfileHeaderProps {
+interface Props {
   memberId: number
 }
 
-export default function MemberProfileHeader({ memberId }: MemberProfileHeaderProps) {
+export default function MemberProfileHeader({ memberId }: Props) {
   const router = useRouter()
 
   return (

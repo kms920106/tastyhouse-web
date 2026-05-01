@@ -3,11 +3,11 @@ import SectionStack from '@/components/ui/SectionStack'
 import ReviewList from './ReviewList'
 import ReviewStatistic from './ReviewStatistic'
 
-interface ReviewSectionProps {
+interface Props {
   placeId: number
 }
 
-export default function ReviewSection({ placeId }: ReviewSectionProps) {
+export default function ReviewSection({ placeId }: Props) {
   return (
     <section>
       <SectionStack>

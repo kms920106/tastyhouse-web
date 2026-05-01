@@ -1,16 +1,11 @@
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '../layouts/Header'
 import { BackButton } from '../layouts/header-parts'
 
-export function ReviewDetailHeaderSkeleton() {
-  return <Skeleton className="h-[17px] w-[120px]" />
-}
-
-interface ReviewDetailHeaderProps {
+interface Props {
   memberNickname?: string
 }
 
-export default function ReviewDetailHeader({ memberNickname }: ReviewDetailHeaderProps) {
+export default function ReviewDetailHeader({ memberNickname }: Props) {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>

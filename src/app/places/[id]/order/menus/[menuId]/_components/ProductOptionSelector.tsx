@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import ProductOptionTabs from './ProductOptionTabs'
 
-interface ProductOptionSelectorProps {
+interface Props {
   productId: number
   placeId: number
   optionGroups: ProductOptionGroup[]
@@ -23,7 +23,7 @@ export default function ProductOptionSelector({
   placeId,
   optionGroups,
   reviewCount,
-}: ProductOptionSelectorProps) {
+}: Props) {
   const router = useRouter()
 
   const [showPlaceChangeModal, setShowPlaceChangeModal] = useState(false)

@@ -6,11 +6,11 @@ import { formatNumber } from '@/lib/number'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
-interface CouponCardProps {
+interface Props {
   coupon: MemberCouponListItemResponse
 }
 
-export default function CouponCard({ coupon }: CouponCardProps) {
+export default function CouponCard({ coupon }: Props) {
   const isExpired = coupon.isUsed || coupon.daysRemaining < 0
 
   return (

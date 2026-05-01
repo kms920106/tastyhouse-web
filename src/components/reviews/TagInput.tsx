@@ -5,12 +5,12 @@ import Image from 'next/image'
 import { useState } from 'react'
 import AppInputText from '../ui/AppInputText'
 
-interface TagInputProps {
+interface Props {
   value: string[]
   onChange: (tags: string[]) => void
 }
 
-export default function TagInput({ value, onChange }: TagInputProps) {
+export default function TagInput({ value, onChange }: Props) {
   const [inputValue, setInputValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
 

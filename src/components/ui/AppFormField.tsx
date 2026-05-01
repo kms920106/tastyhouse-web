@@ -1,11 +1,11 @@
-interface AppFormFieldProps {
+interface Props {
   label: string
   required?: boolean
   error?: string
   children: (props: { className?: string }) => React.ReactNode
 }
 
-export default function AppFormField({ label, required, error, children }: AppFormFieldProps) {
+export default function AppFormField({ label, required, error, children }: Props) {
   const inputClassName = error ? 'border-[#bc4040] focus-visible:border-[#bc4040]' : undefined
 
   return (

@@ -15,11 +15,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ReviewTagList from '../../_components/ReviewTagList'
 
-interface ReviewProductSectionProps {
+interface Props {
   reviewId: number
 }
 
-export default async function ReviewProductSection({ reviewId }: ReviewProductSectionProps) {
+export default async function ReviewProductSection({ reviewId }: Props) {
   const { error, status, data } = await reviewRepository.getReviewProductDetail(reviewId)
 
   if ((error && status === 404) || !data) {

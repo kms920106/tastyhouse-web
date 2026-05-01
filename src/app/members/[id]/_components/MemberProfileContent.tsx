@@ -3,11 +3,11 @@ import Image from 'next/image'
 import MemberProfileHeader from './MemberProfileHeader'
 import MemberReviewListFetcher from './MemberReviewListFetcher'
 
-interface MemberProfileContentProps {
+interface Props {
   memberId: number
 }
 
-export default function MemberProfileContent({ memberId }: MemberProfileContentProps) {
+export default function MemberProfileContent({ memberId }: Props) {
   return (
     <div className="flex flex-col min-h-dvh bg-white">
       <div className="flex flex-col h-[50dvh]">

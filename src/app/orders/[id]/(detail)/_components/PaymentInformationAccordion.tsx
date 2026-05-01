@@ -8,13 +8,13 @@ import { getPaymentMethodName } from '@/constants/payment'
 import type { PaymentSummaryResponse } from '@/domains/order'
 import { formatDate } from '@/lib/date'
 
-interface PaymentInformationAccordionProps {
+interface Props {
   payment: PaymentSummaryResponse
 }
 
 export default function PaymentInformationAccordion({
   payment,
-}: PaymentInformationAccordionProps) {
+}: Props) {
   return (
     <Accordion type="single" collapsible defaultValue="payment-info">
       <AccordionItem value="payment-info" className="border-b-0">

@@ -4,7 +4,7 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { ReactNode } from 'react'
 import PlaceSummary from './PlaceSummary'
 
-interface PlaceSummaryServerProps {
+interface Props {
   placeId: number
   bookmarkButton: ReactNode
 }
@@ -12,7 +12,7 @@ interface PlaceSummaryServerProps {
 export default async function PlaceSummaryServer({
   placeId,
   bookmarkButton,
-}: PlaceSummaryServerProps) {
+}: Props) {
   const { error, status, data } = await placeRepository.getPlaceSummary(placeId)
 
   if ((error && status === 404) || !data) {

@@ -1,10 +1,10 @@
 import PaymentFailContent from './_components/PaymentFailContent'
 
-interface PaymentFailPageProps {
+interface Props {
   searchParams: Promise<{ code?: string; message?: string }>
 }
 
-export default async function PaymentFailPage({ searchParams }: PaymentFailPageProps) {
+export default async function PaymentFailPage({ searchParams }: Props) {
   const { code, message } = await searchParams
 
   return <PaymentFailContent errorCode={code} errorMessage={message} />

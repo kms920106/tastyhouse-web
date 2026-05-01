@@ -8,7 +8,7 @@ import { PAYMENT_METHODS } from '@/constants/payment'
 import type { PaymentMethod } from '@/domains/payment'
 import { cn } from '@/lib/utils'
 
-interface PaymentMethodSelectorProps {
+interface Props {
   selectedPaymentMethod: PaymentMethod | null
   onPaymentMethodSelect: (method: PaymentMethod) => void
 }
@@ -16,7 +16,7 @@ interface PaymentMethodSelectorProps {
 export default function PaymentMethodSelector({
   selectedPaymentMethod,
   onPaymentMethodSelect,
-}: PaymentMethodSelectorProps) {
+}: Props) {
   const selectedMethod = PAYMENT_METHODS.find((method) => method.type === selectedPaymentMethod)
 
   return (

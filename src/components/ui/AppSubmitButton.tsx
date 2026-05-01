@@ -1,8 +1,8 @@
-import { type AppButtonProps } from '@/components/ui/AppButton'
+import { type Props as AppButtonProps } from '@/components/ui/AppButton'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { Spinner } from '@/components/ui/shadcn/spinner'
 
-export interface AppSubmitButtonProps extends AppButtonProps {
+interface Props extends AppButtonProps {
   isSubmitting: boolean
   loadingText?: string
 }
@@ -13,7 +13,7 @@ export default function AppSubmitButton({
   disabled,
   children,
   ...props
-}: AppSubmitButtonProps) {
+}: Props) {
   return (
     <AppPrimaryButton disabled={isSubmitting || disabled} {...props}>
       {isSubmitting ? (

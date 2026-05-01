@@ -6,7 +6,7 @@ import MemberNickname from '@/components/ui/MemberNickname'
 import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
 
-interface RankItemProps {
+interface Props {
   rankNo: number
   profileImageUrl: string | null
   nickname: string
@@ -22,7 +22,7 @@ export default function RankItem({
   grade,
   reviewCount,
   isMe = false,
-}: RankItemProps) {
+}: Props) {
   return (
     <div className="flex justify-between items-center w-full">
       <div className="flex items-center gap-2.5">

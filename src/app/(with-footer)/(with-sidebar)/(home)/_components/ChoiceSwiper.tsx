@@ -4,8 +4,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-import ProductItem, { ProductItemSkeleton } from '@/components/products/ProductItem'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import ProductItem from '@/components/products/ProductItem'
 import type { Place } from '@/domains/place'
 import type { Product } from '@/domains/product'
 import { PAGE_PATHS } from '@/lib/paths'
@@ -13,40 +12,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { ChoiceSwiperSkeleton } from './ChoiceSwiperSkeleton'
 
-export function ChoiceSwiperSkeleton() {
-  return (
-    <div className="pb-12">
-      <div className="flex gap-5">
-        {[1, 2].map((i) => (
-          <div
-            key={i}
-            className="swiper-slide-skeleton flex-shrink-0"
-            style={{ width: 'calc((100% - 3px) / 1.15)' }}
-          >
-            <div className="relative w-full aspect-[2/3] overflow-hidden bg-gray-200 animate-pulse">
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <Skeleton className="w-3/4 h-[17px] mb-3" />
-                <Skeleton className="w-full h-3 opacity-90 leading-relaxed mb-1" />
-                <Skeleton className="w-full h-3 opacity-90 leading-relaxed" />
-              </div>
-            </div>
-            <div className="mb-10 space-y-0 divide-y divide-[#eeeeee] border-b border-[#eeeeee]">
-              <ProductItemSkeleton />
-              <ProductItemSkeleton />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-interface ChoiceSwiperProps {
+interface Props {
   places: Place[]
 }
 
-export default function ChoiceSwiper({ places }: ChoiceSwiperProps) {
+export default function ChoiceSwiper({ places }: Props) {
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -54,7 +26,7 @@ export default function ChoiceSwiper({ places }: ChoiceSwiperProps) {
   }, [])
 
   if (!isMounted) {
-    return ChoiceSwiperSkeleton()
+    return <ChoiceSwiperSkeleton />
   }
 
   return (

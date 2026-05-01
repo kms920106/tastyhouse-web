@@ -1,10 +1,10 @@
 import HashTag from '@/components/ui/HashTag'
 
-interface ReviewTagListProps {
+interface Props {
   tagNames: string[]
 }
 
-export default function ReviewTagList({ tagNames }: ReviewTagListProps) {
+export default function ReviewTagList({ tagNames }: Props) {
   return (
     tagNames &&
     tagNames.length > 0 && (

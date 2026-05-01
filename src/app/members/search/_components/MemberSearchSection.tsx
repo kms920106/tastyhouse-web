@@ -5,11 +5,11 @@ import { useState } from 'react'
 import MemberSearchHeader from './MemberSearchHeader'
 import MemberSearchResultList from './MemberSearchResultList'
 
-interface MemberSearchSectionProps {
+interface Props {
   initialQuery: string
 }
 
-export default function MemberSearchSection({ initialQuery }: MemberSearchSectionProps) {
+export default function MemberSearchSection({ initialQuery }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
 

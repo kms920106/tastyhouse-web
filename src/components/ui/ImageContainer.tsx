@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
-interface ImageContainerProps {
+interface Props {
   src: string | null | undefined
   alt: string
   size: 50 | 60 | 65 | 75
@@ -15,7 +15,7 @@ export default function ImageContainer({
   size = 75,
   rounded = 'none',
   className,
-}: ImageContainerProps) {
+}: Props) {
   const sizeClass =
     size === 50
       ? 'w-[50px] h-[50px]'

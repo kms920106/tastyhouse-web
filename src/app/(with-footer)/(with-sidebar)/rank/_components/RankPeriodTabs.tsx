@@ -4,11 +4,11 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { RankPeriod } from '@/domains/rank'
 import { useRouter } from 'next/navigation'
 
-interface RankPeriodTabsProps {
+interface Props {
   initialTab: RankPeriod
 }
 
-export default function RankPeriodTabs({ initialTab }: RankPeriodTabsProps) {
+export default function RankPeriodTabs({ initialTab }: Props) {
   const router = useRouter()
 
   const handleTabChange = (value: string) => {

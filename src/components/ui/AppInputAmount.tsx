@@ -1,6 +1,6 @@
 import AppInputNumber from './AppInputNumber'
 
-type AppInputAmountProps = Omit<React.ComponentProps<typeof AppInputNumber>, 'onChange'> & {
+type Props = Omit<React.ComponentProps<typeof AppInputNumber>, 'onChange'> & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -9,7 +9,7 @@ function stripLeadingZeros(value: string): string {
   return value.replace(/^0+/, '') || '0'
 }
 
-export default function AppInputAmount({ onChange, ...props }: AppInputAmountProps) {
+export default function AppInputAmount({ onChange, ...props }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const sanitized = stripLeadingZeros(e.target.value)
     if (sanitized !== e.target.value) {

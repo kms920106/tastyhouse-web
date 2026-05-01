@@ -7,7 +7,7 @@ import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import type { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { cn } from '@/lib/utils'
 
-interface PhoneVerificationFieldProps {
+interface Props {
   verification: ReturnType<typeof usePhoneVerification>
   error?: string
   phoneInputName?: string
@@ -25,7 +25,7 @@ export default function PhoneVerificationField({
   onPhoneChange,
   onClearError,
   onInvalidPhone,
-}: PhoneVerificationFieldProps) {
+}: Props) {
   const {
     phone,
     setPhone,

@@ -1,30 +1,15 @@
 import { getPlacePhotos } from '@/actions/place'
-import ReviewImageGallery, {
-  ReviewImageGallerySkeleton,
-} from '@/components/reviews/ReviewImageGallery'
+import ReviewImageGallery from '@/components/reviews/ReviewImageGallery'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
+import { PlacePhotoListSkeleton } from './PlacePhotoListSkeleton'
 
-export function PlacePhotoListSkeleton() {
-  return (
-    <>
-      {Array.from({ length: 3 }).map((_, i) => (
-        <div key={i} className="pt-[30px]">
-          <Skeleton className="mb-[15px] w-8 h-[14px]" />
-          <ReviewImageGallerySkeleton />
-        </div>
-      ))}
-    </>
-  )
-}
-
-interface PlacePhotoListFetcherProps {
+interface Props {
   placeId: number
 }
 
-export default function PlacePhotoListFetcher({ placeId }: PlacePhotoListFetcherProps) {
+export default function PlacePhotoListFetcher({ placeId }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['place', placeId, 'place-detail-photos'],
     queryFn: () => getPlacePhotos(placeId),

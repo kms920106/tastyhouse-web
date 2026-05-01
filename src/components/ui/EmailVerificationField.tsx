@@ -7,7 +7,7 @@ import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import type { UseEmailVerificationReturn } from '@/hooks/useEmailVerification'
 import { cn } from '@/lib/utils'
 
-interface EmailVerificationFieldProps {
+interface Props {
   verification: UseEmailVerificationReturn
   label?: string
   error?: string
@@ -19,7 +19,7 @@ export default function EmailVerificationField({
   label = '아이디',
   error,
   onClearError,
-}: EmailVerificationFieldProps) {
+}: Props) {
   const {
     email,
     setEmail,

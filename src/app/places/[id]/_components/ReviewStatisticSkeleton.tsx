@@ -1,4 +1,4 @@
-import { ReviewRatingDetailSkeleton } from '@/components/reviews/ReviewRatingDetail'
+import { ReviewRatingDetailSkeleton } from '@/components/reviews/ReviewRatingDetailSkeleton'
 import { ReviewRatingScoreSkeleton } from '@/components/reviews/ReviewRatingScoreSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 

@@ -2,13 +2,14 @@ import { getPlaceInfo } from '@/actions/place'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
-import PlaceInfoDetail, { PlaceInfoDetailSkeleton } from './PlaceInfoDetail'
+import { PlaceInfoDetailSkeleton } from './PlaceInfoDetailSkeleton'
+import PlaceInfoDetail from './PlaceInfoDetail'
 
-interface PlaceInfoDetailFetcherProps {
+interface Props {
   placeId: number
 }
 
-export default function PlaceInfoDetailFetcher({ placeId }: PlaceInfoDetailFetcherProps) {
+export default function PlaceInfoDetailFetcher({ placeId }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['place', placeId, 'place-detail-info'],
     queryFn: () => getPlaceInfo(placeId),

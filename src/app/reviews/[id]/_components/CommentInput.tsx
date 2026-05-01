@@ -1,7 +1,6 @@
 'use client'
 
 import Avatar from '@/components/ui/Avatar'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
@@ -9,21 +8,12 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import CommentSubmitButtonClient from './CommentSubmitButtonClient'
 import { useReply } from './ReplyContext'
 
-export function CommentInputSkeleton() {
-  return (
-    <div className="flex items-center gap-[7px] flex-1">
-      <Skeleton className="size-10 rounded-full" />
-      <Skeleton className="flex-1 h-10 rounded-[20px]" />
-    </div>
-  )
-}
-
-interface CommentInputProps {
+interface Props {
   isLoggedIn: boolean
   reviewId: number
 }
 
-export default function CommentInput({ isLoggedIn, reviewId }: CommentInputProps) {
+export default function CommentInput({ isLoggedIn, reviewId }: Props) {
   const router = useRouter()
 
   const { memberProfile } = useMemberProfile()

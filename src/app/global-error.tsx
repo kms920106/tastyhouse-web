@@ -3,12 +3,12 @@
 import { useEffect } from 'react'
 import { MdRefresh } from 'react-icons/md'
 
-interface GlobalErrorPageProps {
+interface Props {
   error: Error & { digest?: string }
   reset: () => void
 }
 
-export default function GlobalErrorPage({ error, reset }: GlobalErrorPageProps) {
+export default function GlobalErrorPage({ error, reset }: Props) {
   useEffect(() => {
     import('@/lib/logger-browser').then(({ default: browserLogger }) => {
       browserLogger.error({

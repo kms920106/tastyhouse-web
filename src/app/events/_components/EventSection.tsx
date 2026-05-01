@@ -10,11 +10,11 @@ import WinnerEventList from './WinnerEventList'
 
 type TabValue = 'ongoing' | 'ended' | 'winner'
 
-interface EventSectionProps {
+interface Props {
   initialTab: TabValue
 }
 
-export default function EventSection({ initialTab }: EventSectionProps) {
+export default function EventSection({ initialTab }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 

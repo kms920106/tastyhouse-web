@@ -2,7 +2,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import OrderReviewCreateForm from './OrderReviewCreateForm'
 
-interface OrderReviewCreateSectionProps {
+interface Props {
   orderItemId: number
   productId: number
   productName: string
@@ -16,7 +16,7 @@ export default function OrderReviewCreateSection({
   productName,
   productImageUrl,
   productPrice,
-}: OrderReviewCreateSectionProps) {
+}: Props) {
   return (
     <section className="min-h-screen flex flex-col bg-[#f9f9f9]">
       <Header variant="white" height={55}>

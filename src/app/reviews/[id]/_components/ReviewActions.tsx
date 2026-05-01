@@ -4,12 +4,12 @@ import { ReactNode } from 'react'
 import { IoChatboxOutline } from 'react-icons/io5'
 import { useReply } from './ReplyContext'
 
-interface ReviewActionsProps {
+interface Props {
   reviewId: number
   reviewLike: ReactNode
 }
 
-export default function ReviewActions({ reviewLike }: ReviewActionsProps) {
+export default function ReviewActions({ reviewLike }: Props) {
   const { textareaRef } = useReply()
 
   return (

@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils'
 import AppInput from './AppInput'
 
-type AppInputNumberProps = Omit<
+type Props = Omit<
   React.ComponentProps<typeof AppInput>,
   'type' | 'onKeyDown' | 'onPaste'
 >
 
-export default function AppInputNumber(props: AppInputNumberProps) {
+export default function AppInputNumber(props: Props) {
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pastedText = e.clipboardData.getData('text')
     if (!/^\d+$/.test(pastedText)) {

@@ -2,12 +2,12 @@ import { getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
 import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
 
-interface MemberGradeIconProps {
+interface Props {
   grade: MemberGradeCode
   size?: number
 }
 
-export default function MemberGradeIcon({ grade, size = 14 }: MemberGradeIconProps) {
+export default function MemberGradeIcon({ grade, size = 14 }: Props) {
   const gradeIcon = getMemberGradeIcon(grade)
   const gradeName = getMemberGradeName(grade)
 

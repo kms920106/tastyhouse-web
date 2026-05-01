@@ -5,7 +5,7 @@ import AppInputAmount from '@/components/ui/AppInputAmount'
 import { formatNumber } from '@/lib/number'
 import { IoIosCloseCircle } from 'react-icons/io'
 
-interface PointSelectorProps {
+interface Props {
   availablePoints: number
   pointInput: string
   onPointInputChange: (value: string) => void
@@ -15,7 +15,7 @@ export default function PointSelector({
   availablePoints,
   pointInput,
   onPointInputChange,
-}: PointSelectorProps) {
+}: Props) {
   const handleApplyAllPoints = () => {
     onPointInputChange(availablePoints.toString())
   }

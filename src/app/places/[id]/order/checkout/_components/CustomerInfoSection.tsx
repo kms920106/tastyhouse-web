@@ -7,11 +7,11 @@ import {
 import { MemberInfo } from '@/domains/member'
 import { formatPhoneNumber } from '@/lib/utils'
 
-interface CustomerInfoSectionProps {
+interface Props {
   customerInfo: MemberInfo | null
 }
 
-export default function CustomerInfoSection({ customerInfo }: CustomerInfoSectionProps) {
+export default function CustomerInfoSection({ customerInfo }: Props) {
   return (
     <Accordion type="single" collapsible defaultValue="customer-info">
       <AccordionItem value="customer-info" className="border-b-0">

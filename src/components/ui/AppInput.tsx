@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 import { Input } from './shadcn/input'
 
-type AppInputProps = React.ComponentProps<'input'>
+type Props = React.ComponentProps<'input'>
 
-export default function AppInput({ className, ...props }: AppInputProps) {
+export default function AppInput({ className, ...props }: Props) {
   return (
     <Input
       className={cn(

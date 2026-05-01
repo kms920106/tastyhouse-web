@@ -17,18 +17,18 @@ export function useHeaderContext() {
   return context
 }
 
-interface HeaderProps {
+interface Props {
   children: React.ReactNode
   variant?: 'primary' | 'white'
   height: number
   showBorder?: boolean
 }
 
-interface HeaderSlotProps {
+interface SlotProps {
   children: React.ReactNode
 }
 
-export function HeaderLeft({ children }: HeaderSlotProps) {
+export function HeaderLeft({ children }: SlotProps) {
   return (
     <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
       {children}
@@ -36,11 +36,11 @@ export function HeaderLeft({ children }: HeaderSlotProps) {
   )
 }
 
-export function HeaderCenter({ children }: HeaderSlotProps) {
+export function HeaderCenter({ children }: SlotProps) {
   return <div className="absolute left-1/2 -translate-x-1/2">{children}</div>
 }
 
-export function HeaderRight({ children }: HeaderSlotProps) {
+export function HeaderRight({ children }: SlotProps) {
   return (
     <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-5 pr-[15px]">
       {children}
@@ -48,12 +48,12 @@ export function HeaderRight({ children }: HeaderSlotProps) {
   )
 }
 
-interface HeaderTitleProps {
+interface TitleProps {
   children: React.ReactNode
   className?: string
 }
 
-export function HeaderTitle({ children, className }: HeaderTitleProps) {
+export function HeaderTitle({ children, className }: TitleProps) {
   return <h1 className={cn('text-[17px] leading-[17px]', className)}>{children}</h1>
 }
 
@@ -62,7 +62,7 @@ export default function Header({
   variant = 'primary',
   height,
   showBorder = true,
-}: HeaderProps) {
+}: Props) {
   const isPrimary = variant === 'primary'
 
   return (

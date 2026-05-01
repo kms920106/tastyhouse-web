@@ -1,10 +1,10 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 
-interface PaymentActionBarProps {
+interface Props {
   onPaymentClick: () => void
 }
 
-export default function PaymentActionBar({ onPaymentClick }: PaymentActionBarProps) {
+export default function PaymentActionBar({ onPaymentClick }: Props) {
   return (
     <div className="px-[15px] py-5">
       <AppPrimaryButton onClick={onPaymentClick}>

@@ -1,6 +1,6 @@
 import { Modal, ModalDescription, ModalFooter, ModalHeader, ModalTitle } from './Modal'
 
-interface ConfirmModalProps {
+interface Props {
   open: boolean
   title?: string
   description: string
@@ -18,7 +18,7 @@ export default function ConfirmModal({
   onCancel,
   confirmLabel = '확인',
   cancelLabel = '취소',
-}: ConfirmModalProps) {
+}: Props) {
   return (
     <Modal open={open} onOpenChange={(open) => !open && onCancel()}>
       <ModalHeader className="px-5 pt-7 pb-0">

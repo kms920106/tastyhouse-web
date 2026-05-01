@@ -9,11 +9,11 @@ import { memberRepository } from '@/domains/member'
 import Link from 'next/link'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-interface FollowsHeaderProps {
+interface Props {
   memberId: number
 }
 
-export default async function FollowsHeader({ memberId }: FollowsHeaderProps) {
+export default async function FollowsHeader({ memberId }: Props) {
   const { data } = await memberRepository.getOtherMemberProfile(memberId)
   const memberNickname = data?.nickname ?? ''
 

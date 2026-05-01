@@ -3,7 +3,7 @@ import type { ReviewSortType } from '@/domains/review'
 import { cn } from '@/lib/utils'
 import { FiChevronDown } from 'react-icons/fi'
 
-interface ReviewFilterProps {
+interface Props {
   count: number
   photoOnly: boolean
   onPhotoOnlyChange: (value: boolean) => void
@@ -21,7 +21,7 @@ export default function ReviewFilter({
   onRatingChange,
   sortType,
   onSortTypeChange,
-}: ReviewFilterProps) {
+}: Props) {
   return (
     <div className="flex flex-col gap-[30px] pb-2.5 border-b border-[#eeeeee] box-border">
       <div className="flex gap-2.5">

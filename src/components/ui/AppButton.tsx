@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { type VariantProps } from 'class-variance-authority'
 import * as React from 'react'
 
-export interface AppButtonProps
+export interface Props
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
@@ -17,7 +17,7 @@ export default function AppButton({
   size,
   asChild,
   ...props
-}: AppButtonProps) {
+}: Props) {
   // m-0 CSS 적용 금지
 
   return (

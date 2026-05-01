@@ -21,11 +21,11 @@ const INITIAL_FORM_DATA: FormData = {
   password: '',
 }
 
-interface PasswordVerifyFormProps {
+interface Props {
   onVerified: (verifyToken: string) => void
 }
 
-export default function PasswordVerifyForm({ onVerified }: PasswordVerifyFormProps) {
+export default function PasswordVerifyForm({ onVerified }: Props) {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)

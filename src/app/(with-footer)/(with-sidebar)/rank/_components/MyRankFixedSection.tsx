@@ -1,6 +1,7 @@
 import { RankPeriod } from '@/domains/rank'
 import { Suspense } from 'react'
-import MyRankInfo, { MyRankInfoSkeleton } from './MyRankInfo'
+import MyRankInfo from './MyRankInfo'
+import { MyRankInfoSkeleton } from './MyRankInfoSkeleton'
 
 export default function MyRankFixedSection({ rankPeriod }: { rankPeriod: RankPeriod }) {
   return (

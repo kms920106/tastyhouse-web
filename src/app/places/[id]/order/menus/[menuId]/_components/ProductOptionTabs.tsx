@@ -7,7 +7,7 @@ import { useState } from 'react'
 import ProductOptionList from './ProductOptionList'
 import ProductReviewContent from './ProductReviewContent'
 
-interface ProductOptionsTabsProps {
+interface Props {
   productId: number
   optionGroups: ProductOptionGroup[]
   reviewCount: number
@@ -23,7 +23,7 @@ export default function ProductOptionTabs({
   selectedOptions,
   onRadioSelect,
   onCheckboxToggle,
-}: ProductOptionsTabsProps) {
+}: Props) {
   const [activeTab, setActiveTab] = useState('options')
 
   return (

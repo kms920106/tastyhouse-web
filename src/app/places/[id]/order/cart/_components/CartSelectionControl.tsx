@@ -1,6 +1,6 @@
 import SelectAllCheckbox from '@/components/order/SelectAllCheckbox'
 
-interface CartSelectionControlProps {
+interface Props {
   selectedCount: number
   totalCount: number
   allSelected: boolean
@@ -14,7 +14,7 @@ export default function CartSelectionControl({
   allSelected,
   onToggleSelectAll,
   onDeleteSelected,
-}: CartSelectionControlProps) {
+}: Props) {
   return (
     <div className="flex items-center p-[15px]">
       <SelectAllCheckbox

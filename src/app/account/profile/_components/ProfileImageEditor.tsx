@@ -1,7 +1,7 @@
 import ProfileImage from '@/components/account/profile/ProfileImage'
 import Image from 'next/image'
 
-interface ProfileImageEditorProps {
+interface Props {
   profileImageUrl: string | null
   onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -9,7 +9,7 @@ interface ProfileImageEditorProps {
 export default function ProfileImageEditor({
   profileImageUrl,
   onImageChange,
-}: ProfileImageEditorProps) {
+}: Props) {
   return (
     <div className="flex justify-center pt-8 pb-7">
       <div className="relative">

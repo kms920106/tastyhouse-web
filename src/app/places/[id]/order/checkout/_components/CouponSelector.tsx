@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useState } from 'react'
 
-interface CouponSelectorProps {
+interface Props {
   availableCoupons: MemberCouponListItemResponse[]
   totalProductAmount: number
   totalProductDiscountAmount: number
@@ -29,7 +29,7 @@ export default function CouponSelector({
   totalProductDiscountAmount,
   selectedCoupon,
   onCouponSelect,
-}: CouponSelectorProps) {
+}: Props) {
   const [couponDrawerOpen, setCouponDrawerOpen] = useState(false)
   const [tempSelectedCoupon, setTempSelectedCoupon] = useState<MemberCouponListItemResponse | null>(
     null,

@@ -1,6 +1,6 @@
 import { formatNumber } from '@/lib/number'
 
-interface PaymentSummarySectionProps {
+interface Props {
   totalProductAmount: number
   totalDiscountAmount: number
   totalProductDiscountAmount: number
@@ -16,7 +16,7 @@ export default function PaymentSummarySection({
   couponDiscount,
   pointsUsed,
   finalTotal,
-}: PaymentSummarySectionProps) {
+}: Props) {
   return (
     <div className="px-[15px] py-5">
       <div className="pb-[30px]">

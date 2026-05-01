@@ -6,11 +6,11 @@ const sizeMap = {
   lg: 'text-base leading-[16px]',
 } as const
 
-interface MemberNicknameProps {
+interface Props {
   children: string
   size: 'sm' | 'md' | 'lg'
 }
 
-export default function MemberNickname({ children, size }: MemberNicknameProps) {
+export default function MemberNickname({ children, size }: Props) {
   return <p className={cn('font-bold', sizeMap[size])}>{children}</p>
 }

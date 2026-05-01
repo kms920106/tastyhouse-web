@@ -1,43 +1,18 @@
 'use client'
 
 import { getLatestPlaces } from '@/actions/place'
-import {
-  PlaceCard,
-  PlaceCardContent,
-  PlaceCardHeader,
-  PlaceCardImage,
-  PlaceCardName,
-  PlaceCardRating,
-  PlaceCardSkeleton,
-  PlaceCardStation,
-  PlaceCardStats,
-  PlaceCardTags,
-} from '@/components/places/PlaceCard'
+import { PlaceCardSkeleton } from '@/components/places/PlaceCardSkeleton'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { getPlaceFoodTypeCodeName } from '@/domains/place/place.constants'
 import type { PlaceAmenityCode, PlaceFoodType } from '@/domains/place/place.types'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import PlaceFilterBar from './PlaceFilterBar'
+import PlaceListItem from './PlaceListItem'
+import { PlaceListContentSkeleton } from './PlaceListContentSkeleton'
 
 const PAGE_SIZE = 6
-
-export function PlaceListContentSkeleton() {
-  return (
-    <div>
-      <PlaceFilterBar totalCount={0} isLoading />
-      <ul className="mt-5 grid grid-cols-2 gap-x-[15px] gap-y-10">
-        {[...Array(4)].map((_, i) => (
-          <li key={i}>
-            <PlaceCardSkeleton />
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
 
 function LoadingIndicator() {
   return (
@@ -51,48 +26,7 @@ function LoadingIndicator() {
   )
 }
 
-interface PlaceListItemProps {
-  id: number
-  name: string
-  imageUrl: string
-  stationName: string
-  rating: number
-  reviewCount: number
-  bookmarkCount: number
-  foodTypes: PlaceFoodType[]
-}
-
-function PlaceListItem({
-  id,
-  name,
-  imageUrl,
-  stationName,
-  rating,
-  reviewCount,
-  bookmarkCount,
-  foodTypes,
-}: PlaceListItemProps) {
-  const foodNames = foodTypes.map((foodType) => getPlaceFoodTypeCodeName(foodType))
-
-  return (
-    <li key={id}>
-      <PlaceCard placeId={id}>
-        <PlaceCardImage src={imageUrl} alt={name} />
-        <PlaceCardContent>
-          <PlaceCardHeader>
-            <PlaceCardStation>{stationName}</PlaceCardStation>
-            <PlaceCardRating value={rating} />
-          </PlaceCardHeader>
-          <PlaceCardName>{name}</PlaceCardName>
-          <PlaceCardStats reviewCount={reviewCount} bookmarkCount={bookmarkCount} />
-          <PlaceCardTags tags={foodNames} variant="secondary" />
-        </PlaceCardContent>
-      </PlaceCard>
-    </li>
-  )
-}
-
-interface PlaceListContentProps {
+interface Props {
   stationId?: number
   foodTypes?: PlaceFoodType[]
   amenities?: PlaceAmenityCode[]
@@ -102,7 +36,7 @@ export default function PlaceListContent({
   stationId,
   foodTypes,
   amenities,
-}: PlaceListContentProps) {
+}: Props) {
   const filterParams = {
     stationId,
     foodTypes,

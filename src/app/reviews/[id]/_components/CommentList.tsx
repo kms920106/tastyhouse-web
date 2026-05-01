@@ -1,34 +1,7 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { reviewRepository } from '@/domains/review'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import CommentItem from './CommentItem'
-
-export function CommentListSkeleton() {
-  return (
-    <>
-      {[...Array(5)].map((_, i) => (
-        <CommentListItemSkeleton key={i} />
-      ))}
-    </>
-  )
-}
-
-function CommentListItemSkeleton() {
-  return (
-    <div className="flex gap-2.5">
-      <Skeleton className="w-9 h-9 rounded-full flex-shrink-0" />
-      <div className="flex-1">
-        <div className="flex items-center gap-[15px] mb-2.5">
-          <Skeleton className="h-[14px] w-[60px]" />
-          <Skeleton className="h-[12px] w-[40px]" />
-        </div>
-        <Skeleton className="h-[12px] w-full" />
-        <Skeleton className="h-[12px] w-3/4 mt-1" />
-      </div>
-    </div>
-  )
-}
 
 interface Props {
   reviewId: number

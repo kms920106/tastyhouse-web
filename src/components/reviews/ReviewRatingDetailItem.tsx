@@ -1,12 +1,12 @@
 import RatingStar from '@/components/ui/RatingStar'
 import { formatDecimal } from '@/lib/number'
 
-interface ReviewRatingDetailItemProps {
+interface Props {
   label: string
   rating: number
 }
 
-export default function ReviewRatingDetailItem({ label, rating }: ReviewRatingDetailItemProps) {
+export default function ReviewRatingDetailItem({ label, rating }: Props) {
   return (
     <div className="flex items-center gap-[7px]">
       <span className="w-8 text-xs leading-[12px] text-[#666666]">{label}</span>

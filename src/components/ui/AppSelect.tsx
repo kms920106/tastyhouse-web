@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import * as React from 'react'
 
-export type AppSelectProps = React.SelectHTMLAttributes<HTMLSelectElement>
+type Props = React.SelectHTMLAttributes<HTMLSelectElement>
 
-export default function AppSelect({ className, children, ...props }: AppSelectProps) {
+export default function AppSelect({ className, children, ...props }: Props) {
   return (
     <div className="relative w-full">
       <select

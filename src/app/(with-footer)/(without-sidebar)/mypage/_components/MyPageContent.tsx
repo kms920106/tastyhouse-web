@@ -4,11 +4,11 @@ import MyPageTabs from './MyPageTabs'
 
 export type MyPageTabValue = 'reviews' | 'payments' | 'bookmarks'
 
-interface MyPageContentProps {
+interface Props {
   initialTab: MyPageTabValue
 }
 
-export default function MyPageContent({ initialTab }: MyPageContentProps) {
+export default function MyPageContent({ initialTab }: Props) {
   return (
     <div className="flex flex-col min-h-dvh bg-white">
       <div className="flex flex-col h-[50dvh]">

@@ -1,10 +1,10 @@
 import type { Coupon } from '@/domains/member'
 
-interface CouponCardProps {
+interface Props {
   coupon: Coupon
 }
 
-export default function CouponCard({ coupon }: CouponCardProps) {
+export default function CouponCard({ coupon }: Props) {
   return (
     <div className="flex bg-white border border-gray-200 rounded-lg overflow-hidden mx-4 mb-3">
       {/* 왼쪽: 할인 포인트 */}

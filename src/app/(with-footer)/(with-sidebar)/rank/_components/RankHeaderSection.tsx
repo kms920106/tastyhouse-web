@@ -1,6 +1,7 @@
 import { RankPeriod } from '@/domains/rank'
 import { Suspense } from 'react'
-import RankHeader, { RankHeaderSkeleton } from './RankHeader'
+import RankHeader from './RankHeader'
+import { RankHeaderSkeleton } from './RankHeaderSkeleton'
 
 export default function RankHeaderSection({ rankPeriod }: { rankPeriod: RankPeriod }) {
   return (

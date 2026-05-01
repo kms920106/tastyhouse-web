@@ -6,11 +6,11 @@ import Link from 'next/link'
 import ReviewLikeButton from './ReviewLikeButton'
 import ReviewLikeButtonClient from './ReviewLikeButtonClient'
 
-interface ReviewLikeButtonServerProps {
+interface Props {
   reviewId: number
 }
 
-export default async function ReviewLikeButtonServer({ reviewId }: ReviewLikeButtonServerProps) {
+export default async function ReviewLikeButtonServer({ reviewId }: Props) {
   const isLoggedIn = await getIsLoggedIn()
 
   if (!isLoggedIn) {

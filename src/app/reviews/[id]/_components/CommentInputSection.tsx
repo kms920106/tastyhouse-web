@@ -1,6 +1,7 @@
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import { Suspense } from 'react'
-import CommentInput, { CommentInputSkeleton } from './CommentInput'
+import CommentInput from './CommentInput'
+import { CommentInputSkeleton } from './CommentInputSkeleton'
 
 interface Props {
   isLoggedIn: boolean

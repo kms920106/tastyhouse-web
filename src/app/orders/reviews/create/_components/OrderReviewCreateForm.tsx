@@ -52,7 +52,7 @@ const INITIAL_FORM_DATA: FormData = {
   tags: [],
 }
 
-interface OrderReviewCreateFormProps {
+interface Props {
   orderItemId: number
   productId: number
   productName: string
@@ -66,7 +66,7 @@ export default function OrderReviewCreateForm({
   productName,
   productImageUrl,
   productPrice,
-}: OrderReviewCreateFormProps) {
+}: Props) {
   const router = useRouter()
 
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)

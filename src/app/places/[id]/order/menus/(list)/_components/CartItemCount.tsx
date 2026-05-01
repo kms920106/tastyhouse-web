@@ -3,11 +3,11 @@
 import { getCartItemCount } from '@/lib/cart'
 import { useEffect, useState } from 'react'
 
-interface CartItemCountProps {
+interface Props {
   placeId: number
 }
 
-export default function CartItemCount({ placeId }: CartItemCountProps) {
+export default function CartItemCount({ placeId }: Props) {
   const [count, setCount] = useState(0)
 
   useEffect(() => {

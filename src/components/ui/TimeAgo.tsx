@@ -4,12 +4,12 @@ import { formatTimeAgo } from '@/lib/date'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
-interface TimeAgoProps {
+interface Props {
   date: string
   className?: string
 }
 
-export default function TimeAgo({ date, className = '' }: TimeAgoProps) {
+export default function TimeAgo({ date, className = '' }: Props) {
   const [timeAgo, setTimeAgo] = useState<string>('')
 
   useEffect(() => {

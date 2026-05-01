@@ -1,15 +1,15 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderRight } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import { Suspense } from 'react'
-import { PlaceDetailHeaderSkeleton } from './PlaceDetailHeader'
+import { PlaceDetailHeaderSkeleton } from './PlaceDetailHeaderSkeleton'
 import PlaceDetailHeaderServer from './PlaceDetailHeaderServer'
 import ShareButtonServer from './ShareButtonServer'
 
-interface PlaceDetailHeaderSectionProps {
+interface Props {
   placeId: number
 }
 
-export default function PlaceDetailHeaderSection({ placeId }: PlaceDetailHeaderSectionProps) {
+export default function PlaceDetailHeaderSection({ placeId }: Props) {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>

@@ -12,27 +12,9 @@ import {
 } from '@/components/ui/shadcn/accordion'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import { NoticeListSkeleton } from './NoticeListSkeleton'
 
 const PAGE_SIZE = 10
-
-function NoticeListSkeleton() {
-  return (
-    <div className="flex flex-col">
-      {Array.from({ length: PAGE_SIZE }).map((_, i) => (
-        <div
-          key={i}
-          className={cn(
-            'px-[16px] py-[18px] animate-pulse border-b border-[#eeeeee] last:border-b-0',
-            i === 0 && 'pt-0',
-          )}
-        >
-          <div className="h-3.5 bg-gray-200 rounded w-3/4" />
-          <div className="mt-3 h-3 bg-gray-200 rounded w-1/4" />
-        </div>
-      ))}
-    </div>
-  )
-}
 
 export default function NoticeList() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({

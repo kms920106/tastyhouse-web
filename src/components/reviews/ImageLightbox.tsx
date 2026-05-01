@@ -15,7 +15,7 @@ import Lightbox, {
 } from 'yet-another-react-lightbox'
 import Counter from 'yet-another-react-lightbox/plugins/counter'
 
-interface ImageLightboxProps {
+interface Props {
   imageUrls: string[]
   isOpen: boolean
   currentIndex: number
@@ -53,7 +53,7 @@ export default function ImageLightbox({
   isOpen,
   currentIndex,
   onClose,
-}: ImageLightboxProps) {
+}: Props) {
   const slides = imageUrls.map((url, index) => ({ src: url, key: index }))
 
   return (

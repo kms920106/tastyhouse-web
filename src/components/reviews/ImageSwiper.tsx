@@ -9,12 +9,12 @@ import Image from 'next/image'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-interface ImageSwiperProps {
+interface Props {
   imageUrls: string[]
   onImageClick: (index: number) => void
 }
 
-export default function ImageSwiper({ imageUrls, onImageClick }: ImageSwiperProps) {
+export default function ImageSwiper({ imageUrls, onImageClick }: Props) {
   if (imageUrls.length === 0) return null
 
   return (

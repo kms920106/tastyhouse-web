@@ -6,7 +6,7 @@ import { toggleReviewLike } from '@/actions/review'
 import { useState, useTransition } from 'react'
 import ReviewLikeButton from './ReviewLikeButton'
 
-interface ReviewLikeButtonClientProps {
+interface Props {
   initialIsLiked: boolean
   reviewId: number
 }
@@ -14,7 +14,7 @@ interface ReviewLikeButtonClientProps {
 export default function ReviewLikeButtonClient({
   initialIsLiked,
   reviewId,
-}: ReviewLikeButtonClientProps) {
+}: Props) {
   const [isLiked, setIsLiked] = useState(initialIsLiked)
   const [isPending, startTransition] = useTransition()
 

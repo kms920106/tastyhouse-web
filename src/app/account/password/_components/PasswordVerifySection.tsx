@@ -2,11 +2,11 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import PasswordVerifyForm from './PasswordVerifyForm'
 
-interface PasswordVerifySectionProps {
+interface Props {
   onVerified: (verifyToken: string) => void
 }
 
-export default function PasswordVerifySection({ onVerified }: PasswordVerifySectionProps) {
+export default function PasswordVerifySection({ onVerified }: Props) {
   return (
     <section className="min-h-screen bg-white">
       <Header variant="white" height={55}>

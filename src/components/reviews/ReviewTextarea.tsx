@@ -1,13 +1,13 @@
 import AppTextarea from '@/components/ui/AppTextarea'
 
-interface ReviewTextareaProps {
+interface Props {
   value: string
   onChange: (val: string) => void
   error?: boolean
   className?: string
 }
 
-export default function ReviewTextarea({ value, onChange, error, className }: ReviewTextareaProps) {
+export default function ReviewTextarea({ value, onChange, error, className }: Props) {
   return (
     <div className="relative">
       <AppTextarea

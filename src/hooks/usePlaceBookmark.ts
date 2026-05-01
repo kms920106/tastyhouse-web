@@ -3,12 +3,12 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { togglePlaceBookmark } from '@/actions/place'
 import { useState, useTransition } from 'react'
 
-interface UsePlaceBookmarkProps {
+interface Props {
   placeId: number
   initialIsBookmarked: boolean
 }
 
-export default function usePlaceBookmark({ placeId, initialIsBookmarked }: UsePlaceBookmarkProps) {
+export default function usePlaceBookmark({ placeId, initialIsBookmarked }: Props) {
   const [isBookmarked, setIsBookmarked] = useState(initialIsBookmarked)
   const [isPending, startTransition] = useTransition()
 

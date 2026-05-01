@@ -2,12 +2,12 @@ import AppBadge from '@/components/ui/AppBadge'
 import { getPaymentStatusColor, getPaymentStatusName } from '@/constants/payment'
 import type { PaymentStatus } from '@/domains/payment'
 
-interface OrderStatusHeaderProps {
+interface Props {
   orderNumber: string
   paymentStatus: PaymentStatus
 }
 
-export default function OrderStatusHeader({ orderNumber, paymentStatus }: OrderStatusHeaderProps) {
+export default function OrderStatusHeader({ orderNumber, paymentStatus }: Props) {
   const statusColor = getPaymentStatusColor(paymentStatus)
   const statusName = getPaymentStatusName(paymentStatus)
 

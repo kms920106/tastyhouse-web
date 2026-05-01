@@ -2,7 +2,7 @@ import Avatar from '@/components/ui/Avatar'
 import MemberNickname from '@/components/ui/MemberNickname'
 import TimeAgo from '@/components/ui/TimeAgo'
 
-interface ReviewAuthorInfoProps {
+interface Props {
   profileImageUrl: string | null
   nickname: string
   createdAt: string
@@ -12,7 +12,7 @@ export default function ReviewAuthorInfo({
   profileImageUrl,
   nickname,
   createdAt,
-}: ReviewAuthorInfoProps) {
+}: Props) {
   return (
     <div className="flex items-center gap-2.5">
       <Avatar src={profileImageUrl} alt={nickname} priority />

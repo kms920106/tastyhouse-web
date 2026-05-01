@@ -1,13 +1,7 @@
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
-
-export function PlaceDetailHeaderSkeleton() {
-  return <Skeleton className="h-[17px] w-[120px]" />
-}
-
-interface PlaceDetailHeaderProps {
+interface Props {
   name: string
 }
 
-export default function PlaceDetailHeader({ name }: PlaceDetailHeaderProps) {
+export default function PlaceDetailHeader({ name }: Props) {
   return <h1 className="text-[17px] leading-[17px]">{name}</h1>
 }

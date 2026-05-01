@@ -8,12 +8,12 @@ import {
 } from '@/components/ui/Modal'
 import AppPrimaryButton from '../ui/AppPrimaryButton'
 
-interface RankInfoModalProps {
+interface Props {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function RankInfoModal({ open, onOpenChange }: RankInfoModalProps) {
+export function RankInfoModal({ open, onOpenChange }: Props) {
   return (
     <Modal open={open} onOpenChange={onOpenChange}>
       <ModalHeader>

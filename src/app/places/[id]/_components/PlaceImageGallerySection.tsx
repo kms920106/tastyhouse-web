@@ -1,12 +1,12 @@
 import { Suspense } from 'react'
-import { ImageGallerySkeleton } from './ImageGallery'
+import { ImageGallerySkeleton } from '@/components/ui/ImageGallerySkeleton'
 import PlaceImageGalleryServer from './PlaceImageGalleryServer'
 
-interface PlaceImageGallerySectionProps {
+interface Props {
   placeId: number
 }
 
-export default function PlaceImageGallerySection({ placeId }: PlaceImageGallerySectionProps) {
+export default function PlaceImageGallerySection({ placeId }: Props) {
   return (
     <section>
       <Suspense fallback={<ImageGallerySkeleton />}>

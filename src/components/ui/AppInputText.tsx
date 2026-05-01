@@ -1,7 +1,7 @@
 import AppInput from './AppInput'
 
-type AppInputTextProps = Omit<React.ComponentProps<typeof AppInput>, 'type'>
+type Props = Omit<React.ComponentProps<typeof AppInput>, 'type'>
 
-export default function AppInputText(props: AppInputTextProps) {
+export default function AppInputText(props: Props) {
   return <AppInput type="text" {...props} />
 }

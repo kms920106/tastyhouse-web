@@ -5,7 +5,7 @@ import { PAGE_PATHS } from '@/lib/paths'
 import { share } from '@/lib/share'
 import { useCallback } from 'react'
 
-interface ShareButtonClientProps {
+interface Props {
   placeId: number
   productId: number
   productName: string
@@ -15,7 +15,7 @@ export default function ShareButtonClient({
   placeId,
   productId,
   productName,
-}: ShareButtonClientProps) {
+}: Props) {
   const getShareUrl = useCallback(() => {
     return `${window.location.origin}${PAGE_PATHS.PLACE_MENU_DETAIL(placeId, productId)}`
   }, [placeId, productId])

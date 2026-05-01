@@ -7,19 +7,14 @@ import 'yet-another-react-lightbox/styles.css'
 import { useState } from 'react'
 
 import 'yet-another-react-lightbox/plugins/counter.css'
-import { Skeleton } from '../ui/shadcn/skeleton'
 import ImageLightbox from './ImageLightbox'
 import ImageSwiper from './ImageSwiper'
 
-export function ReviewImageGallerySkeleton() {
-  return <Skeleton className="aspect-[345/190] w-full rounded-none" />
-}
-
-interface ReviewImageGalleryProps {
+interface Props {
   imageUrls: string[]
 }
 
-export default function ReviewImageGallery({ imageUrls }: ReviewImageGalleryProps) {
+export default function ReviewImageGallery({ imageUrls }: Props) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
 

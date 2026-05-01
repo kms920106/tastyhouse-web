@@ -3,30 +3,17 @@
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import FollowButton from '@/components/ui/FollowButton'
-import MemberProfileCell, { MemberProfileCellSkeleton } from '@/components/ui/MemberProfileCell'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import MemberProfileCell from '@/components/ui/MemberProfileCell'
 import { MemberSocialResponse } from '@/domains/follow'
 import Link from 'next/link'
 import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
-interface FollowListItemProps {
+interface Props {
   member: MemberSocialResponse
   tab: 'following' | 'follower'
   onFollowToggle: (member: MemberSocialResponse) => void
   onRemoveFollower: (memberId: number) => void
-}
-
-export function FollowListItemSkeleton() {
-  return (
-    <div className="flex items-center justify-between">
-      <MemberProfileCellSkeleton />
-      <div className="flex items-center gap-2">
-        <Skeleton className="w-[73px] h-[31px] rounded-[2.5px]" />
-        <Skeleton className="w-8 h-8 rounded" />
-      </div>
-    </div>
-  )
 }
 
 export default function FollowListItem({
@@ -34,7 +21,7 @@ export default function FollowListItem({
   tab,
   onFollowToggle,
   onRemoveFollower,
-}: FollowListItemProps) {
+}: Props) {
   const [removeConfirmOpen, setRemoveConfirmOpen] = useState(false)
 
   return (

@@ -2,11 +2,11 @@ import { eventRepository } from "@/domains/event"
 import Image from 'next/image'
 import HeaderSection from './HeaderSection'
 
-interface EventDetailSectionProps {
+interface Props {
   eventId: number
 }
 
-export default async function EventDetailSection({ eventId }: EventDetailSectionProps) {
+export default async function EventDetailSection({ eventId }: Props) {
   const { data } = await eventRepository.getEventDetail(eventId)
 
   return (

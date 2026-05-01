@@ -3,12 +3,12 @@ import type { OrderItemResponse } from '@/domains/order'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
-interface OrderedProductListProps {
+interface Props {
   placeName: string
   orderItems: OrderItemResponse[]
 }
 
-export default function OrderedProductList({ placeName, orderItems }: OrderedProductListProps) {
+export default function OrderedProductList({ placeName, orderItems }: Props) {
   return (
     <>
       <div className="px-[15px] pt-5 pb-[15px]">

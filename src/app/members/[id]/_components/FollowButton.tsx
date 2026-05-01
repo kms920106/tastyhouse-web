@@ -5,11 +5,11 @@ import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useOtherMemberProfile } from '@/hooks/useOtherMemberProfile'
 import { IoPersonAdd, IoPersonRemove } from 'react-icons/io5'
 
-interface FollowButtonProps {
+interface Props {
   memberId: number
 }
 
-export default function FollowButton({ memberId }: FollowButtonProps) {
+export default function FollowButton({ memberId }: Props) {
   const { handleFollowToggle } = useFollowMutation()
 
   const { data, isLoading } = useOtherMemberProfile(memberId)

@@ -1,8 +1,7 @@
 import { Suspense } from 'react'
 import SectionHeader from './SectionHeader'
-import TodayDiscountProductList, {
-  TodayDiscountProductListSkeleton,
-} from './TodayDiscountProductList'
+import TodayDiscountProductList from './TodayDiscountProductList'
+import { TodayDiscountProductListSkeleton } from './TodayDiscountProductListSkeleton'
 
 export function TodayDiscountSectionLayout({
   children,

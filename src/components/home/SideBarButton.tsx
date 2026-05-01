@@ -2,11 +2,11 @@
 
 import { MdMenu } from 'react-icons/md'
 
-interface TabButtonProps {
+interface Props {
   onClick?: () => void
 }
 
-export default function SideBarButton({ onClick }: TabButtonProps) {
+export default function SideBarButton({ onClick }: Props) {
   return (
     <button
       onClick={onClick}

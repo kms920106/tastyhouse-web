@@ -9,21 +9,16 @@ import {
   CommandList,
 } from '@/components/ui/shadcn/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/shadcn/popover'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { PlaceStation } from '@/domains/place'
 import { useState } from 'react'
 import { IoChevronDown } from 'react-icons/io5'
 import { useFilterState } from './FilterStateProvider'
 
-export function StationSelectorSkeleton() {
-  return <Skeleton className="w-full h-10 rounded" />
-}
-
-interface StationSelectorProps {
+interface Props {
   stations: PlaceStation[]
 }
 
-export default function StationSelector({ stations }: StationSelectorProps) {
+export default function StationSelector({ stations }: Props) {
   const { selectedStationId, setSelectedStationId } = useFilterState()
   const [isOpen, setIsOpen] = useState(false)
 

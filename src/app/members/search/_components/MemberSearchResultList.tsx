@@ -1,31 +1,22 @@
 'use client'
 
+import { searchMembersByNickname } from '@/actions/follow'
 import { MemberSearchResponse } from '@/domains/follow'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { searchMembersByNickname } from '@/actions/follow'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
-import MemberSearchResultItem, { MemberSearchResultItemSkeleton } from './MemberSearchResultItem'
+import MemberSearchResultItem from './MemberSearchResultItem'
+import { MemberSearchResultListSkeleton } from './MemberSearchResultListSkeleton'
 
-interface MemberSearchResultListProps {
+interface Props {
   searchQuery: string
 }
 
 const PAGE_SIZE = 10
 
-function MemberSearchResultListSkeleton() {
-  return (
-    <div className="flex flex-col gap-[30px] py-[30px]">
-      {[...Array(5)].map((_, i) => (
-        <MemberSearchResultItemSkeleton key={i} />
-      ))}
-    </div>
-  )
-}
-
-export default function MemberSearchResultList({ searchQuery }: MemberSearchResultListProps) {
+export default function MemberSearchResultList({ searchQuery }: Props) {
   const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({

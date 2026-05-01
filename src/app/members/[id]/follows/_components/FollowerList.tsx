@@ -1,30 +1,21 @@
 'use client'
 
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { getFollowerList, removeFollower } from '@/actions/follow'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
-import FollowListItem, { FollowListItemSkeleton } from './FollowListItem'
+import FollowListItem from './FollowListItem'
+import { FollowerListSkeleton } from './FollowListItemSkeleton'
 
-interface FollowerListProps {
+interface Props {
   memberId: number
   searchQuery: string
 }
 
 const PAGE_SIZE = 10
 
-function FollowerListSkeleton() {
-  return (
-    <div className="flex flex-col gap-[30px] py-[30px]">
-      {[...Array(10)].map((_, i) => (
-        <FollowListItemSkeleton key={i} />
-      ))}
-    </div>
-  )
-}
-
-export default function FollowerList({ memberId, searchQuery }: FollowerListProps) {
+export default function FollowerList({ memberId, searchQuery }: Props) {
   const queryClient = useQueryClient()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({

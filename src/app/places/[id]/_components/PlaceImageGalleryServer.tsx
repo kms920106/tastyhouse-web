@@ -3,11 +3,11 @@ import { placeRepository } from '@/domains/place'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import ImageGallery from './ImageGallery'
 
-interface PlaceImageGalleryServerProps {
+interface Props {
   placeId: number
 }
 
-export default async function PlaceImageGalleryServer({ placeId }: PlaceImageGalleryServerProps) {
+export default async function PlaceImageGalleryServer({ placeId }: Props) {
   const { error, status, data } = await placeRepository.getPlaceBanners(placeId)
 
   if ((error && status === 404) || !data) {

@@ -2,12 +2,12 @@
 
 import { FaStar } from 'react-icons/fa'
 
-interface StarRatingProps {
+interface Props {
   value: number
   onChange: (rating: number) => void
 }
 
-export default function StarRating({ value, onChange }: StarRatingProps) {
+export default function StarRating({ value, onChange }: Props) {
   return (
     <div className="flex justify-center gap-2">
       {[1, 2, 3, 4, 5].map((star) => (

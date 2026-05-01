@@ -17,7 +17,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 const ALL_CATEGORY_ID = 0
 
-interface FaqSectionProps {
+interface Props {
   initialCategoryId: number
   initialCategories: FaqCategoryItem[]
   initialFaqs: FaqItem[]
@@ -27,7 +27,7 @@ export default function FaqSection({
   initialCategoryId,
   initialCategories,
   initialFaqs,
-}: FaqSectionProps) {
+}: Props) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(initialCategoryId)
   const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqs)
 

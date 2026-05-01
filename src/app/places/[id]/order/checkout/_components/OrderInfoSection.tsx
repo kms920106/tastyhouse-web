@@ -14,7 +14,7 @@ interface OrderItem {
   quantity: number
 }
 
-interface OrderInfoSectionProps {
+interface Props {
   placeName: string
   items: OrderItem[]
   firstProductName: string
@@ -26,7 +26,7 @@ export default function OrderInfoSection({
   items,
   firstProductName,
   totalItemCount,
-}: OrderInfoSectionProps) {
+}: Props) {
   return (
     <Accordion type="single" collapsible defaultValue="order-info">
       <AccordionItem value="order-info" className="border-b-0">

@@ -1,7 +1,7 @@
 import AppInput from './AppInput'
 
-type AppInputPasswordProps = Omit<React.ComponentProps<typeof AppInput>, 'type'>
+type Props = Omit<React.ComponentProps<typeof AppInput>, 'type'>
 
-export default function AppInputPassword(props: AppInputPasswordProps) {
+export default function AppInputPassword(props: Props) {
   return <AppInput type="password" {...props} />
 }

@@ -2,7 +2,7 @@ import type { MemberCouponListItemResponse } from '@/domains/member'
 import CouponSelector from './CouponSelector'
 import PointSelector from './PointSelector'
 
-interface DiscountApplicationSectionProps {
+interface Props {
   availableCoupons: MemberCouponListItemResponse[]
   totalProductAmount: number
   totalProductDiscountAmount: number
@@ -22,7 +22,7 @@ export default function DiscountApplicationSection({
   availablePoints,
   pointInput,
   onPointInputChange,
-}: DiscountApplicationSectionProps) {
+}: Props) {
   return (
     <div className="px-[15px] py-5">
       <div className="pb-[30px]">

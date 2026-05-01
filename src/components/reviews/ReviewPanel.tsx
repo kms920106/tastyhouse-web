@@ -12,12 +12,12 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import type { UseQueryOptions } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 
-interface ReviewPanelProps {
+interface Props {
   queryOptions: UseQueryOptions<ApiResponse<ReviewPanelData>>
   viewMoreHref?: string
 }
 
-export default function ReviewPanel({ queryOptions, viewMoreHref }: ReviewPanelProps) {
+export default function ReviewPanel({ queryOptions, viewMoreHref }: Props) {
   const {
     photoOnly,
     setPhotoOnly,

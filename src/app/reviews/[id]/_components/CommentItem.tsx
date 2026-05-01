@@ -39,11 +39,11 @@ type Comment = {
   replies: Reply[]
 }
 
-interface CommentItemProps {
+interface Props {
   comment: Comment
 }
 
-export default function CommentItem({ comment }: CommentItemProps) {
+export default function CommentItem({ comment }: Props) {
   const { triggerReply } = useReply()
   const { memberProfile } = useMemberProfile()
   const currentMemberId = memberProfile?.id ?? null

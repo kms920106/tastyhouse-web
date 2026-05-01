@@ -2,11 +2,11 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import AccountInfoEditForm from './AccountInfoEditForm'
 
-interface AccountInfoEditSectionProps {
+interface Props {
   verifyToken: string
 }
 
-export default function AccountInfoEditSection({ verifyToken }: AccountInfoEditSectionProps) {
+export default function AccountInfoEditSection({ verifyToken }: Props) {
   return (
     <section className="min-h-screen bg-white">
       <Header variant="white" height={55} showBorder={false}>

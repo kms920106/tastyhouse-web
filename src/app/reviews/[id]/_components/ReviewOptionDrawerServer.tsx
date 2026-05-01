@@ -3,7 +3,7 @@ import ReviewOptionDrawer from '@/components/reviews/ReviewOptionDrawer'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
-interface ReviewOptionDrawerServerProps {
+interface Props {
   reviewId: number
   memberId: number
   memberNickname: string
@@ -17,7 +17,7 @@ export default function ReviewOptionDrawerServer({
   memberNickname,
   content,
   isLoggedIn,
-}: ReviewOptionDrawerServerProps) {
+}: Props) {
   if (!isLoggedIn) {
     return (
       <Link href={PAGE_PATHS.AUTH_LOGIN}>

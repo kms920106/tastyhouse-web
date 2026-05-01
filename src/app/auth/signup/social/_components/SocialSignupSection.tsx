@@ -91,7 +91,7 @@ export interface SocialSignupFormData {
   referrerNickname?: string
 }
 
-interface SocialSignupSectionProps {
+interface Props {
   socialProfile: SocialProfile | null
   phone: string
   onSignUp: (formData: SocialSignupFormData) => Promise<{ success: false; error: string } | null>
@@ -101,7 +101,7 @@ export default function SocialSignupSection({
   socialProfile,
   phone,
   onSignUp,
-}: SocialSignupSectionProps) {
+}: Props) {
   const router = useRouter()
 
   const emailVerification = useEmailVerification({

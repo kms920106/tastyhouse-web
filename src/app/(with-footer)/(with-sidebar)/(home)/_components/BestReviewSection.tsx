@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import BestReviewContent from './BestReviewContent'
-import { BestReviewSwiperSkeleton } from './BestReviewSwiper'
+import { BestReviewSwiperSkeleton } from './BestReviewSwiperSkeleton'
 import SectionHeader from './SectionHeader'
 
 export default async function BestReviewSection() {

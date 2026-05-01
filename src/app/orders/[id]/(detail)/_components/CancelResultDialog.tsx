@@ -51,7 +51,7 @@ const CANCEL_RESULT_CONFIG: Record<PaymentCancelCode, CancelResultModalConfig> =
   },
 }
 
-interface CancelResultDialogProps {
+interface Props {
   cancelResultCode: PaymentCancelCode | null
   phoneNumber: string
   onClose: () => void
@@ -61,7 +61,7 @@ export default function CancelResultDialog({
   cancelResultCode,
   phoneNumber,
   onClose,
-}: CancelResultDialogProps) {
+}: Props) {
   const router = useRouter()
 
   if (!cancelResultCode) return null

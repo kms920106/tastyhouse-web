@@ -1,11 +1,11 @@
 import { placeRepository } from '@/domains/place'
 import PlaceDetailHeader from './PlaceDetailHeader'
 
-interface PlaceDetailHeaderServerProps {
+interface Props {
   placeId: number
 }
 
-export default async function PlaceDetailHeaderServer({ placeId }: PlaceDetailHeaderServerProps) {
+export default async function PlaceDetailHeaderServer({ placeId }: Props) {
   const { error, data } = await placeRepository.getPlaceName(placeId)
 
   if (error) {

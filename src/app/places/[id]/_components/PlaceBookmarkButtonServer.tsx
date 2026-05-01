@@ -5,13 +5,13 @@ import Link from 'next/link'
 import { FaRegBookmark } from 'react-icons/fa'
 import PlaceBookmarkButtonClient from './PlaceBookmarkButtonClient'
 
-interface PlaceBookmarkButtonServerProps {
+interface Props {
   placeId: number
 }
 
 export default async function PlaceBookmarkButtonServer({
   placeId,
-}: PlaceBookmarkButtonServerProps) {
+}: Props) {
   const isLoggedIn = await getIsLoggedIn()
 
   if (!isLoggedIn) {

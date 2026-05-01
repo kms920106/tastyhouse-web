@@ -1,32 +1,23 @@
 'use client'
 
+import { getFollowingList } from '@/actions/follow'
 import { FollowMemberResponse } from '@/domains/follow'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { getFollowingList } from '@/actions/follow'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
-import FollowListItem, { FollowListItemSkeleton } from './FollowListItem'
+import FollowListItem from './FollowListItem'
+import { FollowerListSkeleton } from './FollowListItemSkeleton'
 
-interface FollowingListProps {
+interface Props {
   memberId: number
   searchQuery: string
 }
 
 const PAGE_SIZE = 10
 
-function FollowingListSkeleton() {
-  return (
-    <div className="flex flex-col gap-[30px] py-[30px]">
-      {[...Array(10)].map((_, i) => (
-        <FollowListItemSkeleton key={i} />
-      ))}
-    </div>
-  )
-}
-
-export default function FollowingList({ memberId, searchQuery }: FollowingListProps) {
+export default function FollowingList({ memberId, searchQuery }: Props) {
   const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
@@ -62,7 +53,7 @@ export default function FollowingList({ memberId, searchQuery }: FollowingListPr
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
   if (isLoading) {
-    return <FollowingListSkeleton />
+    return <FollowerListSkeleton />
   }
 
   const allMembers = data?.pages.flatMap((page) => page.data ?? []) ?? []
@@ -98,7 +89,7 @@ export default function FollowingList({ memberId, searchQuery }: FollowingListPr
           />
         ))}
       </div>
-      {isFetchingNextPage && <FollowingListSkeleton />}
+      {isFetchingNextPage && <FollowerListSkeleton />}
       <div ref={targetRef} className="h-1" aria-hidden="true" />
     </>
   )

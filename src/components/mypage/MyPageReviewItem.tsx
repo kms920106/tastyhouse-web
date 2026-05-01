@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { IoPersonAddOutline } from 'react-icons/io5'
 
-interface MyPageReviewItemProps {
+interface Props {
   userProfileImage: string | null
   userName: string
   reviewCount: number
@@ -15,7 +15,7 @@ export default function MyPageReviewItem({
   userName,
   reviewCount,
   images,
-}: MyPageReviewItemProps) {
+}: Props) {
   return (
     <div className="bg-white border-b border-gray-100 py-4">
       <div className="px-4 flex items-start justify-between mb-3">

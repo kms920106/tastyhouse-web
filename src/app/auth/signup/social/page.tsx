@@ -25,14 +25,14 @@ interface SignupStepData {
   phoneVerifyToken: string
 }
 
-interface SocialSignupPageProps {
+interface Props {
   searchParams: Promise<{
     provider?: string
     tempToken?: string
   }>
 }
 
-export default function SocialSignupPage({ searchParams }: SocialSignupPageProps) {
+export default function SocialSignupPage({ searchParams }: Props) {
   const router = useRouter()
 
   const { provider: providerParam, tempToken: tempTokenParam } = use(searchParams)

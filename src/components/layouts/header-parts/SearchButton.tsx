@@ -2,11 +2,11 @@
 
 import Image from 'next/image'
 
-interface SearchButtonProps {
+interface Props {
   onClick: () => void
 }
 
-export default function SearchButton({ onClick }: SearchButtonProps) {
+export default function SearchButton({ onClick }: Props) {
   return (
     <button
       className="w-[55px] h-[55px] flex items-center justify-center cursor-pointer"

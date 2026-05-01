@@ -1,10 +1,10 @@
 import EventSection from './_components/EventSection'
 
-interface EventsPageProps {
+interface Props {
   searchParams: Promise<{ tab?: string }>
 }
 
-export default async function EventsPage({ searchParams }: EventsPageProps) {
+export default async function EventsPage({ searchParams }: Props) {
   const params = await searchParams
   const initialTab = (params.tab || 'ongoing') as 'ongoing' | 'ended' | 'winner'
 

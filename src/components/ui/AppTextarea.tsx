@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils'
 import { Textarea } from './shadcn/textarea'
 
-type AppTextareaProps = React.ComponentProps<'textarea'> & {
+type Props = React.ComponentProps<'textarea'> & {
   error?: boolean
 }
 
-export default function AppTextarea({ className, error, ...props }: AppTextareaProps) {
+export default function AppTextarea({ className, error, ...props }: Props) {
   return (
     <Textarea
       className={cn(

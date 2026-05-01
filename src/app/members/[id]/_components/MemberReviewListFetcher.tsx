@@ -7,11 +7,11 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useQuery } from '@tanstack/react-query'
 
-interface MemberReviewListFetcherProps {
+interface Props {
   memberId: number
 }
 
-export default function MemberReviewListFetcher({ memberId }: MemberReviewListFetcherProps) {
+export default function MemberReviewListFetcher({ memberId }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['member', memberId, 'reviews'],
     queryFn: async () => {

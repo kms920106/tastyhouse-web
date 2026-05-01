@@ -37,11 +37,11 @@ const resetSchema = z
 type FormData = { newPassword: string; newPasswordConfirm: string }
 type FormErrors = Partial<Record<keyof FormData, string>>
 
-interface ForgotPasswordResetStepProps {
+interface Props {
   passwordResetToken: string
 }
 
-export default function ForgotPasswordResetStep({ passwordResetToken }: ForgotPasswordResetStepProps) {
+export default function ForgotPasswordResetStep({ passwordResetToken }: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>({ newPassword: '', newPasswordConfirm: '' })
   const [errors, setErrors] = useState<FormErrors>({})

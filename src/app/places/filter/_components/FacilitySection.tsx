@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import BorderedSection from '@/components/ui/BorderedSection'
 import FacilityContent from './FacilityContent'
-import { FacilitySelectorSkeleton } from './FacilitySelector'
+import { FacilitySelectorSkeleton } from './FacilitySelectorSkeleton'
 
 export default function FacilitySection() {
   return (

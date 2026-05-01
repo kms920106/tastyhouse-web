@@ -1,12 +1,12 @@
 import { Spinner } from '@/components/ui/shadcn/spinner'
 import { RxPaperPlane } from 'react-icons/rx'
 
-interface CommentSubmitButtonProps {
+interface Props {
   onClick?: () => void
   isSubmitting: boolean
 }
 
-export default function CommentSubmitButton({ onClick, isSubmitting }: CommentSubmitButtonProps) {
+export default function CommentSubmitButton({ onClick, isSubmitting }: Props) {
   return (
     <button
       type="button"

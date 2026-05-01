@@ -1,7 +1,7 @@
 import { PlaceAmenityCode, PlaceFoodType } from '@/domains/place'
 import PlaceListSection from './_components/PlaceListSection'
 
-interface PlacePageProps {
+interface Props {
   searchParams: Promise<{
     stationId?: string
     foodTypes?: string
@@ -9,7 +9,7 @@ interface PlacePageProps {
   }>
 }
 
-export default async function PlacePage({ searchParams }: PlacePageProps) {
+export default async function PlacePage({ searchParams }: Props) {
   const params = await searchParams
 
   const stationId = params.stationId ? Number(params.stationId) : undefined

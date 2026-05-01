@@ -6,7 +6,7 @@ import FilterStateProvider from './_components/FilterStateProvider'
 import FoodTypeSection from './_components/FoodTypeSection'
 import StationSection from './_components/StationSection'
 
-interface PlaceFilterPageProps {
+interface Props {
   searchParams: Promise<{
     stationId?: string
     foodTypes?: string
@@ -14,7 +14,7 @@ interface PlaceFilterPageProps {
   }>
 }
 
-export default async function PlaceFilterPage({ searchParams }: PlaceFilterPageProps) {
+export default async function PlaceFilterPage({ searchParams }: Props) {
   const params = await searchParams
   const stationId = params.stationId ? Number(params.stationId) : undefined
   const foodTypes = params.foodTypes?.split(',').filter(Boolean) ?? []

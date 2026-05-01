@@ -6,13 +6,13 @@ import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useRef } from 'react'
 
-interface MemberSearchHeaderProps {
+interface Props {
   value: string
   onChange: (value: string) => void
   onSearch: () => void
 }
 
-export default function MemberSearchHeader({ value, onChange, onSearch }: MemberSearchHeaderProps) {
+export default function MemberSearchHeader({ value, onChange, onSearch }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const inputRef = useRef<HTMLInputElement>(null)

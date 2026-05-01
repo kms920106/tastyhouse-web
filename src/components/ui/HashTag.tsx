@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import * as React from 'react'
 
-export interface HashTagProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface Props extends React.HTMLAttributes<HTMLSpanElement> {
   tag: string
   variant?: 'primary' | 'secondary'
   size?: 'sm' | 'md'
@@ -24,7 +24,7 @@ export default function HashTag({
   className,
   children,
   ...props
-}: HashTagProps) {
+}: Props) {
   return (
     <span
       className={cn(

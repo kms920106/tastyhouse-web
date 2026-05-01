@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
-interface ViewMoreButtonProps {
+interface Props {
   href: string
   label?: string
 }
 
-export default function ViewMoreButton({ href, label = '더 보러가기' }: ViewMoreButtonProps) {
+export default function ViewMoreButton({ href, label = '더 보러가기' }: Props) {
   return (
     <Link
       href={href}

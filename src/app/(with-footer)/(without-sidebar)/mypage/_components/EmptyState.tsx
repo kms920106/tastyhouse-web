@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
-interface EmptyStateProps {
+interface Props {
   message: string
 }
 
-export default function EmptyState({ message }: EmptyStateProps) {
+export default function EmptyState({ message }: Props) {
   return (
     <div className="flex flex-col items-center justify-center flex-1 pb-[70px]">
       <div className="relative w-[35px] h-[40px]">

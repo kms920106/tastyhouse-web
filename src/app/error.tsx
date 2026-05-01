@@ -5,12 +5,12 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { useEffect } from 'react'
 import { MdRefresh } from 'react-icons/md'
 
-interface ErrorPageProps {
+interface Props {
   error: Error & { digest?: string }
   reset: () => void
 }
 
-export default function ErrorPage({ error, reset }: ErrorPageProps) {
+export default function ErrorPage({ error, reset }: Props) {
   useEffect(() => {
     import('@/lib/logger-browser').then(({ default: browserLogger }) => {
       browserLogger.error(

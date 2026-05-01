@@ -4,12 +4,12 @@ import { MyBookmarkedPlaceListItemResponse } from '@/domains/member/member.type'
 import { PAGE_PATHS } from '@/lib/paths'
 import BookmarkListItem from './BookmarkListItem'
 
-interface BookmarkListProps {
+interface Props {
   bookmarks: MyBookmarkedPlaceListItemResponse[]
   hasMoreBookmarks: boolean
 }
 
-export default function BookmarkList({ bookmarks, hasMoreBookmarks }: BookmarkListProps) {
+export default function BookmarkList({ bookmarks, hasMoreBookmarks }: Props) {
   if (bookmarks.length === 0) {
     return <EmptyState message="저장된 즐겨찾기가 없습니다." />
   }

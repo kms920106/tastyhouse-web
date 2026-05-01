@@ -6,7 +6,7 @@ import { HiOutlineXMark } from 'react-icons/hi2'
 import CircleCheckbox from '../ui/CircleCheckbox'
 import type { OrderItemOption } from '@/domains/order'
 
-interface CartItemProps {
+interface Props {
   optionKey: string
   name: string
   imageUrl: string
@@ -32,7 +32,7 @@ export default function CartItem({
   onToggleSelect,
   onQuantityChange,
   onRemove,
-}: CartItemProps) {
+}: Props) {
   return (
     <div className="flex py-5">
       <CircleCheckbox checked={selected} onChange={() => onToggleSelect(optionKey)} />

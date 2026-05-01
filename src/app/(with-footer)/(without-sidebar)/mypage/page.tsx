@@ -1,10 +1,10 @@
 import MyPageContent, { MyPageTabValue } from './_components/MyPageContent'
 
-interface MyPageProps {
+interface Props {
   searchParams: Promise<{ tab?: string }>
 }
 
-export default async function MyPage({ searchParams }: MyPageProps) {
+export default async function MyPage({ searchParams }: Props) {
   const params = await searchParams
   const initialTab = (params.tab || 'reviews') as MyPageTabValue
 

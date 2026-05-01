@@ -1,9 +1,9 @@
-interface SectionHeaderProps {
+interface Props {
   title: string
   description: string
 }
 
-export default function SectionHeader({ title, description }: SectionHeaderProps) {
+export default function SectionHeader({ title, description }: Props) {
   return (
     <header className="mb-[30px] text-center">
       <h2 className="mb-[15px] text-[23px] leading-[23px] font-nanum-myeongjo-bold font-bold">

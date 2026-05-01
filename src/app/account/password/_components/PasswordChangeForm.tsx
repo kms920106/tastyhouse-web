@@ -33,11 +33,11 @@ const INITIAL_FORM_DATA: FormData = {
   newPasswordConfirm: '',
 }
 
-interface PasswordChangeFormProps {
+interface Props {
   verifyToken: string
 }
 
-export default function PasswordChangeForm({ verifyToken }: PasswordChangeFormProps) {
+export default function PasswordChangeForm({ verifyToken }: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})

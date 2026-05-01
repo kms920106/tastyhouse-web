@@ -3,11 +3,11 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-interface BackButtonProps {
+interface Props {
   onClick?: () => void
 }
 
-export default function BackButton({ onClick }: BackButtonProps) {
+export default function BackButton({ onClick }: Props) {
   const router = useRouter()
 
   const handleClick = () => {

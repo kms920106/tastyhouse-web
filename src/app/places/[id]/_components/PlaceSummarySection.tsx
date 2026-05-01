@@ -1,14 +1,14 @@
 import { Suspense } from 'react'
-import { PlaceBookmarkButtonSkeleton } from './PlaceBookmarkButtonClient'
+import { PlaceBookmarkButtonSkeleton } from './PlaceBookmarkButtonSkeleton'
 import PlaceBookmarkButtonServer from './PlaceBookmarkButtonServer'
-import { PlaceSummarySkeleton } from './PlaceSummary'
+import { PlaceSummarySkeleton } from './PlaceSummarySkeleton'
 import PlaceSummaryServer from './PlaceSummaryServer'
 
-interface PlaceSummarySectionProps {
+interface Props {
   placeId: number
 }
 
-export default function PlaceSummarySection({ placeId }: PlaceSummarySectionProps) {
+export default function PlaceSummarySection({ placeId }: Props) {
   return (
     <section className="px-[15px] py-5">
       <Suspense fallback={<PlaceSummarySkeleton />}>

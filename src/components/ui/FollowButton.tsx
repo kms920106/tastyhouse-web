@@ -3,13 +3,13 @@
 import AppButton from '@/components/ui/AppButton'
 import { cn } from '@/lib/utils'
 
-interface FollowButtonProps {
+interface Props {
   following: boolean
   onClick: () => void
   className?: string
 }
 
-export default function FollowButton({ following, onClick, className }: FollowButtonProps) {
+export default function FollowButton({ following, onClick, className }: Props) {
   return (
     <AppButton
       onClick={onClick}

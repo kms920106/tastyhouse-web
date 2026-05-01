@@ -10,12 +10,12 @@ import ReviewSection from './ReviewSection'
 
 type TabValue = 'info' | 'menu' | 'photo'
 
-interface PlaceTabSectionProps {
+interface Props {
   placeId: number
   initialTab: TabValue
 }
 
-export default function PlaceTabSection({ placeId, initialTab }: PlaceTabSectionProps) {
+export default function PlaceTabSection({ placeId, initialTab }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 

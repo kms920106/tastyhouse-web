@@ -2,46 +2,13 @@
 
 import { useSidebar } from '@/components/ui/shadcn/sidebar'
 import { usePlaceFoodTypes } from '@/hooks/usePlaceFoodTypes'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'
+import MenuGridButton from './MenuGridButton'
+import MenuGridItem from './MenuGridItem'
 
 const PAGE_SIZE = 6
-
-interface MenuGridItemProps {
-  icon: string
-  name: string
-}
-
-interface MenuGridButtonProps {
-  onClick?: () => void
-  disabled?: boolean
-  children: React.ReactNode
-}
-
-function MenuGridItem({ icon, name }: MenuGridItemProps) {
-  return (
-    <>
-      <div className="relative w-14 h-8">
-        {icon && <Image src={icon} alt={name} fill style={{ objectFit: 'contain' }} />}
-      </div>
-      <span className="text-[13px] text-[#333333]">{name}</span>
-    </>
-  )
-}
-
-function MenuGridButton({ onClick, disabled, children }: MenuGridButtonProps) {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
-    >
-      {children}
-    </button>
-  )
-}
 
 export default function MenuSidebarFoodTypes() {
   const { setOpenMobile } = useSidebar()

@@ -1,8 +1,8 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
+import { MoreButton } from './MoreButton'
 import TextContent from './TextContent'
 
 const estimateIsClamped = (text: string | undefined, maxLines: number) => {
@@ -11,24 +11,7 @@ const estimateIsClamped = (text: string | undefined, maxLines: number) => {
   return text.length > charsPerLine * maxLines
 }
 
-interface MoreButtonProps {
-  onClick: () => void
-  className?: string
-}
-
-export function MoreButton({ onClick, className = '' }: MoreButtonProps) {
-  return (
-    <button
-      onClick={onClick}
-      className={cn('absolute bottom-1 right-0 text-sm leading-[14px] text-[#cccccc] bg-white pl-1', className)}
-    >
-      <span className="text-black">... </span>
-      <span className="cursor-pointer">더보기</span>
-    </button>
-  )
-}
-
-interface ClampedTextProps {
+interface Props {
   text: string
   maxLines?: number
   className?: string
@@ -42,7 +25,7 @@ export default function ClampedText({
   className = '',
   href,
   MoreButton: customMoreButton,
-}: ClampedTextProps) {
+}: Props) {
   const textRef = useRef<HTMLParagraphElement>(null)
   const [isClamped, setIsClamped] = useState(() => estimateIsClamped(text, maxLines))
   const [isExpanded, setIsExpanded] = useState(false)
@@ -84,3 +67,5 @@ export default function ClampedText({
     </div>
   )
 }
+
+export { MoreButton } from './MoreButton'

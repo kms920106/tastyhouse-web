@@ -3,11 +3,11 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
-interface CloseButtonProps {
+interface Props {
   onClick?: () => void
 }
 
-export default function CloseButton({ onClick }: CloseButtonProps) {
+export default function CloseButton({ onClick }: Props) {
   const router = useRouter()
 
   const handleClick = () => {

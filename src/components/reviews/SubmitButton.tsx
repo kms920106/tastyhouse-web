@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils'
 import { toast } from '../ui/AppToaster'
 
-interface SubmitButtonProps {
+interface Props {
   form: {
     placeName?: string
     menuName?: string
@@ -13,7 +13,7 @@ interface SubmitButtonProps {
   disabled?: boolean
 }
 
-export default function SubmitButton({ form, disabled = false }: SubmitButtonProps) {
+export default function SubmitButton({ form, disabled = false }: Props) {
   const handleSubmit = async () => {
     if (!form.placeName) {
       toast('상호명은 필수 입력 사항입니다.')

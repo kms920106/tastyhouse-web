@@ -4,7 +4,7 @@ import Image from 'next/image'
 const DEFAULT_PROFILE_IMAGE_SM = '/images/account/profile/profile-random-sm.png'
 const DEFAULT_PROFILE_IMAGE_BG = '/images/account/profile/profile-random-bg.png'
 
-interface AvatarProps {
+interface Props {
   src?: string | null
   alt: string
   size?: 'sm' | 'md' | 'bg'
@@ -24,7 +24,7 @@ export default function Avatar({
   size = 'md',
   className = '',
   priority = false,
-}: AvatarProps) {
+}: Props) {
   const { dimension, className: sizeClassName, defaultImage } = sizeMap[size]
   return (
     <Image

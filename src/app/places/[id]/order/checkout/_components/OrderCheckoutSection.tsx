@@ -24,7 +24,7 @@ import PaymentActionBar from './PaymentActionBar'
 import PaymentMethodSelector from './PaymentMethodSelector'
 import PaymentSummarySection from './PaymentSummarySection'
 
-interface OrderCheckoutSectionProps {
+interface Props {
   placeId: number
   placeName: string
   memberInfo: MemberInfo | null
@@ -38,7 +38,7 @@ export default function OrderCheckoutSection({
   memberInfo: customerInfo,
   availableCoupons,
   usablePoints,
-}: OrderCheckoutSectionProps) {
+}: Props) {
   const router = useRouter()
 
   const { items, firstProductName, totalItemCount, totalProductAmount, totalProductDiscount } =

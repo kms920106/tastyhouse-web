@@ -2,11 +2,11 @@ import { reviewRepository } from '@/domains/review'
 import { notFound } from 'next/navigation'
 import OrderReviewCreateSection from './_components/OrderReviewCreateSection'
 
-interface OrderReviewCreatePageProps {
+interface Props {
   searchParams: Promise<{ orderItemId?: string }>
 }
 
-export default async function OrderReviewCreatePage({ searchParams }: OrderReviewCreatePageProps) {
+export default async function OrderReviewCreatePage({ searchParams }: Props) {
   const { orderItemId } = await searchParams
 
   if (!orderItemId) {

@@ -14,11 +14,11 @@ const TAB_TRIGGER_CLASS =
 
 const TAB_CONTENT_CLASS = 'mt-0 flex flex-col flex-1 bg-[#f9f9f9]'
 
-interface MyPageTabsProps {
+interface Props {
   initialTab: MyPageTabValue
 }
 
-export default function MyPageTabs({ initialTab }: MyPageTabsProps) {
+export default function MyPageTabs({ initialTab }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 

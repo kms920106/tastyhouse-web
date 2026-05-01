@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/shadcn/dialog'
 
-interface AppTermsDialogProps {
+interface Props {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   title: string
@@ -24,7 +24,7 @@ export default function AppTermsDialog({
   children,
   confirmLabel = '확인',
   onConfirm,
-}: AppTermsDialogProps) {
+}: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent

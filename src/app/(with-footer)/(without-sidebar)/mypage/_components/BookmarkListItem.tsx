@@ -7,7 +7,7 @@ import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface BookmarkListItemProps {
+interface Props {
   placeId: number
   placeImage: string
   region: string
@@ -23,7 +23,7 @@ export default function BookmarkListItem({
   placeName,
   rating,
   isBookmarked: initialIsBookmarked,
-}: BookmarkListItemProps) {
+}: Props) {
   const { isBookmarked, isPending, toggleBookmark } = usePlaceBookmark({
     placeId,
     initialIsBookmarked,

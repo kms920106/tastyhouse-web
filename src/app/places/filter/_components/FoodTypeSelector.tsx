@@ -1,33 +1,15 @@
 'use client'
 
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { PlaceFood } from '@/domains/place'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useFilterState } from './FilterStateProvider'
 
-export function FoodTypeSelectorSkeleton() {
-  return (
-    <div className="grid grid-cols-4 gap-2.5">
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div
-          key={i}
-          className="flex flex-col items-center justify-center border border-[#eeeeee] px-5 py-[17px]"
-          style={{ aspectRatio: '80 / 95' }}
-        >
-          <Skeleton className="w-[38px] h-[38px] mb-[15px]" />
-          <Skeleton className="w-12 h-3" />
-        </div>
-      ))}
-    </div>
-  )
-}
-
-interface FoodTypeSelectorProps {
+interface Props {
   foods: PlaceFood[]
 }
 
-export default function FoodTypeSelector({ foods }: FoodTypeSelectorProps) {
+export default function FoodTypeSelector({ foods }: Props) {
   const { selectedFoodTypes, toggleFoodType } = useFilterState()
 
   return (

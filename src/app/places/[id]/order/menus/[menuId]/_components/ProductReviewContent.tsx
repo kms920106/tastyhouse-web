@@ -3,11 +3,11 @@ import SectionStack from '@/components/ui/SectionStack'
 import PlaceOrderProductReviewList from './PlaceOrderProductReviewList'
 import PlaceOrderProductReviewStatistic from './PlaceOrderProductReviewStatistic'
 
-interface ProductReviewContentProps {
+interface Props {
   productId: number
 }
 
-export default function ProductReviewContent({ productId }: ProductReviewContentProps) {
+export default function ProductReviewContent({ productId }: Props) {
   return (
     <SectionStack>
       <BorderedSection className="border-t-0">

@@ -14,11 +14,11 @@ const reviewTypeMap: Record<TabValue, ReviewType> = {
   following: 'FOLLOWING',
 }
 
-interface ReviewTabsProps {
+interface Props {
   initialTab: TabValue
 }
 
-export default function ReviewTabs({ initialTab }: ReviewTabsProps) {
+export default function ReviewTabs({ initialTab }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 

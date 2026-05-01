@@ -1,10 +1,10 @@
 import MemberSearchSection from './_components/MemberSearchSection'
 
-interface MemberSearchPageProps {
+interface Props {
   searchParams: Promise<{ q?: string }>
 }
 
-export default async function MemberSearchPage({ searchParams }: MemberSearchPageProps) {
+export default async function MemberSearchPage({ searchParams }: Props) {
   const { q } = await searchParams
   const initialQuery = q ?? ''
 

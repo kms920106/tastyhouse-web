@@ -8,11 +8,11 @@ import EmailVerificationField from '@/components/ui/EmailVerificationField'
 import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { useEffect } from 'react'
 
-interface ForgotPasswordEmailStepProps {
+interface Props {
   onVerified: (email: string, passwordResetToken: string) => void
 }
 
-export default function ForgotPasswordEmailStep({ onVerified }: ForgotPasswordEmailStepProps) {
+export default function ForgotPasswordEmailStep({ onVerified }: Props) {
   const emailVerification = useEmailVerification({
     sendFn: requestPasswordReset,
     confirmFn: verifyPasswordResetForEmailField,

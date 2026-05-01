@@ -4,7 +4,7 @@ const formatCount = (count: number): string => {
   return count >= 99 ? '99+' : String(count)
 }
 
-interface CheckboxWithCountProps {
+interface Props {
   label: string
   count: number
   checked: boolean
@@ -16,7 +16,7 @@ export default function CheckboxWithCount({
   count,
   checked,
   onChange,
-}: CheckboxWithCountProps) {
+}: Props) {
   return (
     <label className="flex items-center gap-2 cursor-pointer">
       <CircleCheckbox checked={checked} onChange={onChange} />

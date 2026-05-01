@@ -1,6 +1,6 @@
 import Avatar from '@/components/ui/Avatar'
 
-interface ProfileImageProps {
+interface Props {
   profileImageUrl: string | null | undefined
   alt?: string
 }
@@ -8,6 +8,6 @@ interface ProfileImageProps {
 export default function ProfileImage({
   profileImageUrl,
   alt = '프로필 이미지',
-}: ProfileImageProps) {
+}: Props) {
   return <Avatar src={profileImageUrl} alt={alt} size="bg" />
 }

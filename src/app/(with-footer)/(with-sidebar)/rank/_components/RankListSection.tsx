@@ -1,6 +1,7 @@
 import { RankPeriod } from '@/domains/rank'
 import { Suspense } from 'react'
-import RankList, { RankListSkeleton } from './RankList'
+import RankList from './RankList'
+import { RankListSkeleton } from './RankListSkeleton'
 
 export default function RankListSection({ rankPeriod }: { rankPeriod: RankPeriod }) {
   return (

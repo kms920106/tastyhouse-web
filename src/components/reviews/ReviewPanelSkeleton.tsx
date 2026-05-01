@@ -1,4 +1,4 @@
-import { ReviewImageGallerySkeleton } from '@/components/reviews/ReviewImageGallery'
+import { ReviewImageGallerySkeleton } from '@/components/reviews/ReviewImageGallerySkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 function ReviewPanelItemSkeleton() {

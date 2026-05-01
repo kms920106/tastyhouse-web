@@ -17,11 +17,11 @@ export interface ReviewListItemData {
   imageUrls: string[]
 }
 
-interface ReviewListItemProps {
+interface Props {
   review: ReviewListItemData
 }
 
-export default function ReviewListItem({ review }: ReviewListItemProps) {
+export default function ReviewListItem({ review }: Props) {
   return (
     <div className="py-5">
       <div className="flex justify-between">

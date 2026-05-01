@@ -11,7 +11,7 @@ const sizeClass: Record<MemberGradeNameSize, string> = {
   lg: 'text-lg leading-[18px]',
 }
 
-interface MemberGradeNameProps {
+interface Props {
   grade: MemberGradeCode
   size: MemberGradeNameSize
   bold?: boolean
@@ -21,7 +21,7 @@ export default function MemberGradeName({
   grade,
   size = 'xs',
   bold = false,
-}: MemberGradeNameProps) {
+}: Props) {
   const gradeName = getMemberGradeName(grade)
   const gradeColor = getMemberGradeColor(grade)
 

@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/shadcn/accordion'
 import { formatNumber } from '@/lib/number'
 
-interface PaymentBreakdownAccordionProps {
+interface Props {
   totalProductAmount: number
   productDiscountAmount: number
   couponDiscountAmount: number
@@ -22,7 +22,7 @@ export default function PaymentBreakdownAccordion({
   pointDiscountAmount,
   totalDiscountAmount,
   finalAmount,
-}: PaymentBreakdownAccordionProps) {
+}: Props) {
   return (
     <Accordion type="single" collapsible defaultValue="payment-breakdown">
       <AccordionItem value="payment-breakdown" className="border-b-0">

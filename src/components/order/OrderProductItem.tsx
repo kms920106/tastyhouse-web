@@ -2,7 +2,7 @@ import ImageContainer from '@/components/ui/ImageContainer'
 import type { OrderItemOptionResponse } from '@/domains/order'
 import { formatNumber } from '@/lib/number'
 
-interface OrderProductItemProps {
+interface Props {
   productName: string
   productImageUrl: string
   unitPrice: number
@@ -18,7 +18,7 @@ export default function OrderProductItem({
   quantity,
   options,
   action,
-}: OrderProductItemProps) {
+}: Props) {
   return (
     <div className="flex items-center gap-[15px] py-[15px]">
       <ImageContainer src={productImageUrl} alt={productName} size={50} />

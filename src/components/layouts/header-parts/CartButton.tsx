@@ -6,12 +6,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-interface CartButtonProps {
+interface Props {
   placeId: number
   variant?: 'white' | 'black'
 }
 
-export default function CartButton({ placeId, variant = 'black' }: CartButtonProps) {
+export default function CartButton({ placeId, variant = 'black' }: Props) {
   const [cartItemCount, setCartItemCount] = useState(0)
 
   useEffect(() => {

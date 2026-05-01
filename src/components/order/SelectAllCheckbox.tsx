@@ -1,6 +1,6 @@
 import CircleCheckbox from '../ui/CircleCheckbox'
 
-interface SelectAllCheckboxProps {
+interface Props {
   label: string
   selectedCount: number
   totalCount: number
@@ -14,7 +14,7 @@ export default function SelectAllCheckbox({
   totalCount,
   checked,
   onChange,
-}: SelectAllCheckboxProps) {
+}: Props) {
   return (
     <div className="flex items-center gap-2">
       <CircleCheckbox checked={checked} onChange={onChange} />

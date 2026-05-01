@@ -1,7 +1,7 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import { Suspense } from 'react'
 import StationContent from './StationContent'
-import { StationSelectorSkeleton } from './StationSelector'
+import { StationSelectorSkeleton } from './StationSelectorSkeleton'
 
 export default function StationSection() {
   return (

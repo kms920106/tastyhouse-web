@@ -16,7 +16,7 @@ import { useCallback } from 'react'
 import { toast } from '../ui/AppToaster'
 import ReviewOptionButton from './ReviewOptionButton'
 
-interface ReviewOptionDrawerProps {
+interface Props {
   reviewId: number
   memberId: number
   memberNickname: string
@@ -28,7 +28,7 @@ export default function ReviewOptionDrawer({
   memberId,
   memberNickname,
   content,
-}: ReviewOptionDrawerProps) {
+}: Props) {
   const { memberProfile } = useMemberProfile()
 
   const currentMemberId = memberProfile?.id ?? null

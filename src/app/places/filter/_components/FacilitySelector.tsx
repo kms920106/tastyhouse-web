@@ -1,24 +1,14 @@
 'use client'
 
-import { FacilityButton, FacilityItemSkeleton } from '@/components/places/FacilityItem'
+import { FacilityButton } from '@/components/places/FacilityItem'
 import { PlaceAmenity } from '@/domains/place'
 import { useFilterState } from './FilterStateProvider'
 
-export function FacilitySelectorSkeleton() {
-  return (
-    <FacilitySelectorLayout>
-      {Array.from({ length: 8 }).map((_, i) => (
-        <FacilityItemSkeleton key={i} />
-      ))}
-    </FacilitySelectorLayout>
-  )
-}
-
-interface FacilitySelectorProps {
+interface Props {
   amenities: PlaceAmenity[]
 }
 
-export default function FacilitySelector({ amenities }: FacilitySelectorProps) {
+export default function FacilitySelector({ amenities }: Props) {
   const { selectedAmenities, toggleAmenity } = useFilterState()
 
   return (

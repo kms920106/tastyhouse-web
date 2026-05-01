@@ -2,12 +2,12 @@ import { useRef } from 'react'
 import { cn } from '@/lib/utils'
 import AppInput from './AppInput'
 
-type AppInputPhoneProps = Omit<
+type Props = Omit<
   React.ComponentProps<typeof AppInput>,
   'type' | 'inputMode' | 'onInput' | 'onPaste'
 >
 
-export default function AppInputPhone({ onChange, ...props }: AppInputPhoneProps) {
+export default function AppInputPhone({ onChange, ...props }: Props) {
   const ref = useRef<HTMLInputElement>(null)
 
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {

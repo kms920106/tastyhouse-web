@@ -1,7 +1,7 @@
 import AppInput from './AppInput'
 
-type AppInputEmailProps = Omit<React.ComponentProps<typeof AppInput>, 'type'>
+type Props = Omit<React.ComponentProps<typeof AppInput>, 'type'>
 
-export default function AppInputEmail(props: AppInputEmailProps) {
+export default function AppInputEmail(props: Props) {
   return <AppInput type="email" autoComplete="email" inputMode="email" {...props} />
 }

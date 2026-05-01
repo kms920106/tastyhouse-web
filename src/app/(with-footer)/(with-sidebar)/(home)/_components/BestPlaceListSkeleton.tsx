@@ -1,4 +1,4 @@
-import { PlaceCardSkeleton } from '@/components/places/PlaceCard'
+import { PlaceCardSkeleton } from '@/components/places/PlaceCardSkeleton'
 
 export function BestPlaceListSkeleton() {
   return (

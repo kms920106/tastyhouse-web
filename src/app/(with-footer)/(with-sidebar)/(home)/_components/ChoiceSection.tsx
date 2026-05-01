@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import ChoicePlaceContent from './ChoicePlaceContent'
-import { ChoiceSwiperSkeleton } from './ChoiceSwiper'
+import { ChoiceSwiperSkeleton } from './ChoiceSwiperSkeleton'
 import SectionHeader from './SectionHeader'
 
 export default async function ChoiceSection() {

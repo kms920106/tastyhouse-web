@@ -9,7 +9,7 @@ import {
 import { formatDate } from '@/lib/date'
 import AppPrimaryButton from '../ui/AppPrimaryButton'
 
-interface PlaceOwnerMessageModalProps {
+interface Props {
   open: boolean
   onOpenChange: (open: boolean) => void
   message: string
@@ -21,7 +21,7 @@ export default function PlaceOwnerMessageModal({
   onOpenChange,
   message,
   createdAt,
-}: PlaceOwnerMessageModalProps) {
+}: Props) {
   const createdAtFormatted = formatDate(createdAt, 'YYYY년 M월 D일')
 
   return (

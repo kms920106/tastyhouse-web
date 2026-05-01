@@ -3,11 +3,11 @@ import { MemberGradeCode } from '@/domains/member'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
-interface MemberGradeInfoProps {
+interface Props {
   memberGrade: MemberGradeCode | null | undefined
 }
 
-export default function MemberGradeInfo({ memberGrade }: MemberGradeInfoProps) {
+export default function MemberGradeInfo({ memberGrade }: Props) {
   const grade = memberGrade ?? 'NEWCOMER'
   const gradeName = getMemberGradeName(grade)
   const gradeIcon = getMemberGradeIcon(grade)

@@ -5,7 +5,6 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import Rating from '@/components/ui/Rating'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -15,44 +14,7 @@ import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 import type { Swiper as SwiperType } from 'swiper'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
-export function BestReviewSwiperSkeleton() {
-  return (
-    <div className="overflow-hidden pb-[53px]">
-      <div
-        className="flex gap-4"
-        style={{
-          transform: 'translateX(calc(50% - (100% / 1.5 / 2) - 8px - (100% / 1.5) - 16px))',
-        }}
-      >
-        <ReviewCardSkeleton className="scale-90 opacity-60" />
-        <ReviewCardSkeleton />
-        <ReviewCardSkeleton className="scale-90 opacity-60" />
-      </div>
-    </div>
-  )
-}
-
-function ReviewCardSkeleton({ className }: { className?: string }) {
-  return (
-    <div
-      className={cn('flex-shrink-0 transition-all duration-300', className)}
-      style={{ width: 'calc(100% / 1.5)' }}
-    >
-      <Skeleton className="relative w-full mb-[15px] pt-[75%] rounded-none" />
-      <div className="mb-1.5 flex items-center justify-between">
-        <Skeleton className="h-3 w-12" />
-        <Skeleton className="h-5 w-8" />
-      </div>
-      <Skeleton className="mb-[19px] h-4 w-2/3" />
-      <div className="space-y-1.5">
-        <Skeleton className="h-3 w-full" />
-        <Skeleton className="h-3 w-full" />
-        <Skeleton className="h-3 w-4/5" />
-      </div>
-    </div>
-  )
-}
+import { BestReviewSwiperSkeleton } from './BestReviewSwiperSkeleton'
 
 type BestReviewItem = {
   id: number
@@ -63,11 +25,11 @@ type BestReviewItem = {
   totalRating: number
 }
 
-interface BestReviewSwiperProps {
+interface Props {
   reviews: BestReviewItem[]
 }
 
-export default function BestReviewSwiper({ reviews }: BestReviewSwiperProps) {
+export default function BestReviewSwiper({ reviews }: Props) {
   const swiperRef = useRef<SwiperType | null>(null)
   const [currentSlide, setCurrentSlide] = useState(2)
   const [totalSlides, setTotalSlides] = useState(reviews.length)
@@ -78,7 +40,7 @@ export default function BestReviewSwiper({ reviews }: BestReviewSwiperProps) {
   }, [])
 
   if (!isMounted) {
-    return BestReviewSwiperSkeleton()
+    return <BestReviewSwiperSkeleton />
   }
 
   if (reviews.length === 0) {

@@ -3,12 +3,12 @@
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode'
 import { useEffect } from 'react'
 
-interface PostcodeModalProps {
+interface Props {
   onComplete: (address: Address) => void
   onClose: () => void
 }
 
-export default function PostcodeModal({ onComplete, onClose }: PostcodeModalProps) {
+export default function PostcodeModal({ onComplete, onClose }: Props) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => {

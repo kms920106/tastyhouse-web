@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from './shadcn/dialog'
 
-interface AppConfirmDialogProps {
+interface Props {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   trigger?: React.ReactNode
@@ -33,7 +33,7 @@ export default function AppConfirmDialog({
   cancelLabel = '취소',
   onConfirm,
   onCancel,
-}: AppConfirmDialogProps) {
+}: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}

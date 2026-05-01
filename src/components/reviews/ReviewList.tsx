@@ -2,30 +2,14 @@ import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { MyReviewListItemResponse } from '@/domains/member/member.type'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
-import Link from 'next/link'
+import MyReviewListItem from './MyReviewListItem'
 
-interface ReviewListItemProps {
-  id: number
-  imageUrl: string
-}
-
-function ReviewListItem({ id, imageUrl }: ReviewListItemProps) {
-  return (
-    <Link key={id} href={PAGE_PATHS.REVIEW_DETAIL(id)} className="relative aspect-square">
-      {imageUrl && (
-        <Image src={imageUrl} alt="리뷰 이미지" fill sizes="33vw" className="object-cover" />
-      )}
-    </Link>
-  )
-}
-
-interface ReviewListProps {
+interface Props {
   reviews: MyReviewListItemResponse[]
   hasMoreReviews: boolean
 }
 
-export default function ReviewList({ reviews, hasMoreReviews }: ReviewListProps) {
+export default function ReviewList({ reviews, hasMoreReviews }: Props) {
   if (reviews.length === 0) {
     return <EmptyState message="등록된 리뷰가 없습니다." />
   }
@@ -35,7 +19,7 @@ export default function ReviewList({ reviews, hasMoreReviews }: ReviewListProps)
       <div className="py-[1px]">
         <div className="grid grid-cols-3 gap-[1.5px]">
           {reviews.map((review) => (
-            <ReviewListItem key={review.id} id={review.id} imageUrl={review.imageUrl} />
+            <MyReviewListItem key={review.id} id={review.id} imageUrl={review.imageUrl} />
           ))}
         </div>
         {hasMoreReviews && (

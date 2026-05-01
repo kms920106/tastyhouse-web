@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa'
 
-interface PlaceBookmarkButtonProps {
+interface Props {
   onClick?: () => void
   disabled?: boolean
   isBookmarked: boolean
@@ -11,7 +11,7 @@ export default function PlaceBookmarkButton({
   onClick,
   disabled,
   isBookmarked,
-}: PlaceBookmarkButtonProps) {
+}: Props) {
   return (
     <button
       onClick={onClick}

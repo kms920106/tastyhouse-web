@@ -2,11 +2,11 @@ import { placeRepository } from '@/domains/place'
 import ShareButtonClient from './ShareButtonClient'
 import ShareButtonError from './ShareButtonError'
 
-interface ShareButtonServerProps {
+interface Props {
   placeId: number
 }
 
-export default async function ShareButtonServer({ placeId }: ShareButtonServerProps) {
+export default async function ShareButtonServer({ placeId }: Props) {
   const { error, data } = await placeRepository.getPlaceName(placeId)
 
   if (error) {

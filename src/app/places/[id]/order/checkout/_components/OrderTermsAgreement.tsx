@@ -1,6 +1,6 @@
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 
-interface OrderTermsAgreementProps {
+interface Props {
   agreed: boolean
   onAgreementChange: (agreed: boolean) => void
 }
@@ -8,7 +8,7 @@ interface OrderTermsAgreementProps {
 export default function OrderTermsAgreement({
   agreed,
   onAgreementChange,
-}: OrderTermsAgreementProps) {
+}: Props) {
   return (
     <div className="px-[15px] py-5">
       <label className="flex items-center gap-2.5 cursor-pointer">

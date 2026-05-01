@@ -3,12 +3,12 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { useRouter } from 'next/navigation'
 
-interface PaymentFailContentProps {
+interface Props {
   errorCode?: string
   errorMessage?: string
 }
 
-export default function PaymentFailContent({ errorCode, errorMessage }: PaymentFailContentProps) {
+export default function PaymentFailContent({ errorCode, errorMessage }: Props) {
   const router = useRouter()
 
   return (

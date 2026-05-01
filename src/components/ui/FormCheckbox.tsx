@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-interface FormCheckboxProps {
+interface Props {
   name: string
   checked: boolean
   onChange: (checked: boolean) => void
 }
 
-export default function FormCheckbox({ name, checked, onChange }: FormCheckboxProps) {
+export default function FormCheckbox({ name, checked, onChange }: Props) {
   return (
     <label className="w-[20px] h-[20px] flex items-center justify-center cursor-pointer shrink-0">
       <input

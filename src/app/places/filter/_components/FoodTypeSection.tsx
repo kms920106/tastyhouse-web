@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import BorderedSection from '@/components/ui/BorderedSection'
 import FoodTypeContent from './FoodTypeContent'
-import { FoodTypeSelectorSkeleton } from './FoodTypeSelector'
+import { FoodTypeSelectorSkeleton } from './FoodTypeSelectorSkeleton'
 
 export default function FoodTypeSection() {
   return (

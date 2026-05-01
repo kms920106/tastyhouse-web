@@ -1,11 +1,11 @@
 import { FaStar } from 'react-icons/fa'
 
-interface RatingStarProps {
+interface Props {
   starIndex: number
   rating: number
 }
 
-export default function RatingStar({ starIndex, rating }: RatingStarProps) {
+export default function RatingStar({ starIndex, rating }: Props) {
   const fullStars = Math.floor(rating)
   const decimal = rating - fullStars
   const fillPercentage = Math.round(decimal * 100)

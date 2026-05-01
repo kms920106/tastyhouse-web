@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils'
 import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/actions/member'
 import Image from 'next/image'
 import Link from 'next/link'
+import ToggleSwitch from './ToggleSwitch'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
 
@@ -39,24 +40,6 @@ const accountInfoSchema = z.object({
 
 type FormErrors = Partial<Record<keyof z.infer<typeof accountInfoSchema>, string>>
 
-interface ToggleSwitchProps {
-  checked: boolean
-  onChange: (checked: boolean) => void
-}
-
-function ToggleSwitch({ checked, onChange }: ToggleSwitchProps) {
-  return (
-    <button type="button" onClick={() => onChange(!checked)} className="shrink-0">
-      <Image
-        src={checked ? '/images/icon-toggle-on.png' : '/images/icon-toggle-off.png'}
-        alt={checked ? '켜짐' : '꺼짐'}
-        width={43}
-        height={24}
-      />
-    </button>
-  )
-}
-
 function parseBirthDate(birthDate: number | null) {
   if (!birthDate) return { year: '', month: '', day: '' }
   const str = String(birthDate)
@@ -67,11 +50,11 @@ function parseBirthDate(birthDate: number | null) {
   }
 }
 
-interface AccountInfoEditFormProps {
+interface Props {
   verifyToken: string
 }
 
-export default function AccountInfoEditForm({ verifyToken }: AccountInfoEditFormProps) {
+export default function AccountInfoEditForm({ verifyToken }: Props) {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [originalPhone, setOriginalPhone] = useState('')

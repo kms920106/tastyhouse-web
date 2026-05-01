@@ -7,14 +7,14 @@ import PlaceImageGallery from './_components/PlaceImageGallerySection'
 import PlaceSummarySection from './_components/PlaceSummarySection'
 import PlaceTabSection from './_components/PlaceTabSection'
 
-interface PlaceDetailPageProps {
+interface Props {
   params: Promise<{
     id: string
   }>
   searchParams: Promise<{ tab?: string }>
 }
 
-export async function generateMetadata({ params }: PlaceDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const placeId = Number(id)
 
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PlaceDetailPageProps): Promis
   }
 }
 
-export default async function PlaceDetailPage({ params, searchParams }: PlaceDetailPageProps) {
+export default async function PlaceDetailPage({ params, searchParams }: Props) {
   const { id } = await params
   const searchParamsData = await searchParams
 

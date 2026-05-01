@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { LiaPlusSolid } from 'react-icons/lia'
 
-interface CartItemListProps {
+interface Props {
   cartItems: OrderItem[]
   placeName: string
   selectedKeys: Set<string>
@@ -21,7 +21,7 @@ export default function CartItemList({
   onToggleSelect,
   onQuantityChange,
   onRemove,
-}: CartItemListProps) {
+}: Props) {
   const router = useRouter()
 
   if (cartItems.length === 0) {

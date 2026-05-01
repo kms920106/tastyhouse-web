@@ -26,7 +26,7 @@ export function useFilterState() {
   return context
 }
 
-interface FilterStateProviderProps {
+interface Props {
   children: ReactNode
   initialStationId?: number
   initialFoodTypes?: string[]
@@ -38,7 +38,7 @@ export default function FilterStateProvider({
   initialStationId,
   initialFoodTypes = [],
   initialAmenities = [],
-}: FilterStateProviderProps) {
+}: Props) {
   const router = useRouter()
 
   const [selectedStationId, setSelectedStationId] = useState<number | undefined>(initialStationId)

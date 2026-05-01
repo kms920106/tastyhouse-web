@@ -5,7 +5,7 @@ import useFileUpload from '@/hooks/useFileUpload'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
-interface PhotoUploaderProps {
+interface Props {
   maxCount?: number
   onUploadedFileIdsChange: (fileIds: number[]) => void
   onUploadingChange?: (isUploading: boolean) => void
@@ -15,7 +15,7 @@ export default function PhotoUploader({
   maxCount = 5,
   onUploadedFileIdsChange,
   onUploadingChange,
-}: PhotoUploaderProps) {
+}: Props) {
   const { uploadedFiles, isUploading, handleInputChange, removeAt } = useFileUpload({ maxCount })
 
   useEffect(() => {

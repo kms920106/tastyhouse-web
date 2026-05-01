@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
-import PrizeList, { PrizeListSkeleton } from './PrizeList'
+import PrizeList from './PrizeList'
+import { PrizeListSkeleton } from './PrizeListSkeleton'
 
 export default function PrizeListSection() {
   return (

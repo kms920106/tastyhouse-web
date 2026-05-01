@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from './shadcn/dialog'
 
-interface AppAlertDialogProps {
+interface Props {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   trigger?: React.ReactNode
@@ -30,7 +30,7 @@ export default function AppAlertDialog({
   descriptionComponent,
   confirmLabel = '확인',
   onConfirm,
-}: AppAlertDialogProps) {
+}: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}

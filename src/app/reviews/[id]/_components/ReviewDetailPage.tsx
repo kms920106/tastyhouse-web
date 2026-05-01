@@ -6,7 +6,7 @@ import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import CommentInputSection from './CommentInputSection'
 import CommentListSection from './CommentListSection'
 import { ReplyProvider } from './ReplyContext'
-import ReviewInfoSection, { ReviewInfoViewProps } from './ReviewInfoSection'
+import ReviewInfoSection from './ReviewInfoSection'
 
 interface Props {
   reviewId: number
@@ -37,22 +37,21 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
     tagNames,
   } = data
 
-  const reviewInfoView = {
-    reviewId: id,
-    memberId,
-    memberNickname,
-    memberProfileImageUrl,
-    createdAt,
-    imageUrls,
-    content,
-    tagNames,
-  } satisfies ReviewInfoViewProps
-
   return (
     <ReplyProvider>
       <ReviewDetailHeader memberNickname={memberNickname} />
       <div className="pb-20">
-        <ReviewInfoSection review={reviewInfoView} isLoggedIn={isLoggedIn} />
+        <ReviewInfoSection
+          reviewId={id}
+          memberId={memberId}
+          memberNickname={memberNickname}
+          memberProfileImageUrl={memberProfileImageUrl}
+          createdAt={createdAt}
+          imageUrls={imageUrls}
+          content={content}
+          tagNames={tagNames}
+          isLoggedIn={isLoggedIn}
+        />
         <CommentListSection reviewId={reviewId} />
       </div>
       <CommentInputSection isLoggedIn={isLoggedIn} reviewId={reviewId} />

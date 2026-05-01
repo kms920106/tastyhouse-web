@@ -9,11 +9,11 @@ import Header, {
 import { BackButton } from '@/components/layouts/header-parts'
 import { RxReload } from 'react-icons/rx'
 
-interface FilterHeaderSectionProps {
+interface Props {
   onReset: () => void
 }
 
-export default function FilterHeaderSection({ onReset }: FilterHeaderSectionProps) {
+export default function FilterHeaderSection({ onReset }: Props) {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>

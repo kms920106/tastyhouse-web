@@ -2,18 +2,13 @@
 
 import ImageLightbox from '@/components/reviews/ImageLightbox'
 import ImageSwiper from '@/components/reviews/ImageSwiper'
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { useState } from 'react'
 
-export function ImageGallerySkeleton() {
-  return <Skeleton className="aspect-[345/190] w-full rounded-none" />
-}
-
-interface ImageGalleryProps {
+interface Props {
   imageUrls: string[]
 }
 
-export default function ImageGallery({ imageUrls }: ImageGalleryProps) {
+export default function ImageGallery({ imageUrls }: Props) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
 

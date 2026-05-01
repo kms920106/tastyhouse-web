@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import CancelResultDialog from './CancelResultDialog'
 
-interface CancelOrderButtonProps {
+interface Props {
   paymentId: number
   paymentStatus: PaymentStatus
   phoneNumber: string
@@ -18,7 +18,7 @@ export default function CancelOrderButton({
   paymentId,
   paymentStatus,
   phoneNumber,
-}: CancelOrderButtonProps) {
+}: Props) {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)

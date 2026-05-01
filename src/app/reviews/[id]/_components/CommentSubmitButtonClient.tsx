@@ -7,11 +7,11 @@ import { useState } from 'react'
 import CommentSubmitButton from './CommentSubmitButton'
 import { useReply } from './ReplyContext'
 
-interface CommentSubmitButtonClientProps {
+interface Props {
   reviewId: number
 }
 
-export default function CommentSubmitButtonClient({ reviewId }: CommentSubmitButtonClientProps) {
+export default function CommentSubmitButtonClient({ reviewId }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { replyTarget, clearReply, commentText, setCommentText, setIsFocused, textareaRef } =
     useReply()

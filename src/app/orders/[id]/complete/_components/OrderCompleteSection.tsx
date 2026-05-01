@@ -5,11 +5,11 @@ import type { OrderDetailResponse } from '@/domains/order'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface OrderCompleteSectionProps {
+interface Props {
   orderDetail: OrderDetailResponse
 }
 
-export default function OrderCompleteSection({ orderDetail }: OrderCompleteSectionProps) {
+export default function OrderCompleteSection({ orderDetail }: Props) {
   const { id, orderNumber } = orderDetail
 
   return (

@@ -1,11 +1,11 @@
 'use client'
 
-interface TabAsideProps {
+interface Props {
   isOpen: boolean
   closePanel: () => void
 }
 
-export default function SideBar({ isOpen, closePanel }: TabAsideProps) {
+export default function SideBar({ isOpen, closePanel }: Props) {
   return (
     <aside
       className={`absolute top-0 left-0 z-40 size-70 h-full bg-white shadow-lg transition-transform duration-300

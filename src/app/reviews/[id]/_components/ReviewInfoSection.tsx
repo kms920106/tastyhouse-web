@@ -5,7 +5,7 @@ import ReviewLikeButton from './ReviewLikeButton'
 import ReviewLikeButtonServer from './ReviewLikeButtonServer'
 import ReviewOptionDrawerServer from './ReviewOptionDrawerServer'
 
-export interface ReviewInfoViewProps {
+interface Props {
   reviewId: number
   memberId: number
   memberNickname: string
@@ -14,24 +14,20 @@ export interface ReviewInfoViewProps {
   imageUrls: string[]
   content: string
   tagNames: string[]
-}
-
-interface ReviewInfoSectionProps {
-  review: ReviewInfoViewProps
   isLoggedIn: boolean
 }
 
-export default function ReviewInfoSection({ review, isLoggedIn }: ReviewInfoSectionProps) {
-  const {
-    reviewId,
-    memberId,
-    memberNickname,
-    memberProfileImageUrl,
-    createdAt,
-    imageUrls,
-    content,
-    tagNames,
-  } = review
+export default function ReviewInfoSection({
+  reviewId,
+  memberId,
+  memberNickname,
+  memberProfileImageUrl,
+  createdAt,
+  imageUrls,
+  content,
+  tagNames,
+  isLoggedIn,
+}: Props) {
 
   return (
     <section className="px-[15px] pt-5 pb-8 border-b border-[#eeeeee] box-border">

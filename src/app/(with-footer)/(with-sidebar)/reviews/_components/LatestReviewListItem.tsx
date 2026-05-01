@@ -16,11 +16,11 @@ type LatestReviewItem = {
   createdAt: string
 }
 
-interface LatestReviewListItemProps {
+interface Props {
   review: LatestReviewItem
 }
 
-export default function LatestReviewListItem({ review }: LatestReviewListItemProps) {
+export default function LatestReviewListItem({ review }: Props) {
   const {
     id,
     imageUrls,

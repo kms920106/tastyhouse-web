@@ -18,13 +18,13 @@ function Layout({ children }: { children: React.ReactNode }) {
   return <section>{children}</section>
 }
 
-interface ReviewProductInfoSectionProps {
+interface Props {
   reviewId: number
 }
 
 export default async function ReviewProductInfoSection({
   reviewId,
-}: ReviewProductInfoSectionProps) {
+}: Props) {
   const { error, data } = await reviewRepository.getReviewProductDetail(reviewId)
 
   if (error) {

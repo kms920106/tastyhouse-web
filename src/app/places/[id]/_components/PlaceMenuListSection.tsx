@@ -4,11 +4,11 @@ import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import PlaceMenuListFetcher from './PlaceMenuListFetcher'
 
-interface PlaceMenuListSectionProps {
+interface Props {
   placeId: number
 }
 
-export default function PlaceMenuListSection({ placeId }: PlaceMenuListSectionProps) {
+export default function PlaceMenuListSection({ placeId }: Props) {
   return (
     <section className="px-[15px] pb-[70px]">
       <PlaceMenuListFetcher placeId={placeId} />

@@ -1,6 +1,6 @@
 import { formatNumber } from '@/lib/number'
 
-interface PaymentSummaryProps {
+interface Props {
   totalProductAmount: number
   totalDiscountAmount: number
   totalProductPaymentAmount: number
@@ -10,7 +10,7 @@ export default function PaymentSummary({
   totalProductAmount,
   totalDiscountAmount,
   totalProductPaymentAmount,
-}: PaymentSummaryProps) {
+}: Props) {
   return (
     <div className="px-[15px] py-5 border-t-8 border-[#f5f5f5] box-border">
       <div className="space-y-5">

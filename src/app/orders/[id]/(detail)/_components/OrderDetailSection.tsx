@@ -13,11 +13,11 @@ import SectionStack from '@/components/ui/SectionStack'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { orderRepository } from '@/domains/order'
 
-interface OrderDetailSectionProps {
+interface Props {
   orderId: number
 }
 
-export default async function OrderDetailSection({ orderId }: OrderDetailSectionProps) {
+export default async function OrderDetailSection({ orderId }: Props) {
   const { data } = await orderRepository.getOrderDetail(orderId)
 
   if (!data) {

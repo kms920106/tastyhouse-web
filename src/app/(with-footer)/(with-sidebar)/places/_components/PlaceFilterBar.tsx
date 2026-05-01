@@ -6,7 +6,7 @@ import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { BiFilterAlt } from 'react-icons/bi'
 
-interface PlaceFilterBarProps {
+interface Props {
   totalCount: number
   isLoading?: boolean
   stationId?: number
@@ -20,7 +20,7 @@ export default function PlaceFilterBar({
   stationId,
   foodTypes,
   amenities,
-}: PlaceFilterBarProps) {
+}: Props) {
   const filterHref = (() => {
     const params = new URLSearchParams()
 

@@ -1,12 +1,12 @@
 import { PiHeartFill, PiHeartThin } from 'react-icons/pi'
 
-interface ReviewLikeButtonProps {
+interface Props {
   onClick?: () => void
   disabled?: boolean
   isLiked: boolean
 }
 
-export default function ReviewLikeButton({ onClick, disabled, isLiked }: ReviewLikeButtonProps) {
+export default function ReviewLikeButton({ onClick, disabled, isLiked }: Props) {
   return (
     <button
       onClick={onClick}

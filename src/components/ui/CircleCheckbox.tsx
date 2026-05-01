@@ -1,11 +1,11 @@
 import Image from 'next/image'
 
-interface CircleCheckboxProps {
+interface Props {
   checked: boolean
   onChange: (value: boolean) => void
 }
 
-export default function CircleCheckbox({ checked, onChange }: CircleCheckboxProps) {
+export default function CircleCheckbox({ checked, onChange }: Props) {
   return (
     <button
       type="button"

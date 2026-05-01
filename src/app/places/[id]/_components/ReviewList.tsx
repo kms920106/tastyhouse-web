@@ -4,11 +4,11 @@ import { getPlaceReviews } from '@/actions/place'
 import ReviewPanel from '@/components/reviews/ReviewPanel'
 import { PAGE_PATHS } from '@/lib/paths'
 
-interface ReviewListProps {
+interface Props {
   placeId: number
 }
 
-export default function ReviewList({ placeId }: ReviewListProps) {
+export default function ReviewList({ placeId }: Props) {
   return (
     <ReviewPanel
       queryOptions={{

@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
-import CommentList, { CommentListSkeleton } from './CommentList'
+import CommentList from './CommentList'
+import { CommentListSkeleton } from './CommentListSkeleton'
 
 interface Props {
   reviewId: number

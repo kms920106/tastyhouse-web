@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
-interface SocialPhoneVerificationStepProps {
+interface Props {
   provider: SocialProvider
   tempToken: string
   onLinked: (params: { phone: string; phoneVerifyToken: string }) => void
@@ -38,7 +38,7 @@ export default function SocialPhoneVerificationStep({
   tempToken,
   onLinked,
   onNeedsSignUp,
-}: SocialPhoneVerificationStepProps) {
+}: Props) {
   const router = useRouter()
   const [phoneError, setPhoneError] = useState<string | undefined>()
   const [isProcessing, startProcessing] = useTransition()

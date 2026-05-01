@@ -1,7 +1,7 @@
-import AppButton, { type AppButtonProps } from '@/components/ui/AppButton'
+import AppButton, { type Props } from '@/components/ui/AppButton'
 import { cn } from '@/lib/utils'
 
-export default function AppOutlineButton({ className, ...props }: AppButtonProps) {
+export default function AppOutlineButton({ className, ...props }: Props) {
   return (
     <AppButton
       className={cn(
