@@ -1,14 +1,13 @@
 'use server'
 
-import { followRepository } from '@/domains/follow'
-import { PaginationParams } from '@/types/common'
+import { followRepository } from '@/domains/follow/follow.repository'
 
-export async function getFollowingList(memberId: number, params: PaginationParams) {
-  return followRepository.getFollowingList(memberId, params)
+export async function getFollowingList(memberId: number, { page, size }: { page: number; size: number }) {
+  return followRepository.getFollowingList(memberId, { page, size })
 }
 
-export async function getFollowerList(memberId: number, params: PaginationParams) {
-  return followRepository.getFollowerList(memberId, params)
+export async function getFollowerList(memberId: number, { page, size }: { page: number; size: number }) {
+  return followRepository.getFollowerList(memberId, { page, size })
 }
 
 export async function followMember(memberId: number) {

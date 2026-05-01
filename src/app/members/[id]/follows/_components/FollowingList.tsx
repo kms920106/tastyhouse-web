@@ -1,7 +1,7 @@
 'use client'
 
 import { getFollowingList } from '@/actions/follow'
-import { FollowMemberResponse } from '@/domains/follow'
+import { MemberSocialProfile } from '@/domains/follow'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -79,10 +79,10 @@ export default function FollowingList({ memberId, searchQuery }: Props) {
   return (
     <>
       <div className="flex flex-col gap-[30px] py-[30px]">
-        {filtered.map((member) => (
+        {filtered.map((member: MemberSocialProfile) => (
           <FollowListItem
             key={member.memberId}
-            member={member as FollowMemberResponse}
+            member={member}
             tab="following"
             onFollowToggle={handleFollowToggle}
             onRemoveFollower={() => {}}

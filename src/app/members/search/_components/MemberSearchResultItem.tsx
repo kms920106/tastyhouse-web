@@ -2,12 +2,12 @@
 
 import FollowButton from '@/components/ui/FollowButton'
 import MemberProfileCell from '@/components/ui/MemberProfileCell'
-import { MemberSocialResponse } from '@/domains/follow'
+import { MemberSocialProfile } from '@/domains/follow'
 import Link from 'next/link'
 
 interface Props {
-  member: MemberSocialResponse
-  onFollowToggle: (member: MemberSocialResponse) => void
+  member: MemberSocialProfile
+  onFollowToggle: (member: MemberSocialProfile) => void
 }
 
 export default function MemberSearchResultItem({

@@ -4,15 +4,15 @@ import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import FollowButton from '@/components/ui/FollowButton'
 import MemberProfileCell from '@/components/ui/MemberProfileCell'
-import { MemberSocialResponse } from '@/domains/follow'
+import { MemberSocialProfile } from '@/domains/follow'
 import Link from 'next/link'
 import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
 interface Props {
-  member: MemberSocialResponse
+  member: MemberSocialProfile
   tab: 'following' | 'follower'
-  onFollowToggle: (member: MemberSocialResponse) => void
+  onFollowToggle: (member: MemberSocialProfile) => void
   onRemoveFollower: (memberId: number) => void
 }
 
