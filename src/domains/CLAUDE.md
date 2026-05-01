@@ -157,10 +157,14 @@ export interface PlaceAmenity {
 ```
 
 - ✅ 여러 곳에서 재사용되는 객체 (e.g. `PlaceInfoResponse.businessHours: PlaceBusinessHour[]`)
+- ✅ `src/app/` 컴포넌트(페이지, `_components/`)에서 해당 타입을 직접 참조하는 경우
 - ✅ Suffix 없음 (단순 명사)
 - ❌ Response/Query/Request suffix가 붙는 타입은 dto.ts로
 
-**언제 생성?**: 같은 객체 구조가 여러 DTO에 등장하거나, 도메인 로직에서 별도 인터페이스가 필요할 때만.
+**언제 생성?**: 다음 중 하나라도 해당하면 생성.
+- 같은 객체 구조가 여러 DTO에 중첩되는 경우
+- `src/app/` 내 컴포넌트에서 해당 타입을 직접 사용하는 경우 (Props 타입 등)
+- 도메인 로직에서 별도 인터페이스가 필요한 경우
 
 ---
 
@@ -658,6 +662,7 @@ import { getPlaceFoodTypeCodeName } from '@/domains/place'
 
 - [ ] 필수 파일(`index.ts`, `types.ts`, `dto.ts`, `repository.ts`)이 모두 존재하는가?
 - [ ] 조건부 파일(`constants.ts`, `model.ts`, `service.ts`)을 생성한 경우, 그 파일에 들어갈 실질적인 내용이 있는가? (빈 파일이면 생략)
+- [ ] `src/app/` 컴포넌트에서 직접 참조하는 객체 타입이 있다면 `model.ts`에 정의했는가?
 - [ ] `index.ts`가 client-safe layer(`types`, `constants`, `model`, `dto`)만 `export *`로 재내보내는가?
 - [ ] `index.ts`에 `repository`, `service` export가 **없는가**?
 
