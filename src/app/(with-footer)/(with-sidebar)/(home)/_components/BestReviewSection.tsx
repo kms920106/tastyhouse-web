@@ -1,6 +1,4 @@
-import { Suspense } from 'react'
 import BestReviewContent from './BestReviewContent'
-import { BestReviewSwiperSkeleton } from './BestReviewSwiperSkeleton'
 import SectionHeader from './SectionHeader'
 
 export default async function BestReviewSection() {
@@ -10,9 +8,7 @@ export default async function BestReviewSection() {
         title="베스트 리뷰"
         description="테하인들의 마음을 사로잡은 리뷰를 소개합니다."
       />
-      <Suspense fallback={<BestReviewSwiperSkeleton />}>
-        <BestReviewContent />
-      </Suspense>
+      <BestReviewContent />
     </section>
   )
 }
