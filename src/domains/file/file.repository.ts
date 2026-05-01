@@ -1,4 +1,6 @@
+import 'server-only'
 import { api } from '@/lib/api'
+import { FileUploadResponse } from './file.dto'
 
 const ENDPOINT = '/api/files'
 
@@ -7,6 +9,6 @@ export const fileRepository = {
     const formData = new FormData()
     formData.append('file', file)
 
-    return api.upload(`${ENDPOINT}/v1/upload`, formData)
+    return api.upload<FileUploadResponse>(`${ENDPOINT}/v1/upload`, formData)
   },
 }
