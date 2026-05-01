@@ -1,2 +1,1 @@
-export * from './bug-report.repository'
-export * from './bug-report.type'
+export * from './bug-report.dto'
