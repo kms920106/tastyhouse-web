@@ -1,2 +1,2 @@
-export * from './event.repository'
-export * from './event.type'
+export * from './event.dto'
+export * from './event.types'

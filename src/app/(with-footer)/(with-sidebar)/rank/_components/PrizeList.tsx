@@ -1,5 +1,5 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { eventRepository } from '@/domains/event'
+import { eventRepository } from '@/domains/event/event.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import Image from 'next/image'
 

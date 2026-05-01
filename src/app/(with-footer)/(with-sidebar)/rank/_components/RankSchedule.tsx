@@ -1,4 +1,4 @@
-import { eventRepository } from '@/domains/event'
+import { eventRepository } from '@/domains/event/event.repository'
 import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
 
 export default async function RankSchedule() {

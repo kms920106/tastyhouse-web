@@ -1,4 +1,4 @@
-import { eventRepository } from "@/domains/event"
+import { eventRepository } from '@/domains/event/event.repository'
 import Image from 'next/image'
 import HeaderSection from './HeaderSection'
 
