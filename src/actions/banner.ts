@@ -1,12 +1,11 @@
 'use server'
 
-import { PaginationParams } from '@/types/common'
 import { bannerRepository } from '@/domains/banner/banner.repository'
 
-export async function getHomeBanners(query: PaginationParams) {
-  return bannerRepository.getHomeBanners(query)
+export async function getHomeBanners({ page, size }: { page: number; size: number }) {
+  return bannerRepository.getHomeBanners({ page, size })
 }
 
-export async function getSidebarBanners(query: PaginationParams) {
-  return bannerRepository.getSidebarBanners(query)
+export async function getSidebarBanners({ page, size }: { page: number; size: number }) {
+  return bannerRepository.getSidebarBanners({ page, size })
 }
