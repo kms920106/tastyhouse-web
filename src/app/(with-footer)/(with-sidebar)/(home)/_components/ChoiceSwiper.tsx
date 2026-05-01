@@ -5,8 +5,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import ProductItem from '@/components/products/ProductItem'
-import type { Place } from '@/domains/place'
-import type { Product } from '@/domains/product'
+import { Product } from '@/domains/product'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,8 +13,17 @@ import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { ChoiceSwiperSkeleton } from './ChoiceSwiperSkeleton'
 
+interface ChoicePlace {
+  id: number
+  imageUrl: string
+  name: string
+  title: string
+  content: string
+  products: Product[]
+}
+
 interface Props {
-  places: Place[]
+  places: ChoicePlace[]
 }
 
 export default function ChoiceSwiper({ places }: Props) {
@@ -41,7 +49,7 @@ export default function ChoiceSwiper({ places }: Props) {
   return (
     <>
       <Swiper spaceBetween={20} slidesPerView={1.15} className="pb-12">
-        {places.map((place: Place) => (
+        {places.map((place: ChoicePlace) => (
           <SwiperSlide key={place.id}>
             <Link href={PAGE_PATHS.PLACE_DETAIL(place.id)}>
               <div className="relative w-full aspect-[2/3] overflow-hidden">

@@ -1,13 +1,3 @@
-export interface Product {
-  id: number
-  name: string
-  placeName: string
-  imageUrl: string
-  originalPrice: number
-  discountPrice: number
-  discountRate: number
-}
-
 export interface ProductOption {
   id: number
   name: string

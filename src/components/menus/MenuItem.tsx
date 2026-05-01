@@ -1,11 +1,11 @@
 import ImageContainer from '@/components/ui/ImageContainer'
 import Rating from '@/components/ui/Rating'
-import { PlaceMenu } from '@/domains/place'
+import { Menu } from '@/domains/product'
 import { formatDecimal, formatNumber } from '@/lib/number'
 import Image from 'next/image'
 
 interface Props {
-  menu: PlaceMenu
+  menu: Menu
 }
 
 export default function MenuItem({ menu }: Props) {

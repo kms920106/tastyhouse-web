@@ -1,23 +1,20 @@
 import { api } from '@/lib/api'
+import { PaginationParams } from '@/types/common'
 import {
-  MenuCategory,
-  PlaceAmenity,
+  MenuCategoryResponse,
+  PlaceAmenityResponse,
   PlaceBannerListItemResponse,
   PlaceBestListItemResponse,
-  PlaceBestQuery,
   PlaceBookmarkResponse,
   PlaceChoiceListItemResponse,
-  PlaceChoiceQuery,
   PlaceFoodTypeListItemResponse,
   PlaceInfoResponse,
   PlaceLatestListItemResponse,
-  PlaceLatestQuery,
   PlaceMapMarkerResponse,
   PlaceNameResponse,
   PlaceOrderMethodResponse,
   PlacePhotoCategoryResponse,
   PlaceReviewStatisticsResponse,
-  PlaceReviewsByRatingQuery,
   PlaceReviewsByRatingResponse,
   PlaceStationListItemResponse,
   PlaceSummaryResponse,
@@ -26,16 +23,21 @@ import {
 const ENDPOINT = '/api/places'
 
 export const placeRepository = {
-  async getLatestPlaces(params: PlaceLatestQuery) {
-    return api.get<PlaceLatestListItemResponse[]>(`${ENDPOINT}/v1/latest`, { params })
-  },
-  async getBestPlaces(params: PlaceBestQuery) {
-    return api.get<PlaceBestListItemResponse[]>(`${ENDPOINT}/v1/best`, { params })
-  },
-  async getChoicePlaces(params: PlaceChoiceQuery) {
-    return api.get<PlaceChoiceListItemResponse[]>(`${ENDPOINT}/v1/editor-choice`, {
+  async getLatestPlaces(params: PaginationParams) {
+    return api.get<PlaceLatestListItemResponse[], PaginationParams>(`${ENDPOINT}/v1/latest`, {
       params,
     })
+  },
+  async getBestPlaces(params: PaginationParams) {
+    return api.get<PlaceBestListItemResponse[], PaginationParams>(`${ENDPOINT}/v1/best`, { params })
+  },
+  async getChoicePlaces(params: PaginationParams) {
+    return api.get<PlaceChoiceListItemResponse[], PaginationParams>(
+      `${ENDPOINT}/v1/editor-choice`,
+      {
+        params,
+      },
+    )
   },
   async getPlaceStations() {
     return api.get<PlaceStationListItemResponse[]>(`${ENDPOINT}/v1/stations`)
@@ -44,7 +46,7 @@ export const placeRepository = {
     return api.get<PlaceFoodTypeListItemResponse[]>(`${ENDPOINT}/v1/food-types`)
   },
   async getPlaceAmenities() {
-    return api.get<PlaceAmenity[]>(`${ENDPOINT}/v1/amenities`)
+    return api.get<PlaceAmenityResponse[]>(`${ENDPOINT}/v1/amenities`)
   },
   async getPlaceName(placeId: number) {
     return api.get<PlaceNameResponse>(`${ENDPOINT}/v1/${placeId}/name`)
@@ -65,17 +67,15 @@ export const placeRepository = {
     return api.get<PlaceInfoResponse>(`${ENDPOINT}/v1/${placeId}/info`)
   },
   async getPlaceMenus(placeId: number) {
-    return api.get<MenuCategory[]>(`${ENDPOINT}/v1/${placeId}/menus`)
+    return api.get<MenuCategoryResponse[]>(`${ENDPOINT}/v1/${placeId}/menus`)
   },
   async getPlacePhotos(placeId: number) {
     return api.get<PlacePhotoCategoryResponse[]>(`${ENDPOINT}/v1/${placeId}/photos`)
   },
   async getPlaceReviewStatistics(placeId: number) {
-    return api.get<PlaceReviewStatisticsResponse>(
-      `${ENDPOINT}/v1/${placeId}/reviews/statistics`,
-    )
+    return api.get<PlaceReviewStatisticsResponse>(`${ENDPOINT}/v1/${placeId}/reviews/statistics`)
   },
-  async getPlaceReviews(placeId: number, params: PlaceReviewsByRatingQuery) {
+  async getPlaceReviews(placeId: number, params: PaginationParams) {
     return api.get<PlaceReviewsByRatingResponse>(`${ENDPOINT}/v1/${placeId}/reviews`, {
       params,
     })

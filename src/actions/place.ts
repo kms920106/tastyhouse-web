@@ -1,12 +1,6 @@
 'use server'
 
-import {
-  placeRepository,
-  placeService,
-  PlaceLatestQuery,
-  PlaceMapMarkerResponse,
-  PlaceReviewsByRatingQuery,
-} from '@/domains/place'
+import { PlaceMapMarkerResponse, placeRepository, placeService } from '@/domains/place'
 
 export async function getMapMarkers(params: {
   latitude: number
@@ -20,8 +14,8 @@ export async function togglePlaceBookmark(placeId: number) {
   return placeRepository.togglePlaceBookmark(placeId)
 }
 
-export async function getLatestPlaces(query: PlaceLatestQuery) {
-  return placeRepository.getLatestPlaces(query)
+export async function getLatestPlaces({ page, size }: { page: number; size: number }) {
+  return placeRepository.getLatestPlaces({ page, size })
 }
 
 export async function getPlaceInfo(placeId: number) {
@@ -40,8 +34,8 @@ export async function getPlaceReviewStatistics(placeId: number) {
   return placeRepository.getPlaceReviewStatistics(placeId)
 }
 
-export async function getPlaceReviews(placeId: number, query: PlaceReviewsByRatingQuery) {
-  return placeRepository.getPlaceReviews(placeId, query)
+export async function getPlaceReviews(placeId: number, { page, size }: { page: number; size: number }) {
+  return placeRepository.getPlaceReviews(placeId, { page, size })
 }
 
 export async function getPlaceFoodTypes() {

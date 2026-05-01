@@ -1,88 +1,14 @@
-import type { Product } from '@/domains/product'
-import type { PaginationParams } from '@/types/common'
-import type { OrderMethodItem } from '../order/order.type'
-import type { PlaceAmenityCode, PlaceFoodType } from './place.types'
+import { PaginationParams } from '@/types/common'
+import type { PlaceAmenityCode, PlaceFoodType } from '.'
+import { PlaceAmenity, PlaceBreakTime, PlaceBusinessHour, PlaceClosedDay } from '.'
+import { OrderMethodItem } from '../order/order.type'
+import { Menu } from '../product'
 
-export interface Place {
-  id: number
-  imageUrl: string
-  name: string
-  title: string
-  content: string
-  products: Product[]
-}
-
-export interface PlaceMenu {
-  id: number
-  imageUrl: string
-  spiciness: number | null
-  name: string
-  originalPrice: number
-  discountPrice: number
-  discountRate: number | null
-  rating: number | null
-  reviewCount: number | null
-  isRepresentative: boolean | null
-}
-
-export interface PlaceBusinessHour {
-  dayType: string
-  dayTypeDescription: string
-  openTime: string
-  closeTime: string
-  isClosed: boolean
-}
-
-export interface PlaceBreakTimes {
-  dayType: string
-  dayTypeDescription: string
-  startTime: string
-  endTime: string
-}
-
-export interface PlaceClosedDay {
-  closedDayType: string
-  description: string
-}
-
-export interface PlaceFilterParams {
+export interface PlaceLatestQuery extends PaginationParams {
   stationId?: number
   foodTypes?: PlaceFoodType[]
   amenities?: PlaceAmenityCode[]
 }
-
-export interface PlaceStation {
-  id: number
-  name: string
-}
-
-export interface PlaceFood {
-  code: PlaceFoodType
-  name: string
-  activeImageUrl: string
-  inactiveImageUrl: string
-}
-
-export interface PlaceAmenity {
-  code: PlaceAmenityCode
-  name: string
-  activeImageUrl: string
-  inactiveImageUrl: string
-}
-
-export type PlaceBestQuery = PaginationParams
-
-export type PlaceChoiceQuery = PaginationParams
-
-export type PlaceLatestQuery = PaginationParams & {
-  stationId?: number
-  foodTypes?: PlaceFoodType[]
-  amenities?: PlaceAmenityCode[]
-}
-
-export type PlaceReviewsByRatingQuery = PaginationParams
-
-export type PlaceMapQuery = PaginationParams
 
 export interface PlaceFoodTypeListItemResponse {
   code: PlaceFoodType
@@ -106,14 +32,16 @@ export interface ProductChoiceListItemResponse {
   discountRate: number
 }
 
-export interface MenuCategory {
-  categoryName: string
-  menus: PlaceMenu[]
-}
-
 export interface PlacePhotoCategoryResponse {
   name: string
   imageUrls: string[]
+}
+
+export interface PlaceAmenityResponse {
+  code: PlaceAmenityCode
+  name: string
+  activeImageUrl: string
+  inactiveImageUrl: string
 }
 
 export interface PlaceNameResponse {
@@ -146,9 +74,14 @@ export interface PlaceInfoResponse {
   ownerMessage: string | null
   ownerMessageCreatedAt: string | null
   businessHours: PlaceBusinessHour[]
-  breakTimes: PlaceBreakTimes[]
+  breakTimes: PlaceBreakTime[]
   closedDays: PlaceClosedDay[]
   amenities: PlaceAmenity[]
+}
+
+export interface MenuCategoryResponse {
+  categoryName: string
+  menus: Menu[]
 }
 
 export interface PlaceBannerListItemResponse {

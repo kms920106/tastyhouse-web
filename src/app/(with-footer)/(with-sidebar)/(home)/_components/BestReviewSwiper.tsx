@@ -16,7 +16,7 @@ import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { BestReviewSwiperSkeleton } from './BestReviewSwiperSkeleton'
 
-type BestReviewItem = {
+interface BestReviewItem {
   id: number
   content: string
   imageUrl: string

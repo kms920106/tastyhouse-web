@@ -3,7 +3,7 @@
 import PlaceOwnerMessageModal from '@/components/modals/PlaceOwnerMessageModal'
 import { FacilityDiv } from '@/components/places/FacilityItem'
 import ClampedText, { MoreButton } from '@/components/ui/ClampedText'
-import type { PlaceAmenity, PlaceBreakTimes, PlaceBusinessHour, PlaceClosedDay } from '@/domains/place'
+import { PlaceAmenity, PlaceBreakTime, PlaceBusinessHour, PlaceClosedDay } from '@/domains/place'
 import Link from 'next/link'
 import { useState } from 'react'
 import { FacilitySelectorLayout } from '../../filter/_components/FacilitySelector'
@@ -21,7 +21,7 @@ type PlaceInfo = {
   ownerMessage: string | null
   ownerMessageCreatedAt: string | null
   businessHours: PlaceBusinessHour[]
-  breakTimes: PlaceBreakTimes[]
+  breakTimes: PlaceBreakTime[]
   closedDays: PlaceClosedDay[]
   amenities: PlaceAmenity[]
 }
