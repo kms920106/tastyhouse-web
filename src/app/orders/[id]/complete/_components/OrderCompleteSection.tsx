@@ -1,12 +1,12 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import type { OrderDetailResponse } from '@/domains/order'
+import type { OrderDetail } from '@/domains/order'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface Props {
-  orderDetail: OrderDetailResponse
+  orderDetail: OrderDetail
 }
 
 export default function OrderCompleteSection({ orderDetail }: Props) {

@@ -1,8 +1,5 @@
-import { PaymentMethod, PaymentStatus } from '../payment'
-
-export type OrderMethod = 'TABLE_ORDER' | 'RESERVATION' | 'DELIVERY' | 'TAKEOUT'
-
-export type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PREPARING' | 'COMPLETED' | 'CANCELLED'
+import type { PaymentMethod, PaymentStatus } from '../payment'
+import type { OrderMethod } from './order.types'
 
 export interface OrderMethodItem {
   code: OrderMethod
@@ -29,30 +26,14 @@ export interface OrderItem {
   selectedOptions: OrderItemOption[]
 }
 
-export interface OrderCreateRequest {
-  placeId: number
-  orderItems: OrderItem[]
-  memberCouponId: number | null
-  usePoint: number
-  totalProductAmount: number
-  totalDiscountAmount: number
-  productDiscountAmount: number
-  couponDiscountAmount: number
-  finalAmount: number
-}
-
-export interface OrderResponse {
-  id: number
-}
-
-export interface OrderItemOptionResponse {
+export interface OrderedItemOption {
   id: number
   optionGroupName: string
   optionName: string
   additionalPrice: number
 }
 
-export interface OrderItemResponse {
+export interface OrderedItem {
   id: number
   productId: number
   productName: string
@@ -62,11 +43,11 @@ export interface OrderItemResponse {
   discountPrice: number | null
   optionTotalPrice: number
   totalPrice: number
-  options: OrderItemOptionResponse[]
+  options: OrderedItemOption[]
   reviewed: boolean
 }
 
-export interface PaymentSummaryResponse {
+export interface Payment {
   id: number
   approvedAt: string
   paymentMethod: PaymentMethod
@@ -75,9 +56,7 @@ export interface PaymentSummaryResponse {
   cardNumber: string | null
 }
 
-export type OrderListResponse = OrderListItemResponse[]
-
-interface OrderListItemResponse {
+export interface Order {
   id: number
   placeName: string
   placeThumbnailImageUrl: string
@@ -88,7 +67,7 @@ interface OrderListItemResponse {
   paymentDate: string
 }
 
-export interface OrderDetailResponse {
+export interface OrderDetail {
   id: number
   orderNumber: string
   paymentStatus: PaymentStatus
@@ -105,7 +84,7 @@ export interface OrderDetailResponse {
   finalAmount: number
   usedPoint: number
   earnedPoint: number
-  orderItems: OrderItemResponse[]
-  payment: PaymentSummaryResponse
+  orderItems: OrderedItem[]
+  payment: Payment
   createdAt: string
 }

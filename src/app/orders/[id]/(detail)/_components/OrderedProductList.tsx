@@ -1,11 +1,11 @@
 import OrderProductItem from '@/components/order/OrderProductItem'
-import type { OrderItemResponse } from '@/domains/order'
+import type { OrderedItem } from '@/domains/order'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
 interface Props {
   placeName: string
-  orderItems: OrderItemResponse[]
+  orderItems: OrderedItem[]
 }
 
 export default function OrderedProductList({ placeName, orderItems }: Props) {

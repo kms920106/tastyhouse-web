@@ -1,5 +1,5 @@
 import ImageContainer from '@/components/ui/ImageContainer'
-import type { OrderItemOptionResponse } from '@/domains/order'
+import type { OrderedItemOption } from '@/domains/order'
 import { formatNumber } from '@/lib/number'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   productImageUrl: string
   unitPrice: number
   quantity?: number
-  options?: OrderItemOptionResponse[]
+  options?: OrderedItemOption[]
   action?: React.ReactNode
 }
 

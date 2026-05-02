@@ -1,5 +1,5 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import { orderRepository } from '@/domains/order'
+import { orderRepository } from '@/domains/order/order.repository'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'

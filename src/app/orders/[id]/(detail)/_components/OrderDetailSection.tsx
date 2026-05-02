@@ -11,7 +11,7 @@ import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import { orderRepository } from '@/domains/order'
+import { orderRepository } from '@/domains/order/order.repository'
 
 interface Props {
   orderId: number

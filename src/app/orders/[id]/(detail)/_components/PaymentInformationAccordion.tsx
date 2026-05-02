@@ -5,16 +5,16 @@ import {
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
 import { getPaymentMethodName } from '@/constants/payment'
-import type { PaymentSummaryResponse } from '@/domains/order'
+import type { Payment } from '@/domains/order'
 import { formatDate } from '@/lib/date'
 
 interface Props {
-  payment: PaymentSummaryResponse
+  payment: Payment
 }
 
-export default function PaymentInformationAccordion({
-  payment,
-}: Props) {
+export default function PaymentInformationAccordion({ payment }: Props) {
+  const { approvedAt, paymentMethod, cardCompany, cardNumber } = payment
+
   return (
     <Accordion type="single" collapsible defaultValue="payment-info">
       <AccordionItem value="payment-info" className="border-b-0">
@@ -27,18 +27,16 @@ export default function PaymentInformationAccordion({
               <div className="flex justify-between">
                 <span className="text-sm leading-[14px]">결제시간</span>
                 <span className="text-sm leading-[14px]">
-                  {formatDate(payment.approvedAt, 'YYYY-MM-DD HH:mm')}
+                  {formatDate(approvedAt, 'YYYY-MM-DD HH:mm')}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm leading-[14px]">결제방법</span>
                 <div className="flex flex-col items-end gap-1">
-                  <p className="text-sm leading-[14px]">
-                    {getPaymentMethodName(payment.paymentMethod)}
-                  </p>
-                  {payment.cardNumber && (
+                  <p className="text-sm leading-[14px]">{getPaymentMethodName(paymentMethod)}</p>
+                  {cardNumber && (
                     <p className="text-[11px] leading-[11px] text-[#aaaaaa]">
-                      {payment.cardCompany}({payment.cardNumber})
+                      {cardCompany}({cardNumber})
                     </p>
                   )}
                 </div>

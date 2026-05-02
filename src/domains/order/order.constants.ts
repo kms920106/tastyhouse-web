@@ -1,4 +1,4 @@
-import { OrderStatus } from '@/domains/order'
+import type { OrderStatus } from './order.types'
 
 const ORDER_STATUS_NAMES: Record<OrderStatus, string> = {
   PENDING: '주문대기',

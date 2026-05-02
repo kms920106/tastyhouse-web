@@ -1,7 +1,7 @@
 import { PaginationParams } from '@/types/common'
 import type { PlaceAmenityCode, PlaceFoodType } from '.'
 import { PlaceAmenity, PlaceBreakTime, PlaceBusinessHour, PlaceClosedDay } from '.'
-import { OrderMethodItem } from '../order/order.type'
+import type { OrderMethodItem } from '../order'
 import { Menu } from '../product'
 
 export interface PlaceLatestQuery extends PaginationParams {

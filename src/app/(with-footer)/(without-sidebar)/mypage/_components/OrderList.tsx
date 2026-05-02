@@ -1,11 +1,11 @@
 import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { OrderListResponse } from '@/domains/order'
+import type { Order } from '@/domains/order'
 import { PAGE_PATHS } from '@/lib/paths'
 import OrderListItem from './OrderListItem'
 
 interface Props {
-  orders: OrderListResponse
+  orders: Order[]
   hasMoreOrders: boolean
 }
 
@@ -17,17 +17,17 @@ export default function OrderList({ orders, hasMoreOrders }: Props) {
   return (
     <>
       <div className="px-[15px] py-[5px] bg-white divide-y divide-[#eeeeee]">
-        {orders.map((payment) => (
+        {orders.map((order) => (
           <OrderListItem
-            key={payment.id}
-            id={payment.id}
-            placeThumbnailImageUrl={payment.placeThumbnailImageUrl}
-            placeName={payment.placeName}
-            firstProductName={payment.firstProductName}
-            totalItemCount={payment.totalItemCount}
-            price={payment.amount}
-            date={payment.paymentDate}
-            paymentStatus={payment.paymentStatus}
+            key={order.id}
+            id={order.id}
+            placeThumbnailImageUrl={order.placeThumbnailImageUrl}
+            placeName={order.placeName}
+            firstProductName={order.firstProductName}
+            totalItemCount={order.totalItemCount}
+            price={order.amount}
+            date={order.paymentDate}
+            paymentStatus={order.paymentStatus}
           />
         ))}
       </div>

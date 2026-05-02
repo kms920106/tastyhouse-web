@@ -7,7 +7,7 @@ import PaymentInformationAccordion from '@/app/orders/[id]/(detail)/_components/
 import RefundPolicySection from '@/app/orders/[id]/(detail)/_components/RefundPolicySection'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { orderRepository } from '@/domains/order'
+import { orderRepository } from '@/domains/order/order.repository'
 import { notFound, redirect } from 'next/navigation'
 
 interface Props {
