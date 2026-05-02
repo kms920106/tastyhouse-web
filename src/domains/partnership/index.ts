@@ -1,2 +1,1 @@
-export * from './partnership.repository'
-export * from './partnership.type'
+export * from './partnership.dto'

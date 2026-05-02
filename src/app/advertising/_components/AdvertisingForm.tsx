@@ -39,7 +39,6 @@ interface FormData extends z.infer<typeof advertisingSchema> {
 
 type FormErrors = Partial<Record<keyof z.infer<typeof advertisingSchema>, string>>
 
-
 function buildConsultationDateTime(date: string, hour: string): string {
   return `${date}T${hour}:00:00`
 }
@@ -112,7 +111,6 @@ export default function AdvertisingForm() {
 
     setIsSubmitting(true)
     try {
-      // const { data, error } = await partnershipRepository.createPartnershipRequest({
       const { data, error } = await createPartnershipRequest({
         businessName: formData.businessName,
         address: formData.address,

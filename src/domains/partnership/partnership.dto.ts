@@ -4,7 +4,7 @@ export interface PartnershipRequestCreateRequest {
   addressDetail: string
   contactName: string
   contactPhone: string
-  consultationRequestedAt: string // ISO 8601: "YYYY-MM-DDTHH:mm:ss"
+  consultationRequestedAt: string
 }
 
 export interface PartnershipRequestResponse {
