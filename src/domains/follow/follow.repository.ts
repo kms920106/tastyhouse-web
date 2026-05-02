@@ -1,6 +1,7 @@
+import 'server-only'
+
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
-import 'server-only'
 import { MemberSocialProfileListItemResponse } from './follow.dto'
 
 const ENDPOINT = '/api/follows'

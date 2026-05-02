@@ -1,13 +1,13 @@
-import { memberRepository } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
 import CouponCard from './CouponCard'
 
 export default async function CouponList() {
-  const { data: coupons } = await memberRepository.getMyCoupons()
+  const { data } = await memberRepository.getMyCoupons()
 
   return (
     <div className="flex flex-col gap-5">
-      {coupons?.map((coupon) => (
-        <CouponCard key={coupon.id} coupon={coupon} />
+      {data?.map((coupon) => (
+        <CouponCard key={coupon.id} memberCoupon={coupon} />
       ))}
     </div>
   )

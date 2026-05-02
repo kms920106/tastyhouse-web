@@ -6,7 +6,7 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import SectionStack from '@/components/ui/SectionStack'
-import type { MemberCouponListItemResponse, MemberInfo } from '@/domains/member'
+import type { MemberCoupon, MemberInfo } from '@/domains/member'
 import type { PaymentMethod } from '@/domains/payment'
 import { useCartInfo } from '@/hooks/useCartInfo'
 import { useTossPayments } from '@/hooks/useTossPayments'
@@ -28,7 +28,7 @@ interface Props {
   placeId: number
   placeName: string
   memberInfo: MemberInfo | null
-  availableCoupons: MemberCouponListItemResponse[]
+  availableCoupons: MemberCoupon[]
   usablePoints: number
 }
 
@@ -44,7 +44,7 @@ export default function OrderCheckoutSection({
   const { items, firstProductName, totalItemCount, totalProductAmount, totalProductDiscount } =
     useCartInfo()
 
-  const [selectedCoupon, setSelectedCoupon] = useState<MemberCouponListItemResponse | null>(null)
+  const [selectedCoupon, setSelectedCoupon] = useState<MemberCoupon | null>(null)
   const [pointInput, setPointInput] = useState('')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod | null>(null)
   const [agreedToTerms, setAgreedToTerms] = useState(false)

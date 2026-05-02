@@ -1,13 +1,13 @@
-import type { MemberCouponListItemResponse } from '@/domains/member'
+import type { MemberCoupon } from '@/domains/member'
 import CouponSelector from './CouponSelector'
 import PointSelector from './PointSelector'
 
 interface Props {
-  availableCoupons: MemberCouponListItemResponse[]
+  availableCoupons: MemberCoupon[]
   totalProductAmount: number
   totalProductDiscountAmount: number
-  selectedCoupon: MemberCouponListItemResponse | null
-  onCouponSelect: (coupon: MemberCouponListItemResponse | null) => void
+  selectedCoupon: MemberCoupon | null
+  onCouponSelect: (coupon: MemberCoupon | null) => void
   availablePoints: number
   pointInput: string
   onPointInputChange: (value: string) => void

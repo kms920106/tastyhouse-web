@@ -1,5 +1,6 @@
-import { api } from '@/lib/api'
 import 'server-only'
+
+import { api } from '@/lib/api'
 import {
   RankDurationResponse,
   RankMemberListItemResponse,

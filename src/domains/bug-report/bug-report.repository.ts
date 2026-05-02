@@ -1,4 +1,5 @@
 import 'server-only'
+
 import { api } from '@/lib/api'
 import { BugReportCreateRequest, BugReportResponse } from './bug-report.dto'
 

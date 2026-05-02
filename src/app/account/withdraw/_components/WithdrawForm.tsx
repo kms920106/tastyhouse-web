@@ -9,15 +9,12 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import SectionStack from '@/components/ui/SectionStack'
-import { WITHDRAW_REASON_LABEL, WithdrawReason } from '@/domains/member/member.type'
+import { WITHDRAW_REASON_OPTIONS, type WithdrawReason } from '@/domains/member'
 import { extractZodFieldErrors } from '@/lib/form'
 import { withdrawMember } from '@/actions/member'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
-
-const WITHDRAW_REASONS = Object.entries(WITHDRAW_REASON_LABEL) as [WithdrawReason, string][]
-
 const NOTICES = [
   '회원 탈퇴시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서 소비자 보호에 관한 법률에 의거해 고객정보 보호정책에 따라 관리됩니다.',
   '탈퇴시 고객님께서 보유하셨던 적립금은 모두 삭제됩니다.',
@@ -25,9 +22,10 @@ const NOTICES = [
 ]
 
 const withdrawSchema = z.object({
-  reason: z.enum(Object.keys(WITHDRAW_REASON_LABEL) as [WithdrawReason, ...WithdrawReason[]], {
-    message: '탈퇴 사유를 선택해 주세요.',
-  }),
+  reason: z.enum(
+    WITHDRAW_REASON_OPTIONS.map((o) => o.value) as [WithdrawReason, ...WithdrawReason[]],
+    { message: '탈퇴 사유를 선택해 주세요.' },
+  ),
 })
 
 type FormErrors = Partial<Record<keyof z.infer<typeof withdrawSchema>, string>>
@@ -104,7 +102,7 @@ export default function WithdrawForm() {
                     <option value="" disabled>
                       선택
                     </option>
-                    {WITHDRAW_REASONS.map(([value, label]) => (
+                    {WITHDRAW_REASON_OPTIONS.map(({ value, label }) => (
                       <option key={value} value={value}>
                         {label}
                       </option>

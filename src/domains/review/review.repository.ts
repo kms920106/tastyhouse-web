@@ -1,5 +1,5 @@
 import { api } from '@/lib/api'
-import { MyReviewListItemResponse } from '@/domains/member/member.type'
+import type { MyReviewListItemResponse } from '@/domains/member/member.dto'
 import { PaginationParams } from '@/types/common'
 import {
   CommentCreateRequest,

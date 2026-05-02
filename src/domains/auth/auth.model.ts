@@ -1,4 +1,4 @@
-import type { Gender } from '@/domains/member'
+import type { MemberGender } from '@/domains/member'
 
 export interface JwtToken {
   accessToken: string
@@ -13,7 +13,7 @@ export interface SocialProfile {
   profileImageUrl: string | null
   name: string | null
   phoneNumber: string | null
-  gender: Gender | null
+  gender: MemberGender | null
   birthYear: string | null
   birthMonth: string | null
   birthDay: string | null

@@ -1,4 +1,4 @@
-import { memberRepository } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
 import { placeRepository } from '@/domains/place/place.repository'
 import PlaceOrderCheckoutContentClient from './PlaceOrderCheckoutContentClient'
 

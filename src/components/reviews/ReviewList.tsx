@@ -1,6 +1,6 @@
 import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { MyReviewListItemResponse } from '@/domains/member/member.type'
+import type { MyReviewListItemResponse } from '@/domains/member'
 import { PAGE_PATHS } from '@/lib/paths'
 import MyReviewListItem from './MyReviewListItem'
 

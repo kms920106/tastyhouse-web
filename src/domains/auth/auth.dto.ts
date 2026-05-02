@@ -1,4 +1,4 @@
-import type { Gender } from '@/domains/member'
+import type { MemberGender } from '@/domains/member'
 import type { JwtToken, SocialProfile } from './auth.model'
 import type { SocialLoginStatus, SocialLinkStatus, SocialProvider } from './auth.types'
 
@@ -94,7 +94,7 @@ export interface SocialSignUpRequest {
   username: string
   nickname: string
   fullName: string
-  gender: Gender
+  gender: MemberGender
   birthDate: number
   phoneNumber: string
   pushNotificationEnabled?: boolean

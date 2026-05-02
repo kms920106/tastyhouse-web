@@ -3,7 +3,7 @@ import { BackButton } from '@/components/layouts/header-parts'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { cn } from '@/lib/utils'
-import { memberRepository } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
 
 export default async function PointSection() {
   const { data } = await memberRepository.getMyPointHistory()

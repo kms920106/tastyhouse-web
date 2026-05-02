@@ -1,8 +1,10 @@
+import 'server-only'
+
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
-import {
+import type {
   MemberCouponListItemResponse,
-  MemberInfo,
+  MemberInfoResponse,
   MemberStatsResponse,
   MyBookmarkedPlaceListItemResponse,
   MyGradeResponse,
@@ -20,7 +22,7 @@ import {
   VerifyPasswordRequest,
   VerifyPasswordResponse,
   WithdrawRequest,
-} from './member.type'
+} from './member.dto'
 
 const ENDPOINT = '/api/members'
 
@@ -43,7 +45,7 @@ export const memberRepository = {
   },
   // 내 프로필 조회
   async getMemberMe() {
-    return api.get<MemberInfo>(`${ENDPOINT}/v1/me`)
+    return api.get<MemberInfoResponse>(`${ENDPOINT}/v1/me`)
   },
   // 특정 회원 통계 조회 (리뷰 수, 팔로잉 수, 팔로워 수)
   async getMemberStats(memberId: number | string) {

@@ -9,18 +9,18 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
-import type { MemberCouponListItemResponse } from '@/domains/member'
+import type { MemberCoupon } from '@/domains/member'
 import { formatNumber } from '@/lib/number'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { useState } from 'react'
 
 interface Props {
-  availableCoupons: MemberCouponListItemResponse[]
+  availableCoupons: MemberCoupon[]
   totalProductAmount: number
   totalProductDiscountAmount: number
-  selectedCoupon: MemberCouponListItemResponse | null
-  onCouponSelect: (coupon: MemberCouponListItemResponse | null) => void
+  selectedCoupon: MemberCoupon | null
+  onCouponSelect: (coupon: MemberCoupon | null) => void
 }
 
 export default function CouponSelector({
@@ -31,7 +31,7 @@ export default function CouponSelector({
   onCouponSelect,
 }: Props) {
   const [couponDrawerOpen, setCouponDrawerOpen] = useState(false)
-  const [tempSelectedCoupon, setTempSelectedCoupon] = useState<MemberCouponListItemResponse | null>(
+  const [tempSelectedCoupon, setTempSelectedCoupon] = useState<MemberCoupon | null>(
     null,
   )
 

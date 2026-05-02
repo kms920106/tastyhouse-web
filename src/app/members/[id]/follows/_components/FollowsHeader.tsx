@@ -5,7 +5,7 @@ import Header, {
   HeaderTitle,
 } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
-import { memberRepository } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
 import Link from 'next/link'
 import { AiOutlinePlus } from 'react-icons/ai'
 

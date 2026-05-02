@@ -1,17 +1,29 @@
 'use client'
 
-import type { MemberCouponListItemResponse } from '@/domains/member'
+import type { MemberCoupon } from '@/domains/member'
 import { formatDate } from '@/lib/date'
 import { formatNumber } from '@/lib/number'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 interface Props {
-  coupon: MemberCouponListItemResponse
+  memberCoupon: MemberCoupon
 }
 
-export default function CouponCard({ coupon }: Props) {
-  const isExpired = coupon.isUsed || coupon.daysRemaining < 0
+export default function CouponCard({ memberCoupon }: Props) {
+  const {
+    name,
+    discountType,
+    discountAmount,
+    maxDiscountAmount,
+    minOrderAmount,
+    useStartAt,
+    useEndAt,
+    isUsed,
+    daysRemaining,
+  } = memberCoupon
+
+  const isExpired = isUsed || daysRemaining < 0
 
   return (
     <div className="relative w-full">
@@ -25,35 +37,35 @@ export default function CouponCard({ coupon }: Props) {
       <div className="absolute inset-0 flex">
         <div className="flex flex-col justify-center w-[70%] px-[20px] py-7 overflow-hidden">
           <span className="text-[21px] leading-[21px] text-[#a91201]">
-            {coupon.discountType === 'AMOUNT'
-              ? `${formatNumber(coupon.discountAmount)}p`
-              : `${coupon.discountAmount}%`}
+            {discountType === 'AMOUNT' ? `${formatNumber(discountAmount)}p` : `${discountAmount}%`}
           </span>
           <span className={cn('mt-[15px] text-sm leading-[18px]', isExpired && 'text-gray-400')}>
-            {coupon.name}
+            {name}
           </span>
           <div className="flex flex-col gap-1 mt-2.5">
-            {coupon.minOrderAmount > 0 && (
+            {minOrderAmount > 0 && (
               <span className="text-xs leading-[14px] text-[#aaaaaa]">
-                {formatNumber(coupon.minOrderAmount)}원 이상 결제시
+                {formatNumber(minOrderAmount)}원 이상 결제시
               </span>
             )}
-            {coupon.discountType === 'RATE' && coupon.maxDiscountAmount && (
+            {discountType === 'RATE' && maxDiscountAmount && (
               <span className="text-xs leading-[14px] text-[#aaaaaa]">
-                최대 {formatNumber(coupon.maxDiscountAmount)}원 할인
+                최대 {formatNumber(maxDiscountAmount)}원 할인
               </span>
             )}
             <span className="text-xs leading-[14px] text-[#aaaaaa]">
-              {formatDate(coupon.useStartAt, 'YYYY-MM-DD')} ~{' '}
-              {formatDate(coupon.useEndAt, 'YYYY-MM-DD')}
+              {formatDate(useStartAt, 'YYYY-MM-DD')} ~ {formatDate(useEndAt, 'YYYY-MM-DD')}
             </span>
           </div>
         </div>
         <div className="flex items-center justify-center w-[30%]">
           <span
-            className={cn('text-base leading-[16px]', isExpired ? 'text-gray-400' : 'text-[#666666]')}
+            className={cn(
+              'text-base leading-[16px]',
+              isExpired ? 'text-gray-400' : 'text-[#666666]',
+            )}
           >
-            {isExpired ? '만료' : `D-${coupon.daysRemaining}`}
+            {isExpired ? '만료' : `D-${daysRemaining}`}
           </span>
         </div>
       </div>

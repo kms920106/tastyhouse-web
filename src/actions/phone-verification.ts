@@ -1,6 +1,6 @@
 'use server'
 
-import { memberRepository } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
 import {
   ConfirmVerificationCodeRequest,
   phoneVerificationRepository,

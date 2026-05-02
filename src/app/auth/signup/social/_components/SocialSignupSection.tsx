@@ -22,7 +22,7 @@ import EmailVerificationField from '@/components/ui/EmailVerificationField'
 import FormCheckbox from '@/components/ui/FormCheckbox'
 import SectionStack from '@/components/ui/SectionStack'
 import type { SocialProfile } from '@/domains/auth'
-import type { Gender } from '@/domains/member'
+import type { MemberGender } from '@/domains/member'
 import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { extractZodFieldErrors } from '@/lib/form'
 import { PAGE_PATHS } from '@/lib/paths'
@@ -82,7 +82,7 @@ export interface SocialSignupFormData {
   username: string
   nickname: string
   fullName: string
-  gender: Gender
+  gender: MemberGender
   birthDate: number
   phoneNumber: string
   pushNotificationEnabled?: boolean
@@ -97,11 +97,7 @@ interface Props {
   onSignUp: (formData: SocialSignupFormData) => Promise<{ success: false; error: string } | null>
 }
 
-export default function SocialSignupSection({
-  socialProfile,
-  phone,
-  onSignUp,
-}: Props) {
+export default function SocialSignupSection({ socialProfile, phone, onSignUp }: Props) {
   const router = useRouter()
 
   const emailVerification = useEmailVerification({
@@ -118,7 +114,7 @@ export default function SocialSignupSection({
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDay, setBirthDay] = useState('')
-  const [gender, setGender] = useState<Gender | null>(null)
+  const [gender, setGender] = useState<MemberGender | null>(null)
 
   const [referrerNickname, setReferrerNickname] = useState('')
   const [isReferrerVerified, setIsReferrerVerified] = useState(false)

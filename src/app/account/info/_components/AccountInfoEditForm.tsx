@@ -9,7 +9,7 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
-import type { Gender } from '@/domains/member'
+import type { MemberGender } from '@/domains/member'
 import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -61,7 +61,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDay, setBirthDay] = useState('')
-  const [gender, setGender] = useState<Gender>('FEMALE')
+  const [gender, setGender] = useState<MemberGender>('FEMALE')
   const [pushNotification, setPushNotification] = useState(false)
   const [marketingNotification, setMarketingNotification] = useState(false)
   const [eventNotification, setEventNotification] = useState(false)

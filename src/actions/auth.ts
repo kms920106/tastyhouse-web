@@ -3,7 +3,7 @@
 import type { SocialProfile } from '@/domains/auth/auth.model'
 import { authRepository } from '@/domains/auth/auth.repository'
 import type { SocialProvider } from '@/domains/auth/auth.types'
-import type { Gender } from '@/domains/member/member.type'
+import type { MemberGender } from '@/domains/member'
 import { AUTH_COOKIE_KEYS, getTokenMaxAge, TOKEN_MAX_AGE } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { revalidatePath } from 'next/cache'
@@ -250,7 +250,7 @@ export async function socialSignUpAction({
   username: string
   nickname: string
   fullName: string
-  gender: Gender
+  gender: MemberGender
   birthDate: number
   phoneNumber: string
   pushNotificationEnabled?: boolean

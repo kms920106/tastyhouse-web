@@ -1,4 +1,4 @@
-import type { MemberCouponListItemResponse } from '@/domains/member'
+import type { MemberCoupon } from '@/domains/member'
 import type { OrderItem } from '@/domains/order'
 
 export interface PaymentSummary {
@@ -50,7 +50,7 @@ export function calculateTotalProductPaymentAmount(items: OrderItem[]): number {
 export function calculatePaymentSummary(
   productTotal: number,
   productDiscount: number,
-  selectedCoupon: MemberCouponListItemResponse | null,
+  selectedCoupon: MemberCoupon | null,
   pointInput: string,
 ): PaymentSummary {
   // 상품 금액에서 상품 할인을 제외한 금액

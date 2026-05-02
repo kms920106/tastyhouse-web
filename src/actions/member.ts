@@ -2,8 +2,8 @@
 
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { cookies } from 'next/headers'
-import {
-  memberRepository,
+import { memberRepository } from '@/domains/member/member.repository'
+import type {
   UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
   UpdateProfileRequest,

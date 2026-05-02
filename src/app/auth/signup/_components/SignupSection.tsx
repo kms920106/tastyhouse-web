@@ -26,8 +26,13 @@ import EmailVerificationField from '@/components/ui/EmailVerificationField'
 import FormCheckbox from '@/components/ui/FormCheckbox'
 import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
-import { EMAIL_ERROR_MESSAGES, EMAIL_REGEX, PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
-import type { Gender } from '@/domains/member'
+import {
+  EMAIL_ERROR_MESSAGES,
+  EMAIL_REGEX,
+  PHONE_ERROR_MESSAGES,
+  PHONE_REGEX,
+} from '@/constants/validation'
+import type { MemberGender } from '@/domains/member'
 import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -151,7 +156,7 @@ export default function SignupSection() {
   const [birthYear, setBirthYear] = useState('')
   const [birthMonth, setBirthMonth] = useState('')
   const [birthDay, setBirthDay] = useState('')
-  const [gender, setGender] = useState<Gender | null>(null)
+  const [gender, setGender] = useState<MemberGender | null>(null)
 
   const [referrerNickname, setReferrerNickname] = useState('')
   const [isReferrerVerified, setIsReferrerVerified] = useState(false)

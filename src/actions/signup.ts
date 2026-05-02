@@ -2,7 +2,7 @@
 
 import { authRepository } from '@/domains/auth/auth.repository'
 import { emailVerificationRepository } from '@/domains/email-verification/email-verification.repository'
-import { memberRepository } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
 import { policyRepository } from '@/domains/policy'
 import { redirect } from 'next/navigation'
 
