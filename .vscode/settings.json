@@ -12,8 +12,8 @@
     "editor.formatOnSave": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit"
+    "source.fixAll.eslint": "explicit"
+    // "source.organizeImports": "explicit" # TypeScript built-in 기능으로, 사용하지 않는 import 제거 + 알파벳 순 정렬
   },
   "eslint.format.enable": false,
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
