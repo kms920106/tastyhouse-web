@@ -13,6 +13,7 @@ import {
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { NoticeListSkeleton } from './NoticeListSkeleton'
+import { Notice } from '@/domains/notice'
 
 const PAGE_SIZE = 10
 
@@ -54,12 +55,8 @@ export default function NoticeList() {
   return (
     <>
       <Accordion type="multiple" className="w-full">
-        {notices.map((notice, index) => (
-          <AccordionItem
-            key={notice.id}
-            value={String(notice.id)}
-            className="border-[#eeeeee]"
-          >
+        {notices.map((notice: Notice, index) => (
+          <AccordionItem key={notice.id} value={String(notice.id)} className="border-[#eeeeee]">
             <AccordionTrigger
               className={cn('w-full px-[16px] py-[18px] hover:no-underline', index === 0 && 'pt-0')}
               showIcon={false}

@@ -1,2 +1,2 @@
-export * from './notice.repository'
-export * from './notice.type'
+export * from './notice.dto'
+export * from './notice.model'

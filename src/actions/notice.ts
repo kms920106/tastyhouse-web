@@ -1,7 +1,7 @@
 'use server'
 
-import { noticeRepository, NoticeListQuery } from '@/domains/notice'
+import { noticeRepository } from '@/domains/notice/notice.repository'
 
-export async function getNoticeList(params: NoticeListQuery) {
-  return noticeRepository.getNoticeList(params)
+export async function getNoticeList({ page, size }: { page: number; size: number }) {
+  return noticeRepository.getNoticeList({ page, size })
 }
