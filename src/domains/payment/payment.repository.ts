@@ -1,3 +1,5 @@
+import 'server-only'
+
 import { api } from '@/lib/api'
 import type {
   PaymentCancelRequest,
@@ -5,7 +7,7 @@ import type {
   PaymentConfirmRequest,
   PaymentCreateRequest,
   PaymentResponse,
-} from './payment.type'
+} from './payment.dto'
 
 const ENDPOINT = '/api/payments'
 

@@ -1,2 +1,3 @@
-export * from './payment.repository'
-export * from './payment.type'
+export * from './payment.dto'
+export * from './payment.model'
+export * from './payment.types'

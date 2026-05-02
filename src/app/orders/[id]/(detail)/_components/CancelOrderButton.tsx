@@ -2,8 +2,9 @@
 
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
-import type { PaymentCancelCode, PaymentStatus } from '@/domains/payment'
+import type { PaymentStatus } from '@/domains/payment'
 import { cancelPayment } from '@/actions/payment'
+import type { CancelPaymentResult } from '@/actions/payment'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import CancelResultDialog from './CancelResultDialog'
@@ -14,20 +15,16 @@ interface Props {
   phoneNumber: string
 }
 
-export default function CancelOrderButton({
-  paymentId,
-  paymentStatus,
-  phoneNumber,
-}: Props) {
+export default function CancelOrderButton({ paymentId, paymentStatus, phoneNumber }: Props) {
   const router = useRouter()
 
   const [isLoading, setIsLoading] = useState(false)
-  const [cancelResultCode, setCancelResultCode] = useState<PaymentCancelCode | null>(null)
+  const [cancelResult, setCancelResult] = useState<CancelPaymentResult | null>(null)
   const [showCancelConfirm, setShowCancelConfirm] = useState(false)
 
   const handleCancelClick = () => {
     if (paymentStatus === 'CANCELLED') {
-      setCancelResultCode('ALREADY_CANCELLED')
+      setCancelResult({ success: true, code: 'ALREADY_CANCELLED' })
       return
     }
 
@@ -39,21 +36,21 @@ export default function CancelOrderButton({
 
     setIsLoading(true)
 
-    const response = await cancelPayment(paymentId, { cancelReason: '사용자 결제 취소 요청' })
+    const result = await cancelPayment({
+      paymentId,
+      cancelReason: '사용자 결제 취소 요청',
+    })
 
     setIsLoading(false)
 
-    if (response.error) {
+    if (!result.success) {
       alert('결제 취소 중 오류가 발생했습니다.')
       return
     }
 
-    const code = response.data?.code
-    if (code) {
-      setCancelResultCode(code)
-      if (code === 'SUCCESS') {
-        router.refresh()
-      }
+    setCancelResult(result)
+    if (result.code === 'SUCCESS') {
+      router.refresh()
     }
   }
 
@@ -74,9 +71,9 @@ export default function CancelOrderButton({
         confirmLabel="확인"
       />
       <CancelResultDialog
-        cancelResultCode={cancelResultCode}
+        cancelResultCode={cancelResult?.success ? cancelResult.code : null}
         phoneNumber={phoneNumber}
-        onClose={() => setCancelResultCode(null)}
+        onClose={() => setCancelResult(null)}
       />
     </>
   )

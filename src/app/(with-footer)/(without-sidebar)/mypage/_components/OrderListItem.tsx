@@ -1,6 +1,6 @@
 import ImageContainer from '@/components/ui/ImageContainer'
 import { getPaymentStatusColor, getPaymentStatusName } from '@/constants/payment'
-import { PaymentStatus } from '@/domains/payment/payment.type'
+import { PaymentStatus } from '@/domains/payment'
 import { formatDate } from '@/lib/date'
 import { formatNumber } from '@/lib/number'
 import { formatOrderSummary } from '@/lib/order'
