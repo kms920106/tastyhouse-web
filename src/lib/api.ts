@@ -25,9 +25,11 @@ export interface ApiResponse<T = unknown> {
 
 class ApiClient {
   private baseURL: string
+  private withAuth: boolean
 
-  constructor(baseURL: string = env.NEXT_PUBLIC_API_URL) {
+  constructor(baseURL: string = env.NEXT_PUBLIC_API_URL, withAuth: boolean = true) {
     this.baseURL = baseURL
+    this.withAuth = withAuth
   }
 
   private async getRequestHeaders(
@@ -38,11 +40,13 @@ class ApiClient {
       ? {}
       : { 'Content-Type': 'application/json' }
 
-    const cookieStore = await cookies()
-    const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)?.value
+    if (this.withAuth) {
+      const cookieStore = await cookies()
+      const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)?.value
 
-    if (accessToken) {
-      requestHeaders['Authorization'] = `Bearer ${accessToken}`
+      if (accessToken) {
+        requestHeaders['Authorization'] = `Bearer ${accessToken}`
+      }
     }
 
     if (headers) {
@@ -212,3 +216,4 @@ class ApiClient {
 }
 
 export const api = new ApiClient()
+export const publicApi = new ApiClient(undefined, false)

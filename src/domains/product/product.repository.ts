@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { api } from '@/lib/api'
+import { publicApi } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import {
   ProductDetailResponse,
@@ -11,22 +11,27 @@ import {
 
 const ENDPOINT = '/api/products'
 
+const CACHE_OPTIONS = { cache: 'force-cache' as const, next: { revalidate: 3600 } }
+
 export const productRepository = {
   async getTodayDiscountProducts(params: PaginationParams) {
-    return api.get<ProductTodayDiscountListItemResponse[]>(`${ENDPOINT}/v1/today-discounts`, {
+    return publicApi.get<ProductTodayDiscountListItemResponse[]>(`${ENDPOINT}/v1/today-discounts`, {
+      ...CACHE_OPTIONS,
       params,
     })
   },
   async getProductById(productId: number) {
-    return api.get<ProductDetailResponse>(`${ENDPOINT}/v1/${productId}`)
+    return publicApi.get<ProductDetailResponse>(`${ENDPOINT}/v1/${productId}`, CACHE_OPTIONS)
   },
   async getProductReviewStatistics(productId: number) {
-    return api.get<ProductReviewStatisticsResponse>(
+    return publicApi.get<ProductReviewStatisticsResponse>(
       `${ENDPOINT}/v1/${productId}/reviews/statistics`,
+      CACHE_OPTIONS,
     )
   },
   async getProductReviews(productId: number, params: PaginationParams) {
-    return api.get<ProductReviewsByRatingResponse>(`${ENDPOINT}/v1/${productId}/reviews`, {
+    return publicApi.get<ProductReviewsByRatingResponse>(`${ENDPOINT}/v1/${productId}/reviews`, {
+      ...CACHE_OPTIONS,
       params,
     })
   },
