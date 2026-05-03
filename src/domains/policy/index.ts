@@ -1,2 +1,2 @@
-export { policyRepository } from './policy.repository'
-export type { PolicyDetail, PolicyType } from './policy.type'
+export * from './policy.dto'
+export * from './policy.types'

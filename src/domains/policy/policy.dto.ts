@@ -1,10 +1,6 @@
-export type PolicyType =
-  | 'TERMS_OF_SERVICE'
-  | 'PRIVACY_POLICY'
-  | 'ELECTRONIC_FINANCIAL_TRANSACTIONS'
-  | 'AGE_VERIFICATION'
+import type { PolicyType } from './policy.types'
 
-export interface PolicyDetail {
+export interface PolicyDetailResponse {
   id: number
   type: PolicyType
   version: string
