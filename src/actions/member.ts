@@ -67,6 +67,10 @@ export async function updateMemberPassword(data: UpdatePasswordRequest, verifyTo
   return memberRepository.updateMyPassword(data, verifyToken)
 }
 
+export async function checkNicknameAvailability(nickname: string) {
+  return memberRepository.checkNicknameAvailability(nickname)
+}
+
 export async function withdrawMember(data: WithdrawRequest) {
   const result = await memberRepository.withdrawMember(data)
 
