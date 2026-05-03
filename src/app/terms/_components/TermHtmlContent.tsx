@@ -3,7 +3,7 @@ import HtmlContent from '@/components/ui/HtmlContent'
 import { policiesRepository } from '@/domains/policies/policies.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 
-export default async function TermsContent() {
+export default async function TermHtmlContent() {
   const { error, status, data } = await policiesRepository.getLatestTermsOfService()
 
   if ((error && status === 404) || !data) {
@@ -16,9 +16,5 @@ export default async function TermsContent() {
 
   const { content } = data
 
-  return (
-    <div className="px-[15px] py-7">
-      <HtmlContent content={content} />
-    </div>
-  )
+  return <HtmlContent content={content} />
 }
