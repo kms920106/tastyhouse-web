@@ -1,5 +1,7 @@
-import GradeSection from './_components/GradeSection'
+import GradePage from './_components/GradePage'
+
+export const dynamic = 'force-dynamic'
 
 export default function Page() {
-  return <GradeSection />
+  return <GradePage />
 }
