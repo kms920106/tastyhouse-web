@@ -285,3 +285,52 @@ export async function socialSignUpAction({
   revalidatePath('/')
   return null
 }
+
+export type SignupResult = {
+  success: false
+  error: string
+}
+
+export async function signupFormAction(
+  _prevState: SignupResult | null,
+  formData: FormData,
+): Promise<SignupResult> {
+  const email = formData.get('email')?.toString() ?? ''
+  const password = formData.get('password')?.toString() ?? ''
+  const fullName = formData.get('fullName')?.toString() ?? ''
+  const nickname = formData.get('nickname')?.toString() ?? ''
+  const phoneNumber = (formData.get('phoneNumber')?.toString() ?? '').replace(/-/g, '')
+  const birthYear = formData.get('birthYear')?.toString() ?? ''
+  const birthMonth = formData.get('birthMonth')?.toString().padStart(2, '0') ?? ''
+  const birthDay = formData.get('birthDay')?.toString().padStart(2, '0') ?? ''
+  const birthDate =
+    birthYear && birthMonth && birthDay ? `${birthYear}${birthMonth}${birthDay}` : ''
+  const gender = formData.get('gender')?.toString() ?? ''
+  const referrerNickname = formData.get('verifiedReferrerNickname')?.toString() ?? ''
+  const emailVerifyToken = formData.get('emailVerifyToken')?.toString() ?? ''
+  const phoneVerifyToken = formData.get('phoneVerifyToken')?.toString() ?? ''
+  const agreedMarketing = formData.has('agreedMarketing')
+  const agreedPushNotification = formData.has('agreedPushNotification')
+
+  const { error } = await authRepository.signup({
+    username: email,
+    password,
+    fullName,
+    nickname,
+    phoneNumber,
+    birthDate: Number(birthDate),
+    gender,
+    referrerNickname: referrerNickname || undefined,
+    marketingInfoEnabled: agreedMarketing,
+    eventInfoEnabled: agreedMarketing,
+    pushNotificationEnabled: agreedPushNotification,
+    emailVerifyToken,
+    phoneVerifyToken,
+  })
+
+  if (error) {
+    return { success: false, error: '회원가입에 실패했습니다. 다시 시도해 주세요.' }
+  }
+
+  redirect('/auth/signup/complete')
+}
