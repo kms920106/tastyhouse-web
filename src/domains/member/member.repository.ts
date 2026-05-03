@@ -27,7 +27,7 @@ import type {
 const ENDPOINT = '/api/members'
 
 export const memberRepository = {
-  // 닉네임 사용 가능 여부 확인
+  // 닉네임 중복확인
   async checkNicknameAvailability(nickname: string) {
     return api.get<NicknameAvailabilityResponse>(`${ENDPOINT}/v1/nickname/availability`, {
       params: { nickname },
@@ -47,7 +47,7 @@ export const memberRepository = {
   async getMemberMe() {
     return api.get<MemberInfoResponse>(`${ENDPOINT}/v1/me`)
   },
-  // 특정 회원 통계 조회 (리뷰 수, 팔로잉 수, 팔로워 수)
+  // 특정 회원 통계 조회
   async getMemberStats(memberId: number | string) {
     return api.get<MemberStatsResponse>(`${ENDPOINT}/v1/${memberId}/stats`)
   },
@@ -59,20 +59,25 @@ export const memberRepository = {
   async getMyCoupons() {
     return api.get<MemberCouponListItemResponse[]>(`${ENDPOINT}/v1/me/coupons`)
   },
+  // 사용 가능 포인트 조회 (주문용)
   async getMyUsablePoint() {
     return api.get<UsablePointResponse>(`${ENDPOINT}/v1/me/point/usable`)
   },
+  // 포인트 내역 조회
   async getMyPointHistory() {
     return api.get<PointHistoryResponse>(`${ENDPOINT}/v1/me/point/history`)
   },
+  // 내가 작성한 리뷰 개수 조회
   async getMyReviewCount() {
     return api.get<MyReviewCountResponse>(`${ENDPOINT}/v1/me/reviews/count`)
   },
+  // 내가 작성한 리뷰 목록 조회
   async getMyReviews(params: PaginationParams) {
     return api.get<MyReviewListItemResponse[]>(`${ENDPOINT}/v1/me/reviews`, {
       params,
     })
   },
+  // 내가 즐겨찾기한 플레이스 목록 조회
   async getMyBookmarks(params: PaginationParams) {
     return api.get<MyBookmarkedPlaceListItemResponse[]>(`${ENDPOINT}/v1/me/bookmarks`, {
       params,
