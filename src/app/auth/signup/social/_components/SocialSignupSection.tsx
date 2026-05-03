@@ -1,14 +1,16 @@
 'use client'
 
 import {
-  checkNicknameAvailability,
   confirmEmailVerificationCodeForEmailField,
+  sendEmailVerificationCode,
+} from '@/actions/email-verification'
+import { checkNicknameAvailability } from '@/actions/member'
+import {
   fetchAgeVerificationContent,
   fetchElectronicFinancialTransactionsContent,
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
-  sendEmailVerificationCode,
-} from '@/actions/signup'
+} from '@/actions/policies'
 import AppTermsDialog from '@/app/auth/signup/_components/AppTermsDialog'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'

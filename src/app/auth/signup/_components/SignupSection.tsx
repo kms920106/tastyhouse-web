@@ -1,16 +1,18 @@
 'use client'
 
 import AppTermsDialog from '@/app/auth/signup/_components/AppTermsDialog'
+import { signupFormAction } from '@/actions/auth'
 import {
-  checkNicknameAvailability,
   confirmEmailVerificationCodeForEmailField,
+  sendEmailVerificationCode,
+} from '@/actions/email-verification'
+import { checkNicknameAvailability } from '@/actions/member'
+import {
   fetchAgeVerificationContent,
   fetchElectronicFinancialTransactionsContent,
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
-  sendEmailVerificationCode,
-  signupFormAction,
-} from '@/actions/signup'
+} from '@/actions/policies'
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 import AppFormField from '@/components/ui/AppFormField'
