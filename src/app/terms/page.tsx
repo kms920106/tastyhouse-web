@@ -1,6 +1,7 @@
 import TermPage from './_components/TermPage'
 
-// export default function TermsPage() {
+export const dynamic = 'force-dynamic'
+
 export default function Page() {
   return <TermPage />
 }
