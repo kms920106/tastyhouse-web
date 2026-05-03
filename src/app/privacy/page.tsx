@@ -1,5 +1,5 @@
-import PrivacySection from './_components/PrivacySection'
+import PrivacyPage from './_components/PrivacyPage'
 
-export default function PrivacyPage() {
-  return <PrivacySection />
+export default function Page() {
+  return <PrivacyPage />
 }

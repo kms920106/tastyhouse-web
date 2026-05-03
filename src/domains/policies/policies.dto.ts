@@ -1,4 +1,4 @@
-import type { PolicyType } from './policy.types'
+import type { PolicyType } from './policies.types'
 
 export interface PolicyDetailResponse {
   id: number

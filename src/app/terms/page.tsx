@@ -1,5 +1,5 @@
-import TermsSection from './_components/TermsSection'
+import TermPage from './_components/TermPage'
 
 export default function TermsPage() {
-  return <TermsSection />
+  return <TermPage />
 }
