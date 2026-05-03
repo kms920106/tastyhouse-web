@@ -1,7 +1,7 @@
 'use client'
 
 import { getMapMarkers } from '@/actions/place'
-import { PlaceMapMarkerResponse } from '@/domains/place'
+import type { PlaceMapMarker } from '@/domains/place'
 import Script from 'next/script'
 import { useCallback, useRef, useState } from 'react'
 import { env } from '@/lib/env'
@@ -100,7 +100,7 @@ export default function KakaoMap() {
   }, [])
 
   // 새로운 마커들을 생성하는 함수
-  const createMarkers = useCallback((markers: PlaceMapMarkerResponse[], mapInstance: KakaoMap) => {
+  const createMarkers = useCallback((markers: PlaceMapMarker[], mapInstance: KakaoMap) => {
     const newMarkers: KakaoMarker[] = []
 
     markers.forEach((place) => {

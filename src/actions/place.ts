@@ -1,13 +1,13 @@
 'use server'
 
-import { PlaceMapMarkerResponse } from '@/domains/place'
+import type { PlaceMapMarker } from '@/domains/place'
 import { placeRepository } from '@/domains/place/place.repository'
 import { placeService } from '@/domains/place/place.service'
 
 export async function getMapMarkers(params: {
   latitude: number
   longitude: number
-}): Promise<PlaceMapMarkerResponse[]> {
+}): Promise<PlaceMapMarker[]> {
   const response = await placeRepository.getMapMarkers(params)
   return response.data ?? []
 }

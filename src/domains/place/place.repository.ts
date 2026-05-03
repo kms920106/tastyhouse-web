@@ -12,7 +12,6 @@ import {
   PlaceFoodTypeListItemResponse,
   PlaceInfoResponse,
   PlaceLatestListItemResponse,
-  PlaceMapMarkerResponse,
   PlaceNameResponse,
   PlaceOrderMethodResponse,
   PlacePhotoCategoryResponse,
@@ -21,6 +20,7 @@ import {
   PlaceStationListItemResponse,
   PlaceSummaryResponse,
 } from './place.dto'
+import type { PlaceMapMarker } from './place.model'
 
 const ENDPOINT = '/api/places'
 
@@ -86,6 +86,6 @@ export const placeRepository = {
     return api.get<PlaceOrderMethodResponse>(`${ENDPOINT}/v1/${placeId}/order-methods`)
   },
   async getMapMarkers(params: { latitude: number; longitude: number }) {
-    return api.get<PlaceMapMarkerResponse[]>(`${ENDPOINT}/v1/map/markers`, { params })
+    return api.get<PlaceMapMarker[]>(`${ENDPOINT}/v1/map/markers`, { params })
   },
 }

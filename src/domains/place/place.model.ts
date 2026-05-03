@@ -38,3 +38,10 @@ export interface PlaceAmenity {
   activeImageUrl: string
   inactiveImageUrl: string
 }
+
+export interface PlaceMapMarker {
+  id: number
+  latitude: number
+  longitude: number
+  name: string
+}
