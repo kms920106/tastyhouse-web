@@ -5,7 +5,7 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ConfirmModal from '@/components/ui/ConfirmModal'
 import FixedBottomSection from '@/components/ui/FixedBottomSection'
-import type { ProductOptionGroup } from '@/domains/product'
+import type { ProductMenuOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -14,7 +14,7 @@ import ProductOptionTabs from './ProductOptionTabs'
 interface Props {
   productId: number
   placeId: number
-  optionGroups: ProductOptionGroup[]
+  optionGroups: ProductMenuOptionGroup[]
   reviewCount: number
 }
 

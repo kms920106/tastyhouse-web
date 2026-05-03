@@ -1,7 +1,7 @@
 import ProductItem from '@/components/products/ProductItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { productRepository } from '@/domains/product'
+import { productRepository } from '@/domains/product/product.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 
 export default async function TodayDiscountProductList() {

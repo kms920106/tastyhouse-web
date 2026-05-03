@@ -1,21 +1,4 @@
-export interface ProductOption {
-  id: number
-  name: string
-  additionalPrice: number
-  isSoldOut: boolean
-}
-
-export interface ProductOptionGroup {
-  id: number
-  name: string
-  description: string | null
-  isRequired: boolean
-  isMultipleSelect: boolean
-  minSelect: number
-  maxSelect: number
-  isCommon: boolean
-  options: ProductOption[]
-}
+import type { ProductMenuOptionGroup } from './product.model'
 
 export interface ProductDetailResponse {
   id: number
@@ -32,7 +15,7 @@ export interface ProductDetailResponse {
   isRepresentative: boolean
   isSoldOut: boolean
   categoryName: string
-  optionGroups: ProductOptionGroup[]
+  optionGroups: ProductMenuOptionGroup[]
 }
 
 export interface ProductReviewListItemResponse {
@@ -59,16 +42,6 @@ export interface ProductReviewsByRatingResponse {
   reviewsByRating: Record<string, ProductReviewListItemResponse[]>
   allReviews: ProductReviewListItemResponse[]
   totalReviewCount: number
-}
-
-export type ProductReviewsByRatingQuery = {
-  page?: number
-  size?: number
-}
-
-export type ProductTodayDiscountQuery = {
-  page?: number
-  size?: number
 }
 
 export interface ProductTodayDiscountListItemResponse {

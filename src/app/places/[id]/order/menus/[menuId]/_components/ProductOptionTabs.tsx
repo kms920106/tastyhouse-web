@@ -2,14 +2,14 @@
 
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import type { ProductOptionGroup } from '@/domains/product'
+import type { ProductMenuOptionGroup } from '@/domains/product'
 import { useState } from 'react'
 import ProductOptionList from './ProductOptionList'
 import ProductReviewContent from './ProductReviewContent'
 
 interface Props {
   productId: number
-  optionGroups: ProductOptionGroup[]
+  optionGroups: ProductMenuOptionGroup[]
   reviewCount: number
   selectedOptions: Record<number, number | number[]>
   onRadioSelect: (groupId: number, optionId: number) => void

@@ -1,10 +1,10 @@
-import type { ProductOption } from '@/domains/product'
+import type { ProductMenuOption } from '@/domains/product'
 import { cn } from '@/lib/utils'
 import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/io'
 import { RiRadioButtonFill } from 'react-icons/ri'
 
 interface Props {
-  option: ProductOption
+  option: ProductMenuOption
   isMultiple: boolean
   isSelected: boolean
   onSelect: () => void

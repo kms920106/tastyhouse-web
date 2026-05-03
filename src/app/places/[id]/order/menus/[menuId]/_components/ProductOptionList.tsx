@@ -1,9 +1,9 @@
 import BorderedSection from '@/components/ui/BorderedSection'
-import type { ProductOptionGroup } from '@/domains/product'
+import type { ProductMenuOptionGroup } from '@/domains/product'
 import ProductOptionItem from './ProductOptionItem'
 
 interface Props {
-  optionGroups: ProductOptionGroup[]
+  optionGroups: ProductMenuOptionGroup[]
   selectedOptions: Record<number, number | number[]>
   onRadioSelect: (groupId: number, optionId: number) => void
   onCheckboxToggle: (groupId: number, optionId: number, maxSelect: number) => void

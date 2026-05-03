@@ -1,17 +1,18 @@
+import 'server-only'
+
 import { api } from '@/lib/api'
+import { PaginationParams } from '@/types/common'
 import {
   ProductDetailResponse,
   ProductReviewStatisticsResponse,
-  ProductReviewsByRatingQuery,
   ProductReviewsByRatingResponse,
   ProductTodayDiscountListItemResponse,
-  ProductTodayDiscountQuery,
-} from './product.type'
+} from './product.dto'
 
 const ENDPOINT = '/api/products'
 
 export const productRepository = {
-  async getTodayDiscountProducts(params: ProductTodayDiscountQuery) {
+  async getTodayDiscountProducts(params: PaginationParams) {
     return api.get<ProductTodayDiscountListItemResponse[]>(`${ENDPOINT}/v1/today-discounts`, {
       params,
     })
@@ -24,12 +25,9 @@ export const productRepository = {
       `${ENDPOINT}/v1/${productId}/reviews/statistics`,
     )
   },
-  async getProductReviews(productId: number, params: ProductReviewsByRatingQuery) {
-    return api.get<ProductReviewsByRatingResponse>(
-      `${ENDPOINT}/v1/${productId}/reviews`,
-      {
-        params,
-      },
-    )
+  async getProductReviews(productId: number, params: PaginationParams) {
+    return api.get<ProductReviewsByRatingResponse>(`${ENDPOINT}/v1/${productId}/reviews`, {
+      params,
+    })
   },
 }
