@@ -1,4 +1,5 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
+import HtmlContent from '@/components/ui/HtmlContent'
 import { policiesRepository } from '@/domains/policies/policies.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 
@@ -16,9 +17,8 @@ export default async function PrivacyContent() {
   const { content } = data
 
   return (
-    <div
-      className="px-[15px] py-7 text-sm leading-relaxed"
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    <div className="px-[15px] py-7">
+      <HtmlContent content={content} />
+    </div>
   )
 }
