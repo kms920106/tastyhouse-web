@@ -1,7 +1,7 @@
 'use client'
 
 import { searchMembersByNickname } from '@/actions/follow'
-import { MemberSocialProfile } from '@/domains/follow'
+import { SocialMember } from '@/domains/member'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -72,7 +72,7 @@ export default function MemberSearchResultList({ searchQuery }: Props) {
   return (
     <>
       <div className="flex flex-col gap-[30px] py-[30px]">
-        {allMembers.map((member: MemberSocialProfile) => (
+        {allMembers.map((member: SocialMember) => (
           <MemberSearchResultItem
             key={member.memberId}
             member={member}

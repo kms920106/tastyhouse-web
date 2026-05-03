@@ -1,7 +1,7 @@
 'use client'
 
 import { getFollowingList } from '@/actions/follow'
-import { MemberSocialProfile } from '@/domains/follow'
+import { SocialMember } from '@/domains/member'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -79,7 +79,7 @@ export default function FollowingList({ memberId, searchQuery }: Props) {
   return (
     <>
       <div className="flex flex-col gap-[30px] py-[30px]">
-        {filtered.map((member: MemberSocialProfile) => (
+        {filtered.map((member: SocialMember) => (
           <FollowListItem
             key={member.memberId}
             member={member}

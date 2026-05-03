@@ -3,7 +3,7 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import { toast } from '@/components/ui/AppToaster'
 import SectionStack from '@/components/ui/SectionStack'
-import type { MemberCoupon, MemberInfo } from '@/domains/member'
+import type { MemberCoupon, Member } from '@/domains/member'
 import type { PaymentMethod } from '@/domains/payment'
 import { useCartInfo } from '@/hooks/useCartInfo'
 import { useTossPayments } from '@/hooks/useTossPayments'
@@ -25,7 +25,7 @@ import PaymentSummarySection from './PaymentSummarySection'
 interface Props {
   placeId: number
   placeName: string
-  memberInfo: MemberInfo | null
+  memberInfo: Member | null
   availableCoupons: MemberCoupon[]
   usablePoints: number
 }

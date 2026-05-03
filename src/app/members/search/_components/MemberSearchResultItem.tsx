@@ -2,18 +2,15 @@
 
 import FollowButton from '@/components/ui/FollowButton'
 import MemberProfileCell from '@/components/ui/MemberProfileCell'
-import { MemberSocialProfile } from '@/domains/follow'
+import { SocialMember } from '@/domains/member'
 import Link from 'next/link'
 
 interface Props {
-  member: MemberSocialProfile
-  onFollowToggle: (member: MemberSocialProfile) => void
+  member: SocialMember
+  onFollowToggle: (member: SocialMember) => void
 }
 
-export default function MemberSearchResultItem({
-  member,
-  onFollowToggle,
-}: Props) {
+export default function MemberSearchResultItem({ member, onFollowToggle }: Props) {
   return (
     <div className="flex items-center justify-between">
       <Link href={`/members/${member.memberId}`} className="flex-1">

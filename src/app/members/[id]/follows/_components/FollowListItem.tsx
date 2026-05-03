@@ -4,24 +4,19 @@ import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import FollowButton from '@/components/ui/FollowButton'
 import MemberProfileCell from '@/components/ui/MemberProfileCell'
-import { MemberSocialProfile } from '@/domains/follow'
+import { SocialMember } from '@/domains/member'
 import Link from 'next/link'
 import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
 interface Props {
-  member: MemberSocialProfile
+  member: SocialMember
   tab: 'following' | 'follower'
-  onFollowToggle: (member: MemberSocialProfile) => void
+  onFollowToggle: (member: SocialMember) => void
   onRemoveFollower: (memberId: number) => void
 }
 
-export default function FollowListItem({
-  member,
-  tab,
-  onFollowToggle,
-  onRemoveFollower,
-}: Props) {
+export default function FollowListItem({ member, tab, onFollowToggle, onRemoveFollower }: Props) {
   const [removeConfirmOpen, setRemoveConfirmOpen] = useState(false)
 
   return (
@@ -54,10 +49,7 @@ export default function FollowListItem({
           </>
         ) : (
           <>
-            <FollowButton
-              following={member.following}
-              onClick={() => onFollowToggle(member)}
-            />
+            <FollowButton following={member.following} onClick={() => onFollowToggle(member)} />
             <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
               <FiMoreVertical size={22} color="#999999" />
             </button>

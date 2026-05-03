@@ -1,11 +1,18 @@
 import type { PaymentStatus } from '../payment'
-import type { PointHistoryItem } from './member.model'
 import type {
   CouponDiscountType,
   MemberGender,
   MemberGradeCode,
+  PointType,
   WithdrawReason,
 } from './member.types'
+
+interface PointHistoryItem {
+  reason: string
+  date: string
+  pointAmount: number
+  pointType: PointType
+}
 
 export interface NicknameAvailabilityResponse {
   available: boolean

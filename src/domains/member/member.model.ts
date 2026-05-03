@@ -1,4 +1,4 @@
-import type { CouponDiscountType, MemberGradeCode, PointType } from './member.types'
+import type { CouponDiscountType, MemberGradeCode } from './member.types'
 
 export interface MemberCoupon {
   id: number
@@ -17,17 +17,7 @@ export interface MemberCoupon {
   daysRemaining: number
 }
 
-export interface BookmarkedPlace {
-  placeId: number
-  bookmarkId: number
-  placeName: string
-  stationName: string
-  rating: number
-  imageUrl: string
-  isBookmarked: boolean
-}
-
-export interface MemberInfo {
+export interface Member {
   id: number
   nickname: string
   grade: MemberGradeCode
@@ -38,9 +28,10 @@ export interface MemberInfo {
   email: string
 }
 
-export interface PointHistoryItem {
-  reason: string
-  date: string
-  pointAmount: number
-  pointType: PointType
+export interface SocialMember {
+  memberId: number
+  nickname: string
+  memberGrade: MemberGradeCode
+  profileImageUrl: string | null
+  following: boolean
 }

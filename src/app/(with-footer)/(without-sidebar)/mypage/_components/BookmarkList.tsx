@@ -1,8 +1,17 @@
 import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import type { BookmarkedPlace } from '@/domains/member'
 import { PAGE_PATHS } from '@/lib/paths'
 import BookmarkListItem from './BookmarkListItem'
+
+export interface BookmarkedPlace {
+  placeId: number
+  bookmarkId: number
+  placeName: string
+  stationName: string
+  rating: number
+  imageUrl: string
+  isBookmarked: boolean
+}
 
 interface Props {
   bookmarks: BookmarkedPlace[]

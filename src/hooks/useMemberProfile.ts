@@ -1,6 +1,6 @@
 'use client'
 
-import type { MemberInfo } from '@/domains/member'
+import type { Member } from '@/domains/member'
 import { getMemberMe } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 
@@ -13,7 +13,7 @@ export function useMemberProfile() {
     staleTime: Infinity,
   })
 
-  const memberProfile: MemberInfo | null = data?.data ?? null
+  const memberProfile: Member | null = data?.data ?? null
 
   return {
     memberProfile,
