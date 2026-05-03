@@ -1,4 +1,4 @@
-import { getMemberGradeColor, getMemberGradeName } from '@/constants/member'
+import { getMemberGradeColor, getMemberGradeName } from '@/domains/member'
 import { MemberGradeCode } from '@/domains/member'
 import { cn } from '@/lib/utils'
 

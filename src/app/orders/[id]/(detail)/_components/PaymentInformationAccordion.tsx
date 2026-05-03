@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
-import { getPaymentMethodName } from '@/constants/payment'
+import { getPaymentMethodName } from '@/domains/payment'
 import { OrderPayment } from '@/domains/order'
 import { formatDate } from '@/lib/date'
 

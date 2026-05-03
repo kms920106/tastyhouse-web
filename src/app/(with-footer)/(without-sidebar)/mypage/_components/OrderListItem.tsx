@@ -1,5 +1,5 @@
 import ImageContainer from '@/components/ui/ImageContainer'
-import { getPaymentStatusColor, getPaymentStatusName } from '@/constants/payment'
+import { getPaymentStatusColor, getPaymentStatusName } from '@/domains/payment'
 import { PaymentStatus } from '@/domains/payment'
 import { formatDate } from '@/lib/date'
 import { formatNumber } from '@/lib/number'

@@ -1,5 +1,5 @@
 import AppBadge from '@/components/ui/AppBadge'
-import { getPaymentStatusColor, getPaymentStatusName } from '@/constants/payment'
+import { getPaymentStatusColor, getPaymentStatusName } from '@/domains/payment'
 import type { PaymentStatus } from '@/domains/payment'
 
 interface Props {

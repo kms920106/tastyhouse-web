@@ -1,4 +1,5 @@
-import type { PaymentMethod, PaymentMethodOption, PaymentStatus } from '@/domains/payment'
+import type { PaymentMethod, PaymentStatus } from './payment.types'
+import type { PaymentMethodOption } from './payment.model'
 
 const PAYMENT_STATUS_NAMES: Record<PaymentStatus, string> = {
   PENDING: '결제 대기',

@@ -1,4 +1,4 @@
-import { getMemberGradeColor, getMemberGradeIcon } from '@/constants/member'
+import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import type { MemberGradeCode } from '@/domains/member'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'

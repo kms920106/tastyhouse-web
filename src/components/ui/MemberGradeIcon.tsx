@@ -1,4 +1,4 @@
-import { getMemberGradeIcon, getMemberGradeName } from '@/constants/member'
+import { getMemberGradeIcon, getMemberGradeName } from '@/domains/member'
 import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
 
