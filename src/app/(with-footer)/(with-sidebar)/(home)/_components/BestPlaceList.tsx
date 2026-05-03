@@ -10,12 +10,12 @@ export default async function BestPlaceList() {
     size: 4,
   })
 
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
   if ((error && status === 404) || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('플레이스')} />
+  }
+
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
   if (data.length === 0) {
