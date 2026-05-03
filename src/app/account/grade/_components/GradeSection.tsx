@@ -6,12 +6,12 @@ import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
 import MemberGradeName from '@/components/ui/MemberGradeName'
 import SectionStack from '@/components/ui/SectionStack'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/constants/member'
-import { GradeInfo } from '@/domains/grade'
 import { gradeRepository } from '@/domains/grade/grade.repository'
 import { memberRepository } from '@/domains/member/member.repository'
 import type { MemberGradeCode } from '@/domains/member'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import GradeInfoItem from './GradeInfoItem'
 
 export default async function GradeSection() {
   const [meResult, myGradeResult, gradeInfoListResult] = await Promise.all([
@@ -89,43 +89,8 @@ export default async function GradeSection() {
             </p>
 
             <div className="flex flex-col gap-[13px] mt-[25px]">
-              {gradeInfoList.map((item: GradeInfo) => (
-                <div
-                  key={item.grade}
-                  className="flex items-center gap-4 p-5 border border-[#eeeeee]"
-                >
-                  <Image
-                    src={`/images/rank/icon-level-${getMemberGradeIcon(item.grade as MemberGradeCode)}-40.png`}
-                    alt={item.displayName}
-                    width={40}
-                    height={42}
-                  />
-                  <div className="flex flex-col gap-2.5">
-                    <p
-                      className={cn(
-                        'text-base leading-[16px] font-bold',
-                        getMemberGradeColor(item.grade as MemberGradeCode),
-                      )}
-                    >
-                      {item.displayName}
-                    </p>
-                    <p className="text-sm leading-[14px]">
-                      {item.maxReviewCount !== null && item.minReviewCount === 0 ? (
-                        <>
-                          리뷰 작성 개수{' '}
-                          <span className="font-bold">{item.maxReviewCount.toLocaleString()}</span>{' '}
-                          개 이하
-                        </>
-                      ) : (
-                        <>
-                          리뷰 작성 개수{' '}
-                          <span className="font-bold">{item.minReviewCount.toLocaleString()}</span>{' '}
-                          개 이상
-                        </>
-                      )}
-                    </p>
-                  </div>
-                </div>
+              {gradeInfoList.map((gradeInfo) => (
+                <GradeInfoItem key={gradeInfo.grade} gradeInfo={gradeInfo} />
               ))}
             </div>
           </div>
