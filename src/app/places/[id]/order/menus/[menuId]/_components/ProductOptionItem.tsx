@@ -1,4 +1,5 @@
 import type { ProductMenuOption } from '@/domains/product'
+import { formatNumber } from '@/lib/number'
 import { cn } from '@/lib/utils'
 import { IoIosCheckbox, IoIosCheckboxOutline } from 'react-icons/io'
 import { RiRadioButtonFill } from 'react-icons/ri'
@@ -39,7 +40,7 @@ export default function ProductOptionItem({ option, isMultiple, isSelected, onSe
         {option.isSoldOut && <span className="text-[#aaaaaa] ml-2">(품절)</span>}
       </span>
       {option.additionalPrice > 0 && (
-        <span className="text-sm leading-[14px]">+{option.additionalPrice.toLocaleString()}원</span>
+        <span className="text-sm leading-[14px]">+{formatNumber(option.additionalPrice)}원</span>
       )}
     </button>
   )

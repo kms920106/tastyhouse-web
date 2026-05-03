@@ -1,5 +1,6 @@
-import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import type { MemberGradeCode } from '@/domains/member'
+import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
+import { formatNumber } from '@/lib/number'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
@@ -34,12 +35,12 @@ export default function GradeInfoItem({ gradeInfo }: Props) {
         <p className="text-sm leading-[14px]">
           {isLowestGrade ? (
             <>
-              리뷰 작성 개수 <span className="font-bold">{maxReviewCount!.toLocaleString()}</span>{' '}
-              개 이하
+              리뷰 작성 개수 <span className="font-bold">{formatNumber(maxReviewCount!)}</span> 개
+              이하
             </>
           ) : (
             <>
-              리뷰 작성 개수 <span className="font-bold">{minReviewCount.toLocaleString()}</span> 개
+              리뷰 작성 개수 <span className="font-bold">{formatNumber(minReviewCount)}</span> 개
               이상
             </>
           )}
