@@ -1,5 +1,7 @@
-import CouponSection from './_components/CouponSection'
+import CouponPage from './_components/CouponPage'
 
-export default function CouponPage() {
-  return <CouponSection />
+export const dynamic = 'force-dynamic'
+
+export default function Page() {
+  return <CouponPage />
 }

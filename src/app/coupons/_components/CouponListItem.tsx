@@ -10,7 +10,7 @@ interface Props {
   memberCoupon: MemberCoupon
 }
 
-export default function CouponCard({ memberCoupon }: Props) {
+export default function CouponListItem({ memberCoupon }: Props) {
   const {
     name,
     discountType,
@@ -19,11 +19,9 @@ export default function CouponCard({ memberCoupon }: Props) {
     minOrderAmount,
     useStartAt,
     useEndAt,
-    isUsed,
     daysRemaining,
+    isExpired,
   } = memberCoupon
-
-  const isExpired = isUsed || daysRemaining < 0
 
   return (
     <div className="relative w-full">

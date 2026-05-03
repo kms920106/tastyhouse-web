@@ -63,6 +63,7 @@ export interface MemberCouponListItemResponse {
   isUsed: boolean
   usedAt: string | null
   daysRemaining: number
+  isExpired: boolean
 }
 
 export interface UsablePointResponse {

@@ -15,6 +15,7 @@ export interface MemberCoupon {
   isUsed: boolean
   usedAt: string | null
   daysRemaining: number
+  isExpired: boolean
 }
 
 export interface Member {

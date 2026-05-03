@@ -1,14 +1,18 @@
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import { memberRepository } from '@/domains/member/member.repository'
-import CouponCard from './CouponCard'
+import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import CouponListItem from './CouponListItem'
 
 export default async function CouponList() {
-  const { data } = await memberRepository.getMyCoupons()
+  const { error, status, data } = await memberRepository.getMyCoupons()
 
-  return (
-    <div className="flex flex-col gap-5">
-      {data?.map((coupon) => (
-        <CouponCard key={coupon.id} memberCoupon={coupon} />
-      ))}
-    </div>
-  )
+  if ((error && status === 404) || !data) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('할인쿠폰')} />
+  }
+
+  if (error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  }
+
+  return data.map((coupon) => <CouponListItem key={coupon.id} memberCoupon={coupon} />)
 }
