@@ -4,6 +4,7 @@ import { api } from '@/lib/api'
 import type {
   AppleLoginRequest,
   FacebookLoginRequest,
+  JwtToken,
   KakaoLoginRequest,
   LoginRequest,
   NaverLoginRequest,
@@ -18,7 +19,6 @@ import type {
   SocialLoginResponse,
   SocialSignUpRequest,
 } from './auth.dto'
-import type { JwtToken } from './auth.model'
 
 const AUTH_BASE = '/api/auth/v1'
 const AUTH_SIGNUP_ENDPOINT = '/api/auth/signup'

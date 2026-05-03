@@ -1,7 +1,7 @@
 import type { MemberGender } from '@/domains/member'
 import type { SocialLoginStatus, SocialLinkStatus, SocialProvider } from './auth.types'
 
-interface JwtToken {
+export interface JwtToken {
   accessToken: string
   refreshToken: string
   tokenType: string
