@@ -1,8 +1,8 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export default function TermsContentSkeleton() {
+export default function HtmlContentSkeleton() {
   return (
-    <div className="px-[15px] py-7 flex flex-col gap-3">
+    <div className="flex flex-col gap-3">
       <Skeleton className="h-3.5 w-1/3" />
       <Skeleton className="h-3.5 w-full" />
       <Skeleton className="h-3.5 w-full" />
