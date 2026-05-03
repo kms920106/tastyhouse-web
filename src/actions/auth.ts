@@ -1,6 +1,6 @@
 'use server'
 
-import type { SocialProfile } from '@/domains/auth/auth.model'
+import { SocialProfile } from '@/domains/auth'
 import { authRepository } from '@/domains/auth/auth.repository'
 import type { SocialProvider } from '@/domains/auth/auth.types'
 import type { MemberGender } from '@/domains/member'

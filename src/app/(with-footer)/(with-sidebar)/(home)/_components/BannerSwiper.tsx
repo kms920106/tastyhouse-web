@@ -4,14 +4,13 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import styles from './BannerSwiper.module.css'
 
-import type { Banner } from '@/domains/banner'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import BannerListItem from './BannerListItem'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { BannerSwiperSkeleton } from './BannerSwiperSkeleton'
+import { Banner } from '@/domains/banner/banner.model'
 
 interface Props {
   banners: Banner[]
@@ -60,33 +59,7 @@ export default function BannerSwiper({ banners }: Props) {
     >
       {banners.map((banner, index) => (
         <SwiperSlide key={banner.id}>
-          {banner.linkUrl ? (
-            <Link
-              href={banner.linkUrl}
-              rel="noopener noreferrer"
-              className="relative block w-full h-full"
-            >
-              <Image
-                src={banner.imageUrl}
-                alt={banner.title}
-                fill
-                sizes="(max-width: 500px) 100vw, 500px"
-                className="object-cover"
-                priority={index === 0}
-              />
-            </Link>
-          ) : (
-            <div className="relative w-full h-full">
-              <Image
-                src={banner.imageUrl}
-                alt={banner.title}
-                fill
-                sizes="(max-width: 500px) 100vw, 500px"
-                className="object-cover"
-                priority={index === 0}
-              />
-            </div>
-          )}
+          <BannerListItem banner={banner} priority={index === 0} />
         </SwiperSlide>
       ))}
     </Swiper>
