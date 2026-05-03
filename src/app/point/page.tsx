@@ -1,5 +1,7 @@
-import PointSection from './_components/PointSection'
+import PointPage from './_components/PointPage'
 
-export default function PointPage() {
-  return <PointSection />
+export const dynamic = 'force-dynamic'
+
+export default function Page() {
+  return <PointPage />
 }
