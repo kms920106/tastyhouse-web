@@ -25,7 +25,7 @@ function RankListItemSkeleton() {
   )
 }
 
-export function RankListSkeleton() {
+export function RankMemberListSkeleton() {
   return (
     <>
       {[...Array(10)].map((_, i) => (

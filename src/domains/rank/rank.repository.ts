@@ -3,10 +3,9 @@ import 'server-only'
 import { api } from '@/lib/api'
 import {
   RankDurationResponse,
-  RankMemberListItemResponse,
   RankMemberMeQuery,
-  RankMemberMeResponse,
   RankMemberQuery,
+  RankMemberListItemResponse,
   RankPrizeListItemResponse,
 } from './rank.dto'
 
@@ -23,6 +22,6 @@ export const rankRepository = {
     return api.get<RankMemberListItemResponse[]>(`${ENDPOINT}/v1/members`, { params })
   },
   async getRankMembersMe(params: RankMemberMeQuery) {
-    return api.get<RankMemberMeResponse>(`${ENDPOINT}/v1/members/me`, { params })
+    return api.get<RankMemberListItemResponse>(`${ENDPOINT}/v1/members/me`, { params })
   },
 }

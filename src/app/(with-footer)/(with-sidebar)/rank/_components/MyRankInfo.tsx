@@ -1,9 +1,14 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { RankPeriod, rankPeriodToRankType } from '@/domains/rank'
+import { RankPeriod, RankType } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import RankItem from './RankItem'
+
+const RANK_PERIOD_TO_TYPE: Record<RankPeriod, RankType> = {
+  all: 'ALL',
+  monthly: 'MONTHLY',
+}
 
 export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPeriod }) {
   const isLoggedIn = await getIsLoggedIn()
@@ -17,7 +22,7 @@ export default async function MyRankInfo({ rankPeriod }: { rankPeriod: RankPerio
   }
 
   const { error, status, data } = await rankRepository.getRankMembersMe({
-    type: rankPeriodToRankType(rankPeriod),
+    type: RANK_PERIOD_TO_TYPE[rankPeriod],
   })
 
   if ((error && status === 404) || !data) {

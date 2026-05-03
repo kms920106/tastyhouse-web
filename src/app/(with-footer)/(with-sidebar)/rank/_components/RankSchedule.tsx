@@ -1,4 +1,3 @@
-import type { RankDuration } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
 import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
 
@@ -13,13 +12,13 @@ export default async function RankSchedule() {
     return <div>-</div>
   }
 
-  const rankEventInfo: RankDuration = data
+  const { startAt, endAt } = data
 
-  const timeDifference = getTimeDifference(rankEventInfo.endAt)
+  const timeDifference = getTimeDifference(endAt)
   const remainingTime = formatRemainingTime(timeDifference)
 
-  const startDateFormatted = formatDate(rankEventInfo.startAt, 'YYYY.MM.DD')
-  const endDateFormatted = formatDate(rankEventInfo.endAt, 'MM.DD')
+  const startDateFormatted = formatDate(startAt, 'YYYY.MM.DD')
+  const endDateFormatted = formatDate(endAt, 'MM.DD')
   const dateRange = `${startDateFormatted} ~ ${endDateFormatted}`
 
   return (

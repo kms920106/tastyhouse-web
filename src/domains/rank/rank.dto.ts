@@ -1,4 +1,4 @@
-import type { MemberGradeCode } from '@/domains/member'
+import type { MemberGradeCode } from '../member/member.types'
 import type { RankType } from './rank.types'
 
 export interface RankMemberQuery {
@@ -24,15 +24,6 @@ export interface RankPrizeListItemResponse {
 }
 
 export interface RankMemberListItemResponse {
-  memberId: number
-  nickname: string
-  profileImageUrl: string | null
-  reviewCount: number
-  rankNo: number
-  grade: MemberGradeCode
-}
-
-export interface RankMemberMeResponse {
   memberId: number
   nickname: string
   profileImageUrl: string | null
