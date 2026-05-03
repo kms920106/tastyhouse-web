@@ -5,15 +5,15 @@ import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useRef } from 'react'
-import CommentSubmitButtonClient from './CommentSubmitButtonClient'
-import { useReply } from './ReplyContext'
+import ReviewCommentSubmitButtonClient from './ReviewCommentSubmitButtonClient'
+import { useReply } from './ReviewReplyProvider'
 
 interface Props {
   isLoggedIn: boolean
   reviewId: number
 }
 
-export default function CommentInput({ isLoggedIn, reviewId }: Props) {
+export default function ReviewCommentInput({ isLoggedIn, reviewId }: Props) {
   const router = useRouter()
 
   const { memberProfile } = useMemberProfile()
@@ -81,7 +81,7 @@ export default function CommentInput({ isLoggedIn, reviewId }: Props) {
           className="min-w-0 text-sm leading-normal bg-transparent outline-none resize-none overflow-y-hidden placeholder:text-[#aaaaaa] [field-sizing:content]"
         />
       </div>
-      {showButton && isLoggedIn && <CommentSubmitButtonClient reviewId={reviewId} />}
+      {showButton && isLoggedIn && <ReviewCommentSubmitButtonClient reviewId={reviewId} />}
     </div>
   )
 }

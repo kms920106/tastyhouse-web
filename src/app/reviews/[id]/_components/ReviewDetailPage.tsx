@@ -1,11 +1,11 @@
 import ReviewDetailHeader from '@/components/reviews/ReviewDetailHeader'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { reviewRepository } from '@/domains/review'
+import { reviewRepository } from '@/domains/review/review.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import CommentInputSection from './CommentInputSection'
-import CommentListSection from './CommentListSection'
-import { ReplyProvider } from './ReplyContext'
+import ReviewCommentInputSection from './ReviewCommentInputSection'
+import ReviewCommentListSection from './ReviewCommentListSection'
+import { ReviewReplyProvider } from './ReviewReplyProvider'
 import ReviewInfoSection from './ReviewInfoSection'
 
 interface Props {
@@ -38,7 +38,7 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
   } = data
 
   return (
-    <ReplyProvider>
+    <ReviewReplyProvider>
       <ReviewDetailHeader memberNickname={memberNickname} />
       <div className="pb-20">
         <ReviewInfoSection
@@ -52,9 +52,9 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
           tagNames={tagNames}
           isLoggedIn={isLoggedIn}
         />
-        <CommentListSection reviewId={reviewId} />
+        <ReviewCommentListSection reviewId={reviewId} />
       </div>
-      <CommentInputSection isLoggedIn={isLoggedIn} reviewId={reviewId} />
-    </ReplyProvider>
+      <ReviewCommentInputSection isLoggedIn={isLoggedIn} reviewId={reviewId} />
+    </ReviewReplyProvider>
   )
 }

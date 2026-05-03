@@ -4,14 +4,14 @@ import { createComment, createReply } from '@/actions/review'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { useState } from 'react'
-import CommentSubmitButton from './CommentSubmitButton'
-import { useReply } from './ReplyContext'
+import ReviewCommentSubmitButton from './ReviewCommentSubmitButton'
+import { useReply } from './ReviewReplyProvider'
 
 interface Props {
   reviewId: number
 }
 
-export default function CommentSubmitButtonClient({ reviewId }: Props) {
+export default function ReviewCommentSubmitButtonClient({ reviewId }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { replyTarget, clearReply, commentText, setCommentText, setIsFocused, textareaRef } =
     useReply()
@@ -67,5 +67,5 @@ export default function CommentSubmitButtonClient({ reviewId }: Props) {
     setIsSubmitting(false)
   }
 
-  return <CommentSubmitButton onClick={handleSubmit} isSubmitting={isSubmitting} />
+  return <ReviewCommentSubmitButton onClick={handleSubmit} isSubmitting={isSubmitting} />
 }

@@ -1,13 +1,13 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { reviewRepository } from '@/domains/review'
+import { reviewRepository } from '@/domains/review/review.repository'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
-import CommentItem from './CommentItem'
+import ReviewCommentListItem from './ReviewCommentListItem'
 
 interface Props {
   reviewId: number
 }
 
-export default async function CommentList({ reviewId }: Props) {
+export default async function ReviewCommentList({ reviewId }: Props) {
   const { error, status, data } = await reviewRepository.getReviewComments(reviewId)
 
   if ((error && status === 404) || !data) {
@@ -29,5 +29,7 @@ export default async function CommentList({ reviewId }: Props) {
     )
   }
 
-  return data.comments.map((comment) => <CommentItem key={comment.id} comment={comment} />)
+  return data.comments.map((comment) => (
+    <ReviewCommentListItem key={comment.id} comment={comment} />
+  ))
 }

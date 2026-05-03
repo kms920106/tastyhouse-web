@@ -1,35 +1,8 @@
 import type { PaginationParams } from '@/types/common'
+import type { ReviewType } from './review.types'
+import type { ReviewComment, ReviewReply } from './review.model'
 
-export type ReviewType = 'ALL' | 'FOLLOWING'
-
-export type ReviewSortType = 'recommended' | 'latest' | 'oldest'
-
-export interface ReviewComment {
-  id: number
-  reviewId: number
-  memberId: number
-  memberNickname: string
-  memberProfileImageUrl: string | null
-  content: string
-  createdAt: string
-  replies: ReviewReply[]
-}
-
-export interface ReviewReply {
-  id: number
-  commentId: number
-  memberId: number
-  memberNickname: string
-  memberProfileImageUrl: string | null
-  replyToMemberId: number
-  replyToMemberNickname: string
-  content: string
-  createdAt: string
-}
-
-export type ReviewBestQuery = PaginationParams & {}
-
-export type ReviewLatestQuery = PaginationParams & {
+export interface ReviewLatestQuery extends PaginationParams {
   type: ReviewType
 }
 

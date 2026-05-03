@@ -1,5 +1,5 @@
 import ReviewLikeButtonError from '@/app/reviews/[id]/_components/ReviewLikeButtonError'
-import { reviewRepository } from '@/domains/review'
+import { reviewRepository } from '@/domains/review/review.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'

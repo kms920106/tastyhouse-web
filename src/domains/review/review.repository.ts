@@ -1,5 +1,7 @@
+import 'server-only'
+
 import { api } from '@/lib/api'
-import type { MyReviewListItemResponse } from '@/domains/member/member.dto'
+import type { MyReviewListItemResponse } from '@/domains/member'
 import { PaginationParams } from '@/types/common'
 import {
   CommentCreateRequest,
@@ -8,7 +10,6 @@ import {
   ReplyCreateRequest,
   ReplyCreateResponse,
   ReviewBestListItemResponse,
-  ReviewBestQuery,
   ReviewCreateRequest,
   ReviewCreateResponse,
   ReviewDetailResponse,
@@ -17,12 +18,12 @@ import {
   ReviewLikeResponse,
   ReviewProductDetailResponse,
   ReviewWriteInfoResponse,
-} from './review.type'
+} from './review.dto'
 
 const ENDPOINT = '/api/reviews'
 
 export const reviewRepository = {
-  async getBestReviews(params: ReviewBestQuery) {
+  async getBestReviews(params: PaginationParams) {
     return api.get<ReviewBestListItemResponse[]>(`${ENDPOINT}/v1/best`, { params })
   },
   async getLatestReviews(params: ReviewLatestQuery) {
@@ -41,19 +42,13 @@ export const reviewRepository = {
     return api.get<ReviewLikeResponse>(`${ENDPOINT}/v1/${reviewId}/like`)
   },
   async createReviewComment(reviewId: number, request: CommentCreateRequest) {
-    return api.post<CommentCreateResponse>(
-      `${ENDPOINT}/v1/${reviewId}/comments`,
-      request,
-    )
+    return api.post<CommentCreateResponse>(`${ENDPOINT}/v1/${reviewId}/comments`, request)
   },
   async getReviewComments(reviewId: number) {
     return api.get<CommentListResponse>(`${ENDPOINT}/v1/${reviewId}/comments`)
   },
   async createReviewReply(reviewId: number, commentId: number, request: ReplyCreateRequest) {
-    return api.post<ReplyCreateResponse>(
-      `${ENDPOINT}/v1/comments/${commentId}/replies`,
-      request,
-    )
+    return api.post<ReplyCreateResponse>(`${ENDPOINT}/v1/comments/${commentId}/replies`, request)
   },
   async getReviewWriteInfo(orderItemId: number) {
     return api.get<ReviewWriteInfoResponse>(`${ENDPOINT}/v1/write/order-items/${orderItemId}`)
@@ -61,7 +56,6 @@ export const reviewRepository = {
   async createReview(request: ReviewCreateRequest) {
     return api.post<ReviewCreateResponse>(`${ENDPOINT}/v1`, request)
   },
-  // 특정 회원의 리뷰 목록 조회
   async getMemberReviews(memberId: number | string, params: PaginationParams) {
     return api.get<MyReviewListItemResponse[]>(`${ENDPOINT}/v1/members/${memberId}`, { params })
   },

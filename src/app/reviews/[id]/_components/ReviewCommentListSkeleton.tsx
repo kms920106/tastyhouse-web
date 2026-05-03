@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-function CommentListItemSkeleton() {
+function ReviewCommentListItemSkeleton() {
   return (
     <div className="flex gap-2.5">
       <Skeleton className="w-9 h-9 rounded-full flex-shrink-0" />
@@ -16,11 +16,11 @@ function CommentListItemSkeleton() {
   )
 }
 
-export function CommentListSkeleton() {
+export function ReviewCommentListSkeleton() {
   return (
     <>
       {[...Array(5)].map((_, i) => (
-        <CommentListItemSkeleton key={i} />
+        <ReviewCommentListItemSkeleton key={i} />
       ))}
     </>
   )

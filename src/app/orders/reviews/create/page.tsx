@@ -1,4 +1,4 @@
-import { reviewRepository } from '@/domains/review'
+import { reviewRepository } from '@/domains/review/review.repository'
 import { notFound } from 'next/navigation'
 import OrderReviewCreateSection from './_components/OrderReviewCreateSection'
 

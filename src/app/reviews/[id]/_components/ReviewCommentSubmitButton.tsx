@@ -6,7 +6,7 @@ interface Props {
   isSubmitting: boolean
 }
 
-export default function CommentSubmitButton({ onClick, isSubmitting }: Props) {
+export default function ReviewCommentSubmitButton({ onClick, isSubmitting }: Props) {
   return (
     <button
       type="button"

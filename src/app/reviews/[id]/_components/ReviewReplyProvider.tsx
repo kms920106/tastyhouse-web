@@ -22,7 +22,7 @@ interface ReplyContextValue {
 
 const ReplyContext = createContext<ReplyContextValue | null>(null)
 
-export function ReplyProvider({ children }: { children: React.ReactNode }) {
+export function ReviewReplyProvider({ children }: { children: React.ReactNode }) {
   const [replyTarget, setReplyTarget] = useState<ReplyTarget>(null)
   const [commentText, setCommentText] = useState('')
   const [isFocused, setIsFocused] = useState(false)

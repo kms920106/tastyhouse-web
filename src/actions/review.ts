@@ -1,16 +1,18 @@
 'use server'
 
-import {
-  reviewRepository,
-  CommentCreateRequest,
-  ReplyCreateRequest,
-  ReviewCreateRequest,
-  ReviewLatestQuery,
-} from '@/domains/review'
+import { reviewRepository } from '@/domains/review/review.repository'
 import { revalidatePath } from 'next/cache'
 
-export async function getLatestReviews(params: ReviewLatestQuery) {
-  return reviewRepository.getLatestReviews(params)
+export async function getLatestReviews({
+  page,
+  size,
+  type,
+}: {
+  page: number
+  size: number
+  type: 'ALL' | 'FOLLOWING'
+}) {
+  return reviewRepository.getLatestReviews({ page, size, type })
 }
 
 export async function getMemberReviews(
@@ -25,8 +27,8 @@ export async function toggleReviewLike(reviewId: number) {
   return reviewRepository.toggleReviewLike(reviewId)
 }
 
-export async function createComment(reviewId: number, request: CommentCreateRequest) {
-  const result = await reviewRepository.createReviewComment(reviewId, request)
+export async function createComment(reviewId: number, { content }: { content: string }) {
+  const result = await reviewRepository.createReviewComment(reviewId, { content })
 
   if (!result.error && result.data) {
     revalidatePath(`/reviews/${reviewId}`)
@@ -38,9 +40,12 @@ export async function createComment(reviewId: number, request: CommentCreateRequ
 export async function createReply(
   reviewId: number,
   commentId: number,
-  request: ReplyCreateRequest,
+  { content, replyToMemberId }: { content: string; replyToMemberId: number },
 ) {
-  const result = await reviewRepository.createReviewReply(reviewId, commentId, request)
+  const result = await reviewRepository.createReviewReply(reviewId, commentId, {
+    content,
+    replyToMemberId,
+  })
 
   if (!result.error && result.data) {
     revalidatePath(`/reviews/${reviewId}`)
@@ -53,8 +58,35 @@ export async function getReviewWriteInfo(orderItemId: number) {
   return reviewRepository.getReviewWriteInfo(orderItemId)
 }
 
-export async function createOrderReview(request: ReviewCreateRequest) {
-  const result = await reviewRepository.createReview(request)
+export async function createOrderReview({
+  orderItemId,
+  productId,
+  tasteRating,
+  amountRating,
+  priceRating,
+  content,
+  uploadedFileIds,
+  tags,
+}: {
+  orderItemId: number | null
+  productId: number
+  tasteRating: number
+  amountRating: number
+  priceRating: number
+  content: string
+  uploadedFileIds: number[]
+  tags: string[]
+}) {
+  const result = await reviewRepository.createReview({
+    orderItemId,
+    productId,
+    tasteRating,
+    amountRating,
+    priceRating,
+    content,
+    uploadedFileIds,
+    tags,
+  })
 
   if (!result.error && result.data) {
     revalidatePath('/orders')

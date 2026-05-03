@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 import { IoChatboxOutline } from 'react-icons/io5'
-import { useReply } from './ReplyContext'
+import { useReply } from './ReviewReplyProvider'
 
 interface Props {
   reviewId: number

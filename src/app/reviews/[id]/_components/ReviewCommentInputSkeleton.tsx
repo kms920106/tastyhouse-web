@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function CommentInputSkeleton() {
+export function ReviewCommentInputSkeleton() {
   return (
     <div className="flex items-center gap-[7px] flex-1">
       <Skeleton className="size-10 rounded-full" />
