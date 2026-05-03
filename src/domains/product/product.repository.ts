@@ -14,21 +14,25 @@ const ENDPOINT = '/api/products'
 const CACHE_OPTIONS = { cache: 'force-cache' as const, next: { revalidate: 3600 } }
 
 export const productRepository = {
+  // 오늘의 할인 상품 목록 조회
   async getTodayDiscountProducts(params: PaginationParams) {
     return publicApi.get<ProductTodayDiscountListItemResponse[]>(`${ENDPOINT}/v1/today-discounts`, {
       ...CACHE_OPTIONS,
       params,
     })
   },
+  // 상품 상세 조회
   async getProductById(productId: number) {
     return publicApi.get<ProductDetailResponse>(`${ENDPOINT}/v1/${productId}`, CACHE_OPTIONS)
   },
+  // 상품 리뷰 통계 조회
   async getProductReviewStatistics(productId: number) {
     return publicApi.get<ProductReviewStatisticsResponse>(
       `${ENDPOINT}/v1/${productId}/reviews/statistics`,
       CACHE_OPTIONS,
     )
   },
+  // 상품 리뷰 목록 조회
   async getProductReviews(productId: number, params: PaginationParams) {
     return publicApi.get<ProductReviewsByRatingResponse>(`${ENDPOINT}/v1/${productId}/reviews`, {
       ...CACHE_OPTIONS,

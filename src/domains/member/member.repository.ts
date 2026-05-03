@@ -43,7 +43,7 @@ export const memberRepository = {
   async getOtherMemberProfile(memberId: number | string) {
     return api.get<OtherMemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
   },
-  // 내 프로필 조회
+  // 내 프로필 조회 (GET /v1/me)
   async getMemberMe() {
     return api.get<MemberInfoResponse>(`${ENDPOINT}/v1/me`)
   },
@@ -55,7 +55,7 @@ export const memberRepository = {
   async getMyAvailableCoupons() {
     return api.get<MemberCouponListItemResponse[]>(`${ENDPOINT}/v1/me/coupons/available`)
   },
-  // 보유 쿠폰 목록 조회
+  // 보유 쿠폰 목록 조회 (전체)
   async getMyCoupons() {
     return api.get<MemberCouponListItemResponse[]>(`${ENDPOINT}/v1/me/coupons`)
   },
@@ -83,7 +83,7 @@ export const memberRepository = {
       params,
     })
   },
-  // 프로필 수정
+  // 프로필 수정 (PUT /v1/me/profile)
   async updateMyProfile(data: UpdateProfileRequest) {
     return api.put<void>(`${ENDPOINT}/v1/me/profile`, data)
   },
@@ -95,7 +95,7 @@ export const memberRepository = {
   async verifyPassword(data: VerifyPasswordRequest) {
     return api.post<VerifyPasswordResponse>(`${ENDPOINT}/v1/me/verify-password`, data)
   },
-  // 개인정보 수정
+  // 개인정보 수정 (PUT /v1/me/personal-info)
   async updateMyPersonalInfo(
     data: UpdatePersonalInfoRequest,
     verifyToken: string,
@@ -112,7 +112,7 @@ export const memberRepository = {
   async getMyGrade() {
     return api.get<MyGradeResponse>(`${ENDPOINT}/v1/me/grade`)
   },
-  // 비밀번호 변경
+  // 비밀번호 변경 (PUT /v1/me/password)
   async updateMyPassword(data: UpdatePasswordRequest, verifyToken: string) {
     return api.put<void>(`${ENDPOINT}/v1/me/password`, data, {
       headers: {
@@ -120,7 +120,7 @@ export const memberRepository = {
       },
     })
   },
-  // 회원 탈퇴
+  // 회원 탈퇴 (DELETE /v1/me)
   async withdrawMember(data: WithdrawRequest) {
     return api.delete<void>(`${ENDPOINT}/v1/me`, data)
   },
