@@ -1,5 +1,5 @@
 import SettingSection from './_components/SettingSection'
 
-export default function SettingPage() {
+export default function Page() {
   return <SettingSection />
 }

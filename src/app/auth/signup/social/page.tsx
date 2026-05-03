@@ -32,7 +32,7 @@ interface Props {
   }>
 }
 
-export default function SocialSignupPage({ searchParams }: Props) {
+export default function Page({ searchParams }: Props) {
   const router = useRouter()
 
   const { provider: providerParam, tempToken: tempTokenParam } = use(searchParams)

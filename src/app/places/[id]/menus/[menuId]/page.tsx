@@ -8,7 +8,7 @@ interface Props {
   }>
 }
 
-export default async function PlaceMenuDetailPage({ params }: Props) {
+export default async function Page({ params }: Props) {
   const { id } = await params
   redirect(PAGE_PATHS.PLACE_DETAIL(id))
 }

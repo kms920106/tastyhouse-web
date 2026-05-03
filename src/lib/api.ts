@@ -52,8 +52,12 @@ class ApiClient {
     return requestHeaders
   }
 
-  private async request<T, P extends object>(endpoint: string, config: RequestConfig<P> = {}): Promise<ApiResponse<T>> {
-    const { params, headers, isFormData, timeout = 3000, ...restConfig } = config
+  private async request<T, P extends object>(
+    endpoint: string,
+    config: RequestConfig<P> = {},
+  ): Promise<ApiResponse<T>> {
+    // const { params, headers, isFormData, timeout = 3000, ...restConfig } = config
+    const { params, headers, isFormData, timeout = 30000, ...restConfig } = config
     const method = restConfig.method ?? 'GET'
     const correlationId = crypto.randomUUID().slice(0, 8)
     const requestLogger = logger.child({ correlationId, method, path: endpoint })
@@ -147,7 +151,10 @@ class ApiClient {
     }
   }
 
-  async get<T = unknown, P extends object = object>(endpoint: string, config?: RequestConfig<P>): Promise<ApiResponse<T>> {
+  async get<T = unknown, P extends object = object>(
+    endpoint: string,
+    config?: RequestConfig<P>,
+  ): Promise<ApiResponse<T>> {
     return this.request<T, P>(endpoint, {
       method: 'GET',
       ...config,

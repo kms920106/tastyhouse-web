@@ -5,7 +5,7 @@ interface Props {
   searchParams: Promise<{ categoryId?: string }>
 }
 
-export default async function FaqsPage({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
   const params = await searchParams
   const initialCategoryId = params.categoryId ? Number(params.categoryId) : 0
 

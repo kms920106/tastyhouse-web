@@ -8,7 +8,7 @@ interface Props {
   }>
 }
 
-export default async function EventDetailPage({ params }: Props) {
+export default async function Page({ params }: Props) {
   const { id } = await params
 
   const eventId = Number(id)

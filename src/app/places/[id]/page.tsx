@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function PlaceDetailPage({ params, searchParams }: Props) {
+export default async function Page({ params, searchParams }: Props) {
   const { id } = await params
   const searchParamsData = await searchParams
 

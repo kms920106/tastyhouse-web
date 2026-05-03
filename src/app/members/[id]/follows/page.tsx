@@ -5,7 +5,7 @@ interface Props {
   searchParams: Promise<{ tab?: string }>
 }
 
-export default async function FollowsPage({ params, searchParams }: Props) {
+export default async function Page({ params, searchParams }: Props) {
   const { id } = await params
   const { tab } = await searchParams
   const initialTab = (tab === 'follower' ? 'follower' : 'following') as FollowTabValue

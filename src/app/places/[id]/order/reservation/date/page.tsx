@@ -34,7 +34,7 @@ const AGREEMENT_ITEMS = [
   '이벤트 정보 수신 동의(선택)',
 ]
 
-export default function ReservationDatePage() {
+export default function Page() {
   const router = useRouter()
   const [currentDate, setCurrentDate] = useState(new Date(2021, 1, 11))
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date(2021, 1, 11))

@@ -1,5 +1,5 @@
 import SignupSection from './_components/SignupSection'
 
-export default function SignupPage() {
+export default function Page() {
   return <SignupSection />
 }

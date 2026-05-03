@@ -1,5 +1,5 @@
 import ProfileEditSection from './_components/ProfileEditSection'
 
-export default function ProfileEditPage() {
+export default function Page() {
   return <ProfileEditSection />
 }

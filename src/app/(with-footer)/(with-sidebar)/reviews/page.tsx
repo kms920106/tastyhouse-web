@@ -4,7 +4,7 @@ interface Props {
   searchParams: Promise<{ tab?: string }>
 }
 
-export default async function ReviewPage({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
   const params = await searchParams
   const initialTab = (params.tab || 'all') as 'all' | 'following'
 

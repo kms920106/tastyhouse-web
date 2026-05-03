@@ -4,7 +4,7 @@ interface Props {
   searchParams: Promise<{ q?: string }>
 }
 
-export default async function MemberSearchPage({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
   const { q } = await searchParams
   const initialQuery = q ?? ''
 

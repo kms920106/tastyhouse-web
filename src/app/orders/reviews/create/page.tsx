@@ -6,7 +6,7 @@ interface Props {
   searchParams: Promise<{ orderItemId?: string }>
 }
 
-export default async function OrderReviewCreatePage({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
   const { orderItemId } = await searchParams
 
   if (!orderItemId) {

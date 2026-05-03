@@ -6,7 +6,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import { useState } from 'react'
 
-export default function ForgotPasswordPage() {
+export default function Page() {
   const [passwordResetToken, setPasswordResetToken] = useState<string | null>(null)
 
   return (

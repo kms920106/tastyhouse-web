@@ -5,7 +5,7 @@ import ChoiceSection from './_components/ChoiceSection'
 import QuickReviewLink from './_components/QuickReviewLink'
 import TodayDiscountSection from './_components/TodayDiscountSection'
 
-export default async function HomePage() {
+export default async function Page() {
   return (
     <>
       {/* 배너 */}

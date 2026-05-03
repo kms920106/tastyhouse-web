@@ -9,7 +9,7 @@ interface Props {
   }>
 }
 
-export default async function PlacePage({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
   const params = await searchParams
 
   const stationId = params.stationId ? Number(params.stationId) : undefined

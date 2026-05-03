@@ -6,7 +6,7 @@ import SideBar from '@/components/home/SideBar'
 import SideBarButton from '@/components/home/SideBarButton'
 import { useState } from 'react'
 
-export default function HomePage() {
+export default function Page() {
   const [isOpen, setIsOpen] = useState(false)
 
   const togglePanel = () => setIsOpen((prev) => !prev)

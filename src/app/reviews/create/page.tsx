@@ -7,7 +7,7 @@ import TagInput from '@/components/reviews/TagInput'
 import { useCallback, useState } from 'react'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 
-export default function ReviewCreatePage() {
+export default function Page() {
   const [form, setForm] = useState({
     placeName: '',
     menuName: '',
