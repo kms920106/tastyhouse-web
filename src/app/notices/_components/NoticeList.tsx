@@ -1,19 +1,12 @@
 'use client'
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { formatDate } from '@/lib/date'
-import { cn } from '@/lib/utils'
 import { getNoticeList } from '@/actions/notice'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/shadcn/accordion'
+import { Accordion } from '@/components/ui/shadcn/accordion'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { NoticeListSkeleton } from './NoticeListSkeleton'
-import { Notice } from '@/domains/notice'
+import { NoticeListItem } from './NoticeListItem'
 
 const PAGE_SIZE = 10
 
@@ -55,23 +48,8 @@ export default function NoticeList() {
   return (
     <>
       <Accordion type="multiple" className="w-full">
-        {notices.map((notice: Notice, index) => (
-          <AccordionItem key={notice.id} value={String(notice.id)} className="border-[#eeeeee]">
-            <AccordionTrigger
-              className={cn('w-full px-[16px] py-[18px] hover:no-underline', index === 0 && 'pt-0')}
-              showIcon={false}
-            >
-              <div className="flex flex-col items-start gap-3">
-                <span className="text-sm leading-[14px]">{notice.title}</span>
-                <span className="text-[13px] leading-[13px] text-[#999999] font-thin">
-                  {formatDate(notice.createdAt, 'YYYY-MM-DD')}
-                </span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="px-[25px] py-[25px] text-[13px] leading-[22px] bg-[#f9f9f9] whitespace-pre-line">
-              {notice.content}
-            </AccordionContent>
-          </AccordionItem>
+        {notices.map((notice, index) => (
+          <NoticeListItem key={notice.id} notice={notice} isFirst={index === 0} />
         ))}
         {isFetchingNextPage && <NoticeListSkeleton />}
       </Accordion>
