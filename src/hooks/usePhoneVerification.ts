@@ -93,20 +93,29 @@ export function usePhoneVerification(
 
     startConfirming(async () => {
       try {
-        const response = await confirmPhoneVerificationCode({
+        const { error, data } = await confirmPhoneVerificationCode({
           phoneNumber: rawPhone,
           verificationCode: verifyCode,
         })
-        if (response?.error) {
-          toast(response.error)
+
+        if (error) {
+          toast(COMMON_ERROR_MESSAGES.API_FETCH_ERROR)
           return
         }
-        const token = response?.data?.phoneVerifyToken
-        if (!token) {
+
+        if (!data) {
           toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
           return
         }
-        setPhoneVerifyToken(token)
+
+        const { phoneVerifyToken } = data
+
+        if (!phoneVerifyToken) {
+          toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
+          return
+        }
+
+        setPhoneVerifyToken(phoneVerifyToken)
         setIsVerified(true)
       } catch {
         toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)

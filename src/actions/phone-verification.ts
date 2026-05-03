@@ -1,20 +1,28 @@
 'use server'
 
 import { memberRepository } from '@/domains/member/member.repository'
-import {
-  ConfirmVerificationCodeRequest,
-  phoneVerificationRepository,
-  SendVerificationCodeRequest,
-} from '@/domains/phone-verification'
+import { phoneVerificationRepository } from '@/domains/phone-verification/phone-verification.repository'
 
 export async function checkPhoneAvailability(phoneNumber: string) {
   return memberRepository.checkPhoneAvailability(phoneNumber)
 }
 
-export async function sendPhoneVerificationCode(data: SendVerificationCodeRequest) {
-  return phoneVerificationRepository.sendVerificationCode(data)
+export async function sendPhoneVerificationCode({ phoneNumber }: { phoneNumber: string }): Promise<{
+  error?: string
+  data?: void
+}> {
+  return phoneVerificationRepository.sendVerificationCode({ phoneNumber })
 }
 
-export async function confirmPhoneVerificationCode(data: ConfirmVerificationCodeRequest) {
-  return phoneVerificationRepository.confirmVerificationCode(data)
+export async function confirmPhoneVerificationCode({
+  phoneNumber,
+  verificationCode,
+}: {
+  phoneNumber: string
+  verificationCode: string
+}): Promise<{
+  error?: string
+  data?: { phoneVerifyToken: string }
+}> {
+  return phoneVerificationRepository.confirmVerificationCode({ phoneNumber, verificationCode })
 }

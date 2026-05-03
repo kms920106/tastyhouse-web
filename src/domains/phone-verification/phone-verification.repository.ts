@@ -1,9 +1,11 @@
+import 'server-only'
+
 import { api } from '@/lib/api'
 import {
   ConfirmVerificationCodeRequest,
   PhoneVerifyTokenResponse,
   SendVerificationCodeRequest,
-} from './phone-verification.type'
+} from './phone-verification.dto'
 
 const ENDPOINT = '/api/phone-verifications'
 

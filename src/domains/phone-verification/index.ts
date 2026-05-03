@@ -1,2 +1,1 @@
-export * from './phone-verification.repository'
-export * from './phone-verification.type'
+export * from './phone-verification.dto'
