@@ -680,6 +680,43 @@ interface Props {
 > **판단 기준**: `src/app/` 컴포넌트 Props에 `*Response`, `*Request`, `*Query` suffix 타입이 보이면 model.ts로 분리하세요.
 > model.ts 생성 조건(§3.4)과 연동: `src/app/` 컴포넌트에서 직접 참조하는 객체 타입은 반드시 model.ts에 정의합니다.
 
+### 8.8. `dto.ts`에 정의된 타입을 `src/app/` 컴포넌트가 참조하는 경우 — model.ts 분리 원칙
+
+`dto.ts`는 Backend API 통신 전용 계층입니다. suffix(`*Response`, `*Request`, `*Query`)가 없더라도, `dto.ts`에 정의된 인터페이스를 `src/app/` 컴포넌트(페이지, `_components/`)가 Props 타입, 로컬 state 타입, 콜백 파라미터 타입으로 직접 사용하는 것은 금지입니다.
+
+`src/app/` 컴포넌트에서 직접 사용되는 객체 인터페이스는 반드시 `[domain].model.ts`로 분리하고, `dto.ts`는 model을 import해서 조립하는 방식으로 작성합니다.
+
+**판단 흐름**:
+1. `dto.ts`의 인터페이스를 `src/app/` 컴포넌트가 참조하고 있는가? → **model.ts로 이동**
+2. `dto.ts`는 이동된 model 타입을 `import type { Xxx } from './[domain].model'` 형식으로 가져와 사용
+3. `index.ts`에 `export * from './[domain].model'` 추가 → 컴포넌트의 barrel import 경로는 그대로 유지
+
+**적용 예시** (`auth` 도메인의 `SocialProfile`):
+
+```typescript
+// ✅ auth.model.ts — 컴포넌트가 참조하는 엔티티
+import type { MemberGender } from '@/domains/member'
+
+export interface SocialProfile {
+  providerId: string
+  email: string | null
+  gender: MemberGender | null
+  // ...
+}
+
+// ✅ auth.dto.ts — model을 조립
+import type { SocialProfile } from './auth.model'
+
+export interface SocialLinkResponse {
+  socialProfile: SocialProfile | null  // ← model 재사용
+}
+
+// ✅ src/app/auth/signup/social/page.tsx — barrel 경로 유지, model에서 옴
+import type { SocialProfile } from '@/domains/auth'
+```
+
+**중요**: `index.ts`에 `export * from './[domain].model'`을 추가하면 컴포넌트의 import 경로(`@/domains/[domain]`)는 변경 없이 model 타입을 참조하게 됩니다.
+
 ---
 
 ## 9. 자가 검증 체크리스트
