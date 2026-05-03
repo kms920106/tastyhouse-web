@@ -5,11 +5,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
 import { getPaymentMethodName } from '@/constants/payment'
-import type { Payment } from '@/domains/order'
+import { OrderPayment } from '@/domains/order'
 import { formatDate } from '@/lib/date'
 
 interface Props {
-  payment: Payment
+  payment: OrderPayment
 }
 
 export default function PaymentInformationAccordion({ payment }: Props) {

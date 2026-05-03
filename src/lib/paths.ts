@@ -1,4 +1,4 @@
-import { OrderMethod } from '@/domains/order'
+import { OrderMethodType } from '@/domains/order'
 
 export const PAGE_PATHS = {
   // 홈
@@ -18,7 +18,7 @@ export const PAGE_PATHS = {
 
   // 주문 관련
   ORDER_METHOD: (placeId: string | number) => `/places/${placeId}/order/method`,
-  ORDER_MENUS: (placeId: string | number, method: OrderMethod) =>
+  ORDER_MENUS: (placeId: string | number, method: OrderMethodType) =>
     `/places/${placeId}/order/menus?orderMethod=${encodeURIComponent(method)}`,
   ORDER_MENU_DETAIL: (placeId: number, menuId: number) =>
     `/places/${placeId}/order/menus/${menuId}`,

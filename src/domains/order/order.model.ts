@@ -1,12 +1,12 @@
 import type { PaymentMethod, PaymentStatus } from '../payment'
-import type { OrderMethod } from './order.types'
+import type { OrderMethodType } from './order.types'
 
-export interface OrderMethodItem {
-  code: OrderMethod
+export interface OrderMethod {
+  code: OrderMethodType
   name: string
 }
 
-export interface OrderItemOption {
+export interface OrderProductOption {
   groupId: number
   groupName: string
   optionId: number
@@ -14,7 +14,7 @@ export interface OrderItemOption {
   additionalPrice: number
 }
 
-export interface OrderItem {
+export interface OrderProduct {
   productId: number
   optionKey: string
   name: string
@@ -23,17 +23,17 @@ export interface OrderItem {
   salePrice: number
   originalPrice: number
   discountPrice: number
-  selectedOptions: OrderItemOption[]
+  selectedOptions: OrderProductOption[]
 }
 
-export interface OrderedItemOption {
+export interface OrderedProductOption {
   id: number
   optionGroupName: string
   optionName: string
   additionalPrice: number
 }
 
-export interface OrderedItem {
+export interface OrderedProduct {
   id: number
   productId: number
   productName: string
@@ -43,17 +43,8 @@ export interface OrderedItem {
   discountPrice: number | null
   optionTotalPrice: number
   totalPrice: number
-  options: OrderedItemOption[]
+  options: OrderedProductOption[]
   reviewed: boolean
-}
-
-export interface Payment {
-  id: number
-  approvedAt: string
-  paymentMethod: PaymentMethod
-  paymentStatus: PaymentStatus
-  cardCompany: string | null
-  cardNumber: string | null
 }
 
 export interface Order {
@@ -84,7 +75,16 @@ export interface OrderDetail {
   finalAmount: number
   usedPoint: number
   earnedPoint: number
-  orderItems: OrderedItem[]
-  payment: Payment
+  orderItems: OrderedProduct[]
+  payment: OrderPayment
   createdAt: string
+}
+
+export interface OrderPayment {
+  id: number
+  approvedAt: string
+  paymentMethod: PaymentMethod
+  paymentStatus: PaymentStatus
+  cardCompany: string | null
+  cardNumber: string | null
 }

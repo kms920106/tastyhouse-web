@@ -1,6 +1,6 @@
 'use server'
 
-import type { OrderItem } from '@/domains/order'
+import type { OrderProduct } from '@/domains/order'
 import { orderRepository } from '@/domains/order/order.repository'
 
 export async function createOrder({
@@ -15,7 +15,7 @@ export async function createOrder({
   finalAmount,
 }: {
   placeId: number
-  orderItems: OrderItem[]
+  orderItems: OrderProduct[]
   memberCouponId: number | null
   usePoint: number
   totalProductAmount: number

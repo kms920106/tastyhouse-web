@@ -1,9 +1,9 @@
 import { PaymentStatus } from '../payment'
-import type { OrderItem } from './order.model'
+import type { OrderProduct } from './order.model'
 
 export interface OrderCreateRequest {
   placeId: number
-  orderItems: OrderItem[]
+  orderItems: OrderProduct[]
   memberCouponId: number | null
   usePoint: number
   totalProductAmount: number

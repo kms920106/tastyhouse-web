@@ -4,7 +4,7 @@ import ImageContainer from '@/components/ui/ImageContainer'
 import { formatNumber } from '@/lib/number'
 import { HiOutlineXMark } from 'react-icons/hi2'
 import CircleCheckbox from '../ui/CircleCheckbox'
-import type { OrderItemOption } from '@/domains/order'
+import type { OrderProductOption } from '@/domains/order'
 
 interface Props {
   optionKey: string
@@ -14,7 +14,7 @@ interface Props {
   originalPrice: number
   quantity: number
   selected: boolean
-  selectedOptions?: OrderItemOption[]
+  selectedOptions?: OrderProductOption[]
   onToggleSelect: (optionKey: string) => void
   onQuantityChange: (optionKey: string, quantity: number) => void
   onRemove: (optionKey: string) => void

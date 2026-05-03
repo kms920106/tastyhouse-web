@@ -1,38 +1,39 @@
 'use client'
 
-import type { OrderMethod, OrderMethodItem } from '@/domains/order'
+import type { OrderMethodType, OrderMethod } from '@/domains/order'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
-const METHOD_CONFIG: Record<OrderMethod, { title: string; imageOff: string; imageOn: string }> = {
-  TABLE_ORDER: {
-    title: '바로 주문하기',
-    imageOff: '/images/place/order-method/icon-table-off.png',
-    imageOn: '/images/place/order-method/icon-table-on.png',
-  },
-  RESERVATION: {
-    title: '예약하기',
-    imageOff: '/images/place/order-method/icon-reservation-off.png',
-    imageOn: '/images/place/order-method/icon-reservation-on.png',
-  },
-  DELIVERY: {
-    title: '배달하기',
-    imageOff: '/images/place/order-method/icon-delivery-off.png',
-    imageOn: '/images/place/order-method/icon-delivery-on.png',
-  },
-  TAKEOUT: {
-    title: '포장하기',
-    imageOff: '/images/place/order-method/icon-packaging-off.png',
-    imageOn: '/images/place/order-method/icon-packaging-on.png',
-  },
-}
+const METHOD_CONFIG: Record<OrderMethodType, { title: string; imageOff: string; imageOn: string }> =
+  {
+    TABLE_ORDER: {
+      title: '바로 주문하기',
+      imageOff: '/images/place/order-method/icon-table-off.png',
+      imageOn: '/images/place/order-method/icon-table-on.png',
+    },
+    RESERVATION: {
+      title: '예약하기',
+      imageOff: '/images/place/order-method/icon-reservation-off.png',
+      imageOn: '/images/place/order-method/icon-reservation-on.png',
+    },
+    DELIVERY: {
+      title: '배달하기',
+      imageOff: '/images/place/order-method/icon-delivery-off.png',
+      imageOn: '/images/place/order-method/icon-delivery-on.png',
+    },
+    TAKEOUT: {
+      title: '포장하기',
+      imageOff: '/images/place/order-method/icon-packaging-off.png',
+      imageOn: '/images/place/order-method/icon-packaging-on.png',
+    },
+  }
 
-const METHOD_ORDER: OrderMethod[] = ['TABLE_ORDER', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
+const METHOD_ORDER: OrderMethodType[] = ['TABLE_ORDER', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
 
 interface Props {
-  orderMethods: OrderMethodItem[]
-  selectedMethod: OrderMethod | null
-  onSelect: (method: OrderMethod) => void
+  orderMethods: OrderMethod[]
+  selectedMethod: OrderMethodType | null
+  onSelect: (method: OrderMethodType) => void
 }
 
 export default function OrderMethodGrid({ orderMethods, selectedMethod, onSelect }: Props) {

@@ -14,13 +14,13 @@ import CartSelectionControl from './CartSelectionControl'
 import PaymentSummary from './PaymentSummary'
 import PlaceOrderCartContentSkeleton from './PlaceOrderCartContentSkeleton'
 
-import type { OrderItem } from '@/domains/order'
+import type { OrderProduct } from '@/domains/order'
 import { useEffect, useMemo, useState } from 'react'
 
 export default function PlaceOrderCartContent() {
   const { items: initialItems, placeName, isLoading } = useCartInfo()
 
-  const [cartItems, setCartItems] = useState<OrderItem[]>([])
+  const [cartItems, setCartItems] = useState<OrderProduct[]>([])
   const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set())
 
   useEffect(() => {

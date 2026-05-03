@@ -1,5 +1,5 @@
 import type { MemberCoupon } from '@/domains/member'
-import type { OrderItem } from '@/domains/order'
+import type { OrderProduct } from '@/domains/order'
 
 export interface PaymentSummary {
   totalDiscountAmount: number
@@ -14,7 +14,7 @@ export interface PaymentSummary {
  * @param items - 가격과 수량 정보를 포함한 상품 목록
  * @returns 계산된 상품 총액
  */
-export function calculateTotalProductAmount(items: OrderItem[]): number {
+export function calculateTotalProductAmount(items: OrderProduct[]): number {
   return items.reduce((sum, item) => sum + item.originalPrice * item.quantity, 0)
 }
 
@@ -24,7 +24,7 @@ export function calculateTotalProductAmount(items: OrderItem[]): number {
  * @param items - 할인 금액과 수량 정보를 포함한 상품 목록
  * @returns 계산된 상품 할인 총액
  */
-export function calculateTotalProductDiscount(items: OrderItem[]): number {
+export function calculateTotalProductDiscount(items: OrderProduct[]): number {
   return items.reduce((sum, item) => sum + item.discountPrice * item.quantity, 0)
 }
 
@@ -34,7 +34,7 @@ export function calculateTotalProductDiscount(items: OrderItem[]): number {
  * @param items - 결제 금액과 수량 정보를 포함한 상품 목록
  * @returns 계산된 상품 결제 총액
  */
-export function calculateTotalProductPaymentAmount(items: OrderItem[]): number {
+export function calculateTotalProductPaymentAmount(items: OrderProduct[]): number {
   return calculateTotalProductAmount(items) - calculateTotalProductDiscount(items)
 }
 

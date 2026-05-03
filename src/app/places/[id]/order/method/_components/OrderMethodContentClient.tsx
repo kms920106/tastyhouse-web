@@ -1,7 +1,7 @@
 'use client'
 
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import type { OrderMethod, OrderMethodItem } from '@/domains/order'
+import type { OrderMethodType, OrderMethod } from '@/domains/order'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -9,13 +9,13 @@ import OrderMethodGrid from './OrderMethodGrid'
 
 interface Props {
   placeId: number
-  orderMethods: OrderMethodItem[]
+  orderMethods: OrderMethod[]
 }
 
 export default function OrderMethodContentClient({ placeId, orderMethods }: Props) {
   const router = useRouter()
 
-  const [selectedMethod, setSelectedMethod] = useState<OrderMethod | null>(null)
+  const [selectedMethod, setSelectedMethod] = useState<OrderMethodType | null>(null)
 
   const handleNext = () => {
     if (selectedMethod) {

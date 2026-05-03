@@ -2,7 +2,7 @@
 
 import { getProductById } from '@/actions/product'
 import { toast } from '@/components/ui/AppToaster'
-import type { OrderItem, OrderItemOption } from '@/domains/order'
+import type { OrderProduct, OrderProductOption } from '@/domains/order'
 import type { ProductDetailResponse } from '@/domains/product'
 import type { CartSelectedOption } from '@/lib/cart'
 import { getCartData, getCartProductTypeCount } from '@/lib/cart'
@@ -14,7 +14,7 @@ import {
 import { useCallback, useEffect, useState } from 'react'
 
 export interface CartInfo {
-  items: OrderItem[]
+  items: OrderProduct[]
   placeName: string
   firstProductName: string
   totalItemCount: number
@@ -58,7 +58,7 @@ function calculateItemPrice(
 function resolveOptionDetails(
   detail: ProductDetailResponse,
   selectedOptions: CartSelectedOption[],
-): OrderItemOption[] {
+): OrderProductOption[] {
   return selectedOptions.map((so) => {
     const group = detail.optionGroups.find((g) => g.id === so.groupId)
     const option = group?.options.find((o) => o.id === so.optionId)
@@ -99,7 +99,7 @@ async function fetchProductDetails(
 }
 
 interface CartState {
-  items: OrderItem[]
+  items: OrderProduct[]
   placeName: string
   firstProductName: string
   totalItemCount: number
@@ -129,7 +129,7 @@ export function useCartInfo(): CartInfo {
 
     const firstDetail = productDetailMap.values().next().value
 
-    const orderItems: OrderItem[] = cart.products
+    const orderItems: OrderProduct[] = cart.products
       .map((cartProduct) => {
         const productDetail = productDetailMap.get(cartProduct.productId)
         if (!productDetail) return null
@@ -153,7 +153,7 @@ export function useCartInfo(): CartInfo {
           selectedOptions,
         }
       })
-      .filter((item): item is OrderItem => item !== null)
+      .filter((item): item is OrderProduct => item !== null)
 
     setState({
       items: orderItems,

@@ -1,7 +1,7 @@
 import { PaginationParams } from '@/types/common'
 import type { PlaceAmenityCode, PlaceFoodType } from '.'
 import { PlaceAmenity, PlaceBreakTime, PlaceBusinessHour, PlaceClosedDay } from '.'
-import type { OrderMethodItem } from '../order'
+import type { OrderMethod } from '../order'
 import { ProductMenu } from '../product'
 
 export interface PlaceLatestQuery extends PaginationParams {
@@ -159,7 +159,7 @@ export interface PlaceMapListItemResponse {
 }
 
 export interface PlaceOrderMethodResponse {
-  orderMethods: OrderMethodItem[]
+  orderMethods: OrderMethod[]
 }
 
 export interface PlaceMapMarkerResponse {

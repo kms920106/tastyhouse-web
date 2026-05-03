@@ -1,12 +1,12 @@
 import CartItem from '@/components/cart/CartItem'
 import { PAGE_PATHS } from '@/lib/paths'
-import type { OrderItem } from '@/domains/order'
+import type { OrderProduct } from '@/domains/order'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { LiaPlusSolid } from 'react-icons/lia'
 
 interface Props {
-  cartItems: OrderItem[]
+  cartItems: OrderProduct[]
   placeName: string
   selectedKeys: Set<string>
   onToggleSelect: (optionKey: string) => void
@@ -29,10 +29,7 @@ export default function CartItemList({
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-base leading-[16px] text-[#aaaaaa]">장바구니가 비어있습니다.</p>
         <div className="mt-[15px]">
-          <Link
-            href={PAGE_PATHS.HOME}
-            className="text-sm leading-[14px] text-[#a91201] underline"
-          >
+          <Link href={PAGE_PATHS.HOME} className="text-sm leading-[14px] text-[#a91201] underline">
             메뉴 담으러 가기
           </Link>
         </div>
