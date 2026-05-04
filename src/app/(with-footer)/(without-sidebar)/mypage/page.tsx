@@ -1,7 +1,7 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
-import MyPageContent, { MyPageTabValue } from './_components/MyPageContent'
+import MyPage, { MyPageTabValue } from './_components/MyPage'
 
 interface Props {
   searchParams: Promise<{ tab?: string }>
@@ -16,5 +16,5 @@ export default async function Page({ searchParams }: Props) {
   const params = await searchParams
   const initialTab = (params.tab || 'reviews') as MyPageTabValue
 
-  return <MyPageContent initialTab={initialTab} />
+  return <MyPage initialTab={initialTab} />
 }

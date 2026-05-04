@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import BookmarkListFetcher from './BookmarkListFetcher'
-import { type MyPageTabValue } from './MyPageContent'
+import { type MyPageTabValue } from './MyPage'
 import OrderListFetcher from './OrderListFetcher'
 import ReviewListFetcher from './ReviewListFetcher'
 
@@ -33,7 +33,11 @@ export default function MyPageTabs({ initialTab }: Props) {
 
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
-      <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0 flex flex-col flex-1">
+      <Tabs
+        value={initialTab}
+        onValueChange={handleTabChange}
+        className="gap-0 flex flex-col flex-1"
+      >
         <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0">
           <TabsTrigger value="reviews" className={TAB_TRIGGER_CLASS}>
             <Image
