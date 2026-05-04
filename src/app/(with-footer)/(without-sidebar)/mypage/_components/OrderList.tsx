@@ -11,7 +11,12 @@ interface Props {
 
 export default function OrderList({ orders, hasMoreOrders }: Props) {
   if (orders.length === 0) {
-    return <EmptyState message="결제 내역이 없습니다." />
+    return (
+      <>
+        <EmptyState message="결제 내역이 없습니다." />
+        <div className="h-[70px]"></div>
+      </>
+    )
   }
 
   return (

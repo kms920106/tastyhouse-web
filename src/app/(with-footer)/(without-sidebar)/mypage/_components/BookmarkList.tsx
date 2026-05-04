@@ -20,7 +20,12 @@ interface Props {
 
 export default function BookmarkList({ bookmarks, hasMoreBookmarks }: Props) {
   if (bookmarks.length === 0) {
-    return <EmptyState message="저장된 즐겨찾기가 없습니다." />
+    return (
+      <>
+        <EmptyState message="저장된 즐겨찾기가 없습니다." />
+        <div className="h-[70px]"></div>
+      </>
+    )
   }
 
   return (

@@ -6,7 +6,7 @@ interface Props {
 
 export default function EmptyState({ message }: Props) {
   return (
-    <div className="flex flex-col items-center justify-center flex-1 pb-[70px]">
+    <div className="flex-1 flex flex-col items-center justify-center">
       <div className="relative w-[35px] h-[40px]">
         <Image src="/images/mypage/logo-gray.png" alt="로고" width={35} height={40} />
       </div>
