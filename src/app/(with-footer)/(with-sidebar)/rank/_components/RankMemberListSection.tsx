@@ -5,10 +5,11 @@ import { RankMemberListSkeleton } from './RankMemberListSkeleton'
 
 export default function RankMemberListSection({ rankPeriod }: { rankPeriod: RankPeriod }) {
   return (
-    <section className="flex flex-col gap-2.5 pt-[25px]">
+    <div className="flex flex-col flex-1">
       <Suspense fallback={<RankMemberListSkeleton />}>
         <RankMemberList rankPeriod={rankPeriod} />
       </Suspense>
-    </section>
+      <div className="h-[116px]"></div>
+    </div>
   )
 }

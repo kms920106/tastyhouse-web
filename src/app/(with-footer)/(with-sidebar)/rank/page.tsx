@@ -1,7 +1,5 @@
 import { RankPeriod } from '@/domains/rank'
-import MyRankFixedSection from './_components/MyRankFixedSection'
-import PrizeListSection from './_components/PrizeListSection'
-import RankSection from './_components/RankSection'
+import RankPage from './_components/RankPage'
 
 const isValidRankType = (type: string | undefined): type is RankPeriod => {
   return type === 'all' || type === 'monthly'
@@ -13,11 +11,5 @@ export default async function Page({ searchParams }: { searchParams: { type?: st
 
   const rankPeriod: RankPeriod = isValidRankType(typeParam) ? typeParam : 'all'
 
-  return (
-    <>
-      <PrizeListSection />
-      <RankSection rankPeriod={rankPeriod} />
-      <MyRankFixedSection rankPeriod={rankPeriod} />
-    </>
-  )
+  return <RankPage rankPeriod={rankPeriod} />
 }

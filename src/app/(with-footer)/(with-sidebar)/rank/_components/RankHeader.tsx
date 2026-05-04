@@ -1,16 +1,15 @@
-import { RankPeriod } from '@/domains/rank'
-import RankInfoModalButton from './RankInfoModalButton'
-import RankPeriodTabs from './RankPeriodTabs'
-import RankSchedule from './RankSchedule'
+import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
+import { MenuButton } from '@/components/layouts/header-parts'
 
-export default async function RankHeader({ rankPeriod }: { rankPeriod: RankPeriod }) {
+export default function RankHeader() {
   return (
-    <div className="flex justify-between">
-      <div className="flex gap-2.5">
-        <RankPeriodTabs initialTab={rankPeriod} />
-        <RankInfoModalButton />
-      </div>
-      <RankSchedule />
-    </div>
+    <Header height={55} showBorder={false}>
+      <HeaderLeft>
+        <MenuButton />
+      </HeaderLeft>
+      <HeaderCenter>
+        <HeaderTitle className="text-white">랭킹</HeaderTitle>
+      </HeaderCenter>
+    </Header>
   )
 }

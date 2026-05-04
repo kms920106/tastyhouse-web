@@ -27,10 +27,10 @@ function RankListItemSkeleton() {
 
 export function RankMemberListSkeleton() {
   return (
-    <>
+    <div className="flex flex-col flex-1 gap-2.5 py-[25px]">
       {[...Array(10)].map((_, i) => (
         <RankListItemSkeleton key={i} />
       ))}
-    </>
+    </div>
   )
 }

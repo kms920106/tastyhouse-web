@@ -1,7 +1,8 @@
+import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import FetchErrorState from '@/components/ui/FetchErrorState'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { RankPeriod, RankType } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import RankMemberItem from './RankMemberItem'
 
 const RANK_PERIOD_TO_TYPE: Record<RankPeriod, RankType> = {
@@ -24,14 +25,14 @@ export default async function RankMemberList({ rankPeriod }: { rankPeriod: RankP
   }
 
   if (data.length === 0) {
-    return (
-      <div className="w-full text-sm leading-[14px] text-[#999999] text-center whitespace-pre-line">
-        랭킹 데이터가 없습니다.
-      </div>
-    )
+    return <EmptyState message="랭킹 데이터가 없습니다." />
   }
 
-  return data.map((rankMember) => (
-    <RankMemberItem key={rankMember.memberId} rankMember={rankMember} />
-  ))
+  return (
+    <div className="flex flex-col flex-1 gap-2.5 py-[25px]">
+      {data.map((rankMember) => (
+        <RankMemberItem key={rankMember.memberId} rankMember={rankMember} />
+      ))}
+    </div>
+  )
 }
