@@ -1,5 +1,5 @@
-import AdvertisingSection from './_components/AdvertisingSection'
+import AdvertisingPage from './_components/AdvertisingPage'
 
 export default function Page() {
-  return <AdvertisingSection />
+  return <AdvertisingPage />
 }

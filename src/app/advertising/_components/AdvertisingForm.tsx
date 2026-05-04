@@ -7,7 +7,6 @@ import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { extractZodFieldErrors } from '@/lib/form'
@@ -146,7 +145,7 @@ export default function AdvertisingForm() {
           onClose={() => setIsPostcodeOpen(false)}
         />
       )}
-      <div className="px-[15px] py-[30px] flex flex-col gap-5">
+      <div className="px-[15px] pt-[30px] pb-[15px] flex flex-col gap-5">
         <AppFormField label="상호명" required error={errors.businessName}>
           {({ className }) => (
             <AppInputText
@@ -276,11 +275,11 @@ export default function AdvertisingForm() {
           </span>
         </label>
       </div>
-      <FixedBottomSection className="p-[15px]">
+      <div className="p-[15px]">
         <AppSubmitButton onClick={handleSubmit} isSubmitting={isSubmitting} loadingText="신청 중">
           확인
         </AppSubmitButton>
-      </FixedBottomSection>
+      </div>
     </>
   )
 }
