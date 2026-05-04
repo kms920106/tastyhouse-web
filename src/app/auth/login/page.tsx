@@ -1,5 +1,5 @@
-import LoginSection from '@/app/auth/login/_components/LoginSection'
+import LoginPage from '@/app/auth/login/_components/LoginPage'
 
 export default function Page() {
-  return <LoginSection />
+  return <LoginPage />
 }
