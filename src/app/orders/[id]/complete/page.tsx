@@ -1,4 +1,5 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
+import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
 import OrderCompletePage from './_components/OrderCompletePage'
 
@@ -12,7 +13,7 @@ export default async function Page({ params }: Props) {
 
   const isLoggedIn = await getIsLoggedIn()
   if (!isLoggedIn) {
-    redirect('/auth/login')
+    redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
   return <OrderCompletePage orderId={orderId} />

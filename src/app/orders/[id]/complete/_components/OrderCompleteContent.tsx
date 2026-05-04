@@ -1,5 +1,6 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { orderRepository } from '@/domains/order/order.repository'
+import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
@@ -12,7 +13,7 @@ export default async function OrderCompleteContent({ orderId }: Props) {
   const { error, status, data } = await orderRepository.getOrderDetail(orderId)
 
   if (error && status === 401) {
-    redirect('/auth/login')
+    redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
   if ((error && status === 404) || !data) {

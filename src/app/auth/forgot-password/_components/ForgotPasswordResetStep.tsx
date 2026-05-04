@@ -7,6 +7,7 @@ import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
 import { extractZodFieldErrors } from '@/lib/form'
+import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
@@ -18,9 +19,7 @@ const resetSchema = z
         ctx.addIssue({ code: 'custom', message: '새 비밀번호를 입력해 주세요.' })
         return
       }
-      if (
-        !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,20}$/.test(val)
-      ) {
+      if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,20}$/.test(val)) {
         ctx.addIssue({
           code: 'custom',
           message: '비밀번호는 영문, 숫자, 특수문자를 포함하여 8~20자로 입력해주세요.',
@@ -79,7 +78,7 @@ export default function ForgotPasswordResetStep({ passwordResetToken }: Props) {
       }
 
       toast('비밀번호가 변경되었습니다.')
-      router.replace('/auth/login')
+      router.replace(PAGE_PATHS.AUTH_LOGIN)
     } catch {
       toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
     } finally {

@@ -8,6 +8,7 @@ import RefundPolicySection from '@/app/orders/[id]/(detail)/_components/RefundPo
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { orderRepository } from '@/domains/order/order.repository'
+import { PAGE_PATHS } from '@/lib/paths'
 import { notFound, redirect } from 'next/navigation'
 
 interface Props {
@@ -18,7 +19,7 @@ export default async function OrderDetailContent({ orderId }: Props) {
   const { error, status, data } = await orderRepository.getOrderDetail(orderId)
 
   if (error && status === 401) {
-    redirect('/auth/login')
+    redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
   if ((error && status === 404) || !data) {
