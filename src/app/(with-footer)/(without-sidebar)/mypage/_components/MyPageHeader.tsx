@@ -8,7 +8,10 @@ export default function MyPageHeader() {
     <div className="flex-1 bg-main">
       <Header height={55} showBorder={false}>
         <HeaderRight>
-          <Link href={PAGE_PATHS.SETTING}>
+          <Link
+            href={PAGE_PATHS.SETTING}
+            className="flex items-center justify-center w-[55px] h-[55px]"
+          >
             <Image src="/images/mypage/icon-setting.png" alt="settings" width={24} height={24} />
           </Link>
         </HeaderRight>
