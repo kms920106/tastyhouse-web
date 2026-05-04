@@ -25,7 +25,7 @@ interface Props {
   onVerified: (verifyToken: string) => void
 }
 
-export default function PasswordVerifyForm({ onVerified }: Props) {
+export default function AccountPasswordVerifyForm({ onVerified }: Props) {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)

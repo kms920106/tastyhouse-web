@@ -37,8 +37,9 @@ interface Props {
   verifyToken: string
 }
 
-export default function PasswordChangeForm({ verifyToken }: Props) {
+export default function AccountPasswordChangeForm({ verifyToken }: Props) {
   const router = useRouter()
+
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -82,6 +83,7 @@ export default function PasswordChangeForm({ verifyToken }: Props) {
       }
 
       toast('비밀번호가 변경되었습니다.')
+
       router.back()
     } catch {
       toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)

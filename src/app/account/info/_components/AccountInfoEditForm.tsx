@@ -21,6 +21,7 @@ import Link from 'next/link'
 import ToggleSwitch from './ToggleSwitch'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
 const BIRTH_MONTHS = Array.from({ length: 12 }, (_, i) => i + 1)
@@ -55,6 +56,8 @@ interface Props {
 }
 
 export default function AccountInfoEditForm({ verifyToken }: Props) {
+  const router = useRouter()
+
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [originalPhone, setOriginalPhone] = useState('')
@@ -148,6 +151,8 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
         }
 
         toast('개인정보가 수정되었습니다.')
+
+        router.back()
       } catch {
         toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
       }

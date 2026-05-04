@@ -1,12 +1,12 @@
 'use client'
 
+import { verifyMemberPassword } from '@/actions/member'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { extractZodFieldErrors } from '@/lib/form'
-import { verifyMemberPassword } from '@/actions/member'
 import { useState } from 'react'
 import { z } from 'zod'
 
@@ -55,14 +55,19 @@ export default function AccountInfoVerifyForm({ onVerified }: Props) {
 
     setIsSubmitting(true)
     try {
-      const response = await verifyMemberPassword({ password: formData.password })
+      const { error, status, data } = await verifyMemberPassword({ password: formData.password })
 
-      if (response?.error) {
+      if (error && status === 400) {
         toast('비밀번호가 일치하지 않습니다.')
         return
       }
 
-      const verifyToken = response?.data?.verifyToken
+      if (error) {
+        toast(COMMON_ERROR_MESSAGES.API_FETCH_ERROR)
+        return
+      }
+
+      const verifyToken = data?.verifyToken
       if (!verifyToken) {
         toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return

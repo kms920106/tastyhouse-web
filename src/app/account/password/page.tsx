@@ -1,15 +1,13 @@
-'use client'
+import { getIsLoggedIn } from '@/lib/auth-config'
+import { PAGE_PATHS } from '@/lib/paths'
+import { redirect } from 'next/navigation'
+import AccountPasswordPage from './_components/AccountPasswordChangePage'
 
-import { useState } from 'react'
-import PasswordChangeSection from './_components/PasswordChangeSection'
-import PasswordVerifySection from './_components/PasswordVerifySection'
-
-export default function Page() {
-  const [verifyToken, setVerifyToken] = useState<string | null>(null)
-
-  if (verifyToken) {
-    return <PasswordChangeSection verifyToken={verifyToken} />
+export default async function Page() {
+  const isLoggedIn = await getIsLoggedIn()
+  if (!isLoggedIn) {
+    redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  return <PasswordVerifySection onVerified={setVerifyToken} />
+  return <AccountPasswordPage />
 }
