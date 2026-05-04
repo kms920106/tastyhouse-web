@@ -1,5 +1,6 @@
 'use client'
 
+import { createBugReport } from '@/actions/bug-report'
 import PhotoUploader from '@/components/reviews/PhotoUploader'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
@@ -9,7 +10,6 @@ import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
-import { createBugReport } from '@/actions/bug-report'
 import { useCallback, useState, useTransition } from 'react'
 import { z } from 'zod'
 

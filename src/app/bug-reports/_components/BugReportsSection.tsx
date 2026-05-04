@@ -1,19 +1,11 @@
-import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
-import { BackButton } from '@/components/layouts/header-parts'
+import BugReportHeader from './BugReportHeader'
 import BugReportsForm from './BugReportsForm'
 
-export default function BugReportsSection() {
+export default function BugReportPage() {
   return (
-    <section className="min-h-screen bg-white pb-[80px]">
-      <Header variant="white" height={55}>
-        <HeaderLeft>
-          <BackButton />
-        </HeaderLeft>
-        <HeaderCenter>
-          <HeaderTitle>버그 제보</HeaderTitle>
-        </HeaderCenter>
-      </Header>
+    <>
+      <BugReportHeader />
       <BugReportsForm />
-    </section>
+    </>
   )
 }
