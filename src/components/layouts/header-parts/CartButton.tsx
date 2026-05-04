@@ -3,8 +3,8 @@
 import { getCartItemCount } from '@/lib/cart'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import HeaderIconLink from './HeaderIconLink'
 
 interface Props {
   placeId: number
@@ -19,10 +19,7 @@ export default function CartButton({ placeId, variant = 'black' }: Props) {
   }, [placeId])
 
   return (
-    <Link
-      href={PAGE_PATHS.ORDER_CART(placeId)}
-      className="w-[22px] h-[22px] flex items-center justify-center"
-    >
+    <HeaderIconLink href={PAGE_PATHS.ORDER_CART(placeId)}>
       <div className="relative w-[22px] h-[22px] flex items-center justify-center">
         <Image
           src={
@@ -39,6 +36,6 @@ export default function CartButton({ placeId, variant = 'black' }: Props) {
           {cartItemCount > 99 ? '99+' : cartItemCount}
         </span>
       </div>
-    </Link>
+    </HeaderIconLink>
   )
 }
