@@ -1,4 +1,4 @@
-import ImageGallery from '@/app/places/[id]/_components/ImageGallery'
+import ImageGallery from '@/app/places/[id]/(detail)/_components/ImageGallery'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'

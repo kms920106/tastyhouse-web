@@ -1,4 +1,4 @@
-import ImageGallery from '@/app/places/[id]/_components/ImageGallery'
+import ImageGallery from '@/app/places/[id]/(detail)/_components/ImageGallery'
 import { formatDecimal, formatNumber } from '@/lib/number'
 
 interface Props {

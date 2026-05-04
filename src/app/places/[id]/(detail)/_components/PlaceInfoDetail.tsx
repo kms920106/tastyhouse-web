@@ -6,7 +6,7 @@ import ClampedText, { MoreButton } from '@/components/ui/ClampedText'
 import { PlaceAmenity, PlaceBreakTime, PlaceBusinessHour, PlaceClosedDay } from '@/domains/place'
 import Link from 'next/link'
 import { useState } from 'react'
-import { FacilitySelectorLayout } from '../../filter/_components/FacilitySelector'
+import { FacilitySelectorLayout } from '../../../filter/_components/FacilitySelector'
 
 type PlaceInfo = {
   id: number
