@@ -1,19 +1,16 @@
 import Header, { HeaderRight } from '@/components/layouts/Header'
+import { HeaderIconLink } from '@/components/layouts/header-parts'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export default function MyPageHeader() {
   return (
     <div className="flex-1 bg-main">
       <Header height={55} showBorder={false}>
         <HeaderRight>
-          <Link
-            href={PAGE_PATHS.SETTING}
-            className="flex items-center justify-center w-[55px] h-[55px]"
-          >
+          <HeaderIconLink href={PAGE_PATHS.SETTING}>
             <Image src="/images/mypage/icon-setting.png" alt="settings" width={24} height={24} />
-          </Link>
+          </HeaderIconLink>
         </HeaderRight>
       </Header>
     </div>

@@ -6,7 +6,7 @@ import Header, {
   HeaderRight,
   HeaderTitle,
 } from '@/components/layouts/Header'
-import { BackButton } from '@/components/layouts/header-parts'
+import { BackButton, HeaderIconButton } from '@/components/layouts/header-parts'
 import { RxReload } from 'react-icons/rx'
 
 interface Props {
@@ -23,12 +23,9 @@ export default function FilterHeaderSection({ onReset }: Props) {
         <HeaderTitle>필터</HeaderTitle>
       </HeaderCenter>
       <HeaderRight>
-        <button
-          className="w-[55px] h-[55px] flex items-center justify-center cursor-pointer"
-          onClick={onReset}
-        >
+        <HeaderIconButton onClick={onReset}>
           <RxReload size={20} />
-        </button>
+        </HeaderIconButton>
       </HeaderRight>
     </Header>
   )

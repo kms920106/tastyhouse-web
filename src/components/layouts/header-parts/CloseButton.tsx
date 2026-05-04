@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import HeaderIconButton from './HeaderIconButton'
 
 interface Props {
   onClick?: () => void
@@ -19,11 +20,8 @@ export default function CloseButton({ onClick }: Props) {
   }
 
   return (
-    <button
-      className="w-[55px] h-[55px] flex items-center justify-center cursor-pointer"
-      onClick={handleClick}
-    >
+    <HeaderIconButton onClick={handleClick}>
       <Image src="/images/icon-close.png" alt="닫기" width={16} height={16} />
-    </button>
+    </HeaderIconButton>
   )
 }

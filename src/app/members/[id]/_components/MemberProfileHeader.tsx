@@ -1,6 +1,7 @@
 'use client'
 
 import Header, { HeaderLeft, HeaderRight } from '@/components/layouts/Header'
+import { HeaderIconButton } from '@/components/layouts/header-parts'
 import { useRouter } from 'next/navigation'
 import { IoChevronBack } from 'react-icons/io5'
 import FollowButton from './FollowButton'
@@ -16,12 +17,9 @@ export default function MemberProfileHeader({ memberId }: Props) {
     <div className="flex-1 bg-main">
       <Header height={55} showBorder={false}>
         <HeaderLeft>
-          <button
-            onClick={() => router.back()}
-            className="flex items-center justify-center w-[55px] h-[55px]"
-          >
+          <HeaderIconButton onClick={() => router.back()}>
             <IoChevronBack size={24} className="text-white" />
-          </button>
+          </HeaderIconButton>
         </HeaderLeft>
         <HeaderRight>
           <FollowButton memberId={memberId} />
