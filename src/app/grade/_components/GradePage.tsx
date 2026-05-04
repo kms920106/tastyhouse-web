@@ -1,21 +1,30 @@
+import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { Suspense } from 'react'
 import GradeCurrentSection from './GradeCurrentSection'
 import GradeCurrentSectionSkeleton from './GradeCurrentSectionSkeleton'
+import GradeGuestSection from './GradeGuestSection'
 import GradeHeader from './GradeHeader'
 import GradeInfoSection from './GradeInfoSection'
 import GradeInfoSectionSkeleton from './GradeInfoSectionSkeleton'
-import BorderedSection from '@/components/ui/BorderedSection'
 
-export default function GradePage() {
+interface Props {
+  isLoggedIn: boolean
+}
+
+export default function GradePage({ isLoggedIn }: Props) {
   return (
     <>
       <GradeHeader />
       <SectionStack>
         <BorderedSection>
-          <Suspense fallback={<GradeCurrentSectionSkeleton />}>
-            <GradeCurrentSection />
-          </Suspense>
+          {isLoggedIn ? (
+            <Suspense fallback={<GradeCurrentSectionSkeleton />}>
+              <GradeCurrentSection />
+            </Suspense>
+          ) : (
+            <GradeGuestSection />
+          )}
         </BorderedSection>
         <BorderedSection className="border-b-0">
           <Suspense fallback={<GradeInfoSectionSkeleton />}>
