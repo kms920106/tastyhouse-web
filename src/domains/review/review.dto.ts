@@ -11,7 +11,8 @@ export interface ReviewBestListItemResponse {
   content: string
   imageUrl: string
   stationName: string
-  title: string
+  placeName: string
+  productName: string
   totalRating: number
 }
 
