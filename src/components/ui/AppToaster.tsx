@@ -39,7 +39,7 @@ export function AppToaster() {
       {toasts.map((t) => (
         <div
           key={t.id}
-          className="w-[73vw] px-4 py-3 text-white bg-[#000000] text-sm text-center rounded-[2.5px] pointer-events-auto opacity-80"
+          className="w-[73vw] px-4 py-3 text-white bg-[#000000] text-sm text-center whitespace-pre-line rounded-[2.5px] pointer-events-auto opacity-80"
         >
           {t.message}
         </div>
