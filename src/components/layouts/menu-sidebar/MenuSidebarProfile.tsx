@@ -1,5 +1,6 @@
 'use client'
 
+import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
 import PenIcon from '@/components/ui/PenIcon'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { useMyReviewCount } from '@/hooks/useMyReviewCount'
@@ -13,7 +14,16 @@ export default function MenuSidebarProfile() {
   const { memberProfile } = useMemberProfile()
   const { reviewCount } = useMyReviewCount()
 
-  if (!memberProfile) return null
+  if (!memberProfile) {
+    return (
+      <div className="px-[15px] mt-10">
+        <GuestLoginBanner
+          title="내 프로필을 확인하려면?"
+          description="로그인 후 프로필 확인해 보세요"
+        />
+      </div>
+    )
+  }
 
   const { nickname, grade, profileImageUrl } = memberProfile
 
