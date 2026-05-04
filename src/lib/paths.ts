@@ -66,9 +66,23 @@ export const PAGE_PATHS = {
   MY_COUPONS: '/mypage/coupons',
   MY_REVIEWS: '/mypage/reviews',
   MY_BOOKMARKS: '/mypage/bookmarks',
+  POINT: '/point',
 
   // 설정
   SETTING: '/setting',
+  ACCOUNT_INFO: '/account/info',
+  ACCOUNT_PASSWORD: '/account/password',
+
+  // 고객지원
+  NOTICES: '/notices',
+  FAQS: '/faqs',
+  CUSTOMER_CENTER: '/customer-center',
+  ADVERTISING: '/advertising',
+  BUG_REPORTS: '/bug-reports',
+
+  // 법률
+  TERMS: '/terms',
+  PRIVACY: '/privacy',
 
   // 회원
   MEMBERS: '/members',
