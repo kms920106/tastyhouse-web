@@ -42,7 +42,7 @@ export function HeaderCenter({ children }: SlotProps) {
 
 export function HeaderRight({ children }: SlotProps) {
   return (
-    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-5">
+    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
       {children}
     </div>
   )
