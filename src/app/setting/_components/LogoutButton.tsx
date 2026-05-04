@@ -1,14 +1,10 @@
 'use client'
 
-import Image from 'next/image'
-import { useState } from 'react'
-
-import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import { logout } from '@/actions/auth'
-
-function ArrowIcon() {
-  return <Image src="/images/layout/nav-right.png" alt="" width={7} height={12} />
-}
+import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
+import { useState } from 'react'
+import { ArrowIcon } from './icons'
+import { menuItemLabelClassName, menuItemRowClassName } from './styles'
 
 export default function LogoutButton() {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)
@@ -21,9 +17,9 @@ export default function LogoutButton() {
     <>
       <button
         onClick={() => setLogoutDialogOpen(true)}
-        className="w-full flex items-center justify-between px-4 pr-[21px] py-[19px]"
+        className={`w-full cursor-pointer ${menuItemRowClassName}`}
       >
-        <span className="text-sm leading-[14px]">로그아웃</span>
+        <span className={menuItemLabelClassName}>로그아웃</span>
         <ArrowIcon />
       </button>
       <AppConfirmDialog

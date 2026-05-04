@@ -1,5 +1,9 @@
-import SettingSection from './_components/SettingSection'
+import { getIsLoggedIn } from '@/lib/auth-config'
 
-export default function Page() {
-  return <SettingSection />
+import SettingPage from './_components/SettingPage'
+
+export default async function Page() {
+  const isLoggedIn = await getIsLoggedIn()
+
+  return <SettingPage isLoggedIn={isLoggedIn} />
 }
