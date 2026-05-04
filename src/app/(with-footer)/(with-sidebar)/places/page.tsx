@@ -1,5 +1,5 @@
 import { PlaceAmenityCode, PlaceFoodType } from '@/domains/place'
-import PlaceListSection from './_components/PlaceListSection'
+import PlacePage from './_components/PlacePage'
 
 interface Props {
   searchParams: Promise<{
@@ -16,5 +16,5 @@ export default async function Page({ searchParams }: Props) {
   const foodTypes = params.foodTypes?.split(',').filter(Boolean) as PlaceFoodType[] | undefined
   const amenities = params.amenities?.split(',').filter(Boolean) as PlaceAmenityCode[] | undefined
 
-  return <PlaceListSection stationId={stationId} foodTypes={foodTypes} amenities={amenities} />
+  return <PlacePage stationId={stationId} foodTypes={foodTypes} amenities={amenities} />
 }

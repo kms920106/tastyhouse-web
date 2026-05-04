@@ -9,7 +9,7 @@ import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import PlaceFilterBar from './PlaceFilterBar'
-import { PlaceListContentSkeleton } from './PlaceListContentSkeleton'
+import { PlaceContentSkeleton } from './PlaceContentSkeleton'
 import PlaceListItem from './PlaceListItem'
 
 const PAGE_SIZE = 6
@@ -32,7 +32,7 @@ interface Props {
   amenities?: PlaceAmenityCode[]
 }
 
-export default function PlaceListContent({ stationId, foodTypes, amenities }: Props) {
+export default function PlaceContent({ stationId, foodTypes, amenities }: Props) {
   const filterParams = {
     stationId,
     foodTypes,
@@ -87,7 +87,7 @@ export default function PlaceListContent({ stationId, foodTypes, amenities }: Pr
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
   if (isLoading) {
-    return <PlaceListContentSkeleton />
+    return <PlaceContentSkeleton />
   }
 
   if (isError) {
@@ -102,7 +102,7 @@ export default function PlaceListContent({ stationId, foodTypes, amenities }: Pr
   const totalCount = data.pages[0]?.pagination?.totalElements ?? 0
 
   return (
-    <>
+    <div className="min-h-screen px-[15px] py-[30px] pb-[90px]">
       <PlaceFilterBar
         totalCount={totalCount}
         stationId={stationId}
@@ -126,6 +126,6 @@ export default function PlaceListContent({ stationId, foodTypes, amenities }: Pr
         {isFetchingNextPage && <LoadingIndicator />}
       </ul>
       <div ref={targetRef} className="h-1" aria-hidden="true" />
-    </>
+    </div>
   )
 }
