@@ -11,7 +11,12 @@ interface Props {
 
 export default function ReviewList({ reviews, hasMoreReviews }: Props) {
   if (reviews.length === 0) {
-    return <EmptyState message="등록된 리뷰가 없습니다." />
+    return (
+      <>
+        <EmptyState message="등록된 리뷰가 없습니다." />
+        <div className="h-[70px]"></div>
+      </>
+    )
   }
 
   return (
