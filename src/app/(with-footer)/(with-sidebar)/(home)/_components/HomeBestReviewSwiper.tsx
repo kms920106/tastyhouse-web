@@ -14,7 +14,7 @@ import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 import type { Swiper as SwiperType } from 'swiper'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { BestReviewSwiperSkeleton } from './BestReviewSwiperSkeleton'
+import { HomeBestReviewSwiperSkeleton } from './HomeBestReviewSwiperSkeleton'
 
 interface BestReviewItem {
   id: number
@@ -30,7 +30,7 @@ interface Props {
   reviews: BestReviewItem[]
 }
 
-export default function BestReviewSwiper({ reviews }: Props) {
+export default function HomeBestReviewSwiper({ reviews }: Props) {
   const swiperRef = useRef<SwiperType | null>(null)
 
   const [isMounted, setIsMounted] = useState(false)
@@ -47,7 +47,7 @@ export default function BestReviewSwiper({ reviews }: Props) {
   }, [])
 
   if (!isMounted) {
-    return <BestReviewSwiperSkeleton />
+    return <HomeBestReviewSwiperSkeleton />
   }
 
   if (reviews.length === 0) {

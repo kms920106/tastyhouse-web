@@ -1,9 +1,9 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import ChoiceSwiper from './ChoiceSwiper'
+import HomeChoiceSwiper from './HomeChoiceSwiper'
 
-export default async function ChoicePlaceContent() {
+export default async function HomeChoicePlaceContent() {
   const { error, status, data } = await placeRepository.getChoicePlaces({
     page: 0,
     size: 4,
@@ -17,5 +17,5 @@ export default async function ChoicePlaceContent() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  return <ChoiceSwiper places={data} />
+  return <HomeChoiceSwiper places={data} />
 }

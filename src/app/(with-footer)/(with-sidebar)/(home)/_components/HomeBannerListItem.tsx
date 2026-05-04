@@ -7,7 +7,7 @@ interface Props {
   priority?: boolean
 }
 
-export default function BannerListItem({ banner, priority = false }: Props) {
+export default function HomeBannerListItem({ banner, priority = false }: Props) {
   if (banner.linkUrl) {
     return (
       <Link

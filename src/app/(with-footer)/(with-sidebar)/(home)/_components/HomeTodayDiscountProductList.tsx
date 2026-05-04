@@ -4,7 +4,7 @@ import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { productRepository } from '@/domains/product/product.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 
-export default async function TodayDiscountProductList() {
+export default async function HomeTodayDiscountProductList() {
   const { error, status, data } = await productRepository.getTodayDiscountProducts({
     page: 0,
     size: 4,

@@ -22,7 +22,7 @@ function ReviewCardSkeleton({ className }: { className?: string }) {
   )
 }
 
-export function BestReviewSwiperSkeleton() {
+export function HomeBestReviewSwiperSkeleton() {
   return (
     <div className="overflow-hidden pb-[53px]">
       <div

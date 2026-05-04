@@ -1,7 +1,7 @@
 import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function ChoiceSwiperSkeleton() {
+export function HomeChoiceSwiperSkeleton() {
   return (
     <div className="pb-12">
       <div className="flex gap-5">

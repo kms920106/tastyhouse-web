@@ -2,21 +2,21 @@
 
 import 'swiper/css'
 import 'swiper/css/pagination'
-import styles from './BannerSwiper.module.css'
+import styles from './HomeBannerSwiper.module.css'
 
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
-import BannerListItem from './BannerListItem'
+import HomeBannerListItem from './HomeBannerListItem'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { BannerSwiperSkeleton } from './BannerSwiperSkeleton'
+import { HomeBannerSwiperSkeleton } from './HomeBannerSwiperSkeleton'
 import { Banner } from '@/domains/banner/banner.model'
 
 interface Props {
   banners: Banner[]
 }
 
-export default function BannerSwiper({ banners }: Props) {
+export default function HomeBannerSwiper({ banners }: Props) {
   const [isMounted, setIsMounted] = useState(false)
 
   // Swiper는 초기화 시 DOM을 직접 조작하고 window 객체에 접근하기 때문에
@@ -29,7 +29,7 @@ export default function BannerSwiper({ banners }: Props) {
   }, [])
 
   if (!isMounted) {
-    return <BannerSwiperSkeleton />
+    return <HomeBannerSwiperSkeleton />
   }
 
   if (banners.length === 0) {
@@ -59,7 +59,7 @@ export default function BannerSwiper({ banners }: Props) {
     >
       {banners.map((banner, index) => (
         <SwiperSlide key={banner.id}>
-          <BannerListItem banner={banner} priority={index === 0} />
+          <HomeBannerListItem banner={banner} priority={index === 0} />
         </SwiperSlide>
       ))}
     </Swiper>

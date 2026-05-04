@@ -11,7 +11,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { ChoiceSwiperSkeleton } from './ChoiceSwiperSkeleton'
+import { HomeChoiceSwiperSkeleton } from './HomeChoiceSwiperSkeleton'
 
 interface ChoicePlace {
   id: number
@@ -26,7 +26,7 @@ interface Props {
   places: ChoicePlace[]
 }
 
-export default function ChoiceSwiper({ places }: Props) {
+export default function HomeChoiceSwiper({ places }: Props) {
   const [isMounted, setIsMounted] = useState(false)
 
   // Swiper는 초기화 시 DOM을 직접 조작하고 window 객체에 접근하기 때문에
@@ -39,7 +39,7 @@ export default function ChoiceSwiper({ places }: Props) {
   }, [])
 
   if (!isMounted) {
-    return <ChoiceSwiperSkeleton />
+    return <HomeChoiceSwiperSkeleton />
   }
 
   if (places.length === 0) {

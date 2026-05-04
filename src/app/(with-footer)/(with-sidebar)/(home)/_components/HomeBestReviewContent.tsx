@@ -1,9 +1,9 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { reviewRepository } from '@/domains/review/review.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import BestReviewSwiper from './BestReviewSwiper'
+import HomeBestReviewSwiper from './HomeBestReviewSwiper'
 
-export default async function BestReviewContent() {
+export default async function HomeBestReviewContent() {
   const { error, status, data } = await reviewRepository.getBestReviews({
     page: 0,
     size: 5,
@@ -17,5 +17,5 @@ export default async function BestReviewContent() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  return <BestReviewSwiper reviews={data} />
+  return <HomeBestReviewSwiper reviews={data} />
 }

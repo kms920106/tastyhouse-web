@@ -19,7 +19,14 @@ type Props = {
   foodTypes: PlaceFoodType[]
 }
 
-export function PlaceListItem({ id, name, imageUrl, stationName, rating, foodTypes }: Props) {
+export function HomeBestPlaceListItem({
+  id,
+  name,
+  imageUrl,
+  stationName,
+  rating,
+  foodTypes,
+}: Props) {
   const foodNames = foodTypes.map((foodType) => getPlaceFoodTypeCodeName(foodType))
 
   return (

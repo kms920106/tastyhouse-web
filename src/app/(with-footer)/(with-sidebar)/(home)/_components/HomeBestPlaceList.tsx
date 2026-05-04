@@ -2,9 +2,9 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { PlaceListItem } from './BestPlaceListItem'
+import { HomeBestPlaceListItem } from './HomeBestPlaceListItem'
 
-export default async function BestPlaceList() {
+export default async function HomeBestPlaceList() {
   const { error, status, data } = await placeRepository.getBestPlaces({
     page: 0,
     size: 4,
@@ -26,7 +26,7 @@ export default async function BestPlaceList() {
     <>
       <ul className="grid grid-cols-2 gap-x-[15px] gap-y-10 mb-10">
         {data.map((place) => (
-          <PlaceListItem
+          <HomeBestPlaceListItem
             key={place.id}
             id={place.id}
             name={place.name}

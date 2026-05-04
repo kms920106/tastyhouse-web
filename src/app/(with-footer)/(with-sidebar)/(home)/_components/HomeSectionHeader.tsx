@@ -3,7 +3,7 @@ interface Props {
   description: string
 }
 
-export default function SectionHeader({ title, description }: Props) {
+export default function HomeSectionHeader({ title, description }: Props) {
   return (
     <header className="mb-[30px] text-center">
       <h2 className="mb-[15px] text-[23px] leading-[23px] font-nanum-myeongjo-bold font-bold">

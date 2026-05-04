@@ -1,6 +1,6 @@
 import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
 
-export function TodayDiscountProductListSkeleton() {
+export function HomeTodayDiscountProductListSkeleton() {
   return (
     <>
       <div className="mb-10 divide-y divide-[#eeeeee] border-y border-[#eeeeee]">
