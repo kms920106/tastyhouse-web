@@ -33,7 +33,7 @@ const publicMenuGroups: MenuGroup[] = [
       { id: 'coupons', label: '쿠폰', href: PAGE_PATHS.COUPONS },
       { id: 'events', label: '이벤트', href: PAGE_PATHS.EVENTS },
       { id: 'point', label: '포인트 내역', href: PAGE_PATHS.POINT },
-      { id: 'grade', label: '등급안내', href: PAGE_PATHS.RANKS },
+      { id: 'grade', label: '등급안내', href: PAGE_PATHS.GRADE },
     ],
   },
   {
