@@ -21,7 +21,8 @@ interface BestReviewItem {
   content: string
   imageUrl: string
   stationName: string
-  title: string
+  placeName: string
+  productName: string
   totalRating: number
 }
 
@@ -83,7 +84,7 @@ export default function BestReviewSwiper({ reviews }: Props) {
                 <div className="relative mb-[15px] w-full bg-gray-100 pt-[75%]">
                   <Image
                     src={review.imageUrl}
-                    alt={review.title}
+                    alt={review.content}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 33vw"
                     className="object-cover"
@@ -96,7 +97,9 @@ export default function BestReviewSwiper({ reviews }: Props) {
                   </span>
                   <Rating value={review.totalRating} />
                 </div>
-                <h3 className="mb-[19px]  leading-[16px] truncate">{review.title}</h3>
+                <h3 className="mb-[19px]  leading-[16px] truncate">
+                  [{review.placeName}] {review.productName}
+                </h3>
                 <p className="text-xs leading-relaxed text-[#666666] line-clamp-4">
                   {review.content}
                 </p>
