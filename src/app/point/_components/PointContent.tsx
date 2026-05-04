@@ -2,7 +2,7 @@ import BorderedSection from '@/components/ui/BorderedSection'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import SectionStack from '@/components/ui/SectionStack'
 import { memberRepository } from '@/domains/member/member.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import PointBalance from './PointBalance'
 import PointHistoryList from './PointHistoryList'
 

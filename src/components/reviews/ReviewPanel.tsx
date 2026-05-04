@@ -8,7 +8,7 @@ import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import type { ReviewPanelData } from '@/hooks/useReviewPanel'
 import { useReviewPanel } from '@/hooks/useReviewPanel'
 import type { ApiResponse } from '@/lib/api'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import type { UseQueryOptions } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 

@@ -1,7 +1,7 @@
 import { getPlacePhotos } from '@/actions/place'
 import ReviewImageGallery from '@/components/reviews/ReviewImageGallery'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useQuery } from '@tanstack/react-query'
 import { PlacePhotoListSkeleton } from './PlacePhotoListSkeleton'
 

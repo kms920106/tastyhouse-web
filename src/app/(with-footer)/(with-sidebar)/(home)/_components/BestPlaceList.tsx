@@ -1,7 +1,7 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { placeRepository } from '@/domains/place/place.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { PlaceListItem } from './BestPlaceListItem'
 
 export default async function BestPlaceList() {

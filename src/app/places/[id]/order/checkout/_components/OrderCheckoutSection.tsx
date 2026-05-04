@@ -4,7 +4,7 @@ import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layo
 import { BackButton } from '@/components/layouts/header-parts'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import SectionStack from '@/components/ui/SectionStack'
 import type { MemberCoupon, Member } from '@/domains/member'
 import type { PaymentMethod } from '@/domains/payment'

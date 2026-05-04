@@ -1,6 +1,6 @@
 import { getPlaceInfo } from '@/actions/place'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useQuery } from '@tanstack/react-query'
 import { PlaceInfoDetailSkeleton } from './PlaceInfoDetailSkeleton'
 import PlaceInfoDetail from './PlaceInfoDetail'

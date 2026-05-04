@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { rankRepository } from '@/domains/rank/rank.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import PrizeListItem from './PrizeListItem'
 
 export default async function PrizeList() {

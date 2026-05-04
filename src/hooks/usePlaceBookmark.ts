@@ -1,5 +1,5 @@
 import { toast } from '@/components/ui/AppToaster'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { togglePlaceBookmark } from '@/actions/place'
 import { useState, useTransition } from 'react'
 

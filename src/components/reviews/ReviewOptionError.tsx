@@ -1,7 +1,7 @@
 'use client'
 
 import { toast } from '../ui/AppToaster'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import ReviewOptionButton from './ReviewOptionButton'
 
 export default function ReviewOptionError() {

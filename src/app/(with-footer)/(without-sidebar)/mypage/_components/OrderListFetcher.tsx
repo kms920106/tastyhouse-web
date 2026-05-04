@@ -2,7 +2,7 @@
 
 import { getOrderList } from '@/actions/order'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useQuery } from '@tanstack/react-query'
 import OrderList from './OrderList'
 import { OrderListSkeleton } from './OrderListSkeleton'

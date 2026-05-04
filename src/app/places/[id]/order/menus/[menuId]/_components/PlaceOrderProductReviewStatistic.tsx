@@ -2,7 +2,7 @@ import { getProductReviewStatistics } from '@/actions/product'
 import ReviewRatingDetailItem from '@/components/reviews/ReviewRatingDetailItem'
 import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useQuery } from '@tanstack/react-query'
 import { PlaceOrderProductReviewStatisticSkeleton } from './PlaceOrderProductReviewStatisticSkeleton'
 

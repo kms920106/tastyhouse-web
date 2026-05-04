@@ -5,7 +5,7 @@ import MemberGradeName from '@/components/ui/MemberGradeName'
 import type { MemberGradeCode } from '@/domains/member'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import { memberRepository } from '@/domains/member/member.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 

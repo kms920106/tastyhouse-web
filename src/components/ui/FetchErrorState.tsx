@@ -11,7 +11,9 @@ export default function FetchErrorState({ message }: Props) {
         <Image src="/images/icon-notice.png" alt="알림" width={35} height={35} />
       </div>
       <div className="mt-[15px]">
-        <p className="text-sm leading-[14px] text-[#aaaaaa]">{message}</p>
+        <p className="text-sm leading-relaxed text-[#aaaaaa] whitespace-pre-line text-center">
+          {message}
+        </p>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import HtmlContent from '@/components/ui/HtmlContent'
 import { policiesRepository } from '@/domains/policies/policies.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 
 export default async function PrivacyHtmlContent() {
   const { error, status, data } = await policiesRepository.getLatestPrivacyPolicy()

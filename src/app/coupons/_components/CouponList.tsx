@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { memberRepository } from '@/domains/member/member.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import CouponListItem from './CouponListItem'
 
 export default async function CouponList() {

@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeRepository } from '@/domains/place/place.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import ChoiceSwiper from './ChoiceSwiper'
 
 export default async function ChoicePlaceContent() {

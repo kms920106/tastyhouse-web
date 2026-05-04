@@ -10,7 +10,7 @@ import { BackButton } from '@/components/layouts/header-parts'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { orderRepository } from '@/domains/order/order.repository'
 
 interface Props {

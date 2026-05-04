@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeService } from '@/domains/place/place.service'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import FacilitySelector from './FacilitySelector'
 
 export default async function FacilityContent() {

@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { reviewRepository } from '@/domains/review/review.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import BestReviewSwiper from './BestReviewSwiper'
 
 export default async function BestReviewContent() {

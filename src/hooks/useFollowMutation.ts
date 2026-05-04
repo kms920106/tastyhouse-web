@@ -1,7 +1,7 @@
 'use client'
 
 import { toast } from '@/components/ui/AppToaster'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { followMember, unfollowMember } from '@/actions/follow'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 

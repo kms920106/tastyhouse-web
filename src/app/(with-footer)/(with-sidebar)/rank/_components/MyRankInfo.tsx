@@ -2,7 +2,7 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { RankPeriod, RankType } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import RankItem from './RankItem'
 
 const RANK_PERIOD_TO_TYPE: Record<RankPeriod, RankType> = {

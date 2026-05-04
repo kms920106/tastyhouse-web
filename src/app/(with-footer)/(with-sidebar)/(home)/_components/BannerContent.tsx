@@ -1,6 +1,6 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { bannerRepository } from '@/domains/banner/banner.repository'
-import { COMMON_ERROR_MESSAGES } from '@/lib/constants'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import BannerSwiper from './BannerSwiper'
 
 export default async function BannerContent() {
