@@ -1,5 +1,6 @@
 'use client'
 
+import { withdrawMember } from '@/actions/member'
 import AppAlertDialog from '@/components/ui/AppAlertDialog'
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppFormField from '@/components/ui/AppFormField'
@@ -7,14 +8,14 @@ import AppSelect from '@/components/ui/AppSelect'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import SectionStack from '@/components/ui/SectionStack'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { WITHDRAW_REASON_OPTIONS, type WithdrawReason } from '@/domains/member'
 import { extractZodFieldErrors } from '@/lib/form'
-import { withdrawMember } from '@/actions/member'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { z } from 'zod'
+
 const NOTICES = [
   '회원 탈퇴시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서 소비자 보호에 관한 법률에 의거해 고객정보 보호정책에 따라 관리됩니다.',
   '탈퇴시 고객님께서 보유하셨던 적립금은 모두 삭제됩니다.',
@@ -30,7 +31,7 @@ const withdrawSchema = z.object({
 
 type FormErrors = Partial<Record<keyof z.infer<typeof withdrawSchema>, string>>
 
-export default function WithdrawForm() {
+export default function AccountWithdrawForm() {
   const router = useRouter()
 
   const [errors, setErrors] = useState<FormErrors>({})

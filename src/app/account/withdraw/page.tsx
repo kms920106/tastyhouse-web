@@ -1,5 +1,5 @@
-import WithdrawSection from './_components/WithdrawSection'
+import AccountWithdrawPage from './_components/AccountWithdrawPage'
 
 export default function Page() {
-  return <WithdrawSection />
+  return <AccountWithdrawPage />
 }
