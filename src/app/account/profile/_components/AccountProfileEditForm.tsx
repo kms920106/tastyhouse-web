@@ -5,9 +5,9 @@ import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
 import { otherMemberProfileQueryKey } from '@/hooks/useOtherMemberProfile'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
 import { useQueryClient } from '@tanstack/react-query'
@@ -30,9 +30,10 @@ type ProfileErrors = {
   statusMessage?: string
 }
 
-export default function ProfileEditForm() {
+export default function AccountProfileEditForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
+
   const { memberProfile, isLoading } = useMemberProfile()
 
   const [nickname, setNickname] = useState('')
@@ -121,7 +122,9 @@ export default function ProfileEditForm() {
       if (!response?.error) {
         await queryClient.invalidateQueries({ queryKey: MEMBER_PROFILE_QUERY_KEY })
         if (memberProfile?.id) {
-          await queryClient.invalidateQueries({ queryKey: otherMemberProfileQueryKey(memberProfile.id) })
+          await queryClient.invalidateQueries({
+            queryKey: otherMemberProfileQueryKey(memberProfile.id),
+          })
         }
         toast('프로필이 변경됐습니다.')
         router.back()

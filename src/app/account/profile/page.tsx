@@ -1,5 +1,5 @@
-import ProfileEditSection from './_components/ProfileEditSection'
+import AccountProfilePage from './_components/AccountProfilePage'
 
 export default function Page() {
-  return <ProfileEditSection />
+  return <AccountProfilePage />
 }
