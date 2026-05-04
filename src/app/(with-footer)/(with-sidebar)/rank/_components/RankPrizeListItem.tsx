@@ -12,7 +12,7 @@ interface Props {
   prize: Prize
 }
 
-export default function PrizeListItem({ prize }: Props) {
+export default function RankPrizeListItem({ prize }: Props) {
   const { prizeRank, name, brand, imageUrl } = prize
 
   return (

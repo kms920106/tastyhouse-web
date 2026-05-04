@@ -8,7 +8,6 @@ const isValidRankType = (type: string | undefined): type is RankPeriod => {
 export default async function Page({ searchParams }: { searchParams: { type?: string } }) {
   const resolvedSearchParams = await Promise.resolve(searchParams)
   const typeParam = resolvedSearchParams.type
-
   const rankPeriod: RankPeriod = isValidRankType(typeParam) ? typeParam : 'all'
 
   return <RankPage rankPeriod={rankPeriod} />

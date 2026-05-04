@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function MyRankInfoSkeleton() {
+export function RankMyInfoSkeleton() {
   return (
     <>
       <div className="flex gap-2.5">

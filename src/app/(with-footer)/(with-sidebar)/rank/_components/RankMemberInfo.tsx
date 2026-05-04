@@ -15,7 +15,7 @@ interface Props {
   isMe?: boolean
 }
 
-export default function RankItem({
+export default function RankMemberInfo({
   rankNo,
   profileImageUrl,
   nickname,

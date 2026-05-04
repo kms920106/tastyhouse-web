@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-function RankListItemSkeleton() {
+function RankMemberListItemSkeleton() {
   return (
     <>
       <div className="flex justify-between items-center py-[15px] pl-4 pr-5 bg-[#fcfcfc] border border-[#eeeeee] rounded-[2.5px]">
@@ -27,10 +27,10 @@ function RankListItemSkeleton() {
 
 export function RankMemberListSkeleton() {
   return (
-    <div className="flex flex-col flex-1 gap-2.5 py-[25px]">
+    <>
       {[...Array(10)].map((_, i) => (
-        <RankListItemSkeleton key={i} />
+        <RankMemberListItemSkeleton key={i} />
       ))}
-    </div>
+    </>
   )
 }

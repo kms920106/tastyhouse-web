@@ -1,6 +1,6 @@
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
-import RankItem from './RankItem'
+import RankMemberInfo from './RankMemberInfo'
 import { MemberGradeCode } from '@/domains/member'
 
 interface RankMember {
@@ -16,13 +16,13 @@ interface Props {
   rankMember: RankMember
 }
 
-export default function RankMemberItem({ rankMember: member }: Props) {
-  const { memberId, nickname, profileImageUrl, reviewCount, rankNo, grade } = member
+export default function RankMemberListItem({ rankMember }: Props) {
+  const { memberId, nickname, profileImageUrl, reviewCount, rankNo, grade } = rankMember
 
   return (
     <Link href={PAGE_PATHS.MEMBER_DETAIL(memberId)}>
       <div className="flex justify-between items-center py-[15px] pl-4 pr-5 bg-[#fcfcfc] border border-[#eeeeee] rounded-[2.5px]">
-        <RankItem
+        <RankMemberInfo
           rankNo={rankNo}
           profileImageUrl={profileImageUrl}
           nickname={nickname}

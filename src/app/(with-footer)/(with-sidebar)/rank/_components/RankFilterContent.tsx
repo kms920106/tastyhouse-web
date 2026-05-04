@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import RankFilter from './RankFilter'
 import { RankFilterSkeleton } from './RankFilterSkeleton'
 
-export default function RankFilterSection({ rankPeriod }: { rankPeriod: RankPeriod }) {
+export default function RankFilterContent({ rankPeriod }: { rankPeriod: RankPeriod }) {
   return (
     <div className="flex justify-between">
       <Suspense fallback={<RankFilterSkeleton />}>

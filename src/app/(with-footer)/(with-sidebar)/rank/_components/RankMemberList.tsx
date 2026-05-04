@@ -3,7 +3,7 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { RankPeriod, RankType } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
-import RankMemberItem from './RankMemberItem'
+import RankMemberListItem from './RankMemberListItem'
 
 const RANK_PERIOD_TO_TYPE: Record<RankPeriod, RankType> = {
   all: 'ALL',
@@ -27,12 +27,7 @@ export default async function RankMemberList({ rankPeriod }: { rankPeriod: RankP
   if (data.length === 0) {
     return <EmptyState message="랭킹 데이터가 없습니다." />
   }
-
-  return (
-    <div className="flex flex-col flex-1 gap-2.5 py-[25px]">
-      {data.map((rankMember) => (
-        <RankMemberItem key={rankMember.memberId} rankMember={rankMember} />
-      ))}
-    </div>
-  )
+  return data.map((rankMember) => (
+    <RankMemberListItem key={rankMember.memberId} rankMember={rankMember} />
+  ))
 }
