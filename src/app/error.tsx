@@ -1,6 +1,6 @@
 'use client'
 
-import AppButton from '@/components/ui/AppButton'
+import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { useEffect } from 'react'
 import { MdRefresh } from 'react-icons/md'
@@ -30,10 +30,10 @@ export default function ErrorPage({ error, reset }: Props) {
         <FetchErrorState message="예기치 않은 오류가 발생했습니다.\n잠시 후 다시 시도해 주세요." />
       </div>
       <div className="p-4">
-        <AppButton onClick={reset} className="bg-main w-full">
+        <AppPrimaryButton onClick={reset}>
           <MdRefresh size={20} />
           다시 시도
-        </AppButton>
+        </AppPrimaryButton>
       </div>
     </section>
   )
