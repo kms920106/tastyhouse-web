@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import LatestReviewList from './LatestReviewList'
 
-type TabValue = 'all' | 'following'
+export type TabValue = 'all' | 'following'
 
 const reviewTypeMap: Record<TabValue, ReviewType> = {
   all: 'ALL',
