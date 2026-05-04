@@ -11,7 +11,7 @@ import {
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
 } from '@/actions/policies'
-import AppTermsDialog from '@/app/auth/signup/_components/AppTermsDialog'
+import AppTermsDialog from '@/app/auth/signup/(page)/_components/AppTermsDialog'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'

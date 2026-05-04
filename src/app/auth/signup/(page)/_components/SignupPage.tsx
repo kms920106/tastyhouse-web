@@ -12,14 +12,14 @@ import {
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
 } from '@/actions/policies'
-import AppTermsDialog from '@/app/auth/signup/_components/AppTermsDialog'
-import SignupCredentialFields from '@/app/auth/signup/_components/SignupCredentialFields'
-import SignupHeader from '@/app/auth/signup/_components/SignupHeader'
-import SignupProfileFields from '@/app/auth/signup/_components/SignupProfileFields'
+import AppTermsDialog from '@/app/auth/signup/(page)/_components/AppTermsDialog'
+import SignupCredentialFields from '@/app/auth/signup/(page)/_components/SignupCredentialFields'
+import SignupHeader from '@/app/auth/signup/(page)/_components/SignupHeader'
+import SignupProfileFields from '@/app/auth/signup/(page)/_components/SignupProfileFields'
 import SignupTermsSection, {
   TERMS_LIST,
   type TermsKey,
-} from '@/app/auth/signup/_components/SignupTermsSection'
+} from '@/app/auth/signup/(page)/_components/SignupTermsSection'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
