@@ -5,8 +5,8 @@ import type { SocialProfile, SocialProvider } from '@/domains/auth'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import SocialPhoneVerificationStep from './SocialPhoneVerificationStep'
-import SocialSignupSection from './SocialSignupSection'
+import AuthSignupSocialPhoneVerificationStep from './AuthSignupSocialPhoneVerificationStep'
+import AuthSignupSocialForm from './AuthSignupSocialForm'
 
 const PROVIDER_MAP: Record<string, SocialProvider> = {
   kakao: 'KAKAO',
@@ -29,11 +29,17 @@ interface Props {
   onStepChange: (step: 'phone' | 'signup') => void
 }
 
-export default function AuthSignupSocialPageContent({ providerParam, tempTokenParam, onStepChange }: Props) {
+export default function AuthSignupSocialContent({
+  providerParam,
+  tempTokenParam,
+  onStepChange,
+}: Props) {
   const router = useRouter()
   const [signupData, setSignupData] = useState<SignupStepData | null>(null)
 
-  const provider: SocialProvider | null = providerParam ? (PROVIDER_MAP[providerParam] ?? null) : null
+  const provider: SocialProvider | null = providerParam
+    ? (PROVIDER_MAP[providerParam] ?? null)
+    : null
   const tempToken = tempTokenParam ?? ''
 
   if (!provider) {
@@ -44,7 +50,7 @@ export default function AuthSignupSocialPageContent({ providerParam, tempTokenPa
   return (
     <>
       {signupData ? (
-        <SocialSignupSection
+        <AuthSignupSocialForm
           socialProfile={signupData.socialProfile}
           phone={signupData.phone}
           onSignUp={(formData) =>
@@ -56,7 +62,7 @@ export default function AuthSignupSocialPageContent({ providerParam, tempTokenPa
           }
         />
       ) : (
-        <SocialPhoneVerificationStep
+        <AuthSignupSocialPhoneVerificationStep
           provider={provider}
           tempToken={tempToken}
           onLinked={() => router.replace(PAGE_PATHS.HOME)}

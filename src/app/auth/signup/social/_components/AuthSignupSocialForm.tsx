@@ -99,7 +99,7 @@ interface Props {
   onSignUp: (formData: SocialSignupFormData) => Promise<{ success: false; error: string } | null>
 }
 
-export default function SocialSignupSection({ socialProfile, phone, onSignUp }: Props) {
+export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }: Props) {
   const router = useRouter()
 
   const emailVerification = useEmailVerification({

@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import AuthSignupSocialPageContent from './AuthSignupSocialPageContent'
-import AuthSignupSocialPageHeader from './AuthSignupSocialPageHeader'
+import AuthSignupSocialContent from './AuthSignupSocialContent'
+import AuthSignupSocialHeader from './AuthSignupSocialPageHeader'
 
 interface Props {
   providerParam: string | undefined
@@ -14,8 +14,8 @@ export default function AuthSignupSocialPage({ providerParam, tempTokenParam }: 
 
   return (
     <section className="min-h-screen">
-      <AuthSignupSocialPageHeader step={step} />
-      <AuthSignupSocialPageContent
+      <AuthSignupSocialHeader step={step} />
+      <AuthSignupSocialContent
         providerParam={providerParam}
         tempTokenParam={tempTokenParam}
         onStepChange={setStep}

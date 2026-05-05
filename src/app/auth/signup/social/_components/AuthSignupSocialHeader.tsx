@@ -7,7 +7,7 @@ interface Props {
   step: 'phone' | 'signup'
 }
 
-export default function AuthSignupSocialPageHeader({ step }: Props) {
+export default function AuthSignupSocialHeader({ step }: Props) {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>
