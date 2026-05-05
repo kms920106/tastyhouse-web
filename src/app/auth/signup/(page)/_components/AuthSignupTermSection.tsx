@@ -30,7 +30,7 @@ export const TERMS_LIST = [
 
 export type TermsKey = (typeof TERMS_LIST)[number]['key']
 
-interface SignupTermsSectionProps {
+interface Props {
   agreedAll: boolean
   agreedTerms: Record<TermsKey, boolean>
   onAgreedAllChange: (checked: boolean) => void
@@ -38,13 +38,13 @@ interface SignupTermsSectionProps {
   onOpenTermsDialog: (key: TermsKey, label: string) => void
 }
 
-export default function SignupTermsSection({
+export default function AuthSignupTermSection({
   agreedAll,
   agreedTerms,
   onAgreedAllChange,
   onTermChange,
   onOpenTermsDialog,
-}: SignupTermsSectionProps) {
+}: Props) {
   return (
     <div className="flex flex-col px-[15px] pt-[18px]">
       <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">

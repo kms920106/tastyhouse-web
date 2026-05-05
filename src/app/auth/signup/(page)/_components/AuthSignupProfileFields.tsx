@@ -21,7 +21,7 @@ interface ProfileErrors {
   gender?: string
 }
 
-interface SignupProfileFieldsProps {
+interface Props {
   fullName: string
   nickname: string
   isNicknameChecked: boolean
@@ -48,7 +48,7 @@ interface SignupProfileFieldsProps {
   onPhoneError: (message: string) => void
 }
 
-export default function SignupProfileFields({
+export default function AuthSignupProfileFields({
   fullName,
   nickname,
   isNicknameChecked,
@@ -73,7 +73,7 @@ export default function SignupProfileFields({
   onCheckReferrer,
   onClearError,
   onPhoneError,
-}: SignupProfileFieldsProps) {
+}: Props) {
   return (
     <>
       <input type="hidden" name="phoneVerifyToken" value={phoneVerification.phoneVerifyToken} />

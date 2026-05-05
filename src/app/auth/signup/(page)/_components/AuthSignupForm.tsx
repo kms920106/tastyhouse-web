@@ -12,12 +12,12 @@ import {
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
 } from '@/actions/policies'
-import SignupCredentialFields from '@/app/auth/signup/(page)/_components/SignupCredentialFields'
-import SignupProfileFields from '@/app/auth/signup/(page)/_components/SignupProfileFields'
-import SignupTermsSection, {
+import AuthSignupCredentialFields from '@/app/auth/signup/(page)/_components/AuthSignupCredentialFields'
+import AuthSignupProfileFields from '@/app/auth/signup/(page)/_components/AuthSignupProfileFields'
+import AuthSignupTermSection, {
   TERMS_LIST,
   type TermsKey,
-} from '@/app/auth/signup/(page)/_components/SignupTermsSection'
+} from '@/app/auth/signup/(page)/_components/AuthSignupTermSection'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
@@ -34,16 +34,6 @@ import { usePhoneVerification } from '@/hooks/usePhoneVerification'
 import { extractZodFieldErrors } from '@/lib/form'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
-
-type TermsDialog = {
-  open: boolean
-  title: string
-  htmlContent: string
-}
-
-type SignupFormProps = {
-  onOpenTermsDialog: (dialog: TermsDialog) => void
-}
 
 const signupSchema = z.object({
   email: z.string().superRefine((val, ctx) => {
@@ -110,7 +100,17 @@ const signupSchema = z.object({
 
 type FormErrors = Partial<Record<keyof z.infer<typeof signupSchema> | 'birthDate', string>>
 
-export default function SignupForm({ onOpenTermsDialog }: SignupFormProps) {
+type TermsDialog = {
+  open: boolean
+  title: string
+  htmlContent: string
+}
+
+type Props = {
+  onOpenTermsDialog: (dialog: TermsDialog) => void
+}
+
+export default function AuthSignupForm({ onOpenTermsDialog }: Props) {
   const emailVerification = useEmailVerification({
     sendFn: sendEmailVerificationCode,
     confirmFn: confirmEmailVerificationCodeForEmailField,
@@ -317,7 +317,7 @@ export default function SignupForm({ onOpenTermsDialog }: SignupFormProps) {
       <SectionStack>
         <BorderedSection className="border-t-0">
           <div className="px-[15px] py-[30px] flex flex-col gap-5">
-            <SignupCredentialFields
+            <AuthSignupCredentialFields
               emailVerification={emailVerification}
               password={password}
               passwordConfirm={passwordConfirm}
@@ -332,7 +332,7 @@ export default function SignupForm({ onOpenTermsDialog }: SignupFormProps) {
               onClearPasswordError={() => handleClearError('password')}
               onClearPasswordConfirmError={() => handleClearError('passwordConfirm')}
             />
-            <SignupProfileFields
+            <AuthSignupProfileFields
               fullName={fullName}
               nickname={nickname}
               isNicknameChecked={isNicknameChecked}
@@ -374,7 +374,7 @@ export default function SignupForm({ onOpenTermsDialog }: SignupFormProps) {
         </BorderedSection>
 
         <BorderedSection className="border-b-0">
-          <SignupTermsSection
+          <AuthSignupTermSection
             agreedAll={agreedAll}
             agreedTerms={agreedTerms}
             onAgreedAllChange={handleAgreedAll}

@@ -11,7 +11,7 @@ interface CredentialErrors {
   passwordConfirm?: string
 }
 
-interface SignupCredentialFieldsProps {
+interface Props {
   emailVerification: UseEmailVerificationReturn
   password: string
   passwordConfirm: string
@@ -23,7 +23,7 @@ interface SignupCredentialFieldsProps {
   onClearPasswordConfirmError: () => void
 }
 
-export default function SignupCredentialFields({
+export default function AuthSignupCredentialFields({
   emailVerification,
   password,
   passwordConfirm,
@@ -33,7 +33,7 @@ export default function SignupCredentialFields({
   onClearEmailError,
   onClearPasswordError,
   onClearPasswordConfirmError,
-}: SignupCredentialFieldsProps) {
+}: Props) {
   return (
     <>
       <input type="hidden" name="emailVerifyToken" value={emailVerification.token} />

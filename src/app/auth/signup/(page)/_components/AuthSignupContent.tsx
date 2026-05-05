@@ -2,9 +2,9 @@
 
 import AppTermsDialog from '@/app/auth/signup/(page)/_components/AppTermsDialog'
 import { useState } from 'react'
-import SignupForm from './SignupForm'
+import AuthSignupForm from './AuthSignupForm'
 
-export default function SignupContent() {
+export default function AuthSignupContent() {
   const [termsDialog, setTermsDialog] = useState<{
     open: boolean
     title: string
@@ -13,7 +13,7 @@ export default function SignupContent() {
 
   return (
     <>
-      <SignupForm onOpenTermsDialog={setTermsDialog} />
+      <AuthSignupForm onOpenTermsDialog={setTermsDialog} />
       <AppTermsDialog
         open={termsDialog.open}
         onOpenChange={(open) => setTermsDialog((prev) => ({ ...prev, open }))}
