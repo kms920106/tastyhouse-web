@@ -1,5 +1,5 @@
-import SignupCompleteSection from './_components/SignupCompleteSection'
+import AuthSignupCompletePage from './_components/AuthSignupCompletePage'
 
 export default function Page() {
-  return <SignupCompleteSection />
+  return <AuthSignupCompletePage />
 }
