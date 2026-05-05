@@ -13,13 +13,13 @@ export default function AuthSignupSocialPage({ providerParam, tempTokenParam }: 
   const [step, setStep] = useState<'phone' | 'signup'>('phone')
 
   return (
-    <section className="min-h-screen">
+    <>
       <AuthSignupSocialHeader step={step} />
       <AuthSignupSocialContent
         providerParam={providerParam}
         tempTokenParam={tempTokenParam}
         onStepChange={setStep}
       />
-    </section>
+    </>
   )
 }
