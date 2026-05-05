@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import AuthSignupSocialContent from './AuthSignupSocialContent'
-import AuthSignupSocialHeader from './AuthSignupSocialPageHeader'
+import AuthSignupSocialHeader from './AuthSignupSocialHeader'
 
 interface Props {
   providerParam: string | undefined
