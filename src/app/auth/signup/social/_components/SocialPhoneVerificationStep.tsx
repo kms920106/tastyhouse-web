@@ -32,7 +32,6 @@ const PROVIDER_ERROR_MESSAGES: Record<SocialProvider, string> = {
   APPLE: '애플 인증 정보가 없습니다. 다시 로그인해 주세요.',
 }
 
-
 export default function SocialPhoneVerificationStep({
   provider,
   tempToken,
@@ -40,6 +39,7 @@ export default function SocialPhoneVerificationStep({
   onNeedsSignUp,
 }: Props) {
   const router = useRouter()
+
   const [phoneError, setPhoneError] = useState<string | undefined>()
   const [isProcessing, startProcessing] = useTransition()
 
