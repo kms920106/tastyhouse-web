@@ -1,12 +1,15 @@
-import EventSection from './_components/EventSection'
+import EventPage from './_components/EventPage'
+import { EventTabValue } from './_components/EventTabs'
 
 interface Props {
-  searchParams: Promise<{ tab?: string }>
+  searchParams: Promise<{
+    tab?: string
+  }>
 }
 
 export default async function Page({ searchParams }: Props) {
   const params = await searchParams
-  const initialTab = (params.tab || 'ongoing') as 'ongoing' | 'ended' | 'winner'
+  const initialTab = (params.tab || 'ongoing') as EventTabValue
 
-  return <EventSection initialTab={initialTab} />
+  return <EventPage initialTab={initialTab} />
 }
