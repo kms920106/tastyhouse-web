@@ -42,6 +42,7 @@ interface Props {
 
 export default function ForgotPasswordResetStep({ passwordResetToken }: Props) {
   const router = useRouter()
+
   const [formData, setFormData] = useState<FormData>({ newPassword: '', newPasswordConfirm: '' })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
