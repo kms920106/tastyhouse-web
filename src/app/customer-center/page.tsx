@@ -1,5 +1,5 @@
-import CustomerCenterSection from './_components/CustomerCenterSection'
+import CustomerCenterPage from './_components/CustomerCenterPage'
 
 export default function Page() {
-  return <CustomerCenterSection />
+  return <CustomerCenterPage />
 }
