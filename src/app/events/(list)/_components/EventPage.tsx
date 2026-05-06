@@ -1,5 +1,5 @@
 import EventTabs, { EventTabValue } from './EventTabs'
-import HeaderSection from './HeaderSection'
+import EventHeader from './EventHeader'
 
 interface Props {
   initialTab: EventTabValue
@@ -8,7 +8,7 @@ interface Props {
 export default function EventPage({ initialTab }: Props) {
   return (
     <>
-      <HeaderSection />
+      <EventHeader />
       <EventTabs initialTab={initialTab} />
     </>
   )
