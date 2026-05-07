@@ -1,9 +1,10 @@
 'use client'
 
-import { getFollowerList, removeFollower } from '@/actions/follow'
+import { getFollowerList, getPublicFollowerList, removeFollower } from '@/actions/follow'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import FollowListItem from './FollowListItem'
 import { FollowerListSkeleton } from './FollowListItemSkeleton'
@@ -11,20 +12,21 @@ import { FollowerListSkeleton } from './FollowListItemSkeleton'
 interface Props {
   memberId: number
   searchQuery: string
+  isLoggedIn: boolean
 }
 
 const PAGE_SIZE = 10
 
-export default function FollowerList({ memberId, searchQuery }: Props) {
+export default function FollowerList({ memberId, searchQuery, isLoggedIn }: Props) {
+  const router = useRouter()
   const queryClient = useQueryClient()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['followers', memberId],
+    queryKey: ['followers', memberId, isLoggedIn],
     queryFn: async ({ pageParam }) => {
-      const response = await getFollowerList(memberId, {
-        page: pageParam as number,
-        size: PAGE_SIZE,
-      })
+      const response = isLoggedIn
+        ? await getFollowerList(memberId, { page: pageParam as number, size: PAGE_SIZE })
+        : await getPublicFollowerList(memberId, { page: pageParam as number, size: PAGE_SIZE })
       return response
     },
     initialPageParam: 0,
@@ -91,8 +93,8 @@ export default function FollowerList({ memberId, searchQuery }: Props) {
             key={member.memberId}
             member={member}
             tab="follower"
-            onFollowToggle={() => {}}
-            onRemoveFollower={handleRemoveFollower}
+            onFollowToggle={isLoggedIn ? () => {} : () => router.push('/auth/login')}
+            onRemoveFollower={isLoggedIn ? handleRemoveFollower : () => router.push('/auth/login')}
           />
         ))}
       </div>

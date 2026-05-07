@@ -31,7 +31,7 @@ export interface OtherMemberProfileResponse {
   following: boolean
 }
 
-export interface MemberBasicProfileResponse {
+export interface MemberProfileResponse {
   id: number
   nickname: string
   memberGrade: MemberGradeCode

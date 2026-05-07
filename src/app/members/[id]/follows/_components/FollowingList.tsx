@@ -1,32 +1,34 @@
 'use client'
 
-import { getFollowingList } from '@/actions/follow'
+import { getFollowingList, getPublicFollowingList } from '@/actions/follow'
 import { SocialMember } from '@/domains/member'
 import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import FollowListItem from './FollowListItem'
 import { FollowerListSkeleton } from './FollowListItemSkeleton'
 
 interface Props {
   memberId: number
   searchQuery: string
+  isLoggedIn: boolean
 }
 
 const PAGE_SIZE = 10
 
-export default function FollowingList({ memberId, searchQuery }: Props) {
+export default function FollowingList({ memberId, searchQuery, isLoggedIn }: Props) {
+  const router = useRouter()
   const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['following', memberId],
+    queryKey: ['following', memberId, isLoggedIn],
     queryFn: async ({ pageParam }) => {
-      const response = await getFollowingList(memberId, {
-        page: pageParam as number,
-        size: PAGE_SIZE,
-      })
+      const response = isLoggedIn
+        ? await getFollowingList(memberId, { page: pageParam as number, size: PAGE_SIZE })
+        : await getPublicFollowingList(memberId, { page: pageParam as number, size: PAGE_SIZE })
       return response
     },
     initialPageParam: 0,
@@ -84,7 +86,7 @@ export default function FollowingList({ memberId, searchQuery }: Props) {
             key={member.memberId}
             member={member}
             tab="following"
-            onFollowToggle={handleFollowToggle}
+            onFollowToggle={isLoggedIn ? handleFollowToggle : () => router.push('/auth/login')}
             onRemoveFollower={() => {}}
           />
         ))}

@@ -1,4 +1,5 @@
-import FollowsSection, { FollowTabValue } from './_components/FollowsSection'
+import { getIsLoggedIn } from '@/lib/auth-config'
+import MemberFollowPage, { FollowTabValue } from './_components/MemberFollowPage'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -9,6 +10,7 @@ export default async function Page({ params, searchParams }: Props) {
   const { id } = await params
   const { tab } = await searchParams
   const initialTab = (tab === 'follower' ? 'follower' : 'following') as FollowTabValue
+  const isLoggedIn = await getIsLoggedIn()
 
-  return <FollowsSection memberId={Number(id)} initialTab={initialTab} />
+  return <MemberFollowPage memberId={Number(id)} initialTab={initialTab} isLoggedIn={isLoggedIn} />
 }

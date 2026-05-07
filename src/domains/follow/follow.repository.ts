@@ -21,6 +21,22 @@ export const followRepository = {
     })
   },
 
+  // 팔로잉 목록 조회 (비로그인)
+  async getPublicFollowingList(memberId: number, params: PaginationParams) {
+    return api.get<MemberSocialProfileListItemResponse[]>(
+      `${ENDPOINT}/v1/${memberId}/following/public`,
+      { params },
+    )
+  },
+
+  // 팔로워 목록 조회 (비로그인)
+  async getPublicFollowerList(memberId: number, params: PaginationParams) {
+    return api.get<MemberSocialProfileListItemResponse[]>(
+      `${ENDPOINT}/v1/${memberId}/followers/public`,
+      { params },
+    )
+  },
+
   // 팔로우
   async followMember(memberId: number) {
     return api.post<void>(`${ENDPOINT}/v1/${memberId}`)

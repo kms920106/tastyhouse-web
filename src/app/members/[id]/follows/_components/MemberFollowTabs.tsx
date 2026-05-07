@@ -15,9 +15,10 @@ const TAB_TRIGGER_CLASS =
 interface Props {
   memberId: number
   initialTab: FollowTabValue
+  isLoggedIn: boolean
 }
 
-export default function FollowsTabs({ memberId, initialTab }: Props) {
+export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -27,7 +28,6 @@ export default function FollowsTabs({ memberId, initialTab }: Props) {
     (tab: string) => {
       const params = new URLSearchParams()
       params.set('tab', tab)
-      // router.push(`${pathname}?${params.toString()}`, { scroll: false })
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
       setSearchQuery('')
     },
@@ -47,13 +47,13 @@ export default function FollowsTabs({ memberId, initialTab }: Props) {
       <TabsContent value="following" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
-          <FollowingList memberId={memberId} searchQuery={searchQuery} />
+          <FollowingList memberId={memberId} searchQuery={searchQuery} isLoggedIn={isLoggedIn} />
         </div>
       </TabsContent>
       <TabsContent value="follower" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
-          <FollowerList memberId={memberId} searchQuery={searchQuery} />
+          <FollowerList memberId={memberId} searchQuery={searchQuery} isLoggedIn={isLoggedIn} />
         </div>
       </TabsContent>
     </Tabs>

@@ -33,3 +33,17 @@ export async function searchMembersByNickname(
 export async function getIsFollowing(memberId: number) {
   return followRepository.isFollowing(memberId)
 }
+
+export async function getPublicFollowingList(
+  memberId: number,
+  { page, size }: { page: number; size: number },
+) {
+  return followRepository.getPublicFollowingList(memberId, { page, size })
+}
+
+export async function getPublicFollowerList(
+  memberId: number,
+  { page, size }: { page: number; size: number },
+) {
+  return followRepository.getPublicFollowerList(memberId, { page, size })
+}

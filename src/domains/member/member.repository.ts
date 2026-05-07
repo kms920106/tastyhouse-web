@@ -3,7 +3,7 @@ import 'server-only'
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import type {
-  MemberBasicProfileResponse,
+  MemberProfileResponse,
   MemberCouponListItemResponse,
   MemberInfoResponse,
   MemberStatsResponse,
@@ -12,7 +12,6 @@ import type {
   MyReviewCountResponse,
   MyReviewListItemResponse,
   NicknameAvailabilityResponse,
-  OtherMemberProfileResponse,
   PersonalInfoResponse,
   PhoneAvailabilityResponse,
   PointHistoryResponse,
@@ -40,13 +39,9 @@ export const memberRepository = {
       params: { phoneNumber },
     })
   },
-  // 다른 회원 프로필 조회
-  async getOtherMemberProfile(memberId: number | string) {
-    return api.get<OtherMemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
-  },
-  // 다른 회원 기본 프로필 조회 (팔로우 여부 미포함)
-  async getMemberBasicProfile(memberId: number | string) {
-    return api.get<MemberBasicProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile/basic`)
+  // 회원 기본 프로필 조회
+  async getMemberProfile(memberId: number | string) {
+    return api.get<MemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
   },
   // 내 프로필 조회 (GET /v1/me)
   async getMemberMe() {

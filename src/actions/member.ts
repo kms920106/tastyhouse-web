@@ -1,8 +1,5 @@
 'use server'
 
-import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
-import { cookies } from 'next/headers'
-import { memberRepository } from '@/domains/member/member.repository'
 import type {
   UpdatePasswordRequest,
   UpdatePersonalInfoRequest,
@@ -10,6 +7,9 @@ import type {
   VerifyPasswordRequest,
   WithdrawRequest,
 } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
+import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
+import { cookies } from 'next/headers'
 
 export async function getMemberMe() {
   return memberRepository.getMemberMe()
@@ -39,12 +39,8 @@ export async function getMyReviews(page: number = 0, size: number = 9) {
   return memberRepository.getMyReviews({ page, size })
 }
 
-export async function getOtherMemberProfile(memberId: number | string) {
-  return memberRepository.getOtherMemberProfile(memberId)
-}
-
-export async function getMemberBasicProfile(memberId: number | string) {
-  return memberRepository.getMemberBasicProfile(memberId)
+export async function getMemberProfile(memberId: number | string) {
+  return memberRepository.getMemberProfile(memberId)
 }
 
 export async function getMemberPersonalInfo() {
