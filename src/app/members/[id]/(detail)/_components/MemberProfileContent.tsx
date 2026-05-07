@@ -5,13 +5,14 @@ import MemberReviewListFetcher from './MemberReviewListFetcher'
 
 interface Props {
   memberId: number
+  isLoggedIn: boolean
 }
 
-export default function MemberProfileContent({ memberId }: Props) {
+export default function MemberProfilePage({ memberId, isLoggedIn }: Props) {
   return (
     <div className="flex flex-col min-h-dvh bg-white">
       <div className="flex flex-col h-[50dvh]">
-        <MemberProfileHeader memberId={memberId} />
+        <MemberProfileHeader memberId={memberId} isLoggedIn={isLoggedIn} />
         <MemberProfileCard memberId={memberId} />
       </div>
       <div className="flex-1 flex flex-col border-t border-[#eeeeee]">

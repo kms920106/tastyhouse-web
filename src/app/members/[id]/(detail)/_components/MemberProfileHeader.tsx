@@ -8,9 +8,10 @@ import FollowButton from './FollowButton'
 
 interface Props {
   memberId: number
+  isLoggedIn: boolean
 }
 
-export default function MemberProfileHeader({ memberId }: Props) {
+export default function MemberProfileHeader({ memberId, isLoggedIn }: Props) {
   const router = useRouter()
 
   return (
@@ -22,7 +23,7 @@ export default function MemberProfileHeader({ memberId }: Props) {
           </HeaderIconButton>
         </HeaderLeft>
         <HeaderRight>
-          <FollowButton memberId={memberId} />
+          <FollowButton memberId={memberId} isLoggedIn={isLoggedIn} />
         </HeaderRight>
       </Header>
     </div>

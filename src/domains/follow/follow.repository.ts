@@ -2,7 +2,7 @@ import 'server-only'
 
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
-import { MemberSocialProfileListItemResponse } from './follow.dto'
+import { IsFollowingResponse, MemberSocialProfileListItemResponse } from './follow.dto'
 
 const ENDPOINT = '/api/follows'
 
@@ -41,5 +41,10 @@ export const followRepository = {
     return api.get<MemberSocialProfileListItemResponse[]>(`${ENDPOINT}/v1/search`, {
       params: { nickname, ...params },
     })
+  },
+
+  // 팔로우 여부 조회
+  async isFollowing(memberId: number) {
+    return api.get<IsFollowingResponse>(`${ENDPOINT}/v1/${memberId}/is-following`)
   },
 }

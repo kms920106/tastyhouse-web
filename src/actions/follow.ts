@@ -29,3 +29,7 @@ export async function searchMembersByNickname(
 ) {
   return followRepository.searchMembersByNickname(nickname, { page, size })
 }
+
+export async function getIsFollowing(memberId: number) {
+  return followRepository.isFollowing(memberId)
+}

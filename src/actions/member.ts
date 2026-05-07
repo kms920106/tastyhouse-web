@@ -43,6 +43,10 @@ export async function getOtherMemberProfile(memberId: number | string) {
   return memberRepository.getOtherMemberProfile(memberId)
 }
 
+export async function getMemberBasicProfile(memberId: number | string) {
+  return memberRepository.getMemberBasicProfile(memberId)
+}
+
 export async function getMemberPersonalInfo() {
   return memberRepository.getMyPersonalInfo()
 }

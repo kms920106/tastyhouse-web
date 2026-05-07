@@ -22,24 +22,24 @@ import {
 
 const ENDPOINT = '/api/reviews'
 
-const CACHE_OPTIONS = { cache: 'force-cache' as const, next: { revalidate: 3600 } }
+// const CACHE_OPTIONS = { cache: 'force-cache' as const, next: { revalidate: 3600 } }
 
 export const reviewRepository = {
   // 베스트 리뷰 목록 조회
   async getBestReviews(params: PaginationParams) {
-    return publicApi.get<ReviewBestListItemResponse[]>(`${ENDPOINT}/v1/best`, { ...CACHE_OPTIONS, params })
+    return publicApi.get<ReviewBestListItemResponse[]>(`${ENDPOINT}/v1/best`, { params })
   },
   // 최신 리뷰 목록 조회
   async getLatestReviews(params: ReviewLatestQuery) {
-    return publicApi.get<ReviewLatestListItemResponse[]>(`${ENDPOINT}/v1/latest`, { ...CACHE_OPTIONS, params })
+    return publicApi.get<ReviewLatestListItemResponse[]>(`${ENDPOINT}/v1/latest`, { params })
   },
   // 리뷰 상세 조회
   async getReviewDetail(reviewId: number) {
-    return publicApi.get<ReviewDetailResponse>(`${ENDPOINT}/v1/${reviewId}`, CACHE_OPTIONS)
+    return publicApi.get<ReviewDetailResponse>(`${ENDPOINT}/v1/${reviewId}`)
   },
   // 리뷰 상세 정보 조회 (상품 정보 포함)
   async getReviewProductDetail(reviewId: number) {
-    return publicApi.get<ReviewProductDetailResponse>(`${ENDPOINT}/v1/${reviewId}/product`, CACHE_OPTIONS)
+    return publicApi.get<ReviewProductDetailResponse>(`${ENDPOINT}/v1/${reviewId}/product`)
   },
   // 리뷰 좋아요 토글
   async toggleReviewLike(reviewId: number) {
@@ -55,7 +55,7 @@ export const reviewRepository = {
   },
   // 댓글 및 답글 조회
   async getReviewComments(reviewId: number) {
-    return publicApi.get<CommentListResponse>(`${ENDPOINT}/v1/${reviewId}/comments`, CACHE_OPTIONS)
+    return publicApi.get<CommentListResponse>(`${ENDPOINT}/v1/${reviewId}/comments`)
   },
   // 답글 등록
   async createReviewReply(reviewId: number, commentId: number, request: ReplyCreateRequest) {
@@ -71,6 +71,8 @@ export const reviewRepository = {
   },
   // 특정 회원의 리뷰 목록 조회
   async getMemberReviews(memberId: number | string, params: PaginationParams) {
-    return publicApi.get<MyReviewListItemResponse[]>(`${ENDPOINT}/v1/members/${memberId}`, { ...CACHE_OPTIONS, params })
+    return publicApi.get<MyReviewListItemResponse[]>(`${ENDPOINT}/v1/members/${memberId}`, {
+      params,
+    })
   },
 }

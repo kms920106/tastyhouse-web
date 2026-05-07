@@ -31,6 +31,14 @@ export interface OtherMemberProfileResponse {
   following: boolean
 }
 
+export interface MemberBasicProfileResponse {
+  id: number
+  nickname: string
+  memberGrade: MemberGradeCode
+  statusMessage: string | null
+  profileImageUrl: string | null
+}
+
 export interface MemberInfoResponse {
   id: number
   nickname: string

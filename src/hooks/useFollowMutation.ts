@@ -3,6 +3,7 @@
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { followMember, unfollowMember } from '@/actions/follow'
+import { IsFollowingResponse } from '@/domains/follow/follow.dto'
 import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface FollowableMember {
@@ -59,10 +60,10 @@ export function useFollowMutation() {
       (old) => updateFollowingStateInCache(old, targetMemberId, following),
     )
 
-    // ['member', memberId, 'profile'] 캐시 업데이트 → FollowButton 상태 반영
-    queryClient.setQueryData<{ following: boolean }>(
-      ['member', targetMemberId, 'profile'],
-      (old) => old ? { ...old, following } : old,
+    // ['member', memberId, 'is-following'] 캐시 업데이트 → FollowButton 상태 반영
+    queryClient.setQueryData<IsFollowingResponse>(
+      ['member', targetMemberId, 'is-following'],
+      (old) => old ? { ...old, isFollowing: following } : old,
     )
   }
 

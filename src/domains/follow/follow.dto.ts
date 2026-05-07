@@ -7,3 +7,8 @@ export interface MemberSocialProfileListItemResponse {
   profileImageUrl: string | null
   following: boolean
 }
+
+export interface IsFollowingResponse {
+  memberId: number
+  isFollowing: boolean
+}

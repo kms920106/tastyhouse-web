@@ -3,6 +3,7 @@ import 'server-only'
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import type {
+  MemberBasicProfileResponse,
   MemberCouponListItemResponse,
   MemberInfoResponse,
   MemberStatsResponse,
@@ -42,6 +43,10 @@ export const memberRepository = {
   // 다른 회원 프로필 조회
   async getOtherMemberProfile(memberId: number | string) {
     return api.get<OtherMemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
+  },
+  // 다른 회원 기본 프로필 조회 (팔로우 여부 미포함)
+  async getMemberBasicProfile(memberId: number | string) {
+    return api.get<MemberBasicProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile/basic`)
   },
   // 내 프로필 조회 (GET /v1/me)
   async getMemberMe() {
