@@ -1,5 +1,5 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
-import MemberProfilePage from './_components/MemberProfileContent'
+import MemberDetailPage from './_components/MemberDetailPage'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -11,5 +11,5 @@ export default async function Page({ params }: Props) {
 
   const isLoggedIn = await getIsLoggedIn()
 
-  return <MemberProfilePage memberId={memberId} isLoggedIn={isLoggedIn} />
+  return <MemberDetailPage memberId={memberId} isLoggedIn={isLoggedIn} />
 }

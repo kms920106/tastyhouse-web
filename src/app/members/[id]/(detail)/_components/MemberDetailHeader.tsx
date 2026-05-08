@@ -11,7 +11,7 @@ interface Props {
   isLoggedIn: boolean
 }
 
-export default function MemberProfileHeader({ memberId, isLoggedIn }: Props) {
+export default function MemberDetailHeader({ memberId, isLoggedIn }: Props) {
   const router = useRouter()
 
   return (
