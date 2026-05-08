@@ -16,9 +16,10 @@ interface Props {
   memberId: number
   initialTab: FollowTabValue
   isLoggedIn: boolean
+  isOwner: boolean
 }
 
-export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn }: Props) {
+export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isOwner }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -53,7 +54,7 @@ export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn }: P
       <TabsContent value="follower" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
-          <FollowerList memberId={memberId} searchQuery={searchQuery} isLoggedIn={isLoggedIn} />
+          <FollowerList memberId={memberId} searchQuery={searchQuery} isLoggedIn={isLoggedIn} isOwner={isOwner} />
         </div>
       </TabsContent>
     </Tabs>

@@ -11,12 +11,12 @@ import { FiMoreVertical } from 'react-icons/fi'
 
 interface Props {
   member: SocialMember
-  tab: 'following' | 'follower'
+  isOwner: boolean
   onFollowToggle: (member: SocialMember) => void
   onRemoveFollower: (memberId: number) => void
 }
 
-export default function FollowListItem({ member, tab, onFollowToggle, onRemoveFollower }: Props) {
+export default function FollowListItem({ member, isOwner, onFollowToggle, onRemoveFollower }: Props) {
   const [removeConfirmOpen, setRemoveConfirmOpen] = useState(false)
 
   return (
@@ -29,7 +29,7 @@ export default function FollowListItem({ member, tab, onFollowToggle, onRemoveFo
         />
       </Link>
       <div className="flex items-center gap-2">
-        {tab === 'follower' ? (
+        {isOwner ? (
           <>
             <AppOutlineButton
               onClick={() => setRemoveConfirmOpen(true)}

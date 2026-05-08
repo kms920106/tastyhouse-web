@@ -1,6 +1,7 @@
 'use client'
 
 import { getFollowerList, getPublicFollowerList, removeFollower } from '@/actions/follow'
+import { useFollowMutation } from '@/hooks/useFollowMutation'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
@@ -13,13 +14,16 @@ interface Props {
   memberId: number
   searchQuery: string
   isLoggedIn: boolean
+  isOwner: boolean
 }
 
 const PAGE_SIZE = 10
 
-export default function FollowerList({ memberId, searchQuery, isLoggedIn }: Props) {
+export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwner }: Props) {
   const router = useRouter()
+
   const queryClient = useQueryClient()
+  const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
     queryKey: ['followers', memberId, isLoggedIn],
@@ -92,8 +96,8 @@ export default function FollowerList({ memberId, searchQuery, isLoggedIn }: Prop
           <FollowListItem
             key={member.memberId}
             member={member}
-            tab="follower"
-            onFollowToggle={isLoggedIn ? () => {} : () => router.push('/auth/login')}
+            isOwner={isOwner}
+            onFollowToggle={isLoggedIn ? handleFollowToggle : () => router.push('/auth/login')}
             onRemoveFollower={isLoggedIn ? handleRemoveFollower : () => router.push('/auth/login')}
           />
         ))}

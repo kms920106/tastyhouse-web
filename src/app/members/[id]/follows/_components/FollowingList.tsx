@@ -21,6 +21,7 @@ const PAGE_SIZE = 10
 
 export default function FollowingList({ memberId, searchQuery, isLoggedIn }: Props) {
   const router = useRouter()
+
   const { handleFollowToggle } = useFollowMutation()
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
@@ -37,8 +38,6 @@ export default function FollowingList({ memberId, searchQuery, isLoggedIn }: Pro
       const { page, totalPages } = lastPage.pagination
       return page + 1 < totalPages ? page + 1 : undefined
     },
-    staleTime: Infinity,
-    refetchOnMount: false,
   })
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
@@ -85,7 +84,7 @@ export default function FollowingList({ memberId, searchQuery, isLoggedIn }: Pro
           <FollowListItem
             key={member.memberId}
             member={member}
-            tab="following"
+            isOwner={false}
             onFollowToggle={isLoggedIn ? handleFollowToggle : () => router.push('/auth/login')}
             onRemoveFollower={() => {}}
           />
