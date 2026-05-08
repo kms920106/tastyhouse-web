@@ -10,11 +10,11 @@ import { useEffect } from 'react'
 import MemberSearchResultItem from './MemberSearchResultItem'
 import { MemberSearchResultListSkeleton } from './MemberSearchResultListSkeleton'
 
+const PAGE_SIZE = 10
+
 interface Props {
   searchQuery: string
 }
-
-const PAGE_SIZE = 10
 
 export default function MemberSearchResultList({ searchQuery }: Props) {
   const { handleFollowToggle } = useFollowMutation()

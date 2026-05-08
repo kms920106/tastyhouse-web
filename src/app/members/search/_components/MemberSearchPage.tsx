@@ -2,14 +2,14 @@
 
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+import MemberSearchHContent from './MemberSearchHContent'
 import MemberSearchHeader from './MemberSearchHeader'
-import MemberSearchResultList from './MemberSearchResultList'
 
 interface Props {
   initialQuery: string
 }
 
-export default function MemberSearchSection({ initialQuery }: Props) {
+export default function MemberSearchPage({ initialQuery }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -25,11 +25,9 @@ export default function MemberSearchSection({ initialQuery }: Props) {
   }
 
   return (
-    <section className="min-h-screen bg-white">
+    <>
       <MemberSearchHeader value={inputValue} onChange={setInputValue} onSearch={handleSearch} />
-      <div className="flex flex-col px-[15px] h-[calc(100dvh-55px)]">
-        <MemberSearchResultList searchQuery={searchQuery} />
-      </div>
-    </section>
+      <MemberSearchHContent searchQuery={searchQuery} />
+    </>
   )
 }
