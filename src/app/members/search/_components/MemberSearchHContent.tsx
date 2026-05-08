@@ -6,7 +6,7 @@ interface Props {
 
 export default function MemberSearchHContent({ searchQuery }: Props) {
   return (
-    <div className="flex flex-col px-[15px] h-[calc(100dvh-55px)]">
+    <div className="flex flex-col px-[15px]">
       <MemberSearchResultList searchQuery={searchQuery} />
     </div>
   )

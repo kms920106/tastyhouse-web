@@ -9,12 +9,10 @@ interface Props {
 
 export default async function Page({ searchParams }: Props) {
   const { q } = await searchParams
-  const initialQuery = q ?? ''
-
   const isLoggedIn = await getIsLoggedIn()
   if (!isLoggedIn) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  return <MemberSearchPage initialQuery={initialQuery} />
+  return <MemberSearchPage searchQuery={q ?? ''} />
 }

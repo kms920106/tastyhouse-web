@@ -4,27 +4,30 @@ import Header from '@/components/layouts/Header'
 import { BackButton, SearchButton } from '@/components/layouts/header-parts'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
-interface Props {
-  value: string
-  onChange: (value: string) => void
-  onSearch: () => void
-}
-
-export default function MemberSearchHeader({ value, onChange, onSearch }: Props) {
+export default function MemberSearchHeader() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const inputRef = useRef<HTMLInputElement>(null)
+  const [inputValue, setInputValue] = useState(searchParams.get('q') ?? '')
+
+  const handleSearch = () => {
+    const trimmed = inputValue.trim()
+    if (!trimmed) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('q', trimmed)
+    router.replace(`?${params.toString()}`)
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onSearch()
+      handleSearch()
     }
   }
 
   const handleClear = () => {
-    onChange('')
+    setInputValue('')
     inputRef.current?.focus()
     const params = new URLSearchParams(searchParams.toString())
     params.delete('q')
@@ -38,14 +41,14 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Props)
         <input
           ref={inputRef}
           type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="닉네임을 입력해 주세요."
           autoFocus
           className="w-full bg-transparent border-none outline-none text-sm leading-[14px] text-[#333333] placeholder:text-[#aaaaaa] pr-[24px]"
         />
-        {value && (
+        {inputValue && (
           <button
             onClick={handleClear}
             className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer"
@@ -54,7 +57,7 @@ export default function MemberSearchHeader({ value, onChange, onSearch }: Props)
           </button>
         )}
       </div>
-      <SearchButton onClick={onSearch} />
+      <SearchButton onClick={handleSearch} />
     </Header>
   )
 }

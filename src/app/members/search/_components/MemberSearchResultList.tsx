@@ -31,6 +31,8 @@ export default function MemberSearchResultList({ searchQuery }: Props) {
       return page + 1 < totalPages ? page + 1 : undefined
     },
     enabled: searchQuery.trim().length > 0,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
   })
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
