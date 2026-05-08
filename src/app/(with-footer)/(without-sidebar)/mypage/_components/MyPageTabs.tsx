@@ -1,9 +1,8 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
 import BookmarkListFetcher from './BookmarkListFetcher'
 import { type MyPageTabValue } from './MyPage'
 import OrderListFetcher from './OrderListFetcher'
@@ -19,17 +18,7 @@ interface Props {
 }
 
 export default function MyPageTabs({ initialTab }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const handleTabChange = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams()
-      params.set('tab', value)
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
-    },
-    [router, pathname],
-  )
+  const { handleTabChange } = useTabNavigation()
 
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
@@ -58,7 +47,7 @@ export default function MyPageTabs({ initialTab }: Props) {
           <TabsTrigger value="bookmarks" className={TAB_TRIGGER_CLASS}>
             <Image
               src={`/images/mypage/icon-place-bookmark-${initialTab === 'bookmarks' ? 'on' : 'off'}.png`}
-              alt="저장"
+              alt="북마크"
               width={27}
               height={25}
             />

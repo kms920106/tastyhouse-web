@@ -1,9 +1,8 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
 import MemberReviewListFetcher from './MemberReviewListFetcher'
 
 export type MemberDetailTabValue = 'reviews'
@@ -19,17 +18,7 @@ interface Props {
 }
 
 export default function MemberDetailTabs({ memberId, initialTab = 'reviews' }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const handleTabChange = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams()
-      params.set('tab', value)
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
-    },
-    [router, pathname],
-  )
+  const { handleTabChange } = useTabNavigation()
 
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
