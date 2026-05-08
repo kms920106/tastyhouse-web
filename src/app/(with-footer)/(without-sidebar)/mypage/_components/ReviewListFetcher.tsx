@@ -27,5 +27,7 @@ export default function ReviewListFetcher() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
   }
 
-  return <ReviewList reviews={data.reviews} hasMoreReviews={data.hasMore} />
+  const { reviews, hasMore } = data
+
+  return <ReviewList reviews={reviews} hasMoreReviews={hasMore} />
 }
