@@ -7,6 +7,7 @@ export const PAGE_PATHS = {
   // 계정
   ACCOUNT_INFO: '/account/info',
   ACCOUNT_PASSWORD: '/account/password',
+  ACCOUNT_PROFILE: '/account/profile',
 
   // 광고
   ADVERTISING: '/advertising',
