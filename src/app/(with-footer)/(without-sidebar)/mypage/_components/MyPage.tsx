@@ -6,16 +6,17 @@ export type MyPageTabValue = 'reviews' | 'payments' | 'bookmarks'
 
 interface Props {
   initialTab: MyPageTabValue
+  isLoggedIn: boolean
 }
 
-export default function MyPage({ initialTab }: Props) {
+export default function MyPage({ initialTab, isLoggedIn }: Props) {
   return (
     <div className="flex flex-col min-h-dvh bg-white">
       <div className="flex flex-col h-[50dvh]">
         <MyPageHeader />
-        <MyPageProfile />
+        <MyPageProfile isLoggedIn={isLoggedIn} />
       </div>
-      <MyPageTabs initialTab={initialTab} />
+      <MyPageTabs initialTab={initialTab} isLoggedIn={isLoggedIn} />
     </div>
   )
 }
