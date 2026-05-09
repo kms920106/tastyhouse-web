@@ -1,4 +1,4 @@
-import { getPlaceInfo } from '@/actions/place'
+import { getPlaceDetail, getPlaceInfo } from '@/actions/place'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useQuery } from '@tanstack/react-query'
@@ -12,7 +12,13 @@ interface Props {
 export default function PlaceInfoDetailFetcher({ placeId }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ['place', placeId, 'place-detail-info'],
-    queryFn: () => getPlaceInfo(placeId),
+    queryFn: async () => {
+      const [infoRes, detailRes] = await Promise.all([
+        getPlaceInfo(placeId),
+        getPlaceDetail(placeId),
+      ])
+      return { infoRes, detailRes }
+    },
   })
 
   if (isLoading) {
@@ -23,9 +29,14 @@ export default function PlaceInfoDetailFetcher({ placeId }: Props) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  if (!data?.data) {
+  if (!data?.infoRes.data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('정보')} />
   }
 
-  return <PlaceInfoDetail placeInfo={data.data} />
+  const placeInfo = {
+    ...data.infoRes.data,
+    phoneNumber: data.detailRes.data?.phoneNumber ?? null,
+  }
+
+  return <PlaceInfoDetail placeInfo={placeInfo} />
 }

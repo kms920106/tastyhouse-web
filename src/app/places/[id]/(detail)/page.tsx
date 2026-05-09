@@ -18,24 +18,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const placeId = Number(id)
 
-  const [summaryRes, bannersRes] = await Promise.all([
-    placeRepository.getPlaceSummary(placeId),
+  const [detailRes, bannersRes] = await Promise.all([
+    placeRepository.getPlaceDetail(placeId),
     placeRepository.getPlaceBanners(placeId),
   ])
 
-  const summary = summaryRes.data
+  const detail = detailRes.data
   const banners = bannersRes.data
 
-  if (!summary) return {}
+  if (!detail) return {}
 
   const thumbnailUrl = banners?.[0]?.imageUrl
-  const description = `${summary.name} | ${summary.roadAddress ?? summary.lotAddress ?? ''}`
+  const description = `${detail.name} | ${detail.roadAddress ?? detail.lotAddress ?? ''}`
 
   return {
-    title: summary.name,
+    title: detail.name,
     description,
     openGraph: {
-      title: summary.name,
+      title: detail.name,
       description,
       ...(thumbnailUrl && { images: [thumbnailUrl] }),
     },

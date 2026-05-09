@@ -44,39 +44,17 @@ export interface PlaceAmenityResponse {
   inactiveImageUrl: string
 }
 
-export interface PlaceNameResponse {
-  id: number
-  name: string
-}
-
-export interface PlaceSummaryResponse {
-  id: number
-  name: string
-  roadAddress: string
-  lotAddress: string
-  rating: number
-}
-
 export interface PlaceBookmarkResponse {
   bookmarked: boolean
 }
 
 export interface PlaceInfoResponse {
-  id: number
-  name: string
-  rating: number
-  roadAddress: string | null
-  lotAddress: string | null
-  latitude: number
-  longitude: number
-  stationName: string
-  phoneNumber: string | null
-  ownerMessage: string | null
-  ownerMessageCreatedAt: string | null
+  closedDays: PlaceClosedDay[]
   businessHours: PlaceBusinessHour[]
   breakTimes: PlaceBreakTime[]
-  closedDays: PlaceClosedDay[]
   amenities: PlaceAmenity[]
+  ownerMessage: string | null
+  ownerMessageCreatedAt: string | null
 }
 
 export interface MenuCategoryResponse {

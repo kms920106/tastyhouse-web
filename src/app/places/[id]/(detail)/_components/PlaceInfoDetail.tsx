@@ -9,14 +9,6 @@ import { useState } from 'react'
 import { FacilitySelectorLayout } from '../../../filter/_components/FacilitySelector'
 
 type PlaceInfo = {
-  id: number
-  name: string
-  rating: number
-  roadAddress: string | null
-  lotAddress: string | null
-  latitude: number
-  longitude: number
-  stationName: string
   phoneNumber: string | null
   ownerMessage: string | null
   ownerMessageCreatedAt: string | null

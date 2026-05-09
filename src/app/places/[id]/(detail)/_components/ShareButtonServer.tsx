@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default async function ShareButtonServer({ placeId }: Props) {
-  const { error, data } = await placeRepository.getPlaceName(placeId)
+  const { error, data } = await placeRepository.getPlaceDetail(placeId)
 
   if (error) {
     return <ShareButtonError />

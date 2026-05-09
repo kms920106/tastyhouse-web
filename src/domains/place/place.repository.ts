@@ -12,14 +12,12 @@ import {
   PlaceFoodTypeListItemResponse,
   PlaceInfoResponse,
   PlaceLatestListItemResponse,
-  PlaceNameResponse,
   PlaceDetailResponse,
   PlaceOrderMethodResponse,
   PlacePhotoCategoryResponse,
   PlaceReviewStatisticsResponse,
   PlaceReviewsByRatingResponse,
   PlaceStationListItemResponse,
-  PlaceSummaryResponse,
 } from './place.dto'
 import type { PlaceMapMarker } from './place.model'
 
@@ -66,14 +64,6 @@ export const placeRepository = {
   // 편의시설 목록 조회
   async getPlaceAmenities() {
     return publicApi.get<PlaceAmenityResponse[]>(`${ENDPOINT}/v1/amenities`, CACHE_OPTIONS)
-  },
-  // 상호명 조회
-  async getPlaceName(placeId: number) {
-    return publicApi.get<PlaceNameResponse>(`${ENDPOINT}/v1/${placeId}/name`, CACHE_OPTIONS)
-  },
-  // 플레이스 요약 정보 조회
-  async getPlaceSummary(placeId: number) {
-    return publicApi.get<PlaceSummaryResponse>(`${ENDPOINT}/v1/${placeId}/summary`, CACHE_OPTIONS)
   },
   // 플레이스 배너 이미지 조회
   async getPlaceBanners(placeId: number) {

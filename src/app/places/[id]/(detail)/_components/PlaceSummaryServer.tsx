@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default async function PlaceSummaryServer({ placeId, bookmarkButton }: Props) {
-  const { error, status, data } = await placeRepository.getPlaceSummary(placeId)
+  const { error, status, data } = await placeRepository.getPlaceDetail(placeId)
 
   if ((error && status === 404) || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('기본 정보')} />

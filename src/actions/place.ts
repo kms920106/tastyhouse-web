@@ -24,6 +24,10 @@ export async function getPlaceInfo(placeId: number) {
   return placeRepository.getPlaceInfo(placeId)
 }
 
+export async function getPlaceDetail(placeId: number) {
+  return placeRepository.getPlaceDetail(placeId)
+}
+
 export async function getPlaceMenus(placeId: number) {
   return placeRepository.getPlaceMenus(placeId)
 }
