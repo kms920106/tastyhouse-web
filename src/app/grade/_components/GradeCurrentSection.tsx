@@ -2,30 +2,32 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
 import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
 import MemberGradeName from '@/components/ui/MemberGradeName'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import type { MemberGradeCode } from '@/domains/member'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import { memberRepository } from '@/domains/member/member.repository'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { memberService } from '@/domains/member/member.service'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 export default async function GradeCurrentSection() {
-  const [meResult, myGradeResult] = await Promise.all([
-    memberRepository.getMemberMe(),
+  const [memberResult, myGradeResult] = await Promise.all([
+    memberService.getMe(),
     memberRepository.getMyGrade(),
   ])
 
-  if (meResult.error || myGradeResult.error) {
+  const member = memberResult.data
+
+  if (memberResult.error || myGradeResult.error) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  const me = meResult.data
   const myGrade = myGradeResult.data
 
   return (
     <div className="px-[15px] pt-10 pb-5 text-center">
       <p className="text-base leading-[16px]">
-        <span className="font-bold">{me?.nickname}</span> 님의 현재 등급은
+        <span className="font-bold">{member?.nickname}</span> 님의 현재 등급은
       </p>
       {myGrade && (
         <div className="flex justify-center mt-[23px]">

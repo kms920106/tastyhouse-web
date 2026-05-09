@@ -7,10 +7,11 @@ import type { ReviewComment } from '@/domains/review'
 
 interface Props {
   comment: ReviewComment
+  isLoggedIn: boolean
 }
 
-export default function ReviewCommentListItem({ comment }: Props) {
-  const { memberProfile } = useMemberProfile()
+export default function ReviewCommentListItem({ comment, isLoggedIn }: Props) {
+  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
   const currentMemberId = memberProfile?.id ?? null
 
   return (

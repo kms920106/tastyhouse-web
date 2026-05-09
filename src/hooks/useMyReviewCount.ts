@@ -5,10 +5,15 @@ import { useQuery } from '@tanstack/react-query'
 
 export const MY_REVIEW_COUNT_QUERY_KEY = ['member', 'review-count']
 
-export function useMyReviewCount() {
+interface Options {
+  enabled?: boolean
+}
+
+export function useMyReviewCount({ enabled = true }: Options = {}) {
   const { data, isLoading } = useQuery({
     queryKey: MY_REVIEW_COUNT_QUERY_KEY,
     queryFn: () => getMyReviewCount(),
+    enabled,
   })
 
   return {

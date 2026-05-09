@@ -1,17 +1,18 @@
 'use client'
 
-import BorderedSection from '@/components/ui/BorderedSection'
-import { toast } from '@/components/ui/AppToaster'
-import SectionStack from '@/components/ui/SectionStack'
-import type { MemberCoupon, Member } from '@/domains/member'
-import type { PaymentMethod } from '@/domains/payment'
-import { useCartInfo } from '@/hooks/useCartInfo'
-import { useTossPayments } from '@/hooks/useTossPayments'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { calculatePaymentSummary } from '@/lib/paymentCalculation'
-import { PAGE_PATHS } from '@/lib/paths'
 import { createOrder } from '@/actions/order'
 import { completeOnSitePayment, createPayment } from '@/actions/payment'
+import { toast } from '@/components/ui/AppToaster'
+import BorderedSection from '@/components/ui/BorderedSection'
+import SectionStack from '@/components/ui/SectionStack'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import type { MemberCoupon, MemberPersonalInfo } from '@/domains/member'
+import type { PaymentMethod } from '@/domains/payment'
+import { Place } from '@/domains/place'
+import { useCartInfo } from '@/hooks/useCartInfo'
+import { useTossPayments } from '@/hooks/useTossPayments'
+import { PAGE_PATHS } from '@/lib/paths'
+import { calculatePaymentSummary } from '@/lib/paymentCalculation'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import CustomerInfoSection from './CustomerInfoSection'
@@ -23,21 +24,22 @@ import PaymentMethodSelector from './PaymentMethodSelector'
 import PaymentSummarySection from './PaymentSummarySection'
 
 interface Props {
-  placeId: number
-  placeName: string
-  memberInfo: Member | null
+  place: Place
+  member: MemberPersonalInfo
   availableCoupons: MemberCoupon[]
   usablePoints: number
 }
 
 export default function PlaceOrderCheckoutContentClient({
-  placeId,
-  placeName,
-  memberInfo,
+  place,
+  member,
   availableCoupons,
   usablePoints,
 }: Props) {
   const router = useRouter()
+
+  const { id: placeId, name: placeName } = place
+  const { fullName, phoneNumber, email } = member
 
   const { items, firstProductName, totalItemCount, totalProductAmount, totalProductDiscount } =
     useCartInfo()
@@ -146,9 +148,9 @@ export default function PlaceOrderCheckoutContentClient({
         orderName,
         successUrl: `${window.location.origin}/api/payments/tosspayments/success`,
         failUrl: `${window.location.origin}/api/payments/tosspayments/fail`,
-        customerEmail: memberInfo?.email,
-        customerName: memberInfo?.fullName,
-        customerMobilePhone: memberInfo?.phoneNumber,
+        customerEmail: member.email,
+        customerName: member.fullName,
+        customerMobilePhone: member.phoneNumber,
         card: {
           useEscrow: false,
           flowMode: 'DEFAULT',
@@ -171,7 +173,7 @@ export default function PlaceOrderCheckoutContentClient({
           />
         </BorderedSection>
         <BorderedSection>
-          <CustomerInfoSection customerInfo={memberInfo} />
+          <CustomerInfoSection fullName={fullName} phoneNumber={phoneNumber} email={email} />
         </BorderedSection>
         <BorderedSection>
           <DiscountApplicationSection

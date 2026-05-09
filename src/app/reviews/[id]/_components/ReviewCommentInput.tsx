@@ -16,7 +16,7 @@ interface Props {
 export default function ReviewCommentInput({ isLoggedIn, reviewId }: Props) {
   const router = useRouter()
 
-  const { memberProfile } = useMemberProfile()
+  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
 
   const containerRef = useRef<HTMLDivElement>(null)
 

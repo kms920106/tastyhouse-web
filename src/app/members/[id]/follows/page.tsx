@@ -1,6 +1,6 @@
-import { getMemberMe } from '@/actions/member'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import MemberFollowPage, { FollowTabValue } from './_components/MemberFollowPage'
+import { memberService } from '@/domains/member/member.service'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -15,8 +15,8 @@ export default async function Page({ params, searchParams }: Props) {
 
   let isOwner = false
   if (isLoggedIn) {
-    const me = await getMemberMe()
-    isOwner = me?.data?.id === Number(id)
+    const member = await memberService.getMe()
+    isOwner = member?.data?.id === Number(id)
   }
 
   return (

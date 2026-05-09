@@ -10,11 +10,11 @@ export const otherMemberProfileQueryKey = (memberId: number) => [
   'basic',
 ]
 
-export function useOtherMemberProfile(memberId: number | undefined) {
+export function useOtherMemberProfile(memberId: number) {
   return useQuery({
-    queryKey: otherMemberProfileQueryKey(memberId!),
+    queryKey: otherMemberProfileQueryKey(memberId),
     queryFn: async () => {
-      const response = await getMemberProfile(memberId!)
+      const response = await getMemberProfile(memberId)
       return response.data ?? null
     },
     enabled: !!memberId,

@@ -5,9 +5,10 @@ import ReviewCommentListItem from './ReviewCommentListItem'
 
 interface Props {
   reviewId: number
+  isLoggedIn: boolean
 }
 
-export default async function ReviewCommentList({ reviewId }: Props) {
+export default async function ReviewCommentList({ reviewId, isLoggedIn }: Props) {
   const { error, status, data } = await reviewRepository.getReviewComments(reviewId)
 
   if ((error && status === 404) || !data) {
@@ -30,6 +31,6 @@ export default async function ReviewCommentList({ reviewId }: Props) {
   }
 
   return data.comments.map((comment) => (
-    <ReviewCommentListItem key={comment.id} comment={comment} />
+    <ReviewCommentListItem key={comment.id} comment={comment} isLoggedIn={isLoggedIn} />
   ))
 }

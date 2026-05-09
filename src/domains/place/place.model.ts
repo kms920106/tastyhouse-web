@@ -1,5 +1,16 @@
 import { PlaceAmenityCode, PlaceFoodType } from '.'
 
+export interface Place {
+  id: number
+  name: string
+  latitude: number
+  longitude: number
+  rating: number
+  roadAddress: string
+  lotAddress: string
+  phoneNumber: string
+}
+
 export interface PlaceBusinessHour {
   dayType: string
   dayTypeDescription: string

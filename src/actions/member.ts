@@ -8,14 +8,15 @@ import type {
   WithdrawRequest,
 } from '@/domains/member'
 import { memberRepository } from '@/domains/member/member.repository'
+import { memberService } from '@/domains/member/member.service'
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { cookies } from 'next/headers'
 
-export async function getMemberMe() {
-  return memberRepository.getMemberMe()
+export async function getMyProfile() {
+  return memberService.getMe()
 }
 
-export async function getMemberStats(memberId: number | string) {
+export async function getMemberStats(memberId: number) {
   return memberRepository.getMemberStats(memberId)
 }
 
@@ -39,7 +40,7 @@ export async function getMyReviews(page: number = 0, size: number = 9) {
   return memberRepository.getMyReviews({ page, size })
 }
 
-export async function getMemberProfile(memberId: number | string) {
+export async function getMemberProfile(memberId: number) {
   return memberRepository.getMemberProfile(memberId)
 }
 

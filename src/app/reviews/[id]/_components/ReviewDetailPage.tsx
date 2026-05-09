@@ -52,7 +52,7 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
           tagNames={tagNames}
           isLoggedIn={isLoggedIn}
         />
-        <ReviewCommentListSection reviewId={reviewId} />
+        <ReviewCommentListSection reviewId={reviewId} isLoggedIn={isLoggedIn} />
       </div>
       <ReviewCommentInputSection isLoggedIn={isLoggedIn} reviewId={reviewId} />
     </ReviewReplyProvider>

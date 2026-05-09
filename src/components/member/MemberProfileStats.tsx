@@ -1,14 +1,12 @@
-'use client'
-
 import { PAGE_PATHS } from '@/lib/paths'
-import { getMemberStats } from '@/actions/member'
-import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { ReactNode } from 'react'
-import { MemberProfileStatsSkeleton } from './MemberProfileStatsSkeleton'
 
 interface Props {
-  memberId: number | string | null
+  memberId: number | string
+  reviewCount: number | undefined
+  followingCount: number | undefined
+  followerCount: number | undefined
 }
 
 function StatLabel({ children }: { children: ReactNode }) {
@@ -19,22 +17,7 @@ function StatValue({ children }: { children: ReactNode }) {
   return <span className="text-xs leading-[12px] font-bold">{children}</span>
 }
 
-export default function MemberProfileStats({ memberId }: Props) {
-  const { data: statsData, isLoading } = useQuery({
-    queryKey: ['member', memberId, 'stats'],
-    queryFn: async () => {
-      const response = await getMemberStats(memberId!)
-      return response.data ?? null
-    },
-    enabled: !!memberId,
-  })
-
-  if (!memberId || isLoading) {
-    return <MemberProfileStatsSkeleton />
-  }
-
-  const { reviewCount, followingCount, followerCount } = statsData ?? {}
-
+export default function MemberProfileStats({ memberId, reviewCount, followingCount, followerCount }: Props) {
   return (
     <div className="flex items-center justify-center gap-10 mt-[53px] mb-[30px]">
       <div className="flex items-center gap-1">

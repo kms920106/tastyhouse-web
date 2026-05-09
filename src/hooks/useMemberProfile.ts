@@ -1,7 +1,7 @@
 'use client'
 
 import type { Member } from '@/domains/member'
-import { getMemberMe } from '@/actions/member'
+import { getMyProfile } from '@/actions/member'
 import { useQuery } from '@tanstack/react-query'
 
 export const MEMBER_PROFILE_QUERY_KEY = ['member', 'profile']
@@ -13,7 +13,7 @@ interface Options {
 export function useMemberProfile({ enabled = true }: Options = {}) {
   const { data, isLoading } = useQuery({
     queryKey: MEMBER_PROFILE_QUERY_KEY,
-    queryFn: () => getMemberMe(),
+    queryFn: () => getMyProfile(),
     staleTime: Infinity,
     enabled,
   })

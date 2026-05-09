@@ -161,3 +161,14 @@ export interface PlaceMapListItemResponse {
 export interface PlaceOrderMethodResponse {
   orderMethods: OrderMethod[]
 }
+
+export interface PlaceDetailResponse {
+  id: number
+  name: string
+  latitude: number
+  longitude: number
+  rating: number
+  roadAddress: string
+  lotAddress: string
+  phoneNumber: string
+}

@@ -13,6 +13,7 @@ import {
   PlaceInfoResponse,
   PlaceLatestListItemResponse,
   PlaceNameResponse,
+  PlaceDetailResponse,
   PlaceOrderMethodResponse,
   PlacePhotoCategoryResponse,
   PlaceReviewStatisticsResponse,
@@ -128,5 +129,9 @@ export const placeRepository = {
   // 지도 마커 목록 조회
   async getMapMarkers(params: { latitude: number; longitude: number }) {
     return publicApi.get<PlaceMapMarker[]>(`${ENDPOINT}/v1/map/markers`, { params })
+  },
+  // 플레이스 상세 조회
+  async getPlaceDetail(placeId: number) {
+    return publicApi.get<PlaceDetailResponse>(`${ENDPOINT}/v1/${placeId}`, CACHE_OPTIONS)
   },
 }

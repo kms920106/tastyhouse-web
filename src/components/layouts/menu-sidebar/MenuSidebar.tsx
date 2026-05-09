@@ -7,7 +7,11 @@ import MenuSidebarBanners from './MenuSidebarBanners'
 import MenuSidebarFoodTypes from './MenuSidebarFoodTypes'
 import MenuSidebarProfile from './MenuSidebarProfile'
 
-function MenuSidebarContent() {
+interface Props {
+  isLoggedIn: boolean
+}
+
+function MenuSidebarContent({ isLoggedIn }: Props) {
   const { setOpenMobile } = useSidebar()
 
   return (
@@ -29,7 +33,7 @@ function MenuSidebarContent() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-0 flex flex-col overflow-y-auto">
-        <MenuSidebarProfile />
+        <MenuSidebarProfile isLoggedIn={isLoggedIn} />
         <MenuSidebarFoodTypes />
         <MenuSidebarBanners />
       </SidebarContent>
@@ -37,7 +41,7 @@ function MenuSidebarContent() {
   )
 }
 
-export default function MenuSidebar() {
+export default function MenuSidebar({ isLoggedIn }: Props) {
   const { open, openMobile } = useSidebar()
   const [hasOpened, setHasOpened] = useState(false)
 
@@ -49,7 +53,7 @@ export default function MenuSidebar() {
 
   return (
     <Sidebar side="left" collapsible="offcanvas">
-      {hasOpened && <MenuSidebarContent />}
+      {hasOpened && <MenuSidebarContent isLoggedIn={isLoggedIn} />}
     </Sidebar>
   )
 }

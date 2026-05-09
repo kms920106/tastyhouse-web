@@ -1,11 +1,13 @@
 'use client'
 
+import { getMemberStats } from '@/actions/member'
 import ProfileImage from '@/components/account/profile/ProfileImage'
 import MemberProfileCard from '@/components/member/MemberProfileCard'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import PenIcon from '@/components/ui/PenIcon'
 import { useMemberProfile } from '@/hooks/useMemberProfile'
 import { PAGE_PATHS } from '@/lib/paths'
+import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
 interface Props {
@@ -13,7 +15,16 @@ interface Props {
 }
 
 export default function MyPageProfile({ isLoggedIn }: Props) {
-  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
+  const { memberProfile, isLoading: isProfileLoading } = useMemberProfile({ enabled: isLoggedIn })
+
+  const { data: statsData, isLoading: isStatsLoading } = useQuery({
+    queryKey: ['member', memberProfile?.id, 'stats'],
+    queryFn: async () => {
+      const response = await getMemberStats(memberProfile!.id)
+      return response.data ?? null
+    },
+    enabled: !!memberProfile?.id,
+  })
 
   if (!isLoggedIn) {
     return (
@@ -30,7 +41,16 @@ export default function MyPageProfile({ isLoggedIn }: Props) {
 
   return (
     <MemberProfileCard
-      memberId={memberProfile?.id ?? null}
+      memberId={memberProfile?.id ?? 0}
+      nickname={memberProfile?.nickname}
+      profileImageUrl={memberProfile?.profileImageUrl}
+      memberGrade={memberProfile?.grade}
+      statusMessage={memberProfile?.statusMessage}
+      reviewCount={statsData?.reviewCount}
+      followingCount={statsData?.followingCount}
+      followerCount={statsData?.followerCount}
+      isProfileLoading={isProfileLoading}
+      isStatsLoading={isStatsLoading}
       editSlot={
         <Link href={PAGE_PATHS.ACCOUNT_PROFILE}>
           <PenIcon />

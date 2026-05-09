@@ -4,15 +4,16 @@ import { ReviewCommentListSkeleton } from './ReviewCommentListSkeleton'
 
 interface Props {
   reviewId: number
+  isLoggedIn: boolean
 }
 
-export default function ReviewCommentListSection({ reviewId }: Props) {
+export default function ReviewCommentListSection({ reviewId, isLoggedIn }: Props) {
   return (
     <section>
       <div className="px-[15px] py-5">
         <div className="space-y-[30px]">
           <Suspense fallback={<ReviewCommentListSkeleton />}>
-            <ReviewCommentList reviewId={reviewId} />
+            <ReviewCommentList reviewId={reviewId} isLoggedIn={isLoggedIn} />
           </Suspense>
         </div>
       </div>

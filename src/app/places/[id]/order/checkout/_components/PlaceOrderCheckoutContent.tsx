@@ -1,31 +1,40 @@
 import { memberRepository } from '@/domains/member/member.repository'
 import { placeRepository } from '@/domains/place/place.repository'
 import PlaceOrderCheckoutContentClient from './PlaceOrderCheckoutContentClient'
+import FetchErrorState from '@/components/ui/FetchErrorState'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 
 interface Props {
   placeId: number
 }
 
 export default async function PlaceOrderCheckoutContent({ placeId }: Props) {
-  const [placeNameResult, memberResult, couponsResult, usablePointResult] = await Promise.all([
-    placeRepository.getPlaceName(placeId),
-    memberRepository.getMemberMe(),
+  const [placeResult, memberResult, couponsResult, usablePointResult] = await Promise.all([
+    placeRepository.getPlaceDetail(placeId),
+    memberRepository.getMyPersonalInfo(),
     memberRepository.getMyAvailableCoupons(),
     memberRepository.getMyUsablePoint(),
   ])
 
-  const placeName = placeNameResult.data?.name ?? ''
-  const memberInfo = memberResult.data ?? null
-  const availableCoupons = couponsResult.data ?? []
-  const usablePoints = usablePointResult.data?.usablePoints ?? 0
+  if (
+    placeResult.error ||
+    !placeResult.data ||
+    memberResult.error ||
+    !memberResult.data ||
+    couponsResult.error ||
+    !couponsResult.data ||
+    usablePointResult.error ||
+    !usablePointResult.data
+  ) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  }
 
   return (
     <PlaceOrderCheckoutContentClient
-      placeId={placeId}
-      placeName={placeName}
-      memberInfo={memberInfo}
-      availableCoupons={availableCoupons}
-      usablePoints={usablePoints}
+      place={placeResult.data}
+      member={memberResult.data}
+      availableCoupons={couponsResult.data}
+      usablePoints={usablePointResult.data.usablePoints}
     />
   )
 }

@@ -10,9 +10,13 @@ import MemberGradeIcon from '../../ui/MemberGradeIcon'
 import MemberGradeName from '../../ui/MemberGradeName'
 import MemberNickname from '../../ui/MemberNickname'
 
-export default function MenuSidebarProfile() {
-  const { memberProfile } = useMemberProfile()
-  const { reviewCount } = useMyReviewCount()
+interface Props {
+  isLoggedIn: boolean
+}
+
+export default function MenuSidebarProfile({ isLoggedIn }: Props) {
+  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
+  const { reviewCount } = useMyReviewCount({ enabled: isLoggedIn })
 
   if (!memberProfile) {
     return (

@@ -1,4 +1,4 @@
-import type { CouponDiscountType, MemberGradeCode } from './member.types'
+import type { CouponDiscountType, MemberGender, MemberGradeCode } from './member.types'
 
 export interface MemberCoupon {
   id: number
@@ -22,11 +22,22 @@ export interface Member {
   id: number
   nickname: string
   grade: MemberGradeCode
+  gradeName?: string
+  gradeIcon?: string
+  gradeColor?: string
   statusMessage: string | null
   profileImageUrl: string | null
+}
+
+export interface MemberPersonalInfo {
+  email: string
   fullName: string
   phoneNumber: string
-  email: string
+  birthDate: number | null
+  gender: MemberGender | null
+  pushNotificationEnabled: boolean
+  marketingInfoEnabled: boolean
+  eventInfoEnabled: boolean
 }
 
 export interface SocialMember {

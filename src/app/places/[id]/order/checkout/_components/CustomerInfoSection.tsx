@@ -4,14 +4,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
-import { Member } from '@/domains/member'
 import { formatPhoneNumber } from '@/lib/utils'
 
 interface Props {
-  customerInfo: Member | null
+  fullName: string
+  phoneNumber: string
+  email: string
 }
 
-export default function CustomerInfoSection({ customerInfo }: Props) {
+export default function CustomerInfoSection({ fullName, phoneNumber, email }: Props) {
   return (
     <Accordion type="single" collapsible defaultValue="customer-info">
       <AccordionItem value="customer-info" className="border-b-0">
@@ -23,17 +24,17 @@ export default function CustomerInfoSection({ customerInfo }: Props) {
             <div className="space-y-[15px]">
               <div className="flex">
                 <span className="w-30 text-sm leading-[14px] text-[#666666]">주문하는 분</span>
-                <span className="text-sm leading-[14px]">{customerInfo?.fullName}</span>
+                <span className="text-sm leading-[14px]">{fullName}</span>
               </div>
               <div className="flex">
                 <span className="w-30 text-sm leading-[14px] text-[#666666]">휴대폰</span>
                 <span className="text-sm leading-[14px]">
-                  {formatPhoneNumber(customerInfo?.phoneNumber ?? '')}
+                  {formatPhoneNumber(phoneNumber ?? '')}
                 </span>
               </div>
               <div className="flex">
                 <span className="w-30 text-sm leading-[14px] text-[#666666]">이메일</span>
-                <span className="text-sm leading-[14px]">{customerInfo?.email}</span>
+                <span className="text-sm leading-[14px]">{email}</span>
               </div>
             </div>
           </div>

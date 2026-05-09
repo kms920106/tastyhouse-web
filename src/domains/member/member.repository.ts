@@ -5,7 +5,6 @@ import { PaginationParams } from '@/types/common'
 import type {
   MemberProfileResponse,
   MemberCouponListItemResponse,
-  MemberInfoResponse,
   MemberStatsResponse,
   MyBookmarkedPlaceListItemResponse,
   MyGradeResponse,
@@ -40,15 +39,11 @@ export const memberRepository = {
     })
   },
   // 회원 기본 프로필 조회
-  async getMemberProfile(memberId: number | string) {
+  async getMemberProfile(memberId: number) {
     return api.get<MemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
   },
-  // 내 프로필 조회 (GET /v1/me)
-  async getMemberMe() {
-    return api.get<MemberInfoResponse>(`${ENDPOINT}/v1/me`)
-  },
   // 특정 회원 통계 조회
-  async getMemberStats(memberId: number | string) {
+  async getMemberStats(memberId: number) {
     return api.get<MemberStatsResponse>(`${ENDPOINT}/v1/${memberId}/stats`)
   },
   // 사용 가능한 쿠폰 목록 조회
@@ -95,7 +90,7 @@ export const memberRepository = {
   async verifyPassword(data: VerifyPasswordRequest) {
     return api.post<VerifyPasswordResponse>(`${ENDPOINT}/v1/me/verify-password`, data)
   },
-  // 개인정보 수정 (PUT /v1/me/personal-info)
+  // 개인정보 수정
   async updateMyPersonalInfo(
     data: UpdatePersonalInfoRequest,
     verifyToken: string,
@@ -112,7 +107,7 @@ export const memberRepository = {
   async getMyGrade() {
     return api.get<MyGradeResponse>(`${ENDPOINT}/v1/me/grade`)
   },
-  // 비밀번호 변경 (PUT /v1/me/password)
+  // 비밀번호 변경
   async updateMyPassword(data: UpdatePasswordRequest, verifyToken: string) {
     return api.put<void>(`${ENDPOINT}/v1/me/password`, data, {
       headers: {
@@ -120,7 +115,7 @@ export const memberRepository = {
       },
     })
   },
-  // 회원 탈퇴 (DELETE /v1/me)
+  // 회원 탈퇴
   async withdrawMember(data: WithdrawRequest) {
     return api.delete<void>(`${ENDPOINT}/v1/me`, data)
   },

@@ -5,22 +5,23 @@ import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
 import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
 import MemberGradeName from '@/components/ui/MemberGradeName'
 import SectionStack from '@/components/ui/SectionStack'
-import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import { gradeRepository } from '@/domains/grade/grade.repository'
-import { memberRepository } from '@/domains/member/member.repository'
 import type { MemberGradeCode } from '@/domains/member'
+import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
+import { memberRepository } from '@/domains/member/member.repository'
+import { memberService } from '@/domains/member/member.service'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import GradeInfoItem from './GradeInfoItem'
 
 export default async function GradeSection() {
-  const [meResult, myGradeResult, gradeInfoListResult] = await Promise.all([
-    memberRepository.getMemberMe(),
+  const [memberResult, myGradeResult, gradeInfoListResult] = await Promise.all([
+    memberService.getMe(),
     memberRepository.getMyGrade(),
     gradeRepository.getGradeInfoList(),
   ])
 
-  const me = meResult.data
+  const member = memberResult.data
   const myGrade = myGradeResult.data
   const gradeInfoList = gradeInfoListResult.data ?? []
 
@@ -38,7 +39,7 @@ export default async function GradeSection() {
         <BorderedSection>
           <div className="px-[15px] pt-10 pb-5 text-center">
             <p className="text-base leading-[16px]">
-              <span className="font-bold">{me?.nickname}</span> 님의 현재 등급은
+              <span className="font-bold">{member?.nickname}</span> 님의 현재 등급은
             </p>
             {myGrade && (
               <div className="flex justify-center mt-[23px]">
