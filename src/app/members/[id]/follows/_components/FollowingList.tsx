@@ -1,10 +1,8 @@
 'use client'
 
-import { getFollowingList, getPublicFollowingList } from '@/actions/follow'
 import { SocialMember } from '@/domains/member'
-import { useFollowMutation } from '@/domains/follow/follow.hook'
+import { useFollowMutation, useFollowing } from '@/domains/follow/follow.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -17,28 +15,12 @@ interface Props {
   isLoggedIn: boolean
 }
 
-const PAGE_SIZE = 10
-
 export default function FollowingList({ memberId, searchQuery, isLoggedIn }: Props) {
   const router = useRouter()
 
   const { handleFollowToggle } = useFollowMutation()
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['following', memberId, isLoggedIn],
-    queryFn: async ({ pageParam }) => {
-      const response = isLoggedIn
-        ? await getFollowingList(memberId, { page: pageParam as number, size: PAGE_SIZE })
-        : await getPublicFollowingList(memberId, { page: pageParam as number, size: PAGE_SIZE })
-      return response
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.pagination) return undefined
-      const { page, totalPages } = lastPage.pagination
-      return page + 1 < totalPages ? page + 1 : undefined
-    },
-  })
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFollowing(memberId, isLoggedIn)
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,

@@ -1,30 +1,14 @@
 'use client'
 
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { getNoticeList } from '@/actions/notice'
+import { useNoticeList } from '@/domains/notice/notice.hook'
 import { Accordion } from '@/components/ui/shadcn/accordion'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { NoticeListSkeleton } from './NoticeListSkeleton'
 import { NoticeListItem } from './NoticeListItem'
 
-const PAGE_SIZE = 10
-
 export default function NoticeList() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['notices'],
-    queryFn: async ({ pageParam }) => {
-      const response = await getNoticeList({ page: pageParam, size: PAGE_SIZE })
-      if (!response.data) throw new Error('응답 데이터가 없습니다.')
-      return response
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.pagination) return undefined
-      const { page, totalPages } = lastPage.pagination
-      return page + 1 < totalPages ? page + 1 : undefined
-    },
-  })
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useNoticeList()
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,

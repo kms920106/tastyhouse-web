@@ -1,7 +1,7 @@
 'use client'
 
-import { getProductReviews } from '@/actions/product'
-import ReviewPanel from '@/components/reviews/ReviewPanel'
+import { ReviewPanelWrapper } from '@/components/reviews/ReviewPanel'
+import { useProductReviews } from '@/domains/product/product.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 
 interface Props {
@@ -9,12 +9,13 @@ interface Props {
 }
 
 export default function PlaceOrderProductReviewList({ productId }: Props) {
+  const { data, isLoading, isError } = useProductReviews(productId)
+
   return (
-    <ReviewPanel
-      queryOptions={{
-        queryKey: ['product', productId, 'product-detail-reviews'],
-        queryFn: () => getProductReviews(productId, { page: 0, size: 5 }),
-      }}
+    <ReviewPanelWrapper
+      data={data?.data}
+      isLoading={isLoading}
+      isError={isError}
       viewMoreHref={PAGE_PATHS.PRODUCT_REVIEWS(productId)}
     />
   )

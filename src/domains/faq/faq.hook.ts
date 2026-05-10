@@ -1,7 +1,7 @@
 'use client'
 
 import { getFaqCategories, getFaqList } from '@/actions/faq'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 export const ALL_CATEGORY_ID = 0
 
@@ -32,4 +32,9 @@ export function useFaqList(categoryId: number) {
     queryFn: () =>
       getFaqList(categoryId !== ALL_CATEGORY_ID ? { categoryId } : undefined),
   })
+}
+
+export function useSelectFaqCategory() {
+  const queryClient = useQueryClient()
+  return (categoryId: number) => queryClient.setQueryData(faqQueryKeys.selectedCategory, categoryId)
 }

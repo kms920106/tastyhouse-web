@@ -1,6 +1,6 @@
 'use client'
 
-import { followMember, getFollowerList, getIsFollowing, getPublicFollowerList, getPublicFollowingList, getFollowingList, unfollowMember } from '@/actions/follow'
+import { followMember, getFollowerList, getIsFollowing, getPublicFollowerList, getPublicFollowingList, getFollowingList, removeFollower, searchMembersByNickname, unfollowMember } from '@/actions/follow'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import type { IsFollowingResponse } from '@/domains/follow/follow.dto'
@@ -15,6 +15,7 @@ export const followQueryKeys = {
   followers: (memberId: number, isLoggedIn: boolean) => ['followers', memberId, isLoggedIn] as const,
   following: (memberId: number, isLoggedIn: boolean) => ['following', memberId, isLoggedIn] as const,
   isFollowing: (memberId: number) => ['member', memberId, 'is-following'] as const,
+  memberSearch: (searchQuery: string) => ['memberSearch', searchQuery] as const,
 }
 
 export function useFollowers(memberId: number, isLoggedIn: boolean) {
@@ -150,4 +151,36 @@ export function useFollowMutation() {
   }
 
   return { handleFollowToggle }
+}
+
+export function useRemoveFollower(memberId: number, isLoggedIn: boolean) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (targetMemberId: number) => removeFollower(targetMemberId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: followQueryKeys.followers(memberId, isLoggedIn) })
+    },
+    onError: () => {
+      toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
+    },
+  })
+}
+
+export function useMemberSearch(searchQuery: string) {
+  return useInfiniteQuery({
+    queryKey: followQueryKeys.memberSearch(searchQuery),
+    queryFn: async ({ pageParam }) => {
+      return searchMembersByNickname(searchQuery, pageParam as number, PAGE_SIZE)
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.pagination) return undefined
+      const { page, totalPages } = lastPage.pagination
+      return page + 1 < totalPages ? page + 1 : undefined
+    },
+    enabled: searchQuery.trim().length > 0,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 10,
+  })
 }

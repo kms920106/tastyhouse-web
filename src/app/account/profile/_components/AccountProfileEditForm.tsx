@@ -1,15 +1,13 @@
 'use client'
 
-import { updateMemberProfile } from '@/actions/member'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { memberQueryKeys, useMemberProfile } from '@/domains/member/member.hook'
+import { useMemberProfile, useUpdateMemberProfile } from '@/domains/member/member.hook'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
-import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { z } from 'zod'
@@ -31,9 +29,9 @@ type ProfileErrors = {
 
 export default function AccountProfileEditForm() {
   const router = useRouter()
-  const queryClient = useQueryClient()
 
   const { memberProfile, isLoading } = useMemberProfile()
+  const { mutateAsync: updateProfile } = useUpdateMemberProfile(memberProfile?.id)
 
   const [nickname, setNickname] = useState('')
   const [statusMessage, setStatusMessage] = useState('')
@@ -112,19 +110,13 @@ export default function AccountProfileEditForm() {
 
     setIsSubmitting(true)
     try {
-      const response = await updateMemberProfile({
+      const response = await updateProfile({
         nickname,
         statusMessage,
         profileImageFileId: profileImageFileId || undefined,
       })
 
       if (!response?.error) {
-        await queryClient.invalidateQueries({ queryKey: memberQueryKeys.myProfile })
-        if (memberProfile?.id) {
-          await queryClient.invalidateQueries({
-            queryKey: memberQueryKeys.profile(memberProfile.id),
-          })
-        }
         toast('프로필이 변경됐습니다.')
         router.back()
       } else {

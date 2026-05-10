@@ -1,16 +1,12 @@
 'use client'
 
-import { searchMembersByNickname } from '@/actions/follow'
 import { SocialMember } from '@/domains/member'
-import { useFollowMutation } from '@/domains/follow/follow.hook'
+import { useFollowMutation, useMemberSearch } from '@/domains/follow/follow.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import MemberSearchResultItem from './MemberSearchResultItem'
 import { MemberSearchResultListSkeleton } from './MemberSearchResultListSkeleton'
-
-const PAGE_SIZE = 10
 
 interface Props {
   searchQuery: string
@@ -19,21 +15,7 @@ interface Props {
 export default function MemberSearchResultList({ searchQuery }: Props) {
   const { handleFollowToggle } = useFollowMutation()
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['memberSearch', searchQuery],
-    queryFn: async ({ pageParam }) => {
-      return searchMembersByNickname(searchQuery, pageParam as number, PAGE_SIZE)
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.pagination) return undefined
-      const { page, totalPages } = lastPage.pagination
-      return page + 1 < totalPages ? page + 1 : undefined
-    },
-    enabled: searchQuery.trim().length > 0,
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 10,
-  })
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useMemberSearch(searchQuery)
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,

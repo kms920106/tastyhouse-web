@@ -336,15 +336,17 @@ export function usePlaceReviewStatistics(placeId: number) {
   - 파라미터 key: `(id: number) => ['domain', id, 'resource'] as const` 팩토리 함수
 - ✅ hook 함수명: `use` + 동사 + 리소스 (`usePlaceMenus`, `useMemberStats`)
 - ✅ `queryFn`은 반드시 `@/actions/[domain]` server action만 호출
+- ✅ `useMutation` + `invalidateQueries` / `setQueryData` 등 캐시 조작도 반드시 hook 내부에서 처리
 - ❌ `import 'server-only'` 금지 — client 코드
 - ❌ `repository` / `service` 직접 import 금지 (`server-only` 코드를 client에서 참조 불가)
 - ❌ `index.ts`에 hook export 금지 — `'use client'` 코드이므로 barrel에 포함하면 Server Component에서 빌드 에러 발생
 - ❌ `src/hooks/`에 신규 hook 파일 생성 금지 — hook은 반드시 `src/domains/[domain]/[domain].hook.ts`에 작성
 
-**언제 생성?**: 다음 중 하나라도 해당하면 생성.
-- 동일 `queryKey` / `queryFn`을 2개 이상의 컴포넌트에서 사용하는 경우
-- `invalidateQueries` / `setQueryData` 등 캐시 조작 시 key 공유가 필요한 경우
-- 단일 사용이더라도 `useInfiniteQuery` + `useMutation` 조합처럼 로직이 복잡한 경우
+**언제 생성?**: **`src/app/**` 또는 `src/components/**`에서 TanStack Query가 필요한 경우 반드시 생성.**
+구체적으로는 다음 중 하나라도 해당하면 생성:
+- `useQuery` / `useInfiniteQuery` / `useMutation`이 필요한 경우 (단일 사용이라도 예외 없음)
+- `invalidateQueries` / `setQueryData` 등 캐시 조작이 필요한 경우
+- 동일 `queryKey`를 여러 컴포넌트에서 공유해야 하는 경우
 
 ---
 
@@ -775,7 +777,56 @@ import type { SocialProfile } from '@/domains/auth'
 
 **중요**: `index.ts`에 `export * from './[domain].model'`을 추가하면 컴포넌트의 import 경로(`@/domains/[domain]`)는 변경 없이 model 타입을 참조하게 됩니다.
 
-### 8.9. `index.ts`에 hook export (금지)
+### 8.9. `src/app/**` / `src/components/**`에서 `@tanstack/react-query` 직접 import (금지)
+
+```typescript
+// ❌ 금지 — 컴포넌트에서 직접 import
+'use client'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+
+// ✅ domain hook을 통해 사용
+import { useLatestPlaces } from '@/domains/place/place.hook'
+import { useUpdateMemberProfile } from '@/domains/member/member.hook'
+```
+
+> **이유**: queryKey와 캐시 조작 로직이 도메인 바깥으로 유출되면 캐시 구조 변경 시 컴포넌트까지 수정해야 합니다.
+> 모든 TanStack Query 로직은 `src/domains/[domain]/[domain].hook.ts`에 집중합니다.
+
+**예외**:
+- `prefetchQuery`: Next.js App Router의 Server Component / 레이아웃에서 실행되므로 `'use client'` 제약상 domain hook 사용 불가 → 직접 사용 허용
+- `queryClient.clear()` (로그아웃): 전역 캐시 초기화이므로 `auth.hook.ts`의 `useLogout` mutation hook 내부에 포함
+
+### 8.10. queryOptions props를 받는 제너릭 컴포넌트 패턴 (금지)
+
+```typescript
+// ❌ 금지 — queryOptions를 props로 받아 컴포넌트 내부에서 useQuery 실행
+interface Props {
+  queryOptions: UseQueryOptions<ApiResponse<ReviewPanelData>>
+}
+export default function ReviewPanel({ queryOptions }: Props) {
+  const { data } = useQuery(queryOptions)  // ← 금지
+}
+
+// ✅ 권장 — 데이터를 이미 조회한 후 props로 내려줌
+interface Props {
+  data: ReviewPanelData
+}
+export default function ReviewPanel({ data }: Props) {
+  // 데이터를 직접 사용, useQuery 없음
+}
+// 호출하는 쪽에서 domain hook으로 데이터 조회
+function ReviewList({ placeId }: { placeId: number }) {
+  const { data, isLoading } = usePlaceReviews(placeId)  // domain hook
+  if (isLoading) return <Skeleton />
+  if (!data?.data) return <ErrorState />
+  return <ReviewPanel data={data.data} />
+}
+```
+
+> **이유**: queryOptions props 패턴은 컴포넌트가 암묵적으로 TanStack Query에 의존하며,
+> 호출하는 쪽이 queryKey와 queryFn을 직접 정의해야 하므로 domain hook 정책을 우회하게 됩니다.
+
+### 8.11. `index.ts`에 hook export (금지)
 
 ```typescript
 // ❌ 금지 — hook은 'use client' 코드이므로 barrel에 포함하면 Server Component에서 빌드 에러
@@ -785,7 +836,7 @@ export * from './place.hook'
 import { usePlaceMenus } from '@/domains/place/place.hook'
 ```
 
-### 8.10. hook에서 repository/service 직접 import (금지)
+### 8.12. hook에서 repository/service 직접 import (금지)
 
 ```typescript
 // ❌ 금지 — server-only 코드를 client에서 참조
@@ -797,7 +848,7 @@ import { getPlaceMenus } from '@/actions/place'
 
 > **이유**: `repository.ts`와 `service.ts`는 `import 'server-only'`를 포함합니다. `'use client'`인 hook 파일에서 직접 import하면 빌드 에러가 발생합니다.
 
-### 8.11. `src/hooks/`에 신규 hook 파일 생성 (지양)
+### 8.13. `src/hooks/`에 신규 hook 파일 생성 (지양)
 
 ```
 // ❌ 지양 — 도메인과 무관한 위치에 생성
@@ -828,9 +879,12 @@ src/domains/place/place.hook.ts
 ### hook (해당하는 경우)
 
 - [ ] hook 파일이 있다면 첫 줄이 `'use client'`인가?
-- [ ] hook의 `queryFn`이 `@/actions/[domain]` server action만 호출하는가? (repository/service 직접 호출 아님, §8.10)
+- [ ] hook의 `queryFn`이 `@/actions/[domain]` server action만 호출하는가? (repository/service 직접 호출 아님, §8.13)
 - [ ] `[domain]QueryKeys` 객체에 모든 queryKey가 모여 있는가?
-- [ ] 신규 hook을 `src/hooks/`가 아닌 `src/domains/[domain]/[domain].hook.ts`에 작성했는가? (§8.11)
+- [ ] 신규 hook을 `src/hooks/`가 아닌 `src/domains/[domain]/[domain].hook.ts`에 작성했는가? (§8.14)
+- [ ] `src/app/**` / `src/components/**` 파일에서 `@tanstack/react-query`를 직접 import하지 않았는가? (§8.9)
+- [ ] `useMutation` + 캐시 조작(`invalidateQueries`, `setQueryData`)을 domain hook 내부에 캡슐화했는가? (§8.9)
+- [ ] queryOptions를 props로 받는 컴포넌트 패턴을 사용하지 않았는가? (§8.10)
 
 ### 의존성
 

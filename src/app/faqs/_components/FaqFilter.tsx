@@ -5,20 +5,19 @@ import 'swiper/css'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { FaqCategory } from '@/domains/faq'
-import { ALL_CATEGORY_ID, faqQueryKeys, useFaqCategories, useFaqSelectedCategory } from '@/domains/faq/faq.hook'
+import { ALL_CATEGORY_ID, useFaqCategories, useFaqSelectedCategory, useSelectFaqCategory } from '@/domains/faq/faq.hook'
 import { cn } from '@/lib/utils'
-import { useQueryClient } from '@tanstack/react-query'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FaqFilterSkeleton } from './FaqFilterSkeleton'
 
 export default function FaqFilter() {
-  const queryClient = useQueryClient()
+  const selectCategory = useSelectFaqCategory()
 
   const { data: selectedCategoryId = ALL_CATEGORY_ID } = useFaqSelectedCategory()
   const { data, isLoading, error } = useFaqCategories()
 
   const handleCategoryChange = (categoryId: number) => {
-    queryClient.setQueryData(faqQueryKeys.selectedCategory, categoryId)
+    selectCategory(categoryId)
   }
 
   if (isLoading) {

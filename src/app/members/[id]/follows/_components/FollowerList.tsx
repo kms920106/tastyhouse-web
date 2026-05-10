@@ -1,10 +1,7 @@
 'use client'
 
-import { removeFollower } from '@/actions/follow'
-import { useFollowMutation } from '@/domains/follow/follow.hook'
+import { useFollowMutation, useFollowers, useRemoveFollower } from '@/domains/follow/follow.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { followQueryKeys, useFollowers } from '@/domains/follow/follow.hook'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -21,8 +18,8 @@ interface Props {
 export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwner }: Props) {
   const router = useRouter()
 
-  const queryClient = useQueryClient()
   const { handleFollowToggle } = useFollowMutation()
+  const { mutate: removeFollowerMutate } = useRemoveFollower(memberId, isLoggedIn)
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFollowers(memberId, isLoggedIn)
 
@@ -39,15 +36,8 @@ export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwne
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
-  const removeFollowerMutation = useMutation({
-    mutationFn: (targetMemberId: number) => removeFollower(targetMemberId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: followQueryKeys.followers(memberId, isLoggedIn) })
-    },
-  })
-
   const handleRemoveFollower = (targetMemberId: number) => {
-    removeFollowerMutation.mutate(targetMemberId)
+    removeFollowerMutate(targetMemberId)
   }
 
   if (isLoading) {

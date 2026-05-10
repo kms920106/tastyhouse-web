@@ -1,9 +1,9 @@
 'use client'
 
-import { getMemberProfile, getMemberStats, getMyBookmarks, getMyProfile, getMyReviewCount, getMyReviews } from '@/actions/member'
+import { getMemberProfile, getMemberStats, getMyBookmarks, getMyProfile, getMyReviewCount, getMyReviews, updateMemberProfile } from '@/actions/member'
 import { getMemberReviews } from '@/actions/review'
-import type { Member } from '@/domains/member'
-import { useQuery } from '@tanstack/react-query'
+import type { Member, UpdateProfileRequest } from '@/domains/member'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 const BOOKMARK_PAGE_SIZE = 10
 
@@ -107,6 +107,20 @@ export function useMyBookmarks() {
       return {
         bookmarks: response.data || [],
         hasMoreBookmarks: (response.pagination?.totalElements ?? 0) > BOOKMARK_PAGE_SIZE,
+      }
+    },
+  })
+}
+
+export function useUpdateMemberProfile(memberId?: number) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: UpdateProfileRequest) => updateMemberProfile(data),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: memberQueryKeys.myProfile })
+      if (memberId) {
+        await queryClient.invalidateQueries({ queryKey: memberQueryKeys.profile(memberId) })
       }
     },
   })

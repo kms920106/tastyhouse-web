@@ -7,17 +7,14 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import type { ReviewPanelData } from '@/hooks/useReviewPanel'
 import { useReviewPanel } from '@/hooks/useReviewPanel'
-import type { ApiResponse } from '@/lib/api'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import type { UseQueryOptions } from '@tanstack/react-query'
-import { useQuery } from '@tanstack/react-query'
 
 interface Props {
-  queryOptions: UseQueryOptions<ApiResponse<ReviewPanelData>>
+  data: ReviewPanelData
   viewMoreHref?: string
 }
 
-export default function ReviewPanel({ queryOptions, viewMoreHref }: Props) {
+export default function ReviewPanel({ data, viewMoreHref }: Props) {
   const {
     photoOnly,
     setPhotoOnly,
@@ -28,15 +25,7 @@ export default function ReviewPanel({ queryOptions, viewMoreHref }: Props) {
     deriveReviews,
   } = useReviewPanel()
 
-  const { data, isLoading, error } = useQuery(queryOptions)
-
-  if (isLoading) return <ReviewPanelSkeleton />
-
-  if (error) return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-
-  if (!data?.data) return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('리뷰')} />
-
-  const { sortedReviews, photoReviewCount } = deriveReviews(data.data)
+  const { sortedReviews, photoReviewCount } = deriveReviews(data)
 
   return (
     <div className="flex flex-col gap-[3px] px-[15px] py-5">
@@ -60,11 +49,27 @@ export default function ReviewPanel({ queryOptions, viewMoreHref }: Props) {
           sortedReviews.map((review) => <ReviewListItem key={review.id} review={review} />)
         )}
       </div>
-      {selectedRating == null && data.data.totalReviewCount > 5 && viewMoreHref && (
+      {selectedRating == null && data.totalReviewCount > 5 && viewMoreHref && (
         <div className="flex justify-center">
           <ViewMoreButton href={viewMoreHref} />
         </div>
       )}
     </div>
   )
+}
+
+export function ReviewPanelWrapper({
+  data,
+  isLoading,
+  isError,
+  viewMoreHref,
+}: {
+  data: ReviewPanelData | null | undefined
+  isLoading: boolean
+  isError: boolean
+  viewMoreHref?: string
+}) {
+  if (isLoading) return <ReviewPanelSkeleton />
+  if (isError || !data) return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
+  return <ReviewPanel data={data} viewMoreHref={viewMoreHref} />
 }
