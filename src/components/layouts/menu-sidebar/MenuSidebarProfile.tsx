@@ -2,8 +2,7 @@
 
 import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
 import PenIcon from '@/components/ui/PenIcon'
-import { useMemberProfile } from '@/hooks/useMemberProfile'
-import { useMyReviewCount } from '@/hooks/useMyReviewCount'
+import { useMemberProfile, useMyReviewCount } from '@/domains/member/member.hook'
 import Avatar from '../../ui/Avatar'
 import MemberGradeBadge from '../../ui/MemberGradeBadge'
 import MemberGradeIcon from '../../ui/MemberGradeIcon'

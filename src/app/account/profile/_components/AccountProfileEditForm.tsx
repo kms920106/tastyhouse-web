@@ -6,8 +6,7 @@ import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { MEMBER_PROFILE_QUERY_KEY, useMemberProfile } from '@/hooks/useMemberProfile'
-import { otherMemberProfileQueryKey } from '@/hooks/useOtherMemberProfile'
+import { memberQueryKeys, useMemberProfile } from '@/domains/member/member.hook'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
 import { useQueryClient } from '@tanstack/react-query'
@@ -120,10 +119,10 @@ export default function AccountProfileEditForm() {
       })
 
       if (!response?.error) {
-        await queryClient.invalidateQueries({ queryKey: MEMBER_PROFILE_QUERY_KEY })
+        await queryClient.invalidateQueries({ queryKey: memberQueryKeys.myProfile })
         if (memberProfile?.id) {
           await queryClient.invalidateQueries({
-            queryKey: otherMemberProfileQueryKey(memberProfile.id),
+            queryKey: memberQueryKeys.profile(memberProfile.id),
           })
         }
         toast('프로필이 변경됐습니다.')

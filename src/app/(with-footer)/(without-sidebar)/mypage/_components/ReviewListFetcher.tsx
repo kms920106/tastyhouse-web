@@ -1,23 +1,13 @@
 'use client'
 
-import { getMyReviews } from '@/actions/member'
 import ReviewList from '@/components/reviews/ReviewList'
 import ReviewListSkeleton from '@/components/reviews/ReviewListSkeleton'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { useMyReviews } from '@/domains/member/member.hook'
 
 export default function ReviewListFetcher() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['mypage', 'reviews'],
-    queryFn: async () => {
-      const response = await getMyReviews(0, 9)
-      return {
-        reviews: response.data || [],
-        hasMore: (response.pagination?.totalElements ?? 0) > 9,
-      }
-    },
-  })
+  const { data, isLoading, error } = useMyReviews()
 
   if (isLoading) {
     return <ReviewListSkeleton />

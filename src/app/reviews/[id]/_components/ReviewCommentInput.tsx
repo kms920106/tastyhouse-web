@@ -1,7 +1,7 @@
 'use client'
 
 import Avatar from '@/components/ui/Avatar'
-import { useMemberProfile } from '@/hooks/useMemberProfile'
+import { useMemberProfile } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useRef } from 'react'

@@ -1,23 +1,13 @@
 'use client'
 
-import { getMyBookmarks } from '@/actions/member'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { useMyBookmarks } from '@/domains/member/member.hook'
 import BookmarkList from './BookmarkList'
 import { BookmarkListSkeleton } from './BookmarkListSkeleton'
 
 export default function BookmarkListFetcher() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['mypage', 'bookmarks'],
-    queryFn: async () => {
-      const response = await getMyBookmarks(0, 10)
-      return {
-        bookmarks: response.data || [],
-        hasMoreBookmarks: (response.pagination?.totalElements ?? 0) > 10,
-      }
-    },
-  })
+  const { data, isLoading, error } = useMyBookmarks()
 
   if (isLoading) {
     return <BookmarkListSkeleton />

@@ -2,7 +2,7 @@
 
 import { getFollowingList, getPublicFollowingList } from '@/actions/follow'
 import { SocialMember } from '@/domains/member'
-import { useFollowMutation } from '@/hooks/useFollowMutation'
+import { useFollowMutation } from '@/domains/follow/follow.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import Image from 'next/image'

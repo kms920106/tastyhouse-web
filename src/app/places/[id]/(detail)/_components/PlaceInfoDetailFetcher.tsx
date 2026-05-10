@@ -1,7 +1,6 @@
-import { getPlaceDetail, getPlaceInfo } from '@/actions/place'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { usePlaceInfoDetail } from '@/domains/place/place.hook'
 import { PlaceInfoDetailSkeleton } from './PlaceInfoDetailSkeleton'
 import PlaceInfoDetail from './PlaceInfoDetail'
 
@@ -10,16 +9,7 @@ interface Props {
 }
 
 export default function PlaceInfoDetailFetcher({ placeId }: Props) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['place', placeId, 'place-detail-info'],
-    queryFn: async () => {
-      const [infoRes, detailRes] = await Promise.all([
-        getPlaceInfo(placeId),
-        getPlaceDetail(placeId),
-      ])
-      return { infoRes, detailRes }
-    },
-  })
+  const { data, isLoading, error } = usePlaceInfoDetail(placeId)
 
   if (isLoading) {
     return <PlaceInfoDetailSkeleton />

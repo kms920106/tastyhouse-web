@@ -1,9 +1,8 @@
-import { getProductReviewStatistics } from '@/actions/product'
 import ReviewRatingDetailItem from '@/components/reviews/ReviewRatingDetailItem'
 import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { useProductReviewStatistics } from '@/domains/product/product.hook'
 import { PlaceOrderProductReviewStatisticSkeleton } from './PlaceOrderProductReviewStatisticSkeleton'
 
 interface Props {
@@ -11,10 +10,7 @@ interface Props {
 }
 
 export default function PlaceOrderProductReviewStatistic({ productId }: Props) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['product', productId, 'product-review-statistics'],
-    queryFn: () => getProductReviewStatistics(productId),
-  })
+  const { data, isLoading, error } = useProductReviewStatistics(productId)
 
   if (isLoading) {
     return <PlaceOrderProductReviewStatisticSkeleton />

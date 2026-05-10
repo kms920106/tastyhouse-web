@@ -1,9 +1,8 @@
-import { getPlaceReviewStatistics } from '@/actions/place'
 import ReviewRatingDetail from '@/components/reviews/ReviewRatingDetail'
 import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { usePlaceReviewStatistics } from '@/domains/place/place.hook'
 import RatingDistributionChart from './RatingDistributionChart'
 import ReviewStatisticSkeleton from './ReviewStatisticSkeleton'
 
@@ -12,10 +11,7 @@ interface Props {
 }
 
 export default function ReviewStatistic({ placeId }: Props) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['place', placeId, 'place-review-statistics'],
-    queryFn: () => getPlaceReviewStatistics(placeId),
-  })
+  const { data, isLoading, error } = usePlaceReviewStatistics(placeId)
 
   if (isLoading) {
     return <ReviewStatisticSkeleton />

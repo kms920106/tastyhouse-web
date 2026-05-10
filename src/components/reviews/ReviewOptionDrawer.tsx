@@ -8,7 +8,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
-import { useMemberProfile } from '@/hooks/useMemberProfile'
+import { useMemberProfile } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import { copyToClipboard, share } from '@/lib/share'
 import Link from 'next/link'

@@ -1,6 +1,6 @@
 'use client'
 
-import usePlaceBookmark from '@/hooks/usePlaceBookmark'
+import { usePlaceBookmark } from '@/domains/place/place.hook'
 import PlaceBookmarkButton from './PlaceBookmarkButton'
 
 interface Props {

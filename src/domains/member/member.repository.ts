@@ -78,7 +78,7 @@ export const memberRepository = {
       params,
     })
   },
-  // 프로필 수정 (PUT /v1/me/profile)
+  // 프로필 수정
   async updateMyProfile(data: UpdateProfileRequest) {
     return api.put<void>(`${ENDPOINT}/v1/me/profile`, data)
   },
@@ -86,7 +86,7 @@ export const memberRepository = {
   async getMyPersonalInfo() {
     return api.get<PersonalInfoResponse>(`${ENDPOINT}/v1/me/personal-info`)
   },
-  // 비밀번호 인증 (개인정보 수정 진입)
+  // 비밀번호 인증
   async verifyPassword(data: VerifyPasswordRequest) {
     return api.post<VerifyPasswordResponse>(`${ENDPOINT}/v1/me/verify-password`, data)
   },

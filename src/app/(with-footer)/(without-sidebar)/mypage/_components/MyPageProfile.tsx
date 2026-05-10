@@ -1,13 +1,11 @@
 'use client'
 
-import { getMemberStats } from '@/actions/member'
 import ProfileImage from '@/components/account/profile/ProfileImage'
 import MemberProfileCard from '@/components/member/MemberProfileCard'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import PenIcon from '@/components/ui/PenIcon'
-import { useMemberProfile } from '@/hooks/useMemberProfile'
+import { useMemberProfile, useMemberStats } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
-import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
 interface Props {
@@ -16,15 +14,7 @@ interface Props {
 
 export default function MyPageProfile({ isLoggedIn }: Props) {
   const { memberProfile, isLoading: isProfileLoading } = useMemberProfile({ enabled: isLoggedIn })
-
-  const { data: statsData, isLoading: isStatsLoading } = useQuery({
-    queryKey: ['member', memberProfile?.id, 'stats'],
-    queryFn: async () => {
-      const response = await getMemberStats(memberProfile!.id)
-      return response.data ?? null
-    },
-    enabled: !!memberProfile?.id,
-  })
+  const { data: statsData, isLoading: isStatsLoading } = useMemberStats(memberProfile?.id)
 
   if (!isLoggedIn) {
     return (

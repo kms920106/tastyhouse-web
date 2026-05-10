@@ -1,7 +1,7 @@
 'use client'
 
 import { useSidebar } from '@/components/ui/shadcn/sidebar'
-import { usePlaceFoodTypes } from '@/hooks/usePlaceFoodTypes'
+import { usePlaceFoodTypes } from '@/domains/place/place.hook'
 import Link from 'next/link'
 import { useState } from 'react'
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'

@@ -20,24 +20,25 @@
 
 ---
 
-## 2. 7-Layer 파일 구조
+## 2. 파일 구조
 
 ### 2.1. 파일별 책임 요약
 
-| 파일                     | 필수 여부 | 책임                                         | 의존하는 파일                      |
-| ------------------------ | --------- | -------------------------------------------- | ---------------------------------- |
-| `index.ts`               | **필수**  | 도메인의 모든 public API를 barrel export     | (없음)                             |
-| `[domain].types.ts`      | **필수**  | Backend enum ↔ Union 리터럴 타입 정의       | (없음)                             |
-| `[domain].constants.ts`  | 조건부    | 코드 ↔ 한국어 매핑 + getter 함수            | `types`                            |
-| `[domain].model.ts`      | 조건부    | 도메인 내부에서 재사용되는 엔티티 인터페이스 | `types`                            |
-| `[domain].dto.ts`        | **필수**  | API Request/Response 타입 (네트워크 통신용)  | `types`, `model`, `@/types/common` |
-| `[domain].repository.ts` | **필수**  | HTTP 호출 (순수 통신만)                      | `@/lib/api`, `dto`                 |
-| `[domain].service.ts`    | 조건부    | repository 응답 가공·조합·비즈니스 로직      | `repository`, `constants`          |
+| 파일                     | 필수 여부 | 책임                                                      | 의존하는 파일                                          |
+| ------------------------ | --------- | --------------------------------------------------------- | ------------------------------------------------------ |
+| `index.ts`               | **필수**  | 도메인의 모든 public API를 barrel export                  | (없음)                                                 |
+| `[domain].types.ts`      | **필수**  | Backend enum ↔ Union 리터럴 타입 정의                    | (없음)                                                 |
+| `[domain].constants.ts`  | 조건부    | 코드 ↔ 한국어 매핑 + getter 함수                         | `types`                                                |
+| `[domain].model.ts`      | 조건부    | 도메인 내부에서 재사용되는 엔티티 인터페이스              | `types`                                                |
+| `[domain].dto.ts`        | **필수**  | API Request/Response 타입 (네트워크 통신용)               | `types`, `model`, `@/types/common`                     |
+| `[domain].repository.ts` | **필수**  | HTTP 호출 (순수 통신만)                                   | `@/lib/api`, `dto`                                     |
+| `[domain].service.ts`    | 조건부    | repository 응답 가공·조합·비즈니스 로직                  | `repository`, `constants`                              |
+| `[domain].hook.ts`       | 조건부    | client component용 TanStack Query custom hook + queryKey 관리 | `@/actions/[domain]` (server action만), `@tanstack/react-query` |
 
 ### 2.2. 의존성 다이어그램
 
 ```
-index.ts (모두 export)
+index.ts (client-safe layer만 export)
    │
    ├─ types.ts        (독립)
    ├─ constants.ts    → types
@@ -45,6 +46,11 @@ index.ts (모두 export)
    ├─ dto.ts          → types, model, @/types/common
    ├─ repository.ts   → @/lib/api, dto
    └─ service.ts      → repository, constants
+
+hook.ts  → @/actions/[domain] (server action)
+         → @tanstack/react-query
+         ※ repository/service 직접 참조 금지
+         ※ index.ts에 포함하지 않음 ('use client' 코드)
 ```
 
 > 순환 의존성이 발생하지 않도록 의존 방향은 항상 단방향입니다.
@@ -292,6 +298,56 @@ export const placeService = {
 
 ---
 
+### 3.8. `[domain].hook.ts` (조건부) — TanStack Query Custom Hook
+
+**책임**: client component에서 사용하는 TanStack Query custom hook과 `queryKey` 팩토리를 정의합니다.
+
+**예시** (`place.hook.ts`):
+
+```typescript
+'use client'
+
+import { getPlaceMenus, getPlaceReviewStatistics } from '@/actions/place'
+import { useQuery } from '@tanstack/react-query'
+
+export const placeQueryKeys = {
+  menus: (placeId: number) => ['place', placeId, 'place-detail-menus'] as const,
+  reviewStatistics: (placeId: number) => ['place', placeId, 'place-review-statistics'] as const,
+}
+
+export function usePlaceMenus(placeId: number) {
+  return useQuery({
+    queryKey: placeQueryKeys.menus(placeId),
+    queryFn: () => getPlaceMenus(placeId),
+  })
+}
+
+export function usePlaceReviewStatistics(placeId: number) {
+  return useQuery({
+    queryKey: placeQueryKeys.reviewStatistics(placeId),
+    queryFn: () => getPlaceReviewStatistics(placeId),
+  })
+}
+```
+
+- ✅ 파일 최상단 첫 줄: `'use client'`
+- ✅ `[domain]QueryKeys` 객체에 모든 queryKey 집중 관리
+  - 고정 key: `['domain', 'resource'] as const`
+  - 파라미터 key: `(id: number) => ['domain', id, 'resource'] as const` 팩토리 함수
+- ✅ hook 함수명: `use` + 동사 + 리소스 (`usePlaceMenus`, `useMemberStats`)
+- ✅ `queryFn`은 반드시 `@/actions/[domain]` server action만 호출
+- ❌ `import 'server-only'` 금지 — client 코드
+- ❌ `repository` / `service` 직접 import 금지 (`server-only` 코드를 client에서 참조 불가)
+- ❌ `index.ts`에 hook export 금지 — `'use client'` 코드이므로 barrel에 포함하면 Server Component에서 빌드 에러 발생
+- ❌ `src/hooks/`에 신규 hook 파일 생성 금지 — hook은 반드시 `src/domains/[domain]/[domain].hook.ts`에 작성
+
+**언제 생성?**: 다음 중 하나라도 해당하면 생성.
+- 동일 `queryKey` / `queryFn`을 2개 이상의 컴포넌트에서 사용하는 경우
+- `invalidateQueries` / `setQueryData` 등 캐시 조작 시 key 공유가 필요한 경우
+- 단일 사용이더라도 `useInfiniteQuery` + `useMutation` 조합처럼 로직이 복잡한 경우
+
+---
+
 ## 4. Naming Convention
 
 | 대상              | 규칙                        | 예시                                     |
@@ -309,6 +365,8 @@ export const placeService = {
 | Constants 맵      | SCREAMING_SNAKE_CASE        | `PLACE_FOOD_TYPE_NAMES`                  |
 | Constants getter  | `get` + 타입명 + `Name`     | `getPlaceFoodTypeCodeName`               |
 | Endpoint 상수     | `ENDPOINT` (파일 상단)      | `const ENDPOINT = '/api/places'`         |
+| Hook QueryKeys 객체 | `[domain]QueryKeys`       | `placeQueryKeys`, `memberQueryKeys`      |
+| Hook 함수         | `use` + 동사 + 리소스       | `usePlaceMenus`, `useMemberStats`        |
 
 ---
 
@@ -717,6 +775,41 @@ import type { SocialProfile } from '@/domains/auth'
 
 **중요**: `index.ts`에 `export * from './[domain].model'`을 추가하면 컴포넌트의 import 경로(`@/domains/[domain]`)는 변경 없이 model 타입을 참조하게 됩니다.
 
+### 8.9. `index.ts`에 hook export (금지)
+
+```typescript
+// ❌ 금지 — hook은 'use client' 코드이므로 barrel에 포함하면 Server Component에서 빌드 에러
+export * from './place.hook'
+
+// ✅ 컴포넌트에서 명시 경로로 직접 import
+import { usePlaceMenus } from '@/domains/place/place.hook'
+```
+
+### 8.10. hook에서 repository/service 직접 import (금지)
+
+```typescript
+// ❌ 금지 — server-only 코드를 client에서 참조
+import { placeRepository } from '@/domains/place/place.repository'
+
+// ✅ server action을 통해 간접 호출
+import { getPlaceMenus } from '@/actions/place'
+```
+
+> **이유**: `repository.ts`와 `service.ts`는 `import 'server-only'`를 포함합니다. `'use client'`인 hook 파일에서 직접 import하면 빌드 에러가 발생합니다.
+
+### 8.11. `src/hooks/`에 신규 hook 파일 생성 (지양)
+
+```
+// ❌ 지양 — 도메인과 무관한 위치에 생성
+src/hooks/usePlaceMenus.ts
+
+// ✅ 권장 — 도메인 폴더 내에 생성
+src/domains/place/place.hook.ts
+```
+
+> `src/hooks/`에는 도메인 무관 범용 hook(UI flow, 브라우저 유틸리티 등)만 위치합니다.
+> 도메인 query/mutation hook은 반드시 `src/domains/[domain]/[domain].hook.ts`에 작성합니다.
+
 ---
 
 ## 9. 자가 검증 체크리스트
@@ -730,7 +823,14 @@ import type { SocialProfile } from '@/domains/auth'
 - [ ] `src/app/` 컴포넌트에서 직접 참조하는 객체 타입이 있다면 `model.ts`에 정의했는가?
 - [ ] `src/app/` 컴포넌트 Props에 `*Response`, `*Request`, `*Query` suffix DTO 타입을 직접 사용하지 않았는가? (§8.7)
 - [ ] `index.ts`가 client-safe layer(`types`, `constants`, `model`, `dto`)만 `export *`로 재내보내는가?
-- [ ] `index.ts`에 `repository`, `service` export가 **없는가**?
+- [ ] `index.ts`에 `repository`, `service`, **`hook` export가 없는가**? (§8.9)
+
+### hook (해당하는 경우)
+
+- [ ] hook 파일이 있다면 첫 줄이 `'use client'`인가?
+- [ ] hook의 `queryFn`이 `@/actions/[domain]` server action만 호출하는가? (repository/service 직접 호출 아님, §8.10)
+- [ ] `[domain]QueryKeys` 객체에 모든 queryKey가 모여 있는가?
+- [ ] 신규 hook을 `src/hooks/`가 아닌 `src/domains/[domain]/[domain].hook.ts`에 작성했는가? (§8.11)
 
 ### 의존성
 

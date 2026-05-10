@@ -1,8 +1,7 @@
-import { getPlacePhotos } from '@/actions/place'
 import ReviewImageGallery from '@/components/reviews/ReviewImageGallery'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { usePlacePhotos } from '@/domains/place/place.hook'
 import { PlacePhotoListSkeleton } from './PlacePhotoListSkeleton'
 
 interface Props {
@@ -10,10 +9,7 @@ interface Props {
 }
 
 export default function PlacePhotoListFetcher({ placeId }: Props) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['place', placeId, 'place-detail-photos'],
-    queryFn: () => getPlacePhotos(placeId),
-  })
+  const { data, isLoading, error } = usePlacePhotos(placeId)
 
   if (isLoading) {
     return <PlacePhotoListSkeleton />

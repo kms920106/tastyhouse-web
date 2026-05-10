@@ -12,6 +12,7 @@
 - `src/actions/`의 파일은 **client component ↔ server-only 도메인** 사이를 잇는 얇은 경계 어댑터입니다.
 - 모든 파일은 첫 줄이 `'use server'`이며, 내부에서 `@/domains/[domain]`의 repository/service를 호출해 결과를 반환합니다.
 - 도메인 로직(가공·조합·HTTP 호출)은 server action에 들어오지 않습니다 — 모두 도메인 layer가 책임집니다.
+- client component가 TanStack Query를 통해 데이터를 조회할 때는 `src/domains/[domain]/[domain].hook.ts`의 custom hook이 server action을 `queryFn`으로 호출합니다. **hook → server action → repository** 순서로 단방향 의존합니다.
 
 ### 1.2. 왜 이 가이드가 필요한가
 
@@ -245,6 +246,51 @@ export type LoginResult =
 - ❌ 결과 타입을 `any`로 두기 금지
 
 **언제 사용?**: `useActionState` 훅을 쓰는 폼(로그인, 회원가입, 비밀번호 재설정).
+
+---
+
+### 5.5. 패턴 E — hook의 queryFn으로 사용 (TanStack Query 연동)
+
+client component에서 `useQuery`를 사용할 때 server action을 `queryFn`으로 연결하는 표준 패턴입니다.
+hook 파일은 `src/domains/[domain]/[domain].hook.ts`에 위치합니다.
+
+```typescript
+// src/domains/place/place.hook.ts
+'use client'
+
+import { getPlaceMenus } from '@/actions/place'   // ← server action import
+import { useQuery } from '@tanstack/react-query'
+
+export const placeQueryKeys = {
+  menus: (placeId: number) => ['place', placeId, 'place-detail-menus'] as const,
+}
+
+export function usePlaceMenus(placeId: number) {
+  return useQuery({
+    queryKey: placeQueryKeys.menus(placeId),
+    queryFn: () => getPlaceMenus(placeId),   // ← server action을 queryFn으로 호출
+  })
+}
+```
+
+```typescript
+// src/app/places/[id]/(detail)/_components/PlaceMenuListFetcher.tsx
+'use client'
+
+import { usePlaceMenus } from '@/domains/place/place.hook'
+
+export default function PlaceMenuListFetcher({ placeId }: { placeId: number }) {
+  const { data, isLoading, error } = usePlaceMenus(placeId)
+  // ...
+}
+```
+
+- ✅ hook의 `queryFn`에서 server action을 직접 호출
+- ✅ server action은 기존 패턴 A/B 그대로 유지 — hook을 위해 변경할 필요 없음
+- ❌ hook에서 repository/service 직접 import 금지 (`server-only` 코드)
+
+**언제 사용?**: client component에서 데이터를 조회하고 로딩/에러 상태를 관리해야 할 때.
+Server Component에서 `await`으로 처리할 수 있다면 server action을 직접 호출하는 것을 우선합니다.
 
 ---
 
@@ -599,6 +645,11 @@ export async function getLatestPlaces({ page, size }: { page: number; size: numb
 - [ ] 함수명이 `get / create / update / toggle / delete` + 리소스 패턴인가?
 - [ ] FormData 액션이라면 suffix가 `FormAction`이고 시그니처가 `(_prevState, formData)`인가?
 - [ ] FormData 액션의 결과 타입이 discriminated union으로 명시되었는가?
+
+### hook 연동 (해당하는 경우)
+
+- [ ] client component에서 useQuery를 직접 작성하지 않고 `[domain].hook.ts`의 custom hook을 사용했는가?
+- [ ] hook의 queryFn이 이 server action을 호출하는가? (hook ↔ action 연결 확인)
 
 ---
 

@@ -1,9 +1,7 @@
 'use client'
 
-import { getMemberStats } from '@/actions/member'
 import MemberProfileCard from '@/components/member/MemberProfileCard'
-import { useOtherMemberProfile } from '@/hooks/useOtherMemberProfile'
-import { useQuery } from '@tanstack/react-query'
+import { useMemberStats, useOtherMemberProfile } from '@/domains/member/member.hook'
 import MemberDetailHeader from './MemberDetailHeader'
 import MemberDetailTabs from './MemberDetailTabs'
 
@@ -14,15 +12,7 @@ interface Props {
 
 export default function MemberDetailPage({ memberId, isLoggedIn }: Props) {
   const { data: profileData, isLoading: isProfileLoading } = useOtherMemberProfile(memberId)
-
-  const { data: statsData, isLoading: isStatsLoading } = useQuery({
-    queryKey: ['member', memberId, 'stats'],
-    queryFn: async () => {
-      const response = await getMemberStats(memberId)
-      return response.data ?? null
-    },
-    enabled: !!memberId,
-  })
+  const { data: statsData, isLoading: isStatsLoading } = useMemberStats(memberId)
 
   return (
     <div className="flex flex-col min-h-dvh bg-white">

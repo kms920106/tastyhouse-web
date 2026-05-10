@@ -1,9 +1,10 @@
 'use client'
 
-import { getFollowerList, getPublicFollowerList, removeFollower } from '@/actions/follow'
-import { useFollowMutation } from '@/hooks/useFollowMutation'
+import { removeFollower } from '@/actions/follow'
+import { useFollowMutation } from '@/domains/follow/follow.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { followQueryKeys, useFollowers } from '@/domains/follow/follow.hook'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -17,29 +18,13 @@ interface Props {
   isOwner: boolean
 }
 
-const PAGE_SIZE = 10
-
 export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwner }: Props) {
   const router = useRouter()
 
   const queryClient = useQueryClient()
   const { handleFollowToggle } = useFollowMutation()
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
-    queryKey: ['followers', memberId, isLoggedIn],
-    queryFn: async ({ pageParam }) => {
-      const response = isLoggedIn
-        ? await getFollowerList(memberId, { page: pageParam as number, size: PAGE_SIZE })
-        : await getPublicFollowerList(memberId, { page: pageParam as number, size: PAGE_SIZE })
-      return response
-    },
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.pagination) return undefined
-      const { page, totalPages } = lastPage.pagination
-      return page + 1 < totalPages ? page + 1 : undefined
-    },
-  })
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFollowers(memberId, isLoggedIn)
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,
@@ -57,7 +42,7 @@ export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwne
   const removeFollowerMutation = useMutation({
     mutationFn: (targetMemberId: number) => removeFollower(targetMemberId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['followers', memberId] })
+      queryClient.invalidateQueries({ queryKey: followQueryKeys.followers(memberId, isLoggedIn) })
     },
   })
 

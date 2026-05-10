@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemberProfile } from '@/hooks/useMemberProfile'
+import { useMemberProfile } from '@/domains/member/member.hook'
 import ReviewCommentItem from './ReviewCommentItem'
 import ReviewReplyItem from './ReviewReplyItem'
 import type { ReviewComment } from '@/domains/review'

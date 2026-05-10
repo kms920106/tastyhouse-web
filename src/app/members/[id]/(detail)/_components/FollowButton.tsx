@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
-import { useFollowMutation } from '@/hooks/useFollowMutation'
-import { useIsFollowing } from '@/hooks/useIsFollowing'
+import { useFollowMutation, useIsFollowing } from '@/domains/follow/follow.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import { IoPersonAdd, IoPersonRemove } from 'react-icons/io5'
 

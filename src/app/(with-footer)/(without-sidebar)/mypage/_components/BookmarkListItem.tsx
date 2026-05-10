@@ -2,7 +2,7 @@
 
 import ImageContainer from '@/components/ui/ImageContainer'
 import Rating from '@/components/ui/Rating'
-import usePlaceBookmark from '@/hooks/usePlaceBookmark'
+import { usePlaceBookmark } from '@/domains/place/place.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'

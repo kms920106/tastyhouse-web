@@ -1,11 +1,10 @@
-import { getPlaceMenus } from '@/actions/place'
 import MenuCategoryItem from '@/components/menus/MenuCategoryItem'
 import { MenuCategoryItemSkeleton } from '@/components/menus/MenuCategoryItemSkeleton'
 import MenuItem from '@/components/menus/MenuItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { usePlaceMenus } from '@/domains/place/place.hook'
 import { PAGE_PATHS } from '@/lib/paths'
-import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
 interface Props {
@@ -13,10 +12,7 @@ interface Props {
 }
 
 export default function PlaceMenuListFetcher({ placeId }: Props) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['place', placeId, 'place-detail-menus'],
-    queryFn: () => getPlaceMenus(placeId),
-  })
+  const { data, isLoading, error } = usePlaceMenus(placeId)
 
   if (isLoading) {
     return (

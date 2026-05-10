@@ -1,29 +1,13 @@
 'use client'
 
-import { getOrderList } from '@/actions/order'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useQuery } from '@tanstack/react-query'
+import { useMyOrders } from '@/domains/order/order.hook'
 import OrderList from './OrderList'
 import { OrderListSkeleton } from './OrderListSkeleton'
 
-const INITIAL_PAGE = 0
-const PAGE_SIZE = 10
-
 export default function OrderListFetcher() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['mypage', 'orders'],
-    queryFn: async () => {
-      const response = await getOrderList({
-        page: INITIAL_PAGE,
-        size: PAGE_SIZE,
-      })
-      return {
-        orders: response.data || [],
-        hasMoreOrders: (response.pagination?.totalElements ?? 0) > 10,
-      }
-    },
-  })
+  const { data, isLoading, error } = useMyOrders()
 
   if (isLoading) {
     return <OrderListSkeleton />

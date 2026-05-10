@@ -1,6 +1,6 @@
 'use client'
 
-import { useSidebarBanners } from '@/hooks/useSidebarBanners'
+import { useSidebarBanners } from '@/domains/banner/banner.hook'
 import Image from 'next/image'
 import Link from 'next/link'
 import 'swiper/css'
