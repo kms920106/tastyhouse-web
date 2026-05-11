@@ -1,8 +1,7 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import { usePathname, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
 import PlaceInfoSection from './PlaceInfoSection'
 import PlaceMenuListSection from './PlaceMenuListSection'
 import PlacePhotoListSection from './PlacePhotoListSection'
@@ -16,18 +15,7 @@ interface Props {
 }
 
 export default function PlaceTabs({ placeId, initialTab }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const handleTabChange = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams()
-      params.set('tab', value)
-
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-    },
-    [router, pathname],
-  )
+  const { handleTabChange } = useTabNavigation()
 
   return (
     <Tabs value={initialTab} onValueChange={handleTabChange} className="w-full">

@@ -3,8 +3,7 @@
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { ReviewType } from '@/domains/review'
-import { usePathname, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
 import LatestReviewList from './LatestReviewList'
 
 export type TabValue = 'all' | 'following'
@@ -19,22 +18,15 @@ interface Props {
 }
 
 export default function ReviewTabs({ initialTab }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
+  const { handleTabChange } = useTabNavigation()
 
-  const handleTabChange = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams()
-      params.set('tab', value)
-
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
-      window.scrollTo({ top: 0, behavior: 'instant' })
-    },
-    [router, pathname],
-  )
+  const handleTabChangeWithScroll = (value: string) => {
+    handleTabChange(value)
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
+    <Tabs value={initialTab} onValueChange={handleTabChangeWithScroll} className="gap-0">
       <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0">
         <TabsTrigger
           value="all"

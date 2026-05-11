@@ -1,8 +1,8 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import { usePathname, useRouter } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
+import { useState } from 'react'
 import FollowerList from './FollowerList'
 import FollowingList from './FollowingList'
 import SearchInput from './SearchInput'
@@ -20,23 +20,17 @@ interface Props {
 }
 
 export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isOwner }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
+  const { handleTabChange } = useTabNavigation()
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleTabChange = useCallback(
-    (tab: string) => {
-      const params = new URLSearchParams()
-      params.set('tab', tab)
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-      setSearchQuery('')
-    },
-    [router, pathname],
-  )
+  const handleTabChangeWithReset = (value: string) => {
+    handleTabChange(value)
+    setSearchQuery('')
+  }
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
+    <Tabs value={initialTab} onValueChange={handleTabChangeWithReset} className="gap-0">
       <TabsList className="w-full h-[50px] rounded-none bg-white p-0">
         <TabsTrigger value="following" className={TAB_TRIGGER_CLASS}>
           팔로잉
@@ -54,7 +48,12 @@ export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isO
       <TabsContent value="follower" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
-          <FollowerList memberId={memberId} searchQuery={searchQuery} isLoggedIn={isLoggedIn} isOwner={isOwner} />
+          <FollowerList
+            memberId={memberId}
+            searchQuery={searchQuery}
+            isLoggedIn={isLoggedIn}
+            isOwner={isOwner}
+          />
         </div>
       </TabsContent>
     </Tabs>

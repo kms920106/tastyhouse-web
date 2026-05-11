@@ -1,8 +1,7 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import { usePathname, useRouter } from 'next/navigation'
-import { useCallback } from 'react'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
 import ActiveEventList from './ActiveEventList'
 import EndedEventList from './EndedEventList'
 import WinnerEventList from './WinnerEventList'
@@ -14,19 +13,7 @@ interface Props {
 }
 
 export default function EventTabs({ initialTab }: Props) {
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const handleTabChange = useCallback(
-    (value: string) => {
-      const params = new URLSearchParams()
-      params.set('tab', value)
-
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
-      window.scrollTo({ top: 0, behavior: 'instant' })
-    },
-    [router, pathname],
-  )
+  const { handleTabChange } = useTabNavigation()
 
   return (
     <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
