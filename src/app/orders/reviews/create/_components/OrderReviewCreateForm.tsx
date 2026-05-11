@@ -2,10 +2,6 @@
 
 import { createOrderReview } from '@/actions/review'
 import OrderProductItem from '@/components/order/OrderProductItem'
-import PhotoUploader from '@/components/reviews/PhotoUploader'
-import ReviewTextarea from '@/components/reviews/ReviewTextarea'
-import TagInput from '@/components/reviews/TagInput'
-import AppFormField from '@/components/ui/AppFormField'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
@@ -14,19 +10,9 @@ import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { extractZodFieldErrors } from '@/lib/form'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState, useTransition } from 'react'
-import { FaStar } from 'react-icons/fa'
 import { z } from 'zod'
-
-interface RatingCategory {
-  key: 'taste' | 'amount' | 'price'
-  label: string
-}
-
-const RATING_CATEGORIES: RatingCategory[] = [
-  { key: 'taste', label: '맛은 어떤가요?' },
-  { key: 'amount', label: '양은 어떤가요?' },
-  { key: 'price', label: '가격은 어떤가요?' },
-]
+import ReviewContentSection from './ReviewContentSection'
+import ReviewRatingSection from './ReviewRatingSection'
 
 const reviewSchema = z.object({
   ratings: z
@@ -167,66 +153,22 @@ export default function OrderReviewCreateForm({
         </div>
       </BorderedSection>
       <BorderedSection>
-        <div className="px-[15px] divide-y divide-[#eeeeee]">
-          {RATING_CATEGORIES.map(({ key, label }) => (
-            <div key={key} className="flex flex-col items-center gap-5 py-[30px]">
-              <p className="text-base leading-[16px]">{label}</p>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => handleRatingChange(key, star)}
-                    className="cursor-pointer transition-transform hover:scale-110"
-                  >
-                    <FaStar
-                      size={40}
-                      className={
-                        star <= formData.ratings[key] ? 'text-[#a91201]' : 'text-[#eeeeee]'
-                      }
-                    />
-                  </button>
-                ))}
-              </div>
-              {errors.ratings && formData.ratings[key] === 0 && (
-                <p className="text-xs leading-[12px] text-[#bc4040]">{errors.ratings}</p>
-              )}
-            </div>
-          ))}
-        </div>
+        <ReviewRatingSection
+          ratings={formData.ratings}
+          error={errors.ratings}
+          onRatingChange={handleRatingChange}
+        />
       </BorderedSection>
       <BorderedSection>
-        <div className="flex flex-col gap-5 px-[15px] py-[30px]">
-          <AppFormField label="내용" required error={errors.content}>
-            {({ className }) => (
-              <ReviewTextarea
-                value={formData.content}
-                onChange={handleContentChange}
-                error={!!errors.content}
-                className={className}
-              />
-            )}
-          </AppFormField>
-          <div className="flex flex-col gap-5">
-            <AppFormField label="사진">
-              {() => (
-                <PhotoUploader
-                  onUploadedFileIdsChange={handleUploadedFileIdsChange}
-                  onUploadingChange={handleUploadingChange}
-                />
-              )}
-            </AppFormField>
-            <div>
-              <p className="text-sm leading-relaxed text-[#999999]">
-                해당 음식과 무관한 사진을 첨부한 리뷰는 통보없이 삭제 및 적립 혜택이 취소될 수
-                있습니다.
-              </p>
-            </div>
-          </div>
-          <AppFormField label="태그">
-            {() => <TagInput value={formData.tags} onChange={handleTagsChange} />}
-          </AppFormField>
-        </div>
+        <ReviewContentSection
+          content={formData.content}
+          contentError={errors.content}
+          tags={formData.tags}
+          onContentChange={handleContentChange}
+          onTagsChange={handleTagsChange}
+          onUploadedFileIdsChange={handleUploadedFileIdsChange}
+          onUploadingChange={handleUploadingChange}
+        />
       </BorderedSection>
       <BorderedSection>
         <div className="flex flex-col gap-5 px-[15px] py-5">
