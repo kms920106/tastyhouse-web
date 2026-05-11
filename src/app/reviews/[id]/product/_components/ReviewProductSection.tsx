@@ -13,7 +13,7 @@ import { formatNumber } from '@/lib/number'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
-import ReviewTagList from '../../_components/ReviewTagList'
+import ReviewTagList from '../../(detail)/_components/ReviewTagList'
 
 interface Props {
   reviewId: number

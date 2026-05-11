@@ -1,6 +1,6 @@
 'use client'
 
-import ReviewLikeButton from '@/app/reviews/[id]/_components/ReviewLikeButton'
+import ReviewLikeButton from '@/app/reviews/[id]/(detail)/_components/ReviewLikeButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 

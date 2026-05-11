@@ -12,7 +12,7 @@ import { formatNumber } from '@/lib/number'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
-import ReviewTagList from '../../_components/ReviewTagList'
+import ReviewTagList from '../../(detail)/_components/ReviewTagList'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return <section>{children}</section>
@@ -22,9 +22,7 @@ interface Props {
   reviewId: number
 }
 
-export default async function ReviewProductInfoSection({
-  reviewId,
-}: Props) {
+export default async function ReviewProductInfoSection({ reviewId }: Props) {
   const { error, data } = await reviewRepository.getReviewProductDetail(reviewId)
 
   if (error) {

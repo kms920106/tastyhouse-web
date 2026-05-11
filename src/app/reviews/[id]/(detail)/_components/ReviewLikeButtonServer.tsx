@@ -1,4 +1,4 @@
-import ReviewLikeButtonError from '@/app/reviews/[id]/_components/ReviewLikeButtonError'
+import ReviewLikeButtonError from '@/app/reviews/[id]/(detail)/_components/ReviewLikeButtonError'
 import { reviewRepository } from '@/domains/review/review.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
