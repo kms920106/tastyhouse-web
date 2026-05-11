@@ -4,7 +4,9 @@ import OrderDetailPage from './_components/OrderDetailPage'
 import { PAGE_PATHS } from '@/lib/paths'
 
 interface Props {
-  params: Promise<{ id: string }>
+  params: Promise<{
+    id: string
+  }>
 }
 
 export default async function Page({ params }: Props) {

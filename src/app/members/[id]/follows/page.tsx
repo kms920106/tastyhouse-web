@@ -3,8 +3,12 @@ import { getIsLoggedIn } from '@/lib/auth-config'
 import MemberFollowPage, { FollowTabValue } from './_components/MemberFollowPage'
 
 interface Props {
-  params: Promise<{ id: string }>
-  searchParams: Promise<{ tab?: string }>
+  params: Promise<{
+    id: string
+  }>
+  searchParams: Promise<{
+    tab?: string
+  }>
 }
 
 export default async function Page({ params, searchParams }: Props) {

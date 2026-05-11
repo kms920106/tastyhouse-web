@@ -4,7 +4,9 @@ import { redirect } from 'next/navigation'
 import MemberSearchPage from './_components/MemberSearchPage'
 
 interface Props {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{
+    q?: string
+  }>
 }
 
 export default async function Page({ searchParams }: Props) {

@@ -3,7 +3,9 @@ import type { Metadata } from 'next'
 import ReviewDetailPage from './_components/ReviewDetailPage'
 
 interface Props {
-  params: Promise<{ id: string }>
+  params: Promise<{
+    id: string
+  }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

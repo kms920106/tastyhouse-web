@@ -4,7 +4,9 @@ import { redirect } from 'next/navigation'
 import OrderMenuPage from './_components/OrderMenuPage'
 
 interface Props {
-  params: Promise<{ id: string }>
+  params: Promise<{
+    id: string
+  }>
 }
 
 export default async function Page({ params }: Props) {

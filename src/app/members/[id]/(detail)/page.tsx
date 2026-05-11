@@ -2,7 +2,9 @@ import { getIsLoggedIn } from '@/lib/auth-config'
 import MemberDetailPage from './_components/MemberDetailPage'
 
 interface Props {
-  params: Promise<{ id: string }>
+  params: Promise<{
+    id: string
+  }>
 }
 
 export default async function Page({ params }: Props) {

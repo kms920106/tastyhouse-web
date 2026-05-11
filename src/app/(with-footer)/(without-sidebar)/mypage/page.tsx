@@ -2,7 +2,9 @@ import { getIsLoggedIn } from '@/lib/auth-config'
 import MyPage, { MyPageTabValue } from './_components/MyPage'
 
 interface Props {
-  searchParams: Promise<{ tab?: string }>
+  searchParams: Promise<{
+    tab?: string
+  }>
 }
 
 export default async function Page({ searchParams }: Props) {

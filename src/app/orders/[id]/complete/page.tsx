@@ -4,7 +4,9 @@ import { redirect } from 'next/navigation'
 import OrderCompletePage from './_components/OrderCompletePage'
 
 interface Props {
-  params: Promise<{ id: string }>
+  params: Promise<{
+    id: string
+  }>
 }
 
 export default async function Page({ params }: Props) {

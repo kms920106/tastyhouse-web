@@ -1,7 +1,10 @@
 import PaymentFailContent from './_components/PaymentFailContent'
 
 interface Props {
-  searchParams: Promise<{ code?: string; message?: string }>
+  searchParams: Promise<{
+    code?: string
+    message?: string
+  }>
 }
 
 export default async function Page({ searchParams }: Props) {
