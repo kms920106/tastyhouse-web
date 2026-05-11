@@ -1,31 +1,15 @@
-import OrderReviewCreateForm from './OrderReviewCreateForm'
+import OrderReviewCreateContent from './OrderReviewCreateContent'
 import OrderReviewCreateHeader from './OrderReviewCreateHeader'
 
 interface Props {
   orderItemId: number
-  productId: number
-  productName: string
-  productImageUrl: string
-  productPrice: number
 }
 
-export default function OrderReviewCreatePage({
-  orderItemId,
-  productId,
-  productName,
-  productImageUrl,
-  productPrice,
-}: Props) {
+export default function OrderReviewCreatePage({ orderItemId }: Props) {
   return (
     <>
       <OrderReviewCreateHeader />
-      <OrderReviewCreateForm
-        orderItemId={orderItemId}
-        productId={productId}
-        productName={productName}
-        productImageUrl={productImageUrl}
-        productPrice={productPrice}
-      />
+      <OrderReviewCreateContent orderItemId={orderItemId} />
     </>
   )
 }
