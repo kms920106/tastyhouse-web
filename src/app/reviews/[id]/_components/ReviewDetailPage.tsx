@@ -1,12 +1,12 @@
 import ReviewDetailHeader from '@/components/reviews/ReviewDetailHeader'
 import FetchErrorState from '@/components/ui/FetchErrorState'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { reviewRepository } from '@/domains/review/review.repository'
 import { getIsLoggedIn } from '@/lib/auth-config'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import ReviewCommentInputSection from './ReviewCommentInputSection'
 import ReviewCommentListSection from './ReviewCommentListSection'
-import { ReviewReplyProvider } from './ReviewReplyProvider'
 import ReviewInfoSection from './ReviewInfoSection'
+import { ReviewReplyProvider } from './ReviewReplyProvider'
 
 interface Props {
   reviewId: number
@@ -27,7 +27,6 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
   }
 
   const {
-    id,
     memberId,
     memberNickname,
     memberProfileImageUrl,
@@ -42,7 +41,7 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
       <ReviewDetailHeader memberNickname={memberNickname} />
       <div className="pb-20">
         <ReviewInfoSection
-          reviewId={id}
+          reviewId={reviewId}
           memberId={memberId}
           memberNickname={memberNickname}
           memberProfileImageUrl={memberProfileImageUrl}
