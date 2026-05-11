@@ -1,7 +1,7 @@
 import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
 
-export default function OrderMenuHeader() {
+export default function PlaceOrderMenuHeader() {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>

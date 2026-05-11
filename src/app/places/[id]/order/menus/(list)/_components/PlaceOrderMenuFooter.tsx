@@ -8,7 +8,7 @@ interface Props {
   placeId: number
 }
 
-export default function OrderMenuFooter({ placeId }: Props) {
+export default function PlaceOrderMenuFooter({ placeId }: Props) {
   return (
     <>
       <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">

@@ -1,7 +1,7 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
-import OrderMenuPage from './_components/OrderMenuPage'
+import PlaceOrderMenuPage from './_components/PlaceOrderMenuPage'
 
 interface Props {
   params: Promise<{
@@ -18,5 +18,5 @@ export default async function Page({ params }: Props) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  return <OrderMenuPage placeId={placeId} />
+  return <PlaceOrderMenuPage placeId={placeId} />
 }

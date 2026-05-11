@@ -13,7 +13,7 @@ interface Props {
   placeId: number
 }
 
-export default async function OrderMenuList({ placeId }: Props) {
+export default async function PlaceOrderMenuList({ placeId }: Props) {
   const { error, data } = await placeRepository.getPlaceMenus(placeId)
 
   if (error || !data) {
