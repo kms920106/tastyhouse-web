@@ -1,17 +1,14 @@
-import BorderedSection from '@/components/ui/BorderedSection'
-import SectionStack from '@/components/ui/SectionStack'
 import { placeRepository } from '@/domains/place/place.repository'
 import type { Metadata } from 'next'
-import PlaceDetailHeaderSection from './_components/PlaceDetailHeaderSection'
-import PlaceImageGallery from './_components/PlaceImageGallerySection'
-import PlaceSummarySection from './_components/PlaceSummarySection'
-import PlaceTabSection from './_components/PlaceTabSection'
+import PlaceDetailPage from './_components/PlaceDetailPage'
 
 interface Props {
   params: Promise<{
     id: string
   }>
-  searchParams: Promise<{ tab?: string }>
+  searchParams: Promise<{
+    tab?: string
+  }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -44,22 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params, searchParams }: Props) {
   const { id } = await params
-  const searchParamsData = await searchParams
-
+  const { tab } = await searchParams
   const placeId = Number(id)
+  const initialTab = (tab || 'info') as 'info' | 'menu' | 'photo'
 
-  const initialTab = (searchParamsData.tab || 'info') as 'info' | 'menu' | 'photo'
-
-  return (
-    <>
-      <PlaceDetailHeaderSection placeId={placeId} />
-      <SectionStack>
-        <BorderedSection>
-          <PlaceImageGallery placeId={placeId} />
-          <PlaceSummarySection placeId={placeId} />
-        </BorderedSection>
-        <PlaceTabSection placeId={placeId} initialTab={initialTab} />
-      </SectionStack>
-    </>
-  )
+  return <PlaceDetailPage placeId={placeId} initialTab={initialTab} />
 }

@@ -15,7 +15,7 @@ interface Props {
   initialTab: TabValue
 }
 
-export default function PlaceTabSection({ placeId, initialTab }: Props) {
+export default function PlaceTabs({ placeId, initialTab }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 

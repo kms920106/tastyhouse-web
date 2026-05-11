@@ -1,5 +1,5 @@
+import { HeaderTitle } from '@/components/layouts/Header'
 import { placeRepository } from '@/domains/place/place.repository'
-import PlaceDetailHeader from './PlaceDetailHeader'
 
 interface Props {
   placeId: number
@@ -9,14 +9,14 @@ export default async function PlaceDetailHeaderServer({ placeId }: Props) {
   const { error, data } = await placeRepository.getPlaceDetail(placeId)
 
   if (error) {
-    return <div>-</div>
+    return <HeaderTitle>-</HeaderTitle>
   }
 
   if (!data) {
-    return <div>-</div>
+    return <HeaderTitle>-</HeaderTitle>
   }
 
   const { name } = data
 
-  return <PlaceDetailHeader name={name} />
+  return <HeaderTitle>{name}</HeaderTitle>
 }
