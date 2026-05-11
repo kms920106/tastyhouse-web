@@ -1,6 +1,5 @@
-import Header, { HeaderCenter, HeaderLeft, HeaderTitle } from '@/components/layouts/Header'
-import { BackButton } from '@/components/layouts/header-parts'
 import OrderReviewCreateForm from './OrderReviewCreateForm'
+import OrderReviewCreateHeader from './OrderReviewCreateHeader'
 
 interface Props {
   orderItemId: number
@@ -10,7 +9,7 @@ interface Props {
   productPrice: number
 }
 
-export default function OrderReviewCreateSection({
+export default function OrderReviewCreatePage({
   orderItemId,
   productId,
   productName,
@@ -18,15 +17,8 @@ export default function OrderReviewCreateSection({
   productPrice,
 }: Props) {
   return (
-    <section className="min-h-screen flex flex-col bg-[#f9f9f9]">
-      <Header variant="white" height={55}>
-        <HeaderLeft>
-          <BackButton />
-        </HeaderLeft>
-        <HeaderCenter>
-          <HeaderTitle>리뷰 작성</HeaderTitle>
-        </HeaderCenter>
-      </Header>
+    <>
+      <OrderReviewCreateHeader />
       <OrderReviewCreateForm
         orderItemId={orderItemId}
         productId={productId}
@@ -34,6 +26,6 @@ export default function OrderReviewCreateSection({
         productImageUrl={productImageUrl}
         productPrice={productPrice}
       />
-    </section>
+    </>
   )
 }

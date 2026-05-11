@@ -1,6 +1,6 @@
 import { reviewRepository } from '@/domains/review/review.repository'
 import { notFound } from 'next/navigation'
-import OrderReviewCreateSection from './_components/OrderReviewCreateSection'
+import OrderReviewCreatePage from './_components/OrderReviewCreateSection'
 
 interface Props {
   searchParams: Promise<{ orderItemId?: string }>
@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: Props) {
   }
 
   return (
-    <OrderReviewCreateSection
+    <OrderReviewCreatePage
       orderItemId={Number(orderItemId)}
       productId={data.productId}
       productName={data.productName}
