@@ -7,7 +7,7 @@ import { MemberGradeCode } from '@/domains/member'
 import Image from 'next/image'
 
 interface Props {
-  rankNo: number
+  rankNo: number | null
   profileImageUrl: string | null
   nickname: string
   grade: MemberGradeCode
@@ -27,8 +27,8 @@ export default function RankMemberInfo({
     <div className="flex justify-between items-center w-full">
       <div className="flex items-center gap-2.5">
         {/* 순위 표시: 1~3위는 아이콘, 4위 이상은 숫자 */}
-        <div className="relative flex flex-col items-center flex-shrink-0 w-[22px] h-[30px]">
-          {rankNo <= 3 ? (
+        <div className="relative flex flex-col items-center justify-center flex-shrink-0 w-[22px] h-[30px]">
+          {rankNo !== null && rankNo <= 3 ? (
             <Image
               src={`/images/rank/icon-rank-0${rankNo}.png`}
               alt={`${rankNo}등`}
@@ -37,7 +37,7 @@ export default function RankMemberInfo({
               sizes="22px"
             />
           ) : (
-            <p className="text-xs">{rankNo}</p>
+            <p className="text-xs">{rankNo ?? '-'}</p>
           )}
         </div>
 

@@ -8,7 +8,7 @@ interface RankMember {
   nickname: string
   profileImageUrl: string | null
   reviewCount: number
-  rankNo: number
+  rankNo: number | null
   grade: MemberGradeCode
 }
 
