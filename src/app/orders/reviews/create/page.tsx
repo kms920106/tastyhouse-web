@@ -1,6 +1,6 @@
 import { reviewRepository } from '@/domains/review/review.repository'
 import { notFound } from 'next/navigation'
-import OrderReviewCreatePage from './_components/OrderReviewCreateSection'
+import OrderReviewCreatePage from './_components/OrderReviewCreatePage'
 
 interface Props {
   searchParams: Promise<{ orderItemId?: string }>
