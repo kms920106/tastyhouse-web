@@ -1,6 +1,7 @@
 import { placeRepository } from '@/domains/place/place.repository'
 import type { Metadata } from 'next'
 import PlaceDetailPage from './_components/PlaceDetailPage'
+import { PlaceTabValue } from './_components/PlaceTabs'
 
 interface Props {
   params: Promise<{
@@ -40,10 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params, searchParams }: Props) {
-  const { id } = await params
-  const { tab } = await searchParams
+  const [{ id }, { tab }] = await Promise.all([params, searchParams])
   const placeId = Number(id)
-  const initialTab = (tab || 'info') as 'info' | 'menu' | 'photo'
+  const initialTab = (tab || 'info') as PlaceTabValue
 
   return <PlaceDetailPage placeId={placeId} initialTab={initialTab} />
 }

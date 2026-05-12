@@ -8,8 +8,8 @@ interface Props {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const params = await searchParams
-  const initialTab = (params.tab || 'ongoing') as EventTabValue
+  const { tab } = await searchParams
+  const initialTab = (tab || 'ongoing') as EventTabValue
 
   return <EventPage initialTab={initialTab} />
 }
