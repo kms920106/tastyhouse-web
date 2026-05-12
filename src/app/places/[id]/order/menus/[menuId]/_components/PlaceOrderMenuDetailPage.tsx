@@ -6,13 +6,15 @@ import { productRepository } from '@/domains/product/product.repository'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
 import PlaceOrderMenuDetailInfo from './PlaceOrderMenuDetailInfo'
 import PlaceOrderMenuDetailOptionSelector from './PlaceOrderMenuDetailOptionSelector'
+import type { PlaceOrderMenuDetailTabValue } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
   placeId: number
   productId: number
+  initialTab: PlaceOrderMenuDetailTabValue
 }
 
-export default async function PlaceOrderMenuDetailPage({ placeId, productId }: Props) {
+export default async function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
   const { error, data } = await productRepository.getProductById(productId)
 
   if (error || !data) {
@@ -50,6 +52,7 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId }: P
             placeId={placeId}
             optionGroups={optionGroups}
             reviewCount={reviewCount}
+            initialTab={initialTab}
           />
         </BorderedSection>
       </SectionStack>

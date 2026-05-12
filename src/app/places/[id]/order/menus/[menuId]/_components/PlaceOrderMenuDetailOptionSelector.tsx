@@ -9,13 +9,16 @@ import type { ProductMenuOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import PlaceOrderMenuDetailProductOptionTabs from './PlaceOrderMenuDetailProductOptionTabs'
+import PlaceOrderMenuDetailProductOptionTabs, {
+  type PlaceOrderMenuDetailTabValue,
+} from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
   productId: number
   placeId: number
   optionGroups: ProductMenuOptionGroup[]
   reviewCount: number
+  initialTab: PlaceOrderMenuDetailTabValue
 }
 
 export default function PlaceOrderMenuDetailOptionSelector({
@@ -23,6 +26,7 @@ export default function PlaceOrderMenuDetailOptionSelector({
   placeId,
   optionGroups,
   reviewCount,
+  initialTab,
 }: Props) {
   const router = useRouter()
 
@@ -167,6 +171,7 @@ export default function PlaceOrderMenuDetailOptionSelector({
           productId={productId}
           optionGroups={optionGroups}
           reviewCount={reviewCount}
+          initialTab={initialTab}
           selectedOptions={selectedOptions}
           onRadioSelect={handleRadioSelect}
           onCheckboxToggle={handleCheckboxToggle}
