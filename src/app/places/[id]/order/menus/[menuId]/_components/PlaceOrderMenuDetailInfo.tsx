@@ -10,7 +10,7 @@ interface Props {
   discountRate?: number | null
 }
 
-export default function ProductInfoSection({
+export default function PlaceOrderMenuDetailInfo({
   name,
   description,
   imageUrls,

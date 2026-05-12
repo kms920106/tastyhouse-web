@@ -4,8 +4,8 @@ import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import type { ProductMenuOptionGroup } from '@/domains/product'
 import { useState } from 'react'
-import ProductOptionList from './ProductOptionList'
-import ProductReviewContent from './ProductReviewContent'
+import PlaceOrderMenuDetailOptionList from './PlaceOrderMenuDetailOptionList'
+import PlaceOrderMenuDetailReviewContent from './PlaceOrderMenuDetailReviewContent'
 
 interface Props {
   productId: number
@@ -16,7 +16,7 @@ interface Props {
   onCheckboxToggle: (groupId: number, optionId: number, maxSelect: number) => void
 }
 
-export default function ProductOptionTabs({
+export default function PlaceOrderMenuDetailProductOptionTabs({
   productId,
   optionGroups,
   reviewCount,
@@ -44,7 +44,7 @@ export default function ProductOptionTabs({
       </TabsList>
       <TabsContent value="options" className="mt-0">
         <SectionStack>
-          <ProductOptionList
+          <PlaceOrderMenuDetailOptionList
             optionGroups={optionGroups}
             selectedOptions={selectedOptions}
             onRadioSelect={onRadioSelect}
@@ -54,7 +54,7 @@ export default function ProductOptionTabs({
       </TabsContent>
       <TabsContent value="reviews" className="mt-0">
         <SectionStack>
-          <ProductReviewContent productId={productId} />
+          <PlaceOrderMenuDetailReviewContent productId={productId} />
         </SectionStack>
       </TabsContent>
     </Tabs>

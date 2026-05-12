@@ -11,7 +11,12 @@ interface Props {
   onSelect: () => void
 }
 
-export default function ProductOptionItem({ option, isMultiple, isSelected, onSelect }: Props) {
+export default function PlaceOrderMenuDetailOptionItem({
+  option,
+  isMultiple,
+  isSelected,
+  onSelect,
+}: Props) {
   const isDisabled = option.isSoldOut
 
   return (

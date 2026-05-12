@@ -1,11 +1,11 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { productRepository } from '@/domains/product/product.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { productRepository } from '@/domains/product/product.repository'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
-import ProductInfoSection from './ProductInfoSection'
-import ProductOptionSelector from './ProductOptionSelector'
+import PlaceOrderMenuDetailInfo from './PlaceOrderMenuDetailInfo'
+import PlaceOrderMenuDetailOptionSelector from './PlaceOrderMenuDetailOptionSelector'
 
 interface Props {
   placeId: number
@@ -35,7 +35,7 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId }: P
       <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} productName={name} />
       <SectionStack>
         <BorderedSection className="border-t-0">
-          <ProductInfoSection
+          <PlaceOrderMenuDetailInfo
             name={name}
             description={description}
             imageUrls={imageUrls}
@@ -44,14 +44,16 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId }: P
             discountRate={discountRate}
           />
         </BorderedSection>
-        <ProductOptionSelector
-          productId={productId}
-          placeId={placeId}
-          optionGroups={optionGroups}
-          reviewCount={reviewCount}
-        />
+        <BorderedSection className="border-t-0">
+          <PlaceOrderMenuDetailOptionSelector
+            productId={productId}
+            placeId={placeId}
+            optionGroups={optionGroups}
+            reviewCount={reviewCount}
+          />
+        </BorderedSection>
       </SectionStack>
-      <div className="h-[71px] bg-white" />
+      <div className="h-[70px] bg-white" />
     </>
   )
 }

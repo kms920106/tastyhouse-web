@@ -9,7 +9,7 @@ import type { ProductMenuOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import ProductOptionTabs from './ProductOptionTabs'
+import PlaceOrderMenuDetailProductOptionTabs from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
   productId: number
@@ -18,7 +18,7 @@ interface Props {
   reviewCount: number
 }
 
-export default function ProductOptionSelector({
+export default function PlaceOrderMenuDetailOptionSelector({
   productId,
   placeId,
   optionGroups,
@@ -163,7 +163,7 @@ export default function ProductOptionSelector({
   return (
     <>
       <BorderedSection className="border-b-0">
-        <ProductOptionTabs
+        <PlaceOrderMenuDetailProductOptionTabs
           productId={productId}
           optionGroups={optionGroups}
           reviewCount={reviewCount}

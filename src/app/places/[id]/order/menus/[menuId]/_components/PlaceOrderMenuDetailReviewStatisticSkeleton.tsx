@@ -1,7 +1,7 @@
 import { ReviewRatingScoreSkeleton } from '@/components/reviews/ReviewRatingScoreSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function PlaceOrderProductReviewStatisticSkeleton() {
+export function PlaceOrderMenuDetailReviewStatisticSkeleton() {
   return (
     <div className="flex items-center justify-center gap-[50px] pt-[30px] pb-[21px]">
       <ReviewRatingScoreSkeleton />

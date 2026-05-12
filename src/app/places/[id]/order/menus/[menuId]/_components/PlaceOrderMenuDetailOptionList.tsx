@@ -1,6 +1,6 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import type { ProductMenuOptionGroup } from '@/domains/product'
-import ProductOptionItem from './ProductOptionItem'
+import PlaceOrderMenuDetailOptionItem from './PlaceOrderMenuDetailOptionItem'
 
 interface Props {
   optionGroups: ProductMenuOptionGroup[]
@@ -9,7 +9,7 @@ interface Props {
   onCheckboxToggle: (groupId: number, optionId: number, maxSelect: number) => void
 }
 
-export default function ProductOptionList({
+export default function PlaceOrderMenuDetailOptionList({
   optionGroups,
   selectedOptions,
   onRadioSelect,
@@ -26,7 +26,7 @@ export default function ProductOptionList({
             </h3>
             <div className="flex flex-col gap-[15px] mt-5">
               {group.options.map((option) => (
-                <ProductOptionItem
+                <PlaceOrderMenuDetailOptionItem
                   key={option.id}
                   option={option}
                   isMultiple={group.isMultipleSelect}

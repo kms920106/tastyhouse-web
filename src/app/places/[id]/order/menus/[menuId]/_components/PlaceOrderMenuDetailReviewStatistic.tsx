@@ -3,17 +3,17 @@ import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useProductReviewStatistics } from '@/domains/product/product.hook'
-import { PlaceOrderProductReviewStatisticSkeleton } from './PlaceOrderProductReviewStatisticSkeleton'
+import { PlaceOrderMenuDetailReviewStatisticSkeleton } from './PlaceOrderMenuDetailReviewStatisticSkeleton'
 
 interface Props {
   productId: number
 }
 
-export default function PlaceOrderProductReviewStatistic({ productId }: Props) {
+export default function PlaceOrderMenuDetailReviewStatistic({ productId }: Props) {
   const { data, isLoading, error } = useProductReviewStatistics(productId)
 
   if (isLoading) {
-    return <PlaceOrderProductReviewStatisticSkeleton />
+    return <PlaceOrderMenuDetailReviewStatisticSkeleton />
   }
 
   if (error) {

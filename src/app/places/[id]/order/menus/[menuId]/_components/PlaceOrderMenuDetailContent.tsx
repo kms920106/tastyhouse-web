@@ -6,7 +6,7 @@ import { productRepository } from '@/domains/product/product.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { formatDecimal, formatNumber } from '@/lib/number'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
-import ProductOptionSelector from './ProductOptionSelector'
+import PlaceOrderMenuDetailOptionSelector from './PlaceOrderMenuDetailOptionSelector'
 
 interface Props {
   placeId: number
@@ -56,7 +56,7 @@ export default async function PlaceOrderMenuDetailContent({ placeId, productId }
             </div>
           </div>
         </BorderedSection>
-        <ProductOptionSelector
+        <PlaceOrderMenuDetailOptionSelector
           productId={product.id}
           placeId={placeId}
           optionGroups={product.optionGroups}
