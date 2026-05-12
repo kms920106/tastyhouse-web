@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default async function PlaceOrderMenuList({ placeId }: Props) {
-  const { error, data } = await placeRepository.getPlaceMenus(placeId)
+  const { error, data } = await placeRepository.getPlaceProducts(placeId)
 
   if (error || !data) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
@@ -30,7 +30,7 @@ export default async function PlaceOrderMenuList({ placeId }: Props) {
           className={cn('px-[15px]', index === 0 && '!border-t-0')}
         >
           <MenuCategoryItem categoryName={menuCategory.categoryName}>
-            {menuCategory.menus.map((menu) => (
+            {menuCategory.products.map((menu) => (
               <Link
                 key={menu.id}
                 href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}

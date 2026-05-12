@@ -23,7 +23,7 @@ export interface ProductMenu {
 
 export interface ProductMenuCategory {
   categoryName: string
-  menus: ProductMenu[]
+  products: ProductMenu[]
 }
 
 export interface ProductMenuOption {

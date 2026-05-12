@@ -57,9 +57,9 @@ export interface PlaceInfoResponse {
   ownerMessageCreatedAt: string | null
 }
 
-export interface MenuCategoryResponse {
+export interface PlaceProductCategoryResponse {
   categoryName: string
-  menus: ProductMenu[]
+  products: ProductMenu[]
 }
 
 export interface PlaceBannerListItemResponse {

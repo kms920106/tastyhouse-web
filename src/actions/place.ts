@@ -29,7 +29,7 @@ export async function getPlaceDetail(placeId: number) {
 }
 
 export async function getPlaceMenus(placeId: number) {
-  return placeRepository.getPlaceMenus(placeId)
+  return placeRepository.getPlaceProducts(placeId)
 }
 
 export async function getPlacePhotos(placeId: number) {

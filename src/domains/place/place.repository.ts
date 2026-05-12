@@ -3,7 +3,7 @@ import 'server-only'
 import { api, publicApi } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import {
-  MenuCategoryResponse,
+  PlaceProductCategoryResponse,
   PlaceAmenityResponse,
   PlaceBannerListItemResponse,
   PlaceBestListItemResponse,
@@ -85,8 +85,11 @@ export const placeRepository = {
     return publicApi.get<PlaceInfoResponse>(`${ENDPOINT}/v1/${placeId}/info`, CACHE_OPTIONS)
   },
   // 플레이스 메뉴 목록 조회
-  async getPlaceMenus(placeId: number) {
-    return publicApi.get<MenuCategoryResponse[]>(`${ENDPOINT}/v1/${placeId}/menus`, CACHE_OPTIONS)
+  async getPlaceProducts(placeId: number) {
+    return publicApi.get<PlaceProductCategoryResponse[]>(
+      `${ENDPOINT}/v1/${placeId}/products`,
+      CACHE_OPTIONS,
+    )
   },
   // 플레이스 포토 목록 조회
   async getPlacePhotos(placeId: number) {
