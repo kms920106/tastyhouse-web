@@ -9,7 +9,9 @@ interface Props {
     id: string
     menuId: string
   }>
-  searchParams: Promise<{ tab?: string }>
+  searchParams: Promise<{
+    tab?: string
+  }>
 }
 
 export default async function Page({ params, searchParams }: Props) {
