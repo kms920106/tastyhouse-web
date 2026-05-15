@@ -1,4 +1,4 @@
-import { FacilitySelectorSkeleton } from '@/app/places/filter/_components/FacilitySelectorSkeleton'
+import { FacilitySelectorSkeleton } from '@/components/places/FacilitySelectorSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 export function PlaceInfoDetailSkeleton() {

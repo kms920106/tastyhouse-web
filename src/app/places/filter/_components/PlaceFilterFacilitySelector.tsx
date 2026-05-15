@@ -1,6 +1,7 @@
 'use client'
 
 import { FacilityButton } from '@/components/places/FacilityItem'
+import { FacilitySelectorLayout } from '@/components/places/FacilitySelectorLayout'
 import { PlaceAmenity } from '@/domains/place/place.model'
 import { usePlaceFilterState } from './PlaceFilterStateProvider'
 
@@ -12,7 +13,7 @@ export default function PlaceFilterFacilitySelector({ amenities }: Props) {
   const { selectedAmenities, toggleAmenity } = usePlaceFilterState()
 
   return (
-    <PlaceFilterFacilitySelectorLayout>
+    <FacilitySelectorLayout>
       {amenities.map((amenity: PlaceAmenity) => {
         const isSelected = selectedAmenities.includes(amenity.code)
         return (
@@ -24,10 +25,6 @@ export default function PlaceFilterFacilitySelector({ amenities }: Props) {
           />
         )
       })}
-    </PlaceFilterFacilitySelectorLayout>
+    </FacilitySelectorLayout>
   )
-}
-
-export function PlaceFilterFacilitySelectorLayout({ children }: { children: React.ReactNode }) {
-  return <div className="grid grid-cols-4 gap-2.5">{children}</div>
 }
