@@ -16,12 +16,12 @@ interface FilterState {
   hasSelection: boolean
 }
 
-const FilterStateContext = createContext<FilterState | null>(null)
+const PlaceFilterStateContext = createContext<FilterState | null>(null)
 
-export function useFilterState() {
-  const context = useContext(FilterStateContext)
+export function usePlaceFilterState() {
+  const context = useContext(PlaceFilterStateContext)
   if (!context) {
-    throw new Error('useFilterState must be used within FilterStateProvider')
+    throw new Error('usePlaceFilterState must be used within PlaceFilterStateProvider')
   }
   return context
 }
@@ -33,7 +33,7 @@ interface Props {
   initialAmenities?: string[]
 }
 
-export default function FilterStateProvider({
+export default function PlaceFilterStateProvider({
   children,
   initialStationId,
   initialFoodTypes = [],
@@ -84,7 +84,7 @@ export default function FilterStateProvider({
     !!selectedStationId || selectedFoodTypes.length > 0 || selectedAmenities.length > 0
 
   return (
-    <FilterStateContext.Provider
+    <PlaceFilterStateContext.Provider
       value={{
         selectedStationId,
         selectedFoodTypes,
@@ -98,6 +98,6 @@ export default function FilterStateProvider({
       }}
     >
       {children}
-    </FilterStateContext.Provider>
+    </PlaceFilterStateContext.Provider>
   )
 }

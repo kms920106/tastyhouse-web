@@ -8,12 +8,11 @@ import Header, {
 } from '@/components/layouts/Header'
 import { BackButton, HeaderIconButton } from '@/components/layouts/header-parts'
 import { RxReload } from 'react-icons/rx'
+import { usePlaceFilterState } from './PlaceFilterStateProvider'
 
-interface Props {
-  onReset: () => void
-}
+export default function PlaceFilterHeader() {
+  const { handleReset } = usePlaceFilterState()
 
-export default function FilterHeaderSection({ onReset }: Props) {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>
@@ -23,7 +22,7 @@ export default function FilterHeaderSection({ onReset }: Props) {
         <HeaderTitle>필터</HeaderTitle>
       </HeaderCenter>
       <HeaderRight>
-        <HeaderIconButton onClick={onReset}>
+        <HeaderIconButton onClick={handleReset}>
           <RxReload size={20} />
         </HeaderIconButton>
       </HeaderRight>

@@ -1,10 +1,4 @@
-import SectionStack from '@/components/ui/SectionStack'
-import FacilitySection from './_components/FacilitySection'
-import FilterApplyButtonWrapper from './_components/FilterApplyButtonWrapper'
-import FilterHeaderWrapper from './_components/FilterHeaderWrapper'
-import FilterStateProvider from './_components/FilterStateProvider'
-import FoodTypeSection from './_components/FoodTypeSection'
-import StationSection from './_components/StationSection'
+import PlaceFilterPage from './_components/PlaceFilterPage'
 
 interface Props {
   searchParams: Promise<{
@@ -15,24 +9,21 @@ interface Props {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const params = await searchParams
-  const stationId = params.stationId ? Number(params.stationId) : undefined
-  const foodTypes = params.foodTypes?.split(',').filter(Boolean) ?? []
-  const amenities = params.amenities?.split(',').filter(Boolean) ?? []
+  const {
+    stationId: stationIdParam,
+    foodTypes: foodTypesParam,
+    amenities: amenitiesParam,
+  } = await searchParams
+
+  const stationId = stationIdParam ? Number(stationIdParam) : undefined
+  const foodTypes = foodTypesParam?.split(',').filter(Boolean) ?? []
+  const amenities = amenitiesParam?.split(',').filter(Boolean) ?? []
 
   return (
-    <FilterStateProvider
-      initialStationId={stationId}
-      initialFoodTypes={foodTypes}
-      initialAmenities={amenities}
-    >
-      <FilterHeaderWrapper />
-      <SectionStack>
-        <StationSection />
-        <FoodTypeSection />
-        <FacilitySection />
-      </SectionStack>
-      <FilterApplyButtonWrapper />
-    </FilterStateProvider>
+    <PlaceFilterPage
+      stationId={stationId}
+      foodTypes={foodTypes}
+      amenities={amenities}
+    />
   )
 }

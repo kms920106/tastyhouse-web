@@ -3,14 +3,14 @@
 import { PlaceFood } from '@/domains/place'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import { useFilterState } from './FilterStateProvider'
+import { usePlaceFilterState } from './PlaceFilterStateProvider'
 
 interface Props {
   foods: PlaceFood[]
 }
 
-export default function FoodTypeSelector({ foods }: Props) {
-  const { selectedFoodTypes, toggleFoodType } = useFilterState()
+export default function PlaceFilterFoodTypeSelector({ foods }: Props) {
+  const { selectedFoodTypes, toggleFoodType } = usePlaceFilterState()
 
   return (
     <div className="grid grid-cols-4 gap-2.5">

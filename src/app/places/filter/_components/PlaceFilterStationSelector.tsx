@@ -12,14 +12,15 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/shadcn/
 import { PlaceStation } from '@/domains/place'
 import { useState } from 'react'
 import { IoChevronDown } from 'react-icons/io5'
-import { useFilterState } from './FilterStateProvider'
+import { usePlaceFilterState } from './PlaceFilterStateProvider'
 
 interface Props {
   stations: PlaceStation[]
 }
 
-export default function StationSelector({ stations }: Props) {
-  const { selectedStationId, setSelectedStationId } = useFilterState()
+export default function PlaceFilterStationSelector({ stations }: Props) {
+  const { selectedStationId, setSelectedStationId } = usePlaceFilterState()
+
   const [isOpen, setIsOpen] = useState(false)
 
   return (

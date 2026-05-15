@@ -1,9 +1,9 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeService } from '@/domains/place/place.service'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import FacilitySelector from './FacilitySelector'
+import PlaceFilterFacilitySelector from './PlaceFilterFacilitySelector'
 
-export default async function FacilityContent() {
+export default async function PlaceFilterFacilityContent() {
   const { error, status, data } = await placeService.getPlaceAmenities()
 
   if ((error && status === 404) || !data) {
@@ -14,5 +14,5 @@ export default async function FacilityContent() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  return <FacilitySelector amenities={data} />
+  return <PlaceFilterFacilitySelector amenities={data} />
 }

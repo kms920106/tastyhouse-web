@@ -2,17 +2,17 @@
 
 import { FacilityButton } from '@/components/places/FacilityItem'
 import { PlaceAmenity } from '@/domains/place/place.model'
-import { useFilterState } from './FilterStateProvider'
+import { usePlaceFilterState } from './PlaceFilterStateProvider'
 
 interface Props {
   amenities: PlaceAmenity[]
 }
 
-export default function FacilitySelector({ amenities }: Props) {
-  const { selectedAmenities, toggleAmenity } = useFilterState()
+export default function PlaceFilterFacilitySelector({ amenities }: Props) {
+  const { selectedAmenities, toggleAmenity } = usePlaceFilterState()
 
   return (
-    <FacilitySelectorLayout>
+    <PlaceFilterFacilitySelectorLayout>
       {amenities.map((amenity: PlaceAmenity) => {
         const isSelected = selectedAmenities.includes(amenity.code)
         return (
@@ -24,10 +24,10 @@ export default function FacilitySelector({ amenities }: Props) {
           />
         )
       })}
-    </FacilitySelectorLayout>
+    </PlaceFilterFacilitySelectorLayout>
   )
 }
 
-export function FacilitySelectorLayout({ children }: { children: React.ReactNode }) {
+export function PlaceFilterFacilitySelectorLayout({ children }: { children: React.ReactNode }) {
   return <div className="grid grid-cols-4 gap-2.5">{children}</div>
 }

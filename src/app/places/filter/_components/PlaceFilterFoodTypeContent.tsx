@@ -1,9 +1,9 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeService } from '@/domains/place/place.service'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import FoodTypeSelector from './FoodTypeSelector'
+import PlaceFilterFoodTypeSelector from './PlaceFilterFoodTypeSelector'
 
-export default async function FoodTypeContent() {
+export default async function PlaceFilterFoodTypeContent() {
   const { error, status, data } = await placeService.getPlaceFoodTypes()
 
   if ((error && status === 404) || !data) {
@@ -14,5 +14,5 @@ export default async function FoodTypeContent() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  return <FoodTypeSelector foods={data} />
+  return <PlaceFilterFoodTypeSelector foods={data} />
 }

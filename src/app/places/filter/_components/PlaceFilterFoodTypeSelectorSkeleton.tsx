@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function FoodTypeSelectorSkeleton() {
+export function PlaceFilterFoodTypeSelectorSkeleton() {
   return (
     <div className="grid grid-cols-4 gap-2.5">
       {Array.from({ length: 8 }).map((_, i) => (

@@ -1,9 +1,9 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import StationSelector from './StationSelector'
+import PlaceFilterStationSelector from './PlaceFilterStationSelector'
 
-export default async function StationContent() {
+export default async function PlaceFilterStationContent() {
   const { error, status, data } = await placeRepository.getPlaceStations()
 
   if ((error && status === 404) || !data) {
@@ -14,5 +14,5 @@ export default async function StationContent() {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  return <StationSelector stations={data} />
+  return <PlaceFilterStationSelector stations={data} />
 }
