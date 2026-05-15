@@ -10,8 +10,8 @@ interface Props {
 
 export default function ReviewCommentInputSection({ isLoggedIn, reviewId }: Props) {
   return (
-    <FixedBottomSection className="p-[15px]">
-      <div className="flex items-center gap-[17px]">
+    <FixedBottomSection>
+      <div className="p-[15px] flex items-center gap-[17px]">
         <Suspense fallback={<ReviewCommentInputSkeleton />}>
           <ReviewCommentInput isLoggedIn={isLoggedIn} reviewId={reviewId} />
         </Suspense>

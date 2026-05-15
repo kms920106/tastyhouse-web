@@ -177,8 +177,10 @@ export default function PlaceOrderMenuDetailOptionSelector({
           onCheckboxToggle={handleCheckboxToggle}
         />
       </BorderedSection>
-      <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
-        <AppPrimaryButton onClick={handleAddToCart}>장바구니 담기</AppPrimaryButton>
+      <FixedBottomSection>
+        <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
+          <AppPrimaryButton onClick={handleAddToCart}>장바구니 담기</AppPrimaryButton>
+        </div>
       </FixedBottomSection>
       <ConfirmModal
         open={showPlaceChangeModal}

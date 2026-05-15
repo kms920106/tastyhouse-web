@@ -12,10 +12,12 @@ export default function PlaceMenuListSection({ placeId }: Props) {
   return (
     <section className="px-[15px] pb-[70px]">
       <PlaceMenuListFetcher placeId={placeId} />
-      <FixedBottomSection className="px-[15px] py-2.5 !bg-[#f9f9f9]">
-        <Link href={PAGE_PATHS.ORDER_METHOD(placeId)}>
-          <AppPrimaryButton>주문하기</AppPrimaryButton>
-        </Link>
+      <FixedBottomSection>
+        <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
+          <Link href={PAGE_PATHS.ORDER_METHOD(placeId)}>
+            <AppPrimaryButton>주문하기</AppPrimaryButton>
+          </Link>
+        </div>
       </FixedBottomSection>
     </section>
   )
