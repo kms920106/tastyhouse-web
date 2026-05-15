@@ -11,10 +11,10 @@ export default function ReviewSection({ placeId }: Props) {
   return (
     <section>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <ReviewStatistic placeId={placeId} />
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <ReviewList placeId={placeId} />
         </BorderedSection>
       </SectionStack>

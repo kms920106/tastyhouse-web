@@ -16,14 +16,14 @@ export default function Loading() {
         </HeaderCenter>
       </Header>
       <SectionStack>
-        <BorderedSection className="border-t-0 px-[15px] py-3">
-          <div className="flex items-center gap-2">
+        <BorderedSection>
+          <div className="px-[15px] py-3 flex items-center gap-2">
             <Skeleton className="w-4 h-4 rounded" />
             <Skeleton className="w-20 h-4" />
           </div>
         </BorderedSection>
-        <BorderedSection className="px-[15px] py-4">
-          <div className="flex flex-col gap-4">
+        <BorderedSection>
+          <div className="px-[15px] py-4 flex flex-col gap-4">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="flex items-center gap-3">
                 <Skeleton className="w-4 h-4 rounded flex-shrink-0" />
@@ -41,8 +41,8 @@ export default function Loading() {
             ))}
           </div>
         </BorderedSection>
-        <BorderedSection className="px-[15px] py-4">
-          <div className="flex flex-col gap-2">
+        <BorderedSection>
+          <div className="px-[15px] py-4 flex flex-col gap-2">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="flex justify-between">
                 <Skeleton className="w-20 h-3.5" />

@@ -21,10 +21,10 @@ export default async function PointContent() {
 
   return (
     <SectionStack>
-      <BorderedSection className="border-t-0">
+      <BorderedSection>
         <PointBalance availablePoints={availablePoints} expiredThisMonth={expiredThisMonth} />
       </BorderedSection>
-      <BorderedSection className="border-b-0">
+      <BorderedSection>
         <div className="px-4 divide-y divide-[#f2f2f2]">
           <PointHistoryList histories={histories} />
         </div>

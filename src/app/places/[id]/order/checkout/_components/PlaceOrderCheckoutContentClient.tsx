@@ -164,7 +164,7 @@ export default function PlaceOrderCheckoutContentClient({
   return (
     <>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <OrderInfoSection
             placeName={placeName}
             items={items}
@@ -203,7 +203,7 @@ export default function PlaceOrderCheckoutContentClient({
             onPaymentMethodSelect={setSelectedPaymentMethod}
           />
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <OrderTermsAgreement agreed={agreedToTerms} onAgreementChange={setAgreedToTerms} />
         </BorderedSection>
       </SectionStack>

@@ -22,7 +22,7 @@ export default function PlaceFilterPage({ stationId, foodTypes, amenities }: Pro
     >
       <PlaceFilterHeader />
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <PlaceFilterStationContent />
         </BorderedSection>
         <BorderedSection>

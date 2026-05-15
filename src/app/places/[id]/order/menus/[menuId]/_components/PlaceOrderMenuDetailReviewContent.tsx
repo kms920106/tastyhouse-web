@@ -10,10 +10,10 @@ interface Props {
 export default function PlaceOrderMenuDetailReviewContent({ productId }: Props) {
   return (
     <SectionStack>
-      <BorderedSection className="border-t-0">
+      <BorderedSection>
         <PlaceOrderMenuDetailReviewStatistic productId={productId} />
       </BorderedSection>
-      <BorderedSection className="border-b-0">
+      <BorderedSection>
         <PlaceOrderMenuDetailReviewList productId={productId} />
       </BorderedSection>
     </SectionStack>

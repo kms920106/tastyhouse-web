@@ -57,8 +57,8 @@ export default async function ReviewProductSection({ reviewId }: Props) {
       <SectionStack>
         {productId && (
           <>
-            <BorderedSection className="border-t-0 px-[15px] py-5">
-              <div className="flex items-center gap-4">
+            <BorderedSection>
+              <div className="px-[15px] py-5 flex items-center gap-4">
                 <div className="relative w-[50px] h-[50px] flex-shrink-0 overflow-hidden">
                   <Image
                     src={productImageUrl}
@@ -78,45 +78,47 @@ export default async function ReviewProductSection({ reviewId }: Props) {
             </BorderedSection>
           </>
         )}
-        <BorderedSection className="px-[15px] border-b-0">
-          <div className="py-5 border-b border-[#eeeeee] box-border">
-            <ReviewRatingDetail
-              averageAtmosphereRating={atmosphereRating}
-              averageKindnessRating={kindnessRating}
-              averageTasteRating={tasteRating}
-              averageAmountRating={amountRating}
-              averageHygieneRating={hygieneRating}
-              averagePriceRating={priceRating}
-              willRevisitPercentage={willRevisit ? 100 : 0}
-            />
-          </div>
-          <div className="py-5">
-            <div className="flex justify-between">
-              <ReviewAuthorInfo
-                profileImageUrl={memberProfileImageUrl}
-                nickname={memberNickname}
-                createdAt={createdAt}
+        <BorderedSection>
+          <div className="px-[15px]">
+            <div className="py-5 border-b border-[#eeeeee] box-border">
+              <ReviewRatingDetail
+                averageAtmosphereRating={atmosphereRating}
+                averageKindnessRating={kindnessRating}
+                averageTasteRating={tasteRating}
+                averageAmountRating={amountRating}
+                averageHygieneRating={hygieneRating}
+                averagePriceRating={priceRating}
+                willRevisitPercentage={willRevisit ? 100 : 0}
               />
-              <Rating as="p" value={totalRating} />
             </div>
-            {productId && (
-              <div className="mt-[25px]">
-                <Link
-                  href={PAGE_PATHS.PRODUCT_DETAIL(productId)}
-                  className="block text-sm leading-[14px] text-[#999999]"
-                >
-                  [선택] {productName}
-                </Link>
+            <div className="py-5">
+              <div className="flex justify-between">
+                <ReviewAuthorInfo
+                  profileImageUrl={memberProfileImageUrl}
+                  nickname={memberNickname}
+                  createdAt={createdAt}
+                />
+                <Rating as="p" value={totalRating} />
               </div>
-            )}
-            <div className="mt-[15px]">
-              <TextContent text={content} />
-            </div>
-            <div className="mt-5">
-              <ReviewImageGallery imageUrls={imageUrls} />
-            </div>
-            <div className="mt-5">
-              <ReviewTagList tagNames={tagNames} />
+              {productId && (
+                <div className="mt-[25px]">
+                  <Link
+                    href={PAGE_PATHS.PRODUCT_DETAIL(productId)}
+                    className="block text-sm leading-[14px] text-[#999999]"
+                  >
+                    [선택] {productName}
+                  </Link>
+                </div>
+              )}
+              <div className="mt-[15px]">
+                <TextContent text={content} />
+              </div>
+              <div className="mt-5">
+                <ReviewImageGallery imageUrls={imageUrls} />
+              </div>
+              <div className="mt-5">
+                <ReviewTagList tagNames={tagNames} />
+              </div>
             </div>
           </div>
         </BorderedSection>

@@ -7,10 +7,10 @@ export default function PointContentSkeleton() {
   return (
     <>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <PointBalanceSkeleton />
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <div className="px-4 divide-y divide-[#f2f2f2]">
             {Array.from({ length: 10 }).map((_, index) => (
               <PointHistoryItemSkeleton key={index} />

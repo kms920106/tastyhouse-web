@@ -7,5 +7,16 @@ interface Props {
 }
 
 export default function SectionStack({ children, className = '' }: Props) {
-  return <div className={cn('flex flex-col gap-2.5 bg-[#f9f9f9]', className)}>{children}</div>
+  return (
+    <div
+      className={cn(
+        'flex flex-col gap-2.5 bg-[#f9f9f9]',
+        '[&>*:first-child]:border-t-0',
+        '[&>*:last-child]:border-b-0',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  )
 }

@@ -166,7 +166,7 @@ export default function PlaceOrderMenuDetailOptionSelector({
 
   return (
     <>
-      <BorderedSection className="border-b-0">
+      <BorderedSection>
         <PlaceOrderMenuDetailProductOptionTabs
           productId={productId}
           optionGroups={optionGroups}

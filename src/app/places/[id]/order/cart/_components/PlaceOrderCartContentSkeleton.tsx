@@ -76,7 +76,7 @@ export default function PlaceOrderCartContentSkeleton() {
   return (
     <>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <CartSelectionControlSkeleton />
         </BorderedSection>
         <BorderedSection>

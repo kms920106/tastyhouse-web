@@ -9,7 +9,7 @@ export default function CustomerCenterContent() {
       <BorderedSection>
         <CustomerCenterCallSection />
       </BorderedSection>
-      <BorderedSection className="border-b-0">
+      <BorderedSection>
         <CustomerCenterGuideSection />
       </BorderedSection>
     </SectionStack>

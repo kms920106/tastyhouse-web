@@ -162,7 +162,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
   return (
     <>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <div className="px-[15px] py-[30px] flex flex-col gap-5">
             {/* 아이디 */}
             <AppFormField label="아이디" required>
@@ -285,7 +285,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
             </AppFormField>
           </div>
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <div className="px-[15px] py-[20px]">
             <div className="flex flex-col gap-[15px]">
               <div className="flex items-center justify-between">

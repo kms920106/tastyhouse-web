@@ -36,7 +36,7 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId, ini
     <>
       <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} productName={name} />
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <PlaceOrderMenuDetailInfo
             name={name}
             description={description}
@@ -46,7 +46,7 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId, ini
             discountRate={discountRate}
           />
         </BorderedSection>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <PlaceOrderMenuDetailOptionSelector
             productId={productId}
             placeId={placeId}

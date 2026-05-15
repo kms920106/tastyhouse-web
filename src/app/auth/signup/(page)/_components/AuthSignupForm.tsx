@@ -315,7 +315,7 @@ export default function AuthSignupForm({ onOpenTermsDialog }: Props) {
   return (
     <form onSubmit={handleSubmit}>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <div className="px-[15px] py-[30px] flex flex-col gap-5">
             <AuthSignupCredentialFields
               emailVerification={emailVerification}
@@ -373,7 +373,7 @@ export default function AuthSignupForm({ onOpenTermsDialog }: Props) {
           </div>
         </BorderedSection>
 
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <AuthSignupTermSection
             agreedAll={agreedAll}
             agreedTerms={agreedTerms}

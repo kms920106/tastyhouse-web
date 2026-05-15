@@ -299,7 +299,7 @@ export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }:
   return (
     <form onSubmit={handleSubmit}>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <div className="px-[15px] py-[30px] flex flex-col gap-5">
             {/* 이메일 */}
             <EmailVerificationField
@@ -482,7 +482,7 @@ export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }:
         </BorderedSection>
 
         {/* 약관 동의 */}
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <div className="flex flex-col px-[15px] pt-[18px]">
             <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
               <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />

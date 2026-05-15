@@ -9,10 +9,10 @@ export default function AdvertisingPage() {
     <>
       <AdvertisingHeader />
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <AdvertisingNotice />
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <AdvertisingForm />
         </BorderedSection>
       </SectionStack>

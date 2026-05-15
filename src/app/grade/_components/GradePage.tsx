@@ -26,7 +26,7 @@ export default function GradePage({ isLoggedIn }: Props) {
             <GradeGuestSection />
           )}
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <Suspense fallback={<GradeInfoSectionSkeleton />}>
             <GradeInfoSection />
           </Suspense>

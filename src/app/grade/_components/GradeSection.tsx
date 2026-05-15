@@ -80,7 +80,7 @@ export default async function GradeSection() {
             )}
           </div>
         </BorderedSection>
-        <BorderedSection className="border-b-0">
+        <BorderedSection>
           <div className="px-[15px] py-[25px]">
             <h2 className="text-[17px] leading-[17px] font-bold text-gray-900">
               등급 세부 조건 안내

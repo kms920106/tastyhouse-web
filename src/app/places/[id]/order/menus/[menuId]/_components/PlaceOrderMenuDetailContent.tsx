@@ -30,7 +30,7 @@ export default async function PlaceOrderMenuDetailContent({ placeId, productId }
         productName={product.name}
       />
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <ImageGallery imageUrls={product.imageUrls} />
           <div className="px-[15px] py-[21px]">
             <h1 className="text-lg leading-[18px] font-bold">{product.name}</h1>

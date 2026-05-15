@@ -19,8 +19,8 @@ export default function Loading() {
       </Header>
       <section>
         <SectionStack>
-          <BorderedSection className="border-t-0 px-[15px] py-5">
-            <div className="flex items-center gap-4">
+          <BorderedSection>
+            <div className="px-[15px] py-5 flex items-center gap-4">
               <Skeleton className="w-[50px] h-[50px] flex-shrink-0 rounded-md" />
               <div className="flex-1 flex flex-col gap-2.5">
                 <Skeleton className="w-3/4 h-[14px]" />
@@ -28,7 +28,8 @@ export default function Loading() {
               </div>
             </div>
           </BorderedSection>
-          <BorderedSection className="px-[15px] border-b-0">
+          <BorderedSection>
+            <div className="px-[15px]">
             <div className="py-5 border-b border-[#eeeeee] box-border">
               <div className="flex flex-row justify-between">
                 <div className="w-1/3 space-y-2.5">
@@ -104,6 +105,7 @@ export default function Loading() {
                   <Skeleton className="w-18 h-7 rounded-full" />
                 </div>
               </div>
+            </div>
             </div>
           </BorderedSection>
         </SectionStack>

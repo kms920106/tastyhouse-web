@@ -17,7 +17,7 @@ export default function OrderDetailSkeleton() {
       </Header>
       <SectionStack>
         {/* OrderStatusHeader */}
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <div className="px-4 py-4 flex items-center justify-between">
             <Skeleton className="h-[13px] w-[200px]" />
             <Skeleton className="h-[25px] w-[60px] rounded-[12.5px]" />

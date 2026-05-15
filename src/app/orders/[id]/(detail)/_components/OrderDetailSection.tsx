@@ -53,7 +53,7 @@ export default async function OrderDetailSection({ orderId }: Props) {
         </HeaderCenter>
       </Header>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <OrderStatusHeader orderNumber={orderNumber} paymentStatus={paymentStatus} />
         </BorderedSection>
         <BorderedSection>

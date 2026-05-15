@@ -90,7 +90,7 @@ export default function PlaceOrderCartContent() {
   return (
     <>
       <SectionStack>
-        <BorderedSection className="border-t-0">
+        <BorderedSection>
           <CartSelectionControl
             selectedCount={selectedCount}
             totalCount={cartItems.length}

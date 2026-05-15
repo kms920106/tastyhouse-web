@@ -143,7 +143,7 @@ export default function OrderReviewCreateForm({
 
   return (
     <SectionStack>
-      <BorderedSection className="border-t-0">
+      <BorderedSection>
         <div className="px-4">
           <OrderProductItem
             productName={productName}

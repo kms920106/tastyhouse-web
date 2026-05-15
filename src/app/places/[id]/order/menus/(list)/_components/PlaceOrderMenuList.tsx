@@ -6,7 +6,6 @@ import { placeRepository } from '@/domains/place/place.repository'
 import { ProductMenuCategory } from '@/domains/product'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { PAGE_PATHS } from '@/lib/paths'
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
 interface Props {
@@ -24,22 +23,21 @@ export default async function PlaceOrderMenuList({ placeId }: Props) {
 
   return (
     <>
-      {menuCategories.map((menuCategory, index) => (
-        <BorderedSection
-          key={menuCategory.categoryName}
-          className={cn('px-[15px]', index === 0 && '!border-t-0')}
-        >
-          <MenuCategoryItem categoryName={menuCategory.categoryName}>
-            {menuCategory.products.map((menu) => (
-              <Link
-                key={menu.id}
-                href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}
-                className="block"
-              >
-                <MenuItem key={menu.id} menu={menu} />
-              </Link>
-            ))}
-          </MenuCategoryItem>
+      {menuCategories.map((menuCategory) => (
+        <BorderedSection key={menuCategory.categoryName}>
+          <div className="px-[15px]">
+            <MenuCategoryItem categoryName={menuCategory.categoryName}>
+              {menuCategory.products.map((menu) => (
+                <Link
+                  key={menu.id}
+                  href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}
+                  className="block"
+                >
+                  <MenuItem key={menu.id} menu={menu} />
+                </Link>
+              ))}
+            </MenuCategoryItem>
+          </div>
         </BorderedSection>
       ))}
     </>

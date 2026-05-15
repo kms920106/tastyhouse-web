@@ -88,7 +88,7 @@ export default function AccountWithdrawForm() {
               </ul>
             </div>
           </BorderedSection>
-          <BorderedSection className="border-b-0">
+          <BorderedSection>
             <div className="flex flex-col gap-5 px-[15px] pt-[24px] pb-[30px]">
               <AppFormField label="탈퇴 사유" required error={errors.reason}>
                 {() => (
