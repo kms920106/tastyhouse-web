@@ -1,4 +1,4 @@
-import ReviewProductSection from './_components/ReviewProductSection'
+import ReviewDetailProductPage from './_components/ReviewDetailProductPage'
 
 interface Props {
   params: Promise<{
@@ -10,5 +10,5 @@ export default async function Page({ params }: Props) {
   const { id } = await params
   const reviewId = Number(id)
 
-  return <ReviewProductSection reviewId={reviewId} />
+  return <ReviewDetailProductPage reviewId={reviewId} />
 }
