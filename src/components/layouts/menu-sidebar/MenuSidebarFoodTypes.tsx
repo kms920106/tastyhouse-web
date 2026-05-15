@@ -38,9 +38,9 @@ export default function MenuSidebarFoodTypes() {
             key={foodType.code}
             href={`/places?foodTypes=${foodType.code}`}
             onClick={() => setOpenMobile(false)}
-            className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
+            className="flex flex-col items-center justify-center gap-[15px] h-24 bg-[#fdfdfd] border border-[#eeeeee] box-border"
           >
-            <MenuGridItem icon={foodType.activeImageUrl} name={foodType.name} />
+            <MenuGridItem foodType={foodType} />
           </Link>
         ))}
 

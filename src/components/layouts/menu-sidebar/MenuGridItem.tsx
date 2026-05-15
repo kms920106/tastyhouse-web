@@ -1,17 +1,16 @@
-import Image from 'next/image'
+import FoodTypeItemContent from '@/components/places/FoodTypeItemContent'
+import type { PlaceFood } from '@/domains/place/place.model'
 
 interface Props {
-  icon: string
-  name: string
+  foodType: PlaceFood
 }
 
-export default function MenuGridItem({ icon, name }: Props) {
+export default function MenuGridItem({ foodType }: Props) {
   return (
-    <>
-      <div className="relative w-14 h-8">
-        {icon && <Image src={icon} alt={name} fill style={{ objectFit: 'contain' }} />}
-      </div>
-      <span className="text-[13px] text-[#333333]">{name}</span>
-    </>
+    <FoodTypeItemContent
+      name={foodType.name}
+      imageUrl={foodType.activeImageUrl}
+      isSelected={true}
+    />
   )
 }
