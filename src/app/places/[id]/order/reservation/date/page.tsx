@@ -157,7 +157,7 @@ export default function Page() {
   )
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <header className="sticky top-0 z-50 flex items-center justify-between h-[60px] px-4 bg-white border-b border-[#eeeeee]">
         <button onClick={() => router.back()} className="p-2 -ml-2">
           <IoChevronBack size={24} />
@@ -245,7 +245,9 @@ export default function Page() {
                   onClick={() => setSelectedTime(time)}
                   className={cn(
                     'py-3 text-[15px] border rounded',
-                    isSelected ? 'border-[#d32f2f] text-[#d32f2f]' : 'border-[#eeeeee] text-[#666666]',
+                    isSelected
+                      ? 'border-[#d32f2f] text-[#d32f2f]'
+                      : 'border-[#eeeeee] text-[#666666]',
                   )}
                 >
                   {time}
@@ -268,8 +270,11 @@ export default function Page() {
                   className={cn(
                     'py-3 text-[15px] border rounded',
                     isSelected && 'border-[#d32f2f] text-[#d32f2f]',
-                    unavailable && 'border-[#eeeeee] bg-[#f5f5f5] text-[#cccccc] cursor-not-allowed',
-                    !unavailable && !isSelected && 'border-[#eeeeee] text-[#666666] hover:border-[#d32f2f]',
+                    unavailable &&
+                      'border-[#eeeeee] bg-[#f5f5f5] text-[#cccccc] cursor-not-allowed',
+                    !unavailable &&
+                      !isSelected &&
+                      'border-[#eeeeee] text-[#666666] hover:border-[#d32f2f]',
                   )}
                 >
                   {time}
@@ -364,7 +369,9 @@ export default function Page() {
           disabled={!isBookingEnabled()}
           className={cn(
             'w-full py-4 text-[17px] rounded',
-            isBookingEnabled() ? 'bg-[#d32f2f] text-white' : 'bg-[#cccccc] text-white cursor-not-allowed',
+            isBookingEnabled()
+              ? 'bg-[#d32f2f] text-white'
+              : 'bg-[#cccccc] text-white cursor-not-allowed',
           )}
         >
           예약하기
