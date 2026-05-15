@@ -1,9 +1,8 @@
 import BorderedSection from '@/components/ui/BorderedSection'
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
 import SectionStack from '@/components/ui/SectionStack'
-import PlaceFilterApplyButton from './PlaceFilterApplyButton'
 import PlaceFilterFacilityContent from './PlaceFilterFacilityContent'
 import PlaceFilterFoodTypeContent from './PlaceFilterFoodTypeContent'
+import PlaceFilterFooter from './PlaceFilterFooter'
 import PlaceFilterHeader from './PlaceFilterHeader'
 import PlaceFilterStateProvider from './PlaceFilterStateProvider'
 import PlaceFilterStationContent from './PlaceFilterStationContent'
@@ -33,9 +32,7 @@ export default function PlaceFilterPage({ stationId, foodTypes, amenities }: Pro
           <PlaceFilterFacilityContent />
         </BorderedSection>
       </SectionStack>
-      <FixedBottomSection className="px-[15px] py-2.5">
-        <PlaceFilterApplyButton />
-      </FixedBottomSection>
+      <PlaceFilterFooter />
     </PlaceFilterStateProvider>
   )
 }
