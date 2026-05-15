@@ -20,7 +20,6 @@ export default function PlaceOrderMenuFooter({ placeId }: Props) {
           </Link>
         </div>
       </StickyFooter>
-      <div className="h-[71px] bg-white" />
     </>
   )
 }

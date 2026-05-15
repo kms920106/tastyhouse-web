@@ -6,8 +6,11 @@ interface Props {
 
 export default function StickyFooter({ children }: Props) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#eeeeee] box-border">
-      {children}
-    </div>
+    <>
+      <div className="h-[70px]" aria-hidden="true" />
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#eeeeee] box-border">
+        {children}
+      </div>
+    </>
   )
 }

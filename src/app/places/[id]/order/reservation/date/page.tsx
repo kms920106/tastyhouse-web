@@ -157,7 +157,7 @@ export default function Page() {
   )
 
   return (
-    <div className="min-h-screen bg-white pb-20">
+    <div className="min-h-screen bg-white">
       <header className="sticky top-0 z-50 flex items-center justify-between h-[60px] px-4 bg-white border-b border-[#eeeeee]">
         <button onClick={() => router.back()} className="p-2 -ml-2">
           <IoChevronBack size={24} />

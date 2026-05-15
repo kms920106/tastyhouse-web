@@ -39,20 +39,18 @@ export default async function ReviewDetailPage({ reviewId }: Props) {
   return (
     <ReviewReplyProvider>
       <ReviewDetailHeader memberNickname={memberNickname} />
-      <div className="pb-20">
-        <ReviewInfoSection
-          reviewId={reviewId}
-          memberId={memberId}
-          memberNickname={memberNickname}
-          memberProfileImageUrl={memberProfileImageUrl}
-          createdAt={createdAt}
-          imageUrls={imageUrls}
-          content={content}
-          tagNames={tagNames}
-          isLoggedIn={isLoggedIn}
-        />
-        <ReviewCommentListSection reviewId={reviewId} isLoggedIn={isLoggedIn} />
-      </div>
+      <ReviewInfoSection
+        reviewId={reviewId}
+        memberId={memberId}
+        memberNickname={memberNickname}
+        memberProfileImageUrl={memberProfileImageUrl}
+        createdAt={createdAt}
+        imageUrls={imageUrls}
+        content={content}
+        tagNames={tagNames}
+        isLoggedIn={isLoggedIn}
+      />
+      <ReviewCommentListSection reviewId={reviewId} isLoggedIn={isLoggedIn} />
       <ReviewCommentInputSection isLoggedIn={isLoggedIn} reviewId={reviewId} />
     </ReviewReplyProvider>
   )

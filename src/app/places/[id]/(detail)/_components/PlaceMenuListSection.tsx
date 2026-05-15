@@ -10,7 +10,7 @@ interface Props {
 
 export default function PlaceMenuListSection({ placeId }: Props) {
   return (
-    <section className="px-[15px] pb-[70px]">
+    <section className="px-[15px]">
       <PlaceMenuListFetcher placeId={placeId} />
       <StickyFooter>
         <div className="px-[15px] py-2.5 bg-[#f9f9f9]">

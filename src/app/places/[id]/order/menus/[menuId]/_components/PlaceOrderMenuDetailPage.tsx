@@ -56,7 +56,6 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId, ini
           />
         </BorderedSection>
       </SectionStack>
-      <div className="h-[70px] bg-white" />
     </>
   )
 }
