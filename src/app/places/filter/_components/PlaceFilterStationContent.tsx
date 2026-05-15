@@ -1,18 +1,14 @@
-import FetchErrorState from '@/components/ui/FetchErrorState'
-import { placeRepository } from '@/domains/place/place.repository'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import PlaceFilterStationSelector from './PlaceFilterStationSelector'
+import { Suspense } from 'react'
+import PlaceFilterStationSelectorFetcher from './PlaceFilterStationSelectorFetcher'
+import { PlaceFilterStationSelectorSkeleton } from './PlaceFilterStationSelectorSkeleton'
 
-export default async function PlaceFilterStationContent() {
-  const { error, status, data } = await placeRepository.getPlaceStations()
-
-  if ((error && status === 404) || !data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('지하철역')} />
-  }
-
-  if (error) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
-  }
-
-  return <PlaceFilterStationSelector stations={data} />
+export default function PlaceFilterStationContent() {
+  return (
+    <div className="px-[15px] py-5">
+      <h2 className="mb-[15px] text-sm leading-[14px]">지하철역</h2>
+      <Suspense fallback={<PlaceFilterStationSelectorSkeleton />}>
+        <PlaceFilterStationSelectorFetcher />
+      </Suspense>
+    </div>
+  )
 }
