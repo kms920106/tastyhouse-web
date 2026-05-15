@@ -4,7 +4,7 @@ import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ConfirmModal from '@/components/ui/ConfirmModal'
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import StickyFooter from '@/components/ui/StickyFooter'
 import type { ProductMenuOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
 import { useRouter } from 'next/navigation'
@@ -177,11 +177,11 @@ export default function PlaceOrderMenuDetailOptionSelector({
           onCheckboxToggle={handleCheckboxToggle}
         />
       </BorderedSection>
-      <FixedBottomSection>
+      <StickyFooter>
         <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
           <AppPrimaryButton onClick={handleAddToCart}>장바구니 담기</AppPrimaryButton>
         </div>
-      </FixedBottomSection>
+      </StickyFooter>
       <ConfirmModal
         open={showPlaceChangeModal}
         description="가게를 변경하실 경우 장바구니에 담은 메뉴가 삭제됩니다."

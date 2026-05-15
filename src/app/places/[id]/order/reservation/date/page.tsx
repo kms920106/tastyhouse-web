@@ -1,6 +1,6 @@
 'use client'
 
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import StickyFooter from '@/components/ui/StickyFooter'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -359,7 +359,7 @@ export default function Page() {
         </div>
       </div>
 
-      <FixedBottomSection>
+      <StickyFooter>
         <button
           disabled={!isBookingEnabled()}
           className={cn(
@@ -369,7 +369,7 @@ export default function Page() {
         >
           예약하기
         </button>
-      </FixedBottomSection>
+      </StickyFooter>
     </div>
   )
 }

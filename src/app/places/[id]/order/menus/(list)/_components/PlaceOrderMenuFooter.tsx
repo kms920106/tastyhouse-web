@@ -1,5 +1,5 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import StickyFooter from '@/components/ui/StickyFooter'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import CartItemCount from './CartItemCount'
@@ -11,7 +11,7 @@ interface Props {
 export default function PlaceOrderMenuFooter({ placeId }: Props) {
   return (
     <>
-      <FixedBottomSection>
+      <StickyFooter>
         <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
           <Link href={PAGE_PATHS.ORDER_CART(placeId)}>
             <AppPrimaryButton className="gap-1">
@@ -19,7 +19,7 @@ export default function PlaceOrderMenuFooter({ placeId }: Props) {
             </AppPrimaryButton>
           </Link>
         </div>
-      </FixedBottomSection>
+      </StickyFooter>
       <div className="h-[71px] bg-white" />
     </>
   )

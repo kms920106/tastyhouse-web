@@ -1,4 +1,4 @@
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import StickyFooter from '@/components/ui/StickyFooter'
 import PlaceOrderCartContent from './PlaceOrderCartContent'
 import PlaceOrderCartHeader from './PlaceOrderCartHeader'
 import PlaceOrderCartLinkButton from './PlaceOrderCartLinkButton'
@@ -12,11 +12,11 @@ export default function PlaceOrderCartPage({ placeId }: Props) {
     <>
       <PlaceOrderCartHeader />
       <PlaceOrderCartContent />
-      <FixedBottomSection>
+      <StickyFooter>
         <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
           <PlaceOrderCartLinkButton placeId={placeId} />
         </div>
-      </FixedBottomSection>
+      </StickyFooter>
     </>
   )
 }

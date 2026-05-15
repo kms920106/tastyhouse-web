@@ -1,15 +1,15 @@
-import FixedBottomSection from '@/components/ui/FixedBottomSection'
+import StickyFooter from '@/components/ui/StickyFooter'
 import PlaceFilterApplyButton from './PlaceFilterApplyButton'
 
 export default function PlaceFilterFooter() {
   return (
     <>
       <div className="h-[70px]" />
-      <FixedBottomSection>
+      <StickyFooter>
         <div className="px-[15px] py-2.5">
           <PlaceFilterApplyButton />
         </div>
-      </FixedBottomSection>
+      </StickyFooter>
     </>
   )
 }
