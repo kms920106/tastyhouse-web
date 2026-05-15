@@ -14,7 +14,7 @@ export default function ReviewList({ reviews, hasMoreReviews }: Props) {
     return (
       <>
         <EmptyState message="등록된 리뷰가 없습니다." />
-        <div className="h-[70px]"></div>
+        <div className="h-[70px]" />
       </>
     )
   }
@@ -33,7 +33,7 @@ export default function ReviewList({ reviews, hasMoreReviews }: Props) {
           </div>
         )}
       </div>
-      <div className="h-[70px]"></div>
+      <div className="h-[70px]" />
     </>
   )
 }

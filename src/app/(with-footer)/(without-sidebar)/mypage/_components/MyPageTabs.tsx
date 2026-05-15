@@ -61,7 +61,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
           ) : (
             <>
               <EmptyState message="로그인이 필요한 서비스입니다." />
-              <div className="h-[70px]"></div>
+              <div className="h-[70px]" />
             </>
           )}
         </TabsContent>
@@ -71,7 +71,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
           ) : (
             <>
               <EmptyState message="로그인이 필요한 서비스입니다." />
-              <div className="h-[70px]"></div>
+              <div className="h-[70px]" />
             </>
           )}
         </TabsContent>
@@ -81,7 +81,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
           ) : (
             <>
               <EmptyState message="로그인이 필요한 서비스입니다." />
-              <div className="h-[70px]"></div>
+              <div className="h-[70px]" />
             </>
           )}
         </TabsContent>

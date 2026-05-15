@@ -23,7 +23,7 @@ export default function BookmarkList({ bookmarks, hasMoreBookmarks }: Props) {
     return (
       <>
         <EmptyState message="저장된 즐겨찾기가 없습니다." />
-        <div className="h-[70px]"></div>
+        <div className="h-[70px]" />
       </>
     )
   }
@@ -48,7 +48,7 @@ export default function BookmarkList({ bookmarks, hasMoreBookmarks }: Props) {
           <ViewMoreButton href={PAGE_PATHS.MY_BOOKMARKS} label="더 보러가기" />
         </div>
       )}
-      <div className="h-[70px]"></div>
+      <div className="h-[70px]" />
     </>
   )
 }

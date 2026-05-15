@@ -14,7 +14,7 @@ export default function OrderList({ orders, hasMoreOrders }: Props) {
     return (
       <>
         <EmptyState message="결제 내역이 없습니다." />
-        <div className="h-[70px]"></div>
+        <div className="h-[70px]" />
       </>
     )
   }
@@ -41,7 +41,7 @@ export default function OrderList({ orders, hasMoreOrders }: Props) {
           <ViewMoreButton href={PAGE_PATHS.ORDERS} label="더 보러가기" />
         </div>
       )}
-      <div className="h-[70px]"></div>
+      <div className="h-[70px]" />
     </>
   )
 }

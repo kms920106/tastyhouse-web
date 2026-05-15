@@ -10,7 +10,7 @@ export default function ReviewListSkeleton() {
           ))}
         </div>
       </div>
-      <div className="h-[70px]"></div>
+      <div className="h-[70px]" />
     </>
   )
 }
