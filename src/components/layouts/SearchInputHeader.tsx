@@ -40,7 +40,7 @@ export default function SearchInputHeader({
   return (
     <Header variant="white" height={55}>
       <BackButton />
-      <div className="relative flex items-center flex-1">
+      <div className="flex-1">
         <AppInputText
           ref={inputRef}
           value={inputValue}
@@ -48,14 +48,10 @@ export default function SearchInputHeader({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           autoFocus
-          className="px-0 py-[23px] h-[55px] border-0 shadow-none text-sm leading-[14px] pr-[24px] placeholder:text-[#cccccc]"
+          className="px-0 py-[23px] h-[55px] border-0 shadow-none text-sm leading-[14px] placeholder:text-[#cccccc]"
         />
-        {inputValue && (
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
-            <ClearButton onClick={handleClear} />
-          </div>
-        )}
       </div>
+      {inputValue && <ClearButton onClick={handleClear} />}
       <SearchButton onClick={handleSearch} />
     </Header>
   )
