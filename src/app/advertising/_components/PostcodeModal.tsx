@@ -32,11 +32,11 @@ export default function PostcodeModal({ onComplete, onClose }: Props) {
       >
         {/* 헤더 */}
         <div className="flex items-center justify-between px-[15px] py-3 border-b border-[#eeeeee]">
-          <span className="text-[14px] font-bold text-[#333333]">우편번호 검색</span>
+          <span className="text-[14px] font-bold">우편번호 검색</span>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 text-[#999999] active:text-[#333333]"
+            className="p-1 text-[#999999] active:text-foreground"
             aria-label="닫기"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

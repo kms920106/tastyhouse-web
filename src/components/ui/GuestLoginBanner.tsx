@@ -12,7 +12,7 @@ export default function GuestLoginBanner({ title, description }: Props) {
     <div className="flex items-center justify-between gap-3">
       <div className="flex items-center gap-3">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-bold leading-[14px] text-[#333333]">{title}</p>
+          <p className="text-sm font-bold leading-[14px]">{title}</p>
           <p className="text-xs leading-[12px] text-[#999999]">{description}</p>
         </div>
       </div>

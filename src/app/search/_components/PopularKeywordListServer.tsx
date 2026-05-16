@@ -36,12 +36,12 @@ export default function PopularKeywordListServer() {
               <span
                 className={cn(
                   'w-5 text-sm font-normal text-right shrink-0',
-                  rank <= 3 ? 'text-[#a91201]' : 'text-[#333333]',
+                  rank <= 3 && 'text-[#a91201]',
                 )}
               >
                 {rank}
               </span>
-              <span className="flex-1 text-sm leading-[16px] text-[#333333] font-regular">
+              <span className="flex-1 text-sm leading-[16px] font-regular">
                 {keyword}
               </span>
               {isNew && <span className="text-sm leading-[16px] text-[#a91201]">NEW</span>}

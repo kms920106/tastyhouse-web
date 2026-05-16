@@ -10,7 +10,7 @@ export default function AppSelect({ className, children, ...props }: Props) {
       <select
         className={cn(
           'w-full h-[50px] pl-4 pr-10 text-sm leading-[14px] border border-[#eeeeee] focus:border-[#666666] box-border appearance-none bg-white focus:outline-none',
-          props.value === '' || props.value === undefined ? 'text-[#aaaaaa]' : 'text-[#333333]',
+          (props.value === '' || props.value === undefined) && 'text-[#aaaaaa]',
           className,
         )}
         {...props}

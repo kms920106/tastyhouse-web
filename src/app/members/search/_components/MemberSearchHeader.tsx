@@ -46,7 +46,7 @@ export default function MemberSearchHeader() {
           onKeyDown={handleKeyDown}
           placeholder="닉네임을 입력해 주세요."
           autoFocus
-          className="w-full bg-transparent border-none outline-none text-sm leading-[14px] text-[#333333] placeholder:text-[#aaaaaa] pr-[24px]"
+          className="w-full bg-transparent border-none outline-none text-sm leading-[14px] placeholder:text-[#aaaaaa] pr-[24px]"
         />
         {inputValue && (
           <button

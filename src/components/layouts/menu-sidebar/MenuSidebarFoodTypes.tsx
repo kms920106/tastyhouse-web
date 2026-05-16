@@ -47,13 +47,13 @@ export default function MenuSidebarFoodTypes() {
         {/* 이전 버튼 */}
         <MenuGridButton onClick={handlePrev} disabled={isPrevDisabled}>
           <TfiArrowCircleLeft size={25} color="#333333" />
-          <span className="text-[13px] text-[#333333]">이전</span>
+          <span className="text-[13px]">이전</span>
         </MenuGridButton>
 
         {/* 다음 버튼 */}
         <MenuGridButton onClick={handleNext} disabled={isNextDisabled}>
           <TfiArrowCircleRight size={25} color="#333333" />
-          <span className="text-[13px] text-[#333333]">다음</span>
+          <span className="text-[13px]">다음</span>
         </MenuGridButton>
       </div>
     </div>

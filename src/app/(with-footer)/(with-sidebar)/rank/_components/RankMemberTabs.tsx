@@ -23,13 +23,13 @@ export default function RankMemberTabs({ initialTab, scheduleArea, infoButton, a
           <TabsList className="flex items-start gap-3 p-0 bg-white">
             <TabsTrigger
               value="all"
-              className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-[#333333]/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
+              className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-foreground/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
             >
               전체
             </TabsTrigger>
             <TabsTrigger
               value="monthly"
-              className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-[#333333]/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
+              className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-foreground/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
             >
               이번 달
             </TabsTrigger>

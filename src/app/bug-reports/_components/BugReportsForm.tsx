@@ -109,7 +109,7 @@ export default function BugReportsForm() {
                 onChange={(e) => handleChange('device', e.target.value)}
                 className={cn(
                   'w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border box-border appearance-none bg-white focus:outline-none',
-                  !formData.device ? 'text-[#999999]' : 'text-[#333333]',
+                  !formData.device && 'text-[#999999]',
                   errors.device
                     ? 'border-[#bc4040] focus:border-[#bc4040]'
                     : 'border-[#eeeeee] focus:border-[#666666]',
