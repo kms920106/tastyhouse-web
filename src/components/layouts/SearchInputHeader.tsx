@@ -3,11 +3,13 @@
 import Header from '@/components/layouts/Header'
 import { BackButton, ClearButton, SearchButton } from '@/components/layouts/header-parts'
 import AppInputText from '@/components/ui/AppInputText'
+import { toast } from '@/components/ui/AppToaster'
 import { useRef, useState } from 'react'
 
 interface Props {
   initialValue?: string
   placeholder?: string
+  emptyMessage?: string
   onSearch: (value: string) => void
   onClear?: () => void
 }
@@ -15,6 +17,7 @@ interface Props {
 export default function SearchInputHeader({
   initialValue = '',
   placeholder = '검색어를 입력해 주세요.',
+  emptyMessage,
   onSearch,
   onClear,
 }: Props) {
@@ -23,7 +26,10 @@ export default function SearchInputHeader({
 
   const handleSearch = () => {
     const trimmed = inputValue.trim()
-    if (!trimmed) return
+    if (!trimmed) {
+      toast(emptyMessage ?? placeholder)
+      return
+    }
     onSearch(trimmed)
   }
 
