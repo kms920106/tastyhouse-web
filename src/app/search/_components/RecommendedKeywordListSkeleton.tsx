@@ -1,10 +1,10 @@
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import HashTagSkeleton from '@/components/ui/HashTagSkeleton'
 
 export default function RecommendedKeywordListSkeleton() {
   return (
     <div className="flex flex-wrap gap-2">
-      {Array.from({ length: 7 }).map((_, i) => (
-        <Skeleton key={i} className="w-20 h-9 rounded-full" />
+      {Array.from({ length: 10 }).map((_, i) => (
+        <HashTagSkeleton key={i} />
       ))}
     </div>
   )
