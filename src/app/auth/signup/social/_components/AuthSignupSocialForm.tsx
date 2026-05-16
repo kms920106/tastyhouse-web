@@ -428,7 +428,7 @@ export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }:
                         'flex-1 flex items-center justify-center h-[45px] text-sm leading-[14px] text-[#aaaaaa] border cursor-pointer transition-colors',
                         index > 0 && '-ml-px',
                         gender === value
-                          ? 'border-[#a91201] text-[#a91201] z-10'
+                          ? 'border-main text-main z-10'
                           : errors.gender
                             ? 'border-[#bc4040]'
                             : 'border-[#eeeeee]',

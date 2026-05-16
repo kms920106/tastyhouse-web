@@ -34,7 +34,7 @@ export default function CouponListItem({ memberCoupon }: Props) {
       />
       <div className="absolute inset-0 flex">
         <div className="flex flex-col justify-center w-[70%] px-[20px] py-7 overflow-hidden">
-          <span className="text-[21px] leading-[21px] text-[#a91201]">
+          <span className="text-[21px] leading-[21px] text-main">
             {discountType === 'AMOUNT' ? `${formatNumber(discountAmount)}p` : `${discountAmount}%`}
           </span>
           <span className={cn('mt-[15px] text-sm leading-[18px]', isExpired && 'text-gray-400')}>

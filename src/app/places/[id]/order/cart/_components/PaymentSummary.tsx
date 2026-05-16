@@ -27,7 +27,7 @@ export default function PaymentSummary({
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm leading-[14px]">결제예정금액</span>
-          <span className="text-[#a91201]">{formatNumber(totalProductPaymentAmount)}원</span>
+          <span className="text-main">{formatNumber(totalProductPaymentAmount)}원</span>
         </div>
       </div>
     </div>

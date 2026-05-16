@@ -34,12 +34,12 @@ export default function PaymentMethodSelector({
                   onClick={() => onPaymentMethodSelect(method.type)}
                   className={cn(
                     'relative flex items-center justify-center py-[19px] text-sm leading-[14px] border box-border overflow-hidden',
-                    selectedPaymentMethod === method.type ? 'border-[#a91201]' : 'border-[#cccccc]',
+                    selectedPaymentMethod === method.type ? 'border-main' : 'border-[#cccccc]',
                   )}
                 >
                   {method.badge && (
                     <>
-                      <div className="absolute -top-[24px] -left-[24px] w-[48px] h-[48px] bg-[#a91201] rotate-45" />
+                      <div className="absolute -top-[24px] -left-[24px] w-[48px] h-[48px] bg-main rotate-45" />
                       <span className="absolute top-[6px] left-[3px] text-[8px] leading-[8px] text-white font-medium -rotate-45">
                         {method.badge}
                       </span>

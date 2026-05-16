@@ -115,7 +115,7 @@ export default function CouponSelector({
                     key={coupon.id}
                     className={cn(
                       'relative overflow-hidden rounded-[10px] border',
-                      isSelected ? 'border-[#a91201]' : 'border-[#eeeeee]',
+                      isSelected ? 'border-main' : 'border-[#eeeeee]',
                     )}
                   >
                     <button
@@ -123,7 +123,7 @@ export default function CouponSelector({
                       className="w-full flex text-left"
                     >
                       <div className="flex-1 px-[20px] py-[20px] flex flex-col">
-                        <span className="text-[21px] leading-[21px] text-[#a91201]">
+                        <span className="text-[21px] leading-[21px] text-main">
                           {coupon.discountType === 'AMOUNT'
                             ? `${formatNumber(coupon.discountAmount)}p`
                             : `${coupon.discountAmount}%`}
@@ -149,7 +149,7 @@ export default function CouponSelector({
                         <div
                           className={cn(
                             'absolute left-0 top-0 bottom-0 border-l border-dashed',
-                            isSelected ? 'border-[#a91201]' : 'border-[#eeeeee]',
+                            isSelected ? 'border-main' : 'border-[#eeeeee]',
                           )}
                         />
                         <div className="absolute left-[-8px] top-[-8px] w-4 h-4 rounded-full bg-white" />

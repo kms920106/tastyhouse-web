@@ -25,7 +25,7 @@ export default function PointHistoryItem({
         <p
           className={cn(
             'text-sm leading-[14px]',
-            pointType === 'EARNED' ? 'text-[#a91201]' : 'text-gray-900',
+            pointType === 'EARNED' ? 'text-main' : 'text-gray-900',
           )}
         >
           {pointType === 'EARNED' ? '+' : '-'}

@@ -33,7 +33,7 @@ export default function ReviewRatingSection({ ratings, error, onRatingChange }: 
               >
                 <FaStar
                   size={40}
-                  className={star <= ratings[key] ? 'text-[#a91201]' : 'text-[#eeeeee]'}
+                  className={star <= ratings[key] ? 'text-main' : 'text-[#eeeeee]'}
                 />
               </button>
             ))}

@@ -6,8 +6,8 @@ export default function AppPrimaryButton({ className, ...props }: Props) {
     <AppButton
       className={cn(
         'w-full h-[50px] text-base leading-[16px] border-0',
-        'bg-[#a91201] text-white hover:bg-[#a91201]/90 hover:text-white',
-        'disabled:bg-[#a91201]/50 disabled:cursor-not-allowed',
+        'bg-main text-white hover:bg-main/90 hover:text-white',
+        'disabled:bg-main/50 disabled:cursor-not-allowed',
         className,
       )}
       {...props}

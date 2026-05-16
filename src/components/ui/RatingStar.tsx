@@ -15,7 +15,7 @@ export default function RatingStar({ starIndex, rating }: Props) {
     // 전체 별
     return (
       <div className="relative">
-        <FaStar size={14} fill="#a91201" />
+        <FaStar size={14} fill="var(--main-color)" />
       </div>
     )
   } else if (starIndex === fullStars + 1 && hasPartialStar) {
@@ -28,7 +28,7 @@ export default function RatingStar({ starIndex, rating }: Props) {
           className="absolute inset-0 overflow-hidden"
           style={{ clipPath: `inset(0 ${rightPercentage}% 0 0)` }}
         >
-          <FaStar size={14} fill="#a91201" />
+          <FaStar size={14} fill="var(--main-color)" />
         </div>
       </div>
     )

@@ -9,7 +9,7 @@ export default function PointBalance({ availablePoints, expiredThisMonth }: Poin
   return (
     <div className="py-[30px] text-center">
       <p className="text-xs leading-[12px]">사용 가능 포인트</p>
-      <p className="mt-2.5 text-[23px] leading-[23px] text-[#a91201]">
+      <p className="mt-2.5 text-[23px] leading-[23px] text-main">
         {formatNumber(availablePoints ?? 0)} p
       </p>
       <p className="mt-[15px] text-xs leading-[12px] text-[#aaaaaa]">

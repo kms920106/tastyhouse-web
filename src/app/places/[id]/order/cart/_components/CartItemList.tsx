@@ -29,7 +29,7 @@ export default function CartItemList({
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-base leading-[16px] text-[#aaaaaa]">장바구니가 비어있습니다.</p>
         <div className="mt-[15px]">
-          <Link href={PAGE_PATHS.HOME} className="text-sm leading-[14px] text-[#a91201] underline">
+          <Link href={PAGE_PATHS.HOME} className="text-sm leading-[14px] text-main underline">
             메뉴 담으러 가기
           </Link>
         </div>
@@ -60,7 +60,7 @@ export default function CartItemList({
       </div>
       <div className="py-[18px] border-t border-[#f2f2f2] box-border">
         <div
-          className="flex items-center justify-center gap-2.5 text-[#a91201]"
+          className="flex items-center justify-center gap-2.5 text-main"
           onClick={() => router.back()}
         >
           {cartItems.length > 0 && <LiaPlusSolid size={20} />}

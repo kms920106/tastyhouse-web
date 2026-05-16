@@ -175,10 +175,10 @@ export default function OrderReviewCreateForm({
           <p className="text-base leading-[16px]">리뷰 작성시 포인트 적립 및 주의사항</p>
           <ul className="list-disc list-inside space-y-1">
             <li className="text-xs leading-relaxed text-[#666666]">
-              일반(평점 및 내용)리뷰 작성시 <span className="text-[#a91201]">100p 적립</span>
+              일반(평점 및 내용)리뷰 작성시 <span className="text-main">100p 적립</span>
             </li>
             <li className="text-xs leading-relaxed text-[#666666]">
-              포토리뷰 작성시 <span className="text-[#a91201]">200p 적립</span>
+              포토리뷰 작성시 <span className="text-main">200p 적립</span>
             </li>
             <li className="text-xs leading-relaxed text-[#666666]">
               주문한 상품별로 리뷰 작성이 가능하며, 동일 상품 여러개 구매시 최소 1회의 한해 포인트

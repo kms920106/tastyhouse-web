@@ -65,7 +65,7 @@ export default function PaymentSummarySection({
         </div>
         <div className="flex justify-between">
           <span className="text-sm leading-[14px]">최종 결제금액</span>
-          <span className="text-sm leading-[14px] text-[#a91201]">
+          <span className="text-sm leading-[14px] text-main">
             {formatNumber(finalTotal)}원
           </span>
         </div>

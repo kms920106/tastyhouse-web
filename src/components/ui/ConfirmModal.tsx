@@ -34,7 +34,7 @@ export default function ConfirmModal({
         >
           {cancelLabel}
         </button>
-        <button onClick={onConfirm} className="flex-1 py-4 text-sm leading-[14px] text-[#a91201]">
+        <button onClick={onConfirm} className="flex-1 py-4 text-sm leading-[14px] text-main">
           {confirmLabel}
         </button>
       </ModalFooter>

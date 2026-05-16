@@ -28,14 +28,14 @@ export default function OrderedProductList({ placeName, orderItems }: Props) {
                 item.reviewed ? (
                   <Link
                     href={PAGE_PATHS.ORDERS_REVIEWS_EDIT(item.id)}
-                    className="flex items-center justify-center shrink-0 px-[11px] py-2.5 text-xs leading-[12px] text-[#a91201] border border-[#a91201] box-border"
+                    className="flex items-center justify-center shrink-0 px-[11px] py-2.5 text-xs leading-[12px] text-main border border-main box-border"
                   >
                     리뷰수정
                   </Link>
                 ) : (
                   <Link
                     href={PAGE_PATHS.ORDERS_REVIEWS_CREATE(item.id)}
-                    className="flex items-center justify-center shrink-0 px-[11px] py-2.5 bg-[#a91201] text-xs leading-[12px] text-white"
+                    className="flex items-center justify-center shrink-0 px-[11px] py-2.5 bg-main text-xs leading-[12px] text-white"
                   >
                     리뷰작성
                   </Link>
