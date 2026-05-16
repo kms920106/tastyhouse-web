@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type ToastMessage = {
   id: number
@@ -18,17 +18,20 @@ export const toast = (message: string) => {
 
 export function AppToaster() {
   const [toasts, setToasts] = useState<ToastMessage[]>([])
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     addToastFn = (message: string) => {
+      if (timerRef.current) clearTimeout(timerRef.current)
       const id = ++toastId
-      setToasts((prev) => [...prev, { id, message }])
-      setTimeout(() => {
-        setToasts((prev) => prev.filter((t) => t.id !== id))
+      setToasts([{ id, message }])
+      timerRef.current = setTimeout(() => {
+        setToasts([])
       }, 2000)
     }
     return () => {
       addToastFn = null
+      if (timerRef.current) clearTimeout(timerRef.current)
     }
   }, [])
 
