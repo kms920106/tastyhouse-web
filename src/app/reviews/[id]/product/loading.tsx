@@ -3,6 +3,7 @@ import { BackButton } from '@/components/layouts/header-parts'
 import { ReviewDetailHeaderSkeleton } from '@/components/reviews/ReviewDetailHeaderSkeleton'
 import { ReviewImageGallerySkeleton } from '@/components/reviews/ReviewImageGallerySkeleton'
 import BorderedSection from '@/components/ui/BorderedSection'
+import HashTagSkeleton from '@/components/ui/HashTagSkeleton'
 import SectionStack from '@/components/ui/SectionStack'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
@@ -99,10 +100,10 @@ export default function Loading() {
               </div>
               <div className="mt-5">
                 <div className="flex gap-2 flex-wrap">
-                  <Skeleton className="w-16 h-7 rounded-full" />
-                  <Skeleton className="w-20 h-7 rounded-full" />
-                  <Skeleton className="w-14 h-7 rounded-full" />
-                  <Skeleton className="w-18 h-7 rounded-full" />
+                  <HashTagSkeleton />
+                  <HashTagSkeleton />
+                  <HashTagSkeleton />
+                  <HashTagSkeleton />
                 </div>
               </div>
             </div>
