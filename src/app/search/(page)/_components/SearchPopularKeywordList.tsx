@@ -3,9 +3,9 @@ import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { searchRepository } from '@/domains/search/search.repository'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
-import PopularKeywordListItem from './PopularKeywordListItem'
+import SearchPopularKeywordListItem from './SearchPopularKeywordListItem'
 
-export default async function PopularKeywordList() {
+export default async function SearchPopularKeywordList() {
   const { error, status, data } = await searchRepository.getPopularKeywords()
 
   if ((error && status === 404) || !data) {
@@ -23,7 +23,7 @@ export default async function PopularKeywordList() {
       {keywords.map(({ rank, keyword, isNew }) => (
         <li key={rank}>
           <Link href={`${PAGE_PATHS.SEARCH}?q=${encodeURIComponent(keyword)}`}>
-            <PopularKeywordListItem rank={rank} keyword={keyword} isNew={isNew} />
+            <SearchPopularKeywordListItem rank={rank} keyword={keyword} isNew={isNew} />
           </Link>
         </li>
       ))}

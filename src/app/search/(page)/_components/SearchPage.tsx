@@ -1,19 +1,19 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import PopularKeywordContent from './PopularKeywordContent'
-import RecommendedKeywordContent from './RecommendedKeywordContent'
+import SearchPopularKeywordContent from './SearchPopularKeywordContent'
+import SearchRecommendedKeywordContent from './SearchRecommendedKeywordContent'
 import SearchHeader from './SearchHeader'
 
-export default function SearchHomePage() {
+export default function SearchPage() {
   return (
     <>
       <SearchHeader />
       <SectionStack className="flex-1">
         <BorderedSection>
-          <PopularKeywordContent />
+          <SearchPopularKeywordContent />
         </BorderedSection>
         <BorderedSection>
-          <RecommendedKeywordContent />
+          <SearchRecommendedKeywordContent />
         </BorderedSection>
       </SectionStack>
     </>

@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export default function PopularKeywordListItemSkeleton() {
+export default function SearchPopularKeywordListItemSkeleton() {
   return (
     <div className="flex items-center gap-5">
       <Skeleton className="w-5 h-5 shrink-0" />

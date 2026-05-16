@@ -6,7 +6,7 @@ interface Props {
   isNew: boolean
 }
 
-export default function PopularKeywordListItem({ rank, keyword, isNew }: Props) {
+export default function SearchPopularKeywordListItem({ rank, keyword, isNew }: Props) {
   return (
     <div className="flex items-center gap-5">
       <span className={cn('w-5 text-sm font-normal text-right shrink-0', rank <= 3 && 'text-main')}>

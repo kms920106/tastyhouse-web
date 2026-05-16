@@ -6,7 +6,7 @@ import { searchRepository } from '@/domains/search/search.repository'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
-export default async function RecommendedKeywordList() {
+export default async function SearchRecommendedKeywordList() {
   const { error, status, data } = await searchRepository.getRecommendedKeywords()
 
   if ((error && status === 404) || !data) {

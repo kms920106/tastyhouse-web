@@ -1,6 +1,6 @@
 import HashTagSkeleton from '@/components/ui/HashTagSkeleton'
 
-export default function RecommendedKeywordListSkeleton() {
+export default function SearchRecommendedKeywordListSkeleton() {
   return (
     <div className="flex flex-wrap gap-2">
       {Array.from({ length: 10 }).map((_, i) => (
