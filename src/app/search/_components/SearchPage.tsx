@@ -1,9 +1,7 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { Suspense } from 'react'
 import PopularKeywordContent from './PopularKeywordContent'
-import RecommendedKeywordListServer from './RecommendedKeywordListServer'
-import RecommendedKeywordListSkeleton from './RecommendedKeywordListSkeleton'
+import RecommendedKeywordContent from './RecommendedKeywordContent'
 import SearchHeader from './SearchHeader'
 import SearchResultsFetcher from './SearchResultsFetcher'
 
@@ -23,9 +21,7 @@ export default function SearchPage({ query }: Props) {
             <PopularKeywordContent />
           </BorderedSection>
           <BorderedSection>
-            <Suspense fallback={<RecommendedKeywordListSkeleton />}>
-              <RecommendedKeywordListServer />
-            </Suspense>
+            <RecommendedKeywordContent />
           </BorderedSection>
         </SectionStack>
       )}
