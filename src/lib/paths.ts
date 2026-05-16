@@ -75,6 +75,9 @@ export const PAGE_PATHS = {
   PAYMENT_SUCCESS: '/payments/success',
   PAYMENT_FAIL: '/payments/fail',
 
+  // 검색
+  SEARCH: '/search',
+
   // 장소
   PLACES: '/places',
   PLACE_DETAIL: (id: string | number) => `/places/${id}`,

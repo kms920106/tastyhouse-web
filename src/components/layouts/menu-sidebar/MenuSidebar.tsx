@@ -1,6 +1,8 @@
 'use client'
 
+import IconLink from '@/components/ui/IconLink'
 import { Sidebar, SidebarContent, SidebarHeader, useSidebar } from '@/components/ui/shadcn/sidebar'
+import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import MenuSidebarBanners from './MenuSidebarBanners'
@@ -18,12 +20,12 @@ function MenuSidebarContent({ isLoggedIn }: Props) {
     <>
       <SidebarHeader className="gap-0 p-0">
         <div className="flex items-center justify-end gap-[18px] p-[15px]">
-          <button className="flex items-center justify-center w-[18px] h-[18px]">
+          <IconLink href={PAGE_PATHS.SETTING} className="w-[18px] h-[18px]">
             <Image src="/images/icon-setting-black.png" alt="설정" width={18} height={18} />
-          </button>
-          <button className="flex items-center justify-center w-[18px] h-[18px]">
+          </IconLink>
+          <IconLink href={PAGE_PATHS.SEARCH} className="w-[18px] h-[18px]">
             <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
-          </button>
+          </IconLink>
           <button
             onClick={() => setOpenMobile(false)}
             className="flex items-center justify-center w-[18px] h-[18px]"
