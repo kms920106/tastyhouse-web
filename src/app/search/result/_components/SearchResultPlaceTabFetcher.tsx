@@ -2,20 +2,20 @@
 
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useSearchMenusInfinite } from '@/domains/search/search.hook'
+import { useSearchPlacesInfinite } from '@/domains/search/search.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useEffect } from 'react'
-import SearchMenuListItem from './SearchMenuListItem'
-import { SearchMenuListSkeleton } from './SearchMenuListItemSkeleton'
-import SearchEmptyState from './SearchEmptyState'
+import SearchResultEmptyState from './SearchResultEmptyState'
+import SearchResultPlaceListItem from './SearchResultPlaceListItem'
+import { SearchResultPlaceListSkeleton } from './SearchResultPlaceListSkeleton'
 
 interface Props {
   query: string
 }
 
-export default function SearchMenuTabFetcher({ query }: Props) {
+export default function SearchResultPlaceTabFetcher({ query }: Props) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
-    useSearchMenusInfinite(query)
+    useSearchPlacesInfinite(query)
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,
@@ -30,21 +30,21 @@ export default function SearchMenuTabFetcher({ query }: Props) {
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
-  if (isLoading) return <SearchMenuListSkeleton />
+  if (isLoading) return <SearchResultPlaceListSkeleton />
   if (isError) return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
 
   const totalElements = data?.pages[0]?.pagination?.totalElements ?? 0
-  if (totalElements === 0) return <SearchEmptyState query={query} label="메뉴" />
+  if (totalElements === 0) return <SearchResultEmptyState query={query} label="플레이스" />
 
   const items = data?.pages.flatMap((page) => page.data ?? []) ?? []
 
   return (
-    <div className="pb-[90px]">
-      <ul>
+    <div className="px-[15px] py-[20px] pb-[90px]">
+      <ul className="flex flex-col gap-[10px]">
         {items.map((item) => (
-          <SearchMenuListItem key={item.id} item={item} />
+          <SearchResultPlaceListItem key={item.id} item={item} />
         ))}
-        {isFetchingNextPage && <SearchMenuListSkeleton count={2} />}
+        {isFetchingNextPage && <SearchResultPlaceListSkeleton count={2} />}
       </ul>
       <div ref={targetRef} className="h-1" aria-hidden="true" />
     </div>

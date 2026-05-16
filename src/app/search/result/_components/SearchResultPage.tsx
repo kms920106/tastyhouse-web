@@ -1,10 +1,10 @@
 import type { SearchTab } from '@/domains/search/search.dto'
-import SearchAllTabFetcher from './SearchAllTabFetcher'
-import SearchMenuTabFetcher from './SearchMenuTabFetcher'
-import SearchPlaceTabFetcher from './SearchPlaceTabFetcher'
 import SearchResultHeader from './SearchResultHeader'
+import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
+import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'
+import SearchResultReviewTabFetcher from './SearchResultReviewTabFetcher'
+import SearchResultSearchAllTabFetcher from './SearchResultSearchAllTabFetcher'
 import SearchResultTabs from './SearchResultTabs'
-import SearchReviewTabFetcher from './SearchReviewTabFetcher'
 
 interface Props {
   query: string
@@ -16,10 +16,10 @@ export default function SearchResultPage({ query, tab }: Props) {
     <>
       <SearchResultHeader query={query} />
       <SearchResultTabs tab={tab} query={query} />
-      {tab === 'all' && <SearchAllTabFetcher query={query} />}
-      {tab === 'menu' && <SearchMenuTabFetcher query={query} />}
-      {tab === 'review' && <SearchReviewTabFetcher query={query} />}
-      {tab === 'place' && <SearchPlaceTabFetcher query={query} />}
+      {tab === 'all' && <SearchResultSearchAllTabFetcher query={query} />}
+      {tab === 'menu' && <SearchResultMenuTabFetcher query={query} />}
+      {tab === 'review' && <SearchResultReviewTabFetcher query={query} />}
+      {tab === 'place' && <SearchResultPlaceTabFetcher query={query} />}
     </>
   )
 }

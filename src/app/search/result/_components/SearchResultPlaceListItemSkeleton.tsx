@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export default function SearchPlaceListItemSkeleton() {
+export default function SearchResultPlaceListItemSkeleton() {
   return (
     <li className="flex items-center gap-[15px] px-[15px] py-[20px] bg-white border border-[#eeeeee] rounded-[2.5px]">
       <div className="flex-1 flex flex-col gap-[9px]">
@@ -10,15 +10,5 @@ export default function SearchPlaceListItemSkeleton() {
       </div>
       <Skeleton className="w-[75px] h-[75px] rounded-[2.5px] shrink-0" />
     </li>
-  )
-}
-
-export function SearchPlaceListSkeleton({ count = 5 }: { count?: number }) {
-  return (
-    <ul className="flex flex-col gap-[10px]">
-      {Array.from({ length: count }).map((_, i) => (
-        <SearchPlaceListItemSkeleton key={i} />
-      ))}
-    </ul>
   )
 }

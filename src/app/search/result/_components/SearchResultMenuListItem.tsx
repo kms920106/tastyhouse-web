@@ -10,7 +10,7 @@ interface Props {
   item: SearchMenuItem
 }
 
-export default function SearchMenuListItem({ item }: Props) {
+export default function SearchResultMenuListItem({ item }: Props) {
   const {
     id,
     name,
@@ -25,7 +25,10 @@ export default function SearchMenuListItem({ item }: Props) {
 
   return (
     <li className="border-b border-[#eeeeee] last:border-b-0">
-      <Link href={PAGE_PATHS.PRODUCT_DETAIL(id)} className="flex items-center gap-[15px] py-[15px] px-[15px]">
+      <Link
+        href={PAGE_PATHS.PRODUCT_DETAIL(id)}
+        className="flex items-center gap-[15px] py-[15px] px-[15px]"
+      >
         <ImageContainer src={imageUrl} alt={name} size={65} rounded="1px" />
         <div className="flex-1 flex flex-col min-w-0">
           <div className="flex items-center justify-between">

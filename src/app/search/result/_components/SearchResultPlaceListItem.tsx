@@ -1,7 +1,7 @@
 import ImageContainer from '@/components/ui/ImageContainer'
 import type { SearchPlaceItem } from '@/domains/search/search.model'
-import { PAGE_PATHS } from '@/lib/paths'
 import { formatDecimal } from '@/lib/number'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa'
 
@@ -9,7 +9,7 @@ interface Props {
   item: SearchPlaceItem
 }
 
-export default function SearchPlaceListItem({ item }: Props) {
+export default function SearchResultPlaceListItem({ item }: Props) {
   const { id, name, stationName, rating, imageUrl, isBookmarked } = item
 
   return (

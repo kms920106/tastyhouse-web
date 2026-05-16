@@ -7,7 +7,7 @@ interface Props {
   item: SearchReviewItem
 }
 
-export default function SearchReviewGridItem({ item }: Props) {
+export default function SearchResultReviewGridItem({ item }: Props) {
   const { reviewId, imageUrl, placeId } = item
 
   return (
