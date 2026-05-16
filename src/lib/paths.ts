@@ -77,6 +77,7 @@ export const PAGE_PATHS = {
 
   // 검색
   SEARCH: '/search',
+  SEARCH_RESULT: '/search/result',
 
   // 장소
   PLACES: '/places',

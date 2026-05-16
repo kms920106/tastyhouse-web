@@ -5,8 +5,10 @@ import { publicApi } from '@/lib/api'
 import type {
   PopularKeywordResponse,
   RecommendedKeywordResponse,
+  SearchMenuListItemResponse,
   SearchPlaceListItemResponse,
   SearchQuery,
+  SearchReviewListItemResponse,
 } from './search.dto'
 
 const ENDPOINT = '/api/search'
@@ -18,7 +20,19 @@ export const searchRepository = {
   async getRecommendedKeywords() {
     return publicApi.get<RecommendedKeywordResponse[]>(`${ENDPOINT}/v1/recommended-keywords`)
   },
+  async searchMenus(params: SearchQuery) {
+    return publicApi.get<SearchMenuListItemResponse[], SearchQuery>(`${ENDPOINT}/v1/menus`, {
+      params,
+    })
+  },
+  async searchReviews(params: SearchQuery) {
+    return publicApi.get<SearchReviewListItemResponse[], SearchQuery>(`${ENDPOINT}/v1/reviews`, {
+      params,
+    })
+  },
   async searchPlaces(params: SearchQuery) {
-    return publicApi.get<SearchPlaceListItemResponse[], SearchQuery>(`${ENDPOINT}/v1`, { params })
+    return publicApi.get<SearchPlaceListItemResponse[], SearchQuery>(`${ENDPOINT}/v1/places`, {
+      params,
+    })
   },
 }

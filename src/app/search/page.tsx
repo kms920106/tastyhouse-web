@@ -1,13 +1,5 @@
-import SearchPage from './_components/SearchPage'
+import SearchHomePage from './_components/SearchHomePage'
 
-interface Props {
-  searchParams: Promise<{
-    q?: string
-  }>
-}
-
-export default async function Page({ searchParams }: Props) {
-  const { q } = await searchParams
-
-  return <SearchPage query={q ?? ''} />
+export default function Page() {
+  return <SearchHomePage />
 }

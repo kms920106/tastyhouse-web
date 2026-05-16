@@ -17,4 +17,25 @@ export interface SearchPlaceItem {
   rating: number
   imageUrl: string | null
   foodTypes: PlaceFoodType[]
+  isBookmarked: boolean | null
+}
+
+export interface SearchMenuItem {
+  id: number
+  placeName: string
+  name: string
+  imageUrl: string | null
+  originalPrice: number
+  discountPrice: number
+  discountRate: number
+  rating: number
+  reviewCount: number
+  isRepresentative: boolean
+  spiciness: number
+}
+
+export interface SearchReviewItem {
+  reviewId: number
+  imageUrl: string
+  placeId: number
 }
