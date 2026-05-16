@@ -1,4 +1,5 @@
 export { default as BackButton } from './BackButton'
+export { default as ClearButton } from './ClearButton'
 export { default as CloseButton } from './CloseButton'
 export { default as CartButton } from './CartButton'
 export { default as HeaderIconButton } from './HeaderIconButton'
