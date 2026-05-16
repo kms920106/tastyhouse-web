@@ -6,9 +6,20 @@ import HashTag from '@/components/ui/HashTag'
 import Link from 'next/link'
 
 export default async function RecommendedKeywordListServer() {
-  const { error, data } = await searchRepository.getRecommendedKeywords()
+  const { error, status, data } = await searchRepository.getRecommendedKeywords()
 
-  if (error || !data) {
+  if ((error && status === 404) || !data) {
+    return (
+      <div className="px-[15px] py-[30px]">
+        <h2 className="text-base leading-[16px] font-bold mb-6">추천 검색어</h2>
+        <p className="py-10 text-sm text-[#aaaaaa] text-center">
+          {COMMON_ERROR_MESSAGES.FETCH_ERROR('추천 검색어')}
+        </p>
+      </div>
+    )
+  }
+
+  if (error) {
     return (
       <div className="px-[15px] py-[30px]">
         <h2 className="text-base leading-[16px] font-bold mb-6">추천 검색어</h2>
