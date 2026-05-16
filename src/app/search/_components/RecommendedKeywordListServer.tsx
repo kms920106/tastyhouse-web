@@ -1,24 +1,31 @@
-import HashTag from '@/components/ui/HashTag'
+import { searchRepository } from '@/domains/search/search.repository'
+import type { RecommendedKeyword } from '@/domains/search/search.model'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { PAGE_PATHS } from '@/lib/paths'
+import HashTag from '@/components/ui/HashTag'
 import Link from 'next/link'
 
-// TODO: API 연동 시 search.repository로 교체
-const RECOMMENDED_KEYWORDS = [
-  '브런치',
-  '인기검색어노출',
-  '브런치',
-  '인기검색어노출',
-  '인기검색어노출',
-  '브런치',
-  '인기검색어노출',
-]
+export default async function RecommendedKeywordListServer() {
+  const { error, data } = await searchRepository.getRecommendedKeywords()
 
-export default function RecommendedKeywordListServer() {
+  if (error || !data) {
+    return (
+      <div className="px-[15px] py-[30px]">
+        <h2 className="text-base leading-[16px] font-bold mb-6">추천 검색어</h2>
+        <p className="py-10 text-sm text-[#aaaaaa] text-center">
+          {COMMON_ERROR_MESSAGES.API_FETCH_ERROR}
+        </p>
+      </div>
+    )
+  }
+
+  const keywords: RecommendedKeyword[] = data
+
   return (
     <div className="px-[15px] py-[30px]">
       <h2 className="text-base leading-[16px] font-bold mb-6">추천 검색어</h2>
       <div className="flex flex-wrap gap-2">
-        {RECOMMENDED_KEYWORDS.map((keyword, i) => (
+        {keywords.map(({ keyword }, i) => (
           <Link key={i} href={`${PAGE_PATHS.SEARCH}?q=${encodeURIComponent(keyword)}`}>
             <HashTag tag={keyword} variant="secondary" size="md" />
           </Link>

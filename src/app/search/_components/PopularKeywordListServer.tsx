@@ -1,33 +1,31 @@
+import { searchRepository } from '@/domains/search/search.repository'
+import type { PopularKeyword } from '@/domains/search/search.model'
+import { PAGE_PATHS } from '@/lib/paths'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { PAGE_PATHS } from '@/lib/paths'
 
-interface PopularKeyword {
-  rank: number
-  keyword: string
-  isNew: boolean
-}
+export default async function PopularKeywordListServer() {
+  const { error, data } = await searchRepository.getPopularKeywords()
 
-// TODO: API 연동 시 search.repository로 교체
-const POPULAR_KEYWORDS: PopularKeyword[] = [
-  { rank: 1, keyword: '홍대', isNew: false },
-  { rank: 2, keyword: '데이트', isNew: false },
-  { rank: 3, keyword: '치맥', isNew: false },
-  { rank: 4, keyword: '냉모밀', isNew: false },
-  { rank: 5, keyword: '가성비', isNew: false },
-  { rank: 6, keyword: '혼밥', isNew: false },
-  { rank: 7, keyword: '매운음식', isNew: false },
-  { rank: 8, keyword: '카페', isNew: false },
-  { rank: 9, keyword: '팥빙수', isNew: true },
-  { rank: 10, keyword: '냉면', isNew: true },
-]
+  if (error || !data) {
+    return (
+      <div className="px-[15px] py-[30px]">
+        <h2 className="text-base leading-[16px] font-bold mb-6">인기 검색어</h2>
+        <p className="py-10 text-sm text-[#aaaaaa] text-center">
+          {COMMON_ERROR_MESSAGES.API_FETCH_ERROR}
+        </p>
+      </div>
+    )
+  }
 
-export default function PopularKeywordListServer() {
+  const keywords: PopularKeyword[] = data
+
   return (
     <div className="px-[15px] py-[30px]">
       <h2 className="text-base leading-[16px] font-bold mb-6">인기 검색어</h2>
       <ul className="flex flex-col gap-5 px-[15px]">
-        {POPULAR_KEYWORDS.map(({ rank, keyword, isNew }) => (
+        {keywords.map(({ rank, keyword, isNew }) => (
           <li key={rank}>
             <Link
               href={`${PAGE_PATHS.SEARCH}?q=${encodeURIComponent(keyword)}`}
@@ -41,9 +39,7 @@ export default function PopularKeywordListServer() {
               >
                 {rank}
               </span>
-              <span className="flex-1 text-sm leading-[16px] font-regular">
-                {keyword}
-              </span>
+              <span className="flex-1 text-sm leading-[16px] font-regular">{keyword}</span>
               {isNew && <span className="text-sm leading-[16px] text-main">NEW</span>}
             </Link>
           </li>
