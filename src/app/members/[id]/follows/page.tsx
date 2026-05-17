@@ -12,11 +12,9 @@ interface Props {
 }
 
 export default async function Page({ params, searchParams }: Props) {
-  const [{ id }, { tab }] = await Promise.all([params, searchParams])
+  const [{ id }, { tab }, isLoggedIn] = await Promise.all([params, searchParams, getIsLoggedIn()])
   const memberId = Number(id)
   const initialTab = (tab || 'follower') as FollowTabValue
-
-  const isLoggedIn = await getIsLoggedIn()
 
   let isOwner = false
   if (isLoggedIn) {

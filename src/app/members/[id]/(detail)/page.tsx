@@ -8,10 +8,8 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  const { id } = await params
+  const [{ id }, isLoggedIn] = await Promise.all([params, getIsLoggedIn()])
   const memberId = Number(id)
-
-  const isLoggedIn = await getIsLoggedIn()
 
   return <MemberDetailPage memberId={memberId} isLoggedIn={isLoggedIn} />
 }
