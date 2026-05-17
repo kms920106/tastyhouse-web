@@ -2,9 +2,9 @@ import MenuCategoryItem from '@/components/menus/MenuCategoryItem'
 import MenuItem from '@/components/menus/MenuItem'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { placeRepository } from '@/domains/place/place.repository'
 import { ProductCategory } from '@/domains/product'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
@@ -21,25 +21,21 @@ export default async function PlaceOrderMenuList({ placeId }: Props) {
 
   const menuCategories: ProductCategory[] = data
 
-  return (
-    <>
-      {menuCategories.map((menuCategory) => (
-        <BorderedSection key={menuCategory.categoryName}>
-          <div className="px-[15px]">
-            <MenuCategoryItem categoryName={menuCategory.categoryName}>
-              {menuCategory.products.map((menu) => (
-                <Link
-                  key={menu.id}
-                  href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}
-                  className="block"
-                >
-                  <MenuItem key={menu.id} menu={menu} />
-                </Link>
-              ))}
-            </MenuCategoryItem>
-          </div>
-        </BorderedSection>
-      ))}
-    </>
-  )
+  return menuCategories.map((menuCategory) => (
+    <BorderedSection key={menuCategory.categoryName}>
+      <div className="px-[15px]">
+        <MenuCategoryItem categoryName={menuCategory.categoryName}>
+          {menuCategory.products.map((menu) => (
+            <Link
+              key={menu.id}
+              href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}
+              className="block"
+            >
+              <MenuItem key={menu.id} menu={menu} />
+            </Link>
+          ))}
+        </MenuCategoryItem>
+      </div>
+    </BorderedSection>
+  ))
 }

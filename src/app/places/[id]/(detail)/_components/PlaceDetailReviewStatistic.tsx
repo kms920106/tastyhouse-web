@@ -3,18 +3,18 @@ import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { usePlaceReviewStatistics } from '@/domains/place/place.hook'
-import RatingDistributionChart from './RatingDistributionChart'
-import ReviewStatisticSkeleton from './ReviewStatisticSkeleton'
+import PlaceDetailRatingDistributionChart from './PlaceDetailRatingDistributionChart'
+import PlaceDetailReviewStatisticSkeleton from './PlaceDetailReviewStatisticSkeleton'
 
 interface Props {
   placeId: number
 }
 
-export default function ReviewStatistic({ placeId }: Props) {
+export default function PlaceDetailReviewStatistic({ placeId }: Props) {
   const { data, isLoading, error } = usePlaceReviewStatistics(placeId)
 
   if (isLoading) {
-    return <ReviewStatisticSkeleton />
+    return <PlaceDetailReviewStatisticSkeleton />
   }
 
   if (error) {
@@ -42,7 +42,7 @@ export default function ReviewStatistic({ placeId }: Props) {
     <>
       <div className="flex items-center justify-center gap-[30px] pt-[30px] pb-[21px] border-b border-[#eeeeee] box-border">
         <ReviewRatingScore rating={totalRating} reviewCount={totalReviewCount} />
-        <RatingDistributionChart ratingCounts={ratingCounts} />
+        <PlaceDetailRatingDistributionChart ratingCounts={ratingCounts} />
       </div>
       <div className="px-[15px] pt-[19px] pb-[30px]">
         <ReviewRatingDetail

@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function PlaceSummarySkeleton() {
+export function PlaceDetailSummarySkeleton() {
   return (
     <>
       <div className="flex items-start justify-between mb-6">

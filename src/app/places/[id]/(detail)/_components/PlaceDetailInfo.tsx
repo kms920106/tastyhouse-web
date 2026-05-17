@@ -22,7 +22,7 @@ interface Props {
   placeInfo: PlaceInfo
 }
 
-export default function PlaceInfoDetail({ placeInfo }: Props) {
+export default function PlaceDetailInfo({ placeInfo }: Props) {
   const {
     businessHours,
     breakTimes,

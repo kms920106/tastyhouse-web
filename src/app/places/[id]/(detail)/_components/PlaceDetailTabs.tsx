@@ -2,14 +2,14 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import PlaceInfoSection from './PlaceInfoSection'
-import PlaceMenuListSection from './PlaceMenuListSection'
-import PlacePhotoListSection from './PlacePhotoListSection'
-import ReviewSection from './ReviewSection'
+import PlaceDetailInfoContent from './PlaceDetailInfoContent'
+import PlaceDetailMenuListContent from './PlaceDetailMenuListContent'
+import PlaceDetailPhotoListContent from './PlaceDetailPhotoListContent'
+import PlaceDetailReviewContent from './PlaceDetailReviewSection'
 
-export type PlaceTab = 'info' | 'menu' | 'photo' | 'review'
+export type PlaceDetailTab = 'info' | 'menu' | 'photo' | 'review'
 
-const TABS: { label: string; value: PlaceTab }[] = [
+const TABS: { label: string; value: PlaceDetailTab }[] = [
   { label: '정보', value: 'info' },
   { label: '메뉴', value: 'menu' },
   { label: '포토', value: 'photo' },
@@ -18,14 +18,14 @@ const TABS: { label: string; value: PlaceTab }[] = [
 
 interface Props {
   placeId: number
-  initialTab: PlaceTab
+  initialTab: PlaceDetailTab
 }
 
-export default function PlaceTabs({ placeId, initialTab }: Props) {
+export default function PlaceDetailTabs({ placeId, initialTab }: Props) {
   const { handleTabChange } = useTabNavigation()
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChange} className="w-full">
+    <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0 w-full">
       <div className="sticky top-[60px] bg-white z-40">
         <TabsList className="w-full h-auto p-0 bg-white border-0">
           {TABS.map(({ label, value }) => (
@@ -40,16 +40,16 @@ export default function PlaceTabs({ placeId, initialTab }: Props) {
         </TabsList>
       </div>
       <TabsContent value="info" className="mt-0">
-        <PlaceInfoSection placeId={placeId} />
+        <PlaceDetailInfoContent placeId={placeId} />
       </TabsContent>
       <TabsContent value="menu" className="mt-0">
-        <PlaceMenuListSection placeId={placeId} />
+        <PlaceDetailMenuListContent placeId={placeId} />
       </TabsContent>
       <TabsContent value="photo" className="mt-0">
-        <PlacePhotoListSection placeId={placeId} />
+        <PlaceDetailPhotoListContent placeId={placeId} />
       </TabsContent>
       <TabsContent value="review" className="mt-0">
-        <ReviewSection placeId={placeId} />
+        <PlaceDetailReviewContent placeId={placeId} />
       </TabsContent>
     </Tabs>
   )

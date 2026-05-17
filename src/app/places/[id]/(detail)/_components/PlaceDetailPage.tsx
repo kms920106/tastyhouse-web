@@ -1,13 +1,13 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import PlaceDetailHeader from './PlaceDetailHeader'
-import PlaceImageGallerySection from './PlaceImageGallerySection'
-import PlaceSummarySection from './PlaceSummarySection'
-import PlaceTabs, { type PlaceTab } from './PlaceTabs'
+import PlaceDetailImageGalleryContent from './PlaceDetailImageGalleryContent'
+import PlaceDetailSummaryContent from './PlaceDetailSummaryContent'
+import PlaceDetailTabs, { type PlaceDetailTab } from './PlaceDetailTabs'
 
 interface Props {
   placeId: number
-  initialTab: PlaceTab
+  initialTab: PlaceDetailTab
 }
 
 export default function PlaceDetailPage({ placeId, initialTab }: Props) {
@@ -16,10 +16,12 @@ export default function PlaceDetailPage({ placeId, initialTab }: Props) {
       <PlaceDetailHeader placeId={placeId} />
       <SectionStack>
         <BorderedSection>
-          <PlaceImageGallerySection placeId={placeId} />
-          <PlaceSummarySection placeId={placeId} />
+          <PlaceDetailImageGalleryContent placeId={placeId} />
+          <PlaceDetailSummaryContent placeId={placeId} />
         </BorderedSection>
-        <PlaceTabs placeId={placeId} initialTab={initialTab} />
+        <BorderedSection>
+          <PlaceDetailTabs placeId={placeId} initialTab={initialTab} />
+        </BorderedSection>
       </SectionStack>
     </>
   )

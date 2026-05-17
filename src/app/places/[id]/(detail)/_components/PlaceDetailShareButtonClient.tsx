@@ -10,7 +10,7 @@ interface Props {
   placeName: string
 }
 
-export default function ShareButtonClient({ placeId, placeName }: Props) {
+export default function PlaceDetailShareButtonClient({ placeId, placeName }: Props) {
   const getShareUrl = useCallback(() => {
     return `${window.location.origin}${PAGE_PATHS.PLACE_DETAIL(placeId)}`
   }, [placeId])

@@ -5,7 +5,7 @@ import * as ProgressPrimitive from '@radix-ui/react-progress'
 import * as React from 'react'
 
 // 평점 분포 바 차트 컴포넌트
-export default function RatingDistributionChart({
+export default function PlaceDetailRatingDistributionChart({
   ratingCounts,
 }: {
   ratingCounts: Record<string, number>

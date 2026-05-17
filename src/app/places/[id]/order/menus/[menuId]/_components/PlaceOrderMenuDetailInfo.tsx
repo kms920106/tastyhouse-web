@@ -1,4 +1,4 @@
-import ImageGallery from '@/app/places/[id]/(detail)/_components/ImageGallery'
+import PlaceImageGallery from '@/components/places/PlaceImageGallery'
 import { formatDecimal, formatNumber } from '@/lib/number'
 
 interface Props {
@@ -20,7 +20,7 @@ export default function PlaceOrderMenuDetailInfo({
 }: Props) {
   return (
     <>
-      <ImageGallery imageUrls={imageUrls} />
+      <PlaceImageGallery imageUrls={imageUrls} />
       <div className="px-[15px] py-[21px]">
         <h1 className="text-lg leading-[18px] font-bold">{name}</h1>
         <p className="mt-[13px] text-sm leading-relaxed">{description}</p>

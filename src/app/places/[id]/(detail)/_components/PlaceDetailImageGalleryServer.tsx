@@ -1,13 +1,13 @@
+import PlaceImageGallery from '@/components/places/PlaceImageGallery'
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import ImageGallery from './ImageGallery'
+import { placeRepository } from '@/domains/place/place.repository'
 
 interface Props {
   placeId: number
 }
 
-export default async function PlaceImageGalleryServer({ placeId }: Props) {
+export default async function PlaceDetailImageGalleryServer({ placeId }: Props) {
   const { error, status, data } = await placeRepository.getPlaceBanners(placeId)
 
   if ((error && status === 404) || !data) {
@@ -20,5 +20,5 @@ export default async function PlaceImageGalleryServer({ placeId }: Props) {
 
   const imageUrls = data.map((banner) => banner.imageUrl)
 
-  return <ImageGallery imageUrls={imageUrls} />
+  return <PlaceImageGallery imageUrls={imageUrls} />
 }

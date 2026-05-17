@@ -2,7 +2,7 @@ import { ReviewRatingDetailSkeleton } from '@/components/reviews/ReviewRatingDet
 import { ReviewRatingScoreSkeleton } from '@/components/reviews/ReviewRatingScoreSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export default function ReviewStatisticSkeleton() {
+export default function PlaceDetailReviewStatisticSkeleton() {
   return (
     <>
       <div className="flex items-center justify-center gap-[30px] pt-[30px] pb-[21px] border-b border-[#eeeeee] box-border">

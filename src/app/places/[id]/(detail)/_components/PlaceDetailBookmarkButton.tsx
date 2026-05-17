@@ -7,11 +7,7 @@ interface Props {
   isBookmarked: boolean
 }
 
-export default function PlaceBookmarkButton({
-  onClick,
-  disabled,
-  isBookmarked,
-}: Props) {
+export default function PlaceDetailBookmarkButton({ onClick, disabled, isBookmarked }: Props) {
   return (
     <button
       onClick={onClick}

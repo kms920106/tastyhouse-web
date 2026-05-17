@@ -1,7 +1,7 @@
 import { FacilitySelectorSkeleton } from '@/components/places/FacilitySelectorSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function PlaceInfoDetailSkeleton() {
+export function PlaceDetailInfoSkeleton() {
   return (
     <>
       <div className="relative mt-[13px] px-[15px] py-[23px] pb-4 bg-[#f9f9f9] border border-[#cccccc] box-border rounded-[5px]">

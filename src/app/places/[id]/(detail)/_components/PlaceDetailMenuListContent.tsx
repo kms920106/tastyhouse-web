@@ -2,16 +2,16 @@ import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import StickyFooter from '@/components/ui/StickyFooter'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
-import PlaceMenuListFetcher from './PlaceMenuListFetcher'
+import PlaceDetailMenuListFetcher from './PlaceDetailMenuListFetcher'
 
 interface Props {
   placeId: number
 }
 
-export default function PlaceMenuListSection({ placeId }: Props) {
+export default function PlaceDetailMenuListContent({ placeId }: Props) {
   return (
-    <section className="px-[15px]">
-      <PlaceMenuListFetcher placeId={placeId} />
+    <div className="px-[15px]">
+      <PlaceDetailMenuListFetcher placeId={placeId} />
       <StickyFooter>
         <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
           <Link href={PAGE_PATHS.ORDER_METHOD(placeId)}>
@@ -19,6 +19,6 @@ export default function PlaceMenuListSection({ placeId }: Props) {
           </Link>
         </div>
       </StickyFooter>
-    </section>
+    </div>
   )
 }

@@ -1,7 +1,7 @@
 import { ReviewImageGallerySkeleton } from '@/components/reviews/ReviewImageGallerySkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function PlacePhotoListSkeleton() {
+export function PlaceDetailPhotoListSkeleton() {
   return (
     <>
       {Array.from({ length: 3 }).map((_, i) => (

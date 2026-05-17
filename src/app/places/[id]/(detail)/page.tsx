@@ -1,7 +1,7 @@
 import { placeRepository } from '@/domains/place/place.repository'
 import type { Metadata } from 'next'
 import PlaceDetailPage from './_components/PlaceDetailPage'
-import type { PlaceTab } from './_components/PlaceTabs'
+import type { PlaceDetailTab } from './_components/PlaceDetailTabs'
 
 interface Props {
   params: Promise<{
@@ -40,10 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const PLACE_TAB_VALUES: PlaceTab[] = ['info', 'menu', 'photo', 'review']
+const PLACE_TAB_VALUES: PlaceDetailTab[] = ['info', 'menu', 'photo', 'review']
 
-function parsePlaceTab(value: string | undefined): PlaceTab {
-  return PLACE_TAB_VALUES.includes(value as PlaceTab) ? (value as PlaceTab) : 'info'
+function parsePlaceTab(value: string | undefined): PlaceDetailTab {
+  return PLACE_TAB_VALUES.includes(value as PlaceDetailTab) ? (value as PlaceDetailTab) : 'info'
 }
 
 export default async function Page({ params, searchParams }: Props) {

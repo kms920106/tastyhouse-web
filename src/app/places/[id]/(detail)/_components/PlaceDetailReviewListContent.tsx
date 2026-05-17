@@ -8,7 +8,7 @@ interface Props {
   placeId: number
 }
 
-export default function ReviewList({ placeId }: Props) {
+export default function PlaceDetailReviewListContent({ placeId }: Props) {
   const { data, isLoading, isError } = usePlaceReviews(placeId)
 
   return (

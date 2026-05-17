@@ -17,7 +17,7 @@ interface Props {
   bookmarkButton: ReactNode
 }
 
-export default function PlaceSummary({
+export default function PlaceDetailSummaryInfo({
   id,
   name,
   roadAddress,

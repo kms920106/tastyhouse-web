@@ -3,13 +3,13 @@ import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { FaRegBookmark } from 'react-icons/fa'
-import PlaceBookmarkButtonClient from './PlaceBookmarkButtonClient'
+import PlaceDetailBookmarkButtonClient from './PlaceDetailBookmarkButtonClient'
 
 interface Props {
   placeId: number
 }
 
-export default async function PlaceBookmarkButtonServer({ placeId }: Props) {
+export default async function PlaceDetailBookmarkButtonServer({ placeId }: Props) {
   const isLoggedIn = await getIsLoggedIn()
 
   if (!isLoggedIn) {
@@ -43,7 +43,7 @@ export default async function PlaceBookmarkButtonServer({ placeId }: Props) {
 
   const { bookmarked } = data
 
-  return <PlaceBookmarkButtonClient initialIsBookmarked={bookmarked} placeId={placeId} />
+  return <PlaceDetailBookmarkButtonClient initialIsBookmarked={bookmarked} placeId={placeId} />
 }
 
 /*

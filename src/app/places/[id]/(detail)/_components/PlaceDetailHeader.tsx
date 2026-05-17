@@ -3,7 +3,7 @@ import { BackButton } from '@/components/layouts/header-parts'
 import { Suspense } from 'react'
 import { PlaceDetailHeaderSkeleton } from './PlaceDetailHeaderSkeleton'
 import PlaceDetailHeaderServer from './PlaceDetailHeaderServer'
-import ShareButtonServer from './ShareButtonServer'
+import PlaceDetailShareButtonServer from './PlaceDetailShareButtonServer'
 
 interface Props {
   placeId: number
@@ -21,7 +21,7 @@ export default function PlaceDetailHeader({ placeId }: Props) {
         </Suspense>
       </HeaderCenter>
       <HeaderRight>
-        <ShareButtonServer placeId={placeId} />
+        <PlaceDetailShareButtonServer placeId={placeId} />
       </HeaderRight>
     </Header>
   )

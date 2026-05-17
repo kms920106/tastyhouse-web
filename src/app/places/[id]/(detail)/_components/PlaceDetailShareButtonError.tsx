@@ -1,10 +1,10 @@
 'use client'
 
+import ShareButton from '@/components/layouts/header-parts/ShareButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import ShareButton from '../../../../../components/layouts/header-parts/ShareButton'
 
-export default function ShareButtonError() {
+export default function PlaceDetailShareButtonError() {
   const handleClick = () => {
     toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR)
   }

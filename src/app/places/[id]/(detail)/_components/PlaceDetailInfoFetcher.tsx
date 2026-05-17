@@ -1,18 +1,18 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { usePlaceInfoDetail } from '@/domains/place/place.hook'
-import { PlaceInfoDetailSkeleton } from './PlaceInfoDetailSkeleton'
-import PlaceInfoDetail from './PlaceInfoDetail'
+import { PlaceDetailInfoSkeleton } from './PlaceDetailInfoSkeleton'
+import PlaceDetailInfo from './PlaceDetailInfo'
 
 interface Props {
   placeId: number
 }
 
-export default function PlaceInfoDetailFetcher({ placeId }: Props) {
+export default function PlaceDetailInfoFetcher({ placeId }: Props) {
   const { data, isLoading, error } = usePlaceInfoDetail(placeId)
 
   if (isLoading) {
-    return <PlaceInfoDetailSkeleton />
+    return <PlaceDetailInfoSkeleton />
   }
 
   if (error) {
@@ -28,5 +28,5 @@ export default function PlaceInfoDetailFetcher({ placeId }: Props) {
     phoneNumber: data.detailRes.data?.phoneNumber ?? null,
   }
 
-  return <PlaceInfoDetail placeInfo={placeInfo} />
+  return <PlaceDetailInfo placeInfo={placeInfo} />
 }

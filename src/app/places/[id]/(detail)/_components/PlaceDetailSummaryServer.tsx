@@ -2,14 +2,14 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { ReactNode } from 'react'
-import PlaceSummary from './PlaceSummary'
+import PlaceDetailSummaryInfo from './PlaceDetailSummaryInfo'
 
 interface Props {
   placeId: number
   bookmarkButton: ReactNode
 }
 
-export default async function PlaceSummaryServer({ placeId, bookmarkButton }: Props) {
+export default async function PlaceDetailSummaryServer({ placeId, bookmarkButton }: Props) {
   const { error, status, data } = await placeRepository.getPlaceDetail(placeId)
 
   if ((error && status === 404) || !data) {
@@ -23,7 +23,7 @@ export default async function PlaceSummaryServer({ placeId, bookmarkButton }: Pr
   const { id, name, roadAddress, lotAddress, rating } = data
 
   return (
-    <PlaceSummary
+    <PlaceDetailSummaryInfo
       id={id}
       name={name}
       roadAddress={roadAddress}
