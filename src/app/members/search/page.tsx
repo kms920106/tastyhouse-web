@@ -10,8 +10,8 @@ interface Props {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const { q } = await searchParams
-  const isLoggedIn = await getIsLoggedIn()
+  const [{ q }, isLoggedIn] = await Promise.all([searchParams, getIsLoggedIn()])
+
   if (!isLoggedIn) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
