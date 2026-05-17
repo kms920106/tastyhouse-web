@@ -14,6 +14,7 @@ export default function SearchResultHeader({ query }: Props) {
   return (
     <SearchInputHeader
       initialValue={query}
+      showBorder={false}
       onSearch={(value) =>
         router.replace(`${PAGE_PATHS.SEARCH_RESULT}?q=${encodeURIComponent(value)}&tab=all`)
       }

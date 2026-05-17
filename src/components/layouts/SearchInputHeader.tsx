@@ -10,6 +10,7 @@ interface Props {
   initialValue?: string
   placeholder?: string
   emptyMessage?: string
+  showBorder?: boolean
   onSearch: (value: string) => void
   onClear?: () => void
 }
@@ -18,6 +19,7 @@ export default function SearchInputHeader({
   initialValue = '',
   placeholder = '검색어를 입력해 주세요.',
   emptyMessage,
+  showBorder = true,
   onSearch,
   onClear,
 }: Props) {
@@ -44,7 +46,7 @@ export default function SearchInputHeader({
   }
 
   return (
-    <Header variant="white" height={55}>
+    <Header variant="white" height={55} showBorder={showBorder}>
       <BackButton />
       <div className="flex-1">
         <AppInputText
