@@ -3,11 +3,11 @@ import SearchResultHeader from './SearchResultHeader'
 import SearchResultTabs from './SearchResultTabs'
 
 interface Props {
-  query: string
   tab: SearchTab
+  query: string
 }
 
-export default function SearchResultPage({ query, tab }: Props) {
+export default function SearchResultPage({ tab, query }: Props) {
   return (
     <>
       <SearchResultHeader query={query} />

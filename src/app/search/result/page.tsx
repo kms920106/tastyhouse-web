@@ -13,5 +13,5 @@ export default async function Page({ searchParams }: Props) {
 
   const initialTab = (tab || 'all') as SearchTab
 
-  return <SearchResultPage query={q ?? ''} tab={initialTab} />
+  return <SearchResultPage tab={initialTab} query={q ?? ''} />
 }
