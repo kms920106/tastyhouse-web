@@ -5,7 +5,6 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import ProductItem from '@/components/products/ProductItem'
-import { Product } from '@/domains/product'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,7 +12,17 @@ import { useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { HomeChoiceSwiperSkeleton } from './HomeChoiceSwiperSkeleton'
 
-interface ChoicePlace {
+interface Product {
+  id: number
+  name: string
+  placeName: string
+  imageUrl: string
+  originalPrice: number
+  discountPrice: number
+  discountRate: number
+}
+
+interface Place {
   id: number
   imageUrl: string
   name: string
@@ -23,7 +32,7 @@ interface ChoicePlace {
 }
 
 interface Props {
-  places: ChoicePlace[]
+  places: Place[]
 }
 
 export default function HomeChoiceSwiper({ places }: Props) {
@@ -49,7 +58,7 @@ export default function HomeChoiceSwiper({ places }: Props) {
   return (
     <>
       <Swiper spaceBetween={20} slidesPerView={1.15} className="pb-12">
-        {places.map((place: ChoicePlace) => (
+        {places.map((place) => (
           <SwiperSlide key={place.id}>
             <Link href={PAGE_PATHS.PLACE_DETAIL(place.id)}>
               <div className="relative w-full aspect-[2/3] overflow-hidden">
@@ -70,7 +79,7 @@ export default function HomeChoiceSwiper({ places }: Props) {
               </div>
             </Link>
             <div className="mb-10 space-y-0 divide-y divide-[#eeeeee] border-b border-[#eeeeee]">
-              {place.products.map((product: Product) => (
+              {place.products.map((product) => (
                 <ProductItem
                   key={product.id}
                   id={product.id}
