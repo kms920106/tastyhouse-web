@@ -39,9 +39,18 @@ export default function PlaceDetailMenuListFetcher({ placeId }: Props) {
       categoryName={menuCategory.categoryName}
       className="border-b border-[#eeeeee] box-border"
     >
-      {menuCategory.products.map((menu) => (
-        <Link key={menu.id} href={PAGE_PATHS.PRODUCT_DETAIL(placeId)} className="block">
-          <ProductItem menu={menu} />
+      {menuCategory.products.map((product) => (
+        <Link key={product.id} href={PAGE_PATHS.PRODUCT_DETAIL(placeId)} className="block">
+          <ProductItem
+            imageUrl={product.imageUrl}
+            spiciness={product.spiciness}
+            name={product.name}
+            originalPrice={product.originalPrice}
+            discountPrice={product.discountPrice}
+            discountRate={product.discountRate}
+            rating={product.rating}
+            reviewCount={product.reviewCount}
+          />
         </Link>
       ))}
     </ProductCategoryGroup>

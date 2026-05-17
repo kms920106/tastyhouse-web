@@ -25,13 +25,22 @@ export default async function PlaceOrderMenuList({ placeId }: Props) {
     <BorderedSection key={menuCategory.categoryName}>
       <div className="px-[15px]">
         <ProductCategoryGroup categoryName={menuCategory.categoryName}>
-          {menuCategory.products.map((menu) => (
+          {menuCategory.products.map((product) => (
             <Link
-              key={menu.id}
-              href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}
+              key={product.id}
+              href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, product.id)}
               className="block"
             >
-              <ProductItem menu={menu} />
+              <ProductItem
+                imageUrl={product.imageUrl}
+                spiciness={product.spiciness}
+                name={product.name}
+                originalPrice={product.originalPrice}
+                discountPrice={product.discountPrice}
+                discountRate={product.discountRate}
+                rating={product.rating}
+                reviewCount={product.reviewCount}
+              />
             </Link>
           ))}
         </ProductCategoryGroup>

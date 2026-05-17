@@ -68,7 +68,7 @@ export default function SearchResultAll({ query }: Props) {
             <div>
               {(menus.data?.data ?? []).map((item, i, arr) => (
                 <React.Fragment key={item.id}>
-                  <SearchResultMenuListItem item={item} />
+                  <SearchResultMenuListItem product={item} />
                   {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
                 </React.Fragment>
               ))}

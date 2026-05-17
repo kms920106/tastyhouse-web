@@ -4,13 +4,22 @@ import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
 interface Props {
-  item: Product
+  product: Product
 }
 
-export default function SearchResultMenuListItem({ item }: Props) {
+export default function SearchResultMenuListItem({ product }: Props) {
   return (
-    <Link href={PAGE_PATHS.PRODUCT_DETAIL(item.id)} className="block">
-      <ProductItem menu={item} />
+    <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
+      <ProductItem
+        imageUrl={product.imageUrl}
+        spiciness={product.spiciness}
+        name={product.name}
+        originalPrice={product.originalPrice}
+        discountPrice={product.discountPrice}
+        discountRate={product.discountRate}
+        rating={product.rating}
+        reviewCount={product.reviewCount}
+      />
     </Link>
   )
 }

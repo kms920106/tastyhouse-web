@@ -43,10 +43,8 @@ export default function SearchResultMenuTabFetcher({ query }: Props) {
       <div>
         {items.map((item, i, arr) => (
           <React.Fragment key={item.id}>
-            <SearchResultMenuListItem item={item} />
-            {i < arr.length - 1 && (
-              <div className="border-t border-[#eeeeee] my-[15px]" />
-            )}
+            <SearchResultMenuListItem product={item} />
+            {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
           </React.Fragment>
         ))}
         {isFetchingNextPage && (
