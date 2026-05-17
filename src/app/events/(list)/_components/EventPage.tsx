@@ -1,8 +1,9 @@
-import EventTabs, { EventTabValue } from './EventTabs'
+import EventTabs from './EventTabs'
+import type { EventTab } from './EventTabs'
 import EventHeader from './EventHeader'
 
 interface Props {
-  initialTab: EventTabValue
+  initialTab: EventTab
 }
 
 export default function EventPage({ initialTab }: Props) {

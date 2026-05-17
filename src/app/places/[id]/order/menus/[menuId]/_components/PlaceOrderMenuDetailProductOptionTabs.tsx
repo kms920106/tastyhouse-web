@@ -7,13 +7,13 @@ import { useTabNavigation } from '@/hooks/useTabNavigation'
 import PlaceOrderMenuDetailOptionList from './PlaceOrderMenuDetailOptionList'
 import PlaceOrderMenuDetailReviewContent from './PlaceOrderMenuDetailReviewContent'
 
-export type PlaceOrderMenuDetailTabValue = 'options' | 'reviews'
+export type ProductMenuDetailTab = 'options' | 'reviews'
 
 interface Props {
   productId: number
   optionGroups: ProductMenuOptionGroup[]
   reviewCount: number
-  initialTab: PlaceOrderMenuDetailTabValue
+  initialTab: ProductMenuDetailTab
   selectedOptions: Record<number, number | number[]>
   onRadioSelect: (groupId: number, optionId: number) => void
   onCheckboxToggle: (groupId: number, optionId: number, maxSelect: number) => void

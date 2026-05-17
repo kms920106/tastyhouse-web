@@ -1,11 +1,10 @@
 import MyPageProfile from './MyPageProfile'
 import MyPageHeader from './MyPageHeader'
 import MyPageTabs from './MyPageTabs'
-
-export type MyPageTabValue = 'reviews' | 'payments' | 'bookmarks'
+import type { MyPageTab } from './MyPageTabs'
 
 interface Props {
-  initialTab: MyPageTabValue
+  initialTab: MyPageTab
   isLoggedIn: boolean
 }
 

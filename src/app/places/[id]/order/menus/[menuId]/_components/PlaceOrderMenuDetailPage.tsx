@@ -6,12 +6,12 @@ import { productRepository } from '@/domains/product/product.repository'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
 import PlaceOrderMenuDetailInfo from './PlaceOrderMenuDetailInfo'
 import PlaceOrderMenuDetailOptionSelector from './PlaceOrderMenuDetailOptionSelector'
-import type { PlaceOrderMenuDetailTabValue } from './PlaceOrderMenuDetailProductOptionTabs'
+import type { ProductMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
   placeId: number
   productId: number
-  initialTab: PlaceOrderMenuDetailTabValue
+  initialTab: ProductMenuDetailTab
 }
 
 export default async function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {

@@ -2,19 +2,19 @@
 
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import { ReviewType } from '@/domains/review'
+import type { ReviewType } from '@/domains/review'
+
+export type ReviewTab = 'all' | 'following'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import LatestReviewList from './LatestReviewList'
 
-export type TabValue = 'all' | 'following'
-
-const reviewTypeMap: Record<TabValue, ReviewType> = {
+const reviewTypeMap: Record<ReviewTab, ReviewType> = {
   all: 'ALL',
   following: 'FOLLOWING',
 }
 
 interface Props {
-  initialTab: TabValue
+  initialTab: ReviewTab
 }
 
 export default function ReviewTabs({ initialTab }: Props) {

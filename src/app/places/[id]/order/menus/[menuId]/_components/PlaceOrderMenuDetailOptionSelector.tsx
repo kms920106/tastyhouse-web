@@ -10,7 +10,7 @@ import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import PlaceOrderMenuDetailProductOptionTabs, {
-  type PlaceOrderMenuDetailTabValue,
+  type ProductMenuDetailTab,
 } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
   placeId: number
   optionGroups: ProductMenuOptionGroup[]
   reviewCount: number
-  initialTab: PlaceOrderMenuDetailTabValue
+  initialTab: ProductMenuDetailTab
 }
 
 export default function PlaceOrderMenuDetailOptionSelector({

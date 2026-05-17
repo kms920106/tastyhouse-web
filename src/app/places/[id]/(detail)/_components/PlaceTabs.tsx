@@ -7,11 +7,11 @@ import PlaceMenuListSection from './PlaceMenuListSection'
 import PlacePhotoListSection from './PlacePhotoListSection'
 import ReviewSection from './ReviewSection'
 
-export type PlaceTabValue = 'info' | 'menu' | 'photo'
+export type PlaceTab = 'info' | 'menu' | 'photo' | 'review'
 
 interface Props {
   placeId: number
-  initialTab: PlaceTabValue
+  initialTab: PlaceTab
 }
 
 export default function PlaceTabs({ placeId, initialTab }: Props) {

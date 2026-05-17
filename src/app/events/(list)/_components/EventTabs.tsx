@@ -6,10 +6,10 @@ import ActiveEventList from './ActiveEventList'
 import EndedEventList from './EndedEventList'
 import WinnerEventList from './WinnerEventList'
 
-export type EventTabValue = 'ongoing' | 'ended' | 'winner'
+export type EventTab = 'ongoing' | 'ended' | 'winner'
 
 interface Props {
-  initialTab: EventTabValue
+  initialTab: EventTab
 }
 
 export default function EventTabs({ initialTab }: Props) {

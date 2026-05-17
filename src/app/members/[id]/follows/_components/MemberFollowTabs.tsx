@@ -7,14 +7,14 @@ import FollowerList from './FollowerList'
 import FollowingList from './FollowingList'
 import SearchInput from './SearchInput'
 
-export type FollowTabValue = 'following' | 'follower'
+export type MemberFollowTab = 'following' | 'follower'
 
 const TAB_TRIGGER_CLASS =
   'flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
 
 interface Props {
   memberId: number
-  initialTab: FollowTabValue
+  initialTab: MemberFollowTab
   isLoggedIn: boolean
   isOwner: boolean
 }

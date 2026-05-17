@@ -1,7 +1,7 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import type { SearchTab } from '@/domains/search/search.type'
+export type SearchTab = 'all' | 'menu' | 'review' | 'place'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
 import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'

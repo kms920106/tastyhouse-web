@@ -1,11 +1,9 @@
 import MemberFollowHeader from './MemberFollowHeader'
-import MemberFollowTabs from './MemberFollowTabs'
-
-export type FollowTabValue = 'following' | 'follower'
+import MemberFollowTabs, { type MemberFollowTab } from './MemberFollowTabs'
 
 interface Props {
   memberId: number
-  initialTab: FollowTabValue
+  initialTab: MemberFollowTab
   isLoggedIn: boolean
   isOwner: boolean
 }

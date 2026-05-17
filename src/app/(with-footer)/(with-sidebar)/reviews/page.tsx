@@ -1,5 +1,5 @@
+import type { ReviewTab } from './_components/ReviewTabs'
 import ReviewPage from './_components/ReviewPage'
-import { TabValue } from './_components/ReviewTabs'
 
 interface Props {
   searchParams: Promise<{
@@ -7,9 +7,15 @@ interface Props {
   }>
 }
 
+const REVIEW_TAB_VALUES: ReviewTab[] = ['all', 'following']
+
+function parseReviewTab(value: string | undefined): ReviewTab {
+  return REVIEW_TAB_VALUES.includes(value as ReviewTab) ? (value as ReviewTab) : 'all'
+}
+
 export default async function Page({ searchParams }: Props) {
   const { tab } = await searchParams
-  const initialTab = (tab || 'all') as TabValue
+  const initialTab = parseReviewTab(tab)
 
   return <ReviewPage initialTab={initialTab} />
 }

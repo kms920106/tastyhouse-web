@@ -5,7 +5,7 @@ import { useTabNavigation } from '@/hooks/useTabNavigation'
 import Image from 'next/image'
 import MemberReviewListFetcher from './MemberReviewListFetcher'
 
-export type MemberDetailTabValue = 'reviews'
+export type MemberDetailTab = 'reviews'
 
 const TAB_TRIGGER_CLASS =
   'flex-1 h-full rounded-none border-0 border-b border-[#eeeeee] shadow-none cursor-pointer data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
@@ -14,7 +14,7 @@ const TAB_CONTENT_CLASS = 'mt-0 flex flex-col flex-1 bg-[#f9f9f9]'
 
 interface Props {
   memberId: number
-  initialTab?: MemberDetailTabValue
+  initialTab?: MemberDetailTab
 }
 
 export default function MemberDetailTabs({ memberId, initialTab = 'reviews' }: Props) {

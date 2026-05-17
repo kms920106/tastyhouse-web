@@ -1,4 +1,4 @@
-import type { SearchTab } from '@/domains/search/search.type'
+import type { SearchTab } from './SearchResultTabs'
 import SearchResultHeader from './SearchResultHeader'
 import SearchResultTabs from './SearchResultTabs'
 

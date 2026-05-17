@@ -3,11 +3,11 @@ import SectionStack from '@/components/ui/SectionStack'
 import PlaceDetailHeader from './PlaceDetailHeader'
 import PlaceImageGallerySection from './PlaceImageGallerySection'
 import PlaceSummarySection from './PlaceSummarySection'
-import PlaceTabs from './PlaceTabs'
+import PlaceTabs, { type PlaceTab } from './PlaceTabs'
 
 interface Props {
   placeId: number
-  initialTab: 'info' | 'menu' | 'photo'
+  initialTab: PlaceTab
 }
 
 export default function PlaceDetailPage({ placeId, initialTab }: Props) {

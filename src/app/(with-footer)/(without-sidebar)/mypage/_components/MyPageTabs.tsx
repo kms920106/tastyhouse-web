@@ -5,7 +5,7 @@ import { useTabNavigation } from '@/hooks/useTabNavigation'
 import Image from 'next/image'
 import BookmarkListFetcher from './BookmarkListFetcher'
 import EmptyState from './EmptyState'
-import { type MyPageTabValue } from './MyPage'
+export type MyPageTab = 'reviews' | 'payments' | 'bookmarks'
 import OrderListFetcher from './OrderListFetcher'
 import ReviewListFetcher from './ReviewListFetcher'
 
@@ -15,7 +15,7 @@ const TAB_TRIGGER_CLASS =
 const TAB_CONTENT_CLASS = 'mt-0 flex flex-col flex-1 bg-[#f9f9f9]'
 
 interface Props {
-  initialTab: MyPageTabValue
+  initialTab: MyPageTab
   isLoggedIn: boolean
 }
 

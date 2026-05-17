@@ -1,8 +1,9 @@
+import type { ReviewTab } from './ReviewTabs'
 import ReviewHeader from './ReviewHeader'
 import ReviewTabs from '../_components/ReviewTabs'
 
 interface Props {
-  initialTab: 'all' | 'following'
+  initialTab: ReviewTab
 }
 
 export default function ReviewPage({ initialTab }: Props) {
