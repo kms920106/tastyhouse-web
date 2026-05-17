@@ -1,4 +1,4 @@
-import { MemberProfileCellSkeleton } from '@/components/ui/MemberProfileCellSkeleton'
+import { MemberProfileCellSkeleton } from '@/components/members/MemberProfileCellSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 function MemberSearchResultItemSkeleton() {

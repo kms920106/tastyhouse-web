@@ -3,7 +3,7 @@
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import FollowButton from '@/components/ui/FollowButton'
-import MemberProfileCell from '@/components/ui/MemberProfileCell'
+import MemberProfileCell from '@/components/members/MemberProfileCell'
 import { SocialMember } from '@/domains/member'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -16,7 +16,12 @@ interface Props {
   onRemoveFollower: (memberId: number) => void
 }
 
-export default function FollowListItem({ member, isOwner, onFollowToggle, onRemoveFollower }: Props) {
+export default function FollowListItem({
+  member,
+  isOwner,
+  onFollowToggle,
+  onRemoveFollower,
+}: Props) {
   const [removeConfirmOpen, setRemoveConfirmOpen] = useState(false)
 
   return (

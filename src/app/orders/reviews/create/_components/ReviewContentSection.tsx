@@ -1,6 +1,6 @@
 import PhotoUploader from '@/components/ui/PhotoUploader'
 import ReviewTextarea from '@/components/reviews/ReviewTextarea'
-import TagInput from '@/components/ui/TagInput'
+import TagInput from '@/components/reviews/TagInput'
 import AppFormField from '@/components/ui/AppFormField'
 
 interface Props {

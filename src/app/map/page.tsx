@@ -1,10 +1,10 @@
 'use client'
 
 import KakaoMap from '@/app/map/_components/KakaoMap'
-import ReviewButton from '@/components/ui/ReviewButton'
 import SideBar from '@/components/ui/SideBar'
 import SideBarButton from '@/components/ui/SideBarButton'
 import { useState } from 'react'
+import QuickReviewLink from '../../components/ui/QuickReviewLink'
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false)
@@ -23,7 +23,7 @@ export default function Page() {
           className="absolute inset-0 bg-black/30 z-30"
         />
       )}
-      <ReviewButton />
+      <QuickReviewLink />
       <KakaoMap />
     </div>
   )

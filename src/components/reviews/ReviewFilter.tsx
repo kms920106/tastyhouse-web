@@ -1,4 +1,4 @@
-import CheckboxWithCount from '@/components/ui/CheckboxWithCount'
+import CheckboxWithCount from '@/components/reviews/CheckboxWithCount'
 import type { ReviewSortType } from '@/domains/review'
 import { cn } from '@/lib/utils'
 import { FiChevronDown } from 'react-icons/fi'

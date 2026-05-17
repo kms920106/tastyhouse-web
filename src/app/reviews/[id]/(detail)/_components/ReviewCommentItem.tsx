@@ -2,7 +2,7 @@
 
 import Avatar from '@/components/ui/Avatar'
 import MemberNickname from '@/components/ui/MemberNickname'
-import TimeAgo from '@/components/ui/TimeAgo'
+import TimeAgo from '@/components/reviews/TimeAgo'
 import {
   Drawer,
   DrawerClose,

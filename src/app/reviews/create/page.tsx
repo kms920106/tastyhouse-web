@@ -3,7 +3,7 @@
 import PhotoUploader from '@/components/ui/PhotoUploader'
 import ReviewTextarea from '@/components/reviews/ReviewTextarea'
 import ReviewCreateSubmitButton from '@/app/reviews/create/_components/ReviewCreateSubmitButton'
-import TagInput from '@/components/ui/TagInput'
+import TagInput from '@/components/reviews/TagInput'
 import { useCallback, useState } from 'react'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 

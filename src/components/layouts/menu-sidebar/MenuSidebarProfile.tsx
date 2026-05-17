@@ -4,9 +4,9 @@ import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
 import PenIcon from '@/components/ui/PenIcon'
 import { useMemberProfile, useMyReviewCount } from '@/domains/member/member.hook'
 import Avatar from '../../ui/Avatar'
-import MemberGradeBadge from '../../ui/MemberGradeBadge'
-import MemberGradeIcon from '../../ui/MemberGradeIcon'
-import MemberGradeName from '../../ui/MemberGradeName'
+import MemberGradeBadge from '../../members/MemberGradeBadge'
+import MemberGradeIcon from '../../members/MemberGradeIcon'
+import MemberGradeName from '../../members/MemberGradeName'
 import MemberNickname from '../../ui/MemberNickname'
 
 interface Props {

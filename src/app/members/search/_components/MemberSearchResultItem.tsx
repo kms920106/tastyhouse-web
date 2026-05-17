@@ -1,7 +1,7 @@
 'use client'
 
 import FollowButton from '@/components/ui/FollowButton'
-import MemberProfileCell from '@/components/ui/MemberProfileCell'
+import MemberProfileCell from '@/components/members/MemberProfileCell'
 import { SocialMember } from '@/domains/member'
 import Link from 'next/link'
 

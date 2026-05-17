@@ -3,7 +3,7 @@
 import HashTag from '@/components/ui/HashTag'
 import Image from 'next/image'
 import { useState } from 'react'
-import AppInputText from './AppInputText'
+import AppInputText from '../ui/AppInputText'
 
 interface Props {
   value: string[]

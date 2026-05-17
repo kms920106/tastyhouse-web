@@ -1,4 +1,4 @@
-import CircleCheckbox from './CircleCheckbox'
+import CircleCheckbox from '../ui/CircleCheckbox'
 
 const formatCount = (count: number): string => {
   return count >= 99 ? '99+' : String(count)

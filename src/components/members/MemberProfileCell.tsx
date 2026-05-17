@@ -1,7 +1,7 @@
 import Avatar from '@/components/ui/Avatar'
-import MemberGradeBadge from '@/components/ui/MemberGradeBadge'
-import MemberGradeIcon from '@/components/ui/MemberGradeIcon'
-import MemberGradeName from '@/components/ui/MemberGradeName'
+import MemberGradeBadge from '@/components/members/MemberGradeBadge'
+import MemberGradeIcon from '@/components/members/MemberGradeIcon'
+import MemberGradeName from '@/components/members/MemberGradeName'
 import MemberNickname from '@/components/ui/MemberNickname'
 import { MemberGradeCode } from '@/domains/member'
 
@@ -11,11 +11,7 @@ interface Props {
   profileImageUrl: string | null
 }
 
-export default function MemberProfileCell({
-  nickname,
-  memberGrade,
-  profileImageUrl,
-}: Props) {
+export default function MemberProfileCell({ nickname, memberGrade, profileImageUrl }: Props) {
   return (
     <div className="flex items-center gap-3">
       <Avatar src={profileImageUrl} alt={nickname} />
