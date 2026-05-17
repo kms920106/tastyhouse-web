@@ -1,13 +1,13 @@
 import MemberSearchResultList from './MemberSearchResultList'
 
 interface Props {
-  searchQuery: string
+  query: string
 }
 
-export default function MemberSearchHContent({ searchQuery }: Props) {
+export default function MemberSearchHContent({ query }: Props) {
   return (
     <div className="flex flex-col px-[15px]">
-      <MemberSearchResultList searchQuery={searchQuery} />
+      <MemberSearchResultList query={query} />
     </div>
   )
 }

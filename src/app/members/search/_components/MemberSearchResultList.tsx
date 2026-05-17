@@ -9,13 +9,13 @@ import MemberSearchResultItem from './MemberSearchResultItem'
 import { MemberSearchResultListSkeleton } from './MemberSearchResultListSkeleton'
 
 interface Props {
-  searchQuery: string
+  query: string
 }
 
-export default function MemberSearchResultList({ searchQuery }: Props) {
+export default function MemberSearchResultList({ query }: Props) {
   const { handleFollowToggle } = useFollowMutation()
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useMemberSearch(searchQuery)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useMemberSearch(query)
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,
@@ -30,7 +30,7 @@ export default function MemberSearchResultList({ searchQuery }: Props) {
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
-  if (!searchQuery.trim()) {
+  if (!query.trim()) {
     return null
   }
 

@@ -16,5 +16,5 @@ export default async function Page({ searchParams }: Props) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  return <MemberSearchPage searchQuery={q ?? ''} />
+  return <MemberSearchPage query={q ?? ''} />
 }
