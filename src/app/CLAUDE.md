@@ -366,7 +366,40 @@ export default async function Page({ searchParams }: Props) {
 
 ---
 
-### 4.9. 패턴 I — Route Handler (`api/` route.ts)
+### 4.9. 패턴 I — Tab searchParam 파싱
+
+탭 상태를 URL searchParam(`?tab=xxx`)으로 관리할 때의 표준 패턴입니다.
+
+```tsx
+// XxxTabs.tsx — Tab 타입은 반드시 Tabs 컴포넌트 파일에서 export
+export type ReviewTab = 'all' | 'following'
+
+// page.tsx — 파서 함수로 안전하게 파싱
+import type { ReviewTab } from './_components/ReviewTabs'
+
+const REVIEW_TAB_VALUES: ReviewTab[] = ['all', 'following']
+
+function parseReviewTab(value: string | undefined): ReviewTab {
+  return REVIEW_TAB_VALUES.includes(value as ReviewTab) ? (value as ReviewTab) : 'all'
+}
+
+export default async function Page({ searchParams }: Props) {
+  const { tab } = await searchParams
+  const initialTab = parseReviewTab(tab)
+  return <ReviewPage initialTab={initialTab} />
+}
+```
+
+- ✅ Tab 타입(`XxxTab`)은 해당 **Tabs 컴포넌트 파일**(`XxxTabs.tsx`)에서 `export type`으로 정의
+- ✅ `page.tsx`와 Page 컴포넌트는 Tabs 파일에서 import (`@/domains/` 금지)
+- ✅ 유효값 배열(`FOO_TAB_VALUES`) + 파서 함수(`parseFooTab`) 패턴으로 `as` 단언 최소화
+- ✅ 파서 함수 fallback은 해당 탭의 기본값(첫 번째 탭)으로 설정
+- ❌ `(tab || 'default') as XxxTab` 직접 단언 금지 — 유효하지 않은 값이 통과됨
+- ❌ Tab 타입을 도메인(`src/domains/`)이나 Page 컴포넌트(`XxxPage.tsx`)에 정의 금지
+
+---
+
+### 4.10. 패턴 J — Route Handler (`api/` route.ts)
 
 ```tsx
 // src/app/api/auth/callback/kakao/route.ts
@@ -434,6 +467,7 @@ export default function Loading() {
 | Section 조합 | `[Feature]Section` | `PlaceSummarySection`, `PlaceMenuListSection` |
 | 라우트 전용 유틸 | `_lib/[name].ts` | `_lib/socialLoginHandlers.ts` |
 | Props 인터페이스 | `interface Props { ... }` | 파일 로컬 선언, export 불필요 |
+| Tab 타입 | `[Feature]Tab` — Tabs 컴포넌트 파일에서 export | `ReviewTab`, `MemberFollowTab`, `PlaceTab` |
 
 **파일명 접미사 의사결정 기준**:
 
