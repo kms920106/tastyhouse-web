@@ -19,7 +19,7 @@ export default function SearchResultPlaceListItem({ item }: Props) {
         className="flex items-center gap-[15px] px-[15px] py-[20px] bg-white border border-[#eeeeee] rounded-[2.5px]"
       >
         <div className="flex-1 flex flex-col gap-[9px] min-w-0">
-          <h3 className="text-[18px] leading-[18px] text-[#333333] truncate">{name}</h3>
+          <h3 className="text-[18px] leading-[18px] truncate">{name}</h3>
           <p className="text-xs leading-[12px] text-[#aaaaaa]">{stationName}</p>
           <p className="text-[19px] leading-[19px] text-main">{formatDecimal(rating, 1)}</p>
         </div>
