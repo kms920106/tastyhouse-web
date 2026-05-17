@@ -1,28 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { createContext, useContext } from 'react'
-
-interface HeaderContextValue {
-  variant: 'primary' | 'white'
-}
-
-const HeaderContext = createContext<HeaderContextValue | null>(null)
-
-export function useHeaderContext() {
-  const context = useContext(HeaderContext)
-  if (!context) {
-    throw new Error('Header 컴포넌트 내부에서만 사용할 수 있습니다.')
-  }
-  return context
-}
-
-interface Props {
-  children: React.ReactNode
-  variant?: 'primary' | 'white'
-  height: number
-  showBorder?: boolean
-}
+import { createContext } from 'react'
 
 interface SlotProps {
   children: React.ReactNode
@@ -55,6 +34,19 @@ interface TitleProps {
 
 export function HeaderTitle({ children, className }: TitleProps) {
   return <h1 className={cn('text-[17px] leading-[17px]', className)}>{children}</h1>
+}
+
+interface HeaderContextValue {
+  variant: 'primary' | 'white'
+}
+
+const HeaderContext = createContext<HeaderContextValue | null>(null)
+
+interface Props {
+  children: React.ReactNode
+  variant?: 'primary' | 'white'
+  height: number
+  showBorder?: boolean
 }
 
 export default function Header({
