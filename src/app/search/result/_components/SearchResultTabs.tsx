@@ -37,16 +37,16 @@ export default function SearchResultTabs({ tab, query }: Props) {
         ))}
       </TabsList>
       <TabsContent value="all" className="mt-0">
-        {tab === 'all' && <SearchResultSearchAllTabFetcher query={query} />}
+        <SearchResultSearchAllTabFetcher query={query} />
       </TabsContent>
       <TabsContent value="menu" className="mt-0">
-        {tab === 'menu' && <SearchResultMenuTabFetcher query={query} />}
+        <SearchResultMenuTabFetcher query={query} />
       </TabsContent>
       <TabsContent value="review" className="mt-0">
-        {tab === 'review' && <SearchResultReviewTabFetcher query={query} />}
+        <SearchResultReviewTabFetcher query={query} />
       </TabsContent>
       <TabsContent value="place" className="mt-0">
-        {tab === 'place' && <SearchResultPlaceTabFetcher query={query} />}
+        <SearchResultPlaceTabFetcher query={query} />
       </TabsContent>
     </Tabs>
   )
