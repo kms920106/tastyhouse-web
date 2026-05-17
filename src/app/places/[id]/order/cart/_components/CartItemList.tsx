@@ -1,4 +1,4 @@
-import CartItem from '@/components/cart/CartItem'
+import OrderCartItem from '@/components/orders/OrderCartItem'
 import { PAGE_PATHS } from '@/lib/paths'
 import type { OrderProduct } from '@/domains/order'
 import Link from 'next/link'
@@ -42,7 +42,7 @@ export default function CartItemList({
       <div className="px-[15px] divide-y divide-[#f2f2f2]">
         <h2 className="py-5 text-base leading-[16px]">{placeName}</h2>
         {cartItems.map((item) => (
-          <CartItem
+          <OrderCartItem
             key={item.optionKey}
             optionKey={item.optionKey}
             name={item.name}

@@ -7,8 +7,8 @@ import 'yet-another-react-lightbox/styles.css'
 import { useState } from 'react'
 
 import 'yet-another-react-lightbox/plugins/counter.css'
-import ImageLightbox from './ImageLightbox'
-import ImageSwiper from './ImageSwiper'
+import ImageLightbox from '../ui/ImageLightbox'
+import ImageSwiper from '../ui/ImageSwiper'
 
 interface Props {
   imageUrls: string[]

@@ -1,7 +1,7 @@
 'use client'
 
-import ImageLightbox from '@/components/reviews/ImageLightbox'
-import ImageSwiper from '@/components/reviews/ImageSwiper'
+import ImageLightbox from '@/components/ui/ImageLightbox'
+import ImageSwiper from '@/components/ui/ImageSwiper'
 import { useState } from 'react'
 
 interface Props {

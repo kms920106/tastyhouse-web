@@ -1,9 +1,9 @@
 'use client'
 
-import PhotoUploader from '@/components/reviews/PhotoUploader'
+import PhotoUploader from '@/components/ui/PhotoUploader'
 import ReviewTextarea from '@/components/reviews/ReviewTextarea'
-import SubmitButton from '@/components/reviews/SubmitButton'
-import TagInput from '@/components/reviews/TagInput'
+import ReviewCreateSubmitButton from '@/app/reviews/create/_components/ReviewCreateSubmitButton'
+import TagInput from '@/components/ui/TagInput'
 import { useCallback, useState } from 'react'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 
@@ -79,7 +79,7 @@ export default function Page() {
             </li>
           </ul>
         </div>
-        <SubmitButton form={form} disabled={isUploading} />
+        <ReviewCreateSubmitButton form={form} disabled={isUploading} />
       </div>
     </div>
   )

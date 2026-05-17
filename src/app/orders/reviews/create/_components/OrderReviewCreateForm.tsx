@@ -1,7 +1,7 @@
 'use client'
 
 import { createOrderReview } from '@/actions/review'
-import OrderProductItem from '@/components/order/OrderProductItem'
+import OrderProductItem from '@/components/orders/OrderProductItem'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'

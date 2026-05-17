@@ -1,4 +1,4 @@
-import OrderProductItem from '@/components/order/OrderProductItem'
+import OrderProductItem from '@/components/orders/OrderProductItem'
 import {
   Accordion,
   AccordionContent,

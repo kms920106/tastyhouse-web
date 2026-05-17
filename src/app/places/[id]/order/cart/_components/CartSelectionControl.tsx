@@ -1,4 +1,4 @@
-import SelectAllCheckbox from '@/components/order/SelectAllCheckbox'
+import SelectAllCheckbox from '@/components/ui/SelectAllCheckbox'
 
 interface Props {
   selectedCount: number
@@ -24,10 +24,7 @@ export default function CartSelectionControl({
         checked={allSelected}
         onChange={onToggleSelectAll}
       />
-      <button
-        onClick={onDeleteSelected}
-        className="ml-auto text-xs leading-[12px] text-[#999999]"
-      >
+      <button onClick={onDeleteSelected} className="ml-auto text-xs leading-[12px] text-[#999999]">
         삭제
       </button>
     </div>

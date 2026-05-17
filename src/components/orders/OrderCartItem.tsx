@@ -20,7 +20,7 @@ interface Props {
   onRemove: (optionKey: string) => void
 }
 
-export default function CartItem({
+export default function OrderCartItem({
   optionKey,
   name,
   imageUrl,

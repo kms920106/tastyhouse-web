@@ -5,9 +5,6 @@ interface Props {
   alt?: string
 }
 
-export default function ProfileImage({
-  profileImageUrl,
-  alt = '프로필 이미지',
-}: Props) {
+export default function MemberProfileImage({ profileImageUrl, alt = '프로필 이미지' }: Props) {
   return <Avatar src={profileImageUrl} alt={alt} size="bg" />
 }

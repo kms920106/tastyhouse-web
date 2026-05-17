@@ -1,4 +1,4 @@
-import CircleCheckbox from '../ui/CircleCheckbox'
+import CircleCheckbox from './CircleCheckbox'
 
 interface Props {
   label: string

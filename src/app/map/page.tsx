@@ -1,9 +1,9 @@
 'use client'
 
 import KakaoMap from '@/app/map/_components/KakaoMap'
-import ReviewButton from '@/components/home/ReviewButton'
-import SideBar from '@/components/home/SideBar'
-import SideBarButton from '@/components/home/SideBarButton'
+import ReviewButton from '@/components/ui/ReviewButton'
+import SideBar from '@/components/ui/SideBar'
+import SideBarButton from '@/components/ui/SideBarButton'
 import { useState } from 'react'
 
 export default function Page() {

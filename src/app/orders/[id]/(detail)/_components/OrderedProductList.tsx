@@ -1,4 +1,4 @@
-import OrderProductItem from '@/components/order/OrderProductItem'
+import OrderProductItem from '@/components/orders/OrderProductItem'
 import type { OrderedProduct } from '@/domains/order'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'

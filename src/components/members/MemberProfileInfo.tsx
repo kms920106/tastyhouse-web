@@ -1,5 +1,5 @@
-import ProfileImage from '@/components/account/profile/ProfileImage'
-import MemberGradeInfo from '@/components/member/MemberGradeInfo'
+import MemberProfileImage from '@/components/members/MemberProfileImage'
+import MemberGradeInfo from '@/components/members/MemberGradeInfo'
 import type { MemberGradeCode } from '@/domains/member'
 import { ReactNode } from 'react'
 import MemberNickname from '../ui/MemberNickname'
@@ -22,7 +22,7 @@ export default function MemberProfileInfo({
   return (
     <>
       <div className="-mt-[63px] relative z-10">
-        <ProfileImage profileImageUrl={profileImageUrl} />
+        <MemberProfileImage profileImageUrl={profileImageUrl} />
       </div>
       <div className="flex items-center gap-[1.5px] mt-[21px]">
         <MemberNickname size="lg">{nickname}</MemberNickname>

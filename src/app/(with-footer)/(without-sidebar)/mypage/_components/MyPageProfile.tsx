@@ -1,7 +1,7 @@
 'use client'
 
-import ProfileImage from '@/components/account/profile/ProfileImage'
-import MemberProfileCard from '@/components/member/MemberProfileCard'
+import MemberProfileImage from '@/components/members/MemberProfileImage'
+import MemberProfileCard from '@/components/members/MemberProfileCard'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import PenIcon from '@/components/ui/PenIcon'
 import { useMemberProfile, useMemberStats } from '@/domains/member/member.hook'
@@ -20,7 +20,7 @@ export default function MyPageProfile({ isLoggedIn }: Props) {
     return (
       <div className="flex-1 flex flex-col items-center bg-white">
         <div className="-mt-[63px] relative z-10">
-          <ProfileImage profileImageUrl={null} />
+          <MemberProfileImage profileImageUrl={null} />
         </div>
         <AppPrimaryButton asChild className="w-auto px-10 mt-[21px]">
           <Link href={PAGE_PATHS.AUTH_LOGIN}>로그인하기</Link>

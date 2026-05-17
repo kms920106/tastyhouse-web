@@ -1,6 +1,6 @@
-import PhotoUploader from '@/components/reviews/PhotoUploader'
+import PhotoUploader from '@/components/ui/PhotoUploader'
 import ReviewTextarea from '@/components/reviews/ReviewTextarea'
-import TagInput from '@/components/reviews/TagInput'
+import TagInput from '@/components/ui/TagInput'
 import AppFormField from '@/components/ui/AppFormField'
 
 interface Props {
@@ -45,8 +45,7 @@ export default function ReviewContentSection({
         </AppFormField>
         <div>
           <p className="text-sm leading-relaxed text-[#999999]">
-            해당 음식과 무관한 사진을 첨부한 리뷰는 통보없이 삭제 및 적립 혜택이 취소될 수
-            있습니다.
+            해당 음식과 무관한 사진을 첨부한 리뷰는 통보없이 삭제 및 적립 혜택이 취소될 수 있습니다.
           </p>
         </div>
       </div>

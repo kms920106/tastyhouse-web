@@ -1,7 +1,7 @@
 'use client'
 
 import { createBugReport } from '@/actions/bug-report'
-import PhotoUploader from '@/components/reviews/PhotoUploader'
+import PhotoUploader from '@/components/ui/PhotoUploader'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'

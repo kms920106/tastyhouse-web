@@ -1,6 +1,6 @@
 'use client'
 
-import MemberProfileCard from '@/components/member/MemberProfileCard'
+import MemberProfileCard from '@/components/members/MemberProfileCard'
 import { useMemberStats, useOtherMemberProfile } from '@/domains/member/member.hook'
 import MemberDetailHeader from './MemberDetailHeader'
 import MemberDetailTabs from './MemberDetailTabs'

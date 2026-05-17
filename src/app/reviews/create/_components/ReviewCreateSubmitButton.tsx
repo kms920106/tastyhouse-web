@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { toast } from '../ui/AppToaster'
+import { toast } from '../../../../components/ui/AppToaster'
 
 interface Props {
   form: {
@@ -13,7 +13,7 @@ interface Props {
   disabled?: boolean
 }
 
-export default function SubmitButton({ form, disabled = false }: Props) {
+export default function ReviewCreateSubmitButton({ form, disabled = false }: Props) {
   const handleSubmit = async () => {
     if (!form.placeName) {
       toast('상호명은 필수 입력 사항입니다.')
@@ -32,7 +32,9 @@ export default function SubmitButton({ form, disabled = false }: Props) {
     <button
       className={cn(
         'w-full py-3 text-base leading-[16px]',
-        disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-main text-white cursor-pointer',
+        disabled
+          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          : 'bg-main text-white cursor-pointer',
       )}
       onClick={handleSubmit}
       disabled={disabled}
