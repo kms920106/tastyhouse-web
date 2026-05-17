@@ -392,14 +392,191 @@ export default async function Page({ searchParams }: Props) {
 
 - ✅ Tab 타입(`XxxTab`)은 해당 **Tabs 컴포넌트 파일**(`XxxTabs.tsx`)에서 `export type`으로 정의
 - ✅ `page.tsx`와 Page 컴포넌트는 Tabs 파일에서 import (`@/domains/` 금지)
+- ✅ **하위 컴포넌트도 동일 규칙 적용**: Tabs 컴포넌트 하위의 Server Component(`XxxServer.tsx`, `XxxList.tsx` 등)도 `@/domains/`가 아닌 Tabs 파일에서 `import type { XxxTab }`
 - ✅ 유효값 배열(`FOO_TAB_VALUES`) + 파서 함수(`parseFooTab`) 패턴으로 `as` 단언 최소화
 - ✅ 파서 함수 fallback은 해당 탭의 기본값(첫 번째 탭)으로 설정
+- ✅ **prop명 규칙**: `page.tsx` → `XxxPage`로 전달 시 `tab`, `XxxPage` → `XxxTabs`로 전달 시 `initialTab` (Tabs 컴포넌트 자체의 prop명)
+- ✅ **도메인 타입 잔류**: `XxxTab`과 값이 동일한 도메인 타입(예: `RankPeriod`)이 있어도 삭제하지 않는다 — repository/service 레이어에서 여전히 참조할 수 있음
+- ✅ **도메인 API 타입 매핑**: 하위 컴포넌트에서 `Record<XxxTab, DomainApiType>` 형태의 매핑이 필요하면 `XxxTab`을 키 타입으로 사용 (예: `Record<RankTab, RankType>`)
 - ❌ `(tab || 'default') as XxxTab` 직접 단언 금지 — 유효하지 않은 값이 통과됨
 - ❌ Tab 타입을 도메인(`src/domains/`)이나 Page 컴포넌트(`XxxPage.tsx`)에 정의 금지
 
 ---
 
-### 4.10. 패턴 J — Route Handler (`api/` route.ts)
+### 4.10. 패턴 K — Tabs 컴포넌트 작성
+
+shadcn/ui `<Tabs>`를 사용하는 컴포넌트의 표준 작성 패턴입니다.
+
+**Best Practice 레퍼런스**: `src/app/search/result/_components/SearchResultTabs.tsx`
+
+```tsx
+// XxxTabs.tsx — Best Practice 구조
+'use client'
+
+export type XxxTab = 'all' | 'menu' | 'review'
+
+const TABS: { label: string; value: XxxTab }[] = [
+  { label: '전체', value: 'all' },
+  { label: '메뉴', value: 'menu' },
+  { label: '리뷰', value: 'review' },
+]
+
+export default function XxxTabs({ tab }: { tab: XxxTab }) {
+  const { handleTabChange } = useTabNavigation()
+
+  return (
+    <Tabs value={tab} onValueChange={handleTabChange} className="gap-0">
+      <TabsList className="sticky top-0 w-full h-[50px] p-0 rounded-none bg-white z-40 border-0 shadow-none">
+        {TABS.map(({ label, value }) => (
+          <TabsTrigger
+            key={value}
+            value={value}
+            className="flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
+          >
+            {label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      <TabsContent value="all" className="mt-0">...</TabsContent>
+      <TabsContent value="menu" className="mt-0">...</TabsContent>
+      <TabsContent value="review" className="mt-0">...</TabsContent>
+    </Tabs>
+  )
+}
+```
+
+#### TabsTrigger 규칙
+
+- ✅ **TABS 배열 + `map()`**: 동일한 className·라벨을 반복 선언하지 않는다
+- ✅ **className 인라인 직접 작성**: `TAB_TRIGGER_CLASS` 같은 상수 변수 금지
+- ✅ **`border-b-[1.5px]`**: active 탭 밑줄 두께는 `border-b-2` 아닌 `border-b-[1.5px]`
+- ✅ **`key={value}`**: map() 시 반드시 지정
+- ✅ **탭별 className이 다를 때**: `index === 0 ? '...' : '...'` 인라인 삼항으로 처리 (상수 변수 미사용)
+- ❌ `TAB_TRIGGER_CLASS`, `TAB_CONTENT_CLASS` 등 className 상수 선언 금지
+
+#### TabsList 규칙
+
+- ✅ **shadcn 기본값 재정의**: `border-0 shadow-none` 반드시 포함
+- ✅ **sticky 탭바**: `sticky top-0 z-40` (스크롤 시 탭바 고정이 필요한 경우)
+- ✅ **전체 너비**: `w-full`
+
+#### TabsContent 규칙
+
+- ✅ **각 탭 콘텐츠가 다르므로 하드코딩 유지** (map() 일반화 안 함)
+- ✅ **`<Tabs>` 직속 자식으로 배치**: `sticky` 래퍼 div 바깥에 위치해야 함
+- ✅ **`className="mt-0"` 필수**: shadcn 기본값이 `mt-2`이므로 모든 `TabsContent`에 반드시 지정
+- ❌ sticky 포지션을 가진 부모 div 안에 `TabsContent` 배치 금지 (콘텐츠가 sticky 영역에 고정되는 버그 발생)
+- ❌ `className="mt-0"` 생략 금지 — 탭 콘텐츠 위에 의도치 않은 상단 간격이 생김
+
+#### 탭-API 타입 매핑 상수 규칙
+
+탭 값을 API enum으로 변환하는 `Record` 매핑 상수가 필요할 때의 네이밍·위치 규칙입니다.
+
+```tsx
+// ✅ 권장 — SCREAMING_SNAKE_CASE, [DOMAIN]_TAB_TYPE_MAP 패턴
+const REVIEW_TAB_TYPE_MAP: Record<ReviewTab, ReviewType> = {
+  all: 'ALL',
+  following: 'FOLLOWING',
+}
+
+const RANK_TAB_TYPE_MAP: Record<RankTab, RankType> = {
+  all: 'ALL',
+  monthly: 'MONTHLY',
+}
+
+// ❌ 금지 — camelCase 상수
+const reviewTypeMap: Record<ReviewTab, ReviewType> = { ... }
+
+// ❌ 금지 — 입력 키와 타입명이 불일치 (키 타입이 RankTab인데 PERIOD 사용)
+const RANK_PERIOD_TO_TYPE: Record<RankTab, RankType> = { ... }
+```
+
+- ✅ **네이밍 패턴**: `[DOMAIN]_TAB_TYPE_MAP` — SCREAMING_SNAKE_CASE + 키 타입명(`TAB`) + 역할(`TYPE_MAP`)
+- ✅ **키 타입과 일치**: 키 타입이 `RankTab`이면 `RANK_TAB_TYPE_MAP` (도메인 타입명 `RankPeriod` 사용 금지)
+- ✅ **선언 위치**: 해당 상수를 사용하는 각 파일의 모듈 스코프에 선언
+- ❌ **`'use client'` 파일에서 export 후 Server Component에서 import 금지**: `'use client'` 파일의 상수(값)를 Server Component가 import하면 번들 경계 위반 — 같은 상수가 여러 Server Component에 필요하더라도 각 파일에 중복 선언하는 것이 올바름
+
+#### Tabs 컴포넌트 prop명
+
+URL-driven 탭 패턴에서 prop명은 계층에 따라 구분합니다:
+
+| 전달 방향 | prop명 | 이유 |
+|-----------|--------|------|
+| `page.tsx` → `XxxPage` | `tab` | page가 파싱한 현재 값 |
+| `XxxPage` → `XxxTabs` | `initialTab` | Tabs 컴포넌트는 URL 변경 전 초기값으로 받음 |
+
+```tsx
+// page.tsx
+return <RankPage tab={initialTab} />
+
+// RankPage.tsx → RankMemberSection → RankMemberTabs
+<RankMemberTabs initialTab={tab} ... />
+```
+
+> `XxxTabs` 자체의 prop은 `initialTab`으로 일관되게 유지합니다. `SearchResultTabs`처럼 `tab`을 직접 받는 경우도 있으나, 이는 `XxxPage`를 거치지 않고 Tabs에 바로 전달하는 구조일 때의 예외입니다.
+
+---
+
+#### 아이콘 탭 (이미지 on/off 전환)
+
+탭 라벨 대신 아이콘 이미지를 사용하는 탭은 `initialTab` prop이 아닌 `currentTab` local state로 아이콘 상태를 결정합니다.
+
+```tsx
+// ✅ 권장 — currentTab state로 아이콘 즉시 반응
+const [currentTab, setCurrentTab] = useState<XxxTab>(initialTab)
+
+const handleChange = (value: string) => {
+  setCurrentTab(value as XxxTab)
+  handleTabChange(value)
+}
+
+// 아이콘 src: currentTab 기준
+src={`/images/${iconBase}-${currentTab === value ? 'on' : 'off'}.png`}
+```
+
+```tsx
+// ❌ 금지 — initialTab 기준이면 URL 변경 → re-render 전까지 아이콘 미반영
+src={`/images/${iconBase}-${initialTab === value ? 'on' : 'off'}.png`}
+```
+
+#### 탭 1개 컴포넌트
+
+탭이 1개뿐이면 `onValueChange`는 발동될 일이 없으므로 생략합니다. 불필요한 조건식(ex. `initialTab === 'reviews' ? 'on' : 'off'`)도 제거하고 하드코딩합니다.
+
+```tsx
+// 탭 1개 — onValueChange 불필요, 아이콘 상태 하드코딩
+<Tabs value={initialTab} className="gap-0">
+  <TabsTrigger value="reviews" ...>
+    <Image src="/images/mypage/icon-review-on.png" ... />
+  </TabsTrigger>
+</Tabs>
+```
+
+#### `BorderedSection` 중첩 주의
+
+부모가 이미 `<BorderedSection>`으로 컴포넌트를 감싸고 있으면, 자식 컴포넌트 내부에 `<BorderedSection>`을 추가로 중첩하지 않습니다.
+
+```tsx
+// ❌ 이중 중첩 — border-y가 2겹 적용됨
+<BorderedSection>           {/* 부모 */}
+  <ChildComponent>
+    <BorderedSection>       {/* 중복! */}
+      <OptionTabs />
+    </BorderedSection>
+  </ChildComponent>
+</BorderedSection>
+
+// ✅ 부모의 BorderedSection 하나만 유지
+<BorderedSection>
+  <ChildComponent>
+    <OptionTabs />
+  </ChildComponent>
+</BorderedSection>
+```
+
+---
+
+### 4.11. 패턴 J — Route Handler (`api/` route.ts)
 
 ```tsx
 // src/app/api/auth/callback/kakao/route.ts
@@ -615,7 +792,121 @@ src/components/ui/FetchErrorState.tsx
 
 ---
 
-### 7.8. loading.tsx 없이 다단계 플로우 구성 (지양)
+### 7.8. searchParams를 `await Promise.resolve()`로 우회 (금지)
+
+```tsx
+// ❌ 금지 — Promise가 아닌 타입 + 억지 await로 우회
+export default async function Page({ searchParams }: { searchParams: { tab?: string } }) {
+  const resolved = await Promise.resolve(searchParams)
+  const tab = resolved.tab
+
+// ✅ 권장 — 타입을 올바르게 선언하고 직접 await
+interface Props {
+  searchParams: Promise<{ tab?: string }>
+}
+export default async function Page({ searchParams }: Props) {
+  const { tab } = await searchParams
+```
+
+---
+
+### 7.9. Tabs 관련 안티패턴
+
+```tsx
+// ❌ className 상수 선언 금지
+const TAB_TRIGGER_CLASS = 'flex-1 h-full ...'
+const TAB_CONTENT_CLASS = 'mt-0 flex flex-col ...'
+<TabsTrigger className={TAB_TRIGGER_CLASS}>...</TabsTrigger>
+
+// ✅ 인라인 직접 작성
+<TabsTrigger className="flex-1 h-full ...">...</TabsTrigger>
+```
+
+```tsx
+// ❌ TabsTrigger 하드코딩 금지 (className이 동일한 경우)
+<TabsTrigger value="all" className="...">전체</TabsTrigger>
+<TabsTrigger value="menu" className="...">메뉴</TabsTrigger>
+
+// ✅ TABS 배열 + map()
+const TABS = [{ label: '전체', value: 'all' }, { label: '메뉴', value: 'menu' }]
+{TABS.map(({ label, value }) => (
+  <TabsTrigger key={value} value={value} className="...">
+    {label}
+  </TabsTrigger>
+))}
+```
+
+```tsx
+// ❌ TabsContent를 sticky 래퍼 안에 배치 — 스크롤 시 콘텐츠 고정 버그
+<div className="sticky top-[60px] ...">
+  <TabsList>...</TabsList>
+  <TabsContent value="info">...</TabsContent>  // ← 잘못된 위치
+</div>
+
+// ✅ sticky 래퍼에는 TabsList만, TabsContent는 Tabs 직속 자식
+<Tabs ...>
+  <div className="sticky top-[60px] ...">
+    <TabsList>...</TabsList>
+  </div>
+  <TabsContent value="info">...</TabsContent>
+</Tabs>
+```
+
+```tsx
+// ❌ active 탭 밑줄 두께 border-b-2 사용 금지
+className="... data-[state=active]:border-b-2 ..."
+
+// ✅ border-b-[1.5px] 사용
+className="... data-[state=active]:border-b-[1.5px] ..."
+```
+
+```tsx
+// ❌ TabsContent에 className="mt-0" 생략 금지 — shadcn 기본값 mt-2가 적용되어 상단 간격 발생
+<TabsContent value="info">...</TabsContent>
+
+// ✅ 모든 TabsContent에 mt-0 명시
+<TabsContent value="info" className="mt-0">...</TabsContent>
+```
+
+```tsx
+// ❌ 탭-API 타입 매핑 상수 camelCase 금지, 키 타입명 불일치 금지
+const reviewTypeMap: Record<ReviewTab, ReviewType> = { ... }        // camelCase
+const RANK_PERIOD_TO_TYPE: Record<RankTab, RankType> = { ... }      // 키 타입 RankTab인데 PERIOD 사용
+
+// ✅ [DOMAIN]_TAB_TYPE_MAP 패턴 — SCREAMING_SNAKE_CASE + 키 타입명과 일치
+const REVIEW_TAB_TYPE_MAP: Record<ReviewTab, ReviewType> = { ... }
+const RANK_TAB_TYPE_MAP: Record<RankTab, RankType> = { ... }
+```
+
+```tsx
+// ❌ 'use client' 파일의 매핑 상수를 export해 Server Component에서 import 금지 (번들 경계 위반)
+// RankMemberTabs.tsx ('use client')
+export const RANK_TAB_TYPE_MAP = { ... }
+
+// RankMyInfo.tsx (Server Component) — import 금지
+import { RANK_TAB_TYPE_MAP } from './RankMemberTabs'
+
+// ✅ 각 Server Component 파일에 중복 선언
+// RankMyInfo.tsx
+const RANK_TAB_TYPE_MAP: Record<RankTab, RankType> = { ... }
+// RankMemberList.tsx
+const RANK_TAB_TYPE_MAP: Record<RankTab, RankType> = { ... }
+```
+
+```tsx
+// ❌ Tab 타입을 도메인에서 import하는 하위 컴포넌트 (금지)
+// RankMemberList.tsx
+import { RankPeriod } from '@/domains/rank'
+export default async function RankMemberList({ rankPeriod }: { rankPeriod: RankPeriod }) { ... }
+
+// ✅ Tabs 컴포넌트 파일에서 import
+import type { RankTab } from './RankMemberTabs'
+export default async function RankMemberList({ tab }: { tab: RankTab }) { ... }
+```
+
+---
+
+### 7.10. loading.tsx 없이 다단계 플로우 구성 (지양)
 
 주문 플로우(`method → menus → cart → checkout`)처럼 페이지 전환이 있는 경우 `loading.tsx`를 생략하면 전환 시 빈 화면이 노출됩니다.
 
@@ -655,6 +946,21 @@ src/components/ui/FetchErrorState.tsx
 - [ ] TanStack Query 페칭 컴포넌트는 `Fetcher` suffix를 사용했는가?
 - [ ] Skeleton 컴포넌트는 `Skeleton` suffix를 사용했는가?
 
+### Tabs 컴포넌트
+
+- [ ] TabsTrigger를 TABS 배열 + `map()`으로 선언했는가?
+- [ ] `TAB_TRIGGER_CLASS`, `TAB_CONTENT_CLASS` 등 className 상수를 사용하지 않았는가?
+- [ ] TabsList에 `border-0 shadow-none`이 포함되어 있는가?
+- [ ] active 탭 밑줄이 `border-b-[1.5px]`인가? (`border-b-2` 사용 금지)
+- [ ] 모든 `TabsContent`에 `className="mt-0"`이 있는가? (shadcn 기본값 `mt-2` 재정의 필수)
+- [ ] `TabsContent`가 sticky 래퍼 div 바깥(`<Tabs>` 직속 자식)에 위치하는가?
+- [ ] 아이콘 탭이라면 on/off 상태를 `currentTab` state 기반으로 결정하는가?
+- [ ] 탭이 1개뿐이라면 `onValueChange`를 생략했는가?
+- [ ] `BorderedSection`이 부모에서 이미 감싸고 있다면 자식에서 중첩하지 않았는가?
+- [ ] 탭-API 타입 매핑 상수명이 `[DOMAIN]_TAB_TYPE_MAP` 패턴(SCREAMING_SNAKE_CASE)인가?
+- [ ] 매핑 상수의 키 타입명이 실제 Tab 타입명과 일치하는가? (`RankTab` → `RANK_TAB_TYPE_MAP`)
+- [ ] `'use client'` 파일의 매핑 상수를 Server Component에서 import하고 있지 않은가?
+
 ### Route Handler
 
 - [ ] 핸들러명이 HTTP 메서드 대문자인가? (`GET`, `POST`, ...)
@@ -681,6 +987,7 @@ src/components/ui/FetchErrorState.tsx
 | Section (Suspense 조합) | [PlaceSummarySection.tsx](<places/[id]/(detail)/_components/PlaceSummarySection.tsx>) |
 | 중첩 Suspense (ReactNode prop) | [PlaceSummarySection.tsx](<places/[id]/(detail)/_components/PlaceSummarySection.tsx>) |
 | 인증 체크 (컴포넌트 레벨) | [PlaceBookmarkButtonServer.tsx](<places/[id]/(detail)/_components/PlaceBookmarkButtonServer.tsx>) |
+| Tabs 컴포넌트 | [SearchResultTabs.tsx](search/result/_components/SearchResultTabs.tsx) |
 | Route Handler | [api/payments/tosspayments/success/route.ts](api/payments/tosspayments/success/route.ts) |
 
 **핵심 한 줄 요약**:
