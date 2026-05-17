@@ -7,7 +7,7 @@ interface Props {
   className?: string
 }
 
-export default function MenuCategoryItem({ categoryName, children, className = '' }: Props) {
+export default function ProductCategoryGroup({ categoryName, children, className = '' }: Props) {
   const childArray = React.Children.toArray(children)
 
   return (

@@ -1,55 +1,58 @@
 import ImageContainer from '@/components/ui/ImageContainer'
+import Rating from '@/components/ui/Rating'
+import { Product } from '@/domains/product'
 import { formatDecimal, formatNumber } from '@/lib/number'
-import { PAGE_PATHS } from '@/lib/paths'
-import Link from 'next/link'
+import Image from 'next/image'
 
 interface Props {
-  id: number
-  imageUrl: string
-  name: string
-  placeName: string
-  originalPrice: number
-  discountPrice: number
-  discountRate: number
+  menu: Product
 }
 
-export default function ProductItem({
-  id,
-  imageUrl,
-  name,
-  placeName,
-  originalPrice,
-  discountPrice,
-  discountRate,
-}: Props) {
+export default function ProductItem({ menu }: Props) {
   return (
-    <Link href={PAGE_PATHS.PRODUCT_DETAIL(id)} className="block">
-      <div className="flex items-center gap-4 py-[15px]">
-        <ImageContainer src={imageUrl} alt={name} size={75} />
-        <div className="flex-1 flex flex-col min-w-0">
-          <p className="mb-2.5 text-xs leading-[12px] truncate">{placeName}</p>
-          <h3 className="mb-[17px] text-base leading-[16px] truncate">{name}</h3>
-          <div className="flex justify-between">
-            {discountRate === null ? (
-              <span className="text-base leading-[16px]">{formatNumber(originalPrice)}원</span>
+    <div className="flex items-center gap-[15px] pr-3">
+      <ImageContainer src={menu.imageUrl} alt="메뉴 이미지" size={65} />
+      <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col">
+            {menu.spiciness && (
+              <div className="flex gap-[3px] mb-[7px]">
+                {Array.from({ length: menu.spiciness }).map((_, i) => (
+                  <Image
+                    src="/images/product/icon-spiciness.png"
+                    alt="맵기"
+                    width={9}
+                    height={15}
+                    key={i}
+                  />
+                ))}
+              </div>
+            )}
+            <h4 className="mb-[9px] text-sm leading-[14px] truncate">{menu.name}</h4>
+            {menu.discountRate == null ? (
+              <p className="text-sm leading-[14px]">{formatNumber(menu.originalPrice)}원</p>
             ) : (
-              <>
-                <div className="flex items-end gap-2">
-                  <span className="text-base leading-[16px]">{formatNumber(discountPrice)}원</span>
-                  <span className="text-xs leading-[12px] text-[#aaaaaa] line-through">
-                    {formatNumber(originalPrice)}원
-                  </span>
-                </div>
-                <div className="text-right flex-shrink-0">
-                  <p className="text-base leading-[16px] text-main">
-                    {formatDecimal(discountRate, 0)}%
-                  </p>
-                </div>
-              </>
+              <div className="flex items-end leading-[21px]">
+                <p className="text-sm leading-[14px]">{formatNumber(menu.discountPrice)}원</p>
+                <p className="ml-[7px] text-xs leading-[12px] text-[#aaaaaa] line-through">
+                  {formatNumber(menu.originalPrice)}원
+                </p>
+                <p className="ml-[11px] text-sm leading-[14px] text-main">
+                  {formatDecimal(menu.discountRate, 0)}%
+                </p>
+              </div>
             )}
           </div>
+          {menu.rating && menu.reviewCount && (
+            <div className="flex flex-col items-center gap-2.5">
+              <Rating as="p" value={menu.rating} />
+              <p className="text-xs leading-[12px] text-[#999999] tracking-tighter">
+                리뷰 ({menu.reviewCount})
+              </p>
+            </div>
+          )}
         </div>
       </div>
-    </Link>
+    </div>
   )
 }

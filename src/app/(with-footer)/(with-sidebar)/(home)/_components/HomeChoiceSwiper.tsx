@@ -4,7 +4,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-import ProductItem from '@/components/products/ProductItem'
+import DiscountProductItem from '@/components/products/DiscountProductItem'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -80,7 +80,7 @@ export default function HomeChoiceSwiper({ places }: Props) {
             </Link>
             <div className="mb-10 space-y-0 divide-y divide-[#eeeeee] border-b border-[#eeeeee]">
               {place.products.map((product) => (
-                <ProductItem
+                <DiscountProductItem
                   key={product.id}
                   id={product.id}
                   placeName={product.placeName}

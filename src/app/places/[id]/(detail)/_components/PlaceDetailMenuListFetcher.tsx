@@ -1,6 +1,6 @@
-import MenuCategoryItem from '@/components/menus/MenuCategoryItem'
-import { MenuCategoryItemSkeleton } from '@/components/menus/MenuCategoryItemSkeleton'
-import MenuItem from '@/components/menus/MenuItem'
+import ProductCategoryGroup from '@/components/products/ProductCategoryGroup'
+import { ProductCategoryGroupSkeleton } from '@/components/products/ProductCategoryGroupSkeleton'
+import ProductItem from '@/components/products/ProductItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { usePlaceMenus } from '@/domains/place/place.hook'
@@ -16,7 +16,7 @@ export default function PlaceDetailMenuListFetcher({ placeId }: Props) {
   const { data, isLoading, error } = usePlaceMenus(placeId)
 
   if (isLoading) {
-    return Array.from({ length: 2 }).map((_, i) => <MenuCategoryItemSkeleton key={i} />)
+    return Array.from({ length: 2 }).map((_, i) => <ProductCategoryGroupSkeleton key={i} />)
   }
 
   if (error) {
@@ -34,16 +34,16 @@ export default function PlaceDetailMenuListFetcher({ placeId }: Props) {
   const menuCategories: ProductCategory[] = data.data
 
   return menuCategories.map((menuCategory) => (
-    <MenuCategoryItem
+    <ProductCategoryGroup
       key={menuCategory.categoryName}
       categoryName={menuCategory.categoryName}
       className="border-b border-[#eeeeee] box-border"
     >
       {menuCategory.products.map((menu) => (
         <Link key={menu.id} href={PAGE_PATHS.PRODUCT_DETAIL(placeId)} className="block">
-          <MenuItem menu={menu} />
+          <ProductItem menu={menu} />
         </Link>
       ))}
-    </MenuCategoryItem>
+    </ProductCategoryGroup>
   ))
 }

@@ -10,7 +10,7 @@ import {
   useSearchReviewsPreview,
 } from '@/domains/search/search.hook'
 import Image from 'next/image'
-import { MenuItemSkeleton } from '@/components/menus/MenuItemSkeleton'
+import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
 import React from 'react'
 import SearchResultEmptyState from './SearchResultEmptyState'
 import SearchResultMenuListItem from './SearchResultMenuListItem'
@@ -57,7 +57,7 @@ export default function SearchResultAll({ query }: Props) {
             <div>
               {Array.from({ length: 3 }).map((_, i) => (
                 <React.Fragment key={i}>
-                  <MenuItemSkeleton />
+                  <ProductItemSkeleton />
                   {i < 2 && <div className="border-t border-[#eeeeee] my-[15px]" />}
                 </React.Fragment>
               ))}

@@ -1,4 +1,4 @@
-import ProductItem from '@/components/products/ProductItem'
+import DiscountProductItem from '@/components/products/DiscountProductItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { productRepository } from '@/domains/product/product.repository'
@@ -22,7 +22,7 @@ export default async function HomeTodayDiscountProductList() {
     <>
       <div className="mb-10 divide-y divide-[#eeeeee] border-y border-[#eeeeee]">
         {data.map((product) => (
-          <ProductItem
+          <DiscountProductItem
             key={product.id}
             id={product.id}
             placeName={product.placeName}

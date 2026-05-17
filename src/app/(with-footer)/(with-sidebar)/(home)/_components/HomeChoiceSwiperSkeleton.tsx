@@ -1,4 +1,4 @@
-import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
+import { DiscountProductItemSkeleton } from '@/components/products/DiscountProductItemSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 export function HomeChoiceSwiperSkeleton() {
@@ -19,8 +19,8 @@ export function HomeChoiceSwiperSkeleton() {
               </div>
             </div>
             <div className="mb-10 space-y-0 divide-y divide-[#eeeeee] border-b border-[#eeeeee]">
-              <ProductItemSkeleton />
-              <ProductItemSkeleton />
+              <DiscountProductItemSkeleton />
+              <DiscountProductItemSkeleton />
             </div>
           </div>
         ))}
