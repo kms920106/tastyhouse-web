@@ -2,7 +2,7 @@ import { PaginationParams } from '@/types/common'
 import type { PlaceAmenityCode, PlaceFoodType } from '.'
 import { PlaceAmenity, PlaceBreakTime, PlaceBusinessHour, PlaceClosedDay } from '.'
 import type { OrderMethod } from '../order'
-import { ProductMenu } from '../product'
+import { ProductListItemResponse } from '../product'
 
 export interface PlaceLatestQuery extends PaginationParams {
   stationId?: number
@@ -59,7 +59,7 @@ export interface PlaceInfoResponse {
 
 export interface PlaceProductCategoryResponse {
   categoryName: string
-  products: ProductMenu[]
+  products: ProductListItemResponse[]
 }
 
 export interface PlaceBannerListItemResponse {

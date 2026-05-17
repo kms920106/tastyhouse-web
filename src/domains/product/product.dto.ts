@@ -1,4 +1,17 @@
-import type { ProductMenuOptionGroup } from './product.model'
+import type { ProductOptionGroup } from './product.model'
+
+export interface ProductListItemResponse {
+  id: number
+  imageUrl: string
+  spiciness: number | null
+  name: string
+  originalPrice: number
+  discountPrice: number
+  discountRate: number | null
+  rating: number | null
+  reviewCount: number | null
+  isRepresentative: boolean | null
+}
 
 export interface ProductDetailResponse {
   id: number
@@ -15,7 +28,7 @@ export interface ProductDetailResponse {
   isRepresentative: boolean
   isSoldOut: boolean
   categoryName: string
-  optionGroups: ProductMenuOptionGroup[]
+  optionGroups: ProductOptionGroup[]
 }
 
 export interface ProductReviewListItemResponse {

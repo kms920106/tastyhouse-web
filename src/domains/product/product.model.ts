@@ -1,14 +1,9 @@
-export interface Product {
-  id: number
-  name: string
-  placeName: string
-  imageUrl: string
-  originalPrice: number
-  discountPrice: number
-  discountRate: number
+export interface ProductCategory {
+  categoryName: string
+  products: Product[]
 }
 
-export interface ProductMenu {
+export interface Product {
   id: number
   imageUrl: string
   spiciness: number | null
@@ -21,19 +16,7 @@ export interface ProductMenu {
   isRepresentative: boolean | null
 }
 
-export interface ProductMenuCategory {
-  categoryName: string
-  products: ProductMenu[]
-}
-
-export interface ProductMenuOption {
-  id: number
-  name: string
-  additionalPrice: number
-  isSoldOut: boolean
-}
-
-export interface ProductMenuOptionGroup {
+export interface ProductOptionGroup {
   id: number
   name: string
   description: string | null
@@ -42,5 +25,12 @@ export interface ProductMenuOptionGroup {
   minSelect: number
   maxSelect: number
   isCommon: boolean
-  options: ProductMenuOption[]
+  options: ProductOption[]
+}
+
+export interface ProductOption {
+  id: number
+  name: string
+  additionalPrice: number
+  isSoldOut: boolean
 }
