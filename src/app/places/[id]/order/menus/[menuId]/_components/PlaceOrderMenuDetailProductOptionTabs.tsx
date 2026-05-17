@@ -2,7 +2,7 @@
 
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import type { ProductMenuOptionGroup } from '@/domains/product'
+import type { ProductOptionGroup } from '@/domains/product'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import PlaceOrderMenuDetailOptionList from './PlaceOrderMenuDetailOptionList'
 import PlaceOrderMenuDetailReviewContent from './PlaceOrderMenuDetailReviewContent'
@@ -11,7 +11,7 @@ export type ProductOrderMenuDetailTab = 'options' | 'reviews'
 
 interface Props {
   productId: number
-  optionGroups: ProductMenuOptionGroup[]
+  optionGroups: ProductOptionGroup[]
   reviewCount: number
   initialTab: ProductOrderMenuDetailTab
   selectedOptions: Record<number, number | number[]>

@@ -4,7 +4,7 @@ import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
 import ConfirmModal from '@/components/ui/ConfirmModal'
 import StickyFooter from '@/components/ui/StickyFooter'
-import type { ProductMenuOptionGroup } from '@/domains/product'
+import type { ProductOptionGroup } from '@/domains/product'
 import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -15,7 +15,7 @@ import PlaceOrderMenuDetailProductOptionTabs, {
 interface Props {
   productId: number
   placeId: number
-  optionGroups: ProductMenuOptionGroup[]
+  optionGroups: ProductOptionGroup[]
   reviewCount: number
   initialTab: ProductOrderMenuDetailTab
 }

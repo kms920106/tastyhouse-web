@@ -3,7 +3,7 @@ import MenuItem from '@/components/menus/MenuItem'
 import BorderedSection from '@/components/ui/BorderedSection'
 import ErrorStateSection from '@/components/ui/ErrorStateSection'
 import { placeRepository } from '@/domains/place/place.repository'
-import { ProductMenuCategory } from '@/domains/product'
+import { ProductCategory } from '@/domains/product'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
@@ -19,7 +19,7 @@ export default async function PlaceOrderMenuList({ placeId }: Props) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />
   }
 
-  const menuCategories: ProductMenuCategory[] = data
+  const menuCategories: ProductCategory[] = data
 
   return (
     <>
