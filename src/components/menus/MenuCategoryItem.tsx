@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import React from 'react'
 
 interface Props {
   categoryName: string
@@ -6,15 +7,20 @@ interface Props {
   className?: string
 }
 
-export default function MenuCategoryItem({
-  categoryName,
-  children,
-  className = '',
-}: Props) {
+export default function MenuCategoryItem({ categoryName, children, className = '' }: Props) {
+  const childArray = React.Children.toArray(children)
+
   return (
-    <div className={cn('pt-[30px]', className)}>
-      <h3 className="mb-[5px] text-base leading-[16px] font-bold">{categoryName}</h3>
-      <div className="divide-y divide-[#eeeeee]">{children}</div>
+    <div className={cn('pt-[30px] pb-[15px]', className)}>
+      <h3 className="mb-5 text-base leading-[16px] font-bold">{categoryName}</h3>
+      <div>
+        {childArray.map((child, i) => (
+          <React.Fragment key={i}>
+            {child}
+            {i < childArray.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   )
 }

@@ -10,9 +10,10 @@ import {
   useSearchReviewsPreview,
 } from '@/domains/search/search.hook'
 import Image from 'next/image'
+import { MenuItemSkeleton } from '@/components/menus/MenuItemSkeleton'
+import React from 'react'
 import SearchResultEmptyState from './SearchResultEmptyState'
 import SearchResultMenuListItem from './SearchResultMenuListItem'
-import { SearchResultMenuListSkeleton } from './SearchResultMenuListSkeleton'
 import SearchResultPlaceListItem from './SearchResultPlaceListItem'
 import { SearchResultPlaceListSkeleton } from './SearchResultPlaceListSkeleton'
 import SearchResultReviewGridItem from './SearchResultReviewGridItem'
@@ -24,12 +25,10 @@ interface Props {
 
 function SectionHeader({ title }: { title: string }) {
   return (
-    <>
-      <div className="flex items-center gap-[9px] mb-5">
-        <h2 className="text-base leading-[16px] font-bold">{title}</h2>
-        <Image src="/images/icon-nav-right.svg" alt="" width={8} height={14} />
-      </div>
-    </>
+    <div className="flex items-center gap-[9px] mb-5">
+      <h2 className="text-base leading-[16px] font-bold">{title}</h2>
+      <Image src="/images/icon-nav-right.svg" alt="" width={8} height={14} />
+    </div>
   )
 }
 
@@ -54,14 +53,26 @@ export default function SearchResultAll({ query }: Props) {
       <BorderedSection>
         <div className="px-[15px] py-[30px]">
           <SectionHeader title="메뉴" />
-          {menus.isLoading && <SearchResultMenuListSkeleton count={3} />}
+          {menus.isLoading && (
+            <div>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <React.Fragment key={i}>
+                  <MenuItemSkeleton />
+                  {i < 2 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
           {menus.isError && <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('메뉴')} />}
           {!menus.isLoading && !menus.isError && (menus.data?.data?.length ?? 0) > 0 && (
-            <ul>
-              {(menus.data?.data ?? []).map((item) => (
-                <SearchResultMenuListItem key={item.id} item={item} />
+            <div>
+              {(menus.data?.data ?? []).map((item, i, arr) => (
+                <React.Fragment key={item.id}>
+                  <SearchResultMenuListItem item={item} />
+                  {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+                </React.Fragment>
               ))}
-            </ul>
+            </div>
           )}
         </div>
       </BorderedSection>

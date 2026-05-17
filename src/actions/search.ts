@@ -1,5 +1,6 @@
 'use server'
 
+import type { Product } from '@/domains/product/product.model'
 import { searchRepository } from '@/domains/search/search.repository'
 
 export async function getPopularKeywords() {
@@ -19,7 +20,22 @@ export async function getSearchMenus({
   page: number
   size: number
 }) {
-  return searchRepository.searchMenus({ query, page, size })
+  const result = await searchRepository.searchMenus({ query, page, size })
+  return {
+    ...result,
+    data: result.data?.map<Product>((item) => ({
+      id: item.id,
+      name: item.name,
+      imageUrl: item.imageUrl ?? '',
+      originalPrice: item.originalPrice,
+      discountPrice: item.discountPrice,
+      discountRate: item.discountRate,
+      rating: item.rating,
+      reviewCount: item.reviewCount,
+      isRepresentative: item.isRepresentative,
+      spiciness: item.spiciness,
+    })),
+  }
 }
 
 export async function getSearchReviews({

@@ -4,7 +4,7 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useSearchMenusInfinite } from '@/domains/search/search.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import SearchResultEmptyState from './SearchResultEmptyState'
 import SearchResultMenuListItem from './SearchResultMenuListItem'
 import { SearchResultMenuListSkeleton } from './SearchResultMenuListSkeleton'
@@ -40,12 +40,22 @@ export default function SearchResultMenuTabFetcher({ query }: Props) {
 
   return (
     <div className="pb-[90px]">
-      <ul>
-        {items.map((item) => (
-          <SearchResultMenuListItem key={item.id} item={item} />
+      <div>
+        {items.map((item, i, arr) => (
+          <React.Fragment key={item.id}>
+            <SearchResultMenuListItem item={item} />
+            {i < arr.length - 1 && (
+              <div className="border-t border-[#eeeeee] my-[15px]" />
+            )}
+          </React.Fragment>
         ))}
-        {isFetchingNextPage && <SearchResultMenuListSkeleton count={2} />}
-      </ul>
+        {isFetchingNextPage && (
+          <>
+            <div className="border-t border-[#eeeeee] my-[15px]" />
+            <SearchResultMenuListSkeleton count={2} />
+          </>
+        )}
+      </div>
       <div ref={targetRef} className="h-1" aria-hidden="true" />
     </div>
   )

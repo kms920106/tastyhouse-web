@@ -41,7 +41,7 @@ export default function PlaceDetailMenuListFetcher({ placeId }: Props) {
     >
       {menuCategory.products.map((menu) => (
         <Link key={menu.id} href={PAGE_PATHS.PRODUCT_DETAIL(placeId)} className="block">
-          <MenuItem key={menu.id} menu={menu} />
+          <MenuItem menu={menu} />
         </Link>
       ))}
     </MenuCategoryItem>

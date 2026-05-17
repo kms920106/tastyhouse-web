@@ -20,20 +20,6 @@ export interface SearchPlaceItem {
   isBookmarked: boolean | null
 }
 
-export interface SearchMenuItem {
-  id: number
-  placeName: string
-  name: string
-  imageUrl: string | null
-  originalPrice: number
-  discountPrice: number
-  discountRate: number
-  rating: number
-  reviewCount: number
-  isRepresentative: boolean
-  spiciness: number
-}
-
 export interface SearchReviewItem {
   reviewId: number
   imageUrl: string

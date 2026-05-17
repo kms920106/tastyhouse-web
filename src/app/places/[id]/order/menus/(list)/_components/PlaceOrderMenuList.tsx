@@ -26,12 +26,8 @@ export default async function PlaceOrderMenuList({ placeId }: Props) {
       <div className="px-[15px]">
         <MenuCategoryItem categoryName={menuCategory.categoryName}>
           {menuCategory.products.map((menu) => (
-            <Link
-              key={menu.id}
-              href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)}
-              className="block"
-            >
-              <MenuItem key={menu.id} menu={menu} />
+            <Link key={menu.id} href={PAGE_PATHS.ORDER_MENU_DETAIL(placeId, menu.id)} className="block">
+              <MenuItem menu={menu} />
             </Link>
           ))}
         </MenuCategoryItem>

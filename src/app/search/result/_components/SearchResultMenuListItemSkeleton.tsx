@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 export default function SearchResultMenuListItemSkeleton() {
   return (
-    <li className="flex items-center gap-[15px] py-[15px] px-[15px] border-b border-[#eeeeee] last:border-b-0">
+    <div className="flex items-center gap-[15px]">
       <Skeleton className="w-[65px] h-[65px] shrink-0 rounded-[1px]" />
       <div className="flex-1 flex flex-col gap-[9px]">
         <Skeleton className="h-[14px] w-3/5" />
@@ -12,6 +12,6 @@ export default function SearchResultMenuListItemSkeleton() {
         <Skeleton className="h-[19px] w-[30px]" />
         <Skeleton className="h-[12px] w-[50px]" />
       </div>
-    </li>
+    </div>
   )
 }

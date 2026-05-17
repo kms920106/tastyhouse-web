@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 export function MenuItemSkeleton() {
   return (
-    <div className="flex items-center gap-[15px] py-[15px] pr-3">
+    <div className="flex items-center gap-[15px] pr-3">
       <Skeleton className="w-[65px] h-[65px] flex-shrink-0" />
       <div className="flex-1 flex flex-col min-w-0">
         <div className="flex items-center justify-between">
