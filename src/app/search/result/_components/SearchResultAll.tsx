@@ -10,10 +10,12 @@ import {
   useSearchReviewsPreview,
 } from '@/domains/search/search.hook'
 import Image from 'next/image'
+import Link from 'next/link'
+import ProductItem from '@/components/products/ProductItem'
 import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
+import { PAGE_PATHS } from '@/lib/paths'
 import React from 'react'
 import SearchResultEmptyState from './SearchResultEmptyState'
-import SearchResultMenuListItem from './SearchResultMenuListItem'
 import SearchResultPlaceListItem from './SearchResultPlaceListItem'
 import { SearchResultPlaceListSkeleton } from './SearchResultPlaceListSkeleton'
 import SearchResultReviewGridItem from './SearchResultReviewGridItem'
@@ -68,7 +70,18 @@ export default function SearchResultAll({ query }: Props) {
             <div>
               {(menus.data?.data ?? []).map((item, i, arr) => (
                 <React.Fragment key={item.id}>
-                  <SearchResultMenuListItem product={item} />
+                  <Link href={PAGE_PATHS.PRODUCT_DETAIL(item.id)} className="block">
+                    <ProductItem
+                      imageUrl={item.imageUrl}
+                      spiciness={item.spiciness}
+                      name={item.name}
+                      originalPrice={item.originalPrice}
+                      discountPrice={item.discountPrice}
+                      discountRate={item.discountRate}
+                      rating={item.rating}
+                      reviewCount={item.reviewCount}
+                    />
+                  </Link>
                   {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
                 </React.Fragment>
               ))}
