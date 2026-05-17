@@ -1,8 +1,6 @@
 import type { PlaceFoodType } from '@/domains/place/place.types'
 import type { PaginationParams } from '@/types/common'
 
-export type SearchTab = 'all' | 'menu' | 'review' | 'place'
-
 export interface PopularKeywordResponse {
   rank: number
   keyword: string

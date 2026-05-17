@@ -1,14 +1,12 @@
 'use client'
 
-import type { SearchTab } from '@/domains/search/search.dto'
-import { PAGE_PATHS } from '@/lib/paths'
-import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
-
-interface Props {
-  tab: SearchTab
-  query: string
-}
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
+import type { SearchTab } from '@/domains/search/search.type'
+import { useTabNavigation } from '@/hooks/useTabNavigation'
+import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
+import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'
+import SearchResultReviewTabFetcher from './SearchResultReviewTabFetcher'
+import SearchResultSearchAllTabFetcher from './SearchResultSearchAllTabFetcher'
 
 const TABS: { label: string; value: SearchTab }[] = [
   { label: '전체', value: 'all' },
@@ -17,36 +15,39 @@ const TABS: { label: string; value: SearchTab }[] = [
   { label: '플레이스', value: 'place' },
 ]
 
-export default function SearchResultTabs({ tab, query }: Props) {
-  const router = useRouter()
+interface Props {
+  tab: SearchTab
+  query: string
+}
 
-  const handleTabClick = (value: SearchTab) => {
-    router.replace(`${PAGE_PATHS.SEARCH_RESULT}?q=${encodeURIComponent(query)}&tab=${value}`)
-  }
+export default function SearchResultTabs({ tab, query }: Props) {
+  const { handleTabChange } = useTabNavigation()
 
   return (
-    <div className="border-b-2 border-[#eeeeee]">
-      <div className="flex">
-        {TABS.map(({ label, value }) => {
-          const isActive = tab === value
-          return (
-            <button
-              key={value}
-              type="button"
-              onClick={() => handleTabClick(value)}
-              className={cn(
-                'flex-1 py-[15px] text-sm text-center relative',
-                isActive ? 'font-bold text-main' : 'font-normal text-[#333333] opacity-40',
-              )}
-            >
-              {label}
-              {isActive && (
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-main" />
-              )}
-            </button>
-          )
-        })}
-      </div>
-    </div>
+    <Tabs value={tab} onValueChange={handleTabChange} className="gap-0">
+      <TabsList className="sticky top-0 w-full h-[50px] p-0 rounded-none bg-white z-40 border-0 shadow-none">
+        {TABS.map(({ label, value }) => (
+          <TabsTrigger
+            key={value}
+            value={value}
+            className="flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
+          >
+            {label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      <TabsContent value="all" className="mt-0">
+        {tab === 'all' && <SearchResultSearchAllTabFetcher query={query} />}
+      </TabsContent>
+      <TabsContent value="menu" className="mt-0">
+        {tab === 'menu' && <SearchResultMenuTabFetcher query={query} />}
+      </TabsContent>
+      <TabsContent value="review" className="mt-0">
+        {tab === 'review' && <SearchResultReviewTabFetcher query={query} />}
+      </TabsContent>
+      <TabsContent value="place" className="mt-0">
+        {tab === 'place' && <SearchResultPlaceTabFetcher query={query} />}
+      </TabsContent>
+    </Tabs>
   )
 }

@@ -1,9 +1,5 @@
-import type { SearchTab } from '@/domains/search/search.dto'
+import type { SearchTab } from '@/domains/search/search.type'
 import SearchResultHeader from './SearchResultHeader'
-import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
-import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'
-import SearchResultReviewTabFetcher from './SearchResultReviewTabFetcher'
-import SearchResultSearchAllTabFetcher from './SearchResultSearchAllTabFetcher'
 import SearchResultTabs from './SearchResultTabs'
 
 interface Props {
@@ -16,10 +12,6 @@ export default function SearchResultPage({ query, tab }: Props) {
     <>
       <SearchResultHeader query={query} />
       <SearchResultTabs tab={tab} query={query} />
-      {tab === 'all' && <SearchResultSearchAllTabFetcher query={query} />}
-      {tab === 'menu' && <SearchResultMenuTabFetcher query={query} />}
-      {tab === 'review' && <SearchResultReviewTabFetcher query={query} />}
-      {tab === 'place' && <SearchResultPlaceTabFetcher query={query} />}
     </>
   )
 }

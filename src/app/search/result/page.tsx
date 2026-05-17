@@ -1,7 +1,5 @@
-import { PAGE_PATHS } from '@/lib/paths'
-import { redirect } from 'next/navigation'
+import type { SearchTab } from '@/domains/search/search.type'
 import SearchResultPage from './_components/SearchResultPage'
-import type { SearchTab } from '@/domains/search/search.dto'
 
 interface Props {
   searchParams: Promise<{
@@ -11,14 +9,9 @@ interface Props {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const { q, tab: tabParam } = await searchParams
+  const { q, tab } = await searchParams
 
-  if (!q?.trim()) {
-    redirect(PAGE_PATHS.SEARCH)
-  }
+  const initialTab = (tab || 'all') as SearchTab
 
-  const tab: SearchTab =
-    tabParam === 'menu' || tabParam === 'review' || tabParam === 'place' ? tabParam : 'all'
-
-  return <SearchResultPage query={q} tab={tab} />
+  return <SearchResultPage query={q ?? ''} tab={initialTab} />
 }

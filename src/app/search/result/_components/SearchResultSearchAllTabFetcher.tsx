@@ -1,6 +1,7 @@
 'use client'
 
 import FetchErrorState from '@/components/ui/FetchErrorState'
+import Image from 'next/image'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import {
   useSearchMenusPreview,
@@ -21,8 +22,9 @@ interface Props {
 
 function SectionHeader({ title }: { title: string }) {
   return (
-    <h2 className="px-[15px] py-[15px] text-base font-bold leading-[16px] text-[#333333] border-b border-[#eeeeee]">
+    <h2 className="flex items-center justify-between px-[15px] py-[15px] text-base font-bold leading-[16px] text-[#333333] border-b border-[#eeeeee]">
       {title}
+      <Image src="/images/icon-nav-right.svg" alt="" width={11} height={20} />
     </h2>
   )
 }
