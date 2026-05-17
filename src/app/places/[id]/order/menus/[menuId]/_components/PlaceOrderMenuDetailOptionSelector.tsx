@@ -2,7 +2,6 @@
 
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { toast } from '@/components/ui/AppToaster'
-import BorderedSection from '@/components/ui/BorderedSection'
 import ConfirmModal from '@/components/ui/ConfirmModal'
 import StickyFooter from '@/components/ui/StickyFooter'
 import type { ProductMenuOptionGroup } from '@/domains/product'
@@ -10,7 +9,7 @@ import { CartSelectedOption, addToCart, getCartPlaceId, replaceCartAndAdd } from
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import PlaceOrderMenuDetailProductOptionTabs, {
-  type ProductMenuDetailTab,
+  type ProductOrderMenuDetailTab,
 } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
@@ -18,7 +17,7 @@ interface Props {
   placeId: number
   optionGroups: ProductMenuOptionGroup[]
   reviewCount: number
-  initialTab: ProductMenuDetailTab
+  initialTab: ProductOrderMenuDetailTab
 }
 
 export default function PlaceOrderMenuDetailOptionSelector({
@@ -166,17 +165,15 @@ export default function PlaceOrderMenuDetailOptionSelector({
 
   return (
     <>
-      <BorderedSection>
-        <PlaceOrderMenuDetailProductOptionTabs
-          productId={productId}
-          optionGroups={optionGroups}
-          reviewCount={reviewCount}
-          initialTab={initialTab}
-          selectedOptions={selectedOptions}
-          onRadioSelect={handleRadioSelect}
-          onCheckboxToggle={handleCheckboxToggle}
-        />
-      </BorderedSection>
+      <PlaceOrderMenuDetailProductOptionTabs
+        productId={productId}
+        optionGroups={optionGroups}
+        reviewCount={reviewCount}
+        initialTab={initialTab}
+        selectedOptions={selectedOptions}
+        onRadioSelect={handleRadioSelect}
+        onCheckboxToggle={handleCheckboxToggle}
+      />
       <StickyFooter>
         <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
           <AppPrimaryButton onClick={handleAddToCart}>장바구니 담기</AppPrimaryButton>

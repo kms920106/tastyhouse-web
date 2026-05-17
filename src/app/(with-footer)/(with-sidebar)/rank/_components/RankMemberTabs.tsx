@@ -1,38 +1,47 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import { RankPeriod } from '@/domains/rank'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import { ReactNode } from 'react'
 
+export type RankTab = 'all' | 'monthly'
+
+const TABS: { label: string; value: RankTab }[] = [
+  { label: '전체', value: 'all' },
+  { label: '이번 달', value: 'monthly' },
+]
+
 interface Props {
-  initialTab: RankPeriod
+  initialTab: RankTab
   scheduleArea: ReactNode
   infoButton: ReactNode
   allContent: ReactNode
   monthlyContent: ReactNode
 }
 
-export default function RankMemberTabs({ initialTab, scheduleArea, infoButton, allContent, monthlyContent }: Props) {
+export default function RankMemberTabs({
+  initialTab,
+  scheduleArea,
+  infoButton,
+  allContent,
+  monthlyContent,
+}: Props) {
   const { handleTabChange } = useTabNavigation()
 
   return (
     <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
       <div className="flex justify-between">
         <div className="flex gap-2.5">
-          <TabsList className="flex items-start gap-3 p-0 bg-white">
-            <TabsTrigger
-              value="all"
-              className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-foreground/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
-            >
-              전체
-            </TabsTrigger>
-            <TabsTrigger
-              value="monthly"
-              className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-foreground/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
-            >
-              이번 달
-            </TabsTrigger>
+          <TabsList className="flex items-start gap-3 p-0 bg-white border-0 shadow-none">
+            {TABS.map(({ label, value }) => (
+              <TabsTrigger
+                key={value}
+                value={value}
+                className="p-0 !h-[18px] text-lg leading-[18px] font-bold text-foreground/50 data-[state=active]:text-black data-[state=active]:shadow-none cursor-pointer"
+              >
+                {label}
+              </TabsTrigger>
+            ))}
           </TabsList>
           {infoButton}
         </div>

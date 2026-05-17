@@ -9,8 +9,10 @@ import SearchInput from './SearchInput'
 
 export type MemberFollowTab = 'following' | 'follower'
 
-const TAB_TRIGGER_CLASS =
-  'flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
+const TABS: { label: string; value: MemberFollowTab }[] = [
+  { label: '팔로잉', value: 'following' },
+  { label: '팔로워', value: 'follower' },
+]
 
 interface Props {
   memberId: number
@@ -31,13 +33,16 @@ export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isO
 
   return (
     <Tabs value={initialTab} onValueChange={handleTabChangeWithReset} className="gap-0">
-      <TabsList className="w-full h-[50px] rounded-none bg-white p-0">
-        <TabsTrigger value="following" className={TAB_TRIGGER_CLASS}>
-          팔로잉
-        </TabsTrigger>
-        <TabsTrigger value="follower" className={TAB_TRIGGER_CLASS}>
-          팔로워
-        </TabsTrigger>
+      <TabsList className="w-full h-[50px] rounded-none bg-white p-0 sticky top-0 z-40 border-0 shadow-none">
+        {TABS.map(({ label, value }) => (
+          <TabsTrigger
+            key={value}
+            value={value}
+            className="flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
+          >
+            {label}
+          </TabsTrigger>
+        ))}
       </TabsList>
       <TabsContent value="following" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">

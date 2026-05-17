@@ -1,17 +1,18 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { RankPeriod, RankType } from '@/domains/rank'
+import { RankType } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import type { RankTab } from './RankMemberTabs'
 import RankMemberInfo from './RankMemberInfo'
 
-const RANK_PERIOD_TO_TYPE: Record<RankPeriod, RankType> = {
+const RANK_TAB_TYPE_MAP: Record<RankTab, RankType> = {
   all: 'ALL',
   monthly: 'MONTHLY',
 }
 
-export default async function RankMyInfo({ rankPeriod }: { rankPeriod: RankPeriod }) {
+export default async function RankMyInfo({ tab }: { tab: RankTab }) {
   const { error, status, data } = await rankRepository.getRankMembersMe({
-    type: RANK_PERIOD_TO_TYPE[rankPeriod],
+    type: RANK_TAB_TYPE_MAP[tab],
   })
 
   if ((error && status === 404) || !data) {

@@ -1,6 +1,6 @@
-import { RankPeriod } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
 import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
+import type { RankTab } from './RankMemberTabs'
 
 function getMonthlySchedule() {
   const now = new Date()
@@ -11,8 +11,8 @@ function getMonthlySchedule() {
   return { startAt, endAt }
 }
 
-export default async function RankSchedule({ rankPeriod }: { rankPeriod: RankPeriod }) {
-  if (rankPeriod === 'monthly') {
+export default async function RankSchedule({ tab }: { tab: RankTab }) {
+  if (tab === 'monthly') {
     const { startAt, endAt } = getMonthlySchedule()
     const remainingTime = formatRemainingTime(getTimeDifference(endAt))
     const startDateFormatted = formatDate(startAt, 'YYYY.MM.DD')

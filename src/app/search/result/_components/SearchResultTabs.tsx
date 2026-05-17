@@ -1,12 +1,13 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-export type SearchTab = 'all' | 'menu' | 'review' | 'place'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
 import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'
 import SearchResultReviewTabFetcher from './SearchResultReviewTabFetcher'
 import SearchResultSearchAllTabFetcher from './SearchResultSearchAllTabFetcher'
+
+export type SearchTab = 'all' | 'menu' | 'review' | 'place'
 
 const TABS: { label: string; value: SearchTab }[] = [
   { label: '전체', value: 'all' },

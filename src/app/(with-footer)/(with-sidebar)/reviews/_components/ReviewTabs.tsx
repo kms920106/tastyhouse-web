@@ -3,12 +3,17 @@
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import type { ReviewType } from '@/domains/review'
-
-export type ReviewTab = 'all' | 'following'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import LatestReviewList from './LatestReviewList'
 
-const reviewTypeMap: Record<ReviewTab, ReviewType> = {
+export type ReviewTab = 'all' | 'following'
+
+const TABS: { label: string; value: ReviewTab }[] = [
+  { label: '전체', value: 'all' },
+  { label: '팔로잉', value: 'following' },
+]
+
+const REVIEW_TAB_TYPE_MAP: Record<ReviewTab, ReviewType> = {
   all: 'ALL',
   following: 'FOLLOWING',
 }
@@ -27,28 +32,25 @@ export default function ReviewTabs({ initialTab }: Props) {
 
   return (
     <Tabs value={initialTab} onValueChange={handleTabChangeWithScroll} className="gap-0">
-      <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0">
-        <TabsTrigger
-          value="all"
-          className="flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main"
-        >
-          전체
-        </TabsTrigger>
-        <TabsTrigger
-          value="following"
-          className="flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main"
-        >
-          팔로잉
-        </TabsTrigger>
+      <TabsList className="sticky top-0 w-full h-[50px] p-0 rounded-none bg-white z-40 border-0 shadow-none">
+        {TABS.map(({ label, value }) => (
+          <TabsTrigger
+            key={value}
+            value={value}
+            className="flex-1 h-full text-sm leading-[14px] text-foreground/40 border-0 border-b border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:text-main data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
+          >
+            {label}
+          </TabsTrigger>
+        ))}
       </TabsList>
       <TabsContent value="all" className="mt-0">
         <SectionStack>
-          <LatestReviewList reviewType={reviewTypeMap.all} />
+          <LatestReviewList reviewType={REVIEW_TAB_TYPE_MAP.all} />
         </SectionStack>
       </TabsContent>
       <TabsContent value="following" className="mt-0">
         <SectionStack>
-          <LatestReviewList reviewType={reviewTypeMap.following} />
+          <LatestReviewList reviewType={REVIEW_TAB_TYPE_MAP.following} />
         </SectionStack>
       </TabsContent>
     </Tabs>

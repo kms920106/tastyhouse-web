@@ -1,11 +1,11 @@
 import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
-import { RankPeriod } from '@/domains/rank'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { Suspense } from 'react'
+import type { RankTab } from './RankMemberTabs'
 import RankMyInfo from './RankMyInfo'
 import { RankMyInfoSkeleton } from './RankMyInfoSkeleton'
 
-export default async function RankMyFixedSection({ rankPeriod }: { rankPeriod: RankPeriod }) {
+export default async function RankMyFixedSection({ tab }: { tab: RankTab }) {
   const isLoggedIn = await getIsLoggedIn()
 
   return (
@@ -13,7 +13,7 @@ export default async function RankMyFixedSection({ rankPeriod }: { rankPeriod: R
       <div className="flex justify-between items-center py-[15px] pl-8 pr-[35px] bg-[#eeeeee] border border-[#cccccc] box-border rounded-[2.5px]">
         {isLoggedIn ? (
           <Suspense fallback={<RankMyInfoSkeleton />}>
-            <RankMyInfo rankPeriod={rankPeriod} />
+            <RankMyInfo tab={tab} />
           </Suspense>
         ) : (
           <div className="w-full">

@@ -4,13 +4,15 @@ import MemberProfileCard from '@/components/member/MemberProfileCard'
 import { useMemberStats, useOtherMemberProfile } from '@/domains/member/member.hook'
 import MemberDetailHeader from './MemberDetailHeader'
 import MemberDetailTabs from './MemberDetailTabs'
+import type { MemberDetailTab } from './MemberDetailTabs'
 
 interface Props {
   memberId: number
   isLoggedIn: boolean
+  initialTab: MemberDetailTab
 }
 
-export default function MemberDetailPage({ memberId, isLoggedIn }: Props) {
+export default function MemberDetailPage({ memberId, isLoggedIn, initialTab }: Props) {
   const { data: profileData, isLoading: isProfileLoading } = useOtherMemberProfile(memberId)
   const { data: statsData, isLoading: isStatsLoading } = useMemberStats(memberId)
 
@@ -31,7 +33,7 @@ export default function MemberDetailPage({ memberId, isLoggedIn }: Props) {
           isStatsLoading={isStatsLoading}
         />
       </div>
-      <MemberDetailTabs memberId={memberId} />
+      <MemberDetailTabs memberId={memberId} initialTab={initialTab} />
     </div>
   )
 }

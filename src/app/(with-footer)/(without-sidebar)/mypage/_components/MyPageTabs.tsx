@@ -3,16 +3,20 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import Image from 'next/image'
+import { useState } from 'react'
 import BookmarkListFetcher from './BookmarkListFetcher'
 import EmptyState from './EmptyState'
-export type MyPageTab = 'reviews' | 'payments' | 'bookmarks'
 import OrderListFetcher from './OrderListFetcher'
 import ReviewListFetcher from './ReviewListFetcher'
 
-const TAB_TRIGGER_CLASS =
-  'flex-1 h-full rounded-none border-0 border-b border-[#eeeeee] shadow-none cursor-pointer data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-main'
+export type MyPageTab = 'reviews' | 'payments' | 'bookmarks'
 
-const TAB_CONTENT_CLASS = 'mt-0 flex flex-col flex-1 bg-[#f9f9f9]'
+const TABS: { label: string; value: MyPageTab; iconBase: string; width: number; height: number }[] =
+  [
+    { label: '리뷰', value: 'reviews', iconBase: 'icon-review', width: 22, height: 25 },
+    { label: '결제', value: 'payments', iconBase: 'icon-order', width: 34, height: 25 },
+    { label: '북마크', value: 'bookmarks', iconBase: 'icon-place-bookmark', width: 27, height: 25 },
+  ]
 
 interface Props {
   initialTab: MyPageTab
@@ -21,41 +25,37 @@ interface Props {
 
 export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
   const { handleTabChange } = useTabNavigation()
+  const [currentTab, setCurrentTab] = useState<MyPageTab>(initialTab)
+
+  const handleChange = (value: string) => {
+    setCurrentTab(value as MyPageTab)
+    handleTabChange(value)
+  }
 
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
       <Tabs
         value={initialTab}
-        onValueChange={handleTabChange}
+        onValueChange={handleChange}
         className="gap-0 flex flex-col flex-1"
       >
-        <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0">
-          <TabsTrigger value="reviews" className={TAB_TRIGGER_CLASS}>
-            <Image
-              src={`/images/mypage/icon-review-${initialTab === 'reviews' ? 'on' : 'off'}.png`}
-              alt="리뷰"
-              width={22}
-              height={25}
-            />
-          </TabsTrigger>
-          <TabsTrigger value="payments" className={TAB_TRIGGER_CLASS}>
-            <Image
-              src={`/images/mypage/icon-order-${initialTab === 'payments' ? 'on' : 'off'}.png`}
-              alt="결제"
-              width={34}
-              height={25}
-            />
-          </TabsTrigger>
-          <TabsTrigger value="bookmarks" className={TAB_TRIGGER_CLASS}>
-            <Image
-              src={`/images/mypage/icon-place-bookmark-${initialTab === 'bookmarks' ? 'on' : 'off'}.png`}
-              alt="북마크"
-              width={27}
-              height={25}
-            />
-          </TabsTrigger>
+        <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0 border-0 shadow-none">
+          {TABS.map(({ label, value, iconBase, width, height }) => (
+            <TabsTrigger
+              key={value}
+              value={value}
+              className="flex-1 h-full rounded-none border-0 border-b border-[#eeeeee] shadow-none cursor-pointer data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
+            >
+              <Image
+                src={`/images/mypage/${iconBase}-${currentTab === value ? 'on' : 'off'}.png`}
+                alt={label}
+                width={width}
+                height={height}
+              />
+            </TabsTrigger>
+          ))}
         </TabsList>
-        <TabsContent value="reviews" className={TAB_CONTENT_CLASS}>
+        <TabsContent value="reviews" className="mt-0 flex flex-col flex-1 bg-[#f9f9f9]">
           {isLoggedIn ? (
             <ReviewListFetcher />
           ) : (
@@ -65,7 +65,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
             </>
           )}
         </TabsContent>
-        <TabsContent value="payments" className={TAB_CONTENT_CLASS}>
+        <TabsContent value="payments" className="mt-0 flex flex-col flex-1 bg-[#f9f9f9]">
           {isLoggedIn ? (
             <OrderListFetcher />
           ) : (
@@ -75,7 +75,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
             </>
           )}
         </TabsContent>
-        <TabsContent value="bookmarks" className={TAB_CONTENT_CLASS}>
+        <TabsContent value="bookmarks" className="mt-0 flex flex-col flex-1 bg-[#f9f9f9]">
           {isLoggedIn ? (
             <BookmarkListFetcher />
           ) : (

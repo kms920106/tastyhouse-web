@@ -1,14 +1,21 @@
-import { RankPeriod } from '@/domains/rank'
+import type { RankTab } from './_components/RankMemberTabs'
 import RankPage from './_components/RankPage'
 
-const isValidRankType = (type: string | undefined): type is RankPeriod => {
-  return type === 'all' || type === 'monthly'
+interface Props {
+  searchParams: Promise<{
+    tab?: string
+  }>
 }
 
-export default async function Page({ searchParams }: { searchParams: { tab?: string } }) {
-  const resolvedSearchParams = await Promise.resolve(searchParams)
-  const typeParam = resolvedSearchParams.tab
-  const rankPeriod: RankPeriod = isValidRankType(typeParam) ? typeParam : 'all'
+const RANK_TAB_VALUES: RankTab[] = ['all', 'monthly']
 
-  return <RankPage rankPeriod={rankPeriod} />
+function parseRankTab(value: string | undefined): RankTab {
+  return RANK_TAB_VALUES.includes(value as RankTab) ? (value as RankTab) : 'all'
+}
+
+export default async function Page({ searchParams }: Props) {
+  const { tab } = await searchParams
+  const initialTab = parseRankTab(tab)
+
+  return <RankPage tab={initialTab} />
 }

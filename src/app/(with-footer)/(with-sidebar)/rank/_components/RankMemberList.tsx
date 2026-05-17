@@ -1,18 +1,19 @@
 import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { RankPeriod, RankType } from '@/domains/rank'
+import { RankType } from '@/domains/rank'
 import { rankRepository } from '@/domains/rank/rank.repository'
+import type { RankTab } from './RankMemberTabs'
 import RankMemberListItem from './RankMemberListItem'
 
-const RANK_PERIOD_TO_TYPE: Record<RankPeriod, RankType> = {
+const RANK_TAB_TYPE_MAP: Record<RankTab, RankType> = {
   all: 'ALL',
   monthly: 'MONTHLY',
 }
 
-export default async function RankMemberList({ rankPeriod }: { rankPeriod: RankPeriod }) {
+export default async function RankMemberList({ tab }: { tab: RankTab }) {
   const { error, status, data } = await rankRepository.getRankMembers({
-    type: RANK_PERIOD_TO_TYPE[rankPeriod],
+    type: RANK_TAB_TYPE_MAP[tab],
     limit: 100,
   })
 

@@ -1,15 +1,28 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
 import MemberDetailPage from './_components/MemberDetailPage'
+import type { MemberDetailTab } from './_components/MemberDetailTabs'
 
 interface Props {
-  params: Promise<{
-    id: string
-  }>
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ tab?: string }>
 }
 
-export default async function Page({ params }: Props) {
-  const [{ id }, isLoggedIn] = await Promise.all([params, getIsLoggedIn()])
-  const memberId = Number(id)
+const MEMBER_DETAIL_TAB_VALUES: MemberDetailTab[] = ['reviews']
 
-  return <MemberDetailPage memberId={memberId} isLoggedIn={isLoggedIn} />
+function parseMemberDetailTab(value: string | undefined): MemberDetailTab {
+  return MEMBER_DETAIL_TAB_VALUES.includes(value as MemberDetailTab)
+    ? (value as MemberDetailTab)
+    : 'reviews'
+}
+
+export default async function Page({ params, searchParams }: Props) {
+  const [{ id }, { tab }, isLoggedIn] = await Promise.all([params, searchParams, getIsLoggedIn()])
+
+  return (
+    <MemberDetailPage
+      memberId={Number(id)}
+      isLoggedIn={isLoggedIn}
+      initialTab={parseMemberDetailTab(tab)}
+    />
+  )
 }

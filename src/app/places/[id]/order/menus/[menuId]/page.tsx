@@ -2,7 +2,7 @@ import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
 import PlaceOrderMenuDetailPage from './_components/PlaceOrderMenuDetailPage'
-import type { ProductMenuDetailTab } from './_components/PlaceOrderMenuDetailProductOptionTabs'
+import type { ProductOrderMenuDetailTab } from './_components/PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
   params: Promise<{
@@ -14,11 +14,11 @@ interface Props {
   }>
 }
 
-const PRODUCT_MENU_DETAIL_TAB_VALUES: ProductMenuDetailTab[] = ['options', 'reviews']
+const PRODUCT_MENU_DETAIL_TAB_VALUES: ProductOrderMenuDetailTab[] = ['options', 'reviews']
 
-function parseProductMenuDetailTab(value: string | undefined): ProductMenuDetailTab {
-  return PRODUCT_MENU_DETAIL_TAB_VALUES.includes(value as ProductMenuDetailTab)
-    ? (value as ProductMenuDetailTab)
+function parseProductMenuDetailTab(value: string | undefined): ProductOrderMenuDetailTab {
+  return PRODUCT_MENU_DETAIL_TAB_VALUES.includes(value as ProductOrderMenuDetailTab)
+    ? (value as ProductOrderMenuDetailTab)
     : 'options'
 }
 
