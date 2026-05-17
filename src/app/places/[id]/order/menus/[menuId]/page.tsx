@@ -23,7 +23,7 @@ export default async function Page({ params, searchParams }: Props) {
 
   const placeId = Number(id)
   const productId = Number(menuId)
-  const initialTab = (tab || 'reviews') as PlaceOrderMenuDetailTabValue
+  const initialTab = (tab || 'options') as PlaceOrderMenuDetailTabValue
 
   if (!isLoggedIn) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
