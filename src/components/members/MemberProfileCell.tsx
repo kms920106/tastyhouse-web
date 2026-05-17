@@ -2,7 +2,7 @@ import Avatar from '@/components/ui/Avatar'
 import MemberGradeBadge from '@/components/members/MemberGradeBadge'
 import MemberGradeIcon from '@/components/members/MemberGradeIcon'
 import MemberGradeName from '@/components/members/MemberGradeName'
-import MemberNickname from '@/components/ui/MemberNickname'
+import MemberNickname from '@/components/members/MemberNickname'
 import { MemberGradeCode } from '@/domains/member'
 
 interface Props {

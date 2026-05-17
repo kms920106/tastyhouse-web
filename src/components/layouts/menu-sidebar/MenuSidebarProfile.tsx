@@ -7,7 +7,7 @@ import Avatar from '../../ui/Avatar'
 import MemberGradeBadge from '../../members/MemberGradeBadge'
 import MemberGradeIcon from '../../members/MemberGradeIcon'
 import MemberGradeName from '../../members/MemberGradeName'
-import MemberNickname from '../../ui/MemberNickname'
+import MemberNickname from '@/components/members/MemberNickname'
 
 interface Props {
   isLoggedIn: boolean

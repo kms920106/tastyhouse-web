@@ -2,7 +2,7 @@ import MemberProfileImage from '@/components/members/MemberProfileImage'
 import MemberGradeInfo from '@/components/members/MemberGradeInfo'
 import type { MemberGradeCode } from '@/domains/member'
 import { ReactNode } from 'react'
-import MemberNickname from '../ui/MemberNickname'
+import MemberNickname from '@/components/members/MemberNickname'
 
 interface Props {
   nickname: string

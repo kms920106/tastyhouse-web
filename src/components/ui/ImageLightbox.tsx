@@ -2,7 +2,7 @@
 
 import 'yet-another-react-lightbox/plugins/counter.css'
 import 'yet-another-react-lightbox/styles.css'
-import styles from './ReviewImageGallery.module.css'
+import styles from '@/components/reviews/ReviewImageGallery.module.css'
 
 import { useEffect } from 'react'
 import { HiOutlineXMark } from 'react-icons/hi2'

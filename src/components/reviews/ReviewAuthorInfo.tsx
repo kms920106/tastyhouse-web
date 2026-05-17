@@ -1,5 +1,5 @@
 import Avatar from '@/components/ui/Avatar'
-import MemberNickname from '@/components/ui/MemberNickname'
+import MemberNickname from '@/components/members/MemberNickname'
 import TimeAgo from '@/components/reviews/TimeAgo'
 
 interface Props {
