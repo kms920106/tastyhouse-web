@@ -19,9 +19,3 @@ export interface SearchPlaceItem {
   foodTypes: PlaceFoodType[]
   isBookmarked: boolean | null
 }
-
-export interface SearchReviewItem {
-  reviewId: number
-  imageUrl: string
-  placeId: number
-}

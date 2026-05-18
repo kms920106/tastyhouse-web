@@ -36,9 +36,8 @@ export interface SearchMenuListItemResponse {
 }
 
 export interface SearchReviewListItemResponse {
-  reviewId: number
+  id: number
   imageUrl: string
-  placeId: number
 }
 
 export interface SearchQuery extends PaginationParams {

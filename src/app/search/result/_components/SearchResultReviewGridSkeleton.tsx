@@ -1,10 +1,10 @@
-import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import ReviewThumbnailSkeleton from '@/components/reviews/ReviewThumbnailSkeleton'
 
-export default function SearchResultReviewGridSkeleton({ count = 9 }: { count?: number }) {
+export default function SearchResultReviewListSkeleton({ count = 9 }: { count?: number }) {
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 gap-2">
       {Array.from({ length: count }).map((_, i) => (
-        <Skeleton key={i} className="aspect-square rounded-none" />
+        <ReviewThumbnailSkeleton key={i} />
       ))}
     </div>
   )

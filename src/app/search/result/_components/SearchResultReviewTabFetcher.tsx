@@ -5,9 +5,11 @@ import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useSearchReviewsInfinite } from '@/domains/search/search.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useEffect } from 'react'
+import ReviewThumbnail from '@/components/reviews/ReviewThumbnail'
+import { PAGE_PATHS } from '@/lib/paths'
+import Link from 'next/link'
 import SearchResultEmptyState from './SearchResultEmptyState'
-import SearchResultReviewGridItem from './SearchResultReviewGridItem'
-import SearchResultReviewGridSkeleton from './SearchResultReviewGridSkeleton'
+import SearchResultReviewListSkeleton from './SearchResultReviewGridSkeleton'
 
 interface Props {
   query: string
@@ -30,22 +32,24 @@ export default function SearchResultReviewTabFetcher({ query }: Props) {
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
-  if (isLoading) return <SearchResultReviewGridSkeleton />
+  if (isLoading) return <SearchResultReviewListSkeleton />
   if (isError) return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
 
   const totalElements = data?.pages[0]?.pagination?.totalElements ?? 0
   if (totalElements === 0) return <SearchResultEmptyState query={query} label="리뷰" />
 
-  const items = data?.pages.flatMap((page) => page.data ?? []) ?? []
+  const reviews = data?.pages.flatMap((page) => page.data ?? []) ?? []
 
   return (
     <div className="pb-[90px]">
       <div className="grid grid-cols-3">
-        {items.map((item) => (
-          <SearchResultReviewGridItem key={item.reviewId} item={item} />
+        {reviews.map((review) => (
+          <Link key={review.id} href={PAGE_PATHS.REVIEW_DETAIL(review.id)}>
+            <ReviewThumbnail imageUrl={review.imageUrl} />
+          </Link>
         ))}
       </div>
-      {isFetchingNextPage && <SearchResultReviewGridSkeleton count={3} />}
+      {isFetchingNextPage && <SearchResultReviewListSkeleton count={3} />}
       <div ref={targetRef} className="h-1" aria-hidden="true" />
     </div>
   )
