@@ -5,7 +5,7 @@ import { useTabNavigation } from '@/hooks/useTabNavigation'
 import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
 import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'
 import SearchResultReviewTabFetcher from './SearchResultReviewTabFetcher'
-import SearchResultAll from './SearchResultAll'
+import SearchResultContent from './SearchResultContent'
 
 export type SearchTab = 'all' | 'menu' | 'review' | 'place'
 
@@ -38,7 +38,7 @@ export default function SearchResultTabs({ tab, query }: Props) {
         ))}
       </TabsList>
       <TabsContent value="all" className="mt-0">
-        <SearchResultAll query={query} />
+        <SearchResultContent query={query} />
       </TabsContent>
       <TabsContent value="menu" className="mt-0">
         <SearchResultMenuTabFetcher query={query} />
