@@ -1,8 +1,8 @@
 import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
+import ReviewThumbnail from '@/components/reviews/ReviewThumbnail'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import type { MyReviewListItemResponse } from '@/domains/member'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
 import Link from 'next/link'
 
 interface Props {
@@ -25,18 +25,8 @@ export default function ReviewList({ reviews, hasMoreReviews }: Props) {
       <div className="py-[1px]">
         <div className="grid grid-cols-3 gap-[1.5px]">
           {reviews.map((review) => (
-            <Link
-              key={review.id}
-              href={PAGE_PATHS.REVIEW_DETAIL(review.id)}
-              className="relative aspect-square"
-            >
-              <Image
-                src={review.imageUrl}
-                alt="리뷰 이미지"
-                fill
-                sizes="33vw"
-                className="object-cover"
-              />
+            <Link key={review.id} href={PAGE_PATHS.REVIEW_DETAIL(review.id)}>
+              <ReviewThumbnail imageUrl={review.imageUrl} />
             </Link>
           ))}
         </div>
