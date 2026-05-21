@@ -21,13 +21,11 @@ export default function SearchResultAllReviewList({ query }: Props) {
   if (!data?.data || data.data.length === 0)
     return <SearchResultEmptyState query={query} label="리뷰" />
 
-  console.log(data)
-
   return (
     <div className="grid grid-cols-3 gap-2">
-      {data.data.map((review) => (
+      {data.data.map((review, index) => (
         <Link key={review.id} href={PAGE_PATHS.REVIEW_DETAIL(review.id)}>
-          <ReviewThumbnail imageUrl={review.imageUrl} />
+          <ReviewThumbnail imageUrl={review.imageUrl} priority={index === 0} />
         </Link>
       ))}
     </div>

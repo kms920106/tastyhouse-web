@@ -43,9 +43,9 @@ export default function SearchResultReviewTabFetcher({ query }: Props) {
   return (
     <div className="pb-[90px]">
       <div className="grid grid-cols-3">
-        {reviews.map((review) => (
+        {reviews.map((review, index) => (
           <Link key={review.id} href={PAGE_PATHS.REVIEW_DETAIL(review.id)}>
-            <ReviewThumbnail imageUrl={review.imageUrl} />
+            <ReviewThumbnail imageUrl={review.imageUrl} priority={index === 0} />
           </Link>
         ))}
       </div>
