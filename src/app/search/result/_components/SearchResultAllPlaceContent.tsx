@@ -1,4 +1,4 @@
-import SearchResultPlacePreviewFetcher from './SearchResultPlacePreviewFetcher'
+import SearchResultAllPlaceList from './SearchResultAllPlaceList'
 import SearchResultSectionHeader from './SearchResultSectionHeader'
 
 interface Props {
@@ -9,7 +9,7 @@ export default function SearchResultAllPlaceContent({ query }: Props) {
   return (
     <div className="px-[15px] py-[30px]">
       <SearchResultSectionHeader title="플레이스" />
-      <SearchResultPlacePreviewFetcher query={query} />
+      <SearchResultAllPlaceList query={query} />
     </div>
   )
 }

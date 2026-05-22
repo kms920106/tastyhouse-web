@@ -105,8 +105,8 @@ export interface MyPaymentListItemResponse {
 }
 
 export interface MyBookmarkedPlaceListItemResponse {
-  placeId: number
   bookmarkId: number
+  placeId: number
   placeName: string
   stationName: string
   rating: number
