@@ -6,6 +6,7 @@ import {
   ProductDetailResponse,
   ProductImagesResponse,
   ProductOptionsResponse,
+  ProductReviewCountResponse,
   ProductReviewStatisticsResponse,
   ProductReviewsByRatingResponse,
   ProductTodayDiscountListItemResponse,
@@ -26,6 +27,13 @@ export const productRepository = {
   // 상품 상세 조회
   async getProductById(productId: number) {
     return publicApi.get<ProductDetailResponse>(`${ENDPOINT}/v1/${productId}`, CACHE_OPTIONS)
+  },
+  // 상품 리뷰 수 조회
+  async getProductReviewCount(productId: number) {
+    return publicApi.get<ProductReviewCountResponse>(
+      `${ENDPOINT}/v1/${productId}/reviews/count`,
+      CACHE_OPTIONS,
+    )
   },
   // 상품 이미지 목록 조회
   async getProductImages(productId: number) {

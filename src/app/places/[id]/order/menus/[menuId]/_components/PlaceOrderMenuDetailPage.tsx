@@ -15,10 +15,11 @@ interface Props {
 }
 
 export default async function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
-  const [productResult, optionsResult, imagesResult] = await Promise.all([
+  const [productResult, optionsResult, imagesResult, reviewCountResult] = await Promise.all([
     productRepository.getProductById(productId),
     productRepository.getProductOptions(productId),
     productRepository.getProductImages(productId),
+    productRepository.getProductReviewCount(productId),
   ])
 
   if (productResult.error || !productResult.data) {
@@ -33,8 +34,9 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId, ini
     originalPrice,
     discountPrice,
     discountRate,
-    reviewCount,
   } = productResult.data
+
+  const reviewCount = reviewCountResult.data?.reviewCount ?? 0
 
   const optionGroups = optionsResult.data?.optionGroups ?? []
 
