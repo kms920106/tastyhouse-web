@@ -15,9 +15,12 @@ interface Props {
 }
 
 export default async function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
-  const { error, data } = await productRepository.getProductById(productId)
+  const [productResult, optionsResult] = await Promise.all([
+    productRepository.getProductById(productId),
+    productRepository.getProductOptions(productId),
+  ])
 
-  if (error || !data) {
+  if (productResult.error || !productResult.data) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('상품 정보')} />
   }
 
@@ -29,8 +32,9 @@ export default async function PlaceOrderMenuDetailPage({ placeId, productId, ini
     discountPrice,
     discountRate,
     reviewCount,
-    optionGroups,
-  } = data
+  } = productResult.data
+
+  const optionGroups = optionsResult.data?.optionGroups ?? []
 
   return (
     <>

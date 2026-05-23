@@ -28,6 +28,9 @@ export interface ProductDetailResponse {
   isRepresentative: boolean
   isSoldOut: boolean
   categoryName: string
+}
+
+export interface ProductOptionsResponse {
   optionGroups: ProductOptionGroup[]
 }
 

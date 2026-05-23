@@ -4,6 +4,7 @@ import { publicApi } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import {
   ProductDetailResponse,
+  ProductOptionsResponse,
   ProductReviewStatisticsResponse,
   ProductReviewsByRatingResponse,
   ProductTodayDiscountListItemResponse,
@@ -24,6 +25,10 @@ export const productRepository = {
   // 상품 상세 조회
   async getProductById(productId: number) {
     return publicApi.get<ProductDetailResponse>(`${ENDPOINT}/v1/${productId}`, CACHE_OPTIONS)
+  },
+  // 상품 옵션 조회
+  async getProductOptions(productId: number) {
+    return publicApi.get<ProductOptionsResponse>(`${ENDPOINT}/v1/${productId}/options`, CACHE_OPTIONS)
   },
   // 상품 리뷰 통계 조회
   async getProductReviewStatistics(productId: number) {
