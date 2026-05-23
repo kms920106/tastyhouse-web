@@ -1,6 +1,6 @@
 'use client'
 
-import { getSearchMenus, getSearchPlaces, getSearchReviews } from '@/actions/search'
+import { getSearchMenus, getSearchPlaces, getSearchPublicPlaces, getSearchReviews } from '@/actions/search'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 const SEARCH_MENU_PREVIEW_SIZE = 3
@@ -13,10 +13,12 @@ const SEARCH_PLACE_PAGE_SIZE = 10
 export const searchQueryKeys = {
   menusPreview: (query: string) => ['search', 'menus', 'preview', query] as const,
   reviewsPreview: (query: string) => ['search', 'reviews', 'preview', query] as const,
-  placesPreview: (query: string) => ['search', 'places', 'preview', query] as const,
+  placesPreview: (query: string, isLoggedIn: boolean) =>
+    ['search', 'places', 'preview', query, isLoggedIn] as const,
   menusInfinite: (query: string) => ['search', 'menus', 'infinite', query] as const,
   reviewsInfinite: (query: string) => ['search', 'reviews', 'infinite', query] as const,
-  placesInfinite: (query: string) => ['search', 'places', 'infinite', query] as const,
+  placesInfinite: (query: string, isLoggedIn: boolean) =>
+    ['search', 'places', 'infinite', query, isLoggedIn] as const,
 }
 
 export function useSearchMenusPreview(query: string) {
@@ -35,10 +37,13 @@ export function useSearchReviewsPreview(query: string) {
   })
 }
 
-export function useSearchPlacesPreview(query: string) {
+export function useSearchPlacesPreview(query: string, isLoggedIn: boolean) {
   return useQuery({
-    queryKey: searchQueryKeys.placesPreview(query),
-    queryFn: () => getSearchPlaces({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE }),
+    queryKey: searchQueryKeys.placesPreview(query, isLoggedIn),
+    queryFn: () =>
+      isLoggedIn
+        ? getSearchPlaces({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE })
+        : getSearchPublicPlaces({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE }),
     enabled: query.trim().length > 0,
   })
 }
@@ -73,11 +78,13 @@ export function useSearchReviewsInfinite(query: string) {
   })
 }
 
-export function useSearchPlacesInfinite(query: string) {
+export function useSearchPlacesInfinite(query: string, isLoggedIn: boolean) {
   return useInfiniteQuery({
-    queryKey: searchQueryKeys.placesInfinite(query),
+    queryKey: searchQueryKeys.placesInfinite(query, isLoggedIn),
     queryFn: ({ pageParam }) =>
-      getSearchPlaces({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE }),
+      isLoggedIn
+        ? getSearchPlaces({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE })
+        : getSearchPublicPlaces({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       if (!lastPage.pagination) return undefined

@@ -1,5 +1,6 @@
 import type { SearchTab } from './_components/SearchResultTabs'
 import SearchResultPage from './_components/SearchResultPage'
+import { getIsLoggedIn } from '@/lib/auth-config'
 
 interface Props {
   searchParams: Promise<{
@@ -15,8 +16,8 @@ function parseSearchTab(value: string | undefined): SearchTab {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const { q, tab } = await searchParams
+  const [{ q, tab }, isLoggedIn] = await Promise.all([searchParams, getIsLoggedIn()])
   const initialTab = parseSearchTab(tab)
 
-  return <SearchResultPage tab={initialTab} query={q ?? ''} />
+  return <SearchResultPage tab={initialTab} query={q ?? ''} isLoggedIn={isLoggedIn} />
 }

@@ -111,7 +111,7 @@ export interface MyBookmarkedPlaceListItemResponse {
   stationName: string
   rating: number
   imageUrl: string
-  isBookmarked: boolean
+  bookmarked: boolean
 }
 
 export interface UpdateProfileRequest {

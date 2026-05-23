@@ -10,7 +10,7 @@ export interface BookmarkedPlace {
   stationName: string
   rating: number
   imageUrl: string
-  isBookmarked: boolean
+  bookmarked: boolean
 }
 
 interface Props {
@@ -39,7 +39,7 @@ export default function BookmarkList({ bookmarks, hasMoreBookmarks }: Props) {
             region={bookmark.stationName}
             placeName={bookmark.placeName}
             rating={bookmark.rating}
-            isBookmarked={bookmark.isBookmarked}
+            isBookmarked={bookmark.bookmarked}
           />
         ))}
       </div>

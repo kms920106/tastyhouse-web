@@ -1,12 +1,12 @@
 import 'server-only'
 
-import { publicApi } from '@/lib/api'
+import { api, publicApi } from '@/lib/api'
 
-import { MyBookmarkedPlaceListItemResponse } from '../member'
 import type {
   PopularKeywordResponse,
   RecommendedKeywordResponse,
   SearchMenuListItemResponse,
+  SearchPlaceListItemResponse,
   SearchQuery,
   SearchReviewListItemResponse,
 } from './search.dto'
@@ -31,11 +31,14 @@ export const searchRepository = {
     })
   },
   async searchPlaces(params: SearchQuery) {
-    return publicApi.get<MyBookmarkedPlaceListItemResponse[], SearchQuery>(
-      `${ENDPOINT}/v1/places`,
-      {
-        params,
-      },
+    return api.get<SearchPlaceListItemResponse[], SearchQuery>(`${ENDPOINT}/v1/places`, {
+      params,
+    })
+  },
+  async searchPublicPlaces(params: SearchQuery) {
+    return publicApi.get<SearchPlaceListItemResponse[], SearchQuery>(
+      `${ENDPOINT}/v1/places/public`,
+      { params },
     )
   },
 }

@@ -1,5 +1,5 @@
 import SearchResultMenuPreviewFetcher from './SearchResultMenuPreviewFetcher'
-import SearchResultSectionHeader from './SearchResultSectionHeader'
+import SearchResultAllSectionHeader from './SearchResultAllSectionHeader'
 
 interface Props {
   query: string
@@ -8,7 +8,7 @@ interface Props {
 export default function SearchResultAllMenuContent({ query }: Props) {
   return (
     <div className="px-[15px] py-[30px]">
-      <SearchResultSectionHeader title="메뉴" />
+      <SearchResultAllSectionHeader title="메뉴" />
       <SearchResultMenuPreviewFetcher query={query} />
     </div>
   )

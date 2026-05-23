@@ -1,4 +1,3 @@
-import type { PlaceFoodType } from '@/domains/place/place.types'
 import type { PaginationParams } from '@/types/common'
 
 export interface PopularKeywordResponse {
@@ -12,13 +11,12 @@ export interface RecommendedKeywordResponse {
 }
 
 export interface SearchPlaceListItemResponse {
-  id: number
-  name: string
+  placeId: number
+  placeName: string
   stationName: string
   rating: number
-  imageUrl: string | null
-  foodTypes: PlaceFoodType[]
-  isBookmarked: boolean | null
+  imageUrl: string
+  bookmarked: boolean
 }
 
 export interface SearchMenuListItemResponse {

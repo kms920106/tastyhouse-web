@@ -6,9 +6,10 @@ import SearchResultAllReviewContent from './SearchResultAllReviewContent'
 
 interface Props {
   query: string
+  isLoggedIn: boolean
 }
 
-export default function SearchResultAllContent({ query }: Props) {
+export default function SearchResultAllContent({ query, isLoggedIn }: Props) {
   return (
     <SectionStack>
       <BorderedSection>
@@ -18,7 +19,7 @@ export default function SearchResultAllContent({ query }: Props) {
         <SearchResultAllReviewContent query={query} />
       </BorderedSection>
       <BorderedSection>
-        <SearchResultAllPlaceContent query={query} />
+        <SearchResultAllPlaceContent query={query} isLoggedIn={isLoggedIn} />
       </BorderedSection>
     </SectionStack>
   )

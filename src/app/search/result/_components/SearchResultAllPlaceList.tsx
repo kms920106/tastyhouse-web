@@ -9,10 +9,11 @@ import SearchResultEmptyState from './SearchResultEmptyState'
 
 interface Props {
   query: string
+  isLoggedIn: boolean
 }
 
-export default function SearchResultAllPlaceList({ query }: Props) {
-  const { data, isLoading, isError } = useSearchPlacesPreview(query)
+export default function SearchResultAllPlaceList({ query, isLoggedIn }: Props) {
+  const { data, isLoading, isError } = useSearchPlacesPreview(query, isLoggedIn)
 
   if (isLoading)
     return (
@@ -30,13 +31,13 @@ export default function SearchResultAllPlaceList({ query }: Props) {
     <div className="flex flex-col gap-2.5">
       {data.data.map((bookmark) => (
         <BookmarkListItem
-          key={bookmark.bookmarkId}
+          key={bookmark.placeId}
           placeId={bookmark.placeId}
           placeImage={bookmark.imageUrl}
           region={bookmark.stationName}
           placeName={bookmark.placeName}
           rating={bookmark.rating}
-          isBookmarked={bookmark.isBookmarked}
+          isBookmarked={bookmark.bookmarked}
         />
       ))}
     </div>

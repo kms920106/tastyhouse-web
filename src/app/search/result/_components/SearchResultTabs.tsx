@@ -19,9 +19,10 @@ const TABS: { label: string; value: SearchTab }[] = [
 interface Props {
   tab: SearchTab
   query: string
+  isLoggedIn: boolean
 }
 
-export default function SearchResultTabs({ tab, query }: Props) {
+export default function SearchResultTabs({ tab, query, isLoggedIn }: Props) {
   const { handleTabChange } = useTabNavigation()
 
   return (
@@ -38,7 +39,7 @@ export default function SearchResultTabs({ tab, query }: Props) {
         ))}
       </TabsList>
       <TabsContent value="all" className="mt-0">
-        <SearchResultAllContent query={query} />
+        <SearchResultAllContent query={query} isLoggedIn={isLoggedIn} />
       </TabsContent>
       <TabsContent value="menu" className="mt-0">
         <SearchResultMenuTabFetcher query={query} />
@@ -47,7 +48,7 @@ export default function SearchResultTabs({ tab, query }: Props) {
         <SearchResultReviewTabFetcher query={query} />
       </TabsContent>
       <TabsContent value="place" className="mt-0">
-        <SearchResultPlaceTabFetcher query={query} />
+        <SearchResultPlaceTabFetcher query={query} isLoggedIn={isLoggedIn} />
       </TabsContent>
     </Tabs>
   )

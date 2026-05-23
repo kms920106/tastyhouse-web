@@ -61,3 +61,15 @@ export async function getSearchPlaces({
 }) {
   return searchRepository.searchPlaces({ query, page, size })
 }
+
+export async function getSearchPublicPlaces({
+  query,
+  page,
+  size,
+}: {
+  query: string
+  page: number
+  size: number
+}) {
+  return searchRepository.searchPublicPlaces({ query, page, size })
+}
