@@ -41,7 +41,8 @@ export function useProductOptionSelection(optionGroups: ProductOptionGroup[]) {
     optionGroups.forEach((group) => {
       const selected = selectedOptions[group.id]
       if (group.isMultipleSelect) {
-        ;(selected as number[]).forEach((optionId) => {
+        const selectedIds = selected as number[]
+        selectedIds.forEach((optionId) => {
           result.push({ groupId: group.id, optionId })
         })
       } else {
