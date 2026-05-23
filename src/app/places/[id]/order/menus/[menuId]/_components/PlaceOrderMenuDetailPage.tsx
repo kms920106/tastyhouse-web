@@ -15,19 +15,21 @@ interface Props {
 }
 
 export default async function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
-  const [productResult, optionsResult] = await Promise.all([
+  const [productResult, optionsResult, imagesResult] = await Promise.all([
     productRepository.getProductById(productId),
     productRepository.getProductOptions(productId),
+    productRepository.getProductImages(productId),
   ])
 
   if (productResult.error || !productResult.data) {
     return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('상품 정보')} />
   }
 
+  const imageUrls = imagesResult.data?.imageUrls ?? []
+
   const {
     name,
     description,
-    imageUrls,
     originalPrice,
     discountPrice,
     discountRate,

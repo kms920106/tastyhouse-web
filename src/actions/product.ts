@@ -6,6 +6,10 @@ export async function getProductById(productId: number) {
   return productRepository.getProductById(productId)
 }
 
+export async function getProductImages(productId: number) {
+  return productRepository.getProductImages(productId)
+}
+
 export async function getProductOptions(productId: number) {
   return productRepository.getProductOptions(productId)
 }

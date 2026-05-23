@@ -1,9 +1,9 @@
 'use client'
 
-import { getProductById } from '@/actions/product'
+import { getProductById, getProductOptions } from '@/actions/product'
 import { toast } from '@/components/ui/AppToaster'
 import type { OrderProduct, OrderProductOption } from '@/domains/order'
-import type { ProductDetailResponse } from '@/domains/product'
+import type { ProductDetailResponse, ProductOptionGroup } from '@/domains/product'
 import type { CartSelectedOption } from '@/lib/cart'
 import { getCartData, getCartProductTypeCount } from '@/lib/cart'
 import {
@@ -24,15 +24,9 @@ export interface CartInfo {
   isLoading: boolean
 }
 
-/**
- * 상품 가격을 계산합니다.
- *
- * @param detail - 상품 상세 정보
- * @param selectedOptions - 선택된 옵션
- * @returns 상품 가격과 원래 가격
- */
 function calculateItemPrice(
   detail: ProductDetailResponse,
+  optionGroups: ProductOptionGroup[],
   selectedOptions: CartSelectedOption[],
 ): { salePrice: number; originalPrice: number; discountPrice: number } {
   const basePrice = detail.discountPrice ?? detail.originalPrice
@@ -40,7 +34,7 @@ function calculateItemPrice(
   const discountPrice = originalPrice - basePrice
 
   const optionAdditionalPrice = selectedOptions.reduce((sum, so) => {
-    const group = detail.optionGroups.find((g) => g.id === so.groupId)
+    const group = optionGroups.find((g) => g.id === so.groupId)
     const option = group?.options.find((o) => o.id === so.optionId)
     return sum + (option?.additionalPrice ?? 0)
   }, 0)
@@ -52,15 +46,12 @@ function calculateItemPrice(
   }
 }
 
-/**
- * 선택된 옵션의 상세 정보를 조회합니다.
- */
 function resolveOptionDetails(
-  detail: ProductDetailResponse,
+  optionGroups: ProductOptionGroup[],
   selectedOptions: CartSelectedOption[],
 ): OrderProductOption[] {
   return selectedOptions.map((so) => {
-    const group = detail.optionGroups.find((g) => g.id === so.groupId)
+    const group = optionGroups.find((g) => g.id === so.groupId)
     const option = group?.options.find((o) => o.id === so.optionId)
     return {
       groupId: so.groupId,
@@ -72,20 +63,31 @@ function resolveOptionDetails(
   })
 }
 
-/**
- * 상품 상세 정보를 조회합니다.
- */
+type ProductDetailEntry = {
+  detail: ProductDetailResponse
+  optionGroups: ProductOptionGroup[]
+}
+
 async function fetchProductDetails(
   productIds: number[],
-): Promise<Map<number, ProductDetailResponse>> {
-  const results = await Promise.allSettled(productIds.map((id) => getProductById(id)))
-  const detailMap = new Map<number, ProductDetailResponse>()
+): Promise<Map<number, ProductDetailEntry>> {
+  const results = await Promise.allSettled(
+    productIds.map((id) => Promise.all([getProductById(id), getProductOptions(id)])),
+  )
+  const detailMap = new Map<number, ProductDetailEntry>()
 
   let failedCount = 0
 
   results.forEach((result, index) => {
-    if (result.status === 'fulfilled' && result.value.data) {
-      detailMap.set(productIds[index], result.value.data)
+    if (
+      result.status === 'fulfilled' &&
+      result.value[0].data &&
+      result.value[1].data
+    ) {
+      detailMap.set(productIds[index], {
+        detail: result.value[0].data,
+        optionGroups: result.value[1].data.optionGroups,
+      })
     } else {
       failedCount++
     }
@@ -127,25 +129,24 @@ export function useCartInfo(): CartInfo {
     const uniqueProductIds = [...new Set(cart.products.map((p) => p.productId))]
     const productDetailMap = await fetchProductDetails(uniqueProductIds)
 
-    const firstDetail = productDetailMap.values().next().value
-
     const orderItems: OrderProduct[] = cart.products
       .map((cartProduct) => {
-        const productDetail = productDetailMap.get(cartProduct.productId)
-        if (!productDetail) return null
+        const entry = productDetailMap.get(cartProduct.productId)
+        if (!entry) return null
 
         const { salePrice, originalPrice, discountPrice } = calculateItemPrice(
-          productDetail,
+          entry.detail,
+          entry.optionGroups,
           cartProduct.selectedOptions,
         )
 
-        const selectedOptions = resolveOptionDetails(productDetail, cartProduct.selectedOptions)
+        const selectedOptions = resolveOptionDetails(entry.optionGroups, cartProduct.selectedOptions)
 
         return {
           productId: cartProduct.productId,
           optionKey: cartProduct.optionKey,
-          name: productDetail.name,
-          imageUrl: productDetail.imageUrls[0] ?? '',
+          name: entry.detail.name,
+          imageUrl: '',
           salePrice,
           originalPrice,
           discountPrice,
@@ -157,7 +158,7 @@ export function useCartInfo(): CartInfo {
 
     setState({
       items: orderItems,
-      placeName: firstDetail?.placeName ?? '',
+      placeName: '',
       firstProductName: orderItems[0]?.name ?? '',
       totalItemCount: getCartProductTypeCount(),
       isLoading: false,

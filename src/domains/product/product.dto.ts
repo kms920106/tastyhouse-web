@@ -15,19 +15,17 @@ export interface ProductListItemResponse {
 
 export interface ProductDetailResponse {
   id: number
-  placeId: number
-  placeName: string
   name: string
   description: string
-  imageUrls: string[]
   originalPrice: number
   discountPrice: number | null
   discountRate: number | null
-  rating: number | null
   reviewCount: number
-  isRepresentative: boolean
   isSoldOut: boolean
-  categoryName: string
+}
+
+export interface ProductImagesResponse {
+  imageUrls: string[]
 }
 
 export interface ProductOptionsResponse {
