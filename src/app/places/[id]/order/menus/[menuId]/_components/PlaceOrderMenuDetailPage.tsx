@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
 import PlaceOrderMenuDetailBannerContent from './PlaceOrderMenuDetailBannerContent'
 import { PlaceOrderMenuDetailInfoSkeleton } from './PlaceOrderMenuDetailInfoSkeleton'
-import PlaceOrderMenuDetailInfoServer from './PlaceOrderMenuDetailInfoServer'
+import PlaceOrderMenuDetailInfoContent from './PlaceOrderMenuDetailInfoContent'
 import { PlaceOrderMenuDetailOptionSelectorSkeleton } from './PlaceOrderMenuDetailOptionSelectorSkeleton'
 import PlaceOrderMenuDetailOptionSelectorServer from './PlaceOrderMenuDetailOptionSelectorServer'
 import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
@@ -26,7 +26,7 @@ export default function PlaceOrderMenuDetailPage({ placeId, productId, initialTa
             <PlaceOrderMenuDetailBannerContent productId={productId} />
           </Suspense>
           <Suspense fallback={<PlaceOrderMenuDetailInfoSkeleton />}>
-            <PlaceOrderMenuDetailInfoServer productId={productId} />
+            <PlaceOrderMenuDetailInfoContent productId={productId} />
           </Suspense>
         </BorderedSection>
         <BorderedSection>
