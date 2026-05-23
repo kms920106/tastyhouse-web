@@ -1,11 +1,13 @@
 import BorderedSection from '@/components/ui/BorderedSection'
-import ErrorStateSection from '@/components/ui/ErrorStateSection'
+import { ImageGallerySkeleton } from '@/components/ui/ImageGallerySkeleton'
 import SectionStack from '@/components/ui/SectionStack'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { productRepository } from '@/domains/product/product.repository'
+import { Suspense } from 'react'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
-import PlaceOrderMenuDetailInfo from './PlaceOrderMenuDetailInfo'
-import PlaceOrderMenuDetailOptionSelector from './PlaceOrderMenuDetailOptionSelector'
+import PlaceOrderMenuDetailBannerContent from './PlaceOrderMenuDetailBannerContent'
+import { PlaceOrderMenuDetailInfoSkeleton } from './PlaceOrderMenuDetailInfoSkeleton'
+import PlaceOrderMenuDetailInfoServer from './PlaceOrderMenuDetailInfoServer'
+import { PlaceOrderMenuDetailOptionSelectorSkeleton } from './PlaceOrderMenuDetailOptionSelectorSkeleton'
+import PlaceOrderMenuDetailOptionSelectorServer from './PlaceOrderMenuDetailOptionSelectorServer'
 import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
@@ -14,54 +16,27 @@ interface Props {
   initialTab: ProductOrderMenuDetailTab
 }
 
-export default async function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
-  const [productResult, optionsResult, imagesResult, reviewCountResult] = await Promise.all([
-    productRepository.getProductById(productId),
-    productRepository.getProductOptions(productId),
-    productRepository.getProductImages(productId),
-    productRepository.getProductReviewCount(productId),
-  ])
-
-  if (productResult.error || !productResult.data) {
-    return <ErrorStateSection message={COMMON_ERROR_MESSAGES.FETCH_ERROR('상품 정보')} />
-  }
-
-  const imageUrls = imagesResult.data?.imageUrls ?? []
-
-  const {
-    name,
-    description,
-    originalPrice,
-    discountPrice,
-    discountRate,
-  } = productResult.data
-
-  const reviewCount = reviewCountResult.data?.reviewCount ?? 0
-
-  const optionGroups = optionsResult.data?.optionGroups ?? []
-
+export default function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
   return (
     <>
-      <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} productName={name} />
+      <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} />
       <SectionStack>
         <BorderedSection>
-          <PlaceOrderMenuDetailInfo
-            name={name}
-            description={description}
-            imageUrls={imageUrls}
-            originalPrice={originalPrice}
-            discountPrice={discountPrice}
-            discountRate={discountRate}
-          />
+          <Suspense fallback={<ImageGallerySkeleton />}>
+            <PlaceOrderMenuDetailBannerContent productId={productId} />
+          </Suspense>
+          <Suspense fallback={<PlaceOrderMenuDetailInfoSkeleton />}>
+            <PlaceOrderMenuDetailInfoServer productId={productId} />
+          </Suspense>
         </BorderedSection>
         <BorderedSection>
-          <PlaceOrderMenuDetailOptionSelector
-            productId={productId}
-            placeId={placeId}
-            optionGroups={optionGroups}
-            reviewCount={reviewCount}
-            initialTab={initialTab}
-          />
+          <Suspense fallback={<PlaceOrderMenuDetailOptionSelectorSkeleton />}>
+            <PlaceOrderMenuDetailOptionSelectorServer
+              productId={productId}
+              placeId={placeId}
+              initialTab={initialTab}
+            />
+          </Suspense>
         </BorderedSection>
       </SectionStack>
     </>

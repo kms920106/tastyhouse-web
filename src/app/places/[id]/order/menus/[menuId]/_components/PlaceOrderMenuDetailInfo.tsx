@@ -1,10 +1,8 @@
-import PlaceImageGallery from '@/components/places/PlaceImageGallery'
 import { formatDecimal, formatNumber } from '@/lib/number'
 
 interface Props {
   name: string
   description: string
-  imageUrls: string[]
   originalPrice: number
   discountPrice?: number | null
   discountRate?: number | null
@@ -13,14 +11,12 @@ interface Props {
 export default function PlaceOrderMenuDetailInfo({
   name,
   description,
-  imageUrls,
   originalPrice,
   discountPrice,
   discountRate,
 }: Props) {
   return (
     <>
-      <PlaceImageGallery imageUrls={imageUrls} />
       <div className="px-[15px] py-[21px]">
         <h1 className="text-lg leading-[18px] font-bold">{name}</h1>
         <p className="mt-[13px] text-sm leading-relaxed">{description}</p>

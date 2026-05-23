@@ -1,3 +1,5 @@
+'use client'
+
 import ReviewRatingDetailItem from '@/components/reviews/ReviewRatingDetailItem'
 import ReviewRatingScore from '@/components/reviews/ReviewRatingScore'
 import FetchErrorState from '@/components/ui/FetchErrorState'
