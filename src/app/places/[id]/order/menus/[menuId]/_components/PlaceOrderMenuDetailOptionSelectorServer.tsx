@@ -1,7 +1,7 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { productRepository } from '@/domains/product/product.repository'
-import PlaceOrderMenuDetailOptionSelector from './PlaceOrderMenuDetailOptionSelector'
+import PlaceOrderMenuDetailProductOptionTabs from './PlaceOrderMenuDetailProductOptionTabs'
 import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
@@ -15,23 +15,18 @@ export default async function PlaceOrderMenuDetailOptionSelectorServer({
   placeId,
   initialTab,
 }: Props) {
-  const [optionsResult, reviewCountResult] = await Promise.all([
-    productRepository.getProductOptions(productId),
-    productRepository.getProductReviewCount(productId),
-  ])
+  const reviewCountResult = await productRepository.getProductReviewCount(productId)
 
-  if (optionsResult.error || !optionsResult.data) {
-    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('옵션 정보')} />
+  if (reviewCountResult.error) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  const optionGroups = optionsResult.data.optionGroups
   const reviewCount = reviewCountResult.data?.reviewCount ?? 0
 
   return (
-    <PlaceOrderMenuDetailOptionSelector
+    <PlaceOrderMenuDetailProductOptionTabs
       productId={productId}
       placeId={placeId}
-      optionGroups={optionGroups}
       reviewCount={reviewCount}
       initialTab={initialTab}
     />

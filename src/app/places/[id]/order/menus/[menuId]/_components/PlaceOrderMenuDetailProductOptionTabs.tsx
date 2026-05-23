@@ -2,31 +2,24 @@
 
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import type { ProductOptionGroup } from '@/domains/product'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import PlaceOrderMenuDetailOptionList from './PlaceOrderMenuDetailOptionList'
+import PlaceOrderMenuDetailOptionTabClient from './PlaceOrderMenuDetailOptionTabClient'
 import PlaceOrderMenuDetailReviewContent from './PlaceOrderMenuDetailReviewContent'
 
 export type ProductOrderMenuDetailTab = 'options' | 'reviews'
 
 interface Props {
   productId: number
-  optionGroups: ProductOptionGroup[]
+  placeId: number
   reviewCount: number
   initialTab: ProductOrderMenuDetailTab
-  selectedOptions: Record<number, number | number[]>
-  onRadioSelect: (groupId: number, optionId: number) => void
-  onCheckboxToggle: (groupId: number, optionId: number, maxSelect: number) => void
 }
 
 export default function PlaceOrderMenuDetailProductOptionTabs({
   productId,
-  optionGroups,
+  placeId,
   reviewCount,
   initialTab,
-  selectedOptions,
-  onRadioSelect,
-  onCheckboxToggle,
 }: Props) {
   const { handleTabChange } = useTabNavigation()
 
@@ -53,15 +46,8 @@ export default function PlaceOrderMenuDetailProductOptionTabs({
           </TabsTrigger>
         ))}
       </TabsList>
-      <TabsContent value="options" className="mt-0">
-        <SectionStack>
-          <PlaceOrderMenuDetailOptionList
-            optionGroups={optionGroups}
-            selectedOptions={selectedOptions}
-            onRadioSelect={onRadioSelect}
-            onCheckboxToggle={onCheckboxToggle}
-          />
-        </SectionStack>
+      <TabsContent value="options" className="mt-0 data-[state=inactive]:hidden" forceMount>
+        <PlaceOrderMenuDetailOptionTabClient productId={productId} placeId={placeId} />
       </TabsContent>
       <TabsContent value="reviews" className="mt-0">
         <SectionStack>
