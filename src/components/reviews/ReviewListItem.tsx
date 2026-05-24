@@ -3,7 +3,6 @@ import ReviewImageGallery from '@/components/reviews/ReviewImageGallery'
 import ClampedText from '@/components/ui/ClampedText'
 import Rating from '@/components/ui/Rating'
 import { PAGE_PATHS } from '@/lib/paths'
-import Link from 'next/link'
 
 export interface ReviewListItemData {
   id: number
@@ -32,7 +31,8 @@ export default function ReviewListItem({ review }: Props) {
         />
         <Rating as="p" value={review.totalRating} />
       </div>
-      {review.productId && (
+      {/* 상품 상세와 동일한 상품으로 인해 주석 처리 */}
+      {/* {review.productId && (
         <div className="mt-[25px]">
           <Link
             href={PAGE_PATHS.PRODUCT_DETAIL(review.productId)}
@@ -41,7 +41,7 @@ export default function ReviewListItem({ review }: Props) {
             [선택] {review.productName}
           </Link>
         </div>
-      )}
+      )} */}
       <div className="mt-[15px]">
         <ClampedText text={review.content} href={PAGE_PATHS.REVIEW_PRODUCT_DETAIL(review.id)} />
       </div>

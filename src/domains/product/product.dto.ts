@@ -21,6 +21,7 @@ export interface ProductDetailResponse {
   discountPrice: number | null
   discountRate: number | null
   isSoldOut: boolean
+  placeId: number
 }
 
 export interface ProductReviewCountResponse {
