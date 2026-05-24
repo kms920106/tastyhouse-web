@@ -22,7 +22,7 @@ export default async function Page({ params, searchParams }: Props) {
     <MemberDetailPage
       memberId={Number(id)}
       isLoggedIn={isLoggedIn}
-      initialTab={parseMemberDetailTab(tab)}
+      tab={parseMemberDetailTab(tab)}
     />
   )
 }

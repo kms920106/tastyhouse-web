@@ -32,7 +32,7 @@ export default async function Page({ params, searchParams }: Props) {
   return (
     <MemberFollowPage
       memberId={memberId}
-      initialTab={initialTab}
+      tab={initialTab}
       isLoggedIn={isLoggedIn}
       isOwner={isOwner}
     />

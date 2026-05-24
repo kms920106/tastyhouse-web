@@ -12,14 +12,14 @@ interface Props {
   productId: number
   placeId: number
   reviewCount: number
-  initialTab: ProductOrderMenuDetailTab
+  tab: ProductOrderMenuDetailTab
 }
 
 export default function PlaceOrderMenuDetailProductOptionTabs({
   productId,
   placeId,
   reviewCount,
-  initialTab,
+  tab,
 }: Props) {
   const { handleTabChange } = useTabNavigation()
 
@@ -34,7 +34,7 @@ export default function PlaceOrderMenuDetailProductOptionTabs({
   ]
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChangeWithScroll} className="gap-0">
+    <Tabs value={tab} onValueChange={handleTabChangeWithScroll} className="gap-0">
       <TabsList className="sticky top-0 w-full h-[50px] p-0 rounded-none bg-white z-40 border-0 shadow-none">
         {TABS.map(({ label, value }) => (
           <TabsTrigger

@@ -3,14 +3,14 @@ import ReviewHeader from './ReviewHeader'
 import ReviewTabs from '../_components/ReviewTabs'
 
 interface Props {
-  initialTab: ReviewTab
+  tab: ReviewTab
 }
 
-export default function ReviewPage({ initialTab }: Props) {
+export default function ReviewPage({ tab }: Props) {
   return (
     <>
       <ReviewHeader />
-      <ReviewTabs initialTab={initialTab} />
+      <ReviewTabs tab={tab} />
       <div className="h-[70px]" />
     </>
   )

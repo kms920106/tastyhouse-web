@@ -12,7 +12,7 @@ const TABS: { label: string; value: RankTab }[] = [
 ]
 
 interface Props {
-  initialTab: RankTab
+  tab: RankTab
   scheduleArea: ReactNode
   infoButton: ReactNode
   allContent: ReactNode
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function RankMemberTabs({
-  initialTab,
+  tab,
   scheduleArea,
   infoButton,
   allContent,
@@ -29,7 +29,7 @@ export default function RankMemberTabs({
   const { handleTabChange } = useTabNavigation()
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
+    <Tabs value={tab} onValueChange={handleTabChange} className="gap-0">
       <div className="flex justify-between">
         <div className="flex gap-2.5">
           <TabsList className="flex items-start gap-3 p-0 bg-white border-0 shadow-none">

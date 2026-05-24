@@ -19,13 +19,13 @@ const TABS: { label: string; value: MyPageTab; iconBase: string; width: number; 
   ]
 
 interface Props {
-  initialTab: MyPageTab
+  tab: MyPageTab
   isLoggedIn: boolean
 }
 
-export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
+export default function MyPageTabs({ tab, isLoggedIn }: Props) {
   const { handleTabChange } = useTabNavigation()
-  const [currentTab, setCurrentTab] = useState<MyPageTab>(initialTab)
+  const [currentTab, setCurrentTab] = useState<MyPageTab>(tab)
 
   const handleChange = (value: string) => {
     setCurrentTab(value as MyPageTab)
@@ -35,7 +35,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
       <Tabs
-        value={initialTab}
+        value={currentTab}
         onValueChange={handleChange}
         className="gap-0 flex flex-col flex-1"
       >

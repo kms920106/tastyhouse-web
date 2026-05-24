@@ -38,6 +38,6 @@ export default async function Page({ params, searchParams }: Props) {
   }
 
   return (
-    <PlaceOrderMenuDetailPage placeId={placeId} productId={productId} initialTab={initialTab} />
+    <PlaceOrderMenuDetailPage placeId={placeId} productId={productId} tab={initialTab} />
   )
 }

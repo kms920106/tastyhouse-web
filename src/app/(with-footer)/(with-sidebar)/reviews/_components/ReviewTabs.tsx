@@ -14,10 +14,10 @@ const TABS: { label: string; value: ReviewTab }[] = [
 
 
 interface Props {
-  initialTab: ReviewTab
+  tab: ReviewTab
 }
 
-export default function ReviewTabs({ initialTab }: Props) {
+export default function ReviewTabs({ tab }: Props) {
   const { handleTabChange } = useTabNavigation()
 
   const handleTabChangeWithScroll = (value: string) => {
@@ -26,7 +26,7 @@ export default function ReviewTabs({ initialTab }: Props) {
   }
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChangeWithScroll} className="gap-0">
+    <Tabs value={tab} onValueChange={handleTabChangeWithScroll} className="gap-0">
       <TabsList className="sticky top-0 w-full h-[50px] p-0 rounded-none bg-white z-40 border-0 shadow-none">
         {TABS.map(({ label, value }) => (
           <TabsTrigger

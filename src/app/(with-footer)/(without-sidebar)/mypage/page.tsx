@@ -18,5 +18,5 @@ export default async function Page({ searchParams }: Props) {
   const [isLoggedIn, { tab }] = await Promise.all([getIsLoggedIn(), searchParams])
   const initialTab = parseMyPageTab(tab)
 
-  return <MyPage initialTab={initialTab} isLoggedIn={isLoggedIn} />
+  return <MyPage tab={initialTab} isLoggedIn={isLoggedIn} />
 }

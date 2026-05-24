@@ -7,10 +7,10 @@ import PlaceDetailTabs, { type PlaceDetailTab } from './PlaceDetailTabs'
 
 interface Props {
   placeId: number
-  initialTab: PlaceDetailTab
+  tab: PlaceDetailTab
 }
 
-export default function PlaceDetailPage({ placeId, initialTab }: Props) {
+export default function PlaceDetailPage({ placeId, tab }: Props) {
   return (
     <>
       <PlaceDetailHeader placeId={placeId} />
@@ -20,7 +20,7 @@ export default function PlaceDetailPage({ placeId, initialTab }: Props) {
           <PlaceDetailSummaryContent placeId={placeId} />
         </BorderedSection>
         <BorderedSection>
-          <PlaceDetailTabs placeId={placeId} initialTab={initialTab} />
+          <PlaceDetailTabs placeId={placeId} tab={tab} />
         </BorderedSection>
       </SectionStack>
     </>

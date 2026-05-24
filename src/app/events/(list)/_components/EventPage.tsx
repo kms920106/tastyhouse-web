@@ -3,14 +3,14 @@ import type { EventTab } from './EventTabs'
 import EventHeader from './EventHeader'
 
 interface Props {
-  initialTab: EventTab
+  tab: EventTab
 }
 
-export default function EventPage({ initialTab }: Props) {
+export default function EventPage({ tab }: Props) {
   return (
     <>
       <EventHeader />
-      <EventTabs initialTab={initialTab} />
+      <EventTabs tab={tab} />
     </>
   )
 }

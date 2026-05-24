@@ -51,5 +51,5 @@ export default async function Page({ params, searchParams }: Props) {
   const placeId = Number(id)
   const initialTab = parsePlaceTab(tab)
 
-  return <PlaceDetailPage placeId={placeId} initialTab={initialTab} />
+  return <PlaceDetailPage placeId={placeId} tab={initialTab} />
 }

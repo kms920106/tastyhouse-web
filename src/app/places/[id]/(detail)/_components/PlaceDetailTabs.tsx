@@ -18,14 +18,14 @@ const TABS: { label: string; value: PlaceDetailTab }[] = [
 
 interface Props {
   placeId: number
-  initialTab: PlaceDetailTab
+  tab: PlaceDetailTab
 }
 
-export default function PlaceDetailTabs({ placeId, initialTab }: Props) {
+export default function PlaceDetailTabs({ placeId, tab }: Props) {
   const { handleTabChange } = useTabNavigation()
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0 w-full">
+    <Tabs value={tab} onValueChange={handleTabChange} className="gap-0 w-full">
       <div className="sticky top-[60px] bg-white z-40">
         <TabsList className="w-full h-auto p-0 bg-white border-0">
           {TABS.map(({ label, value }) => (

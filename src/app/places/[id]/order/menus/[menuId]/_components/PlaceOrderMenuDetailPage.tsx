@@ -13,10 +13,10 @@ import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOpt
 interface Props {
   placeId: number
   productId: number
-  initialTab: ProductOrderMenuDetailTab
+  tab: ProductOrderMenuDetailTab
 }
 
-export default function PlaceOrderMenuDetailPage({ placeId, productId, initialTab }: Props) {
+export default function PlaceOrderMenuDetailPage({ placeId, productId, tab }: Props) {
   return (
     <>
       <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} />
@@ -34,7 +34,7 @@ export default function PlaceOrderMenuDetailPage({ placeId, productId, initialTa
             <PlaceOrderMenuDetailOptionSelectorServer
               productId={productId}
               placeId={placeId}
-              initialTab={initialTab}
+              tab={tab}
             />
           </Suspense>
         </BorderedSection>

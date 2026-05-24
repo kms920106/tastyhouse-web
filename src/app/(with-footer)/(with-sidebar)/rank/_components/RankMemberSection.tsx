@@ -10,7 +10,7 @@ export default function RankMemberSection({ tab }: { tab: RankTab }) {
   return (
     <section className="flex flex-col flex-1 px-4 pt-5 bg-white">
       <RankMemberTabs
-        initialTab={tab}
+        tab={tab}
         infoButton={<RankInfoModalButton />}
         scheduleArea={
           <Suspense fallback={<RankScheduleSkeleton />}>

@@ -17,5 +17,5 @@ export default async function Page({ searchParams }: Props) {
   const { tab } = await searchParams
   const initialTab = parseEventTab(tab)
 
-  return <EventPage initialTab={initialTab} />
+  return <EventPage tab={initialTab} />
 }

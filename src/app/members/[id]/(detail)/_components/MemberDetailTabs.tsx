@@ -8,13 +8,13 @@ export type MemberDetailTab = 'reviews'
 
 interface Props {
   memberId: number
-  initialTab: MemberDetailTab
+  tab: MemberDetailTab
 }
 
-export default function MemberDetailTabs({ memberId, initialTab }: Props) {
+export default function MemberDetailTabs({ memberId, tab }: Props) {
   return (
     <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
-      <Tabs value={initialTab} className="gap-0 flex flex-col flex-1">
+      <Tabs value={tab} className="gap-0 flex flex-col flex-1">
         <TabsList className="sticky top-0 w-full h-[50px] rounded-none bg-white z-40 p-0 border-0 shadow-none">
           <TabsTrigger
             value="reviews"

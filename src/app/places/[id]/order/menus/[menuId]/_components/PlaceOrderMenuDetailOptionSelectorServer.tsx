@@ -7,13 +7,13 @@ import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOpt
 interface Props {
   productId: number
   placeId: number
-  initialTab: ProductOrderMenuDetailTab
+  tab: ProductOrderMenuDetailTab
 }
 
 export default async function PlaceOrderMenuDetailOptionSelectorServer({
   productId,
   placeId,
-  initialTab,
+  tab,
 }: Props) {
   const reviewCountResult = await productRepository.getProductReviewCount(productId)
 
@@ -28,7 +28,7 @@ export default async function PlaceOrderMenuDetailOptionSelectorServer({
       productId={productId}
       placeId={placeId}
       reviewCount={reviewCount}
-      initialTab={initialTab}
+      tab={tab}
     />
   )
 }

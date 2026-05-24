@@ -17,5 +17,5 @@ export default async function Page({ searchParams }: Props) {
   const { tab } = await searchParams
   const initialTab = parseReviewTab(tab)
 
-  return <ReviewPage initialTab={initialTab} />
+  return <ReviewPage tab={initialTab} />
 }

@@ -16,12 +16,12 @@ const TABS: { label: string; value: MemberFollowTab }[] = [
 
 interface Props {
   memberId: number
-  initialTab: MemberFollowTab
+  tab: MemberFollowTab
   isLoggedIn: boolean
   isOwner: boolean
 }
 
-export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isOwner }: Props) {
+export default function MemberFollowTabs({ memberId, tab, isLoggedIn, isOwner }: Props) {
   const { handleTabChange } = useTabNavigation()
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -32,7 +32,7 @@ export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isO
   }
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChangeWithReset} className="gap-0">
+    <Tabs value={tab} onValueChange={handleTabChangeWithReset} className="gap-0">
       <TabsList className="w-full h-[50px] rounded-none bg-white p-0 sticky top-0 z-40 border-0 shadow-none">
         {TABS.map(({ label, value }) => (
           <TabsTrigger

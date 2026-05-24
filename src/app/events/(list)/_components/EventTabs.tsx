@@ -15,14 +15,14 @@ const TABS: { label: string; value: EventTab }[] = [
 ]
 
 interface Props {
-  initialTab: EventTab
+  tab: EventTab
 }
 
-export default function EventTabs({ initialTab }: Props) {
+export default function EventTabs({ tab }: Props) {
   const { handleTabChange } = useTabNavigation()
 
   return (
-    <Tabs value={initialTab} onValueChange={handleTabChange} className="gap-0">
+    <Tabs value={tab} onValueChange={handleTabChange} className="gap-0">
       <div className="px-[23px] pt-5 pb-10">
         <TabsList className="w-full h-[46px] bg-transparent rounded-none p-0 gap-0">
           {TABS.map(({ label, value }, index) => (
