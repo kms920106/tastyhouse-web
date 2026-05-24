@@ -17,7 +17,7 @@ export default function PlaceOrderMenuDetailHeader({ placeId, productId }: Props
       </HeaderLeft>
       <HeaderRight>
         <Suspense fallback={<ProductHeaderSkeleton />}>
-          <PlaceOrderMenuDetailHeaderServer placeId={placeId} productId={productId} />
+          <PlaceOrderMenuDetailHeaderServer productId={productId} />
         </Suspense>
         <CartButton placeId={placeId} />
       </HeaderRight>

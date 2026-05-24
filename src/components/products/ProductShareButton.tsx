@@ -8,17 +8,13 @@ import { useCallback } from 'react'
 interface Props {
   productId: number
   productName: string
-  placeId?: number
 }
 
-export default function ProductShareButton({ productId, productName, placeId }: Props) {
+export default function ProductShareButton({ productId, productName }: Props) {
   const getShareUrl = useCallback(() => {
     const origin = window.location.origin
-    if (placeId !== undefined) {
-      return `${origin}${PAGE_PATHS.ORDER_MENU_DETAIL(placeId, productId)}`
-    }
     return `${origin}${PAGE_PATHS.PRODUCT_DETAIL(productId)}`
-  }, [placeId, productId])
+  }, [productId])
 
   const handleShare = useCallback(async () => {
     await share({
