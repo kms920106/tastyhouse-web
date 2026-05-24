@@ -9,7 +9,7 @@ interface Props {
   isLoggedIn: boolean
 }
 
-export default function SearchResultAllContent({ query, isLoggedIn }: Props) {
+export default function SearchResultAllTabContent({ query, isLoggedIn }: Props) {
   return (
     <SectionStack>
       <BorderedSection>

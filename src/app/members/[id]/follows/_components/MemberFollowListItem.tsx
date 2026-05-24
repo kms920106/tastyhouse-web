@@ -16,7 +16,7 @@ interface Props {
   onRemoveFollower: (memberId: number) => void
 }
 
-export default function FollowListItem({
+export default function MemberFollowListItem({
   member,
   isOwner,
   onFollowToggle,

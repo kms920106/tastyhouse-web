@@ -15,7 +15,7 @@ interface Props {
   query: string
 }
 
-export default function SearchResultMenuTabFetcher({ query }: Props) {
+export default function SearchResultMenuTabContent({ query }: Props) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useSearchMenusInfinite(query)
 

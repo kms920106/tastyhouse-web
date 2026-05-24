@@ -6,7 +6,7 @@ import { useMyBookmarks } from '@/domains/member/member.hook'
 import BookmarkList from './BookmarkList'
 import { BookmarkListSkeleton } from './BookmarkListSkeleton'
 
-export default function BookmarkListFetcher() {
+export default function MyPageBookmarkTabContent() {
   const { data, isLoading, error } = useMyBookmarks()
 
   if (isLoading) {

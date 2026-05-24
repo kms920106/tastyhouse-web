@@ -7,7 +7,7 @@ interface Props {
   placeId: number
 }
 
-export default function PlaceDetailReviewContent({ placeId }: Props) {
+export default function PlaceDetailReviewTabContent({ placeId }: Props) {
   return (
     <SectionStack>
       <BorderedSection>

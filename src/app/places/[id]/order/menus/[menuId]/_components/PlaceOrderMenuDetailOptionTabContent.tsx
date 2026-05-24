@@ -11,7 +11,7 @@ interface Props {
   placeId: number
 }
 
-export default function PlaceOrderMenuDetailOptionTabClient({ productId, placeId }: Props) {
+export default function PlaceOrderMenuDetailOptionTabContent({ productId, placeId }: Props) {
   const { data, isLoading, error } = useProductOptions(productId)
 
   if (isLoading) return <PlaceOrderMenuDetailOptionSelectorSkeleton />

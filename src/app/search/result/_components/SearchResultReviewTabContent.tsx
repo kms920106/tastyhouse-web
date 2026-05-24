@@ -15,7 +15,7 @@ interface Props {
   query: string
 }
 
-export default function SearchResultReviewTabFetcher({ query }: Props) {
+export default function SearchResultReviewTabContent({ query }: Props) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useSearchReviewsInfinite(query)
 

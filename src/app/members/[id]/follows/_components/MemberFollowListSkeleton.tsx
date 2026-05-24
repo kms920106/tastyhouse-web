@@ -1,7 +1,7 @@
 import { MemberProfileCellSkeleton } from '@/components/members/MemberProfileCellSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-function FollowListItemSkeleton() {
+function MemberFollowListItemSkeleton() {
   return (
     <div className="flex items-center justify-between">
       <MemberProfileCellSkeleton />
@@ -13,11 +13,11 @@ function FollowListItemSkeleton() {
   )
 }
 
-export function FollowerListSkeleton() {
+export function MemberFollowListSkeleton() {
   return (
     <div className="flex flex-col gap-[30px] py-[30px]">
       {[...Array(10)].map((_, i) => (
-        <FollowListItemSkeleton key={i} />
+        <MemberFollowListItemSkeleton key={i} />
       ))}
     </div>
   )

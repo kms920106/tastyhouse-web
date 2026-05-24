@@ -2,9 +2,9 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import ActiveEventList from './ActiveEventList'
-import EndedEventList from './EndedEventList'
-import WinnerEventList from './WinnerEventList'
+import EventOngoingTabContent from './EventOngoingTabContent'
+import EventEndedTabContent from './EventEndedTabContent'
+import EventWinnerTabContent from './EventWinnerTabContent'
 
 export type EventTab = 'ongoing' | 'ended' | 'winner'
 
@@ -41,13 +41,13 @@ export default function EventTabs({ initialTab }: Props) {
         </TabsList>
       </div>
       <TabsContent value="ongoing" className="mt-0">
-        <ActiveEventList />
+        <EventOngoingTabContent />
       </TabsContent>
       <TabsContent value="ended" className="mt-0">
-        <EndedEventList />
+        <EventEndedTabContent />
       </TabsContent>
       <TabsContent value="winner" className="mt-0">
-        <WinnerEventList />
+        <EventWinnerTabContent />
       </TabsContent>
     </Tabs>
   )

@@ -8,7 +8,7 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion'
 import { useEffect } from 'react'
 import { AnnouncementListSkeleton } from './AnnouncementListSkeleton'
 
-export default function WinnerEventList() {
+export default function EventWinnerTabContent() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useEventAnnouncements()
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({

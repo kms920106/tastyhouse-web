@@ -2,10 +2,10 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import SearchResultMenuTabFetcher from './SearchResultMenuTabFetcher'
-import SearchResultPlaceTabFetcher from './SearchResultPlaceTabFetcher'
-import SearchResultReviewTabFetcher from './SearchResultReviewTabFetcher'
-import SearchResultAllContent from './SearchResultAllContent'
+import SearchResultMenuTabContent from './SearchResultMenuTabContent'
+import SearchResultPlaceTabContent from './SearchResultPlaceTabContent'
+import SearchResultReviewTabContent from './SearchResultReviewTabContent'
+import SearchResultAllTabContent from './SearchResultAllTabContent'
 
 export type SearchTab = 'all' | 'menu' | 'review' | 'place'
 
@@ -39,16 +39,16 @@ export default function SearchResultTabs({ tab, query, isLoggedIn }: Props) {
         ))}
       </TabsList>
       <TabsContent value="all" className="mt-0">
-        <SearchResultAllContent query={query} isLoggedIn={isLoggedIn} />
+        <SearchResultAllTabContent query={query} isLoggedIn={isLoggedIn} />
       </TabsContent>
       <TabsContent value="menu" className="mt-0">
-        <SearchResultMenuTabFetcher query={query} />
+        <SearchResultMenuTabContent query={query} />
       </TabsContent>
       <TabsContent value="review" className="mt-0">
-        <SearchResultReviewTabFetcher query={query} />
+        <SearchResultReviewTabContent query={query} />
       </TabsContent>
       <TabsContent value="place" className="mt-0">
-        <SearchResultPlaceTabFetcher query={query} isLoggedIn={isLoggedIn} />
+        <SearchResultPlaceTabContent query={query} isLoggedIn={isLoggedIn} />
       </TabsContent>
     </Tabs>
   )

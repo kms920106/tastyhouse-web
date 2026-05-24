@@ -4,10 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import Image from 'next/image'
 import { useState } from 'react'
-import BookmarkListFetcher from './BookmarkListFetcher'
+import MyPageBookmarkTabContent from './MyPageBookmarkTabContent'
 import EmptyState from './EmptyState'
-import OrderListFetcher from './OrderListFetcher'
-import ReviewListFetcher from './ReviewListFetcher'
+import MyPageOrderTabContent from './MyPageOrderTabContent'
+import MyPageReviewTabContent from './MyPageReviewTabContent'
 
 export type MyPageTab = 'reviews' | 'payments' | 'bookmarks'
 
@@ -57,7 +57,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
         </TabsList>
         <TabsContent value="reviews" className="mt-0 flex flex-col flex-1 bg-[#f9f9f9]">
           {isLoggedIn ? (
-            <ReviewListFetcher />
+            <MyPageReviewTabContent />
           ) : (
             <>
               <EmptyState message="로그인이 필요한 서비스입니다." />
@@ -67,7 +67,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
         </TabsContent>
         <TabsContent value="payments" className="mt-0 flex flex-col flex-1 bg-[#f9f9f9]">
           {isLoggedIn ? (
-            <OrderListFetcher />
+            <MyPageOrderTabContent />
           ) : (
             <>
               <EmptyState message="로그인이 필요한 서비스입니다." />
@@ -77,7 +77,7 @@ export default function MyPageTabs({ initialTab, isLoggedIn }: Props) {
         </TabsContent>
         <TabsContent value="bookmarks" className="mt-0 flex flex-col flex-1 bg-[#f9f9f9]">
           {isLoggedIn ? (
-            <BookmarkListFetcher />
+            <MyPageBookmarkTabContent />
           ) : (
             <>
               <EmptyState message="로그인이 필요한 서비스입니다." />

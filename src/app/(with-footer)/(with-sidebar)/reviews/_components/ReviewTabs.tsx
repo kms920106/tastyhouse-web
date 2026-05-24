@@ -1,10 +1,9 @@
 'use client'
 
-import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
-import type { ReviewType } from '@/domains/review'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import LatestReviewList from './LatestReviewList'
+import ReviewAllTabContent from './ReviewAllTabContent'
+import ReviewFollowingTabContent from './ReviewFollowingTabContent'
 
 export type ReviewTab = 'all' | 'following'
 
@@ -13,10 +12,6 @@ const TABS: { label: string; value: ReviewTab }[] = [
   { label: '팔로잉', value: 'following' },
 ]
 
-const REVIEW_TAB_TYPE_MAP: Record<ReviewTab, ReviewType> = {
-  all: 'ALL',
-  following: 'FOLLOWING',
-}
 
 interface Props {
   initialTab: ReviewTab
@@ -44,14 +39,10 @@ export default function ReviewTabs({ initialTab }: Props) {
         ))}
       </TabsList>
       <TabsContent value="all" className="mt-0">
-        <SectionStack>
-          <LatestReviewList reviewType={REVIEW_TAB_TYPE_MAP.all} />
-        </SectionStack>
+        <ReviewAllTabContent />
       </TabsContent>
       <TabsContent value="following" className="mt-0">
-        <SectionStack>
-          <LatestReviewList reviewType={REVIEW_TAB_TYPE_MAP.following} />
-        </SectionStack>
+        <ReviewFollowingTabContent />
       </TabsContent>
     </Tabs>
   )

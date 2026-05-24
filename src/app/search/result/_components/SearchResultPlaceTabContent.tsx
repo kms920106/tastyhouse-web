@@ -14,7 +14,7 @@ interface Props {
   isLoggedIn: boolean
 }
 
-export default function SearchResultPlaceTabFetcher({ query, isLoggedIn }: Props) {
+export default function SearchResultPlaceTabContent({ query, isLoggedIn }: Props) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useSearchPlacesInfinite(query, isLoggedIn)
 

@@ -2,10 +2,10 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import PlaceDetailInfoContent from './PlaceDetailInfoContent'
-import PlaceDetailMenuListContent from './PlaceDetailMenuListContent'
-import PlaceDetailPhotoListContent from './PlaceDetailPhotoListContent'
-import PlaceDetailReviewContent from './PlaceDetailReviewSection'
+import PlaceDetailInfoTabContent from './PlaceDetailInfoTabContent'
+import PlaceDetailMenuTabContent from './PlaceDetailMenuTabContent'
+import PlaceDetailPhotoTabContent from './PlaceDetailPhotoTabContent'
+import PlaceDetailReviewTabContent from './PlaceDetailReviewTabContent'
 
 export type PlaceDetailTab = 'info' | 'menu' | 'photo' | 'review'
 
@@ -40,16 +40,16 @@ export default function PlaceDetailTabs({ placeId, initialTab }: Props) {
         </TabsList>
       </div>
       <TabsContent value="info" className="mt-0">
-        <PlaceDetailInfoContent placeId={placeId} />
+        <PlaceDetailInfoTabContent placeId={placeId} />
       </TabsContent>
       <TabsContent value="menu" className="mt-0">
-        <PlaceDetailMenuListContent placeId={placeId} />
+        <PlaceDetailMenuTabContent placeId={placeId} />
       </TabsContent>
       <TabsContent value="photo" className="mt-0">
-        <PlaceDetailPhotoListContent placeId={placeId} />
+        <PlaceDetailPhotoTabContent placeId={placeId} />
       </TabsContent>
       <TabsContent value="review" className="mt-0">
-        <PlaceDetailReviewContent placeId={placeId} />
+        <PlaceDetailReviewTabContent placeId={placeId} />
       </TabsContent>
     </Tabs>
   )

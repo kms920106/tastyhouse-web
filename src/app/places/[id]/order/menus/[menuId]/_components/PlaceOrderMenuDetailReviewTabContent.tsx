@@ -6,7 +6,7 @@ interface Props {
   productId: number
 }
 
-export default function PlaceOrderMenuDetailReviewContent({ productId }: Props) {
+export default function PlaceOrderMenuDetailReviewTabContent({ productId }: Props) {
   return (
     <>
       <BorderedSection>

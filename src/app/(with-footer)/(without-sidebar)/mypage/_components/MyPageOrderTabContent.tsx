@@ -6,7 +6,7 @@ import { useMyOrders } from '@/domains/order/order.hook'
 import OrderList from './OrderList'
 import { OrderListSkeleton } from './OrderListSkeleton'
 
-export default function OrderListFetcher() {
+export default function MyPageOrderTabContent() {
   const { data, isLoading, error } = useMyOrders()
 
   if (isLoading) {

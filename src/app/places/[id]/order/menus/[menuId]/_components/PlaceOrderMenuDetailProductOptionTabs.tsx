@@ -3,8 +3,8 @@
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
-import PlaceOrderMenuDetailOptionTabClient from './PlaceOrderMenuDetailOptionTabClient'
-import PlaceOrderMenuDetailReviewContent from './PlaceOrderMenuDetailReviewContent'
+import PlaceOrderMenuDetailOptionTabContent from './PlaceOrderMenuDetailOptionTabContent'
+import PlaceOrderMenuDetailReviewTabContent from './PlaceOrderMenuDetailReviewTabContent'
 
 export type ProductOrderMenuDetailTab = 'options' | 'reviews'
 
@@ -47,11 +47,11 @@ export default function PlaceOrderMenuDetailProductOptionTabs({
         ))}
       </TabsList>
       <TabsContent value="options" className="mt-0 data-[state=inactive]:hidden" forceMount>
-        <PlaceOrderMenuDetailOptionTabClient productId={productId} placeId={placeId} />
+        <PlaceOrderMenuDetailOptionTabContent productId={productId} placeId={placeId} />
       </TabsContent>
       <TabsContent value="reviews" className="mt-0">
         <SectionStack>
-          <PlaceOrderMenuDetailReviewContent productId={productId} />
+          <PlaceOrderMenuDetailReviewTabContent productId={productId} />
         </SectionStack>
       </TabsContent>
     </Tabs>

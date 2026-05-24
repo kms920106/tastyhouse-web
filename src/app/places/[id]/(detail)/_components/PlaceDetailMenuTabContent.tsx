@@ -8,7 +8,7 @@ interface Props {
   placeId: number
 }
 
-export default function PlaceDetailMenuListContent({ placeId }: Props) {
+export default function PlaceDetailMenuTabContent({ placeId }: Props) {
   return (
     <div className="px-[15px]">
       <PlaceDetailMenuListFetcher placeId={placeId} />

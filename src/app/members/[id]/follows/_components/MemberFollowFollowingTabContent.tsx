@@ -1,27 +1,33 @@
 'use client'
 
-import { useFollowMutation, useFollowers, useRemoveFollower } from '@/domains/follow/follow.hook'
+import { SocialMember } from '@/domains/member'
+import { useFollowMutation, useFollowing } from '@/domains/follow/follow.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import FollowListItem from './FollowListItem'
-import { FollowerListSkeleton } from './FollowListItemSkeleton'
+import { useRouter } from 'next/navigation'
+import MemberFollowListItem from './MemberFollowListItem'
+import { MemberFollowListSkeleton } from './MemberFollowListSkeleton'
 
 interface Props {
   memberId: number
   searchQuery: string
   isLoggedIn: boolean
-  isOwner: boolean
 }
 
-export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwner }: Props) {
+export default function MemberFollowFollowingTabContent({
+  memberId,
+  searchQuery,
+  isLoggedIn,
+}: Props) {
   const router = useRouter()
 
   const { handleFollowToggle } = useFollowMutation()
-  const { mutate: removeFollowerMutate } = useRemoveFollower(memberId, isLoggedIn)
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFollowers(memberId, isLoggedIn)
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFollowing(
+    memberId,
+    isLoggedIn,
+  )
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,
@@ -36,12 +42,8 @@ export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwne
     }
   }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage, resetIntersecting])
 
-  const handleRemoveFollower = (targetMemberId: number) => {
-    removeFollowerMutate(targetMemberId)
-  }
-
   if (isLoading) {
-    return <FollowerListSkeleton />
+    return <MemberFollowListSkeleton />
   }
 
   const allMembers = data?.pages.flatMap((page) => page.data ?? []) ?? []
@@ -57,7 +59,7 @@ export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwne
         </div>
         <div className="mt-[15px]">
           <p className="text-sm leading-[14px] text-[#aaaaaa]">
-            {searchQuery ? '검색 결과가 없습니다.' : '팔로워가 없습니다.'}
+            {searchQuery ? '검색 결과가 없습니다.' : '팔로잉이 없습니다.'}
           </p>
         </div>
       </div>
@@ -67,17 +69,17 @@ export default function FollowerList({ memberId, searchQuery, isLoggedIn, isOwne
   return (
     <>
       <div className="flex flex-col gap-[30px] py-[30px]">
-        {filtered.map((member) => (
-          <FollowListItem
+        {filtered.map((member: SocialMember) => (
+          <MemberFollowListItem
             key={member.memberId}
             member={member}
-            isOwner={isOwner}
+            isOwner={false}
             onFollowToggle={isLoggedIn ? handleFollowToggle : () => router.push('/auth/login')}
-            onRemoveFollower={isLoggedIn ? handleRemoveFollower : () => router.push('/auth/login')}
+            onRemoveFollower={() => {}}
           />
         ))}
       </div>
-      {isFetchingNextPage && <FollowerListSkeleton />}
+      {isFetchingNextPage && <MemberFollowListSkeleton />}
       <div ref={targetRef} className="h-1" aria-hidden="true" />
     </>
   )

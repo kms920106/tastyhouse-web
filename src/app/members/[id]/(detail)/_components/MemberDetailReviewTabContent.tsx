@@ -4,10 +4,14 @@ import ReviewList from '@/components/reviews/ReviewList'
 import ReviewListSkeleton from '@/components/reviews/ReviewListSkeleton'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useMyReviews } from '@/domains/member/member.hook'
+import { useMemberReviews } from '@/domains/member/member.hook'
 
-export default function ReviewListFetcher() {
-  const { data, isLoading, error } = useMyReviews()
+interface Props {
+  memberId: number
+}
+
+export default function MemberDetailReviewTabContent({ memberId }: Props) {
+  const { data, isLoading, error } = useMemberReviews(memberId)
 
   if (isLoading) {
     return <ReviewListSkeleton />

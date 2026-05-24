@@ -1,7 +1,7 @@
 'use client'
 
 import type { Event } from '@/domains/event'
-import { useActiveEvents } from '@/domains/event/event.hook'
+import { useEndedEvents } from '@/domains/event/event.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
 import Image from 'next/image'
@@ -9,8 +9,8 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { EventListSkeleton } from './EventListSkeleton'
 
-export default function ActiveEventList() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useActiveEvents()
+export default function EventEndedTabContent() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useEndedEvents()
 
   const { targetRef, isIntersecting, resetIntersecting } = useIntersectionObserver({
     threshold: 0.1,
@@ -50,7 +50,7 @@ export default function ActiveEventList() {
             </div>
             <div className="px-[15px] py-5">
               <h3 className="text-base leading-[16px]">{event.name}</h3>
-              <p className="mt-3 text-[13px] leading-[13px] text-[#999999]">
+              <p className="mt-3 text-[13px] leading-[13px] font-light text-[#999999]">
                 {formatDate(event.startAt, 'YYYY-MM-DD')} ~ {formatDate(event.endAt, 'YYYY-MM-DD')}
               </p>
             </div>

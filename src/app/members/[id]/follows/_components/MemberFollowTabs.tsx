@@ -3,8 +3,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import { useState } from 'react'
-import FollowerList from './FollowerList'
-import FollowingList from './FollowingList'
+import MemberFollowFollowerTabContent from './MemberFollowFollowerTabContent'
+import MemberFollowFollowingTabContent from './MemberFollowFollowingTabContent'
 import SearchInput from './SearchInput'
 
 export type MemberFollowTab = 'following' | 'follower'
@@ -47,13 +47,17 @@ export default function MemberFollowTabs({ memberId, initialTab, isLoggedIn, isO
       <TabsContent value="following" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
-          <FollowingList memberId={memberId} searchQuery={searchQuery} isLoggedIn={isLoggedIn} />
+          <MemberFollowFollowingTabContent
+            memberId={memberId}
+            searchQuery={searchQuery}
+            isLoggedIn={isLoggedIn}
+          />
         </div>
       </TabsContent>
       <TabsContent value="follower" className="mt-0">
         <div className="flex flex-col px-[15px] py-5 h-[calc(100dvh-50px)]">
           <SearchInput value={searchQuery} onChange={setSearchQuery} />
-          <FollowerList
+          <MemberFollowFollowerTabContent
             memberId={memberId}
             searchQuery={searchQuery}
             isLoggedIn={isLoggedIn}
