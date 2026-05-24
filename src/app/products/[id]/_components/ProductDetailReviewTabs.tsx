@@ -3,8 +3,8 @@
 import SectionStack from '@/components/ui/SectionStack'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import BorderedSection from '@/components/ui/BorderedSection'
-import ProductDetailReviewStatistic from './ProductDetailReviewStatistic'
-import ProductDetailReviewList from './ProductDetailReviewList'
+import ProductReviewStatistic from '@/components/products/ProductReviewStatistic'
+import ProductReviewList from '@/components/products/ProductReviewList'
 
 export type ProductDetailReviewTab = 'reviews'
 
@@ -27,10 +27,10 @@ export default function ProductDetailReviewTabs({ productId, reviewCount }: Prop
       <TabsContent value="reviews" className="mt-0">
         <SectionStack>
           <BorderedSection>
-            <ProductDetailReviewStatistic productId={productId} />
+            <ProductReviewStatistic productId={productId} />
           </BorderedSection>
           <BorderedSection>
-            <ProductDetailReviewList productId={productId} />
+            <ProductReviewList productId={productId} />
           </BorderedSection>
         </SectionStack>
       </TabsContent>

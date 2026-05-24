@@ -4,8 +4,8 @@ import SectionStack from '@/components/ui/SectionStack'
 import { Suspense } from 'react'
 import ProductDetailBannerContent from './ProductDetailBannerContent'
 import ProductDetailHeader from './ProductDetailHeader'
-import { ProductDetailInfoSkeleton } from './ProductDetailInfoSkeleton'
-import ProductDetailInfoContent from './ProductDetailInfoContent'
+import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
+import ProductInfoContent from '@/components/products/ProductInfoContent'
 import { ProductDetailReviewCountSkeleton } from './ProductDetailReviewCountSkeleton'
 import ProductDetailReviewCountServer from './ProductDetailReviewCountServer'
 import ProductDetailPlaceFooter from './ProductDetailPlaceFooter'
@@ -23,8 +23,8 @@ export default function ProductDetailPage({ productId }: Props) {
           <Suspense fallback={<ImageGallerySkeleton />}>
             <ProductDetailBannerContent productId={productId} />
           </Suspense>
-          <Suspense fallback={<ProductDetailInfoSkeleton />}>
-            <ProductDetailInfoContent productId={productId} />
+          <Suspense fallback={<ProductInfoSkeleton />}>
+            <ProductInfoContent productId={productId} />
           </Suspense>
         </BorderedSection>
         <BorderedSection>

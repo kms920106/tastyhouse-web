@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
-export function ProductDetailInfoSkeleton() {
+export function ProductInfoSkeleton() {
   return (
     <div className="px-[15px] py-[21px]">
       <Skeleton className="h-[18px] w-1/2" />

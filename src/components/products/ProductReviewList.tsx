@@ -8,7 +8,7 @@ interface Props {
   productId: number
 }
 
-export default function PlaceOrderMenuDetailReviewList({ productId }: Props) {
+export default function ProductReviewList({ productId }: Props) {
   const { data, isLoading, isError } = useProductReviews(productId)
 
   return (

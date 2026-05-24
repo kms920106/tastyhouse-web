@@ -7,7 +7,7 @@ interface Props {
   productId: number
 }
 
-export default async function PlaceOrderMenuDetailInfoContent({ productId }: Props) {
+export default async function ProductInfoContent({ productId }: Props) {
   const { error, data } = await productRepository.getProductById(productId)
 
   if (error || !data) {

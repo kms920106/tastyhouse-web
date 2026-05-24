@@ -1,6 +1,6 @@
 import BorderedSection from '@/components/ui/BorderedSection'
-import PlaceOrderMenuDetailReviewList from './PlaceOrderMenuDetailReviewList'
-import PlaceOrderMenuDetailReviewStatistic from './PlaceOrderMenuDetailReviewStatistic'
+import ProductReviewList from '@/components/products/ProductReviewList'
+import ProductReviewStatistic from '@/components/products/ProductReviewStatistic'
 
 interface Props {
   productId: number
@@ -10,10 +10,10 @@ export default function PlaceOrderMenuDetailReviewTabContent({ productId }: Prop
   return (
     <>
       <BorderedSection>
-        <PlaceOrderMenuDetailReviewStatistic productId={productId} />
+        <ProductReviewStatistic productId={productId} />
       </BorderedSection>
       <BorderedSection>
-        <PlaceOrderMenuDetailReviewList productId={productId} />
+        <ProductReviewList productId={productId} />
       </BorderedSection>
     </>
   )

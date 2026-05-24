@@ -4,8 +4,8 @@ import SectionStack from '@/components/ui/SectionStack'
 import { Suspense } from 'react'
 import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
 import PlaceOrderMenuDetailBannerContent from './PlaceOrderMenuDetailBannerContent'
-import { PlaceOrderMenuDetailInfoSkeleton } from './PlaceOrderMenuDetailInfoSkeleton'
-import PlaceOrderMenuDetailInfoContent from './PlaceOrderMenuDetailInfoContent'
+import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
+import ProductInfoContent from '@/components/products/ProductInfoContent'
 import { PlaceOrderMenuDetailOptionSelectorSkeleton } from './PlaceOrderMenuDetailOptionSelectorSkeleton'
 import PlaceOrderMenuDetailOptionSelectorServer from './PlaceOrderMenuDetailOptionSelectorServer'
 import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
@@ -25,8 +25,8 @@ export default function PlaceOrderMenuDetailPage({ placeId, productId, tab }: Pr
           <Suspense fallback={<ImageGallerySkeleton />}>
             <PlaceOrderMenuDetailBannerContent productId={productId} />
           </Suspense>
-          <Suspense fallback={<PlaceOrderMenuDetailInfoSkeleton />}>
-            <PlaceOrderMenuDetailInfoContent productId={productId} />
+          <Suspense fallback={<ProductInfoSkeleton />}>
+            <ProductInfoContent productId={productId} />
           </Suspense>
         </BorderedSection>
         <BorderedSection>
