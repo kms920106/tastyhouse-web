@@ -6,11 +6,13 @@ interface Props {
 }
 
 export default async function ProductDetailBannerContent({ productId }: Props) {
-  const { data } = await productRepository.getProductImages(productId)
+  const { error, data } = await productRepository.getProductImages(productId)
 
-  if (!data) {
+  if (error || !data) {
     return null
   }
 
-  return <PlaceImageGallery imageUrls={data.imageUrls} />
+  const { imageUrls } = data
+
+  return <PlaceImageGallery imageUrls={imageUrls} />
 }

@@ -1,8 +1,8 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { productRepository } from '@/domains/product/product.repository'
-import PlaceOrderMenuDetailProductOptionTabs from './PlaceOrderMenuDetailProductOptionTabs'
 import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
+import PlaceOrderMenuDetailProductOptionTabs from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
   productId: number
@@ -15,13 +15,13 @@ export default async function PlaceOrderMenuDetailOptionSelectorServer({
   placeId,
   tab,
 }: Props) {
-  const reviewCountResult = await productRepository.getProductReviewCount(productId)
+  const { error, data } = await productRepository.getProductReviewCount(productId)
 
-  if (reviewCountResult.error) {
+  if (error || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  const reviewCount = reviewCountResult.data?.reviewCount ?? 0
+  const { reviewCount } = data
 
   return (
     <PlaceOrderMenuDetailProductOptionTabs

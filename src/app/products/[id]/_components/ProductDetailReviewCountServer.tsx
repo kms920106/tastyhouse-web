@@ -8,13 +8,13 @@ interface Props {
 }
 
 export default async function ProductDetailReviewCountServer({ productId }: Props) {
-  const reviewCountResult = await productRepository.getProductReviewCount(productId)
+  const { error, data } = await productRepository.getProductReviewCount(productId)
 
-  if (reviewCountResult.error) {
+  if (error || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
   }
 
-  const reviewCount = reviewCountResult.data?.reviewCount ?? 0
+  const { reviewCount } = data
 
   return <ProductDetailReviewTabs productId={productId} reviewCount={reviewCount} />
 }
