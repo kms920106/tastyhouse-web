@@ -1,5 +1,5 @@
+import ProductShareButton from '@/components/products/ProductShareButton'
 import { productRepository } from '@/domains/product/product.repository'
-import ProductDetailShareButtonClient from './ProductDetailShareButtonClient'
 
 interface Props {
   productId: number
@@ -12,5 +12,5 @@ export default async function ProductDetailHeaderServer({ productId }: Props) {
     return null
   }
 
-  return <ProductDetailShareButtonClient productId={productId} productName={data.name} />
+  return <ProductShareButton productId={productId} productName={data.name} />
 }

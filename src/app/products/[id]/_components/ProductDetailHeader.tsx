@@ -1,7 +1,7 @@
 import Header, { HeaderLeft, HeaderRight } from '@/components/layouts/Header'
 import { BackButton } from '@/components/layouts/header-parts'
+import { ProductHeaderSkeleton } from '@/components/products/ProductHeaderSkeleton'
 import { Suspense } from 'react'
-import { ProductDetailHeaderSkeleton } from './ProductDetailHeaderSkeleton'
 import ProductDetailHeaderServer from './ProductDetailHeaderServer'
 
 interface Props {
@@ -15,7 +15,7 @@ export default function ProductDetailHeader({ productId }: Props) {
         <BackButton />
       </HeaderLeft>
       <HeaderRight>
-        <Suspense fallback={<ProductDetailHeaderSkeleton />}>
+        <Suspense fallback={<ProductHeaderSkeleton />}>
           <ProductDetailHeaderServer productId={productId} />
         </Suspense>
       </HeaderRight>

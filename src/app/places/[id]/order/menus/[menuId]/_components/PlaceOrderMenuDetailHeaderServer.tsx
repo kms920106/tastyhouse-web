@@ -1,5 +1,5 @@
 import { productRepository } from '@/domains/product/product.repository'
-import ShareButtonClient from './ShareButtonClient'
+import ProductShareButton from '@/components/products/ProductShareButton'
 
 interface Props {
   placeId: number
@@ -13,5 +13,5 @@ export default async function PlaceOrderMenuDetailHeaderServer({ placeId, produc
     return null
   }
 
-  return <ShareButtonClient placeId={placeId} productId={productId} productName={data.name} />
+  return <ProductShareButton placeId={placeId} productId={productId} productName={data.name} />
 }
