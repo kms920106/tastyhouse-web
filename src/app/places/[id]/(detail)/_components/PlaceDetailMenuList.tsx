@@ -12,7 +12,7 @@ interface Props {
   placeId: number
 }
 
-export default function PlaceDetailMenuListFetcher({ placeId }: Props) {
+export default function PlaceDetailMenuList({ placeId }: Props) {
   const { data, isLoading, error } = usePlaceMenus(placeId)
 
   if (isLoading) {
