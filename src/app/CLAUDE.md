@@ -386,7 +386,7 @@ function parseReviewTab(value: string | undefined): ReviewTab {
 export default async function Page({ searchParams }: Props) {
   const { tab } = await searchParams
   const initialTab = parseReviewTab(tab)
-  return <ReviewPage initialTab={initialTab} />
+  return <ReviewPage tab={initialTab} />
 }
 ```
 
@@ -395,7 +395,7 @@ export default async function Page({ searchParams }: Props) {
 - ✅ **하위 컴포넌트도 동일 규칙 적용**: Tabs 컴포넌트 하위의 Server Component(`XxxServer.tsx`, `XxxList.tsx` 등)도 `@/domains/`가 아닌 Tabs 파일에서 `import type { XxxTab }`
 - ✅ 유효값 배열(`FOO_TAB_VALUES`) + 파서 함수(`parseFooTab`) 패턴으로 `as` 단언 최소화
 - ✅ 파서 함수 fallback은 해당 탭의 기본값(첫 번째 탭)으로 설정
-- ✅ **prop명 규칙**: `page.tsx` → `XxxPage`로 전달 시 `tab`, `XxxPage` → `XxxTabs`로 전달 시 `initialTab` (Tabs 컴포넌트 자체의 prop명)
+- ✅ **prop명 규칙**: `page.tsx` → `XxxPage` → `XxxTabs` 모든 계층에서 `tab`으로 통일
 - ✅ **도메인 타입 잔류**: `XxxTab`과 값이 동일한 도메인 타입(예: `RankPeriod`)이 있어도 삭제하지 않는다 — repository/service 레이어에서 여전히 참조할 수 있음
 - ✅ **도메인 API 타입 매핑**: 하위 컴포넌트에서 `Record<XxxTab, DomainApiType>` 형태의 매핑이 필요하면 `XxxTab`을 키 타입으로 사용 (예: `Record<RankTab, RankType>`)
 - ❌ `(tab || 'default') as XxxTab` 직접 단언 금지 — 유효하지 않은 값이 통과됨
@@ -498,54 +498,54 @@ const RANK_PERIOD_TO_TYPE: Record<RankTab, RankType> = { ... }
 
 #### Tabs 컴포넌트 prop명
 
-URL-driven 탭 패턴에서 prop명은 계층에 따라 구분합니다:
+URL-driven 탭 패턴에서 prop명은 모든 계층에서 `tab`으로 통일합니다:
 
 | 전달 방향 | prop명 | 이유 |
 |-----------|--------|------|
 | `page.tsx` → `XxxPage` | `tab` | page가 파싱한 현재 값 |
-| `XxxPage` → `XxxTabs` | `initialTab` | Tabs 컴포넌트는 URL 변경 전 초기값으로 받음 |
+| `XxxPage` → `XxxTabs` | `tab` | URL-driven controlled 컴포넌트이므로 모든 계층에서 통일 |
 
 ```tsx
 // page.tsx
 return <RankPage tab={initialTab} />
 
 // RankPage.tsx → RankMemberSection → RankMemberTabs
-<RankMemberTabs initialTab={tab} ... />
+<RankMemberTabs tab={tab} ... />
 ```
 
-> `XxxTabs` 자체의 prop은 `initialTab`으로 일관되게 유지합니다. `SearchResultTabs`처럼 `tab`을 직접 받는 경우도 있으나, 이는 `XxxPage`를 거치지 않고 Tabs에 바로 전달하는 구조일 때의 예외입니다.
+> `page.tsx` 내부 파싱 결과를 담는 지역변수명(`initialTab`)은 유지해도 무방합니다. 외부로 전달하는 prop명만 `tab`으로 통일합니다.
 
 ---
 
 #### 아이콘 탭 (이미지 on/off 전환)
 
-탭 라벨 대신 아이콘 이미지를 사용하는 탭은 `initialTab` prop이 아닌 `currentTab` local state로 아이콘 상태를 결정합니다.
+탭 라벨 대신 아이콘 이미지를 사용하는 탭은 `tab` prop이 아닌 `currentTab` local state로 아이콘 상태를 결정합니다.
 
 ```tsx
 // ✅ 권장 — currentTab state로 아이콘 즉시 반응
-const [currentTab, setCurrentTab] = useState<XxxTab>(initialTab)
+const [currentTab, setCurrentTab] = useState<XxxTab>(tab)
 
 const handleChange = (value: string) => {
   setCurrentTab(value as XxxTab)
   handleTabChange(value)
 }
 
-// 아이콘 src: currentTab 기준
+// 아이콘 src: currentTab 기준, <Tabs value={currentTab}>
 src={`/images/${iconBase}-${currentTab === value ? 'on' : 'off'}.png`}
 ```
 
 ```tsx
-// ❌ 금지 — initialTab 기준이면 URL 변경 → re-render 전까지 아이콘 미반영
-src={`/images/${iconBase}-${initialTab === value ? 'on' : 'off'}.png`}
+// ❌ 금지 — tab 기준이면 URL 변경 → re-render 전까지 아이콘 미반영
+src={`/images/${iconBase}-${tab === value ? 'on' : 'off'}.png`}
 ```
 
 #### 탭 1개 컴포넌트
 
-탭이 1개뿐이면 `onValueChange`는 발동될 일이 없으므로 생략합니다. 불필요한 조건식(ex. `initialTab === 'reviews' ? 'on' : 'off'`)도 제거하고 하드코딩합니다.
+탭이 1개뿐이면 `onValueChange`는 발동될 일이 없으므로 생략합니다. 불필요한 조건식(ex. `tab === 'reviews' ? 'on' : 'off'`)도 제거하고 하드코딩합니다.
 
 ```tsx
 // 탭 1개 — onValueChange 불필요, 아이콘 상태 하드코딩
-<Tabs value={initialTab} className="gap-0">
+<Tabs value={tab} className="gap-0">
   <TabsTrigger value="reviews" ...>
     <Image src="/images/mypage/icon-review-on.png" ... />
   </TabsTrigger>
@@ -954,7 +954,8 @@ export default async function RankMemberList({ tab }: { tab: RankTab }) { ... }
 - [ ] active 탭 밑줄이 `border-b-[1.5px]`인가? (`border-b-2` 사용 금지)
 - [ ] 모든 `TabsContent`에 `className="mt-0"`이 있는가? (shadcn 기본값 `mt-2` 재정의 필수)
 - [ ] `TabsContent`가 sticky 래퍼 div 바깥(`<Tabs>` 직속 자식)에 위치하는가?
-- [ ] 아이콘 탭이라면 on/off 상태를 `currentTab` state 기반으로 결정하는가?
+- [ ] `XxxTabs` prop명이 `tab`인가? (`page.tsx` → `XxxPage` → `XxxTabs` 모든 계층 `tab`으로 통일)
+- [ ] 아이콘 탭이라면 `<Tabs value={currentTab}>`이고 on/off 상태를 `currentTab` state 기반으로 결정하는가?
 - [ ] 탭이 1개뿐이라면 `onValueChange`를 생략했는가?
 - [ ] `BorderedSection`이 부모에서 이미 감싸고 있다면 자식에서 중첩하지 않았는가?
 - [ ] 탭-API 타입 매핑 상수명이 `[DOMAIN]_TAB_TYPE_MAP` 패턴(SCREAMING_SNAKE_CASE)인가?
