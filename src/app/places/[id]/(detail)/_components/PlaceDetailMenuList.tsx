@@ -40,7 +40,11 @@ export default function PlaceDetailMenuList({ placeId }: Props) {
       className="border-b border-[#eeeeee] box-border"
     >
       {menuCategory.products.map((product) => (
-        <Link key={product.id} href={PAGE_PATHS.PRODUCT_DETAIL(placeId)} className="block">
+        <Link
+          key={product.id}
+          href={PAGE_PATHS.PLACE_PRODUCT_DETAIL(placeId, product.id)}
+          className="block"
+        >
           <ProductItem
             imageUrl={product.imageUrl}
             spiciness={product.spiciness}

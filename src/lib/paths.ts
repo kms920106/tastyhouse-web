@@ -84,6 +84,8 @@ export const PAGE_PATHS = {
   PLACE_DETAIL: (id: string | number) => `/places/${id}`,
   PLACE_FILTER: '/places/filter',
   PLACE_REVIEWS: (id: number) => `/places/${id}/reviews`,
+  PLACE_PRODUCT_DETAIL: (placeId: number, productId: number) =>
+    `/places/${placeId}/products/${productId}`,
   PLACE_MENU_DETAIL: (placeId: number, menuId: number) => `/places/${placeId}/menus/${menuId}`,
 
   // 포인트
