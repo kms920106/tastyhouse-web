@@ -5,10 +5,14 @@ export function ProductHeaderSkeleton() {
   return (
     <Header variant="white" height={55}>
       <HeaderLeft>
-        <Skeleton className="h-[18px] w-[18px] rounded-full" />
+        <div className="flex items-center justify-center w-[55px] h-[55px]">
+          <Skeleton className="h-[16px] w-[9px] rounded-sm" />
+        </div>
       </HeaderLeft>
       <HeaderRight>
-        <Skeleton className="h-[18px] w-[18px] rounded-full" />
+        <div className="flex items-center justify-center w-[55px] h-[55px]">
+          <Skeleton className="h-[20px] w-[20px] rounded-full" />
+        </div>
       </HeaderRight>
     </Header>
   )
