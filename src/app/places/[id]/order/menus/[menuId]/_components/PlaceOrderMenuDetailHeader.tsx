@@ -1,7 +1,8 @@
 import Header, { HeaderLeft, HeaderRight } from '@/components/layouts/Header'
-import { BackButton, CartButton } from '@/components/layouts/header-parts'
+import { BackButton } from '@/components/layouts/header-parts'
 import ProductShareButton from '@/components/products/ProductShareButton'
 import { productRepository } from '@/domains/product/product.repository'
+import PlaceOrderMenuDetailCartButtonClient from './PlaceOrderMenuDetailCartButtonClient'
 
 interface Props {
   placeId: number
@@ -24,7 +25,7 @@ export default async function PlaceOrderMenuDetailHeader({ placeId, productId }:
       </HeaderLeft>
       <HeaderRight>
         <ProductShareButton productId={productId} productName={name} />
-        <CartButton placeId={placeId} />
+        <PlaceOrderMenuDetailCartButtonClient placeId={placeId} />
       </HeaderRight>
     </Header>
   )
