@@ -1,13 +1,14 @@
+import ProductInfoContent from '@/components/products/ProductInfoContent'
+import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
 import BorderedSection from '@/components/ui/BorderedSection'
 import { ImageGallerySkeleton } from '@/components/ui/ImageGallerySkeleton'
 import SectionStack from '@/components/ui/SectionStack'
 import { Suspense } from 'react'
-import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
 import PlaceOrderMenuDetailBannerContent from './PlaceOrderMenuDetailBannerContent'
-import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
-import ProductInfoContent from '@/components/products/ProductInfoContent'
-import { PlaceOrderMenuDetailOptionSelectorSkeleton } from './PlaceOrderMenuDetailOptionSelectorSkeleton'
+import PlaceOrderMenuDetailHeader from './PlaceOrderMenuDetailHeader'
+import { PlaceOrderMenuDetailHeaderSkeleton } from './PlaceOrderMenuDetailHeaderSkeleton'
 import PlaceOrderMenuDetailOptionSelectorServer from './PlaceOrderMenuDetailOptionSelectorServer'
+import { PlaceOrderMenuDetailOptionSelectorSkeleton } from './PlaceOrderMenuDetailOptionSelectorSkeleton'
 import type { ProductOrderMenuDetailTab } from './PlaceOrderMenuDetailProductOptionTabs'
 
 interface Props {
@@ -19,7 +20,9 @@ interface Props {
 export default function PlaceOrderMenuDetailPage({ placeId, productId, tab }: Props) {
   return (
     <>
-      <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} />
+      <Suspense fallback={<PlaceOrderMenuDetailHeaderSkeleton />}>
+        <PlaceOrderMenuDetailHeader placeId={placeId} productId={productId} />
+      </Suspense>
       <SectionStack>
         <BorderedSection>
           <Suspense fallback={<ImageGallerySkeleton />}>

@@ -1,14 +1,15 @@
+import ProductInfoContent from '@/components/products/ProductInfoContent'
+import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
 import BorderedSection from '@/components/ui/BorderedSection'
 import { ImageGallerySkeleton } from '@/components/ui/ImageGallerySkeleton'
 import SectionStack from '@/components/ui/SectionStack'
 import { Suspense } from 'react'
+import { ProductHeaderSkeleton } from '../../../../components/products/ProductHeaderSkeleton'
 import ProductDetailBannerContent from './ProductDetailBannerContent'
 import ProductDetailHeader from './ProductDetailHeader'
-import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
-import ProductInfoContent from '@/components/products/ProductInfoContent'
-import { ProductDetailReviewCountSkeleton } from './ProductDetailReviewCountSkeleton'
-import ProductDetailReviewCountServer from './ProductDetailReviewCountServer'
 import ProductDetailPlaceFooter from './ProductDetailPlaceFooter'
+import ProductDetailReviewCountServer from './ProductDetailReviewCountServer'
+import { ProductDetailReviewCountSkeleton } from './ProductDetailReviewCountSkeleton'
 
 interface Props {
   productId: number
@@ -17,7 +18,9 @@ interface Props {
 export default function ProductDetailPage({ productId }: Props) {
   return (
     <>
-      <ProductDetailHeader productId={productId} />
+      <Suspense fallback={<ProductHeaderSkeleton />}>
+        <ProductDetailHeader productId={productId} />
+      </Suspense>
       <SectionStack>
         <BorderedSection>
           <Suspense fallback={<ImageGallerySkeleton />}>

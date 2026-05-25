@@ -1,3 +1,4 @@
+import { ProductHeaderSkeleton } from '@/components/products/ProductHeaderSkeleton'
 import ProductInfoContent from '@/components/products/ProductInfoContent'
 import { ProductInfoSkeleton } from '@/components/products/ProductInfoSkeleton'
 import BorderedSection from '@/components/ui/BorderedSection'
@@ -18,7 +19,9 @@ interface Props {
 export default function PlaceProductDetailPage({ placeId, productId }: Props) {
   return (
     <>
-      <PlaceProductDetailHeader productId={productId} />
+      <Suspense fallback={<ProductHeaderSkeleton />}>
+        <PlaceProductDetailHeader productId={productId} />
+      </Suspense>
       <SectionStack>
         <BorderedSection>
           <Suspense fallback={<ImageGallerySkeleton />}>
