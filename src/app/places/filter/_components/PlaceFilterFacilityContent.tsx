@@ -1,6 +1,6 @@
+import { FacilitySelectorSkeleton } from '@/components/places/FacilitySelectorSkeleton'
 import { Suspense } from 'react'
 import PlaceFilterFacilitySelectorFetcher from './PlaceFilterFacilitySelectorFetcher'
-import { FacilitySelectorSkeleton } from '../../../../components/places/FacilitySelectorSkeleton'
 
 export default function PlaceFilterFacilityContent() {
   return (

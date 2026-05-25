@@ -1,10 +1,10 @@
 'use client'
 
 import KakaoMap from '@/app/map/_components/KakaoMap'
+import QuickReviewLink from '@/components/ui/QuickReviewLink'
 import SideBar from '@/components/ui/SideBar'
 import SideBarButton from '@/components/ui/SideBarButton'
 import { useState } from 'react'
-import QuickReviewLink from '../../components/ui/QuickReviewLink'
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false)

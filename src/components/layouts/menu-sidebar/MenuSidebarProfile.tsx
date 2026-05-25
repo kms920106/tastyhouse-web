@@ -1,13 +1,13 @@
 'use client'
 
+import MemberGradeBadge from '@/components/members/MemberGradeBadge'
+import MemberGradeIcon from '@/components/members/MemberGradeIcon'
+import MemberGradeName from '@/components/members/MemberGradeName'
+import MemberNickname from '@/components/members/MemberNickname'
+import Avatar from '@/components/ui/Avatar'
 import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
 import PenIcon from '@/components/ui/PenIcon'
 import { useMemberProfile, useMyReviewCount } from '@/domains/member/member.hook'
-import Avatar from '../../ui/Avatar'
-import MemberGradeBadge from '../../members/MemberGradeBadge'
-import MemberGradeIcon from '../../members/MemberGradeIcon'
-import MemberGradeName from '../../members/MemberGradeName'
-import MemberNickname from '@/components/members/MemberNickname'
 
 interface Props {
   isLoggedIn: boolean

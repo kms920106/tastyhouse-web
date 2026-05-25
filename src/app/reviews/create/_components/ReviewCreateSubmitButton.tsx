@@ -1,7 +1,7 @@
 'use client'
 
+import { toast } from '@/components/ui/AppToaster'
 import { cn } from '@/lib/utils'
-import { toast } from '../../../../components/ui/AppToaster'
 
 interface Props {
   form: {

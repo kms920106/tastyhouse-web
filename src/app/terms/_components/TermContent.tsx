@@ -1,6 +1,6 @@
+import HtmlContentSkeleton from '@/components/ui/HtmlContentSkeleton'
 import { Suspense } from 'react'
 import TermHtmlContent from './TermHtmlContent'
-import HtmlContentSkeleton from '../../../components/ui/HtmlContentSkeleton'
 
 export default async function TermContent() {
   return (

@@ -2,7 +2,7 @@ import HomeBannerSection from './HomeBannerSection'
 import HomeBestPlaceSection from './HomeBestPlaceSection'
 import HomeBestReviewSection from './HomeBestReviewSection'
 import HomeChoiceSection from './HomeChoiceSection'
-import QuickReviewLink from '../../../../../components/ui/QuickReviewLink'
+import QuickReviewLink from '@/components/ui/QuickReviewLink'
 import HomeTodayDiscountSection from './HomeTodayDiscountSection'
 import HomeHeader from './HomeHeader'
 
