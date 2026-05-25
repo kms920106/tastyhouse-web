@@ -14,7 +14,7 @@ interface Props {
   query: string
 }
 
-export default function SearchResultMenuPreviewFetcher({ query }: Props) {
+export default function SearchResultAllMenuList({ query }: Props) {
   const { data, isLoading, isError } = useSearchMenusPreview(query)
 
   if (isLoading)
