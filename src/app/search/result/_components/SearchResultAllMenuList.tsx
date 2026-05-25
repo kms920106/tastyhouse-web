@@ -34,18 +34,18 @@ export default function SearchResultAllMenuList({ query }: Props) {
 
   return (
     <div>
-      {data.data!.map((item, i, arr) => (
-        <React.Fragment key={item.id}>
-          <Link href={PAGE_PATHS.PRODUCT_DETAIL(item.id)} className="block">
+      {data.data!.map((product, i, arr) => (
+        <React.Fragment key={product.id}>
+          <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
             <ProductItem
-              imageUrl={item.imageUrl}
-              spiciness={item.spiciness}
-              name={item.name}
-              originalPrice={item.originalPrice}
-              discountPrice={item.discountPrice}
-              discountRate={item.discountRate}
-              rating={item.rating}
-              reviewCount={item.reviewCount}
+              imageUrl={product.imageUrl}
+              spiciness={product.spiciness}
+              name={product.name}
+              originalPrice={product.originalPrice}
+              discountPrice={product.discountPrice}
+              discountRate={product.discountRate}
+              rating={product.rating}
+              reviewCount={product.reviewCount}
             />
           </Link>
           {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
