@@ -1,6 +1,6 @@
+import HeaderIconLink from '@/components/layouts/header-parts/HeaderIconLink'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
-import HeaderIconLink from '../../../../../../../components/layouts/header-parts/HeaderIconLink'
 
 interface Props {
   placeId: number
