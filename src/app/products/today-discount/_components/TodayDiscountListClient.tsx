@@ -9,18 +9,19 @@ import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import TodayDiscountGridItem from './TodayDiscountGridItem'
 import TodayDiscountListSkeleton from './TodayDiscountListSkeleton'
-import TodayDiscountSortPopover, { type TodayDiscountSortType } from './TodayDiscountSortPopover'
+import TodayDiscountSortDrawer, { type TodayDiscountSortType } from './TodayDiscountSortDrawer'
 
 type ViewType = 'list' | 'grid'
 
 type Product = { discountRate: number; discountPrice: number }
 
-const SORT_COMPARATORS: Record<TodayDiscountSortType, ((a: Product, b: Product) => number) | null> = {
-  RECOMMENDED: null,
-  DISCOUNT_RATE: (a, b) => b.discountRate - a.discountRate,
-  PRICE_LOW: (a, b) => a.discountPrice - b.discountPrice,
-  PRICE_HIGH: (a, b) => b.discountPrice - a.discountPrice,
-}
+const SORT_COMPARATORS: Record<TodayDiscountSortType, ((a: Product, b: Product) => number) | null> =
+  {
+    RECOMMENDED: null,
+    DISCOUNT_RATE: (a, b) => b.discountRate - a.discountRate,
+    PRICE_LOW: (a, b) => a.discountPrice - b.discountPrice,
+    PRICE_HIGH: (a, b) => b.discountPrice - a.discountPrice,
+  }
 
 export default function TodayDiscountListClient() {
   const [viewType, setViewType] = useState<ViewType>('list')
@@ -50,8 +51,8 @@ export default function TodayDiscountListClient() {
 
   return (
     <>
-      <div className="flex items-center justify-end gap-3 px-[15px] h-[50px] border-b border-[#eeeeee]">
-        <TodayDiscountSortPopover value={sortType} onChange={setSortType} />
+      <div className="flex items-center justify-end gap-3 px-[15px] h-[50px]">
+        <TodayDiscountSortDrawer value={sortType} onChange={setSortType} />
         <button
           type="button"
           aria-label={viewType === 'list' ? '그리드 뷰로 전환' : '리스트 뷰로 전환'}
@@ -61,12 +62,12 @@ export default function TodayDiscountListClient() {
           <Image
             src={
               viewType === 'list'
-                ? '/images/today-discount/icon-view-02.png'
-                : '/images/today-discount/icon-view-01.png'
+                ? '/images/today-discount/icon-view-01.png'
+                : '/images/today-discount/icon-view-02.png'
             }
             alt={viewType === 'list' ? '그리드 뷰' : '리스트 뷰'}
-            width={32}
-            height={25}
+            width={17}
+            height={17}
           />
         </button>
       </div>
