@@ -25,3 +25,7 @@ export async function getProductReviews(productId: number, query: { page: number
 export async function getProductReviewCount(productId: number) {
   return productRepository.getProductReviewCount(productId)
 }
+
+export async function getTodayDiscountProducts({ page, size }: { page: number; size: number }) {
+  return productRepository.getTodayDiscountProducts({ page, size })
+}

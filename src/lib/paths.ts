@@ -123,6 +123,7 @@ export const PAGE_PATHS = {
   PRODUCTS: '/products',
   PRODUCT_DETAIL: (id: string | number) => `/products/${id}`,
   PRODUCT_REVIEWS: (id: number) => `/products/${id}/reviews`,
+  PRODUCTS_TODAY_DISCOUNT: '/products/today-discount',
 
   // 랭킹 (주석 처리: 실제 페이지 폴더 없음)
   RANKS: '/rank',
