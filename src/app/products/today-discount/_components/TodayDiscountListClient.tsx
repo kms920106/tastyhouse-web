@@ -51,8 +51,9 @@ export default function TodayDiscountListClient() {
 
   return (
     <>
-      <div className="flex items-center justify-end gap-3 px-[15px] h-[50px]">
+      <div className="flex items-center justify-end gap-2.5 px-[15px] h-[50px]">
         <TodayDiscountSortDrawer value={sortType} onChange={setSortType} />
+        <div className="w-px h-[15px] bg-[#cccccc]" aria-hidden="true" />
         <button
           type="button"
           aria-label={viewType === 'list' ? '그리드 뷰로 전환' : '리스트 뷰로 전환'}
