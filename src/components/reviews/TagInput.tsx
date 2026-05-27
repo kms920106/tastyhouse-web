@@ -1,7 +1,7 @@
 'use client'
 
 import HashTag from '@/components/ui/HashTag'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import { useState } from 'react'
 import AppInputText from '../ui/AppInputText'
 
@@ -102,7 +102,7 @@ export default function TagInput({ value, onChange }: Props) {
             className="h-[30px] pl-4 pr-2.5 py-2.5 gap-[11px]"
           >
             <button onClick={() => handleTagRemove(tag)} className="cursor-pointer">
-              <Image src="/images/icon-delete.png" alt="삭제" width={9} height={9} />
+              <Icon name="delete" />
             </button>
           </HashTag>
         ))}

@@ -2,7 +2,7 @@
 
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FormCheckbox from '@/components/ui/FormCheckbox'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 export const TERMS_LIST = [
   { key: 'agreedTerms', label: '이용약관 동의 (필수)', required: true, href: '/terms' },
@@ -68,7 +68,7 @@ export default function AuthSignupTermSection({
                 onClick={() => onOpenTermsDialog(key, label)}
                 className="shrink-0 cursor-pointer"
               >
-                <Image src="/images/icon-nav-right.svg" alt="약관 보기" width={6} height={10} />
+                <Icon name="nav-right" alt="약관 보기" />
               </button>
             )}
           </div>

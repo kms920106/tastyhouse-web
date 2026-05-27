@@ -1,7 +1,7 @@
 'use client'
 
 import AppInputText from '@/components/ui/AppInputText'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 interface Props {
   value: string
@@ -17,7 +17,7 @@ export default function SearchInput({ value, onChange }: Props) {
         className="!bg-[#fafafa] rounded-[2.5px] border-[#eeeeee] pr-[40px]"
       />
       <button className="absolute right-[17px] top-1/2 -translate-y-1/2">
-        <Image src="/images/icon-search.png" alt="검색" width={18} height={18} />
+        <Icon name="search" />
       </button>
     </div>
   )

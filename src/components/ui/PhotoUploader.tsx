@@ -2,6 +2,7 @@
 
 import { Spinner } from '@/components/ui/shadcn/spinner'
 import useFileUpload from '@/hooks/useFileUpload'
+import Icon from '@/components/ui/Icon'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
@@ -41,7 +42,7 @@ export default function PhotoUploader({
           {isUploading ? (
             <Spinner />
           ) : (
-            <Image src="/images/icon-camera.png" alt="카메라" width={23} height={18} />
+            <Icon name="camera" />
           )}
           <span className="text-[11px] leading-[11px] text-[#999999]">
             {uploadedFiles.length}/{maxCount}
@@ -61,7 +62,7 @@ export default function PhotoUploader({
             className="absolute top-1.5 right-1.5"
             onClick={() => removeAt(index)}
           >
-            <Image src="/images/icon-remove-image.png" alt="삭제" width={15} height={15} />
+            <Icon name="remove-image" />
           </button>
         </div>
       ))}

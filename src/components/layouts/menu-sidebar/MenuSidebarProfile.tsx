@@ -6,7 +6,7 @@ import MemberGradeName from '@/components/members/MemberGradeName'
 import MemberNickname from '@/components/members/MemberNickname'
 import Avatar from '@/components/ui/Avatar'
 import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
-import PenIcon from '@/components/ui/PenIcon'
+import Icon from '@/components/ui/Icon'
 import { useMemberProfile, useMyReviewCount } from '@/domains/member/member.hook'
 
 interface Props {
@@ -36,7 +36,7 @@ export default function MenuSidebarProfile({ isLoggedIn }: Props) {
       <div className="flex flex-col gap-2 min-w-0">
         <div className="flex items-center gap-[2.5px]">
           <MemberNickname size="md">{nickname}</MemberNickname>
-          <PenIcon />
+          <Icon name="mypage/pen" />
         </div>
         <div className="flex items-end gap-[1px]">
           <MemberGradeBadge

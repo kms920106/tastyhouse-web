@@ -8,7 +8,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import { IoCheckmark } from 'react-icons/io5'
 
 export type TodayDiscountSortType = 'RECOMMENDED' | 'DISCOUNT_RATE' | 'PRICE_LOW' | 'PRICE_HIGH'
@@ -35,7 +35,7 @@ export default function TodayDiscountSortDrawer({ value, onChange }: Props) {
         className="flex items-center gap-2.5 text-sm leading-[14px] text-[#333333] cursor-pointer"
       >
         <span>{currentLabel}</span>
-        <Image src="/images/icon-filter-nav.png" alt="" width={10} height={6} />
+        <Icon name="filter-nav" />
       </DrawerTrigger>
       <DrawerContent className="bg-transparent p-[15px] border-none">
         <DrawerTitle className="sr-only">정렬 선택</DrawerTitle>

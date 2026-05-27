@@ -29,7 +29,7 @@ import { useEmailVerification } from '@/hooks/useEmailVerification'
 import { extractZodFieldErrors } from '@/lib/form'
 import { PAGE_PATHS } from '@/lib/paths'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
@@ -507,12 +507,7 @@ export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }:
                       onClick={() => handleOpenTermsDialog(key, label)}
                       className="shrink-0 cursor-pointer"
                     >
-                      <Image
-                        src="/images/icon-nav-right.svg"
-                        alt="약관 보기"
-                        width={6}
-                        height={10}
-                      />
+                      <Icon name="nav-right" alt="약관 보기" />
                     </button>
                   )}
                 </div>

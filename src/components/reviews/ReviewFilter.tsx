@@ -1,7 +1,7 @@
 import CheckboxWithCount from '@/components/reviews/CheckboxWithCount'
 import type { ReviewSortType } from '@/domains/review'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 interface Props {
   count: number
@@ -69,7 +69,7 @@ export default function ReviewFilter({
             <option value="latest">최신순</option>
             <option value="oldest">오래된순</option>
           </select>
-          <Image src="/images/icon-filter-nav.png" alt="" width={10} height={6} className="pointer-events-none" />
+          <Icon name="filter-nav" className="pointer-events-none" />
         </div>
       </div>
     </div>

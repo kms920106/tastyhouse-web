@@ -3,7 +3,7 @@
 import MemberProfileImage from '@/components/members/MemberProfileImage'
 import MemberProfileCard from '@/components/members/MemberProfileCard'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
-import PenIcon from '@/components/ui/PenIcon'
+import Icon from '@/components/ui/Icon'
 import { useMemberProfile, useMemberStats } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
@@ -43,7 +43,7 @@ export default function MyPageProfile({ isLoggedIn }: Props) {
       isStatsLoading={isStatsLoading}
       editSlot={
         <Link href={PAGE_PATHS.ACCOUNT_PROFILE}>
-          <PenIcon />
+          <Icon name="mypage/pen" />
         </Link>
       }
     />

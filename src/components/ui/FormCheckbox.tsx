@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 interface Props {
   name: string
@@ -16,12 +16,7 @@ export default function FormCheckbox({ name, checked, onChange }: Props) {
         onChange={(e) => onChange(e.target.checked)}
         className="sr-only"
       />
-      <Image
-        src={checked ? '/images/icon-check-on.png' : '/images/icon-check-off.png'}
-        alt={checked ? '선택됨' : '선택 안됨'}
-        width={14}
-        height={10}
-      />
+      <Icon name={checked ? 'check-on' : 'check-off'} />
     </label>
   )
 }

@@ -1,7 +1,7 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import { orderRepository } from '@/domains/order/order.repository'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
@@ -26,9 +26,9 @@ export default async function OrderCompleteContent({ orderId }: Props) {
     <>
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="relative w-[95px] h-[95px]">
-          <Image src="/images/icon-circle-red.png" alt="" fill className="object-contain" />
+          <Icon name="circle-red" fill className="object-contain" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Image src="/images/icon-check-red.png" alt="결제완료" width={49} height={35} />
+            <Icon name="check-red" alt="결제완료" />
           </div>
         </div>
         <div className="flex flex-col items-center text-center">

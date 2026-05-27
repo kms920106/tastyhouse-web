@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import * as React from 'react'
 
 type Props = React.SelectHTMLAttributes<HTMLSelectElement>
@@ -18,13 +18,7 @@ export default function AppSelect({ className, children, ...props }: Props) {
         {children}
       </select>
       <div className="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2">
-        <Image
-          src="/images/icon-nav-bottom-gray.png"
-          alt="select arrow"
-          width={12}
-          height={8}
-          className="select-none"
-        />
+        <Icon name="nav-bottom-gray" className="select-none" />
       </div>
     </div>
   )

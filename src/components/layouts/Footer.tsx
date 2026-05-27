@@ -1,49 +1,24 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import Icon from '@/components/ui/Icon'
+import { getLayoutTabIcon, type LayoutTabKey } from '@/components/ui/icon-helpers'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
+import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 interface FooterNavigationItem {
   label: string
   href: string
-  iconOff: string
-  iconOn: string
+  tabKey: LayoutTabKey
 }
 
 const FOOTER_NAVIGATION: FooterNavigationItem[] = [
-  {
-    label: '홈',
-    href: PAGE_PATHS.HOME,
-    iconOff: '/images/layout/icon-home-off.png',
-    iconOn: '/images/layout/icon-home-on.png',
-  },
-  {
-    label: '랭킹',
-    href: PAGE_PATHS.RANKS,
-    iconOff: '/images/layout/icon-rank-off.png',
-    iconOn: '/images/layout/icon-rank-on.png',
-  },
-  {
-    label: '리뷰',
-    href: PAGE_PATHS.REVIEWS,
-    iconOff: '/images/layout/icon-review-off.png',
-    iconOn: '/images/layout/icon-review-on.png',
-  },
-  {
-    label: '플레이스',
-    href: PAGE_PATHS.PLACES,
-    iconOff: '/images/layout/icon-place-off.png',
-    iconOn: '/images/layout/icon-place-on.png',
-  },
-  {
-    label: '마이페이지',
-    href: PAGE_PATHS.MY_PAGE,
-    iconOff: '/images/layout/icon-mypage-off.png',
-    iconOn: '/images/layout/icon-mypage-on.png',
-  },
+  { label: '홈', href: PAGE_PATHS.HOME, tabKey: 'home' },
+  { label: '랭킹', href: PAGE_PATHS.RANKS, tabKey: 'rank' },
+  { label: '리뷰', href: PAGE_PATHS.REVIEWS, tabKey: 'review' },
+  { label: '플레이스', href: PAGE_PATHS.PLACES, tabKey: 'place' },
+  { label: '마이페이지', href: PAGE_PATHS.MY_PAGE, tabKey: 'mypage' },
 ]
 
 export default function Footer() {
@@ -74,13 +49,7 @@ export default function Footer() {
                   aria-current={active ? 'page' : undefined}
                 >
                   <div className="relative w-6 h-6 flex items-center justify-center">
-                    <Image
-                      src={active ? item.iconOn : item.iconOff}
-                      alt=""
-                      fill
-                      style={{ objectFit: 'contain' }}
-                      sizes="24px"
-                    />
+                    <Icon name={getLayoutTabIcon(item.tabKey, active)} fill style={{ objectFit: 'contain' }} />
                   </div>
                   <span
                     className={cn(

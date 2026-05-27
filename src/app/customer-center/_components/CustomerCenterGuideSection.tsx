@@ -1,5 +1,5 @@
 import AppButton from '@/components/ui/AppButton'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import Link from 'next/link'
 
 export default function CustomerCenterGuideSection() {
@@ -20,7 +20,7 @@ export default function CustomerCenterGuideSection() {
       </div>
       <div className="mt-[30px]">
         <AppButton className="gap-1 w-full h-[50px] bg-[#fddc3f] text-base leading-[16px] text-black">
-          <Image src="/images/icon-kakao.png" alt="카카오톡" width={30} height={30} />
+          <Icon name="kakao" />
           <Link href="http://pf.kakao.com/_dXxcxbX/chat">카카오톡 문의</Link>
         </AppButton>
       </div>

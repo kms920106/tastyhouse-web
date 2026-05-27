@@ -1,9 +1,9 @@
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 export default function AuthSignupCompleteContent() {
   return (
     <div className="flex-1 flex flex-col items-center justify-center">
-      <Image src="/images/icon-logo-150.png" alt="테이스티하우스" width={75} height={87} />
+      <Icon name="logo-150" />
       <div className="flex flex-col items-center text-center mt-[30px]">
         <h2 className="text-[23px] leading-[23px]">회원가입이 완료되었습니다.</h2>
         <p className="mt-[15px] text-sm leading-relaxed text-[#666666]">
