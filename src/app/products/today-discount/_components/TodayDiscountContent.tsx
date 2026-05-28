@@ -39,7 +39,7 @@ const SORT_COMPARATORS: Record<TodayDiscountSortType, ((a: Product, b: Product) 
     PRICE_HIGH: (a, b) => b.discountPrice - a.discountPrice,
   }
 
-export default function TodayDiscountListClient() {
+export default function TodayDiscountContent() {
   const [{ view, sort }, setParams] = useQueryStates(urlStateParsers)
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
@@ -67,10 +67,7 @@ export default function TodayDiscountListClient() {
   return (
     <div className="px-[15px] pt-8">
       <div className="flex items-center justify-end gap-2.5">
-        <TodayDiscountSortDrawer
-          value={sort}
-          onChange={(value) => setParams({ sort: value })}
-        />
+        <TodayDiscountSortDrawer value={sort} onChange={(value) => setParams({ sort: value })} />
         <div className="w-px h-[15px] bg-[#cccccc]" aria-hidden="true" />
         <button
           type="button"

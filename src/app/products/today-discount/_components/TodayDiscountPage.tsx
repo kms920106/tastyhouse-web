@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import TodayDiscountHeader from './TodayDiscountHeader'
-import TodayDiscountListClient from './TodayDiscountListClient'
+import TodayDiscountContent from './TodayDiscountContent'
 import TodayDiscountListSkeleton from './TodayDiscountListSkeleton'
 
 export default function TodayDiscountPage() {
@@ -8,7 +8,7 @@ export default function TodayDiscountPage() {
     <>
       <TodayDiscountHeader />
       <Suspense fallback={<TodayDiscountListSkeleton viewType="list" />}>
-        <TodayDiscountListClient />
+        <TodayDiscountContent />
       </Suspense>
     </>
   )
