@@ -49,15 +49,53 @@ export const ICON_REGISTRY = {
   'layout/review-off': { src: '/images/layout/icon-review-off.png', width: 24, height: 24 },
   'layout/review-on':  { src: '/images/layout/icon-review-on.png',  width: 24, height: 24 },
 
-  // ── mypage/ (PenIcon 사용 — MyPageProfile, MenuSidebarProfile) ──
-  'mypage/pen': { src: '/images/mypage/icon-pen.png', width: 18, height: 16, alt: 'pencil' },
+  // ── account/profile/ ──────────────────────────────
+  'account/profile/camera': { src: '/images/account/profile/icon-camera.png', width: 15, height: 12, alt: '카메라' },
 
-  // ── rank/ (MemberGradeIcon — Phase 5에서 사용) ──
-  'rank/level-01-40': { src: '/images/rank/icon-level-01-40.png', width: 40, height: 40 },
-  'rank/level-02-40': { src: '/images/rank/icon-level-02-40.png', width: 40, height: 40 },
-  'rank/level-03-40': { src: '/images/rank/icon-level-03-40.png', width: 40, height: 40 },
-  'rank/level-04-40': { src: '/images/rank/icon-level-04-40.png', width: 40, height: 40 },
-  'rank/level-05-40': { src: '/images/rank/icon-level-05-40.png', width: 40, height: 40 },
+  // ── home/ ─────────────────────────────────────────
+  'home/fast-review': { src: '/images/home/icon-fast-reveiw.png', width: 26, height: 26, alt: '빠른 리뷰' },
+
+  // ── mypage/ (알파벳 순: bookmark-off → bookmark-on → pen → review-on → setting) ──
+  'mypage/bookmark-off': { src: '/images/mypage/icon-bookmark-off.png', width: 16, height: 24, alt: '찜' },
+  'mypage/bookmark-on':  { src: '/images/mypage/icon-bookmark-on.png',  width: 16, height: 24, alt: '찜' },
+  'mypage/pen':          { src: '/images/mypage/icon-pen.png',          width: 18, height: 16, alt: 'pencil' },
+  'mypage/review-on':    { src: '/images/mypage/icon-review-on.png',    width: 22, height: 25, alt: '리뷰' },
+  'mypage/setting':      { src: '/images/mypage/icon-setting.png',      width: 24, height: 24, alt: '설정' },
+
+  // ── order/ ────────────────────────────────────────
+  'order/cart-black': { src: '/images/order/icon-cart-black.png', width: 22, height: 22, alt: '장바구니' },
+
+  // ── place/order-method/ (알파벳 순) ───────────────
+  'place/order-method/delivery-off':    { src: '/images/place/order-method/icon-delivery-off.png',    width: 32, height: 32 },
+  'place/order-method/delivery-on':     { src: '/images/place/order-method/icon-delivery-on.png',     width: 32, height: 32 },
+  'place/order-method/packaging-off':   { src: '/images/place/order-method/icon-packaging-off.png',   width: 32, height: 32 },
+  'place/order-method/packaging-on':    { src: '/images/place/order-method/icon-packaging-on.png',    width: 32, height: 32 },
+  'place/order-method/reservation-off': { src: '/images/place/order-method/icon-reservation-off.png', width: 32, height: 32 },
+  'place/order-method/reservation-on':  { src: '/images/place/order-method/icon-reservation-on.png',  width: 32, height: 32 },
+  'place/order-method/table-off':       { src: '/images/place/order-method/icon-table-off.png',       width: 32, height: 32 },
+  'place/order-method/table-on':        { src: '/images/place/order-method/icon-table-on.png',        width: 32, height: 32 },
+
+  // ── product/ ──────────────────────────────────────
+  'product/spiciness': { src: '/images/product/icon-spiciness.png', width: 9, height: 15, alt: '맵기' },
+
+  // ── rank/ (level-XX-40 → level-XX-120 → rank-0X) ─
+  'rank/level-01-40':  { src: '/images/rank/icon-level-01-40.png',  width: 40,  height: 40  },
+  'rank/level-02-40':  { src: '/images/rank/icon-level-02-40.png',  width: 40,  height: 40  },
+  'rank/level-03-40':  { src: '/images/rank/icon-level-03-40.png',  width: 40,  height: 40  },
+  'rank/level-04-40':  { src: '/images/rank/icon-level-04-40.png',  width: 40,  height: 40  },
+  'rank/level-05-40':  { src: '/images/rank/icon-level-05-40.png',  width: 40,  height: 40  },
+  'rank/level-01-120': { src: '/images/rank/icon-level-01-120.png', width: 120, height: 120 },
+  'rank/level-02-120': { src: '/images/rank/icon-level-02-120.png', width: 120, height: 120 },
+  'rank/level-03-120': { src: '/images/rank/icon-level-03-120.png', width: 120, height: 120 },
+  'rank/level-04-120': { src: '/images/rank/icon-level-04-120.png', width: 120, height: 120 },
+  'rank/level-05-120': { src: '/images/rank/icon-level-05-120.png', width: 120, height: 120 },
+  'rank/rank-01': { src: '/images/rank/icon-rank-01.png', width: 70, height: 70, alt: '1등' },
+  'rank/rank-02': { src: '/images/rank/icon-rank-02.png', width: 70, height: 70, alt: '2등' },
+  'rank/rank-03': { src: '/images/rank/icon-rank-03.png', width: 70, height: 70, alt: '3등' },
+
+  // ── today-discount/ ───────────────────────────────
+  'today-discount/view-01': { src: '/images/today-discount/icon-view-01.png', width: 17, height: 17, alt: '그리드 뷰' },
+  'today-discount/view-02': { src: '/images/today-discount/icon-view-02.png', width: 17, height: 17, alt: '리스트 뷰' },
 } as const satisfies Record<string, IconMeta>
 
 export type IconName = keyof typeof ICON_REGISTRY

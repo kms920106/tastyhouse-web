@@ -1,7 +1,7 @@
 import Header, { HeaderRight } from '@/components/layouts/Header'
 import { HeaderIconLink } from '@/components/layouts/header-parts'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 export default function MyPageHeader() {
   return (
@@ -9,7 +9,7 @@ export default function MyPageHeader() {
       <Header height={55} showBorder={false}>
         <HeaderRight>
           <HeaderIconLink href={PAGE_PATHS.SETTING}>
-            <Image src="/images/mypage/icon-setting.png" alt="settings" width={24} height={24} />
+            <Icon name="mypage/setting" />
           </HeaderIconLink>
         </HeaderRight>
       </Header>

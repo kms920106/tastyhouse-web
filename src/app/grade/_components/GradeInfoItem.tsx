@@ -2,7 +2,8 @@ import type { MemberGradeCode } from '@/domains/member'
 import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import { formatNumber } from '@/lib/number'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
+import { getMemberGradeIconNameBySize, type MemberGradeIconCode } from '@/components/ui/icon-helpers'
 
 interface GradeInfo {
   grade: MemberGradeCode
@@ -22,8 +23,8 @@ export default function GradeInfoItem({ gradeInfo }: Props) {
 
   return (
     <div className="flex items-center gap-4 p-5 border border-[#eeeeee]">
-      <Image
-        src={`/images/rank/icon-level-${getMemberGradeIcon(grade)}-40.png`}
+      <Icon
+        name={getMemberGradeIconNameBySize(getMemberGradeIcon(grade) as MemberGradeIconCode, 40)}
         alt={displayName}
         width={40}
         height={42}

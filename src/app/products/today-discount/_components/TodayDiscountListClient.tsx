@@ -5,7 +5,7 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useTodayDiscountProducts } from '@/domains/product/product.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import { useEffect, useMemo, useState } from 'react'
 import TodayDiscountGridItem from './TodayDiscountGridItem'
 import TodayDiscountListSkeleton from './TodayDiscountListSkeleton'
@@ -60,16 +60,7 @@ export default function TodayDiscountListClient() {
           onClick={() => setViewType((prev) => (prev === 'list' ? 'grid' : 'list'))}
           className="flex items-center justify-center cursor-pointer"
         >
-          <Image
-            src={
-              viewType === 'list'
-                ? '/images/today-discount/icon-view-01.png'
-                : '/images/today-discount/icon-view-02.png'
-            }
-            alt={viewType === 'list' ? '그리드 뷰' : '리스트 뷰'}
-            width={17}
-            height={17}
-          />
+          <Icon name={viewType === 'list' ? 'today-discount/view-01' : 'today-discount/view-02'} />
         </button>
       </div>
 

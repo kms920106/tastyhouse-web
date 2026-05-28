@@ -4,7 +4,8 @@ import MemberGradeIcon from '@/components/members/MemberGradeIcon'
 import MemberGradeName from '@/components/members/MemberGradeName'
 import MemberNickname from '@/components/members/MemberNickname'
 import { MemberGradeCode } from '@/domains/member'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
+import { getRankPodiumIconName, type RankTopNo } from '@/components/ui/icon-helpers'
 
 interface Props {
   rankNo: number | null
@@ -29,12 +30,11 @@ export default function RankMemberInfo({
         {/* 순위 표시: 1~3위는 아이콘, 4위 이상은 숫자 */}
         <div className="relative flex flex-col items-center justify-center flex-shrink-0 w-[22px] h-[30px]">
           {rankNo !== null && rankNo <= 3 ? (
-            <Image
-              src={`/images/rank/icon-rank-0${rankNo}.png`}
-              alt={`${rankNo}등`}
+            <Icon
+              name={getRankPodiumIconName(rankNo as RankTopNo)}
               fill
+              width={22}
               style={{ objectFit: 'contain' }}
-              sizes="22px"
             />
           ) : (
             <p className="text-xs">{rankNo ?? '-'}</p>

@@ -1,7 +1,7 @@
 import ImageContainer from '@/components/ui/ImageContainer'
 import Rating from '@/components/ui/Rating'
 import { formatDecimal, formatNumber } from '@/lib/number'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 interface Props {
   imageUrl: string
@@ -33,13 +33,7 @@ export default function ProductItem({
             {spiciness && (
               <div className="flex gap-[3px] mb-[7px]">
                 {Array.from({ length: spiciness }).map((_, i) => (
-                  <Image
-                    src="/images/product/icon-spiciness.png"
-                    alt="맵기"
-                    width={9}
-                    height={15}
-                    key={i}
-                  />
+                  <Icon name="product/spiciness" key={i} />
                 ))}
               </div>
             )}

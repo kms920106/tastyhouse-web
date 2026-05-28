@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
+import { getRankPodiumIconName, type RankTopNo } from '@/components/ui/icon-helpers'
 
 interface Prize {
   id: number
@@ -19,11 +21,8 @@ export default function RankPrizeListItem({ prize }: Props) {
     <div className="flex flex-col flex-1 items-center min-w-0">
       <div className="relative w-full max-w-[144px] mb-[15px] aspect-square">
         <div className="absolute top-0 left-0 z-10 w-[25%]">
-          <Image
-            src={`/images/rank/icon-rank-0${prizeRank}.png`}
-            alt={`${prizeRank}등`}
-            width={70}
-            height={70}
+          <Icon
+            name={getRankPodiumIconName(prizeRank as RankTopNo)}
             className="w-full h-auto"
           />
         </div>

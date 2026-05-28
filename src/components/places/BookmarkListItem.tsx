@@ -4,7 +4,7 @@ import ImageContainer from '@/components/ui/ImageContainer'
 import Rating from '@/components/ui/Rating'
 import { usePlaceBookmark } from '@/domains/place/place.hook'
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import Link from 'next/link'
 
 interface Props {
@@ -56,11 +56,7 @@ export default function BookmarkListItem({
           }}
           disabled={isPending}
         >
-          {isBookmarked ? (
-            <Image src="/images/mypage/icon-bookmark-on.png" alt="찜" width={16} height={24} />
-          ) : (
-            <Image src="/images/mypage/icon-bookmark-off.png" alt="찜" width={16} height={24} />
-          )}
+          <Icon name={isBookmarked ? 'mypage/bookmark-on' : 'mypage/bookmark-off'} />
         </button>
       </div>
     </Link>

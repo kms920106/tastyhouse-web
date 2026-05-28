@@ -1,5 +1,5 @@
 import MemberProfileImage from '@/components/members/MemberProfileImage'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 
 interface Props {
   profileImageUrl: string | null
@@ -15,12 +15,7 @@ export default function ProfileImageEditor({ profileImageUrl, onImageChange }: P
           htmlFor="profile-image"
           className="absolute bottom-0 right-0 w-[30px] h-[30px] bg-[#eeeeee] rounded-full flex items-center justify-center cursor-pointer"
         >
-          <Image
-            src="/images/account/profile/icon-camera.png"
-            alt="카메라"
-            width={15}
-            height={12}
-          />
+          <Icon name="account/profile/camera" />
           <input
             id="profile-image"
             type="file"

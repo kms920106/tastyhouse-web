@@ -1,7 +1,8 @@
 import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from '@/domains/member'
 import { MemberGradeCode } from '@/domains/member'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
+import { getMemberGradeIconNameBySize, type MemberGradeIconCode } from '@/components/ui/icon-helpers'
 
 interface Props {
   memberGrade: MemberGradeCode | null | undefined
@@ -16,12 +17,12 @@ export default function MemberGradeInfo({ memberGrade }: Props) {
   return (
     <div className="flex items-center gap-1.5 mt-2">
       <div className="relative w-[14px] h-[14px]">
-        <Image
-          src={`/images/rank/icon-level-${gradeIcon}-40.png`}
+        <Icon
+          name={getMemberGradeIconNameBySize(gradeIcon as MemberGradeIconCode, 40)}
           alt={gradeName}
           fill
+          width={14}
           style={{ objectFit: 'contain' }}
-          sizes="16px"
         />
       </div>
       <span className={cn('text-sm leading-[14px] font-bold', gradeColor)}>{gradeName}</span>

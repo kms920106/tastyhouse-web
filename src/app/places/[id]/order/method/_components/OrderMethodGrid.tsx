@@ -1,32 +1,16 @@
 'use client'
 
 import type { OrderMethodType, OrderMethod } from '@/domains/order'
+import Icon from '@/components/ui/Icon'
+import { getOrderMethodIconName } from '@/components/ui/icon-helpers'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
 
-const METHOD_CONFIG: Record<OrderMethodType, { title: string; imageOff: string; imageOn: string }> =
-  {
-    TABLE_ORDER: {
-      title: '바로 주문하기',
-      imageOff: '/images/place/order-method/icon-table-off.png',
-      imageOn: '/images/place/order-method/icon-table-on.png',
-    },
-    RESERVATION: {
-      title: '예약하기',
-      imageOff: '/images/place/order-method/icon-reservation-off.png',
-      imageOn: '/images/place/order-method/icon-reservation-on.png',
-    },
-    DELIVERY: {
-      title: '배달하기',
-      imageOff: '/images/place/order-method/icon-delivery-off.png',
-      imageOn: '/images/place/order-method/icon-delivery-on.png',
-    },
-    TAKEOUT: {
-      title: '포장하기',
-      imageOff: '/images/place/order-method/icon-packaging-off.png',
-      imageOn: '/images/place/order-method/icon-packaging-on.png',
-    },
-  }
+const METHOD_CONFIG: Record<OrderMethodType, { title: string }> = {
+  TABLE_ORDER: { title: '바로 주문하기' },
+  RESERVATION: { title: '예약하기' },
+  DELIVERY:    { title: '배달하기' },
+  TAKEOUT:     { title: '포장하기' },
+}
 
 const METHOD_ORDER: OrderMethodType[] = ['TABLE_ORDER', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
 
@@ -54,8 +38,8 @@ export default function OrderMethodGrid({ orderMethods, selectedMethod, onSelect
           style={{ aspectRatio: '165/100' }}
         >
           <div className="relative flex items-center justify-center w-full h-12 mb-2.5">
-            <Image
-              src={selectedMethod === method.id ? method.imageOn : method.imageOff}
+            <Icon
+              name={getOrderMethodIconName(method.id, selectedMethod === method.id)}
               alt={method.title}
               width={32}
               height={32}

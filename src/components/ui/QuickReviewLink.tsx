@@ -1,5 +1,5 @@
 import { PAGE_PATHS } from '@/lib/paths'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
 import Link from 'next/link'
 
 export default function QuickReviewLink() {
@@ -10,13 +10,12 @@ export default function QuickReviewLink() {
       aria-label="빠른 리뷰 작성하기"
     >
       <div className="relative w-[26px] h-[26px]">
-        <Image
-          src="/images/home/icon-fast-reveiw.png"
-          alt="빠른 리뷰"
+        <Icon
+          name="home/fast-review"
+          alt=""
           fill
-          sizes="26px"
+          width={26}
           style={{ objectFit: 'contain' }}
-          priority
         />
       </div>
     </Link>

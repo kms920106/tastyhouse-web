@@ -11,7 +11,8 @@ import { getMemberGradeColor, getMemberGradeIcon } from '@/domains/member'
 import { memberRepository } from '@/domains/member/member.repository'
 import { memberService } from '@/domains/member/member.service'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Icon from '@/components/ui/Icon'
+import { getMemberGradeIconNameBySize, type MemberGradeIconCode } from '@/components/ui/icon-helpers'
 import GradeInfoItem from './GradeInfoItem'
 
 export default async function GradeSection() {
@@ -43,8 +44,8 @@ export default async function GradeSection() {
             </p>
             {myGrade && (
               <div className="flex justify-center mt-[23px]">
-                <Image
-                  src={`/images/rank/icon-level-${getMemberGradeIcon(myGrade.currentGrade as MemberGradeCode)}-120.png`}
+                <Icon
+                  name={getMemberGradeIconNameBySize(getMemberGradeIcon(myGrade.currentGrade as MemberGradeCode) as MemberGradeIconCode, 120)}
                   alt={myGrade.currentGradeDisplayName}
                   width={73}
                   height={75}
