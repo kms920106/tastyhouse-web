@@ -2,11 +2,13 @@
 
 import DiscountProductItem from '@/components/products/DiscountProductItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
+import Icon from '@/components/ui/Icon'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useTodayDiscountProducts } from '@/domains/product/product.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
-import Icon from '@/components/ui/Icon'
-import { useEffect, useMemo, useState } from 'react'
+import { PAGE_PATHS } from '@/lib/paths'
+import Link from 'next/link'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import TodayDiscountGridItem from './TodayDiscountGridItem'
 import TodayDiscountListSkeleton from './TodayDiscountListSkeleton'
 import TodayDiscountSortDrawer, { type TodayDiscountSortType } from './TodayDiscountSortDrawer'
@@ -50,8 +52,8 @@ export default function TodayDiscountListClient() {
   }, [data, sortType])
 
   return (
-    <>
-      <div className="flex items-center justify-end gap-2.5 px-[15px] h-[50px]">
+    <div className="px-[15px] pt-8">
+      <div className="flex items-center justify-end gap-2.5">
         <TodayDiscountSortDrawer value={sortType} onChange={setSortType} />
         <div className="w-px h-[15px] bg-[#cccccc]" aria-hidden="true" />
         <button
@@ -71,22 +73,29 @@ export default function TodayDiscountListClient() {
       ) : (
         <>
           {viewType === 'list' ? (
-            <div className="divide-y divide-[#eeeeee] px-[15px]">
-              {products.map((product) => (
-                <DiscountProductItem key={product.id} {...product} />
+            <div className="py-5">
+              {products.map((product, i, arr) => (
+                <Fragment key={product.id}>
+                  <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
+                    <DiscountProductItem {...product} />
+                  </Link>
+                  {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+                </Fragment>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 px-[15px] py-[15px]">
-              {products.map((product) => (
-                <TodayDiscountGridItem key={product.id} {...product} />
-              ))}
+            <div className="py-[25px]">
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-5">
+                {products.map((product) => (
+                  <TodayDiscountGridItem key={product.id} {...product} />
+                ))}
+              </div>
             </div>
           )}
           {isFetchingNextPage && <TodayDiscountListSkeleton viewType={viewType} count={2} />}
           <div ref={targetRef} className="h-1" aria-hidden="true" />
         </>
       )}
-    </>
+    </div>
   )
 }

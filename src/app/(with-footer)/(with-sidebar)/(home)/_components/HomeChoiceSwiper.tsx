@@ -8,7 +8,7 @@ import DiscountProductItem from '@/components/products/DiscountProductItem'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { HomeChoiceSwiperSkeleton } from './HomeChoiceSwiperSkeleton'
 
@@ -78,18 +78,16 @@ export default function HomeChoiceSwiper({ places }: Props) {
                 </div>
               </div>
             </Link>
-            <div className="mb-10 space-y-0 divide-y divide-[#eeeeee] border-b border-[#eeeeee]">
-              {place.products.map((product) => (
-                <DiscountProductItem
-                  key={product.id}
-                  id={product.id}
-                  placeName={product.placeName}
-                  name={product.name}
-                  imageUrl={product.imageUrl}
-                  originalPrice={product.originalPrice}
-                  discountPrice={product.discountPrice}
-                  discountRate={product.discountRate}
-                />
+            <div className="mb-10">
+              {place.products.map((product, i, arr) => (
+                <Fragment key={product.id}>
+                  <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
+                    <DiscountProductItem {...product} />
+                  </Link>
+                  {i < arr.length - 1 && (
+                    <div className="border-t border-[#eeeeee] my-[15px]" />
+                  )}
+                </Fragment>
               ))}
             </div>
           </SwiperSlide>

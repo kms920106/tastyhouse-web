@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 export function DiscountProductItemSkeleton() {
   return (
-    <div className="flex items-center gap-4 py-[15px]">
+    <div className="flex items-center gap-4">
       <div className="relative w-[75px] h-[75px] flex-shrink-0 overflow-hidden rounded-none">
         <Skeleton className="h-[75px] w-[75px] rounded-none" />
       </div>

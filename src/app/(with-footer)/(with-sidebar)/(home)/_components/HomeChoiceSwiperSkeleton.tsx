@@ -18,8 +18,9 @@ export function HomeChoiceSwiperSkeleton() {
                 <Skeleton className="w-full h-3 opacity-90 leading-relaxed" />
               </div>
             </div>
-            <div className="mb-10 space-y-0 divide-y divide-[#eeeeee] border-b border-[#eeeeee]">
+            <div className="mb-10">
               <DiscountProductItemSkeleton />
+              <div className="border-t border-[#eeeeee] my-[15px]" />
               <DiscountProductItemSkeleton />
             </div>
           </div>

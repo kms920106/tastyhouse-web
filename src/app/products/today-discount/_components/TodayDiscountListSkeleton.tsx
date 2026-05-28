@@ -1,5 +1,6 @@
 import { DiscountProductItemSkeleton } from '@/components/products/DiscountProductItemSkeleton'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
+import { Fragment } from 'react'
 
 interface Props {
   viewType: 'list' | 'grid'
@@ -9,7 +10,7 @@ interface Props {
 export default function TodayDiscountListSkeleton({ viewType, count = 6 }: Props) {
   if (viewType === 'grid') {
     return (
-      <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 px-[15px] py-[15px]">
+      <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 py-[15px]">
         {Array.from({ length: count }).map((_, i) => (
           <div key={i}>
             <Skeleton className="w-full aspect-square" />
@@ -29,9 +30,12 @@ export default function TodayDiscountListSkeleton({ viewType, count = 6 }: Props
   }
 
   return (
-    <div className="divide-y divide-[#eeeeee] px-[15px]">
+    <div className="py-5">
       {Array.from({ length: count }).map((_, i) => (
-        <DiscountProductItemSkeleton key={i} />
+        <Fragment key={i}>
+          <DiscountProductItemSkeleton />
+          {i < count - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+        </Fragment>
       ))}
     </div>
   )

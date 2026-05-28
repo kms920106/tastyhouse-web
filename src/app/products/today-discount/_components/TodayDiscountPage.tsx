@@ -4,7 +4,7 @@ import TodayDiscountListClient from './TodayDiscountListClient'
 
 export default function TodayDiscountPage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Header variant="white" height={55}>
         <HeaderLeft>
           <BackButton />
@@ -14,6 +14,6 @@ export default function TodayDiscountPage() {
         </HeaderCenter>
       </Header>
       <TodayDiscountListClient />
-    </div>
+    </>
   )
 }
