@@ -8,12 +8,26 @@ import { useTodayDiscountProducts } from '@/domains/product/product.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { parseAsStringLiteral, useQueryStates } from 'nuqs'
+import { Fragment, useEffect, useMemo } from 'react'
 import TodayDiscountGridItem from './TodayDiscountGridItem'
 import TodayDiscountListSkeleton from './TodayDiscountListSkeleton'
 import TodayDiscountSortDrawer, { type TodayDiscountSortType } from './TodayDiscountSortDrawer'
 
-type ViewType = 'list' | 'grid'
+export type ViewType = 'list' | 'grid'
+
+const VIEW_VALUES = ['list', 'grid'] as const satisfies readonly ViewType[]
+const SORT_VALUES = [
+  'RECOMMENDED',
+  'DISCOUNT_RATE',
+  'PRICE_LOW',
+  'PRICE_HIGH',
+] as const satisfies readonly TodayDiscountSortType[]
+
+const urlStateParsers = {
+  view: parseAsStringLiteral(VIEW_VALUES).withDefault('list'),
+  sort: parseAsStringLiteral(SORT_VALUES).withDefault('RECOMMENDED'),
+}
 
 type Product = { discountRate: number; discountPrice: number }
 
@@ -26,8 +40,7 @@ const SORT_COMPARATORS: Record<TodayDiscountSortType, ((a: Product, b: Product) 
   }
 
 export default function TodayDiscountListClient() {
-  const [viewType, setViewType] = useState<ViewType>('list')
-  const [sortType, setSortType] = useState<TodayDiscountSortType>('RECOMMENDED')
+  const [{ view, sort }, setParams] = useQueryStates(urlStateParsers)
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useTodayDiscountProducts()
@@ -47,32 +60,35 @@ export default function TodayDiscountListClient() {
 
   const products = useMemo(() => {
     const list = data?.pages.flatMap((page) => page.data ?? []) ?? []
-    const comparator = SORT_COMPARATORS[sortType]
+    const comparator = SORT_COMPARATORS[sort]
     return comparator ? [...list].sort(comparator) : list
-  }, [data, sortType])
+  }, [data, sort])
 
   return (
     <div className="px-[15px] pt-8">
       <div className="flex items-center justify-end gap-2.5">
-        <TodayDiscountSortDrawer value={sortType} onChange={setSortType} />
+        <TodayDiscountSortDrawer
+          value={sort}
+          onChange={(value) => setParams({ sort: value })}
+        />
         <div className="w-px h-[15px] bg-[#cccccc]" aria-hidden="true" />
         <button
           type="button"
-          aria-label={viewType === 'list' ? '그리드 뷰로 전환' : '리스트 뷰로 전환'}
-          onClick={() => setViewType((prev) => (prev === 'list' ? 'grid' : 'list'))}
+          aria-label={view === 'list' ? '그리드 뷰로 전환' : '리스트 뷰로 전환'}
+          onClick={() => setParams({ view: view === 'list' ? 'grid' : 'list' })}
           className="flex items-center justify-center cursor-pointer"
         >
-          <Icon name={viewType === 'list' ? 'today-discount/view-01' : 'today-discount/view-02'} />
+          <Icon name={view === 'list' ? 'today-discount/view-01' : 'today-discount/view-02'} />
         </button>
       </div>
 
       {isLoading ? (
-        <TodayDiscountListSkeleton viewType={viewType} />
+        <TodayDiscountListSkeleton viewType={view} />
       ) : isError ? (
         <FetchErrorState message={COMMON_ERROR_MESSAGES.API_FETCH_ERROR} />
       ) : (
         <>
-          {viewType === 'list' ? (
+          {view === 'list' ? (
             <div className="py-5">
               {products.map((product, i, arr) => (
                 <Fragment key={product.id}>
@@ -92,7 +108,7 @@ export default function TodayDiscountListClient() {
               </div>
             </div>
           )}
-          {isFetchingNextPage && <TodayDiscountListSkeleton viewType={viewType} count={2} />}
+          {isFetchingNextPage && <TodayDiscountListSkeleton viewType={view} count={2} />}
           <div ref={targetRef} className="h-1" aria-hidden="true" />
         </>
       )}

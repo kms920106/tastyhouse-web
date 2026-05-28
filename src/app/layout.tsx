@@ -5,6 +5,7 @@ import QueryProvider from '@/providers/QueryProvider'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import { Nanum_Myeongjo } from 'next/font/google'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
@@ -39,7 +40,9 @@ export default function RootLayout({
       </head>
       <body>
         <QueryProvider>
-          <main>{children}</main>
+          <NuqsAdapter>
+            <main>{children}</main>
+          </NuqsAdapter>
           <AppToaster />
         </QueryProvider>
       </body>
