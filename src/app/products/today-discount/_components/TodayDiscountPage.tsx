@@ -1,15 +1,11 @@
-import { Suspense } from 'react'
-import TodayDiscountHeader from './TodayDiscountHeader'
 import TodayDiscountContent from './TodayDiscountContent'
-import TodayDiscountListSkeleton from './TodayDiscountListSkeleton'
+import TodayDiscountHeader from './TodayDiscountHeader'
 
 export default function TodayDiscountPage() {
   return (
     <>
       <TodayDiscountHeader />
-      <Suspense fallback={<TodayDiscountListSkeleton viewType="list" />}>
-        <TodayDiscountContent />
-      </Suspense>
+      <TodayDiscountContent />
     </>
   )
 }
