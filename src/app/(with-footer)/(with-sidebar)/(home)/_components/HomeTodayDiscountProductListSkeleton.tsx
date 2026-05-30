@@ -5,7 +5,7 @@ const COUNT = 4
 
 export function HomeTodayDiscountProductListSkeleton() {
   return (
-    <div className="border-t border-b border-[#eeeeee] py-[15px]">
+    <div className="py-[15px] border-t border-b border-[#eeeeee]">
       {Array.from({ length: COUNT }).map((_, i) => (
         <Fragment key={i}>
           <DiscountProductItemSkeleton />

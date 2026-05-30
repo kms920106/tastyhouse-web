@@ -23,7 +23,7 @@ export default async function HomeTodayDiscountProductList() {
 
   return (
     <>
-      <div className="border-t border-b border-[#eeeeee] py-[15px]">
+      <div className="py-[15px] border-t border-b border-[#eeeeee]">
         {data.map((product, i, arr) => (
           <Fragment key={product.id}>
             <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
