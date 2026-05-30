@@ -78,15 +78,13 @@ export default function HomeChoiceSwiper({ places }: Props) {
                 </div>
               </div>
             </Link>
-            <div className="mb-10">
+            <div className="py-[15px] border-t border-b border-[#eeeeee]">
               {place.products.map((product, i, arr) => (
                 <Fragment key={product.id}>
                   <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
                     <DiscountProductItem {...product} />
                   </Link>
-                  {i < arr.length - 1 && (
-                    <div className="border-t border-[#eeeeee] my-[15px]" />
-                  )}
+                  {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
                 </Fragment>
               ))}
             </div>

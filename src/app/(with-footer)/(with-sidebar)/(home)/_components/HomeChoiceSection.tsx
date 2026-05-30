@@ -8,7 +8,7 @@ export default async function HomeChoiceSection() {
         title="테하 초이스"
         description="요즘 주목받고 있는 플레이스를 소개합니다."
       />
-      <div className="pl-4">
+      <div className="pl-4 pb-10">
         <HomeChoicePlaceContent />
       </div>
     </section>
