@@ -263,7 +263,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
                       'flex-1 transition-colors',
                       gender === 'MALE'
                         ? 'border-main text-main'
-                        : 'border-[#eeeeee]',
+                        : 'border-line',
                     )}
                     onClick={() => setGender('MALE')}
                   >
@@ -274,7 +274,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
                       'flex-1 transition-colors',
                       gender === 'FEMALE'
                         ? 'border-main text-main'
-                        : 'border-[#eeeeee]',
+                        : 'border-line',
                     )}
                     onClick={() => setGender('FEMALE')}
                   >

@@ -19,7 +19,7 @@ export default function GradeCurrentSectionSkeleton() {
       </div>
 
       {/* 다음 등급 달성 조건 박스 */}
-      <div className="mt-[30px] py-5 bg-[#fcfcfc] border border-[#eeeeee] box-border flex flex-col items-center gap-2.5">
+      <div className="mt-[30px] py-5 bg-[#fcfcfc] border border-line box-border flex flex-col items-center gap-2.5">
         <Skeleton className="w-56 h-[14px]" />
         <Skeleton className="w-36 h-[12px]" />
       </div>

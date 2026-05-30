@@ -33,7 +33,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="fixed bottom-0 left-0 right-0 w-full bg-white border border-[#eeeeee] box-border z-50"
+      className="fixed bottom-0 left-0 right-0 w-full bg-white border border-line box-border z-50"
       role="navigation"
       aria-label="Main Navigation"
     >

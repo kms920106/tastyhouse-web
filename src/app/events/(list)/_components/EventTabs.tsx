@@ -31,8 +31,8 @@ export default function EventTabs({ tab }: Props) {
               value={value}
               className={
                 index === 0
-                  ? 'flex-1 h-full text-[14px] text-[#aaaaaa] bg-transparent border border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:bg-transparent data-[state=active]:text-[#a11c20] data-[state=active]:font-normal data-[state=active]:shadow-none data-[state=active]:border-[#a11c20]'
-                  : 'flex-1 h-full text-[14px] text-[#aaaaaa] bg-transparent border border-l-0 border-[#eeeeee] rounded-none shadow-none cursor-pointer data-[state=active]:bg-transparent data-[state=active]:text-[#a11c20] data-[state=active]:font-normal data-[state=active]:shadow-none data-[state=active]:border-l data-[state=active]:border-[#a11c20]'
+                  ? 'flex-1 h-full text-[14px] text-[#aaaaaa] bg-transparent border border-line rounded-none shadow-none cursor-pointer data-[state=active]:bg-transparent data-[state=active]:text-[#a11c20] data-[state=active]:font-normal data-[state=active]:shadow-none data-[state=active]:border-[#a11c20]'
+                  : 'flex-1 h-full text-[14px] text-[#aaaaaa] bg-transparent border border-l-0 border-line rounded-none shadow-none cursor-pointer data-[state=active]:bg-transparent data-[state=active]:text-[#a11c20] data-[state=active]:font-normal data-[state=active]:shadow-none data-[state=active]:border-l data-[state=active]:border-[#a11c20]'
               }
             >
               {label}

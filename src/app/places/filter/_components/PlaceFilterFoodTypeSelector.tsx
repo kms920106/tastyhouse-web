@@ -21,7 +21,7 @@ export default function PlaceFilterFoodTypeSelector({ foods }: Props) {
             key={foodType.code}
             className={cn(
               'flex flex-col items-center justify-center gap-[15px] px-5 py-[17px] border box-border cursor-pointer',
-              isSelected ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]',
+              isSelected ? 'bg-[#f8f5f4] border-main' : 'border-line',
             )}
             style={{ aspectRatio: '80 / 95' }}
             onClick={() => toggleFoodType(foodType.code)}

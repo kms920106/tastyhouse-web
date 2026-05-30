@@ -170,7 +170,7 @@ export default function AdvertisingForm() {
                 <button
                   type="button"
                   onClick={() => setIsPostcodeOpen(true)}
-                  className="shrink-0 h-[50px] px-4 border border-[#eeeeee] box-border text-[13px] whitespace-nowrap bg-[#f8f8f8] active:bg-[#eeeeee]"
+                  className="shrink-0 h-[50px] px-4 border border-line box-border text-[13px] whitespace-nowrap bg-[#f8f8f8] active:bg-line"
                 >
                   우편번호 검색
                 </button>
@@ -223,7 +223,7 @@ export default function AdvertisingForm() {
                   min={today}
                   onChange={(e) => handleChange('consultationDate', e.target.value)}
                   className={cn(
-                    'w-full h-[50px] pl-[16px] pr-[16px] text-sm leading-[14px] border border-[#eeeeee] box-border bg-white focus:outline-none focus:border-[#666666]',
+                    'w-full h-[50px] pl-[16px] pr-[16px] text-sm leading-[14px] border border-line box-border bg-white focus:outline-none focus:border-[#666666]',
                     !formData.consultationDate && 'text-[#999999]',
                     errors.consultationDate && 'border-[#bc4040] focus:border-[#bc4040]',
                     className,
@@ -235,7 +235,7 @@ export default function AdvertisingForm() {
                   value={formData.consultationHour}
                   onChange={(e) => handleChange('consultationHour', e.target.value)}
                   className={cn(
-                    'w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border border-[#eeeeee] box-border appearance-none bg-white focus:outline-none focus:border-[#666666]',
+                    'w-full h-[50px] pl-[16px] pr-[40px] text-sm leading-[14px] border border-line box-border appearance-none bg-white focus:outline-none focus:border-[#666666]',
                     !formData.consultationHour && 'text-[#999999]',
                     errors.consultationHour && 'border-[#bc4040] focus:border-[#bc4040]',
                     className,

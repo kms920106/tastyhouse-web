@@ -17,7 +17,7 @@ export function FacilityButton({ amenity, isSelected, onClick }: Props) {
       onClick={onClick}
       className={cn(
         'flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer',
-        isSelected ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]',
+        isSelected ? 'bg-[#f8f5f4] border-main' : 'border-line',
       )}
       style={{ aspectRatio: '80 / 95' }}
     >

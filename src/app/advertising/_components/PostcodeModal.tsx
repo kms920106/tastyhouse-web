@@ -31,7 +31,7 @@ export default function PostcodeModal({ onComplete, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* 헤더 */}
-        <div className="flex items-center justify-between px-[15px] py-3 border-b border-[#eeeeee]">
+        <div className="flex items-center justify-between px-[15px] py-3 border-b border-line">
           <span className="text-[14px] font-bold">우편번호 검색</span>
           <button
             type="button"

@@ -32,7 +32,7 @@ function ReviewPanelItemSkeleton() {
 export default function ReviewPanelSkeleton() {
   return (
     <section className="flex flex-col gap-[3px] px-[15px] py-5">
-      <div className="flex flex-col gap-[30px] pb-2.5 border-b border-[#eeeeee] box-border">
+      <div className="flex flex-col gap-[30px] pb-2.5 border-b border-line box-border">
         <div className="flex gap-2.5">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <Skeleton key={i} className="h-[42px] w-[70px] rounded-[1px]" />
@@ -49,7 +49,7 @@ export default function ReviewPanelSkeleton() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col divide-y divide-[#eeeeee]">
+      <div className="flex flex-col divide-y divide-line">
         {[1, 2, 3].map((i) => (
           <ReviewPanelItemSkeleton key={i} />
         ))}

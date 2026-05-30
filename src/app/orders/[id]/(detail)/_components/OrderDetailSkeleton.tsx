@@ -30,7 +30,7 @@ export default function OrderDetailSkeleton() {
             <Skeleton className="h-4 w-[140px]" />
           </div>
           <div className="px-4 pb-[5px]">
-            <div className="divide-y divide-[#eeeeee] first:border-t border-[#eeeeee]">
+            <div className="divide-y divide-line first:border-t border-line">
               {[0, 1].map((i) => (
                 <div key={i} className="flex items-center gap-[15px] py-[15px]">
                   <Skeleton className="w-[50px] h-[50px] rounded-md shrink-0" />

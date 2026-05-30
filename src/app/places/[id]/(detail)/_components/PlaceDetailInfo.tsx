@@ -63,7 +63,7 @@ export default function PlaceDetailInfo({ placeInfo }: Props) {
           />
         </>
       )}
-      <div className="pt-[30px] pb-5 space-y-[15px] border-b border-[#eeeeee] box-border">
+      <div className="pt-[30px] pb-5 space-y-[15px] border-b border-line box-border">
         {businessHours && businessHours.length > 0 && (
           <div className="flex justify-between">
             <h3 className="text-sm leading-[14px]">운영시간</h3>

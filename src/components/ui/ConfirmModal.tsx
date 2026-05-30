@@ -27,10 +27,10 @@ export default function ConfirmModal({
           {description}
         </ModalDescription>
       </ModalHeader>
-      <ModalFooter className="flex p-0 mt-5 border-t border-[#eeeeee]">
+      <ModalFooter className="flex p-0 mt-5 border-t border-line">
         <button
           onClick={onCancel}
-          className="flex-1 py-4 text-sm leading-[14px] text-[#666666] border-r border-[#eeeeee]"
+          className="flex-1 py-4 text-sm leading-[14px] text-[#666666] border-r border-line"
         >
           {cancelLabel}
         </button>

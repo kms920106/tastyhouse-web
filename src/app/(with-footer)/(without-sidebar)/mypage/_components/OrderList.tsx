@@ -21,7 +21,7 @@ export default function OrderList({ orders, hasMoreOrders }: Props) {
 
   return (
     <>
-      <div className="px-[15px] py-[5px] bg-white divide-y divide-[#eeeeee]">
+      <div className="px-[15px] py-[5px] bg-white divide-y divide-line">
         {orders.map((order) => (
           <OrderListItem
             key={order.id}

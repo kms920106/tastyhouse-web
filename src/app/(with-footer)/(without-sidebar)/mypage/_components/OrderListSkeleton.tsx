@@ -21,7 +21,7 @@ function OrderListItemSkeleton() {
 
 export function OrderListSkeleton() {
   return (
-    <div className="px-[15px] py-[5px] bg-white divide-y divide-[#eeeeee]">
+    <div className="px-[15px] py-[5px] bg-white divide-y divide-line">
       {Array.from({ length: 3 }).map((_, index) => (
         <OrderListItemSkeleton key={index} />
       ))}

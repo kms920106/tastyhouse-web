@@ -26,7 +26,7 @@ export default function RankPrizeListItem({ prize }: Props) {
             className="w-full h-auto"
           />
         </div>
-        <div className="flex items-center justify-center w-full h-full bg-white border border-[#eeeeee] rounded-full">
+        <div className="flex items-center justify-center w-full h-full bg-white border border-line rounded-full">
           <Image src={imageUrl} alt={name} width={80} height={80} className="w-[55%] h-auto" />
         </div>
       </div>

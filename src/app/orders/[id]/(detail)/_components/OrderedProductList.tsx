@@ -15,7 +15,7 @@ export default function OrderedProductList({ placeName, orderItems }: Props) {
         <h2 className="text-base leading-[16px]">{placeName}</h2>
       </div>
       <div className="px-4 pb-[5px]">
-        <div className="divide-y divide-[#eeeeee] first:border-t border-[#eeeeee]">
+        <div className="divide-y divide-line first:border-t border-line">
           {orderItems.map((item) => (
             <OrderProductItem
               key={item.id}

@@ -48,7 +48,7 @@ export default function ReviewDetailProductInfo({
   return (
     <BorderedSection>
       <div className="px-[15px]">
-        <div className="py-5 border-b border-[#eeeeee] box-border">
+        <div className="py-5 border-b border-line box-border">
           <ReviewRatingDetail
             averageAtmosphereRating={atmosphereRating}
             averageKindnessRating={kindnessRating}

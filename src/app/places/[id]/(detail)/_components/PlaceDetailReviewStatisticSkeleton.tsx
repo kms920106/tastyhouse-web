@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 export default function PlaceDetailReviewStatisticSkeleton() {
   return (
     <>
-      <div className="flex items-center justify-center gap-[30px] pt-[30px] pb-[21px] border-b border-[#eeeeee] box-border">
+      <div className="flex items-center justify-center gap-[30px] pt-[30px] pb-[21px] border-b border-line box-border">
         <ReviewRatingScoreSkeleton />
         <div className="flex items-end justify-center gap-[13px]">
           {[5, 4, 3, 2, 1].map((rating) => (

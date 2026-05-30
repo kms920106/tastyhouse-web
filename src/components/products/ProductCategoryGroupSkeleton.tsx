@@ -4,7 +4,7 @@ import { ProductItemSkeleton } from './ProductItemSkeleton'
 
 export function ProductCategoryGroupSkeleton() {
   return (
-    <div className="pt-[30px] pb-[15px] border-b border-[#eeeeee] box-border">
+    <div className="pt-[30px] pb-[15px] border-b border-line box-border">
       <Skeleton className="w-20 h-[16px] mb-5" />
       <div>
         <ProductItemSkeleton />

@@ -23,7 +23,7 @@ export function ReviewInfoSkeleton() {
         <Skeleton className="h-[26px] w-[80px] rounded-full" />
         <Skeleton className="h-[26px] w-[70px] rounded-full" />
       </div>
-      <div className="flex items-center gap-5 mt-[15px] pt-[17px] border-t border-[#eeeeee]">
+      <div className="flex items-center gap-5 mt-[15px] pt-[17px] border-t border-line">
         <Skeleton className="h-[12px] w-[60px]" />
         <Skeleton className="h-[12px] w-[50px]" />
       </div>

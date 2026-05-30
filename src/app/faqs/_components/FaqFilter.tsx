@@ -44,7 +44,7 @@ export default function FaqFilter() {
               'px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border',
               selectedCategoryId === ALL_CATEGORY_ID
                 ? 'text-[#a11c20] border-[#a11c20]'
-                : 'text-[#aaaaaa] border-[#eeeeee]',
+                : 'text-[#aaaaaa] border-line',
             )}
           >
             전체
@@ -58,7 +58,7 @@ export default function FaqFilter() {
                 'px-[13px] py-[13px] text-sm leading-[14px] whitespace-nowrap border',
                 selectedCategoryId === category.id
                   ? 'text-[#a11c20] border-[#a11c20]'
-                  : 'text-[#aaaaaa] border-[#eeeeee]',
+                  : 'text-[#aaaaaa] border-line',
               )}
             >
               {category.name}

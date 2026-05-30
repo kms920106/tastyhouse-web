@@ -52,7 +52,7 @@ export default function Loading() {
           </div>
         </BorderedSection>
       </SectionStack>
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#eeeeee] p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-line p-4">
         <Skeleton className="w-full h-12 rounded-md" />
       </div>
     </section>

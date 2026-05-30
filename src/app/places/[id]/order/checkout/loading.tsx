@@ -60,14 +60,14 @@ export default function Loading() {
                 <Skeleton className="w-16 h-3.5" />
               </div>
             ))}
-            <div className="border-t border-[#eeeeee] pt-2.5 flex justify-between">
+            <div className="border-t border-line pt-2.5 flex justify-between">
               <Skeleton className="w-16 h-4" />
               <Skeleton className="w-20 h-4" />
             </div>
           </div>
         </BorderedSection>
       </SectionStack>
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#eeeeee] p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-line p-4">
         <Skeleton className="w-full h-12 rounded-md" />
       </div>
     </section>

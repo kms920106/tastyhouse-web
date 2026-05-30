@@ -7,7 +7,7 @@ interface Props {
 
 export default function ReviewThumbnail({ imageUrl, priority }: Props) {
   return (
-    <div className="relative aspect-square overflow-hidden bg-[#eeeeee]">
+    <div className="relative aspect-square overflow-hidden bg-line">
       <Image
         src={imageUrl}
         alt="리뷰 이미지"

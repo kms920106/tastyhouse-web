@@ -62,7 +62,7 @@ export default function Header({
       <header
         className={cn(
           'relative flex items-center',
-          showBorder && 'border-b border-[#eeeeee] box-border',
+          showBorder && 'border-b border-line box-border',
           isPrimary ? 'bg-main text-white' : 'bg-white text-black',
         )}
         style={{ height: `${height}px` }}

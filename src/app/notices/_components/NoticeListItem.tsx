@@ -18,7 +18,7 @@ export function NoticeListItem({ notice, isFirst }: NoticeListItemProps) {
   const { id, title, content, createdAt } = notice
 
   return (
-    <AccordionItem value={String(id)} className="border-[#eeeeee]">
+    <AccordionItem value={String(id)} className="border-line">
       <AccordionTrigger
         className={cn('w-full px-[16px] py-[18px] hover:no-underline', isFirst && 'pt-0')}
         showIcon={false}

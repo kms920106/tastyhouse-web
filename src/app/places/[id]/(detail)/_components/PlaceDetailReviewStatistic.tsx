@@ -40,7 +40,7 @@ export default function PlaceDetailReviewStatistic({ placeId }: Props) {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-[30px] pt-[30px] pb-[21px] border-b border-[#eeeeee] box-border">
+      <div className="flex items-center justify-center gap-[30px] pt-[30px] pb-[21px] border-b border-line box-border">
         <ReviewRatingScore rating={totalRating} reviewCount={totalReviewCount} />
         <PlaceDetailRatingDistributionChart ratingCounts={ratingCounts} />
       </div>

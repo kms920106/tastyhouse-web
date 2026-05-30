@@ -37,7 +37,7 @@ export default function BookmarkListItem({
 
   return (
     <Link href={PAGE_PATHS.PLACE_DETAIL(placeId)} className="block">
-      <div className="relative p-2.5 bg-white border border-[#eeeeee] box-border shadow-2xs rounded-[2.5px]">
+      <div className="relative p-2.5 bg-white border border-line box-border shadow-2xs rounded-[2.5px]">
         <div className="flex items-center gap-4">
           <ImageContainer src={placeImage} alt={placeName} size={75} rounded="2.5px" />
           <div className="flex-1 flex flex-col justify-between py-1">

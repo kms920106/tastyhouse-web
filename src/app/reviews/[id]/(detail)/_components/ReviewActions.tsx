@@ -13,7 +13,7 @@ export default function ReviewActions({ reviewLike }: Props) {
   const { textareaRef } = useReply()
 
   return (
-    <div className="flex items-center gap-5 mt-[15px] pt-[17px] border-t border-[#eeeeee] box-border">
+    <div className="flex items-center gap-5 mt-[15px] pt-[17px] border-t border-line box-border">
       {reviewLike}
       <button
         onClick={() => textareaRef.current?.focus()}

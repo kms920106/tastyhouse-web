@@ -28,7 +28,7 @@ export default function PlaceDetailRatingDistributionChart({
 
         return (
           <div key={rating} className="flex flex-col items-center gap-[13px]">
-            <div className="w-[5px] h-[50px] rounded-full bg-[#eeeeee]">
+            <div className="w-[5px] h-[50px] rounded-full bg-line">
               <ProgressPrimitive.Root
                 value={currentPercentage}
                 className={cn('relative h-full w-full')}
@@ -36,7 +36,7 @@ export default function PlaceDetailRatingDistributionChart({
                 <ProgressPrimitive.Indicator
                   className={cn(
                     'absolute bottom-0 left-0 right-0 transition-all rounded-[2px]',
-                    hasData ? 'bg-main' : 'bg-[#eeeeee]',
+                    hasData ? 'bg-main' : 'bg-line',
                   )}
                   style={{ height: `${currentPercentage}%` }}
                 />

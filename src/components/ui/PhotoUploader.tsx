@@ -29,7 +29,7 @@ export default function PhotoUploader({
 
   return (
     <div className="grid grid-cols-3 gap-3">
-      <label className="relative flex items-center justify-center aspect-square border-1 border-dashed border-border-main box-border cursor-pointer">
+      <label className="relative flex items-center justify-center aspect-square border-1 border-dashed border-line box-border cursor-pointer">
         <input
           type="file"
           className="hidden"

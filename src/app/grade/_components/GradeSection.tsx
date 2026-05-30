@@ -63,7 +63,7 @@ export default async function GradeSection() {
               </p>
             )}
             {myGrade && myGrade.nextGrade && (
-              <div className="mt-[30px] py-5 bg-[#fcfcfc] border border-[#eeeeee] box-border">
+              <div className="mt-[30px] py-5 bg-[#fcfcfc] border border-line box-border">
                 <div className="flex items-center justify-center flex-wrap gap-x-0.5 text-sm leading-[14px]">
                   리뷰 <span className="font-bold">{myGrade.reviewsNeededForNextGrade}</span> 개
                   추가 작성 시

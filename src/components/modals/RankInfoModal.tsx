@@ -24,7 +24,7 @@ export function RankInfoModal({ open, onOpenChange }: Props) {
       <ModalDescription className="sr-only">랭킹 선정 기준 및 안내</ModalDescription>
       <ModalContentWrapper className="px-5 py-[30px]">
         <h3 className="text-sm leading-[14px]">랭킹 선정 기준</h3>
-        <ul className="py-5 space-y-1 list-none text-xs leading-relaxed border-b border-[#eeeeee]">
+        <ul className="py-5 space-y-1 list-none text-xs leading-relaxed border-b border-line">
           <li>1. 최근 6개월동안 테이스티하우스에 등록된 리뷰 합산</li>
           <li>
             2. 리뷰 작성 기준을 준수한 리뷰

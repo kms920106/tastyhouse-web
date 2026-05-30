@@ -33,7 +33,7 @@ export default function MyPageTabs({ tab, isLoggedIn }: Props) {
   }
 
   return (
-    <div className="flex-1 flex flex-col border-t border-[#eeeeee]">
+    <div className="flex-1 flex flex-col border-t border-line">
       <Tabs
         value={currentTab}
         onValueChange={handleChange}
@@ -44,7 +44,7 @@ export default function MyPageTabs({ tab, isLoggedIn }: Props) {
             <TabsTrigger
               key={value}
               value={value}
-              className="flex-1 h-full rounded-none border-0 border-b border-[#eeeeee] shadow-none cursor-pointer data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
+              className="flex-1 h-full rounded-none border-0 border-b border-line shadow-none cursor-pointer data-[state=active]:shadow-none data-[state=active]:border-b-[1.5px] data-[state=active]:border-main"
             >
               <Image
                 src={`/images/mypage/${iconBase}-${currentTab === value ? 'on' : 'off'}.png`}

@@ -6,7 +6,7 @@ export function PlaceFilterFoodTypeSelectorSkeleton() {
       {Array.from({ length: 8 }).map((_, i) => (
         <div
           key={i}
-          className="flex flex-col items-center justify-center border border-[#eeeeee] px-5 py-[17px]"
+          className="flex flex-col items-center justify-center border border-line px-5 py-[17px]"
           style={{ aspectRatio: '80 / 95' }}
         >
           <Skeleton className="w-[38px] h-[38px] mb-[15px]" />

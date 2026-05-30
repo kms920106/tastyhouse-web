@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 function RankMemberListItemSkeleton() {
   return (
     <>
-      <div className="flex justify-between items-center py-[15px] pl-4 pr-5 bg-[#fcfcfc] border border-[#eeeeee] rounded-[2.5px]">
+      <div className="flex justify-between items-center py-[15px] pl-4 pr-5 bg-[#fcfcfc] border border-line rounded-[2.5px]">
         <div className="flex gap-2.5">
           <div className="flex items-center flex-shrink-0 w-[22px]">
             <Skeleton className="w-4 h-3" />

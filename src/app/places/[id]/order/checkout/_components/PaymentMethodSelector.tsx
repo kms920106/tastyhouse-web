@@ -50,7 +50,7 @@ export default function PaymentMethodSelector({
               ))}
             </div>
             {selectedMethod?.benefitTitle && selectedMethod?.benefitDescription && (
-              <div className="mt-5 px-[16px] py-5 space-y-5 bg-[#f9f9f9] border border-[#eeeeee] box-border">
+              <div className="mt-5 px-[16px] py-5 space-y-5 bg-[#f9f9f9] border border-line box-border">
                 <p className="text-sm leading-[14px]">
                   <span className="font-bold">{selectedMethod.benefitTitle}</span>시 드리는 혜택
                 </p>

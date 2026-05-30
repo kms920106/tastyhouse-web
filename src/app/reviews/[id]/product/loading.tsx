@@ -31,7 +31,7 @@ export default function Loading() {
           </BorderedSection>
           <BorderedSection>
             <div className="px-[15px]">
-            <div className="py-5 border-b border-[#eeeeee] box-border">
+            <div className="py-5 border-b border-line box-border">
               <div className="flex flex-row justify-between">
                 <div className="w-1/3 space-y-2.5">
                   <div className="flex flex-row justify-between gap-6">

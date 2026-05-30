@@ -76,7 +76,7 @@ export default function SettingMenuList({ isLoggedIn }: Props) {
     <SectionStack>
       {menuGroups.map((group) => (
         <BorderedSection key={group.id}>
-          <div className="divide-y divide-[#eeeeee]">
+          <div className="divide-y divide-line">
             {group.items.map((item) => (
               <MenuItemRow key={item.id} {...item} />
             ))}

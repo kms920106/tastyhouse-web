@@ -26,7 +26,7 @@ export default function PlaceFilterStationSelector({ stations }: Props) {
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <button className="flex items-center justify-between w-full h-12 px-3 text-[15px] text-left border border-[#eeeeee] rounded-none focus:outline-none data-[state=open]:border-[#666666]">
+        <button className="flex items-center justify-between w-full h-12 px-3 text-[15px] text-left border border-line rounded-none focus:outline-none data-[state=open]:border-[#666666]">
           <span className={!selectedStationId ? 'text-[#cccccc]' : undefined}>
             {selectedStationId
               ? stations.find((station) => station.id === selectedStationId)?.name

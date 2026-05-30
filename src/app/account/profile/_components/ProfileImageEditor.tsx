@@ -13,7 +13,7 @@ export default function ProfileImageEditor({ profileImageUrl, onImageChange }: P
         <MemberProfileImage profileImageUrl={profileImageUrl} />
         <label
           htmlFor="profile-image"
-          className="absolute bottom-0 right-0 w-[30px] h-[30px] bg-[#eeeeee] rounded-full flex items-center justify-center cursor-pointer"
+          className="absolute bottom-0 right-0 w-[30px] h-[30px] bg-line rounded-full flex items-center justify-center cursor-pointer"
         >
           <Icon name="account/profile/camera" />
           <input

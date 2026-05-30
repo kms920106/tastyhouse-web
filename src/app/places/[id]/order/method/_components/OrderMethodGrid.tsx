@@ -33,7 +33,7 @@ export default function OrderMethodGrid({ orderMethods, selectedMethod, onSelect
           onClick={() => onSelect(method.id)}
           className={cn(
             'flex flex-col items-center justify-center px-5 py-[17px] border box-border cursor-pointer',
-            selectedMethod === method.id ? 'bg-[#f8f5f4] border-main' : 'border-[#eeeeee]',
+            selectedMethod === method.id ? 'bg-[#f8f5f4] border-main' : 'border-line',
           )}
           style={{ aspectRatio: '165/100' }}
         >

@@ -40,7 +40,7 @@ export default function OrderInfoSection({
         </AccordionTrigger>
         <AccordionContent className="p-0">
           <div className="px-4">
-            <div className="divide-y divide-[#eeeeee] first:border-t border-[#eeeeee]">
+            <div className="divide-y divide-line first:border-t border-line">
               {items.map((item, index) => (
                 <OrderProductItem
                   key={index}

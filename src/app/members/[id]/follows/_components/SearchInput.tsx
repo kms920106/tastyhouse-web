@@ -14,7 +14,7 @@ export default function SearchInput({ value, onChange }: Props) {
       <AppInputText
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="!bg-[#fafafa] rounded-[2.5px] border-[#eeeeee] pr-[40px]"
+        className="!bg-[#fafafa] rounded-[2.5px] border-line pr-[40px]"
       />
       <button className="absolute right-[17px] top-1/2 -translate-y-1/2">
         <Icon name="search" />

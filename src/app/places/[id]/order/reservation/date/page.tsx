@@ -158,7 +158,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-50 flex items-center justify-between h-[60px] px-4 bg-white border-b border-[#eeeeee]">
+      <header className="sticky top-0 z-50 flex items-center justify-between h-[60px] px-4 bg-white border-b border-line">
         <button onClick={() => router.back()} className="p-2 -ml-2">
           <IoChevronBack size={24} />
         </button>
@@ -247,7 +247,7 @@ export default function Page() {
                     'py-3 text-[15px] border rounded',
                     isSelected
                       ? 'border-[#d32f2f] text-[#d32f2f]'
-                      : 'border-[#eeeeee] text-[#666666]',
+                      : 'border-line text-[#666666]',
                   )}
                 >
                   {time}
@@ -271,10 +271,10 @@ export default function Page() {
                     'py-3 text-[15px] border rounded',
                     isSelected && 'border-[#d32f2f] text-[#d32f2f]',
                     unavailable &&
-                      'border-[#eeeeee] bg-[#f5f5f5] text-[#cccccc] cursor-not-allowed',
+                      'border-line bg-[#f5f5f5] text-[#cccccc] cursor-not-allowed',
                     !unavailable &&
                       !isSelected &&
-                      'border-[#eeeeee] text-[#666666] hover:border-[#d32f2f]',
+                      'border-line text-[#666666] hover:border-[#d32f2f]',
                   )}
                 >
                   {time}
@@ -291,14 +291,14 @@ export default function Page() {
             <div className="flex items-center gap-3">
               <button
                 onClick={decrementGuestCount}
-                className="w-10 h-10 border border-[#eeeeee] box-border rounded flex items-center justify-center text-[20px] text-[#666666]"
+                className="w-10 h-10 border border-line box-border rounded flex items-center justify-center text-[20px] text-[#666666]"
               >
                 -
               </button>
               <span className="text-[17px] w-8 text-center">{guestCount}</span>
               <button
                 onClick={incrementGuestCount}
-                className="w-10 h-10 border border-[#eeeeee] box-border rounded flex items-center justify-center text-[20px] text-[#666666]"
+                className="w-10 h-10 border border-line box-border rounded flex items-center justify-center text-[20px] text-[#666666]"
               >
                 +
               </button>
@@ -312,7 +312,7 @@ export default function Page() {
             value={requirements}
             onChange={(e) => setRequirements(e.target.value)}
             placeholder="업체에 요청하실 내용을 적어주세요."
-            className="w-full h-32 p-4 border border-[#eeeeee] rounded text-[15px] placeholder:text-[#aaaaaa] resize-none"
+            className="w-full h-32 p-4 border border-line rounded text-[15px] placeholder:text-[#aaaaaa] resize-none"
           />
         </div>
 
@@ -330,7 +330,7 @@ export default function Page() {
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center gap-3 pb-3 border-b border-[#eeeeee]">
+            <div className="flex items-center gap-3 pb-3 border-b border-line">
               <button
                 onClick={handleAllAgree}
                 className={cn(

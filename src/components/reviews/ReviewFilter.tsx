@@ -23,7 +23,7 @@ export default function ReviewFilter({
   onSortTypeChange,
 }: Props) {
   return (
-    <div className="flex flex-col gap-[30px] pb-2.5 border-b border-[#eeeeee] box-border">
+    <div className="flex flex-col gap-[30px] pb-2.5 border-b border-line box-border">
       <div className="flex gap-2.5">
         <button
           onClick={() => onRatingChange(null)}
@@ -31,7 +31,7 @@ export default function ReviewFilter({
             'px-[21px] py-[14px] bg-white text-sm leading-[14px] border-1 box-border rounded-[1px] cursor-pointer flex-shrink-0',
             selectedRating === null
               ? 'text-[#a11420] font-bold border-main'
-              : 'text-[#aaaaaa] border-[#eeeeee]',
+              : 'text-[#aaaaaa] border-line',
           )}
         >
           전체
@@ -44,7 +44,7 @@ export default function ReviewFilter({
               'px-[21px] py-[14px] bg-white text-sm leading-[14px] border-1 box-border rounded-[1px] cursor-pointer flex-shrink-0',
               selectedRating === rating
                 ? 'text-[#a11420] font-bold border-main'
-                : 'text-[#aaaaaa] border-[#eeeeee]',
+                : 'text-[#aaaaaa] border-line',
             )}
           >
             {rating}점

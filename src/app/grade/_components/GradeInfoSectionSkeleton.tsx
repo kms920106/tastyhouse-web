@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 function GradeInfoItemSkeleton() {
   return (
-    <div className="flex items-center gap-4 p-5 border border-[#eeeeee]">
+    <div className="flex items-center gap-4 p-5 border border-line">
       {/* 등급 아이콘 */}
       <Skeleton className="w-10 h-[42px] shrink-0 rounded-md" />
       <div className="flex flex-col gap-2.5">

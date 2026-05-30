@@ -22,7 +22,7 @@ export default function GradeInfoItem({ gradeInfo }: Props) {
   const isLowestGrade = maxReviewCount !== null && minReviewCount === 0
 
   return (
-    <div className="flex items-center gap-4 p-5 border border-[#eeeeee]">
+    <div className="flex items-center gap-4 p-5 border border-line">
       <Icon
         name={getMemberGradeIconNameBySize(getMemberGradeIcon(grade) as MemberGradeIconCode, 40)}
         alt={displayName}

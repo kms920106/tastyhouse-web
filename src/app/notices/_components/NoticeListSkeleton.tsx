@@ -9,7 +9,7 @@ export function NoticeListSkeleton() {
         <div
           key={i}
           className={cn(
-            'px-[16px] py-[18px] animate-pulse border-b border-[#eeeeee] last:border-b-0',
+            'px-[16px] py-[18px] animate-pulse border-b border-line last:border-b-0',
             i === 0 && 'pt-0',
           )}
         >

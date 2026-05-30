@@ -37,7 +37,7 @@ export default function PlaceDetailMenuList({ placeId }: Props) {
     <ProductCategoryGroup
       key={menuCategory.categoryName}
       categoryName={menuCategory.categoryName}
-      className="border-b border-[#eeeeee] box-border"
+      className="border-b border-line box-border"
     >
       {menuCategory.products.map((product) => (
         <Link

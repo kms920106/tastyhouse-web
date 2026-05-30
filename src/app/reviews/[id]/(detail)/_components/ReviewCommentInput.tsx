@@ -69,7 +69,7 @@ export default function ReviewCommentInput({ isLoggedIn, reviewId }: Props) {
   return (
     <div ref={containerRef} className="flex items-center gap-[7px] flex-1">
       <Avatar src={memberProfile?.profileImageUrl ?? null} alt="내 프로필" />
-      <div className="flex-1 px-4 py-2.5 border border-[#eeeeee] box-border rounded-[20px] grid">
+      <div className="flex-1 px-4 py-2.5 border border-line box-border rounded-[20px] grid">
         <textarea
           ref={textareaRef}
           rows={1}

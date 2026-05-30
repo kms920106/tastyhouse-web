@@ -112,7 +112,7 @@ export default function BugReportsForm() {
                   !formData.device && 'text-[#999999]',
                   errors.device
                     ? 'border-[#bc4040] focus:border-[#bc4040]'
-                    : 'border-[#eeeeee] focus:border-[#666666]',
+                    : 'border-line focus:border-[#666666]',
                   className,
                 )}
               >

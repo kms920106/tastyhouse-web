@@ -13,14 +13,14 @@ export default function PlaceDetailBookmarkButton({ onClick, disabled, isBookmar
       onClick={onClick}
       className={cn(
         'flex items-center justify-center w-[35px] h-[35px] shrink-0 border rounded-full cursor-pointer box-border',
-        isBookmarked ? 'border-main' : 'border-[#eeeeee]',
+        isBookmarked ? 'border-main' : 'border-line',
       )}
       disabled={disabled}
     >
       {isBookmarked ? (
         <FaBookmark size={16} className="text-main" />
       ) : (
-        <FaRegBookmark size={16} className="text-[#eeeeee]" />
+        <FaRegBookmark size={16} className="text-line" />
       )}
     </button>
   )

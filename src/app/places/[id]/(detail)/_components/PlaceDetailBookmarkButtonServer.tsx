@@ -16,9 +16,9 @@ export default async function PlaceDetailBookmarkButtonServer({ placeId }: Props
     return (
       <Link
         href={PAGE_PATHS.AUTH_LOGIN}
-        className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-[#eeeeee] box-border rounded-full cursor-pointer"
+        className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-line box-border rounded-full cursor-pointer"
       >
-        <FaRegBookmark size={16} className="text-[#eeeeee]" />
+        <FaRegBookmark size={16} className="text-line" />
       </Link>
     )
   }
@@ -27,16 +27,16 @@ export default async function PlaceDetailBookmarkButtonServer({ placeId }: Props
 
   if (error) {
     return (
-      <button className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-[#eeeeee] box-border rounded-full cursor-pointer">
-        <FaRegBookmark size={16} className="text-[#eeeeee]" />
+      <button className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-line box-border rounded-full cursor-pointer">
+        <FaRegBookmark size={16} className="text-line" />
       </button>
     )
   }
 
   if (!data) {
     return (
-      <button className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-[#eeeeee] box-border rounded-full cursor-pointer">
-        <FaRegBookmark size={16} className="text-[#eeeeee]" />
+      <button className="flex items-center justify-center w-[35px] h-[35px] shrink-0 border border-line box-border rounded-full cursor-pointer">
+        <FaRegBookmark size={16} className="text-line" />
       </button>
     )
   }
@@ -62,7 +62,7 @@ export default async function PlaceDetailBookmarkButtonServer({ placeId }: Props
 
   // vs 현재 코드 (명확함)
   <button className="...">
-    <FaRegBookmark size={16} className="text-[#eeeeee]" />
+    <FaRegBookmark size={16} className="text-line" />
   </button>
 
   2. 의미적으로 다른 컴포넌트

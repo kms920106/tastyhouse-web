@@ -6,7 +6,7 @@ interface Props {
 
 export default function BorderedSection({ children }: Props) {
   return (
-    <section className="bg-white border-y border-[#eeeeee] box-border">
+    <section className="bg-white border-y border-line box-border">
       {children}
     </section>
   )

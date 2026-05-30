@@ -10,7 +10,7 @@ interface Props {
 
 export default function FaqAccordionItem({ faq, categoryName }: Props) {
   return (
-    <AccordionItem value={String(faq.id)} className="border-[#eeeeee]">
+    <AccordionItem value={String(faq.id)} className="border-line">
       <AccordionTrigger
         className="w-full px-[19px] py-[18px] hover:no-underline cursor-pointer"
         showIcon={false}

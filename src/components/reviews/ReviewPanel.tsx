@@ -38,7 +38,7 @@ export default function ReviewPanel({ data, viewMoreHref }: Props) {
         sortType={sortType}
         onSortTypeChange={setSortType}
       />
-      <div className="flex flex-col divide-y divide-[#eeeeee]">
+      <div className="flex flex-col divide-y divide-line">
         {sortedReviews.length === 0 ? (
           <div className="w-full py-4 text-sm leading-relaxed text-[#999999] text-center whitespace-pre-line">
             {selectedRating !== null

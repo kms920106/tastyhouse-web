@@ -37,7 +37,7 @@ export default function EventWinnerTabContent() {
           <AccordionPrimitive.Item
             key={event.id}
             value={String(event.id)}
-            className="border-b border-[#eeeeee] last:border-b-0"
+            className="border-b border-line last:border-b-0"
           >
             <AccordionPrimitive.Header>
               <AccordionPrimitive.Trigger

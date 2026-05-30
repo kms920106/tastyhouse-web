@@ -79,7 +79,7 @@ export default function HomeChoiceSwiper({ places }: Props) {
                 </div>
               </div>
             </Link>
-            <div className="py-[15px] border-t border-b border-[#eeeeee]">
+            <div className="py-[15px] border-t border-b border-line">
               {place.products.map((product, i, arr) => (
                 <Fragment key={product.id}>
                   <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">

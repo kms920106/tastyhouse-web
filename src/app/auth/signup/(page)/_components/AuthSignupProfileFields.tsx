@@ -206,7 +206,7 @@ export default function AuthSignupProfileFields({
                     ? 'border-main text-main z-10'
                     : errors.gender
                       ? 'border-[#bc4040]'
-                      : 'border-[#eeeeee]',
+                      : 'border-line',
                 )}
               >
                 <input

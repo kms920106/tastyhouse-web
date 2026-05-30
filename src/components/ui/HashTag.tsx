@@ -28,7 +28,7 @@ export default function HashTag({
   return (
     <span
       className={cn(
-        'flex-shrink-0 inline-flex items-center px-[11px] py-[8px] text-[#666666] whitespace-nowrap border border-[#eeeeee] box-border',
+        'flex-shrink-0 inline-flex items-center px-[11px] py-[8px] text-[#666666] whitespace-nowrap border border-line box-border',
         variantStyles[variant],
         sizeStyles[size],
         className,

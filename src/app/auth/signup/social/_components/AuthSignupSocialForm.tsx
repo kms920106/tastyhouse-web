@@ -431,7 +431,7 @@ export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }:
                           ? 'border-main text-main z-10'
                           : errors.gender
                             ? 'border-[#bc4040]'
-                            : 'border-[#eeeeee]',
+                            : 'border-line',
                       )}
                     >
                       <input
@@ -484,7 +484,7 @@ export default function AuthSignupSocialForm({ socialProfile, phone, onSignUp }:
         {/* 약관 동의 */}
         <BorderedSection>
           <div className="flex flex-col px-[15px] pt-[18px]">
-            <label className="flex items-center gap-2.5 pb-2.5 border-b border-[#eeeeee] cursor-pointer">
+            <label className="flex items-center gap-2.5 pb-2.5 border-b border-line cursor-pointer">
               <CircleCheckbox checked={agreedAll} onChange={handleAgreedAll} />
               <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
             </label>

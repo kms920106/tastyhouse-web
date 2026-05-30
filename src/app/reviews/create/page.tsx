@@ -33,7 +33,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="relative flex items-center h-14 bg-white border-b border-border-main box-border">
+      <div className="relative flex items-center h-14 bg-white border-b border-line box-border">
         <button className="absolute top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center cursor-pointer">
           <MdOutlineArrowBackIos size={20} />
         </button>

@@ -49,7 +49,7 @@
 
 :root {
   --main-color: #a91201;
-  --border-color: #eeeeee;
+  --line-color: #eeeeee;
   --border-input-off: #eeeeee;
   --border-input-on: #666666;
   --radius: 0.625rem;
@@ -90,7 +90,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-main: var(--main-color);
-  --color-border-main: var(--border-color);
+  --color-line: var(--line-color);
   --color-border-input: var(--border-input-off);
   --color-border-input-focus: var(--border-input-on);
   --font-spoqa:

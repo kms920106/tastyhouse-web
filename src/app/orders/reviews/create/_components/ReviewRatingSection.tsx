@@ -19,7 +19,7 @@ interface Props {
 
 export default function ReviewRatingSection({ ratings, error, onRatingChange }: Props) {
   return (
-    <div className="px-[15px] divide-y divide-[#eeeeee]">
+    <div className="px-[15px] divide-y divide-line">
       {RATING_CATEGORIES.map(({ key, label }) => (
         <div key={key} className="flex flex-col items-center gap-5 py-[30px]">
           <p className="text-base leading-[16px]">{label}</p>
@@ -33,7 +33,7 @@ export default function ReviewRatingSection({ ratings, error, onRatingChange }: 
               >
                 <FaStar
                   size={40}
-                  className={star <= ratings[key] ? 'text-main' : 'text-[#eeeeee]'}
+                  className={star <= ratings[key] ? 'text-main' : 'text-line'}
                 />
               </button>
             ))}

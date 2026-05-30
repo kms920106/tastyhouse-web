@@ -10,7 +10,7 @@ export function PlaceDetailInfoSkeleton() {
         </div>
         <Skeleton className="h-4 w-full" />
       </div>
-      <div className="pt-[30px] pb-5 space-y-[15px] border-b border-[#eeeeee] box-border">
+      <div className="pt-[30px] pb-5 space-y-[15px] border-b border-line box-border">
         <div className="flex justify-between">
           <Skeleton className="h-[14px] w-16" />
           <div className="space-y-2">

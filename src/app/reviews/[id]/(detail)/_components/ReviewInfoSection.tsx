@@ -30,7 +30,7 @@ export default function ReviewInfoSection({
 }: Props) {
 
   return (
-    <section className="px-[15px] pt-5 pb-8 border-b border-[#eeeeee] box-border">
+    <section className="px-[15px] pt-5 pb-8 border-b border-line box-border">
       <ReviewInfo
         memberProfileImageUrl={memberProfileImageUrl}
         memberNickname={memberNickname}

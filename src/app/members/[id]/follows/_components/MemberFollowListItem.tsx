@@ -38,7 +38,7 @@ export default function MemberFollowListItem({
           <>
             <AppOutlineButton
               onClick={() => setRemoveConfirmOpen(true)}
-              className="h-[30px] px-7 py-2.5 text-xs leading-[12px] bg-[#eeeeee] border border-[#cccccc] box-border rounded-[2.5px]"
+              className="h-[30px] px-7 py-2.5 text-xs leading-[12px] bg-line border border-[#cccccc] box-border rounded-[2.5px]"
             >
               삭제
             </AppOutlineButton>

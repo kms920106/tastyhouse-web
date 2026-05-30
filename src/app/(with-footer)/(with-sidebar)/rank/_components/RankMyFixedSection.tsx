@@ -10,7 +10,7 @@ export default async function RankMyFixedSection({ tab }: { tab: RankTab }) {
 
   return (
     <section className="fixed left-0 right-0 bottom-[72px] w-full">
-      <div className="flex justify-between items-center py-[15px] pl-8 pr-[35px] bg-[#eeeeee] border border-[#cccccc] box-border rounded-[2.5px]">
+      <div className="flex justify-between items-center py-[15px] pl-8 pr-[35px] bg-line border border-[#cccccc] box-border rounded-[2.5px]">
         {isLoggedIn ? (
           <Suspense fallback={<RankMyInfoSkeleton />}>
             <RankMyInfo tab={tab} />

@@ -69,7 +69,7 @@ export default function CouponSelector({
     return (
       <div>
         <h3 className="text-xs leading-[12px] mb-2.5">쿠폰</h3>
-        <button className="w-full h-[50px] px-[15px] py-[17px] flex items-center justify-between border border-[#eeeeee] box-border">
+        <button className="w-full h-[50px] px-[15px] py-[17px] flex items-center justify-between border border-line box-border">
           <span className="text-sm leading-[14px] text-[#aaaaaa]">
             사용할 수 있는 쿠폰이 없습니다.
           </span>
@@ -89,7 +89,7 @@ export default function CouponSelector({
               e.currentTarget.blur()
               handleDrawerOpen()
             }}
-            className="w-full h-[50px] px-[15px] py-[17px] flex items-center justify-between border box-border border-[#eeeeee]"
+            className="w-full h-[50px] px-[15px] py-[17px] flex items-center justify-between border box-border border-line"
           >
             <span
               className={cn('text-sm leading-[14px]', selectedCoupon ? 'text-black' : 'text-[#aaaaaa]')}
@@ -115,7 +115,7 @@ export default function CouponSelector({
                     key={coupon.id}
                     className={cn(
                       'relative overflow-hidden rounded-[10px] border',
-                      isSelected ? 'border-main' : 'border-[#eeeeee]',
+                      isSelected ? 'border-main' : 'border-line',
                     )}
                   >
                     <button
@@ -149,7 +149,7 @@ export default function CouponSelector({
                         <div
                           className={cn(
                             'absolute left-0 top-0 bottom-0 border-l border-dashed',
-                            isSelected ? 'border-main' : 'border-[#eeeeee]',
+                            isSelected ? 'border-main' : 'border-line',
                           )}
                         />
                         <div className="absolute left-[-8px] top-[-8px] w-4 h-4 rounded-full bg-white" />

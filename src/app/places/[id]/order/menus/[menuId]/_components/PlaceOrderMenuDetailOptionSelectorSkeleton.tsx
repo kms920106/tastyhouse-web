@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/shadcn/skeleton'
 export function PlaceOrderMenuDetailOptionSelectorSkeleton() {
   return (
     <div>
-      <div className="flex w-full h-[50px] border-b border-[#eeeeee]">
+      <div className="flex w-full h-[50px] border-b border-line">
         <div className="flex-1 flex items-center justify-center">
           <Skeleton className="h-[14px] w-8" />
         </div>

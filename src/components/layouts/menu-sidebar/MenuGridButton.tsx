@@ -9,7 +9,7 @@ export default function MenuGridButton({ onClick, disabled, children }: Props) {
     <button
       onClick={onClick}
       disabled={disabled}
-      className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-[#eeeeee]"
+      className="flex flex-col items-center justify-center gap-2 h-24 bg-[#fdfdfd] border border-line"
     >
       {children}
     </button>
