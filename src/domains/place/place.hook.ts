@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  getBestPlaces,
   getLatestPlaces,
   getPlaceDetail,
   getPlaceFoodTypes,
@@ -24,6 +25,7 @@ import {
 } from '@tanstack/react-query'
 import { useState } from 'react'
 
+const BEST_PAGE_SIZE = 10
 const LATEST_PAGE_SIZE = 6
 const REVIEWS_PAGE_SIZE = 5
 
@@ -34,6 +36,7 @@ interface LatestPlacesFilter {
 }
 
 export const placeQueryKeys = {
+  best: ['places', 'best'] as const,
   latest: (filter: LatestPlacesFilter) => ['places', 'latest', filter] as const,
   foodTypes: ['place', 'food-types'] as const,
   infoDetail: (placeId: number) => ['place', placeId, 'place-detail-info'] as const,
@@ -41,6 +44,24 @@ export const placeQueryKeys = {
   photos: (placeId: number) => ['place', placeId, 'place-detail-photos'] as const,
   reviewStatistics: (placeId: number) => ['place', placeId, 'place-review-statistics'] as const,
   reviews: (placeId: number) => ['place', placeId, 'place-detail-reviews'] as const,
+}
+
+export function useBestPlaces() {
+  return useInfiniteQuery({
+    queryKey: placeQueryKeys.best,
+    queryFn: async ({ pageParam }) => {
+      const response = await getBestPlaces({ page: pageParam, size: BEST_PAGE_SIZE })
+      if (response.error) throw new Error(response.error)
+      if (!response.data) throw new Error('응답 데이터가 없습니다.')
+      return response
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.pagination) return undefined
+      const { page, totalPages } = lastPage.pagination
+      return page + 1 < totalPages ? page + 1 : undefined
+    },
+  })
 }
 
 export function useLatestPlaces(filter: LatestPlacesFilter) {

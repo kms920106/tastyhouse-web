@@ -20,6 +20,10 @@ export async function getLatestPlaces({ page, size }: { page: number; size: numb
   return placeRepository.getLatestPlaces({ page, size })
 }
 
+export async function getBestPlaces({ page, size }: { page: number; size: number }) {
+  return placeRepository.getBestPlaces({ page, size })
+}
+
 export async function getPlaceInfo(placeId: number) {
   return placeRepository.getPlaceInfo(placeId)
 }

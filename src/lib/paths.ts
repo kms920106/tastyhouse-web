@@ -81,6 +81,7 @@ export const PAGE_PATHS = {
 
   // 장소
   PLACES: '/places',
+  PLACE_BEST: '/places/best-places',
   PLACE_DETAIL: (id: string | number) => `/places/${id}`,
   PLACE_FILTER: '/places/filter',
   PLACE_REVIEWS: (id: number) => `/places/${id}/reviews`,

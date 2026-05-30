@@ -1,8 +1,9 @@
+import { PlaceBestListItem } from '@/components/places/PlaceBestListItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { placeRepository } from '@/domains/place/place.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { HomeBestPlaceListItem } from './HomeBestPlaceListItem'
+import { placeRepository } from '@/domains/place/place.repository'
+import { PAGE_PATHS } from '@/lib/paths'
 
 export default async function HomeBestPlaceList() {
   const { error, status, data } = await placeRepository.getBestPlaces({
@@ -26,7 +27,7 @@ export default async function HomeBestPlaceList() {
     <>
       <ul className="grid grid-cols-2 gap-x-[15px] gap-y-10 mb-10">
         {data.map((place) => (
-          <HomeBestPlaceListItem
+          <PlaceBestListItem
             key={place.id}
             id={place.id}
             name={place.name}
@@ -38,7 +39,7 @@ export default async function HomeBestPlaceList() {
         ))}
       </ul>
       <div className="flex justify-center">
-        <ViewMoreButton href="/places/best-places" />
+        <ViewMoreButton href={PAGE_PATHS.PLACE_BEST} />
       </div>
     </>
   )
