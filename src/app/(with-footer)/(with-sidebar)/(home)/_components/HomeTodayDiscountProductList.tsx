@@ -1,8 +1,8 @@
 import DiscountProductItem from '@/components/products/DiscountProductItem'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
-import { productRepository } from '@/domains/product/product.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { productRepository } from '@/domains/product/product.repository'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { Fragment } from 'react'
@@ -23,19 +23,17 @@ export default async function HomeTodayDiscountProductList() {
 
   return (
     <>
-      <div className="mb-10">
+      <div className="border-t border-b border-[#eeeeee] py-[15px]">
         {data.map((product, i, arr) => (
           <Fragment key={product.id}>
             <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
               <DiscountProductItem {...product} />
             </Link>
-            {i < arr.length - 1 && (
-              <div className="border-t border-[#eeeeee] my-[15px]" />
-            )}
+            {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
           </Fragment>
         ))}
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-10">
         <ViewMoreButton href="/products/today-discount" />
       </div>
     </>
