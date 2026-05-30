@@ -2,6 +2,7 @@
 
 import ProductItem from '@/components/products/ProductItem'
 import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
+import Divider from '@/components/ui/Divider'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useSearchMenusInfinite } from '@/domains/search/search.hook'
@@ -38,7 +39,7 @@ export default function SearchResultMenuList({ query }: Props) {
         {Array.from({ length: 10 }).map((_, i) => (
           <React.Fragment key={i}>
             <ProductItemSkeleton />
-            {i < 9 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+            {i < 9 && <Divider />}
           </React.Fragment>
         ))}
       </div>
@@ -66,17 +67,17 @@ export default function SearchResultMenuList({ query }: Props) {
               reviewCount={product.reviewCount}
             />
           </Link>
-          {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+          {i < arr.length - 1 && <Divider />}
         </React.Fragment>
       ))}
       {isFetchingNextPage && (
         <>
-          <div className="border-t border-[#eeeeee] my-[15px]" />
+          <Divider />
           <div>
             {Array.from({ length: 2 }).map((_, i) => (
               <React.Fragment key={i}>
                 <ProductItemSkeleton />
-                {i < 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+                {i < 1 && <Divider />}
               </React.Fragment>
             ))}
           </div>

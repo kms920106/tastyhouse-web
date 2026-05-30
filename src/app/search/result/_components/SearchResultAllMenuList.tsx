@@ -2,6 +2,7 @@
 
 import ProductItem from '@/components/products/ProductItem'
 import { ProductItemSkeleton } from '@/components/products/ProductItemSkeleton'
+import Divider from '@/components/ui/Divider'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useSearchMenusPreview } from '@/domains/search/search.hook'
@@ -23,7 +24,7 @@ export default function SearchResultAllMenuList({ query }: Props) {
         {Array.from({ length: 3 }).map((_, i) => (
           <React.Fragment key={i}>
             <ProductItemSkeleton />
-            {i < 2 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+            {i < 2 && <Divider />}
           </React.Fragment>
         ))}
       </div>
@@ -48,7 +49,7 @@ export default function SearchResultAllMenuList({ query }: Props) {
               reviewCount={product.reviewCount}
             />
           </Link>
-          {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+          {i < arr.length - 1 && <Divider />}
         </React.Fragment>
       ))}
     </div>

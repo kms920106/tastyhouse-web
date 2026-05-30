@@ -1,6 +1,7 @@
 'use client'
 
 import DiscountProductItem from '@/components/products/DiscountProductItem'
+import Divider from '@/components/ui/Divider'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import Icon from '@/components/ui/Icon'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
@@ -92,7 +93,7 @@ export default function TodayDiscountContent() {
                   <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
                     <DiscountProductItem {...product} />
                   </Link>
-                  {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+                  {i < arr.length - 1 && <Divider />}
                 </Fragment>
               ))}
             </div>

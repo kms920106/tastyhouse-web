@@ -1,4 +1,5 @@
 import { DiscountProductItemSkeleton } from '@/components/products/DiscountProductItemSkeleton'
+import Divider from '@/components/ui/Divider'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 
 export function HomeChoiceSwiperSkeleton() {
@@ -20,7 +21,7 @@ export function HomeChoiceSwiperSkeleton() {
             </div>
             <div className="mb-10">
               <DiscountProductItemSkeleton />
-              <div className="border-t border-[#eeeeee] my-[15px]" />
+              <Divider />
               <DiscountProductItemSkeleton />
             </div>
           </div>

@@ -1,3 +1,4 @@
+import Divider from '@/components/ui/Divider'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { ProductItemSkeleton } from './ProductItemSkeleton'
 
@@ -7,9 +8,9 @@ export function ProductCategoryGroupSkeleton() {
       <Skeleton className="w-20 h-[16px] mb-5" />
       <div>
         <ProductItemSkeleton />
-        <div className="border-t border-[#eeeeee] my-[15px]" />
+        <Divider />
         <ProductItemSkeleton />
-        <div className="border-t border-[#eeeeee] my-[15px]" />
+        <Divider />
         <ProductItemSkeleton />
       </div>
     </div>

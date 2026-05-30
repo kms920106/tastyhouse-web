@@ -1,3 +1,4 @@
+import Divider from '@/components/ui/Divider'
 import { cn } from '@/lib/utils'
 import React from 'react'
 
@@ -17,7 +18,7 @@ export default function ProductCategoryGroup({ categoryName, children, className
         {childArray.map((child, i) => (
           <React.Fragment key={i}>
             {child}
-            {i < childArray.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+            {i < childArray.length - 1 && <Divider />}
           </React.Fragment>
         ))}
       </div>

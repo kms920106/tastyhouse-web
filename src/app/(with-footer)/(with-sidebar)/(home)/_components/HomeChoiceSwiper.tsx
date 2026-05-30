@@ -5,6 +5,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import DiscountProductItem from '@/components/products/DiscountProductItem'
+import Divider from '@/components/ui/Divider'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -84,7 +85,7 @@ export default function HomeChoiceSwiper({ places }: Props) {
                   <Link href={PAGE_PATHS.PRODUCT_DETAIL(product.id)} className="block">
                     <DiscountProductItem {...product} />
                   </Link>
-                  {i < arr.length - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+                  {i < arr.length - 1 && <Divider />}
                 </Fragment>
               ))}
             </div>

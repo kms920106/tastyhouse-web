@@ -1,4 +1,5 @@
 import { DiscountProductItemSkeleton } from '@/components/products/DiscountProductItemSkeleton'
+import Divider from '@/components/ui/Divider'
 import { Skeleton } from '@/components/ui/shadcn/skeleton'
 import { Fragment } from 'react'
 
@@ -34,7 +35,7 @@ export default function TodayDiscountListSkeleton({ viewType, count = 6 }: Props
       {Array.from({ length: count }).map((_, i) => (
         <Fragment key={i}>
           <DiscountProductItemSkeleton />
-          {i < count - 1 && <div className="border-t border-[#eeeeee] my-[15px]" />}
+          {i < count - 1 && <Divider />}
         </Fragment>
       ))}
     </div>
