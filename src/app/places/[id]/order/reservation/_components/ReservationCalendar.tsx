@@ -25,12 +25,22 @@ export default function ReservationCalendar({
     <div className="px-[15px] py-6">
       <div className="bg-[#fcfcfc] border border-line rounded-[5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)] p-5">
         <div className="flex items-center justify-center gap-4 mb-6">
-          <button onClick={() => onChangeMonth(-1)} aria-label="이전 달" className="p-2">
-            <Icon name="nav-left" />
+          <button
+            onClick={() => onChangeMonth(-1)}
+            aria-label="이전 달"
+            className="flex items-center justify-center w-[18px] h-[18px] rounded-[1.5px] bg-white border-[0.5px] border-[#eeeeee] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]"
+          >
+            <Icon name="calendar-prev" />
           </button>
-          <span className="text-[20px]">{formatYearMonth(viewMonth.year, viewMonth.month)}</span>
-          <button onClick={() => onChangeMonth(1)} aria-label="다음 달" className="p-2">
-            <Icon name="nav-right" />
+          <span className="text-lg leading-[18px]">
+            {formatYearMonth(viewMonth.year, viewMonth.month)}
+          </span>
+          <button
+            onClick={() => onChangeMonth(1)}
+            aria-label="다음 달"
+            className="flex items-center justify-center w-[18px] h-[18px] rounded-[1.5px] bg-white border-[0.5px] border-[#eeeeee] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]"
+          >
+            <Icon name="calendar-next" />
           </button>
         </div>
 
@@ -65,7 +75,7 @@ export default function ReservationCalendar({
                   className={cn(
                     'flex items-center justify-center w-[35px] h-[35px] rounded-[1.5px]',
                     isSelected && 'bg-main text-white shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
-                    cell.isToday && !isSelected && 'underline underline-offset-4',
+                    cell.isToday && !isSelected && 'underline underline-offset-4 decoration-black',
                     isDisabled && 'text-[#cccccc]',
                     !isDisabled && !isSelected && cell.weekday === 0 && 'text-[#ed5151]',
                     !isDisabled && !isSelected && cell.weekday === 6 && 'text-[#499eff]',
@@ -84,14 +94,14 @@ export default function ReservationCalendar({
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-4 mt-4">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-main" />
-          <span className="text-[13px] text-[#666666]">선택</span>
+      <div className="flex items-center justify-end gap-[15px] mt-4">
+        <div className="flex items-center gap-[7px]">
+          <div className="w-[13px] h-[13px] bg-main" />
+          <span className="text-xs leading-[12px] text-[#666666]">선택</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-[#f5f5f5]" />
-          <span className="text-[13px] text-[#666666]">예약불가</span>
+        <div className="flex items-center gap-[7px]">
+          <div className="w-[13px] h-[13px] bg-[#f5f5f5]" />
+          <span className="text-xs leading-[12px] text-[#666666]">예약불가</span>
         </div>
       </div>
     </div>

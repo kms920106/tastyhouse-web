@@ -26,6 +26,8 @@ export const ICON_REGISTRY = {
     height: 25,
     alt: '전체 동의 선택됨',
   },
+  'calendar-next': { src: '/images/icon-calendar-next.png', width: 6, height: 10 },
+  'calendar-prev': { src: '/images/icon-calendar-prev.png', width: 6, height: 10 },
   camera: { src: '/images/icon-camera.png', width: 23, height: 18, alt: '카메라' },
   'check-off': { src: '/images/icon-check-off.png', width: 14, height: 10, alt: '선택 안됨' },
   'check-on': { src: '/images/icon-check-on.png', width: 14, height: 10, alt: '선택됨' },
