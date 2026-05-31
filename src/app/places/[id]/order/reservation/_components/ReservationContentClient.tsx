@@ -1,6 +1,5 @@
 'use client'
 
-import { createReservation } from '@/actions/order'
 import {
   fetchAgeVerificationContent,
   fetchElectronicFinancialTransactionsContent,
@@ -13,6 +12,10 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import StickyFooter from '@/components/ui/StickyFooter'
+import {
+  useCreateReservation,
+  useReservationAvailability,
+} from '@/domains/reservation/reservation.hook'
 import { useEffect, useState } from 'react'
 import { shiftMonth } from '../_lib/calendar'
 import ReservationDateTime from './ReservationDateTime'
@@ -67,6 +70,18 @@ export default function ReservationContentClient({ shopId }: Props) {
     setAgreedAll(RESERVATION_TERMS_LIST.every(({ key }) => agreedTerms[key]))
   }, [agreedTerms])
 
+  // 슬롯 가용성 조회 — 날짜 선택 시마다 호출 (enabled: !!selectedDate)
+  const {
+    data: availabilityData,
+    isLoading: isLoadingSlots,
+    isError: isErrorSlots,
+  } = useReservationAvailability(shopId, selectedDate)
+
+  const slots = availabilityData?.data?.slots ?? []
+
+  // 예약 생성 mutation — 성공/실패 toast는 hook이 책임 (도메인 가이드 §8.9)
+  const { mutate: reserve, isPending } = useCreateReservation()
+
   const handleAgreedAll = (checked: boolean) => {
     setAgreedAll(checked)
     setAgreedTerms(
@@ -92,25 +107,27 @@ export default function ReservationContentClient({ shopId }: Props) {
     }
   }
 
+  // 날짜 변경 시 선택된 시간 리셋 (다른 날짜의 시간이 잔존하는 버그 방지)
+  const handleSelectDate = (date: string) => {
+    setSelectedDate(date)
+    setSelectedTime(null)
+  }
+
   const requiredTermsOk = RESERVATION_TERMS_LIST.filter((t) => t.required).every(
     ({ key }) => agreedTerms[key],
   )
   const isSubmittable = !!selectedDate && !!selectedTime && requiredTermsOk
 
-  const handleReserve = async () => {
-    if (!isSubmittable) return
-    const result = await createReservation({
+  const handleReserve = () => {
+    if (!isSubmittable || isPending) return
+    reserve({
       shopId,
       reservationDate: selectedDate!,
       reservationTime: selectedTime!,
-      guestCount,
-      request,
+      partySize: guestCount,
+      request: request.trim() || undefined,
+      agreedRequiredTerms: requiredTermsOk,
     })
-    if (result.error) {
-      toast(result.error)
-      return
-    }
-    // TODO: 성공 시 이동 경로 — 예약 완료 화면 디자인 미확보. 확정 시 PAGE_PATHS 추가 후 router.push
   }
 
   return (
@@ -121,13 +138,17 @@ export default function ReservationContentClient({ shopId }: Props) {
             viewMonth={viewMonth}
             selectedDate={selectedDate}
             selectedTime={selectedTime}
+            slots={slots}
+            isLoadingSlots={isLoadingSlots}
+            isErrorSlots={isErrorSlots}
+            hasSelectedDate={!!selectedDate}
             onChangeMonth={(delta) => setViewMonth((prev) => shiftMonth(prev, delta))}
-            onSelectDate={setSelectedDate}
+            onSelectDate={handleSelectDate}
             onSelectTime={setSelectedTime}
           />
         </BorderedSection>
         <BorderedSection>
-          <ReservationGuestCounter count={guestCount} onChange={setGuestCount} />
+          <ReservationGuestCounter count={guestCount} onChange={setGuestCount} max={50} />
         </BorderedSection>
         <BorderedSection>
           <ReservationRequest value={request} onChange={setRequest} />
@@ -148,7 +169,7 @@ export default function ReservationContentClient({ shopId }: Props) {
 
       <StickyFooter>
         <div className="px-[15px] py-2.5">
-          <AppPrimaryButton onClick={handleReserve} disabled={!isSubmittable}>
+          <AppPrimaryButton onClick={handleReserve} disabled={!isSubmittable || isPending}>
             예약하기
           </AppPrimaryButton>
         </div>
