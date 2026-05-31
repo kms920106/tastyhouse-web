@@ -64,6 +64,7 @@ export const PAGE_PATHS = {
     `/places/${shopId}/order/menus/${menuId}`,
   ORDER_CART: (shopId: string | number) => `/places/${shopId}/order/cart`,
   ORDER_CHECKOUT: (shopId: string | number) => `/places/${shopId}/order/checkout`,
+  ORDER_RESERVATION: (shopId: string | number) => `/places/${shopId}/order/reservation`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
   ORDERS_REVIEWS_CREATE: (orderItemId: number) =>

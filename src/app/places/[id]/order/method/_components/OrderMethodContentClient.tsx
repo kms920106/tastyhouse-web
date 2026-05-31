@@ -18,9 +18,12 @@ export default function OrderMethodContentClient({ shopId, orderMethods }: Props
   const [selectedMethod, setSelectedMethod] = useState<OrderMethodType | null>(null)
 
   const handleNext = () => {
-    if (selectedMethod) {
-      router.push(PAGE_PATHS.ORDER_MENUS(shopId, selectedMethod))
+    if (!selectedMethod) return
+    if (selectedMethod === 'RESERVATION') {
+      router.push(PAGE_PATHS.ORDER_RESERVATION(shopId))
+      return
     }
+    router.push(PAGE_PATHS.ORDER_MENUS(shopId, selectedMethod))
   }
 
   return (

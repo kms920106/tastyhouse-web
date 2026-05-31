@@ -1,6 +1,6 @@
 'use client'
 
-import AppTermsDialog from '@/app/auth/signup/(page)/_components/AppTermsDialog'
+import AppTermsDialog from '@/components/ui/AppTermsDialog'
 import { useState } from 'react'
 import AuthSignupForm from './AuthSignupForm'
 
