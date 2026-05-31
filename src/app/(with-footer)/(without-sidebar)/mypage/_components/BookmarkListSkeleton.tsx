@@ -1,4 +1,4 @@
-import { BookmarkListItemSkeleton } from '@/components/places/BookmarkListItemSkeleton'
+import { BookmarkListItemSkeleton } from '@/components/shops/BookmarkListItemSkeleton'
 
 export function BookmarkListSkeleton() {
   return (

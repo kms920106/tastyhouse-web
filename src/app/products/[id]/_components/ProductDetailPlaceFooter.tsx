@@ -18,7 +18,7 @@ export default async function ProductDetailPlaceFooter({ productId }: Props) {
   return (
     <StickyFooter>
       <div className="px-[15px] py-2.5 bg-[#f9f9f9]">
-        <Link href={PAGE_PATHS.PLACE_DETAIL(data.placeId)}>
+        <Link href={PAGE_PATHS.PLACE_DETAIL(data.shopId)}>
           <AppPrimaryButton>매장 보러가기</AppPrimaryButton>
         </Link>
       </div>

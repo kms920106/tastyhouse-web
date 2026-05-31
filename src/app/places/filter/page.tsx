@@ -1,4 +1,4 @@
-import PlaceFilterPage from './_components/PlaceFilterPage'
+import ShopFilterPage from './_components/ShopFilterPage'
 
 interface Props {
   searchParams: Promise<{
@@ -20,7 +20,7 @@ export default async function Page({ searchParams }: Props) {
   const amenities = amenitiesParam?.split(',').filter(Boolean) ?? []
 
   return (
-    <PlaceFilterPage
+    <ShopFilterPage
       stationId={stationId}
       foodTypes={foodTypes}
       amenities={amenities}

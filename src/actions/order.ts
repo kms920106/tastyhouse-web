@@ -4,7 +4,7 @@ import type { OrderProduct } from '@/domains/order'
 import { orderRepository } from '@/domains/order/order.repository'
 
 export async function createOrder({
-  placeId,
+  shopId,
   orderItems,
   memberCouponId,
   usePoint,
@@ -14,7 +14,7 @@ export async function createOrder({
   couponDiscountAmount,
   finalAmount,
 }: {
-  placeId: number
+  shopId: number
   orderItems: OrderProduct[]
   memberCouponId: number | null
   usePoint: number
@@ -25,7 +25,7 @@ export async function createOrder({
   finalAmount: number
 }) {
   return orderRepository.createOrder({
-    placeId,
+    shopId,
     orderItems,
     memberCouponId,
     usePoint,

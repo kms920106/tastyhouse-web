@@ -1,12 +1,12 @@
 import EmptyState from '@/app/(with-footer)/(without-sidebar)/mypage/_components/EmptyState'
-import BookmarkListItem from '@/components/places/BookmarkListItem'
+import BookmarkListItem from '@/components/shops/BookmarkListItem'
 import ViewMoreButton from '@/components/ui/ViewMoreButton'
 import { PAGE_PATHS } from '@/lib/paths'
 
-export interface BookmarkedPlace {
-  placeId: number
+export interface BookmarkedShop {
+  shopId: number
   bookmarkId: number
-  placeName: string
+  shopName: string
   stationName: string
   rating: number
   imageUrl: string
@@ -14,7 +14,7 @@ export interface BookmarkedPlace {
 }
 
 interface Props {
-  bookmarks: BookmarkedPlace[]
+  bookmarks: BookmarkedShop[]
   hasMoreBookmarks: boolean
 }
 
@@ -33,11 +33,11 @@ export default function BookmarkList({ bookmarks, hasMoreBookmarks }: Props) {
       <div className="flex flex-col gap-2.5 px-[15px] py-[20px]">
         {bookmarks.map((bookmark) => (
           <BookmarkListItem
-            key={bookmark.placeId}
-            placeId={bookmark.placeId}
-            placeImage={bookmark.imageUrl}
+            key={bookmark.shopId}
+            shopId={bookmark.shopId}
+            shopImage={bookmark.imageUrl}
             region={bookmark.stationName}
-            placeName={bookmark.placeName}
+            shopName={bookmark.shopName}
             rating={bookmark.rating}
             isBookmarked={bookmark.bookmarked}
           />

@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/shadcn/tabs'
 import { useTabNavigation } from '@/hooks/useTabNavigation'
 import SearchResultMenuTabContent from './SearchResultMenuTabContent'
-import SearchResultPlaceTabContent from './SearchResultPlaceTabContent'
+import SearchResultShopTabContent from './SearchResultShopTabContent'
 import SearchResultReviewTabContent from './SearchResultReviewTabContent'
 import SearchResultAllTabContent from './SearchResultAllTabContent'
 
@@ -48,7 +48,7 @@ export default function SearchResultTabs({ tab, query, isLoggedIn }: Props) {
         <SearchResultReviewTabContent query={query} />
       </TabsContent>
       <TabsContent value="place" className="mt-0">
-        <SearchResultPlaceTabContent query={query} isLoggedIn={isLoggedIn} />
+        <SearchResultShopTabContent query={query} isLoggedIn={isLoggedIn} />
       </TabsContent>
     </Tabs>
   )

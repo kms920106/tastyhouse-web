@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   form: {
-    placeName?: string
+    shopName?: string
     menuName?: string
     content: string
     tags: string[]
@@ -15,7 +15,7 @@ interface Props {
 
 export default function ReviewCreateSubmitButton({ form, disabled = false }: Props) {
   const handleSubmit = async () => {
-    if (!form.placeName) {
+    if (!form.shopName) {
       toast('상호명은 필수 입력 사항입니다.')
       return
     }

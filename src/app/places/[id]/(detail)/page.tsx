@@ -1,7 +1,7 @@
-import { placeRepository } from '@/domains/place/place.repository'
+import { shopRepository } from '@/domains/shop/shop.repository'
 import type { Metadata } from 'next'
-import PlaceDetailPage from './_components/PlaceDetailPage'
-import type { PlaceDetailTab } from './_components/PlaceDetailTabs'
+import ShopDetailPage from './_components/ShopDetailPage'
+import type { ShopDetailTab } from './_components/ShopDetailTabs'
 
 interface Props {
   params: Promise<{
@@ -14,11 +14,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const placeId = Number(id)
+  const shopId = Number(id)
 
   const [detailRes, bannersRes] = await Promise.all([
-    placeRepository.getPlaceDetail(placeId),
-    placeRepository.getPlaceBanners(placeId),
+    shopRepository.getShopDetail(shopId),
+    shopRepository.getShopBanners(shopId),
   ])
 
   const detail = detailRes.data
@@ -40,16 +40,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const PLACE_TAB_VALUES: PlaceDetailTab[] = ['info', 'menu', 'photo', 'review']
+const PLACE_TAB_VALUES: ShopDetailTab[] = ['info', 'menu', 'photo', 'review']
 
-function parsePlaceTab(value: string | undefined): PlaceDetailTab {
-  return PLACE_TAB_VALUES.includes(value as PlaceDetailTab) ? (value as PlaceDetailTab) : 'info'
+function parsePlaceTab(value: string | undefined): ShopDetailTab {
+  return PLACE_TAB_VALUES.includes(value as ShopDetailTab) ? (value as ShopDetailTab) : 'info'
 }
 
 export default async function Page({ params, searchParams }: Props) {
   const [{ id }, { tab }] = await Promise.all([params, searchParams])
-  const placeId = Number(id)
+  const shopId = Number(id)
   const initialTab = parsePlaceTab(tab)
 
-  return <PlaceDetailPage placeId={placeId} tab={initialTab} />
+  return <ShopDetailPage shopId={shopId} tab={initialTab} />
 }

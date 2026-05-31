@@ -1,4 +1,4 @@
-import PlaceProductDetailPage from './_components/PlaceProductDetailPage'
+import ShopProductDetailPage from './_components/ShopProductDetailPage'
 
 interface Props {
   params: Promise<{ id: string; productId: string }>
@@ -6,8 +6,8 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { id, productId } = await params
-  const placeId = Number(id)
+  const shopId = Number(id)
   const productIdNum = Number(productId)
 
-  return <PlaceProductDetailPage placeId={placeId} productId={productIdNum} />
+  return <ShopProductDetailPage shopId={shopId} productId={productIdNum} />
 }

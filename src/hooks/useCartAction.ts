@@ -3,13 +3,13 @@
 import { toast } from '@/components/ui/AppToaster'
 import type { ProductOptionGroup } from '@/domains/product'
 import type { CartSelectedOption } from '@/lib/cart'
-import { addToCart, getCartPlaceId, replaceCartAndAdd } from '@/lib/cart'
+import { addToCart, getCartShopId, replaceCartAndAdd } from '@/lib/cart'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
 interface UseCartActionParams {
   productId: number
-  placeId: number
+  shopId: number
   optionGroups: ProductOptionGroup[]
   selectedOptions: Record<number, number | number[]>
   getSelectedOptionsData: () => CartSelectedOption[]
@@ -17,13 +17,13 @@ interface UseCartActionParams {
 
 export function useCartAction({
   productId,
-  placeId,
+  shopId,
   optionGroups,
   selectedOptions,
   getSelectedOptionsData,
 }: UseCartActionParams) {
   const router = useRouter()
-  const [showPlaceChangeModal, setShowPlaceChangeModal] = useState(false)
+  const [showShopChangeModal, setShowShopChangeModal] = useState(false)
 
   const validateRequiredOptions = useCallback((): boolean => {
     const missingRequired = optionGroups.filter((group) => {
@@ -43,36 +43,36 @@ export function useCartAction({
     (replace = false) => {
       const cartItem = { productId, selectedOptions: getSelectedOptionsData() }
       if (replace) {
-        replaceCartAndAdd(placeId, cartItem)
+        replaceCartAndAdd(shopId, cartItem)
       } else {
-        addToCart(placeId, cartItem)
+        addToCart(shopId, cartItem)
       }
       window.dispatchEvent(new Event('cartUpdated'))
       toast('메뉴를 장바구니에 담았습니다.')
       router.back()
     },
-    [productId, placeId, getSelectedOptionsData, router],
+    [productId, shopId, getSelectedOptionsData, router],
   )
 
   const handleAddToCart = useCallback(() => {
     if (!validateRequiredOptions()) return
-    const currentCartPlaceId = getCartPlaceId()
-    if (currentCartPlaceId === null || currentCartPlaceId === placeId) {
+    const currentCartShopId = getCartShopId()
+    if (currentCartShopId === null || currentCartShopId === shopId) {
       executeAddToCart()
       return
     }
-    setShowPlaceChangeModal(true)
-  }, [placeId, validateRequiredOptions, executeAddToCart])
+    setShowShopChangeModal(true)
+  }, [shopId, validateRequiredOptions, executeAddToCart])
 
-  const handleConfirmPlaceChange = useCallback(() => {
-    setShowPlaceChangeModal(false)
+  const handleConfirmShopChange = useCallback(() => {
+    setShowShopChangeModal(false)
     executeAddToCart(true)
   }, [executeAddToCart])
 
   return {
-    showPlaceChangeModal,
+    showShopChangeModal,
     handleAddToCart,
-    handleConfirmPlaceChange,
-    onCancelPlaceChange: () => setShowPlaceChangeModal(false),
+    handleConfirmShopChange,
+    onCancelShopChange: () => setShowShopChangeModal(false),
   }
 }

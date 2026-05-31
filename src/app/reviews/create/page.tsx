@@ -9,7 +9,7 @@ import { MdOutlineArrowBackIos } from 'react-icons/md'
 
 export default function Page() {
   const [form, setForm] = useState({
-    placeName: '',
+    shopName: '',
     menuName: '',
     content: '',
     tags: [] as string[],
@@ -41,14 +41,14 @@ export default function Page() {
       </div>
       <div className="flex flex-col gap-2.5">
         <div className="flex flex-col gap-2.5 px-4 py-6 bg-white">
-          <label className="text-xs text-gray-700" htmlFor="placeName">
+          <label className="text-xs text-gray-700" htmlFor="shopName">
             상호명 <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             className="w-full h-[50px] px-4 text-sm border border-border-input box-border focus:border-input-focus focus:ring-1 focus:ring-border-input-focus outline-none"
-            id="placeName"
-            onChange={(e) => handleChange('placeName', e.target.value)}
+            id="shopName"
+            onChange={(e) => handleChange('shopName', e.target.value)}
             autoComplete="off"
           ></input>
         </div>

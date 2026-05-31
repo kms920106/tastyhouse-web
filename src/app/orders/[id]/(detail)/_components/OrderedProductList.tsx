@@ -4,15 +4,15 @@ import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
 interface Props {
-  placeName: string
+  shopName: string
   orderItems: OrderedProduct[]
 }
 
-export default function OrderedProductList({ placeName, orderItems }: Props) {
+export default function OrderedProductList({ shopName, orderItems }: Props) {
   return (
     <>
       <div className="px-[15px] pt-5 pb-[15px]">
-        <h2 className="text-base leading-[16px]">{placeName}</h2>
+        <h2 className="text-base leading-[16px]">{shopName}</h2>
       </div>
       <div className="px-4 pb-[5px]">
         <div className="divide-y divide-line first:border-t border-line">

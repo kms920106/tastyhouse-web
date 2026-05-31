@@ -12,11 +12,11 @@ interface Props {
 export default async function Page({ params }: Props) {
   const [{ id }, isLoggedIn] = await Promise.all([params, getIsLoggedIn()])
 
-  const placeId = Number(id)
+  const shopId = Number(id)
 
   if (!isLoggedIn) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  return <OrderMethodPage placeId={placeId} />
+  return <OrderMethodPage shopId={shopId} />
 }

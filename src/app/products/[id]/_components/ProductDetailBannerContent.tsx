@@ -1,4 +1,4 @@
-import PlaceImageGallery from '@/components/places/PlaceImageGallery'
+import ShopImageGallery from '@/components/shops/ShopImageGallery'
 import { productRepository } from '@/domains/product/product.repository'
 
 interface Props {
@@ -14,5 +14,5 @@ export default async function ProductDetailBannerContent({ productId }: Props) {
 
   const { imageUrls } = data
 
-  return <PlaceImageGallery imageUrls={imageUrls} />
+  return <ShopImageGallery imageUrls={imageUrls} />
 }

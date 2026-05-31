@@ -11,7 +11,7 @@ export interface ReviewBestListItemResponse {
   content: string
   imageUrl: string
   stationName: string
-  placeName: string
+  shopName: string
   productName: string
   totalRating: number
 }
@@ -32,8 +32,8 @@ export interface ReviewLatestListItemResponse {
 
 export interface ReviewDetailResponse {
   id: number
-  placeId: number
-  placeName: string
+  shopId: number
+  shopName: string
   stationName: string
   content: string
   totalRating: number

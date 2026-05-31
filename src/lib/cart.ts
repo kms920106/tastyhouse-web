@@ -13,7 +13,7 @@ export interface CartProduct {
 }
 
 export interface CartData {
-  placeId: number
+  shopId: number
   products: CartProduct[]
 }
 
@@ -31,13 +31,20 @@ export function generateOptionKey(productId: number, selectedOptions: CartSelect
 
 /**
  * localStorage에서 장바구니 데이터 조회
+ * 하위호환: 기존 placeId 키로 저장된 데이터도 shopId로 읽음
  */
 export function getCartData(): CartData | null {
   if (typeof window === 'undefined') return null
 
   try {
     const data = localStorage.getItem(CART_STORAGE_KEY)
-    return data ? JSON.parse(data) : null
+    if (!data) return null
+    const parsed = JSON.parse(data)
+    // 구 버전(placeId) 하위호환 처리
+    if (parsed && parsed.shopId == null && parsed.placeId != null) {
+      parsed.shopId = parsed.placeId
+    }
+    return parsed
   } catch {
     return null
   }
@@ -51,10 +58,10 @@ export function getCartProducts(): CartProduct[] {
 }
 
 /**
- * 장바구니의 placeId 조회
+ * 장바구니의 shopId 조회
  */
-export function getCartPlaceId(): number | null {
-  return getCartData()?.placeId ?? null
+export function getCartShopId(): number | null {
+  return getCartData()?.shopId ?? null
 }
 
 /**
@@ -63,7 +70,7 @@ export function getCartPlaceId(): number | null {
  * 다른 가게의 상품이 이미 있으면 false 반환 (교체 필요)
  */
 export function addToCart(
-  placeId: number,
+  shopId: number,
   item: Omit<CartProduct, 'optionKey' | 'quantity'>,
   quantity: number = 1,
 ): CartData {
@@ -83,7 +90,7 @@ export function addToCart(
     })
   }
 
-  const newCart: CartData = { placeId, products }
+  const newCart: CartData = { shopId, products }
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart))
   return newCart
 }
@@ -92,13 +99,13 @@ export function addToCart(
  * 장바구니를 초기화하고 새 가게의 상품 추가
  */
 export function replaceCartAndAdd(
-  placeId: number,
+  shopId: number,
   item: Omit<CartProduct, 'optionKey' | 'quantity'>,
   quantity: number = 1,
 ): CartData {
   const optionKey = generateOptionKey(item.productId, item.selectedOptions)
   const newCart: CartData = {
-    placeId,
+    shopId,
     products: [{ ...item, optionKey, quantity }],
   }
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart))

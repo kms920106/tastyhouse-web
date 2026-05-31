@@ -1,14 +1,14 @@
 import FetchErrorState from '@/components/ui/FetchErrorState'
-import { placeRepository } from '@/domains/place/place.repository'
+import { shopRepository } from '@/domains/shop/shop.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import OrderMethodContentClient from './OrderMethodContentClient'
 
 interface Props {
-  placeId: number
+  shopId: number
 }
 
-export default async function OrderMethodContent({ placeId }: Props) {
-  const { error, status, data } = await placeRepository.getPlaceOrderMethods(placeId)
+export default async function OrderMethodContent({ shopId }: Props) {
+  const { error, status, data } = await shopRepository.getShopOrderMethods(shopId)
 
   if ((error && status === 404) || !data) {
     return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('주문 수단')} />
@@ -20,5 +20,5 @@ export default async function OrderMethodContent({ placeId }: Props) {
 
   const { orderMethods } = data
 
-  return <OrderMethodContentClient placeId={placeId} orderMethods={orderMethods} />
+  return <OrderMethodContentClient shopId={shopId} orderMethods={orderMethods} />
 }

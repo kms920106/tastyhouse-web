@@ -1,7 +1,7 @@
 'use client'
 
 import { useSidebar } from '@/components/ui/shadcn/sidebar'
-import { usePlaceFoodTypes } from '@/domains/place/place.hook'
+import { useShopFoodTypes } from '@/domains/shop/shop.hook'
 import Link from 'next/link'
 import { useState } from 'react'
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'
@@ -12,7 +12,7 @@ const PAGE_SIZE = 6
 
 export default function MenuSidebarFoodTypes() {
   const { setOpenMobile } = useSidebar()
-  const { foodTypes } = usePlaceFoodTypes()
+  const { foodTypes } = useShopFoodTypes()
   const [categoryPage, setCategoryPage] = useState(0)
 
   const categoryTotalPages = Math.ceil(foodTypes.length / PAGE_SIZE)

@@ -1,5 +1,5 @@
 import HomeBannerSection from './HomeBannerSection'
-import HomeBestPlaceSection from './HomeBestPlaceSection'
+import HomeBestShopSection from './HomeBestShopSection'
 import HomeBestReviewSection from './HomeBestReviewSection'
 import HomeChoiceSection from './HomeChoiceSection'
 import QuickReviewLink from '@/components/ui/QuickReviewLink'
@@ -18,7 +18,7 @@ export default function HomePage() {
       <HomeBestReviewSection />
 
       {/* 베스트 플레이스 */}
-      <HomeBestPlaceSection />
+      <HomeBestShopSection />
 
       {/* 오늘의 할인 */}
       <HomeTodayDiscountSection />

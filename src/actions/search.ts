@@ -50,7 +50,7 @@ export async function getSearchReviews({
   return searchRepository.searchReviews({ query, page, size })
 }
 
-export async function getSearchPlaces({
+export async function getSearchShops({
   query,
   page,
   size,
@@ -59,10 +59,10 @@ export async function getSearchPlaces({
   page: number
   size: number
 }) {
-  return searchRepository.searchPlaces({ query, page, size })
+  return searchRepository.searchShops({ query, page, size })
 }
 
-export async function getSearchPublicPlaces({
+export async function getSearchPublicShops({
   query,
   page,
   size,
@@ -71,5 +71,5 @@ export async function getSearchPublicPlaces({
   page: number
   size: number
 }) {
-  return searchRepository.searchPublicPlaces({ query, page, size })
+  return searchRepository.searchPublicShops({ query, page, size })
 }

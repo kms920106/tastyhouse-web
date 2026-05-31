@@ -6,7 +6,7 @@ import type {
   MemberProfileResponse,
   MemberCouponListItemResponse,
   MemberStatsResponse,
-  MyBookmarkedPlaceListItemResponse,
+  MyBookmarkedShopListItemResponse,
   MyGradeResponse,
   MyReviewCountResponse,
   MyReviewListItemResponse,
@@ -74,7 +74,7 @@ export const memberRepository = {
   },
   // 내가 즐겨찾기한 플레이스 목록 조회
   async getMyBookmarks(params: PaginationParams) {
-    return api.get<MyBookmarkedPlaceListItemResponse[]>(`${ENDPOINT}/v1/me/bookmarks`, {
+    return api.get<MyBookmarkedShopListItemResponse[]>(`${ENDPOINT}/v1/me/bookmarks`, {
       params,
     })
   },

@@ -1,7 +1,7 @@
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import SearchResultAllMenuContent from './SearchResultAllMenuContent'
-import SearchResultAllPlaceContent from './SearchResultAllPlaceContent'
+import SearchResultAllShopContent from './SearchResultAllShopContent'
 import SearchResultAllReviewContent from './SearchResultAllReviewContent'
 
 interface Props {
@@ -19,7 +19,7 @@ export default function SearchResultAllTabContent({ query, isLoggedIn }: Props) 
         <SearchResultAllReviewContent query={query} />
       </BorderedSection>
       <BorderedSection>
-        <SearchResultAllPlaceContent query={query} isLoggedIn={isLoggedIn} />
+        <SearchResultAllShopContent query={query} isLoggedIn={isLoggedIn} />
       </BorderedSection>
     </SectionStack>
   )

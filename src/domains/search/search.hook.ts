@@ -1,6 +1,6 @@
 'use client'
 
-import { getSearchMenus, getSearchPlaces, getSearchPublicPlaces, getSearchReviews } from '@/actions/search'
+import { getSearchMenus, getSearchShops, getSearchPublicShops, getSearchReviews } from '@/actions/search'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 const SEARCH_MENU_PREVIEW_SIZE = 3
@@ -37,13 +37,13 @@ export function useSearchReviewsPreview(query: string) {
   })
 }
 
-export function useSearchPlacesPreview(query: string, isLoggedIn: boolean) {
+export function useSearchShopsPreview(query: string, isLoggedIn: boolean) {
   return useQuery({
     queryKey: searchQueryKeys.placesPreview(query, isLoggedIn),
     queryFn: () =>
       isLoggedIn
-        ? getSearchPlaces({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE })
-        : getSearchPublicPlaces({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE }),
+        ? getSearchShops({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE })
+        : getSearchPublicShops({ query, page: 0, size: SEARCH_PLACE_PREVIEW_SIZE }),
     enabled: query.trim().length > 0,
   })
 }
@@ -78,13 +78,13 @@ export function useSearchReviewsInfinite(query: string) {
   })
 }
 
-export function useSearchPlacesInfinite(query: string, isLoggedIn: boolean) {
+export function useSearchShopsInfinite(query: string, isLoggedIn: boolean) {
   return useInfiniteQuery({
     queryKey: searchQueryKeys.placesInfinite(query, isLoggedIn),
     queryFn: ({ pageParam }) =>
       isLoggedIn
-        ? getSearchPlaces({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE })
-        : getSearchPublicPlaces({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE }),
+        ? getSearchShops({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE })
+        : getSearchPublicShops({ query, page: pageParam, size: SEARCH_PLACE_PAGE_SIZE }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       if (!lastPage.pagination) return undefined

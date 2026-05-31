@@ -9,8 +9,8 @@ import Link from 'next/link'
 
 interface Props {
   id: number
-  placeThumbnailImageUrl: string
-  placeName: string
+  shopThumbnailImageUrl: string
+  shopName: string
   firstProductName: string
   totalItemCount: number
   price: number
@@ -20,8 +20,8 @@ interface Props {
 
 export default function OrderListItem({
   id,
-  placeThumbnailImageUrl,
-  placeName,
+  shopThumbnailImageUrl,
+  shopName,
   firstProductName,
   totalItemCount,
   price,
@@ -36,9 +36,9 @@ export default function OrderListItem({
     <Link href={PAGE_PATHS.ORDER_DETAIL(id)} className="block">
       <div className="flex items-center justify-between py-[15px]">
         <div className="flex items-center gap-[15px]">
-          <ImageContainer src={placeThumbnailImageUrl} alt={placeName} size={60} />
+          <ImageContainer src={shopThumbnailImageUrl} alt={shopName} size={60} />
           <div className="flex-1 flex flex-col min-w-0">
-            <p className="text-[11px] leading-[11px] text-[#888888] truncate">{placeName}</p>
+            <p className="text-[11px] leading-[11px] text-[#888888] truncate">{shopName}</p>
             <p className="text-sm leading-[14px] mt-[7px]">
               {formatOrderSummary(firstProductName, totalItemCount)}
             </p>

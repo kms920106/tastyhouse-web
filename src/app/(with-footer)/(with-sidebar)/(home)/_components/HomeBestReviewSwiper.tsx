@@ -21,7 +21,7 @@ interface BestReviewItem {
   content: string
   imageUrl: string
   stationName: string
-  placeName: string
+  shopName: string
   productName: string
   totalRating: number
 }
@@ -98,7 +98,7 @@ export default function HomeBestReviewSwiper({ reviews }: Props) {
                   <Rating value={review.totalRating} />
                 </div>
                 <h3 className="mb-[19px]  leading-[16px] truncate">
-                  [{review.placeName}] {review.productName}
+                  [{review.shopName}] {review.productName}
                 </h3>
                 <p className="text-xs leading-relaxed text-[#666666] line-clamp-4">
                   {review.content}

@@ -2,7 +2,7 @@ import { PaymentStatus } from '../payment'
 import type { OrderProduct } from './order.model'
 
 export interface OrderCreateRequest {
-  placeId: number
+  shopId: number
   orderItems: OrderProduct[]
   memberCouponId: number | null
   usePoint: number
@@ -19,8 +19,8 @@ export interface OrderCreateResponse {
 
 export interface OrderListItemResponse {
   id: number
-  placeName: string
-  placeThumbnailImageUrl: string
+  shopName: string
+  shopThumbnailImageUrl: string
   firstProductName: string
   totalItemCount: number
   amount: number

@@ -5,7 +5,7 @@ interface Props {
   id: number
   imageUrl: string
   name: string
-  placeName: string
+  shopName: string
   originalPrice: number
   discountPrice: number
   discountRate: number
@@ -14,7 +14,7 @@ interface Props {
 export default function DiscountProductItem({
   imageUrl,
   name,
-  placeName,
+  shopName,
   originalPrice,
   discountPrice,
   discountRate,
@@ -23,7 +23,7 @@ export default function DiscountProductItem({
     <div className="flex items-center gap-4">
       <ImageContainer src={imageUrl} alt={name} size={75} />
       <div className="flex-1 flex flex-col min-w-0">
-        <p className="mb-2.5 text-xs leading-[12px] truncate">{placeName}</p>
+        <p className="mb-2.5 text-xs leading-[12px] truncate">{shopName}</p>
         <h3 className="mb-[17px] text-base leading-[16px] truncate">{name}</h3>
         <div className="flex justify-between">
           {discountRate === null ? (

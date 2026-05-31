@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!data) return {}
 
-  const title = `${data.placeName} 리뷰`
+  const title = `${data.shopName} 리뷰`
   const description = data.content
   const thumbnailUrl = data.imageUrls[0]
 

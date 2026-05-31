@@ -16,7 +16,7 @@ import { HomeChoiceSwiperSkeleton } from './HomeChoiceSwiperSkeleton'
 interface Product {
   id: number
   name: string
-  placeName: string
+  shopName: string
   imageUrl: string
   originalPrice: number
   discountPrice: number

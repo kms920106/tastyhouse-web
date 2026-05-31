@@ -2,14 +2,14 @@ import OrderMethodContent from './OrderMethodContent'
 import OrderMethodHeader from './OrderMethodHeader'
 
 interface Props {
-  placeId: number
+  shopId: number
 }
 
-export default function OrderMethodPage({ placeId }: Props) {
+export default function OrderMethodPage({ shopId }: Props) {
   return (
     <>
       <OrderMethodHeader />
-      <OrderMethodContent placeId={placeId} />
+      <OrderMethodContent shopId={shopId} />
     </>
   )
 }

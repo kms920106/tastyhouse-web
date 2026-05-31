@@ -57,13 +57,13 @@ export const PAGE_PATHS = {
 
   // 주문
   ORDERS: '/orders',
-  ORDER_METHOD: (placeId: string | number) => `/places/${placeId}/order/method`,
-  ORDER_MENUS: (placeId: string | number, method: OrderMethodType) =>
-    `/places/${placeId}/order/menus?orderMethod=${encodeURIComponent(method)}`,
-  ORDER_MENU_DETAIL: (placeId: number, menuId: number) =>
-    `/places/${placeId}/order/menus/${menuId}`,
-  ORDER_CART: (placeId: string | number) => `/places/${placeId}/order/cart`,
-  ORDER_CHECKOUT: (placeId: string | number) => `/places/${placeId}/order/checkout`,
+  ORDER_METHOD: (shopId: string | number) => `/places/${shopId}/order/method`,
+  ORDER_MENUS: (shopId: string | number, method: OrderMethodType) =>
+    `/places/${shopId}/order/menus?orderMethod=${encodeURIComponent(method)}`,
+  ORDER_MENU_DETAIL: (shopId: number, menuId: number) =>
+    `/places/${shopId}/order/menus/${menuId}`,
+  ORDER_CART: (shopId: string | number) => `/places/${shopId}/order/cart`,
+  ORDER_CHECKOUT: (shopId: string | number) => `/places/${shopId}/order/checkout`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
   ORDERS_REVIEWS_CREATE: (orderItemId: number) =>
@@ -85,9 +85,9 @@ export const PAGE_PATHS = {
   PLACE_DETAIL: (id: string | number) => `/places/${id}`,
   PLACE_FILTER: '/places/filter',
   PLACE_REVIEWS: (id: number) => `/places/${id}/reviews`,
-  PLACE_PRODUCT_DETAIL: (placeId: number, productId: number) =>
-    `/places/${placeId}/products/${productId}`,
-  PLACE_MENU_DETAIL: (placeId: number, menuId: number) => `/places/${placeId}/menus/${menuId}`,
+  PLACE_PRODUCT_DETAIL: (shopId: number, productId: number) =>
+    `/places/${shopId}/products/${productId}`,
+  PLACE_MENU_DETAIL: (shopId: number, menuId: number) => `/places/${shopId}/menus/${menuId}`,
 
   // 포인트
   POINT: '/point',

@@ -7,7 +7,7 @@ import { LiaPlusSolid } from 'react-icons/lia'
 
 interface Props {
   cartItems: OrderProduct[]
-  placeName: string
+  shopName: string
   selectedKeys: Set<string>
   onToggleSelect: (optionKey: string) => void
   onQuantityChange: (optionKey: string, quantity: number) => void
@@ -16,7 +16,7 @@ interface Props {
 
 export default function CartItemList({
   cartItems,
-  placeName,
+  shopName,
   selectedKeys,
   onToggleSelect,
   onQuantityChange,
@@ -40,7 +40,7 @@ export default function CartItemList({
   return (
     <>
       <div className="px-[15px] divide-y divide-[#f2f2f2]">
-        <h2 className="py-5 text-base leading-[16px]">{placeName}</h2>
+        <h2 className="py-5 text-base leading-[16px]">{shopName}</h2>
         {cartItems.map((item) => (
           <OrderCartItem
             key={item.optionKey}

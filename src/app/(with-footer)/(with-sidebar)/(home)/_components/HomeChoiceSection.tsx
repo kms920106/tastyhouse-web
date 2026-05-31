@@ -1,4 +1,4 @@
-import HomeChoicePlaceContent from './HomeChoicePlaceContent'
+import HomeChoiceShopContent from './HomeChoiceShopContent'
 import HomeSectionHeader from './HomeSectionHeader'
 
 export default async function HomeChoiceSection() {
@@ -9,7 +9,7 @@ export default async function HomeChoiceSection() {
         description="요즘 주목받고 있는 플레이스를 소개합니다."
       />
       <div className="pl-4 pb-10">
-        <HomeChoicePlaceContent />
+        <HomeChoiceShopContent />
       </div>
     </section>
   )

@@ -95,8 +95,8 @@ export interface MyReviewListItemResponse {
 
 export interface MyPaymentListItemResponse {
   paymentId: number
-  placeName: string
-  placeThumbnailImageUrl: string
+  shopName: string
+  shopThumbnailImageUrl: string
   firstProductName: string
   totalItemCount: number
   amount: number
@@ -104,10 +104,10 @@ export interface MyPaymentListItemResponse {
   paymentDate: string
 }
 
-export interface MyBookmarkedPlaceListItemResponse {
+export interface MyBookmarkedShopListItemResponse {
   bookmarkId: number
-  placeId: number
-  placeName: string
+  shopId: number
+  shopName: string
   stationName: string
   rating: number
   imageUrl: string

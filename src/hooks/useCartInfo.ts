@@ -15,7 +15,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export interface CartInfo {
   items: OrderProduct[]
-  placeName: string
+  shopName: string
   firstProductName: string
   totalItemCount: number
   totalProductAmount: number
@@ -102,7 +102,7 @@ async function fetchProductDetails(
 
 interface CartState {
   items: OrderProduct[]
-  placeName: string
+  shopName: string
   firstProductName: string
   totalItemCount: number
   isLoading: boolean
@@ -110,7 +110,7 @@ interface CartState {
 
 const initialCartState: CartState = {
   items: [],
-  placeName: '',
+  shopName: '',
   firstProductName: '',
   totalItemCount: 0,
   isLoading: true,
@@ -158,7 +158,7 @@ export function useCartInfo(): CartInfo {
 
     setState({
       items: orderItems,
-      placeName: '',
+      shopName: '',
       firstProductName: orderItems[0]?.name ?? '',
       totalItemCount: getCartProductTypeCount(),
       isLoading: false,

@@ -1,7 +1,7 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
-import PlaceOrderCartPage from './_components/PlaceOrderCartPage'
+import ShopOrderCartPage from './_components/ShopOrderCartPage'
 
 interface Props {
   params: Promise<{
@@ -11,10 +11,10 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const [{ id }, isLoggedIn] = await Promise.all([params, getIsLoggedIn()])
-  const placeId = Number(id)
+  const shopId = Number(id)
   if (!isLoggedIn) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
-  return <PlaceOrderCartPage placeId={placeId} />
+  return <ShopOrderCartPage shopId={shopId} />
 }

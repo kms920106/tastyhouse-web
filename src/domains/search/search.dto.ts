@@ -10,9 +10,9 @@ export interface RecommendedKeywordResponse {
   keyword: string
 }
 
-export interface SearchPlaceListItemResponse {
-  placeId: number
-  placeName: string
+export interface SearchShopListItemResponse {
+  shopId: number
+  shopName: string
   stationName: string
   rating: number
   imageUrl: string
@@ -21,7 +21,7 @@ export interface SearchPlaceListItemResponse {
 
 export interface SearchMenuListItemResponse {
   id: number
-  placeName: string
+  shopName: string
   name: string
   imageUrl: string | null
   originalPrice: number

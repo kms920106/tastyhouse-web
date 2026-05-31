@@ -26,8 +26,8 @@ export default function OrderList({ orders, hasMoreOrders }: Props) {
           <OrderListItem
             key={order.id}
             id={order.id}
-            placeThumbnailImageUrl={order.placeThumbnailImageUrl}
-            placeName={order.placeName}
+            shopThumbnailImageUrl={order.shopThumbnailImageUrl}
+            shopName={order.shopName}
             firstProductName={order.firstProductName}
             totalItemCount={order.totalItemCount}
             price={order.amount}

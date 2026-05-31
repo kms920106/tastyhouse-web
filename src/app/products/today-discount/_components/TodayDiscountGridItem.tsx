@@ -7,7 +7,7 @@ interface Props {
   id: number
   imageUrl: string
   name: string
-  placeName: string
+  shopName: string
   originalPrice: number
   discountPrice: number
   discountRate: number
@@ -17,7 +17,7 @@ export default function TodayDiscountGridItem({
   id,
   imageUrl,
   name,
-  placeName,
+  shopName,
   originalPrice,
   discountPrice,
   discountRate,
@@ -30,7 +30,7 @@ export default function TodayDiscountGridItem({
         )}
       </div>
       <div className="pt-2.5">
-        <p className="text-xs leading-[12px] text-[#aaaaaa] truncate mb-1.5">{placeName}</p>
+        <p className="text-xs leading-[12px] text-[#aaaaaa] truncate mb-1.5">{shopName}</p>
         <h3 className="text-sm leading-[14px] text-[#333333] truncate mb-2">{name}</h3>
         <div className="flex items-baseline gap-1.5 flex-wrap">
           <span className="text-sm leading-[14px] font-medium text-[#333333]">

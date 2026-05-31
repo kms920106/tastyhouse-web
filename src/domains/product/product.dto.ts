@@ -21,7 +21,7 @@ export interface ProductDetailResponse {
   discountPrice: number | null
   discountRate: number | null
   isSoldOut: boolean
-  placeId: number
+  shopId: number
 }
 
 export interface ProductReviewCountResponse {
@@ -65,7 +65,7 @@ export interface ProductReviewsByRatingResponse {
 export interface ProductTodayDiscountListItemResponse {
   id: number
   name: string
-  placeName: string
+  shopName: string
   imageUrl: string
   originalPrice: number
   discountPrice: number

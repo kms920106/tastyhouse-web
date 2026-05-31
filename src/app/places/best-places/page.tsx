@@ -1,5 +1,5 @@
-import BestPlacePage from './_components/BestPlacePage'
+import BestShopPage from './_components/BestShopPage'
 
 export default function Page() {
-  return <BestPlacePage />
+  return <BestShopPage />
 }

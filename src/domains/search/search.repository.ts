@@ -6,7 +6,7 @@ import type {
   PopularKeywordResponse,
   RecommendedKeywordResponse,
   SearchMenuListItemResponse,
-  SearchPlaceListItemResponse,
+  SearchShopListItemResponse,
   SearchQuery,
   SearchReviewListItemResponse,
 } from './search.dto'
@@ -30,14 +30,14 @@ export const searchRepository = {
       params,
     })
   },
-  async searchPlaces(params: SearchQuery) {
-    return api.get<SearchPlaceListItemResponse[], SearchQuery>(`${ENDPOINT}/v1/places`, {
+  async searchShops(params: SearchQuery) {
+    return api.get<SearchShopListItemResponse[], SearchQuery>(`${ENDPOINT}/v1/shops`, {
       params,
     })
   },
-  async searchPublicPlaces(params: SearchQuery) {
-    return publicApi.get<SearchPlaceListItemResponse[], SearchQuery>(
-      `${ENDPOINT}/v1/places/public`,
+  async searchPublicShops(params: SearchQuery) {
+    return publicApi.get<SearchShopListItemResponse[], SearchQuery>(
+      `${ENDPOINT}/v1/shops/public`,
       { params },
     )
   },

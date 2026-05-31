@@ -49,8 +49,8 @@ export interface OrderedProduct {
 
 export interface Order {
   id: number
-  placeName: string
-  placeThumbnailImageUrl: string
+  shopName: string
+  shopThumbnailImageUrl: string
   firstProductName: string
   totalItemCount: number
   amount: number
@@ -62,8 +62,8 @@ export interface OrderDetail {
   id: number
   orderNumber: string
   paymentStatus: PaymentStatus
-  placeName: string
-  placePhoneNumber: string
+  shopName: string
+  shopPhoneNumber: string
   ordererName: string
   ordererPhone: string
   ordererEmail: string

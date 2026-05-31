@@ -8,18 +8,18 @@ import { useState } from 'react'
 import OrderMethodGrid from './OrderMethodGrid'
 
 interface Props {
-  placeId: number
+  shopId: number
   orderMethods: OrderMethod[]
 }
 
-export default function OrderMethodContentClient({ placeId, orderMethods }: Props) {
+export default function OrderMethodContentClient({ shopId, orderMethods }: Props) {
   const router = useRouter()
 
   const [selectedMethod, setSelectedMethod] = useState<OrderMethodType | null>(null)
 
   const handleNext = () => {
     if (selectedMethod) {
-      router.push(PAGE_PATHS.ORDER_MENUS(placeId, selectedMethod))
+      router.push(PAGE_PATHS.ORDER_MENUS(shopId, selectedMethod))
     }
   }
 

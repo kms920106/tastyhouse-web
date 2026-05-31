@@ -4,10 +4,10 @@ import { getCartItemCount } from '@/lib/cart'
 import { useEffect, useState } from 'react'
 
 interface Props {
-  placeId: number
+  shopId: number
 }
 
-export default function CartItemCount({ placeId }: Props) {
+export default function CartItemCount({ shopId }: Props) {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function CartItemCount({ placeId }: Props) {
       window.removeEventListener('storage', handleStorageChange)
       window.removeEventListener('cartUpdated', updateCount)
     }
-  }, [placeId])
+  }, [shopId])
 
   return (
     <>

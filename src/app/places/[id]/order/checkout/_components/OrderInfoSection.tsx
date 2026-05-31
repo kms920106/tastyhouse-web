@@ -15,14 +15,14 @@ interface OrderItem {
 }
 
 interface Props {
-  placeName: string
+  shopName: string
   items: OrderItem[]
   firstProductName: string
   totalItemCount: number
 }
 
 export default function OrderInfoSection({
-  placeName,
+  shopName,
   items,
   firstProductName,
   totalItemCount,
@@ -32,7 +32,7 @@ export default function OrderInfoSection({
       <AccordionItem value="order-info" className="border-b-0">
         <AccordionTrigger className="items-center px-[15px] pt-5 pb-[15px] hover:no-underline">
           <div className="flex-1 flex items-center justify-between gap-2">
-            <h2 className="text-base leading-[16px]">{placeName}</h2>
+            <h2 className="text-base leading-[16px]">{shopName}</h2>
             <span className="text-xs leading-[12px] text-[#aaaaaa]">
               {formatOrderSummary(firstProductName, totalItemCount)}
             </span>

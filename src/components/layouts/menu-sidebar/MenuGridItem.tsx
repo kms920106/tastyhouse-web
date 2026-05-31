@@ -1,8 +1,8 @@
-import FoodTypeItemContent from '@/components/places/FoodTypeItemContent'
-import type { PlaceFood } from '@/domains/place/place.model'
+import FoodTypeItemContent from '@/components/shops/FoodTypeItemContent'
+import type { ShopFood } from '@/domains/shop/shop.model'
 
 interface Props {
-  foodType: PlaceFood
+  foodType: ShopFood
 }
 
 export default function MenuGridItem({ foodType }: Props) {

@@ -1,8 +1,8 @@
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
-import PlaceOrderMenuDetailPage from './_components/PlaceOrderMenuDetailPage'
-import type { ProductOrderMenuDetailTab } from './_components/PlaceOrderMenuDetailProductOptionTabs'
+import ShopOrderMenuDetailPage from './_components/ShopOrderMenuDetailPage'
+import type { ProductOrderMenuDetailTab } from './_components/ShopOrderMenuDetailProductOptionTabs'
 
 interface Props {
   params: Promise<{
@@ -29,7 +29,7 @@ export default async function Page({ params, searchParams }: Props) {
     getIsLoggedIn(),
   ])
 
-  const placeId = Number(id)
+  const shopId = Number(id)
   const productId = Number(menuId)
   const initialTab = parseProductMenuDetailTab(tab)
 
@@ -38,6 +38,6 @@ export default async function Page({ params, searchParams }: Props) {
   }
 
   return (
-    <PlaceOrderMenuDetailPage placeId={placeId} productId={productId} tab={initialTab} />
+    <ShopOrderMenuDetailPage shopId={shopId} productId={productId} tab={initialTab} />
   )
 }
