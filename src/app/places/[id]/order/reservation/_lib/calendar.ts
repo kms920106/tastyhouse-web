@@ -5,6 +5,7 @@ export interface CalendarCell {
   day: number | null
   weekday: number
   isPast: boolean
+  isToday: boolean
 }
 
 export function formatYearMonth(year: number, month: number): string {
@@ -23,7 +24,7 @@ export function buildMonthGrid(year: number, month: number): CalendarCell[] {
 
   // 앞 패딩
   for (let i = 0; i < firstDay.getDay(); i++) {
-    cells.push({ date: null, day: null, weekday: i, isPast: false })
+    cells.push({ date: null, day: null, weekday: i, isPast: false, isToday: false })
   }
 
   // 해당 월 날짜
@@ -34,6 +35,7 @@ export function buildMonthGrid(year: number, month: number): CalendarCell[] {
       day: d,
       weekday: dateObj.getDay(),
       isPast: dateObj < today,
+      isToday: dateObj.getTime() === today.getTime(),
     })
   }
 
@@ -42,7 +44,7 @@ export function buildMonthGrid(year: number, month: number): CalendarCell[] {
   if (remainder !== 0) {
     const padCount = 7 - remainder
     for (let i = 0; i < padCount; i++) {
-      cells.push({ date: null, day: null, weekday: (lastDay.getDay() + 1 + i) % 7, isPast: false })
+      cells.push({ date: null, day: null, weekday: (lastDay.getDay() + 1 + i) % 7, isPast: false, isToday: false })
     }
   }
 

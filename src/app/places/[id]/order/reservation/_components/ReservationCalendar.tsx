@@ -1,7 +1,7 @@
 'use client'
 
+import Icon from '@/components/ui/Icon'
 import { cn } from '@/lib/utils'
-import { IoChevronBack } from 'react-icons/io5'
 import { buildMonthGrid, formatYearMonth } from '../_lib/calendar'
 
 interface Props {
@@ -23,65 +23,65 @@ export default function ReservationCalendar({
 
   return (
     <div className="px-[15px] py-6">
-      <div className="flex items-center justify-center gap-4 mb-6">
-        <button onClick={() => onChangeMonth(-1)} aria-label="이전 달" className="p-2">
-          <IoChevronBack size={20} />
-        </button>
-        <span className="text-[20px]">{formatYearMonth(viewMonth.year, viewMonth.month)}</span>
-        <button onClick={() => onChangeMonth(1)} aria-label="다음 달" className="p-2">
-          <IoChevronBack size={20} className="rotate-180" />
-        </button>
-      </div>
+      <div className="bg-[#fcfcfc] border border-line rounded-[5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)] p-5">
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <button onClick={() => onChangeMonth(-1)} aria-label="이전 달" className="p-2">
+            <Icon name="nav-left" />
+          </button>
+          <span className="text-[20px]">{formatYearMonth(viewMonth.year, viewMonth.month)}</span>
+          <button onClick={() => onChangeMonth(1)} aria-label="다음 달" className="p-2">
+            <Icon name="nav-right" />
+          </button>
+        </div>
 
-      <div className="grid grid-cols-7 mb-3">
-        {WEEKDAYS.map((day, index) => (
-          <div
-            key={day}
-            className={cn(
-              'text-sm leading-[14px] text-center py-2',
-              index === 0 ? 'text-[#ed5151]' : index === 6 ? 'text-[#499eff]' : 'text-black',
-            )}
-          >
-            {day}
-          </div>
-        ))}
-      </div>
+        <div className="grid grid-cols-7 mb-3">
+          {WEEKDAYS.map((day) => (
+            <div key={day} className="text-sm leading-[14px] text-center text-black py-2">
+              {day}
+            </div>
+          ))}
+        </div>
 
-      <div className="grid grid-cols-7 gap-y-2">
-        {cells.map((cell, index) => {
-          if (!cell.date || cell.day === null) {
-            return <div key={index} />
-          }
+        <div className="grid grid-cols-7 gap-y-2">
+          {cells.map((cell, index) => {
+            if (!cell.date || cell.day === null) {
+              return <div key={index} />
+            }
 
-          const isSelected = cell.date === selectedDate
-          const isDisabled = cell.isPast
+            const isSelected = cell.date === selectedDate
+            const isDisabled = cell.isPast
 
-          return (
-            <button
-              key={cell.date}
-              onClick={() => !isDisabled && onSelectDate(cell.date!)}
-              disabled={isDisabled}
-              aria-label={`${viewMonth.year}년 ${viewMonth.month + 1}월 ${cell.day}일`}
-              aria-pressed={isSelected}
-              aria-current={isSelected ? 'date' : undefined}
-              className={cn(
-                'flex items-center justify-center w-[35px] h-[35px] aspect-square text-sm leading-[14px]',
-                isSelected &&
-                  'bg-main text-white rounded-[1.5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
-                isDisabled && 'text-[#cccccc] cursor-not-allowed',
-                !isDisabled && !isSelected && cell.weekday === 0 && 'text-[#ed5151]',
-                !isDisabled && !isSelected && cell.weekday === 6 && 'text-[#499eff]',
-                !isDisabled &&
-                  !isSelected &&
-                  cell.weekday !== 0 &&
-                  cell.weekday !== 6 &&
-                  'text-black',
-              )}
-            >
-              {cell.day}
-            </button>
-          )
-        })}
+            return (
+              <button
+                key={cell.date}
+                onClick={() => !isDisabled && onSelectDate(cell.date!)}
+                disabled={isDisabled}
+                aria-label={`${viewMonth.year}년 ${viewMonth.month + 1}월 ${cell.day}일`}
+                aria-pressed={isSelected}
+                aria-current={isSelected ? 'date' : undefined}
+                className="flex items-center justify-center h-[35px] w-full text-sm leading-[14px] disabled:cursor-not-allowed"
+              >
+                <span
+                  className={cn(
+                    'flex items-center justify-center w-[35px] h-[35px] rounded-[1.5px]',
+                    isSelected && 'bg-main text-white shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
+                    cell.isToday && !isSelected && 'underline underline-offset-4',
+                    isDisabled && 'text-[#cccccc]',
+                    !isDisabled && !isSelected && cell.weekday === 0 && 'text-[#ed5151]',
+                    !isDisabled && !isSelected && cell.weekday === 6 && 'text-[#499eff]',
+                    !isDisabled &&
+                      !isSelected &&
+                      cell.weekday !== 0 &&
+                      cell.weekday !== 6 &&
+                      'text-black',
+                  )}
+                >
+                  {cell.day}
+                </span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       <div className="flex items-center justify-end gap-4 mt-4">
