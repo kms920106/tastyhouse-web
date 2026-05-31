@@ -45,7 +45,7 @@ export default function ReservationTermsSection({
   onOpenTermsDialog,
 }: Props) {
   return (
-    <div className="px-[15px] py-6 border-t-[6px] border-line">
+    <div className="px-[15px] py-6">
       <label className="flex items-center gap-2.5 pb-2.5 border-b border-line cursor-pointer">
         <CircleCheckbox checked={agreedAll} onChange={onAgreedAllChange} />
         <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>

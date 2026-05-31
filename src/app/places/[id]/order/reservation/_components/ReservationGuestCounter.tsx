@@ -7,7 +7,7 @@ interface Props {
 
 export default function ReservationGuestCounter({ count, onChange }: Props) {
   return (
-    <div className="px-[15px] py-6 border-t-[6px] border-line">
+    <div className="px-[15px] py-6">
       <h2 className="mb-4 text-[17px]">인원</h2>
       <div className="flex items-center justify-between">
         <p className="text-[15px] text-[#666666]">방문하시는 인원을 선택해주세요.</p>

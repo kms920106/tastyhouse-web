@@ -3,5 +3,5 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
-  return <div className="min-h-screen flex flex-col bg-white">{children}</div>
+  return <div className="min-h-screen">{children}</div>
 }

@@ -9,7 +9,7 @@ interface Props {
 
 export default function ReservationRequest({ value, onChange }: Props) {
   return (
-    <div className="px-[15px] py-6 border-t-[6px] border-line">
+    <div className="px-[15px] py-6">
       <h2 className="mb-4 text-[17px]">요청사항</h2>
       <AppTextarea
         value={value}

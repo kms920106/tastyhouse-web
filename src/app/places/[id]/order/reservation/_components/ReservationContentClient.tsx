@@ -1,18 +1,21 @@
 'use client'
 
+import { createReservation } from '@/actions/order'
 import {
   fetchAgeVerificationContent,
   fetchElectronicFinancialTransactionsContent,
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
 } from '@/actions/policies'
-import { createReservation } from '@/actions/order'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import AppTermsDialog from '@/components/ui/AppTermsDialog'
-import StickyFooter from '@/components/ui/StickyFooter'
 import { toast } from '@/components/ui/AppToaster'
+import BorderedSection from '@/components/ui/BorderedSection'
+import SectionStack from '@/components/ui/SectionStack'
+import StickyFooter from '@/components/ui/StickyFooter'
 import { useEffect, useState } from 'react'
-import ReservationCalendar from './ReservationCalendar'
+import { shiftMonth } from '../_lib/calendar'
+import ReservationDateTime from './ReservationDateTime'
 import ReservationGuestCounter from './ReservationGuestCounter'
 import ReservationNotice from './ReservationNotice'
 import ReservationRequest from './ReservationRequest'
@@ -20,8 +23,6 @@ import ReservationTermsSection, {
   RESERVATION_TERMS_LIST,
   type ReservationTermsKey,
 } from './ReservationTermsSection'
-import ReservationTimeSlots from './ReservationTimeSlots'
-import { shiftMonth } from '../_lib/calendar'
 
 interface Props {
   shopId: number
@@ -69,9 +70,10 @@ export default function ReservationContentClient({ shopId }: Props) {
   const handleAgreedAll = (checked: boolean) => {
     setAgreedAll(checked)
     setAgreedTerms(
-      Object.fromEntries(
-        RESERVATION_TERMS_LIST.map(({ key }) => [key, checked]),
-      ) as Record<ReservationTermsKey, boolean>,
+      Object.fromEntries(RESERVATION_TERMS_LIST.map(({ key }) => [key, checked])) as Record<
+        ReservationTermsKey,
+        boolean
+      >,
     )
   }
 
@@ -113,25 +115,36 @@ export default function ReservationContentClient({ shopId }: Props) {
 
   return (
     <>
-      <div className="flex-1">
-        <ReservationCalendar
-          viewMonth={viewMonth}
-          selectedDate={selectedDate}
-          onChangeMonth={(delta) => setViewMonth((prev) => shiftMonth(prev, delta))}
-          onSelectDate={setSelectedDate}
-        />
-        <ReservationTimeSlots selectedTime={selectedTime} onSelectTime={setSelectedTime} />
-        <ReservationGuestCounter count={guestCount} onChange={setGuestCount} />
-        <ReservationRequest value={request} onChange={setRequest} />
-        <ReservationNotice />
-        <ReservationTermsSection
-          agreedAll={agreedAll}
-          agreedTerms={agreedTerms}
-          onAgreedAllChange={handleAgreedAll}
-          onTermChange={handleTermChange}
-          onOpenTermsDialog={handleOpenTermsDialog}
-        />
-      </div>
+      <SectionStack className="flex-1">
+        <BorderedSection>
+          <ReservationDateTime
+            viewMonth={viewMonth}
+            selectedDate={selectedDate}
+            selectedTime={selectedTime}
+            onChangeMonth={(delta) => setViewMonth((prev) => shiftMonth(prev, delta))}
+            onSelectDate={setSelectedDate}
+            onSelectTime={setSelectedTime}
+          />
+        </BorderedSection>
+        <BorderedSection>
+          <ReservationGuestCounter count={guestCount} onChange={setGuestCount} />
+        </BorderedSection>
+        <BorderedSection>
+          <ReservationRequest value={request} onChange={setRequest} />
+        </BorderedSection>
+        <BorderedSection>
+          <ReservationNotice />
+        </BorderedSection>
+        <BorderedSection>
+          <ReservationTermsSection
+            agreedAll={agreedAll}
+            agreedTerms={agreedTerms}
+            onAgreedAllChange={handleAgreedAll}
+            onTermChange={handleTermChange}
+            onOpenTermsDialog={handleOpenTermsDialog}
+          />
+        </BorderedSection>
+      </SectionStack>
 
       <StickyFooter>
         <div className="px-[15px] py-2.5">

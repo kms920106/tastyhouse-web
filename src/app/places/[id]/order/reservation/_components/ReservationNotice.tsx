@@ -1,6 +1,6 @@
 export default function ReservationNotice() {
   return (
-    <div className="px-[15px] py-6 border-t-[6px] border-line">
+    <div className="px-[15px] py-6">
       <h2 className="mb-4 text-[17px]">예약시 주의사항 안내</h2>
       <div className="space-y-2 text-sm leading-[21px] text-[#666666]">
         <p>
