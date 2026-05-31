@@ -66,7 +66,7 @@ export default function ReservationCalendar({
               aria-current={isSelected ? 'date' : undefined}
               className={cn(
                 'aspect-square flex items-center justify-center text-sm',
-                isSelected && 'bg-main text-white',
+                isSelected && 'bg-main text-white rounded-[1.5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
                 isDisabled && 'text-[#cccccc] cursor-not-allowed',
                 !isDisabled && !isSelected && cell.weekday === 0 && 'text-red-500',
                 !isDisabled && !isSelected && cell.weekday === 6 && 'text-blue-500',
