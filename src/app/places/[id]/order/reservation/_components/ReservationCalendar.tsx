@@ -39,7 +39,7 @@ export default function ReservationCalendar({
             key={day}
             className={cn(
               'text-sm leading-[14px] text-center py-2',
-              index === 0 ? 'text-red-500' : index === 6 ? 'text-blue-500' : 'text-black',
+              index === 0 ? 'text-[#ed5151]' : index === 6 ? 'text-[#499eff]' : 'text-black',
             )}
           >
             {day}
@@ -65,11 +65,12 @@ export default function ReservationCalendar({
               aria-pressed={isSelected}
               aria-current={isSelected ? 'date' : undefined}
               className={cn(
-                'aspect-square flex items-center justify-center text-sm',
-                isSelected && 'bg-main text-white rounded-[1.5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
+                'flex items-center justify-center w-[35px] h-[35px] aspect-square text-sm leading-[14px]',
+                isSelected &&
+                  'bg-main text-white rounded-[1.5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
                 isDisabled && 'text-[#cccccc] cursor-not-allowed',
-                !isDisabled && !isSelected && cell.weekday === 0 && 'text-red-500',
-                !isDisabled && !isSelected && cell.weekday === 6 && 'text-blue-500',
+                !isDisabled && !isSelected && cell.weekday === 0 && 'text-[#ed5151]',
+                !isDisabled && !isSelected && cell.weekday === 6 && 'text-[#499eff]',
                 !isDisabled &&
                   !isSelected &&
                   cell.weekday !== 0 &&
