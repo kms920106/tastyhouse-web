@@ -1,10 +1,11 @@
 'use client'
 
 import ImageContainer from '@/components/ui/ImageContainer'
+import type { OrderProductOption } from '@/domains/order'
 import { formatNumber } from '@/lib/number'
 import { HiOutlineXMark } from 'react-icons/hi2'
 import CircleCheckbox from '../ui/CircleCheckbox'
-import type { OrderProductOption } from '@/domains/order'
+import QuantityStepper from '../ui/QuantityStepper'
 
 interface Props {
   optionKey: string
@@ -62,25 +63,10 @@ export default function OrderCartItem({
         <button onClick={() => onRemove(optionKey)} className="w-5 h-5 -mt-1">
           <HiOutlineXMark size={20} color="#cccccc" />
         </button>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center border border-[#cccccc]">
-            <button
-              onClick={() => onQuantityChange(optionKey, Math.max(1, quantity - 1))}
-              className="w-[30px] h-[30px] flex items-center justify-center text-sm leading-[14px] text-[#999999]"
-            >
-              −
-            </button>
-            <span className="w-[30px] h-[30px] flex items-center justify-center text-xs leading-[12px] border-x border-[#cccccc] box-border">
-              {quantity}
-            </span>
-            <button
-              onClick={() => onQuantityChange(optionKey, quantity + 1)}
-              className="w-[30px] h-[30px] flex items-center justify-center text-sm leading-[14px] text-[#999999]"
-            >
-              +
-            </button>
-          </div>
-        </div>
+        <QuantityStepper
+          value={quantity}
+          onChange={(next) => onQuantityChange(optionKey, next)}
+        />
       </div>
     </div>
   )
