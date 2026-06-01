@@ -77,8 +77,8 @@ export default function ReservationDateTime({
       return (
         <div className="space-y-4">
           <Skeleton className="h-4 w-12" />
-          <div className="grid grid-cols-3 gap-3">
-            {Array.from({ length: 3 }).map((_, i) => (
+          <div className="grid grid-cols-4 gap-3">
+            {Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-[46px]" />
             ))}
           </div>
@@ -107,7 +107,7 @@ export default function ReservationDateTime({
         {amSlots.length > 0 && (
           <>
             <h2 className="mb-2.5 text-sm leading-[14px]">오전</h2>
-            <div className="grid grid-cols-3 gap-3 mb-8">
+            <div className="grid grid-cols-4 gap-3 mb-8">
               {amSlots.map((slot) => (
                 <TimeSlotButton
                   key={slot.time}
