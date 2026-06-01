@@ -9,9 +9,9 @@ interface Props {
 export default function ReservationGuestCounter({ count, onChange, max = 50 }: Props) {
   return (
     <div className="px-[15px] py-6">
-      <h2 className="mb-4 text-[17px]">인원</h2>
+      <h2 className="mb-4 text-base leading-[16px]">인원</h2>
       <div className="flex items-center justify-between">
-        <p className="text-[15px] text-[#666666]">방문하시는 인원을 선택해주세요.</p>
+        <p className="text-sm leading-[14px]">방문하시는 인원을 선택해주세요.</p>
         <div className="flex items-center border border-line">
           <button
             onClick={() => onChange(Math.max(1, count - 1))}

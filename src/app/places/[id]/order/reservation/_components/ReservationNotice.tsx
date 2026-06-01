@@ -1,7 +1,7 @@
 export default function ReservationNotice() {
   return (
     <div className="px-[15px] py-6">
-      <h2 className="mb-4 text-[17px]">예약시 주의사항 안내</h2>
+      <h2 className="mb-4 text-base leading-[16px]">예약시 주의사항 안내</h2>
       <div className="space-y-2 text-sm leading-[21px] text-[#666666]">
         <p>
           •&nbsp; 예약 인원 변경은 최소 하루 전날까지는 연락 부탁드리며, 예약, 매장 상황에 따라
