@@ -116,14 +116,27 @@ export default function ReservationContentClient({ shopId }: Props) {
   const requiredTermsOk = RESERVATION_TERMS_LIST.filter((t) => t.required).every(
     ({ key }) => agreedTerms[key],
   )
-  const isSubmittable = !!selectedDate && !!selectedTime && requiredTermsOk
 
   const handleReserve = () => {
-    if (!isSubmittable || isPending) return
+    if (isPending) return
+
+    if (!selectedDate) {
+      toast('예약 날짜를 선택해주세요.')
+      return
+    }
+    if (!selectedTime) {
+      toast('예약 시간을 선택해주세요.')
+      return
+    }
+    if (!requiredTermsOk) {
+      toast('필수 약관에 모두 동의해주세요.')
+      return
+    }
+
     reserve({
       shopId,
-      reservationDate: selectedDate!,
-      reservationTime: selectedTime!,
+      reservationDate: selectedDate,
+      reservationTime: selectedTime,
       partySize: guestCount,
       request: request.trim() || undefined,
       agreedRequiredTerms: requiredTermsOk,
@@ -169,8 +182,8 @@ export default function ReservationContentClient({ shopId }: Props) {
 
       <StickyFooter>
         <div className="px-[15px] py-2.5">
-          <AppPrimaryButton onClick={handleReserve} disabled={!isSubmittable || isPending}>
-            예약하기
+          <AppPrimaryButton onClick={handleReserve} disabled={isPending}>
+            {isPending ? '예약 처리 중...' : '예약하기'}
           </AppPrimaryButton>
         </div>
       </StickyFooter>
