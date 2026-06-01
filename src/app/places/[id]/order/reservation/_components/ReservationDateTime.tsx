@@ -35,12 +35,12 @@ function TimeSlotButton({ time, selected, onSelect, disabled }: TimeSlotButtonPr
       onClick={() => !disabled && onSelect(time)}
       disabled={disabled}
       className={cn(
-        'py-3 text-[15px] border rounded-[1px]',
+        'py-3 text-[13px] border rounded-[1px]',
         disabled
-          ? 'border-[#eee] bg-[#eee] text-[#cccccc] cursor-not-allowed'
+          ? 'border-line bg-[#eeeeee] text-[#cccccc] cursor-not-allowed'
           : selected
             ? 'border-main bg-[#f8f5f4] text-main'
-            : 'border-line text-[#666666]',
+            : 'border-line text-[#cccccc]',
       )}
     >
       {time}
@@ -106,7 +106,7 @@ export default function ReservationDateTime({
       <>
         {amSlots.length > 0 && (
           <>
-            <h2 className="mb-4 text-[17px]">오전</h2>
+            <h2 className="mb-2.5 text-sm leading-[14px]">오전</h2>
             <div className="grid grid-cols-3 gap-3 mb-8">
               {amSlots.map((slot) => (
                 <TimeSlotButton
@@ -123,7 +123,7 @@ export default function ReservationDateTime({
 
         {pmSlots.length > 0 && (
           <>
-            <h2 className="mb-4 text-[17px]">오후</h2>
+            <h2 className="mb-2.5 text-sm leading-[14px]">오후</h2>
             <div className="grid grid-cols-4 gap-3">
               {pmSlots.map((slot) => (
                 <TimeSlotButton
@@ -142,9 +142,9 @@ export default function ReservationDateTime({
   }
 
   return (
-    <>
+    <div className="px-[15px] py-[30px]">
       {/* 달력 */}
-      <div className="px-[15px] py-6">
+      <div>
         <div className="bg-[#fcfcfc] border border-line rounded-[5px] shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)] p-5">
           <div className="flex items-center justify-center gap-4 mb-6">
             <button
@@ -195,7 +195,7 @@ export default function ReservationDateTime({
                 >
                   <span
                     className={cn(
-                      'flex items-center justify-center w-[35px] h-[35px] rounded-[1.5px]',
+                      'flex items-center justify-center w-[35px] h-[35px] rounded-[1px]',
                       isSelected &&
                         'bg-main text-white shadow-[0.5px_0_4.5px_rgba(153,153,153,0.1)]',
                       cell.isToday &&
@@ -221,18 +221,18 @@ export default function ReservationDateTime({
 
         <div className="flex items-center justify-end gap-[15px] mt-4">
           <div className="flex items-center gap-[7px]">
-            <div className="w-[13px] h-[13px] bg-main" />
-            <span className="text-xs leading-[12px] text-[#666666]">선택</span>
+            <div className="w-[13px] h-[13px] bg-main rounded-[1.5px]" />
+            <span className="text-xs leading-[12px]">선택</span>
           </div>
           <div className="flex items-center gap-[7px]">
-            <div className="w-[13px] h-[13px] bg-[#f5f5f5]" />
-            <span className="text-xs leading-[12px] text-[#666666]">예약불가</span>
+            <div className="w-[13px] h-[13px] bg-[#f5f5f5] rounded-[1.5px]" />
+            <span className="text-xs leading-[12px]">예약불가</span>
           </div>
         </div>
       </div>
 
       {/* 시간 슬롯 */}
-      <div className="px-[15px] py-6 border-t-[6px] border-line">{renderSlots()}</div>
-    </>
+      <div className="mt-[30px]">{renderSlots()}</div>
+    </div>
   )
 }
