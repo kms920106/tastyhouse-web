@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { api, publicApi } from '@/lib/api'
+import { api } from '@/lib/api'
 import type {
   ReservationAvailabilityResponse,
   ReservationCreateRequest,
@@ -12,7 +12,7 @@ const RESERVATION_ENDPOINT = '/api/reservations'
 
 export const reservationRepository = {
   async getAvailability(shopId: number, date: string) {
-    return publicApi.get<ReservationAvailabilityResponse, { date: string }>(
+    return api.get<ReservationAvailabilityResponse, { date: string }>(
       `${SHOP_ENDPOINT}/${shopId}/reservations/availability`,
       { params: { date } },
     )
