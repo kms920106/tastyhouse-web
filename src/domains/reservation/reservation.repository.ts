@@ -3,6 +3,7 @@ import 'server-only'
 import { api } from '@/lib/api'
 import type {
   ReservationAvailabilityResponse,
+  ReservationCompleteResponse,
   ReservationCreateRequest,
   ReservationResponse,
 } from './reservation.dto'
@@ -20,5 +21,9 @@ export const reservationRepository = {
 
   async createReservation(request: ReservationCreateRequest) {
     return api.post<ReservationResponse>(`${RESERVATION_ENDPOINT}/v1`, request)
+  },
+
+  async getReservationComplete(reservationId: number) {
+    return api.get<ReservationCompleteResponse>(`${RESERVATION_ENDPOINT}/v1/${reservationId}/complete`)
   },
 }

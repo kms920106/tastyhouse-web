@@ -6,6 +6,10 @@ export async function getReservationAvailability(shopId: number, date: string) {
   return reservationRepository.getAvailability(shopId, date)
 }
 
+export async function getReservationComplete(reservationId: number) {
+  return reservationRepository.getReservationComplete(reservationId)
+}
+
 export async function createReservation({
   shopId,
   reservationDate,

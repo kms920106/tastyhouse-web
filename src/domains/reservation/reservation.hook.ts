@@ -27,7 +27,7 @@ interface CreateReservationInput {
   agreedRequiredTerms: boolean
 }
 
-export function useCreateReservation(onSuccess?: () => void) {
+export function useCreateReservation(onSuccess?: (reservationId: number) => void) {
   return useMutation({
     mutationFn: (input: CreateReservationInput) => createReservation(input),
     onSuccess: ({ data, error }) => {
@@ -36,8 +36,8 @@ export function useCreateReservation(onSuccess?: () => void) {
         toast(error || COMMON_ERROR_MESSAGES.MUTATION_ERROR)
         return
       }
-      toast('예약이 신청되었습니다. 점주 승인을 기다려 주세요.')
-      onSuccess?.()
+      // 성공 toast 없이 예약 완료 페이지로 이동 (onSuccess 콜백이 router.push 담당)
+      onSuccess?.(data.id)
     },
     onError: () => toast(COMMON_ERROR_MESSAGES.MUTATION_ERROR),
   })

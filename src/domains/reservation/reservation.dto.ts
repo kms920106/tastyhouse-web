@@ -30,3 +30,11 @@ export interface ReservationResponse {
   request: string | null
   createdAt: string
 }
+
+export interface ReservationCompleteResponse {
+  id: number
+  shopName: string
+  shopImageUrl: string
+  reservationAt: string
+  partySize: number
+}

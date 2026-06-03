@@ -40,6 +40,7 @@ export type DateFormat =
   | 'MM-DD'
   | 'YYYY년 M월 D일'
   | 'YYYY-MM-DD HH:mm'
+  | 'HH:mm'
 
 /**
  * Represents parsed date components.
@@ -94,6 +95,7 @@ const formatFormatters: Record<DateFormat, (components: DateComponents) => strin
     `${year}년 ${monthWithoutZero}월 ${dayWithoutZero}일`,
   'YYYY-MM-DD HH:mm': ({ year, month, day, hour, minute }) =>
     `${year}-${month}-${day} ${hour}:${minute}`,
+  'HH:mm': ({ hour, minute }) => `${hour}:${minute}`,
 }
 
 /**
@@ -144,6 +146,31 @@ export function formatRemainingTime(diff: TimeDifference): string {
  */
 export function getRemainingDays(end: string | Date): number {
   return getTimeDifference(end).days
+}
+
+/**
+ * Korean weekday labels indexed by Date.getDay() (0 = Sunday).
+ */
+const KOREAN_WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토'] as const
+
+/**
+ * Formats a reservation date/time and party size into a single summary line.
+ * e.g. "07.01(수) · 오후 12:00 · 2명"
+ * @param date The reservation date (string or Date object).
+ * @param partySize The number of people for the reservation.
+ * @returns A formatted single-line summary string.
+ */
+export function formatReservationSummary(date: string | Date, partySize: number): string {
+  const dateObj = new Date(date)
+  const { month, day, hour, minute } = extractDateComponents(dateObj)
+
+  const weekday = KOREAN_WEEKDAYS[dateObj.getDay()]
+
+  const hour24 = Number(hour)
+  const meridiem = hour24 < 12 ? '오전' : '오후'
+  const hour12 = String(hour24 % 12 || 12).padStart(2, '0')
+
+  return `${month}.${day}(${weekday}) · ${meridiem} ${hour12}:${minute} · ${partySize}명`
 }
 
 /**

@@ -16,6 +16,8 @@ import {
   useCreateReservation,
   useReservationAvailability,
 } from '@/domains/reservation/reservation.hook'
+import { PAGE_PATHS } from '@/lib/paths'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { shiftMonth } from '../_lib/calendar'
 import ReservationDateTime from './ReservationDateTime'
@@ -47,6 +49,8 @@ const TERMS_FETCH_MAP: Partial<Record<ReservationTermsKey, () => Promise<string>
 }
 
 export default function ReservationContentClient({ shopId }: Props) {
+  const router = useRouter()
+
   const [viewMonth, setViewMonth] = useState(() => {
     const now = new Date()
     return { year: now.getFullYear(), month: now.getMonth() }
@@ -79,8 +83,10 @@ export default function ReservationContentClient({ shopId }: Props) {
 
   const slots = availabilityData?.data?.slots ?? []
 
-  // 예약 생성 mutation — 성공/실패 toast는 hook이 책임 (도메인 가이드 §8.9)
-  const { mutate: reserve, isPending } = useCreateReservation()
+  // 예약 생성 mutation — 성공 시 toast 없이 완료 페이지로 이동, 실패 toast는 hook이 책임 (도메인 가이드 §8.9)
+  const { mutate: reserve, isPending } = useCreateReservation((reservationId) =>
+    router.replace(PAGE_PATHS.ORDER_RESERVATION_COMPLETE(shopId, reservationId)),
+  )
 
   const handleAgreedAll = (checked: boolean) => {
     setAgreedAll(checked)
