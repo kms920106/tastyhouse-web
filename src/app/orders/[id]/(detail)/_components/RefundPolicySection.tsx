@@ -2,7 +2,7 @@ export default function RefundPolicySection() {
   return (
     <div className="px-[15px] py-5 bg-white">
       <div className="space-y-5">
-        <h3 className="text-base leading-[16px]">결제 취소시 환불 규정 안내</h3>
+        <h3 className="text-base leading-[16px]">결제 취소 시 환불 규정 안내</h3>
         <p className="text-[13px] leading-[13px] text-[#666666]">
           결제 취소 시점은 예약 날짜를 기준으로 합니다.
         </p>
