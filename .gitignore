@@ -45,6 +45,9 @@ yarn-error.log*
 # claude settings
 .claude/settings.local.json
 
+# oh-my-claudecode runtime
+.omc/
+
 # vercel
 .vercel
 
