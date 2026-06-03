@@ -4,8 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/shadcn/accordion'
-import { getPaymentMethodName } from '@/domains/payment'
 import { OrderPayment } from '@/domains/order'
+import { getPaymentMethodName } from '@/domains/payment'
 import { formatDate } from '@/lib/date'
 
 interface Props {
@@ -25,7 +25,7 @@ export default function PaymentInformationAccordion({ payment }: Props) {
           <div className="px-[15px] py-2.5 pb-5">
             <div className="space-y-[15px]">
               <div className="flex justify-between">
-                <span className="text-sm leading-[14px]">결제시간</span>
+                <span className="text-sm leading-[14px]">결제일시</span>
                 <span className="text-sm leading-[14px]">
                   {formatDate(approvedAt, 'YYYY-MM-DD HH:mm')}
                 </span>
