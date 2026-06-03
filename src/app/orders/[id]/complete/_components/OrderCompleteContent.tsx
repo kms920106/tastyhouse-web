@@ -1,7 +1,7 @@
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
+import Icon from '@/components/ui/Icon'
 import { orderRepository } from '@/domains/order/order.repository'
 import { PAGE_PATHS } from '@/lib/paths'
-import Icon from '@/components/ui/Icon'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
@@ -37,8 +37,6 @@ export default async function OrderCompleteContent({ orderId }: Props) {
           </p>
           <h2 className="mt-[15px] text-[23px] leading-[23px]">결제가 완료되었습니다.</h2>
           <p className="mt-[21px] text-sm leading-relaxed text-[#999999]">
-            가게 사정에 따라 주문이 취소될 수 있으며,
-            <br />
             주문 상세 내역은 마이페이지에서 확인이 가능합니다.
           </p>
         </div>
