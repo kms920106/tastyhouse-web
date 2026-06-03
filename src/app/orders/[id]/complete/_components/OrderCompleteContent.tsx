@@ -37,7 +37,7 @@ export default async function OrderCompleteContent({ orderId }: Props) {
           </p>
           <h2 className="mt-[15px] text-[23px] leading-[23px]">결제가 완료되었습니다.</h2>
           <p className="mt-[21px] text-sm leading-relaxed text-[#999999]">
-            주문 상세 내역은 마이페이지에서 확인이 가능합니다.
+            결제 취소는 상세 페이지에서 가능합니다.
           </p>
         </div>
       </div>
