@@ -10,6 +10,10 @@ export async function getReservationComplete(reservationId: number) {
   return reservationRepository.getReservationComplete(reservationId)
 }
 
+export async function getReservationDetail(reservationId: number) {
+  return reservationRepository.getReservationDetail(reservationId)
+}
+
 export async function createReservation({
   shopId,
   reservationDate,

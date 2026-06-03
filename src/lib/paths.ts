@@ -67,6 +67,7 @@ export const PAGE_PATHS = {
   ORDER_RESERVATION: (shopId: string | number) => `/places/${shopId}/order/reservation`,
   ORDER_RESERVATION_COMPLETE: (shopId: string | number, reservationId: number) =>
     `/places/${shopId}/order/reservation/complete?reservationId=${reservationId}`,
+  RESERVATION_DETAIL: (reservationId: string | number) => `/reservations/${reservationId}`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
   ORDERS_REVIEWS_CREATE: (orderItemId: number) =>

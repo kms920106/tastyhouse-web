@@ -5,6 +5,7 @@ import type {
   ReservationAvailabilityResponse,
   ReservationCompleteResponse,
   ReservationCreateRequest,
+  ReservationDetailResponse,
   ReservationResponse,
 } from './reservation.dto'
 
@@ -25,5 +26,9 @@ export const reservationRepository = {
 
   async getReservationComplete(reservationId: number) {
     return api.get<ReservationCompleteResponse>(`${RESERVATION_ENDPOINT}/v1/${reservationId}/complete`)
+  },
+
+  async getReservationDetail(reservationId: number) {
+    return api.get<ReservationDetailResponse>(`${RESERVATION_ENDPOINT}/v1/${reservationId}`)
   },
 }
