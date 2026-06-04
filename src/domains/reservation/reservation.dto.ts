@@ -41,7 +41,13 @@ export interface ReservationDetailResponse {
   id: number
   shopId: number
   shopName: string
+  shopImageUrl: string | null // 가게 썸네일 이미지 URL
+  shopRoadAddress: string | null // 매장 도로명 주소
+  shopLotAddress: string | null // 매장 지번 주소
   memberId: number
+  reserverName: string // 예약자 이름
+  reserverPhoneNumber: string | null // 예약자 휴대폰 (하이픈 없는 raw 값)
+  reserverEmail: string // 예약자 이메일
   reservationAt: string // YYYY-MM-DDTHH:mm:ss (LocalDateTime, 예약 일시)
   partySize: number
   status: ReservationStatus

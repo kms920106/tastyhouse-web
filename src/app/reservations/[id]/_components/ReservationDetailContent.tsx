@@ -1,10 +1,12 @@
 import { getReservationDetail } from '@/actions/reservation'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
-import { formatDate, formatReservationSummary } from '@/lib/date'
+import { formatDate } from '@/lib/date'
 import { PAGE_PATHS } from '@/lib/paths'
 import { notFound, redirect } from 'next/navigation'
 import ReservationInformationAccordion from './ReservationInformationAccordion'
+import ReservationOrdererAccordion from './ReservationOrdererAccordion'
+import ReservationRefundPolicySection from './ReservationRefundPolicySection'
 import ReservationRequestAccordion from './ReservationRequestAccordion'
 import ReservationShopSection from './ReservationShopSection'
 import ReservationStatusHeader from './ReservationStatusHeader'
@@ -25,10 +27,22 @@ export default async function ReservationDetailContent({ reservationId }: Props)
     notFound()
   }
 
-  const { shopName, reservationAt, partySize, status: reservationStatus, request, createdAt } = data
+  const {
+    shopName,
+    shopImageUrl,
+    shopRoadAddress,
+    shopLotAddress,
+    reserverName,
+    reserverPhoneNumber,
+    reserverEmail,
+    reservationAt,
+    partySize,
+    status: reservationStatus,
+    request,
+    createdAt,
+  } = data
 
   const reservationNumber = `예약번호 ${reservationId}`
-  const summary = formatReservationSummary(reservationAt, partySize)
   const reservationDateText = formatDate(reservationAt, 'YYYY년 M월 D일')
   const reservationTimeText = formatDate(reservationAt, 'HH:mm')
   const createdAtText = formatDate(createdAt, 'YYYY-MM-DD HH:mm')
@@ -39,7 +53,19 @@ export default async function ReservationDetailContent({ reservationId }: Props)
         <ReservationStatusHeader reservationNumber={reservationNumber} status={reservationStatus} />
       </BorderedSection>
       <BorderedSection>
-        <ReservationShopSection shopName={shopName} summary={summary} />
+        <ReservationShopSection
+          shopName={shopName}
+          shopImageUrl={shopImageUrl}
+          roadAddress={shopRoadAddress}
+          lotAddress={shopLotAddress}
+        />
+      </BorderedSection>
+      <BorderedSection>
+        <ReservationOrdererAccordion
+          ordererName={reserverName}
+          ordererPhone={reserverPhoneNumber}
+          ordererEmail={reserverEmail}
+        />
       </BorderedSection>
       <BorderedSection>
         <ReservationInformationAccordion
@@ -54,6 +80,9 @@ export default async function ReservationDetailContent({ reservationId }: Props)
           <ReservationRequestAccordion request={request} />
         </BorderedSection>
       )}
+      <BorderedSection>
+        <ReservationRefundPolicySection />
+      </BorderedSection>
     </SectionStack>
   )
 }
