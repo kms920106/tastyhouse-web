@@ -189,6 +189,18 @@ class ApiClient {
     })
   }
 
+  async patch<T = unknown, P extends object = object>(
+    endpoint: string,
+    body?: unknown,
+    config?: RequestConfig<P>,
+  ): Promise<ApiResponse<T>> {
+    return this.request<T, P>(endpoint, {
+      method: 'PATCH',
+      body: body ? JSON.stringify(body) : undefined,
+      ...config,
+    })
+  }
+
   async upload<T = unknown, P extends object = object>(
     endpoint: string,
     formData: FormData,

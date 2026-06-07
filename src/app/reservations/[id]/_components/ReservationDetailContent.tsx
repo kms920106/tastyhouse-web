@@ -4,6 +4,7 @@ import SectionStack from '@/components/ui/SectionStack'
 import { formatDate } from '@/lib/date'
 import { PAGE_PATHS } from '@/lib/paths'
 import { notFound, redirect } from 'next/navigation'
+import CancelReservationButton from './CancelReservationButton'
 import ReservationInformationAccordion from './ReservationInformationAccordion'
 import ReservationOrdererAccordion from './ReservationOrdererAccordion'
 import ReservationRefundPolicySection from './ReservationRefundPolicySection'
@@ -83,6 +84,7 @@ export default async function ReservationDetailContent({ reservationId }: Props)
       <BorderedSection>
         <ReservationRefundPolicySection />
       </BorderedSection>
+      <CancelReservationButton reservationId={reservationId} reservationStatus={reservationStatus} />
     </SectionStack>
   )
 }
