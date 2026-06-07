@@ -60,14 +60,10 @@ export const PAGE_PATHS = {
   ORDER_METHOD: (shopId: string | number) => `/places/${shopId}/order/method`,
   ORDER_MENUS: (shopId: string | number, method: OrderMethodType) =>
     `/places/${shopId}/order/menus?orderMethod=${encodeURIComponent(method)}`,
-  ORDER_MENU_DETAIL: (shopId: number, menuId: number) =>
-    `/places/${shopId}/order/menus/${menuId}`,
+  ORDER_MENU_DETAIL: (shopId: number, menuId: number) => `/places/${shopId}/order/menus/${menuId}`,
   ORDER_CART: (shopId: string | number) => `/places/${shopId}/order/cart`,
   ORDER_CHECKOUT: (shopId: string | number) => `/places/${shopId}/order/checkout`,
   ORDER_RESERVATION: (shopId: string | number) => `/places/${shopId}/order/reservation`,
-  ORDER_RESERVATION_COMPLETE: (shopId: string | number, reservationId: number) =>
-    `/places/${shopId}/order/reservation/complete?reservationId=${reservationId}`,
-  RESERVATION_DETAIL: (reservationId: string | number) => `/reservations/${reservationId}`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
   ORDERS_REVIEWS_CREATE: (orderItemId: number) =>
@@ -78,6 +74,11 @@ export const PAGE_PATHS = {
   // 결제
   PAYMENT_SUCCESS: '/payments/success',
   PAYMENT_FAIL: '/payments/fail',
+
+  // 예약
+  RESERVATION_COMPLETE: (reservationId: string | number) =>
+    `/reservations/${reservationId}/complete`,
+  RESERVATION_DETAIL: (reservationId: string | number) => `/reservations/${reservationId}`,
 
   // 검색
   SEARCH: '/search',
