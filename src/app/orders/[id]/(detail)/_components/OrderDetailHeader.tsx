@@ -8,7 +8,7 @@ export default function OrderDetailHeader() {
         <BackButton />
       </HeaderLeft>
       <HeaderCenter>
-        <HeaderTitle>결제내역</HeaderTitle>
+        <HeaderTitle>결제 내역</HeaderTitle>
       </HeaderCenter>
     </Header>
   )

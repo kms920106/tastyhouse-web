@@ -12,7 +12,7 @@ export default function OrderDetailSkeleton() {
           <BackButton />
         </HeaderLeft>
         <HeaderCenter>
-          <HeaderTitle>결제내역</HeaderTitle>
+          <HeaderTitle>결제 내역</HeaderTitle>
         </HeaderCenter>
       </Header>
       <SectionStack>
