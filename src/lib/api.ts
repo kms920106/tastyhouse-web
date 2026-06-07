@@ -1,4 +1,5 @@
 import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
+import { getEpochMs } from '@/lib/date'
 import { env } from '@/lib/env'
 import logger from '@/lib/logger'
 import { cookies } from 'next/headers'
@@ -92,7 +93,7 @@ class ApiClient {
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), timeout)
-    const startTime = Date.now()
+    const startTime = getEpochMs()
 
     requestLogger.info('[API REQUEST]')
 
@@ -107,7 +108,7 @@ class ApiClient {
       })
 
       const status = response.status
-      const durationMs = Date.now() - startTime
+      const durationMs = getEpochMs() - startTime
       const json = await response.json().catch(() => null)
 
       if (!response.ok) {
@@ -158,7 +159,7 @@ class ApiClient {
 
       return { data: json as T, status }
     } catch (error) {
-      const durationMs = Date.now() - startTime
+      const durationMs = getEpochMs() - startTime
 
       if (error instanceof DOMException && error.name === 'AbortError') {
         requestLogger.error({ durationMs, timeoutMs: timeout }, '[TIMEOUT]')

@@ -1,14 +1,16 @@
 import { rankRepository } from '@/domains/rank/rank.repository'
-import { formatDate, formatRemainingTime, getTimeDifference } from '@/lib/date'
+import {
+  formatDate,
+  formatRemainingTime,
+  getCurrentYearMonth,
+  getMonthRange,
+  getTimeDifference,
+} from '@/lib/date'
 import type { RankTab } from './RankMemberTabs'
 
 function getMonthlySchedule() {
-  const now = new Date()
-  const year = now.getFullYear()
-  const month = now.getMonth()
-  const startAt = new Date(year, month, 1)
-  const endAt = new Date(year, month + 1, 0, 23, 59, 59)
-  return { startAt, endAt }
+  const { year, month } = getCurrentYearMonth()
+  return getMonthRange(year, month)
 }
 
 export default async function RankSchedule({ tab }: { tab: RankTab }) {

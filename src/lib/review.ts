@@ -1,3 +1,4 @@
+import { toTimestamp } from '@/lib/date'
 import type { ReviewSortType } from '@/domains/review'
 
 export interface SortableReview {
@@ -10,13 +11,9 @@ export function sortReviews<T extends SortableReview>(reviews: T[], sortType: Re
     case 'recommended':
       return sorted
     case 'latest':
-      return sorted.sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      )
+      return sorted.sort((a, b) => toTimestamp(b.createdAt) - toTimestamp(a.createdAt))
     case 'oldest':
-      return sorted.sort(
-        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-      )
+      return sorted.sort((a, b) => toTimestamp(a.createdAt) - toTimestamp(b.createdAt))
     default:
       return sorted
   }

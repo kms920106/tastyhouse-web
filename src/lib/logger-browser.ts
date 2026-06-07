@@ -1,3 +1,4 @@
+import { formatLogTimestamp } from '@/lib/date'
 import pino from 'pino'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -9,16 +10,6 @@ const LEVEL_LABELS: Record<number, string> = {
   40: 'WARN',
   50: 'ERROR',
   60: 'FATAL',
-}
-
-function formatTimestamp(epochMs: number): string {
-  const d = new Date(epochMs)
-  const pad2 = (n: number) => String(n).padStart(2, '0')
-  const pad3 = (n: number) => String(n).padStart(3, '0')
-  return (
-    `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())} ` +
-    `${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}.${pad3(d.getMilliseconds())}`
-  )
 }
 
 const browserLogger = pino({
@@ -33,7 +24,7 @@ const browserLogger = pino({
           msg: string
         }
         const label = LEVEL_LABELS[level] ?? 'LOG'
-        const timestamp = formatTimestamp(time)
+        const timestamp = formatLogTimestamp(time)
         const formatted = `[${timestamp}] ${label}: ${msg}`
 
         if (level >= 50) console.error(formatted)

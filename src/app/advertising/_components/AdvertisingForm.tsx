@@ -9,6 +9,7 @@ import { toast } from '@/components/ui/AppToaster'
 import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { getTodayString } from '@/lib/date'
 import { extractZodFieldErrors } from '@/lib/form'
 import { cn } from '@/lib/utils'
 import { createPartnershipRequest } from '@/actions/partnership'
@@ -135,7 +136,7 @@ export default function AdvertisingForm() {
     }
   }
 
-  const today = new Date().toISOString().split('T')[0]
+  const today = getTodayString()
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { AUTH_COOKIE_KEYS, getTokenMaxAge } from '@/lib/auth-config'
+import { getEpochMs } from '@/lib/date'
 import { env } from '@/lib/env'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -125,7 +126,7 @@ function isTokenExpired(token: string): boolean {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]))
     const exp = payload.exp * 1000 // seconds to milliseconds
-    const now = Date.now()
+    const now = getEpochMs()
     const bufferTime = 5 * 60 * 1000 // 5분 여유
 
     return now >= exp - bufferTime

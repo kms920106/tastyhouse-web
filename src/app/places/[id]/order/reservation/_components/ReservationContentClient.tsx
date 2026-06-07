@@ -16,6 +16,7 @@ import {
   useCreateReservation,
   useReservationAvailability,
 } from '@/domains/reservation/reservation.hook'
+import { getCurrentYearMonth } from '@/lib/date'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -51,10 +52,7 @@ const TERMS_FETCH_MAP: Partial<Record<ReservationTermsKey, () => Promise<string>
 export default function ReservationContentClient({ shopId }: Props) {
   const router = useRouter()
 
-  const [viewMonth, setViewMonth] = useState(() => {
-    const now = new Date()
-    return { year: now.getFullYear(), month: now.getMonth() }
-  })
+  const [viewMonth, setViewMonth] = useState(getCurrentYearMonth)
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [guestCount, setGuestCount] = useState(1)
