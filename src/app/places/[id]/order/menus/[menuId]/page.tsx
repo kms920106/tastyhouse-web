@@ -1,3 +1,4 @@
+import { parseOrderMethodType } from '@/domains/order'
 import { getIsLoggedIn } from '@/lib/auth-config'
 import { PAGE_PATHS } from '@/lib/paths'
 import { redirect } from 'next/navigation'
@@ -11,6 +12,7 @@ interface Props {
   }>
   searchParams: Promise<{
     tab?: string
+    orderMethod?: string
   }>
 }
 
@@ -23,7 +25,7 @@ function parseProductMenuDetailTab(value: string | undefined): ProductOrderMenuD
 }
 
 export default async function Page({ params, searchParams }: Props) {
-  const [{ id, menuId }, { tab }, isLoggedIn] = await Promise.all([
+  const [{ id, menuId }, { tab, orderMethod }, isLoggedIn] = await Promise.all([
     params,
     searchParams,
     getIsLoggedIn(),
@@ -37,7 +39,17 @@ export default async function Page({ params, searchParams }: Props) {
     redirect(PAGE_PATHS.AUTH_LOGIN)
   }
 
+  const resolvedOrderMethod = parseOrderMethodType(orderMethod)
+  if (!resolvedOrderMethod) {
+    redirect(PAGE_PATHS.ORDER_METHOD(shopId))
+  }
+
   return (
-    <ShopOrderMenuDetailPage shopId={shopId} productId={productId} tab={initialTab} />
+    <ShopOrderMenuDetailPage
+      shopId={shopId}
+      productId={productId}
+      tab={initialTab}
+      orderMethod={resolvedOrderMethod}
+    />
   )
 }

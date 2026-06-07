@@ -1,10 +1,11 @@
 'use server'
 
-import type { OrderProduct } from '@/domains/order'
+import type { OrderMethodType, OrderProduct } from '@/domains/order'
 import { orderRepository } from '@/domains/order/order.repository'
 
 export async function createOrder({
   shopId,
+  orderMethod,
   orderItems,
   memberCouponId,
   usePoint,
@@ -13,8 +14,10 @@ export async function createOrder({
   productDiscountAmount,
   couponDiscountAmount,
   finalAmount,
+  request,
 }: {
   shopId: number
+  orderMethod: OrderMethodType
   orderItems: OrderProduct[]
   memberCouponId: number | null
   usePoint: number
@@ -23,9 +26,11 @@ export async function createOrder({
   productDiscountAmount: number
   couponDiscountAmount: number
   finalAmount: number
+  request: string
 }) {
   return orderRepository.createOrder({
     shopId,
+    orderMethod,
     orderItems,
     memberCouponId,
     usePoint,
@@ -34,6 +39,7 @@ export async function createOrder({
     productDiscountAmount,
     couponDiscountAmount,
     finalAmount,
+    request,
   })
 }
 

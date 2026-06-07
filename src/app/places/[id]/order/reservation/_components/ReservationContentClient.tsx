@@ -6,6 +6,11 @@ import {
   fetchPrivacyPolicyContent,
   fetchTermsOfServiceContent,
 } from '@/actions/policies'
+import OrderRequestField from '@/components/orders/OrderRequestField'
+import OrderTermsSection, {
+  ORDER_TERMS_LIST,
+  type OrderTermsKey,
+} from '@/components/orders/OrderTermsSection'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import AppTermsDialog from '@/components/ui/AppTermsDialog'
 import { toast } from '@/components/ui/AppToaster'
@@ -24,17 +29,12 @@ import { shiftMonth } from '../_lib/calendar'
 import ReservationDateTime from './ReservationDateTime'
 import ReservationGuestCounter from './ReservationGuestCounter'
 import ReservationNotice from './ReservationNotice'
-import ReservationRequest from './ReservationRequest'
-import ReservationTermsSection, {
-  RESERVATION_TERMS_LIST,
-  type ReservationTermsKey,
-} from './ReservationTermsSection'
 
 interface Props {
   shopId: number
 }
 
-const INITIAL_AGREED_TERMS: Record<ReservationTermsKey, boolean> = {
+const INITIAL_AGREED_TERMS: Record<OrderTermsKey, boolean> = {
   agreedTerms: false,
   agreedPrivacy: false,
   agreedFinance: false,
@@ -42,7 +42,7 @@ const INITIAL_AGREED_TERMS: Record<ReservationTermsKey, boolean> = {
   agreedEvent: false,
 }
 
-const TERMS_FETCH_MAP: Partial<Record<ReservationTermsKey, () => Promise<string>>> = {
+const TERMS_FETCH_MAP: Partial<Record<OrderTermsKey, () => Promise<string>>> = {
   agreedTerms: fetchTermsOfServiceContent,
   agreedPrivacy: fetchPrivacyPolicyContent,
   agreedFinance: fetchElectronicFinancialTransactionsContent,
@@ -60,7 +60,7 @@ export default function ReservationContentClient({ shopId }: Props) {
 
   const [agreedAll, setAgreedAll] = useState(false)
   const [agreedTerms, setAgreedTerms] =
-    useState<Record<ReservationTermsKey, boolean>>(INITIAL_AGREED_TERMS)
+    useState<Record<OrderTermsKey, boolean>>(INITIAL_AGREED_TERMS)
 
   const [termsDialog, setTermsDialog] = useState<{
     open: boolean
@@ -69,7 +69,7 @@ export default function ReservationContentClient({ shopId }: Props) {
   }>({ open: false, title: '', htmlContent: '' })
 
   useEffect(() => {
-    setAgreedAll(RESERVATION_TERMS_LIST.every(({ key }) => agreedTerms[key]))
+    setAgreedAll(ORDER_TERMS_LIST.every(({ key }) => agreedTerms[key]))
   }, [agreedTerms])
 
   // 슬롯 가용성 조회 — 날짜 선택 시마다 호출 (enabled: !!selectedDate)
@@ -96,18 +96,18 @@ export default function ReservationContentClient({ shopId }: Props) {
   const handleAgreedAll = (checked: boolean) => {
     setAgreedAll(checked)
     setAgreedTerms(
-      Object.fromEntries(RESERVATION_TERMS_LIST.map(({ key }) => [key, checked])) as Record<
-        ReservationTermsKey,
+      Object.fromEntries(ORDER_TERMS_LIST.map(({ key }) => [key, checked])) as Record<
+        OrderTermsKey,
         boolean
       >,
     )
   }
 
-  const handleTermChange = (key: ReservationTermsKey, checked: boolean) => {
+  const handleTermChange = (key: OrderTermsKey, checked: boolean) => {
     setAgreedTerms((prev) => ({ ...prev, [key]: checked }))
   }
 
-  const handleOpenTermsDialog = async (key: ReservationTermsKey, label: string) => {
+  const handleOpenTermsDialog = async (key: OrderTermsKey, label: string) => {
     const fetcher = TERMS_FETCH_MAP[key]
     if (!fetcher) return
     try {
@@ -124,7 +124,7 @@ export default function ReservationContentClient({ shopId }: Props) {
     setSelectedTime(null)
   }
 
-  const requiredTermsOk = RESERVATION_TERMS_LIST.filter((t) => t.required).every(
+  const requiredTermsOk = ORDER_TERMS_LIST.filter((t) => t.required).every(
     ({ key }) => agreedTerms[key],
   )
 
@@ -182,13 +182,13 @@ export default function ReservationContentClient({ shopId }: Props) {
           <ReservationGuestCounter count={guestCount} onChange={setGuestCount} max={50} />
         </BorderedSection>
         <BorderedSection>
-          <ReservationRequest value={request} onChange={setRequest} />
+          <OrderRequestField value={request} onChange={setRequest} />
         </BorderedSection>
         <BorderedSection>
           <ReservationNotice />
         </BorderedSection>
         <BorderedSection>
-          <ReservationTermsSection
+          <OrderTermsSection
             agreedAll={agreedAll}
             agreedTerms={agreedTerms}
             onAgreedAllChange={handleAgreedAll}

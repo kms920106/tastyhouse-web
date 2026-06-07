@@ -2,11 +2,13 @@
 
 import { createOrder } from '@/actions/order'
 import { completeOnSitePayment, createPayment } from '@/actions/payment'
+import OrderRequestField from '@/components/orders/OrderRequestField'
 import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import SectionStack from '@/components/ui/SectionStack'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import type { MemberCoupon, MemberPersonalInfo } from '@/domains/member'
+import type { OrderMethodType } from '@/domains/order'
 import type { PaymentMethod } from '@/domains/payment'
 import { Shop } from '@/domains/shop'
 import { useCartInfo } from '@/hooks/useCartInfo'
@@ -28,13 +30,17 @@ interface Props {
   member: MemberPersonalInfo
   availableCoupons: MemberCoupon[]
   usablePoints: number
+  orderMethod: OrderMethodType
 }
+
+const MAX_REQUEST_LENGTH = 200
 
 export default function ShopOrderCheckoutContentClient({
   shop,
   member,
   availableCoupons,
   usablePoints,
+  orderMethod,
 }: Props) {
   const router = useRouter()
 
@@ -48,6 +54,7 @@ export default function ShopOrderCheckoutContentClient({
   const [pointInput, setPointInput] = useState('')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod | null>(null)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [request, setRequest] = useState('')
 
   const { tossPayment } = useTossPayments()
 
@@ -65,9 +72,12 @@ export default function ShopOrderCheckoutContentClient({
       return
     }
 
+    const trimmedRequest = request.trim()
+
     // 1. 주문 생성 (PENDING)
     const orderResult = await createOrder({
       shopId,
+      orderMethod,
       orderItems: items,
       memberCouponId: selectedCoupon?.id ?? null,
       usePoint: pointsUsed,
@@ -76,6 +86,7 @@ export default function ShopOrderCheckoutContentClient({
       productDiscountAmount: totalProductDiscount,
       couponDiscountAmount: couponDiscount,
       finalAmount: paymentAmount,
+      request: trimmedRequest,
     })
 
     if (orderResult.error) {
@@ -174,6 +185,9 @@ export default function ShopOrderCheckoutContentClient({
         </BorderedSection>
         <BorderedSection>
           <CustomerInfoSection fullName={fullName} phoneNumber={phoneNumber} email={email} />
+        </BorderedSection>
+        <BorderedSection>
+          <OrderRequestField value={request} onChange={setRequest} maxLength={MAX_REQUEST_LENGTH} />
         </BorderedSection>
         <BorderedSection>
           <DiscountApplicationSection

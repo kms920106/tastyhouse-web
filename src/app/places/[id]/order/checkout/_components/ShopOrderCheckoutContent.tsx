@@ -1,4 +1,5 @@
 import { memberRepository } from '@/domains/member/member.repository'
+import type { OrderMethodType } from '@/domains/order'
 import { shopRepository } from '@/domains/shop/shop.repository'
 import ShopOrderCheckoutContentClient from './ShopOrderCheckoutContentClient'
 import FetchErrorState from '@/components/ui/FetchErrorState'
@@ -6,9 +7,10 @@ import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 
 interface Props {
   shopId: number
+  orderMethod: OrderMethodType
 }
 
-export default async function ShopOrderCheckoutContent({ shopId }: Props) {
+export default async function ShopOrderCheckoutContent({ shopId, orderMethod }: Props) {
   const [shopResult, memberResult, couponsResult, usablePointResult] = await Promise.all([
     shopRepository.getShopDetail(shopId),
     memberRepository.getMyPersonalInfo(),
@@ -35,6 +37,7 @@ export default async function ShopOrderCheckoutContent({ shopId }: Props) {
       member={memberResult.data}
       availableCoupons={couponsResult.data}
       usablePoints={usablePointResult.data.usablePoints}
+      orderMethod={orderMethod}
     />
   )
 }

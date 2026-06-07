@@ -9,19 +9,25 @@ import ShopOrderMenuDetailHeader from './ShopOrderMenuDetailHeader'
 import { ShopOrderMenuDetailHeaderSkeleton } from './ShopOrderMenuDetailHeaderSkeleton'
 import ShopOrderMenuDetailOptionSelectorServer from './ShopOrderMenuDetailOptionSelectorServer'
 import { ShopOrderMenuDetailOptionSelectorSkeleton } from './ShopOrderMenuDetailOptionSelectorSkeleton'
+import type { OrderMethodType } from '@/domains/order'
 import type { ProductOrderMenuDetailTab } from './ShopOrderMenuDetailProductOptionTabs'
 
 interface Props {
   shopId: number
   productId: number
   tab: ProductOrderMenuDetailTab
+  orderMethod: OrderMethodType
 }
 
-export default function ShopOrderMenuDetailPage({ shopId, productId, tab }: Props) {
+export default function ShopOrderMenuDetailPage({ shopId, productId, tab, orderMethod }: Props) {
   return (
     <>
       <Suspense fallback={<ShopOrderMenuDetailHeaderSkeleton />}>
-        <ShopOrderMenuDetailHeader shopId={shopId} productId={productId} />
+        <ShopOrderMenuDetailHeader
+          shopId={shopId}
+          productId={productId}
+          orderMethod={orderMethod}
+        />
       </Suspense>
       <SectionStack>
         <BorderedSection>

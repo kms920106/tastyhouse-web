@@ -4,7 +4,7 @@ import CircleCheckbox from '@/components/ui/CircleCheckbox'
 import FormCheckbox from '@/components/ui/FormCheckbox'
 import Icon from '@/components/ui/Icon'
 
-export const RESERVATION_TERMS_LIST = [
+export const ORDER_TERMS_LIST = [
   { key: 'agreedTerms', label: '이용약관 동의 (필수)', required: true, href: '/terms' },
   {
     key: 'agreedPrivacy',
@@ -27,17 +27,17 @@ export const RESERVATION_TERMS_LIST = [
   { key: 'agreedEvent', label: '이벤트 정보 수신 동의 (선택)', required: false, href: null },
 ] as const
 
-export type ReservationTermsKey = (typeof RESERVATION_TERMS_LIST)[number]['key']
+export type OrderTermsKey = (typeof ORDER_TERMS_LIST)[number]['key']
 
 interface Props {
   agreedAll: boolean
-  agreedTerms: Record<ReservationTermsKey, boolean>
+  agreedTerms: Record<OrderTermsKey, boolean>
   onAgreedAllChange: (checked: boolean) => void
-  onTermChange: (key: ReservationTermsKey, checked: boolean) => void
-  onOpenTermsDialog: (key: ReservationTermsKey, label: string) => void
+  onTermChange: (key: OrderTermsKey, checked: boolean) => void
+  onOpenTermsDialog: (key: OrderTermsKey, label: string) => void
 }
 
-export default function ReservationTermsSection({
+export default function OrderTermsSection({
   agreedAll,
   agreedTerms,
   onAgreedAllChange,
@@ -51,7 +51,7 @@ export default function ReservationTermsSection({
         <span className="text-sm leading-[14px]">약관에 모두 동의합니다.</span>
       </label>
       <div className="flex flex-col gap-[13px] px-[5px] py-5">
-        {RESERVATION_TERMS_LIST.map(({ key, label, href }) => (
+        {ORDER_TERMS_LIST.map(({ key, label, href }) => (
           <div key={key} className="flex items-center justify-between">
             <label className="flex items-center gap-[15px] cursor-pointer">
               <FormCheckbox

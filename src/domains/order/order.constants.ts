@@ -1,4 +1,4 @@
-import type { OrderStatusCode } from './order.types'
+import type { OrderMethodType, OrderStatusCode } from './order.types'
 
 const ORDER_STATUS_NAMES: Record<OrderStatusCode, string> = {
   PENDING: '주문대기',
@@ -10,4 +10,10 @@ const ORDER_STATUS_NAMES: Record<OrderStatusCode, string> = {
 
 export const getOrderStatusName = (status: OrderStatusCode): string => {
   return ORDER_STATUS_NAMES[status]
+}
+
+const ORDER_METHOD_TYPES: OrderMethodType[] = ['TABLE_ORDER', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
+
+export const parseOrderMethodType = (value: string | undefined): OrderMethodType | null => {
+  return ORDER_METHOD_TYPES.includes(value as OrderMethodType) ? (value as OrderMethodType) : null
 }

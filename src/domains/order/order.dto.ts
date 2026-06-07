@@ -1,8 +1,10 @@
 import { PaymentStatus } from '../payment'
 import type { OrderProduct } from './order.model'
+import type { OrderMethodType } from './order.types'
 
 export interface OrderCreateRequest {
   shopId: number
+  orderMethod: OrderMethodType
   orderItems: OrderProduct[]
   memberCouponId: number | null
   usePoint: number
@@ -11,6 +13,7 @@ export interface OrderCreateRequest {
   productDiscountAmount: number
   couponDiscountAmount: number
   finalAmount: number
+  request: string
 }
 
 export interface OrderCreateResponse {

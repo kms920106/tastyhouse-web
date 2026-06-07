@@ -60,9 +60,14 @@ export const PAGE_PATHS = {
   ORDER_METHOD: (shopId: string | number) => `/places/${shopId}/order/method`,
   ORDER_MENUS: (shopId: string | number, method: OrderMethodType) =>
     `/places/${shopId}/order/menus?orderMethod=${encodeURIComponent(method)}`,
-  ORDER_MENU_DETAIL: (shopId: number, menuId: number) => `/places/${shopId}/order/menus/${menuId}`,
-  ORDER_CART: (shopId: string | number) => `/places/${shopId}/order/cart`,
-  ORDER_CHECKOUT: (shopId: string | number) => `/places/${shopId}/order/checkout`,
+  ORDER_MENU_DETAIL: (shopId: number, menuId: number, orderMethod?: OrderMethodType) =>
+    orderMethod
+      ? `/places/${shopId}/order/menus/${menuId}?orderMethod=${encodeURIComponent(orderMethod)}`
+      : `/places/${shopId}/order/menus/${menuId}`,
+  ORDER_CART: (shopId: string | number, orderMethod: OrderMethodType) =>
+    `/places/${shopId}/order/cart?orderMethod=${encodeURIComponent(orderMethod)}`,
+  ORDER_CHECKOUT: (shopId: string | number, orderMethod: OrderMethodType) =>
+    `/places/${shopId}/order/checkout?orderMethod=${encodeURIComponent(orderMethod)}`,
   ORDER_RESERVATION: (shopId: string | number) => `/places/${shopId}/order/reservation`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
