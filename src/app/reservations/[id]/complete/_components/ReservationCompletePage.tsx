@@ -4,16 +4,15 @@ import ReservationCompleteHeader from './ReservationCompleteHeader'
 import ReservationCompleteSkeleton from './ReservationCompleteSkeleton'
 
 interface Props {
-  shopId: number
   reservationId: number
 }
 
-export default function ReservationCompletePage({ shopId, reservationId }: Props) {
+export default function ReservationCompletePage({ reservationId }: Props) {
   return (
     <>
       <ReservationCompleteHeader />
       <Suspense fallback={<ReservationCompleteSkeleton />}>
-        <ReservationCompleteContent shopId={shopId} reservationId={reservationId} />
+        <ReservationCompleteContent reservationId={reservationId} />
       </Suspense>
     </>
   )

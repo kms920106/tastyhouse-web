@@ -85,7 +85,7 @@ export default function ReservationContentClient({ shopId }: Props) {
 
   // 예약 생성 mutation — 성공 시 toast 없이 완료 페이지로 이동, 실패 toast는 hook이 책임 (도메인 가이드 §8.9)
   const { mutate: reserve, isPending } = useCreateReservation((reservationId) =>
-    router.replace(PAGE_PATHS.ORDER_RESERVATION_COMPLETE(shopId, reservationId)),
+    router.replace(PAGE_PATHS.RESERVATION_COMPLETE(reservationId)),
   )
 
   const handleAgreedAll = (checked: boolean) => {

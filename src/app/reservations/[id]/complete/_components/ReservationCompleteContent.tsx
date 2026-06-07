@@ -8,11 +8,10 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
 interface Props {
-  shopId: number
   reservationId: number
 }
 
-export default async function ReservationCompleteContent({ shopId, reservationId }: Props) {
+export default async function ReservationCompleteContent({ reservationId }: Props) {
   const { error, status, data } = await reservationRepository.getReservationComplete(reservationId)
 
   if (error && status === 401) {
@@ -55,8 +54,8 @@ export default async function ReservationCompleteContent({ shopId, reservationId
         </div>
       </div>
       <div className="px-[15px] py-2.5">
-        <Link href={PAGE_PATHS.PLACE_DETAIL(shopId)}>
-          <AppPrimaryButton>예약 상세 내역 보기</AppPrimaryButton>
+        <Link href={PAGE_PATHS.RESERVATION_DETAIL(reservationId)}>
+          <AppPrimaryButton>예약 내역 보기</AppPrimaryButton>
         </Link>
       </div>
     </>
