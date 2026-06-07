@@ -49,42 +49,50 @@ export default async function ReservationDetailContent({ reservationId }: Props)
   const createdAtText = formatDate(createdAt, 'YYYY-MM-DD HH:mm')
 
   return (
-    <SectionStack>
-      <BorderedSection>
-        <ReservationStatusHeader reservationNumber={reservationNumber} status={reservationStatus} />
-      </BorderedSection>
-      <BorderedSection>
-        <ReservationShopSection
-          shopName={shopName}
-          shopImageUrl={shopImageUrl}
-          roadAddress={shopRoadAddress}
-          lotAddress={shopLotAddress}
-        />
-      </BorderedSection>
-      <BorderedSection>
-        <ReservationOrdererAccordion
-          ordererName={reserverName}
-          ordererPhone={reserverPhoneNumber}
-          ordererEmail={reserverEmail}
-        />
-      </BorderedSection>
-      <BorderedSection>
-        <ReservationInformationAccordion
-          reservationDateText={reservationDateText}
-          reservationTimeText={reservationTimeText}
-          partySize={partySize}
-          createdAtText={createdAtText}
-        />
-      </BorderedSection>
-      {request && (
+    <>
+      <SectionStack>
         <BorderedSection>
-          <ReservationRequestAccordion request={request} />
+          <ReservationStatusHeader
+            reservationNumber={reservationNumber}
+            status={reservationStatus}
+          />
         </BorderedSection>
-      )}
-      <BorderedSection>
-        <ReservationRefundPolicySection />
-      </BorderedSection>
-      <CancelReservationButton reservationId={reservationId} reservationStatus={reservationStatus} />
-    </SectionStack>
+        <BorderedSection>
+          <ReservationShopSection
+            shopName={shopName}
+            shopImageUrl={shopImageUrl}
+            roadAddress={shopRoadAddress}
+            lotAddress={shopLotAddress}
+          />
+        </BorderedSection>
+        <BorderedSection>
+          <ReservationOrdererAccordion
+            ordererName={reserverName}
+            ordererPhone={reserverPhoneNumber}
+            ordererEmail={reserverEmail}
+          />
+        </BorderedSection>
+        <BorderedSection>
+          <ReservationInformationAccordion
+            reservationDateText={reservationDateText}
+            reservationTimeText={reservationTimeText}
+            partySize={partySize}
+            createdAtText={createdAtText}
+          />
+        </BorderedSection>
+        {request && (
+          <BorderedSection>
+            <ReservationRequestAccordion request={request} />
+          </BorderedSection>
+        )}
+        <BorderedSection>
+          <ReservationRefundPolicySection />
+        </BorderedSection>
+      </SectionStack>
+      <CancelReservationButton
+        reservationId={reservationId}
+        reservationStatus={reservationStatus}
+      />
+    </>
   )
 }
