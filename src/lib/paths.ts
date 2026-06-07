@@ -76,6 +76,7 @@ export const PAGE_PATHS = {
   PAYMENT_FAIL: '/payments/fail',
 
   // 예약
+  RESERVATIONS: '/reservations',
   RESERVATION_COMPLETE: (reservationId: string | number) =>
     `/reservations/${reservationId}/complete`,
   RESERVATION_DETAIL: (reservationId: string | number) => `/reservations/${reservationId}`,

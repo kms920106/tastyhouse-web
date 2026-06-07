@@ -4,6 +4,7 @@ import { createReservation, getReservationAvailability } from '@/actions/reserva
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getReservationErrorMessage } from './reservation.constants'
 
 export const reservationQueryKeys = {
   availability: (shopId: number, date: string) =>
@@ -33,10 +34,16 @@ export function useCreateReservation(onSuccess?: (reservationId: number) => void
 
   return useMutation({
     mutationFn: (input: CreateReservationInput) => createReservation(input),
-    onSuccess: ({ data, error }, variables) => {
+    onSuccess: ({ data, error, errorCode, message }, variables) => {
       if (error || !data) {
-        // 백엔드 message(409/400 등)는 사용자에게 그대로 노출 (API 가이드 1-1)
-        toast(error || COMMON_ERROR_MESSAGES.MUTATION_ERROR)
+        // 비즈니스 에러(DUPLICATE_RESERVATION 등): 백엔드 message → errorCode 폴백 → 공통 메시지 순으로 노출
+        // (중복 예약은 선제 차단 UI에서 거의 막히지만, 동시성 등으로 도달 시 메시지로 안내)
+        toast(
+          message ??
+            getReservationErrorMessage(errorCode) ??
+            error ??
+            COMMON_ERROR_MESSAGES.MUTATION_ERROR,
+        )
         return
       }
       // 예약 성공으로 가용 슬롯이 변경됨 — 해당 매장의 availability 캐시 무효화

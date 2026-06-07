@@ -82,11 +82,18 @@ export default function ReservationContentClient({ shopId }: Props) {
   } = useReservationAvailability(shopId, selectedDate)
 
   const slots = availabilityData?.data?.slots ?? []
+  // 선택한 날짜·매장에 이미 차단 예약이 있는지 (true면 그 날짜 슬롯 전체가 available:false)
+  const hasMyReservation = availabilityData?.data?.hasMyReservation ?? false
 
   // 예약 생성 mutation — 성공 시 toast 없이 완료 페이지로 이동, 실패 toast는 hook이 책임 (도메인 가이드 §8.9)
   const { mutate: reserve, isPending } = useCreateReservation((reservationId) =>
     router.replace(PAGE_PATHS.RESERVATION_COMPLETE(reservationId)),
   )
+
+  // 이미 예약이 있는 날짜 — 기존 예약 확인·변경은 예약 내역 페이지에서 처리
+  const handleViewReservations = () => {
+    router.push(PAGE_PATHS.RESERVATIONS)
+  }
 
   const handleAgreedAll = (checked: boolean) => {
     setAgreedAll(checked)
@@ -130,6 +137,11 @@ export default function ReservationContentClient({ shopId }: Props) {
       toast('예약 날짜를 선택해주세요.')
       return
     }
+    // 이미 그 날짜·매장에 예약이 있으면 제출 차단 (선제 가드 — 서버 409와 이중 방어)
+    if (hasMyReservation) {
+      toast('이미 이 날짜에 예약이 있어요.\n예약 내역에서 기존 예약을 취소한 뒤 다시 시도해 주세요.')
+      return
+    }
     if (!selectedTime) {
       toast('예약 시간을 선택해주세요.')
       return
@@ -161,9 +173,11 @@ export default function ReservationContentClient({ shopId }: Props) {
             isLoadingSlots={isLoadingSlots}
             isErrorSlots={isErrorSlots}
             hasSelectedDate={!!selectedDate}
+            hasMyReservation={hasMyReservation}
             onChangeMonth={(delta) => setViewMonth((prev) => shiftMonth(prev, delta))}
             onSelectDate={handleSelectDate}
             onSelectTime={setSelectedTime}
+            onViewReservations={handleViewReservations}
           />
         </BorderedSection>
         <BorderedSection>

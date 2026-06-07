@@ -3,6 +3,9 @@ import type { ReservationStatus } from './reservation.types'
 
 export interface ReservationAvailabilityResponse {
   date: string
+  // 로그인 회원이 그 날짜·그 매장에 이미 차단 예약(PENDING/CONFIRMED/COMPLETED)을 가지고 있는지
+  // true면 그 날짜의 모든 슬롯 available이 false로 내려온다.
+  hasMyReservation: boolean
   slots: ReservationSlot[]
 }
 

@@ -15,9 +15,13 @@ interface Props {
   isLoadingSlots: boolean
   isErrorSlots: boolean
   hasSelectedDate: boolean
+  // 선택한 날짜·매장에 이미 차단 예약이 있는지 (있으면 슬롯 대신 안내를 노출)
+  hasMyReservation: boolean
   onChangeMonth: (delta: number) => void
   onSelectDate: (date: string) => void
   onSelectTime: (time: string) => void
+  // 예약 내역 페이지로 이동 (기존 예약 확인·변경 동선)
+  onViewReservations: () => void
 }
 
 const WEEKDAYS = ['일', '월', '화', '수', '목', '금', '토']
@@ -56,9 +60,11 @@ export default function ReservationDateTime({
   isLoadingSlots,
   isErrorSlots,
   hasSelectedDate,
+  hasMyReservation,
   onChangeMonth,
   onSelectDate,
   onSelectTime,
+  onViewReservations,
 }: Props) {
   const cells = buildMonthGrid(viewMonth.year, viewMonth.month)
 
@@ -101,7 +107,26 @@ export default function ReservationDateTime({
       )
     }
 
-    // 4. 정상 렌더
+    // 4. 이미 그 날짜·매장에 예약이 있음 — 슬롯 대신 안내 + 예약 내역 동선
+    //    (제약이 "그 날 그 가게 1건"이므로 날짜 통째로 막는다. 변경은 예약 내역에서 취소 후 재예약)
+    if (hasMyReservation) {
+      return (
+        <div className="flex flex-col items-center gap-4 py-6 text-center">
+          <p className="text-sm text-[#999999] whitespace-pre-line">
+            {'이미 이 날짜에 예약이 있어요.\n다른 시간으로 변경하려면 예약 내역에서 기존 예약을 취소해 주세요.'}
+          </p>
+          <button
+            type="button"
+            onClick={onViewReservations}
+            className="px-4 py-2.5 text-[13px] text-main border border-main rounded-[1px]"
+          >
+            예약 내역 보기
+          </button>
+        </div>
+      )
+    }
+
+    // 5. 정상 렌더
     return (
       <>
         {amSlots.length > 0 && (
