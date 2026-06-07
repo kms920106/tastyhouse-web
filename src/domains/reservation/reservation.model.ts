@@ -1,5 +1,5 @@
 export interface ReservationSlot {
-  time: string // HH:mm (24시간제)
+  time: string
   remaining: number
   available: boolean
 }

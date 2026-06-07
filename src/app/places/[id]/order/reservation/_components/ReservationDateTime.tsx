@@ -33,6 +33,10 @@ interface TimeSlotButtonProps {
   disabled?: boolean
 }
 
+function formatSlotLabel(time: string) {
+  return time.slice(0, 5)
+}
+
 function TimeSlotButton({ time, selected, onSelect, disabled }: TimeSlotButtonProps) {
   return (
     <button
@@ -47,7 +51,7 @@ function TimeSlotButton({ time, selected, onSelect, disabled }: TimeSlotButtonPr
             : 'border-line text-[#cccccc]',
       )}
     >
-      {time}
+      {formatSlotLabel(time)}
     </button>
   )
 }
@@ -113,7 +117,9 @@ export default function ReservationDateTime({
       return (
         <div className="flex flex-col items-center gap-4 py-6 text-center">
           <p className="text-sm text-[#999999] whitespace-pre-line">
-            {'이미 이 날짜에 예약이 있어요.\n다른 시간으로 변경하려면 예약 내역에서 기존 예약을 취소해 주세요.'}
+            {
+              '이미 이 날짜에 예약이 있어요.\n다른 시간으로 변경하려면 예약 내역에서 기존 예약을 취소해 주세요.'
+            }
           </p>
           <button
             type="button"
