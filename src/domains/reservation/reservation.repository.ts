@@ -32,4 +32,8 @@ export const reservationRepository = {
   async getReservationDetail(reservationId: number) {
     return api.get<ReservationDetailResponse>(`${RESERVATION_ENDPOINT}/v1/${reservationId}`)
   },
+
+  async cancelReservation(reservationId: number) {
+    return api.patch<void>(`${RESERVATION_ENDPOINT}/v1/${reservationId}/cancel`)
+  },
 }
