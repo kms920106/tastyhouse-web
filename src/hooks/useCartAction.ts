@@ -33,7 +33,7 @@ export function useCartAction({
       return selected === -1
     })
     if (missingRequired.length > 0) {
-      alert(`필수 옵션을 선택해 주세요: ${missingRequired.map((g) => g.name).join(', ')}`)
+      toast(`필수 옵션을 선택해 주세요: ${missingRequired.map((g) => g.name).join(', ')}`)
       return false
     }
     return true

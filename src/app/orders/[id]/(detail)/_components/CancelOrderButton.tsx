@@ -1,10 +1,11 @@
 'use client'
 
+import type { CancelPaymentResult } from '@/actions/payment'
+import { cancelPayment } from '@/actions/payment'
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
+import { toast } from '@/components/ui/AppToaster'
 import type { PaymentStatus } from '@/domains/payment'
-import { cancelPayment } from '@/actions/payment'
-import type { CancelPaymentResult } from '@/actions/payment'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import CancelResultDialog from './CancelResultDialog'
@@ -44,7 +45,7 @@ export default function CancelOrderButton({ paymentId, paymentStatus, phoneNumbe
     setIsLoading(false)
 
     if (!result.success) {
-      alert('결제 취소 중 오류가 발생했습니다.')
+      toast('결제 취소 중 오류가 발생했습니다.')
       return
     }
 
