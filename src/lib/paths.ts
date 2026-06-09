@@ -1,4 +1,4 @@
-import { OrderMethodType } from '@/domains/order'
+import { OrderMethodType, toOrderMethodSlug } from '@/domains/order'
 
 export const PAGE_PATHS = {
   // 홈
@@ -58,16 +58,16 @@ export const PAGE_PATHS = {
   // 주문
   ORDERS: '/orders',
   ORDER_METHOD: (shopId: string | number) => `/places/${shopId}/order/method`,
-  ORDER_MENUS: (shopId: string | number, method: OrderMethodType) =>
-    `/places/${shopId}/order/menus?orderMethod=${encodeURIComponent(method)}`,
-  ORDER_MENU_DETAIL: (shopId: number, menuId: number, orderMethod?: OrderMethodType) =>
-    orderMethod
-      ? `/places/${shopId}/order/menus/${menuId}?orderMethod=${encodeURIComponent(orderMethod)}`
-      : `/places/${shopId}/order/menus/${menuId}`,
+  // orderMethod는 소문자 kebab-case 동적 세그먼트(/order/table-order/...)로 운반된다.
+  // 도메인 타입↔세그먼트 변환은 toOrderMethodSlug로 일원화하고, [orderMethod]/layout.tsx에서 검증한다.
+  ORDER_MENUS: (shopId: string | number, orderMethod: OrderMethodType) =>
+    `/places/${shopId}/order/${toOrderMethodSlug(orderMethod)}/menus`,
+  ORDER_MENU_DETAIL: (shopId: number, menuId: number, orderMethod: OrderMethodType) =>
+    `/places/${shopId}/order/${toOrderMethodSlug(orderMethod)}/menus/${menuId}`,
   ORDER_CART: (shopId: string | number, orderMethod: OrderMethodType) =>
-    `/places/${shopId}/order/cart?orderMethod=${encodeURIComponent(orderMethod)}`,
+    `/places/${shopId}/order/${toOrderMethodSlug(orderMethod)}/cart`,
   ORDER_CHECKOUT: (shopId: string | number, orderMethod: OrderMethodType) =>
-    `/places/${shopId}/order/checkout?orderMethod=${encodeURIComponent(orderMethod)}`,
+    `/places/${shopId}/order/${toOrderMethodSlug(orderMethod)}/checkout`,
   ORDER_RESERVATION: (shopId: string | number) => `/places/${shopId}/order/reservation`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,

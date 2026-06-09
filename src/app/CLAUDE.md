@@ -109,7 +109,8 @@ export default function Layout({ children }: Props) {
 
 - ✅ 레이아웃 고유 UI(래퍼 div, 헤더·푸터 고정 등)만 포함
 - ✅ Route Group layout은 children pass-through만 해도 무방 (`<>{children}</>`)
-- ❌ 데이터 페칭, 비즈니스 로직 금지
+- ✅ **동적 세그먼트 값 검증의 일원화는 허용**: `[param]/layout.tsx`에서 세그먼트 값을 파싱·검증하고 유효하지 않으면 `redirect()`하는 패턴은 권장. 하위 page들이 동일한 파싱/폴백을 중복하지 않게 한다. (예: `order/[orderMethod]/layout.tsx`가 `parseOrderMethodType` 검증 후 `ORDER_METHOD`로 redirect)
+- ❌ 데이터 페칭, 비즈니스 로직 금지 (단 위의 순수 파라미터 검증은 예외 — `await fetch`/repository 호출은 여전히 금지)
 
 ### 2.5. `_components/` 내부 파일 분류
 
