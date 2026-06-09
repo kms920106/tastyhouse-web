@@ -29,7 +29,7 @@ export function getRankPodiumIconName(rankNo: RankTopNo): IconName {
 }
 
 const ORDER_METHOD_ICON_SLUG: Record<OrderMethodType, 'table' | 'reservation' | 'delivery' | 'packaging'> = {
-  TABLE_ORDER: 'table',
+  TABLE: 'table',
   RESERVATION: 'reservation',
   DELIVERY:    'delivery',
   TAKEOUT:     'packaging',

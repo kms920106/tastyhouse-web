@@ -12,16 +12,16 @@ export const getOrderStatusName = (status: OrderStatusCode): string => {
   return ORDER_STATUS_NAMES[status]
 }
 
-const ORDER_METHOD_TYPES: OrderMethodType[] = ['TABLE_ORDER', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
+const ORDER_METHOD_TYPES: OrderMethodType[] = ['TABLE', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
 
 export const parseOrderMethodType = (value: string | undefined): OrderMethodType | null => {
   return ORDER_METHOD_TYPES.includes(value as OrderMethodType) ? (value as OrderMethodType) : null
 }
 
-// URL 경로 세그먼트는 소문자 kebab-case로 노출한다 (예: TABLE_ORDER ↔ table-order).
+// URL 경로 세그먼트는 소문자 kebab-case로 노출한다 (예: TABLE ↔ table-order).
 // 도메인 타입(대문자 언더스코어)과 URL 표기 사이 변환을 이 경계 함수 한 쌍으로 일원화한다.
 const ORDER_METHOD_SLUGS: Record<OrderMethodType, string> = {
-  TABLE_ORDER: 'table-order',
+  TABLE: 'table',
   RESERVATION: 'reservation',
   DELIVERY: 'delivery',
   TAKEOUT: 'takeout',

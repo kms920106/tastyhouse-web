@@ -6,13 +6,13 @@ import { getOrderMethodIconName } from '@/components/ui/icon-helpers'
 import { cn } from '@/lib/utils'
 
 const METHOD_CONFIG: Record<OrderMethodType, { title: string }> = {
-  TABLE_ORDER: { title: '바로 주문하기' },
+  TABLE: { title: '바로 주문하기' },
   RESERVATION: { title: '예약하기' },
   DELIVERY:    { title: '배달하기' },
   TAKEOUT:     { title: '포장하기' },
 }
 
-const METHOD_ORDER: OrderMethodType[] = ['TABLE_ORDER', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
+const METHOD_ORDER: OrderMethodType[] = ['TABLE', 'RESERVATION', 'DELIVERY', 'TAKEOUT']
 
 interface Props {
   orderMethods: OrderMethod[]
