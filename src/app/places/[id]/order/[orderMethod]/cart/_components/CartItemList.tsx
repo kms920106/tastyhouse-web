@@ -1,6 +1,6 @@
 import OrderCartItem from '@/components/orders/OrderCartItem'
-import { PAGE_PATHS } from '@/lib/paths'
 import type { OrderProduct } from '@/domains/order'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { LiaPlusSolid } from 'react-icons/lia'
@@ -41,17 +41,17 @@ export default function CartItemList({
     <>
       <div className="px-[15px] divide-y divide-[#f2f2f2]">
         <h2 className="py-5 text-base leading-[16px]">{shopName}</h2>
-        {cartItems.map((item) => (
+        {cartItems.map((product) => (
           <OrderCartItem
-            key={item.optionKey}
-            optionKey={item.optionKey}
-            name={item.name}
-            imageUrl={item.imageUrl}
-            salePrice={item.salePrice}
-            originalPrice={item.originalPrice}
-            quantity={item.quantity}
-            selected={selectedKeys.has(item.optionKey)}
-            selectedOptions={item.selectedOptions}
+            key={product.optionKey}
+            optionKey={product.optionKey}
+            name={product.name}
+            imageUrl={product.imageUrl}
+            salePrice={product.salePrice}
+            originalPrice={product.originalPrice}
+            quantity={product.quantity}
+            selected={selectedKeys.has(product.optionKey)}
+            options={product.options}
             onToggleSelect={onToggleSelect}
             onQuantityChange={onQuantityChange}
             onRemove={onRemove}

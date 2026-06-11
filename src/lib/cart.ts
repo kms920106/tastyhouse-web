@@ -8,7 +8,7 @@ export interface CartSelectedOption {
 export interface CartProduct {
   productId: number
   quantity: number
-  selectedOptions: CartSelectedOption[]
+  options: CartSelectedOption[]
   optionKey: string
 }
 
@@ -23,8 +23,8 @@ const CART_STORAGE_KEY = 'cart'
  * 선택한 옵션들로 고유 키 생성
  * 같은 상품이라도 옵션이 다르면 다른 항목으로 취급
  */
-export function generateOptionKey(productId: number, selectedOptions: CartSelectedOption[]): string {
-  const sortedOptions = [...selectedOptions].sort((a, b) => a.groupId - b.groupId)
+export function generateOptionKey(productId: number, options: CartSelectedOption[]): string {
+  const sortedOptions = [...options].sort((a, b) => a.groupId - b.groupId)
   const optionIds = sortedOptions.map((opt) => `${opt.groupId}:${opt.optionId}`).join('|')
   return `${productId}_${optionIds}`
 }
@@ -75,7 +75,7 @@ export function addToCart(
   quantity: number = 1,
 ): CartData {
   const cart = getCartData()
-  const optionKey = generateOptionKey(item.productId, item.selectedOptions)
+  const optionKey = generateOptionKey(item.productId, item.options)
 
   const products = cart?.products ?? []
   const existingIndex = products.findIndex((p) => p.optionKey === optionKey)
@@ -103,7 +103,7 @@ export function replaceCartAndAdd(
   item: Omit<CartProduct, 'optionKey' | 'quantity'>,
   quantity: number = 1,
 ): CartData {
-  const optionKey = generateOptionKey(item.productId, item.selectedOptions)
+  const optionKey = generateOptionKey(item.productId, item.options)
   const newCart: CartData = {
     shopId,
     products: [{ ...item, optionKey, quantity }],

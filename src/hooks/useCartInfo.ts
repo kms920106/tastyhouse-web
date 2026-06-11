@@ -27,13 +27,13 @@ export interface CartInfo {
 function calculateItemPrice(
   detail: ProductDetailResponse,
   optionGroups: ProductOptionGroup[],
-  selectedOptions: CartSelectedOption[],
+  options: CartSelectedOption[],
 ): { salePrice: number; originalPrice: number; discountPrice: number } {
   const basePrice = detail.discountPrice ?? detail.originalPrice
   const originalPrice = detail.originalPrice
   const discountPrice = originalPrice - basePrice
 
-  const optionAdditionalPrice = selectedOptions.reduce((sum, so) => {
+  const optionAdditionalPrice = options.reduce((sum, so) => {
     const group = optionGroups.find((g) => g.id === so.groupId)
     const option = group?.options.find((o) => o.id === so.optionId)
     return sum + (option?.additionalPrice ?? 0)
@@ -48,9 +48,9 @@ function calculateItemPrice(
 
 function resolveOptionDetails(
   optionGroups: ProductOptionGroup[],
-  selectedOptions: CartSelectedOption[],
+  options: CartSelectedOption[],
 ): OrderProductOption[] {
-  return selectedOptions.map((so) => {
+  return options.map((so) => {
     const group = optionGroups.find((g) => g.id === so.groupId)
     const option = group?.options.find((o) => o.id === so.optionId)
     return {
@@ -68,9 +68,7 @@ type ProductDetailEntry = {
   optionGroups: ProductOptionGroup[]
 }
 
-async function fetchProductDetails(
-  productIds: number[],
-): Promise<Map<number, ProductDetailEntry>> {
+async function fetchProductDetails(productIds: number[]): Promise<Map<number, ProductDetailEntry>> {
   const results = await Promise.allSettled(
     productIds.map((id) => Promise.all([getProductById(id), getProductOptions(id)])),
   )
@@ -79,11 +77,7 @@ async function fetchProductDetails(
   let failedCount = 0
 
   results.forEach((result, index) => {
-    if (
-      result.status === 'fulfilled' &&
-      result.value[0].data &&
-      result.value[1].data
-    ) {
+    if (result.status === 'fulfilled' && result.value[0].data && result.value[1].data) {
       detailMap.set(productIds[index], {
         detail: result.value[0].data,
         optionGroups: result.value[1].data.optionGroups,
@@ -137,10 +131,10 @@ export function useCartInfo(): CartInfo {
         const { salePrice, originalPrice, discountPrice } = calculateItemPrice(
           entry.detail,
           entry.optionGroups,
-          cartProduct.selectedOptions,
+          cartProduct.options,
         )
 
-        const selectedOptions = resolveOptionDetails(entry.optionGroups, cartProduct.selectedOptions)
+        const options = resolveOptionDetails(entry.optionGroups, cartProduct.options)
 
         return {
           productId: cartProduct.productId,
@@ -151,7 +145,7 @@ export function useCartInfo(): CartInfo {
           originalPrice,
           discountPrice,
           quantity: cartProduct.quantity,
-          selectedOptions,
+          options,
         }
       })
       .filter((item): item is OrderProduct => item !== null)

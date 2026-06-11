@@ -4,14 +4,14 @@ import ShopOrderMenuDetailOptionItem from './ShopOrderMenuDetailOptionItem'
 
 interface Props {
   optionGroups: ProductOptionGroup[]
-  selectedOptions: Record<number, number | number[]>
+  options: Record<number, number | number[]>
   onRadioSelect: (groupId: number, optionId: number) => void
   onCheckboxToggle: (groupId: number, optionId: number, maxSelect: number) => void
 }
 
 export default function ShopOrderMenuDetailOptionList({
   optionGroups,
-  selectedOptions,
+  options,
   onRadioSelect,
   onCheckboxToggle,
 }: Props) {
@@ -32,8 +32,8 @@ export default function ShopOrderMenuDetailOptionList({
                   isMultiple={group.isMultipleSelect}
                   isSelected={
                     group.isMultipleSelect
-                      ? (selectedOptions[group.id] as number[]).includes(option.id)
-                      : selectedOptions[group.id] === option.id
+                      ? (options[group.id] as number[]).includes(option.id)
+                      : options[group.id] === option.id
                   }
                   onSelect={() =>
                     group.isMultipleSelect

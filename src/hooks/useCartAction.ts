@@ -11,16 +11,16 @@ interface UseCartActionParams {
   productId: number
   shopId: number
   optionGroups: ProductOptionGroup[]
-  selectedOptions: Record<number, number | number[]>
-  getSelectedOptionsData: () => CartSelectedOption[]
+  options: Record<number, number | number[]>
+  getOptionsData: () => CartSelectedOption[]
 }
 
 export function useCartAction({
   productId,
   shopId,
   optionGroups,
-  selectedOptions,
-  getSelectedOptionsData,
+  options,
+  getOptionsData,
 }: UseCartActionParams) {
   const router = useRouter()
   const [showShopChangeModal, setShowShopChangeModal] = useState(false)
@@ -28,7 +28,7 @@ export function useCartAction({
   const validateRequiredOptions = useCallback((): boolean => {
     const missingRequired = optionGroups.filter((group) => {
       if (!group.isRequired) return false
-      const selected = selectedOptions[group.id]
+      const selected = options[group.id]
       if (group.isMultipleSelect) return (selected as number[]).length < group.minSelect
       return selected === -1
     })
@@ -37,11 +37,11 @@ export function useCartAction({
       return false
     }
     return true
-  }, [optionGroups, selectedOptions])
+  }, [optionGroups, options])
 
   const executeAddToCart = useCallback(
     (replace = false) => {
-      const cartItem = { productId, selectedOptions: getSelectedOptionsData() }
+      const cartItem = { productId, options: getOptionsData() }
       if (replace) {
         replaceCartAndAdd(shopId, cartItem)
       } else {
@@ -51,7 +51,7 @@ export function useCartAction({
       toast('메뉴를 장바구니에 담았습니다.')
       router.back()
     },
-    [productId, shopId, getSelectedOptionsData, router],
+    [productId, shopId, getOptionsData, router],
   )
 
   const handleAddToCart = useCallback(() => {

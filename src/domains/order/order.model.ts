@@ -23,7 +23,7 @@ export interface OrderProduct {
   salePrice: number
   originalPrice: number
   discountPrice: number
-  selectedOptions: OrderProductOption[]
+  options: OrderProductOption[]
 }
 
 export interface OrderedProductOption {

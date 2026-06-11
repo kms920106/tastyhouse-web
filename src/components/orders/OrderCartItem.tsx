@@ -15,7 +15,7 @@ interface Props {
   originalPrice: number
   quantity: number
   selected: boolean
-  selectedOptions?: OrderProductOption[]
+  options?: OrderProductOption[]
   onToggleSelect: (optionKey: string) => void
   onQuantityChange: (optionKey: string, quantity: number) => void
   onRemove: (optionKey: string) => void
@@ -29,7 +29,7 @@ export default function OrderCartItem({
   originalPrice,
   quantity,
   selected,
-  selectedOptions,
+  options,
   onToggleSelect,
   onQuantityChange,
   onRemove,
@@ -40,9 +40,9 @@ export default function OrderCartItem({
       <ImageContainer src={imageUrl} alt={name} size={65} className="ml-2.5" />
       <div className="flex-1 ml-4">
         <h3 className="text-sm leading-[14px] truncate">{name}</h3>
-        {selectedOptions && selectedOptions.length > 0 && (
+        {options && options.length > 0 && (
           <div className="mt-1 space-y-1">
-            {selectedOptions.map((opt, index) => (
+            {options.map((opt, index) => (
               <p key={index} className="text-xs text-[#999999]">
                 {opt.optionName}
                 {opt.additionalPrice > 0 && ` (${formatNumber(opt.additionalPrice)}원)`}
@@ -63,10 +63,7 @@ export default function OrderCartItem({
         <button onClick={() => onRemove(optionKey)} className="w-5 h-5 -mt-1">
           <HiOutlineXMark size={20} color="#cccccc" />
         </button>
-        <QuantityStepper
-          value={quantity}
-          onChange={(next) => onQuantityChange(optionKey, next)}
-        />
+        <QuantityStepper value={quantity} onChange={(next) => onQuantityChange(optionKey, next)} />
       </div>
     </div>
   )

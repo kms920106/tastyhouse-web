@@ -16,26 +16,22 @@ interface Props {
   optionGroups: ProductOptionGroup[]
 }
 
-export default function ShopOrderMenuDetailOptionForm({
-  productId,
-  shopId,
-  optionGroups,
-}: Props) {
+export default function ShopOrderMenuDetailOptionForm({ productId, shopId, optionGroups }: Props) {
   const searchParams = useSearchParams()
   const isOptionsTab = (searchParams.get('tab') ?? 'options') === 'options'
 
-  const { selectedOptions, handleRadioSelect, handleCheckboxToggle, getSelectedOptionsData } =
+  const { options, handleRadioSelect, handleCheckboxToggle, getOptionsData } =
     useProductOptionSelection(optionGroups)
 
   const { showShopChangeModal, handleAddToCart, handleConfirmShopChange, onCancelShopChange } =
-    useCartAction({ productId, shopId, optionGroups, selectedOptions, getSelectedOptionsData })
+    useCartAction({ productId, shopId, optionGroups, options, getOptionsData })
 
   return (
     <>
       <SectionStack>
         <ShopOrderMenuDetailOptionList
           optionGroups={optionGroups}
-          selectedOptions={selectedOptions}
+          options={options}
           onRadioSelect={handleRadioSelect}
           onCheckboxToggle={handleCheckboxToggle}
         />
