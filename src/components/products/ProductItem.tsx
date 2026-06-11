@@ -1,7 +1,7 @@
+import Icon from '@/components/ui/Icon'
 import ImageContainer from '@/components/ui/ImageContainer'
 import Rating from '@/components/ui/Rating'
 import { formatDecimal, formatNumber } from '@/lib/number'
-import Icon from '@/components/ui/Icon'
 
 interface Props {
   imageUrl: string
@@ -25,11 +25,11 @@ export default function ProductItem({
   reviewCount,
 }: Props) {
   return (
-    <div className="flex items-center gap-[15px] pr-3">
+    <div className="flex items-center gap-[15px]">
       <ImageContainer src={imageUrl} alt="메뉴 이미지" size={65} />
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
+        <div className="flex items-center justify-between gap-2.5">
+          <div className="flex flex-col min-w-0">
             {spiciness && (
               <div className="flex gap-[3px] mb-[7px]">
                 {Array.from({ length: spiciness }).map((_, i) => (
