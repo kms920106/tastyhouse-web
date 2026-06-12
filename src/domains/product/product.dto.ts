@@ -24,6 +24,35 @@ export interface ProductDetailResponse {
   shopId: number
 }
 
+export interface ProductBatchItemRequest {
+  productId: number
+  optionId: number | null
+}
+
+export interface ProductBatchRequest {
+  items: ProductBatchItemRequest[]
+}
+
+export interface ProductBatchOptionResponse {
+  id: number
+  name: string
+  price: number
+}
+
+export interface ProductBatchItemResponse {
+  id: number
+  available: boolean
+  name: string | null
+  imageUrl: string | null
+  originalPrice: number | null
+  discountPrice: number | null
+  options: ProductBatchOptionResponse[]
+}
+
+export interface ProductBatchResponse {
+  products: ProductBatchItemResponse[]
+}
+
 export interface ProductReviewCountResponse {
   reviewCount: number
 }

@@ -3,6 +3,8 @@ import 'server-only'
 import { publicApi } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import {
+  ProductBatchRequest,
+  ProductBatchResponse,
   ProductDetailResponse,
   ProductImagesResponse,
   ProductOptionsResponse,
@@ -23,6 +25,10 @@ export const productRepository = {
       ...CACHE_OPTIONS,
       params,
     })
+  },
+  // 상품 배치 조회 (장바구니·주문서 등 여러 상품·옵션을 한 번에 조회)
+  async getProductsBatch(body: ProductBatchRequest) {
+    return publicApi.post<ProductBatchResponse>(`${ENDPOINT}/v1/batch`, body)
   },
   // 상품 상세 조회
   async getProductById(productId: number) {

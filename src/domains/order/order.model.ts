@@ -24,6 +24,7 @@ export interface OrderProduct {
   originalPrice: number
   discountPrice: number
   options: OrderProductOption[]
+  available: boolean
 }
 
 export interface OrderedProductOption {

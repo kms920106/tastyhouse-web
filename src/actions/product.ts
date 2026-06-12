@@ -2,6 +2,10 @@
 
 import { productRepository } from '@/domains/product/product.repository'
 
+export async function getProductsBatch(items: { productId: number; optionId: number | null }[]) {
+  return productRepository.getProductsBatch({ items })
+}
+
 export async function getProductById(productId: number) {
   return productRepository.getProductById(productId)
 }
