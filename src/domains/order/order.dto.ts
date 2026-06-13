@@ -1,11 +1,21 @@
 import { PaymentStatus } from '../payment'
-import type { OrderProduct } from './order.model'
 import type { OrderMethodType } from './order.types'
+
+export interface OrderProductOptionRequest {
+  groupId: number
+  optionId: number
+}
+
+export interface OrderProductRequest {
+  productId: number
+  quantity: number
+  options: OrderProductOptionRequest[]
+}
 
 export interface OrderCreateRequest {
   shopId: number
   orderMethod: OrderMethodType
-  orderItems: OrderProduct[]
+  orderProducts: OrderProductRequest[]
   memberCouponId: number | null
   usePoint: number
   totalProductAmount: number

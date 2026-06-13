@@ -161,7 +161,7 @@ export function useCartInfo(): CartInfo {
     // 응답은 productId 최초 등장 순서로 그룹핑되어 내려오므로 productId로 매핑한다.
     const batchProductMap = new Map(data.products.map((product) => [product.id, product]))
 
-    const orderItems: OrderProduct[] = cart.products
+    const orderProducts: OrderProduct[] = cart.products
       .map((cartProduct) => {
         const batchProduct = batchProductMap.get(cartProduct.productId)
         if (!batchProduct) return null
@@ -170,8 +170,8 @@ export function useCartInfo(): CartInfo {
       .filter((item): item is OrderProduct => item !== null)
 
     setState({
-      items: orderItems,
-      firstProductName: orderItems.find((item) => item.available)?.name ?? '',
+      items: orderProducts,
+      firstProductName: orderProducts.find((item) => item.available)?.name ?? '',
       totalItemCount: getCartProductTypeCount(),
       isLoading: false,
     })

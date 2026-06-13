@@ -5,10 +5,10 @@ import Link from 'next/link'
 
 interface Props {
   shopName: string
-  orderItems: OrderedProduct[]
+  orderProducts: OrderedProduct[]
 }
 
-export default function OrderedProductList({ shopName, orderItems }: Props) {
+export default function OrderedProductList({ shopName, orderProducts }: Props) {
   return (
     <>
       <div className="px-[15px] pt-5 pb-[15px]">
@@ -16,7 +16,7 @@ export default function OrderedProductList({ shopName, orderItems }: Props) {
       </div>
       <div className="px-4 pb-[5px]">
         <div className="divide-y divide-line first:border-t border-line">
-          {orderItems.map((item) => (
+          {orderProducts.map((item) => (
             <OrderProductItem
               key={item.id}
               productName={item.productName}

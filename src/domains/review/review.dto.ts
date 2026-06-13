@@ -122,7 +122,7 @@ export interface ReviewWriteInfoResponse {
 }
 
 export interface ReviewCreateRequest {
-  orderItemId: number | null
+  orderProductId: number | null
   productId: number
   tasteRating: number
   amountRating: number

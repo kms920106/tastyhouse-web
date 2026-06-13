@@ -2,14 +2,14 @@ import OrderReviewCreateContent from './OrderReviewCreateContent'
 import OrderReviewCreateHeader from './OrderReviewCreateHeader'
 
 interface Props {
-  orderItemId: number
+  orderProductId: number
 }
 
-export default function OrderReviewCreatePage({ orderItemId }: Props) {
+export default function OrderReviewCreatePage({ orderProductId }: Props) {
   return (
     <>
       <OrderReviewCreateHeader />
-      <OrderReviewCreateContent orderItemId={orderItemId} />
+      <OrderReviewCreateContent orderProductId={orderProductId} />
     </>
   )
 }

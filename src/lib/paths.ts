@@ -71,8 +71,8 @@ export const PAGE_PATHS = {
   ORDER_RESERVATION: (shopId: string | number) => `/places/${shopId}/order/reservation`,
   ORDER_DETAIL: (orderId: string | number) => `/orders/${orderId}`,
   ORDER_COMPLETE: (orderId: string | number) => `/orders/${orderId}/complete`,
-  ORDERS_REVIEWS_CREATE: (orderItemId: number) =>
-    `/orders/reviews/create?orderItemId=${orderItemId}`,
+  ORDERS_REVIEWS_CREATE: (orderProductId: number) =>
+    `/orders/reviews/create?orderProductId=${orderProductId}`,
   ORDERS_REVIEWS_EDIT: (orderProductId: number) =>
     `/orders/reviews/edit?orderProductId=${orderProductId}`,
 

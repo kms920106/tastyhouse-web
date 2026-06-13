@@ -39,7 +39,7 @@ const INITIAL_FORM_DATA: FormData = {
 }
 
 interface Props {
-  orderItemId: number
+  orderProductId: number
   productId: number
   productName: string
   productImageUrl: string
@@ -47,7 +47,7 @@ interface Props {
 }
 
 export default function OrderReviewCreateForm({
-  orderItemId,
+  orderProductId,
   productId,
   productName,
   productImageUrl,
@@ -121,7 +121,7 @@ export default function OrderReviewCreateForm({
 
     startSubmitting(async () => {
       const { error } = await createOrderReview({
-        orderItemId,
+        orderProductId,
         productId,
         tasteRating: formData.ratings.taste,
         amountRating: formData.ratings.amount,

@@ -54,12 +54,12 @@ export async function createReply(
   return result
 }
 
-export async function getReviewWriteInfo(orderItemId: number) {
-  return reviewRepository.getReviewWriteInfo(orderItemId)
+export async function getReviewWriteInfo(orderProductId: number) {
+  return reviewRepository.getReviewWriteInfo(orderProductId)
 }
 
 export async function createOrderReview({
-  orderItemId,
+  orderProductId,
   productId,
   tasteRating,
   amountRating,
@@ -68,7 +68,7 @@ export async function createOrderReview({
   uploadedFileIds,
   tags,
 }: {
-  orderItemId: number | null
+  orderProductId: number | null
   productId: number
   tasteRating: number
   amountRating: number
@@ -78,7 +78,7 @@ export async function createOrderReview({
   tags: string[]
 }) {
   const result = await reviewRepository.createReview({
-    orderItemId,
+    orderProductId,
     productId,
     tasteRating,
     amountRating,

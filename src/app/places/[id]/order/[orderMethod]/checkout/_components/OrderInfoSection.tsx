@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/shadcn/accordion'
 import { formatOrderSummary } from '@/lib/order'
 
-interface OrderItem {
+interface OrderProduct {
   name: string
   imageUrl: string
   salePrice: number
@@ -16,14 +16,14 @@ interface OrderItem {
 
 interface Props {
   shopName: string
-  items: OrderItem[]
+  orderProducts: OrderProduct[]
   firstProductName: string
   totalItemCount: number
 }
 
 export default function OrderInfoSection({
   shopName,
-  items,
+  orderProducts: items,
   firstProductName,
   totalItemCount,
 }: Props) {
@@ -41,13 +41,13 @@ export default function OrderInfoSection({
         <AccordionContent className="p-0">
           <div className="px-4">
             <div className="divide-y divide-line first:border-t border-line">
-              {items.map((item, index) => (
+              {items.map((orderProduct, index) => (
                 <OrderProductItem
                   key={index}
-                  productName={item.name}
-                  productImageUrl={item.imageUrl}
-                  unitPrice={item.salePrice}
-                  quantity={item.quantity}
+                  productName={orderProduct.name}
+                  productImageUrl={orderProduct.imageUrl}
+                  unitPrice={orderProduct.salePrice}
+                  quantity={orderProduct.quantity}
                 />
               ))}
             </div>

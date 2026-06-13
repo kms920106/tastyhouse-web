@@ -1,12 +1,12 @@
 'use server'
 
-import type { OrderMethodType, OrderProduct } from '@/domains/order'
+import type { OrderProductRequest, OrderMethodType } from '@/domains/order'
 import { orderRepository } from '@/domains/order/order.repository'
 
 export async function createOrder({
   shopId,
   orderMethod,
-  orderItems,
+  orderProducts,
   memberCouponId,
   usePoint,
   totalProductAmount,
@@ -18,7 +18,7 @@ export async function createOrder({
 }: {
   shopId: number
   orderMethod: OrderMethodType
-  orderItems: OrderProduct[]
+  orderProducts: OrderProductRequest[]
   memberCouponId: number | null
   usePoint: number
   totalProductAmount: number
@@ -31,7 +31,7 @@ export async function createOrder({
   return orderRepository.createOrder({
     shopId,
     orderMethod,
-    orderItems,
+    orderProducts,
     memberCouponId,
     usePoint,
     totalProductAmount,

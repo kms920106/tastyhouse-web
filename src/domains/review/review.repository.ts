@@ -62,8 +62,8 @@ export const reviewRepository = {
     return api.post<ReplyCreateResponse>(`${ENDPOINT}/v1/comments/${commentId}/replies`, request)
   },
   // 리뷰 작성 정보 조회
-  async getReviewWriteInfo(orderItemId: number) {
-    return api.get<ReviewWriteInfoResponse>(`${ENDPOINT}/v1/write/order-items/${orderItemId}`)
+  async getReviewWriteInfo(orderProductId: number) {
+    return api.get<ReviewWriteInfoResponse>(`${ENDPOINT}/v1/write/order-items/${orderProductId}`)
   },
   // 리뷰 등록
   async createReview(request: ReviewCreateRequest) {

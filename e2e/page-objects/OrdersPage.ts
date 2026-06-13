@@ -8,13 +8,13 @@ import { type Page, type Locator, expect } from '@playwright/test'
 export class OrdersPage {
   readonly page: Page
 
-  readonly orderItems: Locator
+  readonly orderProducts: Locator
   readonly emptyState: Locator
   readonly loadingSpinner: Locator
 
   constructor(page: Page) {
     this.page = page
-    this.orderItems = page.getByRole('listitem')
+    this.orderProducts = page.getByRole('listitem')
     this.emptyState = page.getByText(/주문 내역이 없|no orders/i)
     this.loadingSpinner = page.getByRole('status')
   }
@@ -28,7 +28,7 @@ export class OrdersPage {
   }
 
   async expectOrdersVisible() {
-    await expect(this.orderItems.first()).toBeVisible()
+    await expect(this.orderProducts.first()).toBeVisible()
   }
 
   async expectEmptyState() {

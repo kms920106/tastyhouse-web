@@ -76,7 +76,7 @@ export interface OrderDetail {
   finalAmount: number
   usedPoint: number
   earnedPoint: number
-  orderItems: OrderedProduct[]
+  orderProducts: OrderedProduct[]
   payment: OrderPayment
   createdAt: string
 }

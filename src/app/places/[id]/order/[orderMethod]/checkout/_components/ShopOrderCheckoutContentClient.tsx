@@ -75,10 +75,22 @@ export default function ShopOrderCheckoutContentClient({
     const trimmedRequest = request.trim()
 
     // 1. 주문 생성 (PENDING)
+    // 장바구니 표시용 아이템(OrderProduct)을 서버 요청 DTO(OrderProductRequest)로 변환한다.
+    // 서버는 productId / quantity / options(groupId, optionId)만 신뢰하며,
+    // 금액·옵션 가격은 DB에서 재계산하므로 표시용 필드는 전송하지 않는다.
+    const orderProducts = items.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+      options: item.options.map((option) => ({
+        groupId: option.groupId,
+        optionId: option.optionId,
+      })),
+    }))
+
     const orderResult = await createOrder({
       shopId,
       orderMethod,
-      orderItems: items,
+      orderProducts,
       memberCouponId: selectedCoupon?.id ?? null,
       usePoint: pointsUsed,
       totalProductAmount,
@@ -178,7 +190,7 @@ export default function ShopOrderCheckoutContentClient({
         <BorderedSection>
           <OrderInfoSection
             shopName={shopName}
-            items={items}
+            orderProducts={items}
             firstProductName={firstProductName}
             totalItemCount={totalItemCount}
           />

@@ -31,7 +31,7 @@ export default async function OrderDetailContent({ orderId }: Props) {
     paymentStatus,
     shopName,
     shopPhoneNumber,
-    orderItems,
+    orderProducts,
     ordererName,
     ordererPhone,
     ordererEmail,
@@ -51,7 +51,7 @@ export default async function OrderDetailContent({ orderId }: Props) {
           <OrderStatusHeader orderNumber={orderNumber} paymentStatus={paymentStatus} />
         </BorderedSection>
         <BorderedSection>
-          <OrderedProductList shopName={shopName} orderItems={orderItems} />
+          <OrderedProductList shopName={shopName} orderProducts={orderProducts} />
         </BorderedSection>
         <BorderedSection>
           <OrdererInformationAccordion
