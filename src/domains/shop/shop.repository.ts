@@ -3,18 +3,18 @@ import 'server-only'
 import { api, publicApi } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import {
-  ShopProductCategoryResponse,
   ShopAmenityResponse,
   ShopBannerListItemResponse,
   ShopBestListItemResponse,
   ShopBookmarkResponse,
   ShopChoiceListItemResponse,
+  ShopDetailResponse,
   ShopFoodTypeListItemResponse,
   ShopInfoResponse,
   ShopLatestListItemResponse,
-  ShopDetailResponse,
   ShopOrderMethodResponse,
   ShopPhotoCategoryResponse,
+  ShopProductCategoryResponse,
   ShopReviewStatisticsResponse,
   ShopReviewsByRatingResponse,
   ShopStationListItemResponse,
@@ -51,10 +51,7 @@ export const shopRepository = {
     return publicApi.get<ShopStationListItemResponse[]>(`${ENDPOINT}/v1/stations`, CACHE_OPTIONS)
   },
   async getShopFoodTypes() {
-    return publicApi.get<ShopFoodTypeListItemResponse[]>(
-      `${ENDPOINT}/v1/food-types`,
-      CACHE_OPTIONS,
-    )
+    return publicApi.get<ShopFoodTypeListItemResponse[]>(`${ENDPOINT}/v1/food-types`, CACHE_OPTIONS)
   },
   async getShopAmenities() {
     return publicApi.get<ShopAmenityResponse[]>(`${ENDPOINT}/v1/amenities`, CACHE_OPTIONS)

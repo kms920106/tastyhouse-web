@@ -15,7 +15,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 export interface CartInfo {
   items: OrderProduct[]
-  shopName: string
   firstProductName: string
   totalItemCount: number
   totalProductAmount: number
@@ -130,7 +129,6 @@ function toOrderProduct(
 
 interface CartState {
   items: OrderProduct[]
-  shopName: string
   firstProductName: string
   totalItemCount: number
   isLoading: boolean
@@ -138,7 +136,6 @@ interface CartState {
 
 const initialCartState: CartState = {
   items: [],
-  shopName: '',
   firstProductName: '',
   totalItemCount: 0,
   isLoading: true,
@@ -174,7 +171,6 @@ export function useCartInfo(): CartInfo {
 
     setState({
       items: orderItems,
-      shopName: '',
       firstProductName: orderItems.find((item) => item.available)?.name ?? '',
       totalItemCount: getCartProductTypeCount(),
       isLoading: false,
