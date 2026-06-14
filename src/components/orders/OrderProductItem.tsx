@@ -14,7 +14,7 @@ interface Props {
 export default function OrderProductItem({
   productName,
   productImageUrl,
-  totalPrice: unitPrice,
+  totalPrice,
   quantity,
   options,
   action,
@@ -35,7 +35,7 @@ export default function OrderProductItem({
           </div>
         )}
         <p className="text-sm leading-[14px]">
-          {formatNumber(unitPrice)}원{quantity !== undefined && ` | ${quantity}개`}
+          {formatNumber(totalPrice)}원{quantity !== undefined && ` | ${quantity}개`}
         </p>
       </div>
       {action}
