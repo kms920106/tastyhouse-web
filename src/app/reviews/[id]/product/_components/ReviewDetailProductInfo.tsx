@@ -19,6 +19,7 @@ interface Props {
   kindnessRating: number
   hygieneRating: number
   willRevisit: boolean
+  memberId: number
   memberNickname: string
   memberProfileImageUrl: string | null
   createdAt: string
@@ -38,6 +39,7 @@ export default function ReviewDetailProductInfo({
   kindnessRating,
   hygieneRating,
   willRevisit,
+  memberId,
   memberNickname,
   memberProfileImageUrl,
   createdAt,
@@ -62,6 +64,7 @@ export default function ReviewDetailProductInfo({
         <div className="py-5">
           <div className="flex justify-between">
             <ReviewAuthorInfo
+              memberId={memberId}
               profileImageUrl={memberProfileImageUrl}
               nickname={memberNickname}
               createdAt={createdAt}

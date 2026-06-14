@@ -1,6 +1,6 @@
 import type { PaginationParams } from '@/types/common'
-import type { ReviewType } from './review.types'
 import type { ReviewComment, ReviewReply } from './review.model'
+import type { ReviewType } from './review.types'
 
 export interface ReviewLatestQuery extends PaginationParams {
   type: ReviewType
@@ -66,6 +66,7 @@ export interface ReviewProductDetailResponse {
   kindnessRating: number
   hygieneRating: number
   willRevisit: boolean
+  memberId: number
   memberNickname: string
   memberProfileImageUrl: string | null
   createdAt: string

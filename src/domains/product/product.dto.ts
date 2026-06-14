@@ -65,11 +65,12 @@ export interface ProductOptionsResponse {
   optionGroups: ProductOptionGroup[]
 }
 
-export interface ProductReviewListItemResponse {
+interface ProductReviewListItemResponse {
   id: number
   imageUrls: string[]
   totalRating: number
   content: string
+  memberId: number
   memberNickname: string
   memberProfileImageUrl: string | null
   createdAt: string

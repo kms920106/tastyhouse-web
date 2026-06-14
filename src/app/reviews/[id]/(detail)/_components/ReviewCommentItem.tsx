@@ -1,8 +1,8 @@
 'use client'
 
-import Avatar from '@/components/ui/Avatar'
 import MemberNickname from '@/components/members/MemberNickname'
 import TimeAgo from '@/components/reviews/TimeAgo'
+import Avatar from '@/components/ui/Avatar'
 import {
   Drawer,
   DrawerClose,
@@ -11,9 +11,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
+import type { ReviewComment } from '@/domains/review'
+import Link from 'next/link'
 import { FiMoreVertical } from 'react-icons/fi'
 import { useReply } from './ReviewReplyProvider'
-import type { ReviewComment } from '@/domains/review'
 
 interface Props {
   comment: ReviewComment
@@ -26,7 +27,9 @@ export default function ReviewCommentItem({ comment, currentMemberId }: Props) {
 
   return (
     <div className="flex gap-2.5">
-      <Avatar src={comment.memberProfileImageUrl} alt={comment.memberNickname} />
+      <Link href={`/members/${comment.memberId}`}>
+        <Avatar src={comment.memberProfileImageUrl} alt={comment.memberNickname} />
+      </Link>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-[15px] mb-2.5">
           <MemberNickname size="sm">{comment.memberNickname}</MemberNickname>

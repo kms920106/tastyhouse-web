@@ -6,6 +6,7 @@ import ReviewActions from './ReviewActions'
 import ReviewTagList from './ReviewTagList'
 
 interface Props {
+  memberId: number
   memberProfileImageUrl: string | null
   memberNickname: string
   createdAt: string
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export default async function ReviewInfo({
+  memberId,
   memberProfileImageUrl,
   memberNickname,
   createdAt,
@@ -32,6 +34,7 @@ export default async function ReviewInfo({
     <>
       <div className="flex justify-between">
         <ReviewAuthorInfo
+          memberId={memberId}
           profileImageUrl={memberProfileImageUrl}
           nickname={memberNickname}
           createdAt={createdAt}

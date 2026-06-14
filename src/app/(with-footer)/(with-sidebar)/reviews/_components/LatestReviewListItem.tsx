@@ -37,6 +37,7 @@ export default function LatestReviewListItem({ review }: Props) {
     <div className="px-[15px] pt-3 pb-[30px] bg-white">
       <div className="flex justify-between">
         <ReviewAuthorInfo
+          memberId={memberId}
           profileImageUrl={memberProfileImageUrl}
           nickname={memberNickname}
           createdAt={createdAt}

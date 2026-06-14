@@ -6,8 +6,8 @@ import FetchErrorState from '@/components/ui/FetchErrorState'
 import Rating from '@/components/ui/Rating'
 import SectionStack from '@/components/ui/SectionStack'
 import TextContent from '@/components/ui/TextContent'
-import { reviewRepository } from '@/domains/review/review.repository'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { reviewRepository } from '@/domains/review/review.repository'
 import { formatNumber } from '@/lib/number'
 import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
@@ -59,6 +59,7 @@ export default async function ReviewProductInfoSection({ reviewId }: Props) {
     kindnessRating,
     hygieneRating,
     willRevisit,
+    memberId,
     memberNickname,
     memberProfileImageUrl,
     createdAt,
@@ -108,6 +109,7 @@ export default async function ReviewProductInfoSection({ reviewId }: Props) {
             <div className="py-5">
               <div className="flex justify-between">
                 <ReviewAuthorInfo
+                  memberId={memberId}
                   profileImageUrl={memberProfileImageUrl}
                   nickname={memberNickname}
                   createdAt={createdAt}

@@ -1,11 +1,10 @@
 'use client'
 
+import MemberProfileCell from '@/components/members/MemberProfileCell'
 import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import FollowButton from '@/components/ui/FollowButton'
-import MemberProfileCell from '@/components/members/MemberProfileCell'
 import { SocialMember } from '@/domains/member'
-import Link from 'next/link'
 import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
@@ -26,13 +25,12 @@ export default function MemberFollowListItem({
 
   return (
     <div className="flex items-center justify-between">
-      <Link href={`/members/${member.memberId}`} className="flex-1">
-        <MemberProfileCell
-          nickname={member.nickname}
-          memberGrade={member.memberGrade}
-          profileImageUrl={member.profileImageUrl}
-        />
-      </Link>
+      <MemberProfileCell
+        nickname={member.nickname}
+        memberGrade={member.memberGrade}
+        profileImageUrl={member.profileImageUrl}
+        href={`/members/${member.memberId}`}
+      />
       <div className="flex items-center gap-2">
         {isOwner ? (
           <>

@@ -6,6 +6,7 @@ import { PAGE_PATHS } from '@/lib/paths'
 
 export interface ReviewListItemData {
   id: number
+  memberId: number
   memberProfileImageUrl: string | null
   memberNickname: string
   createdAt: string
@@ -25,6 +26,7 @@ export default function ReviewListItem({ review }: Props) {
     <div className="py-5">
       <div className="flex justify-between">
         <ReviewAuthorInfo
+          memberId={review.memberId}
           profileImageUrl={review.memberProfileImageUrl}
           nickname={review.memberNickname}
           createdAt={review.createdAt}

@@ -33,6 +33,7 @@ export default async function ReviewDetailProductPage({ reviewId }: Props) {
     kindnessRating,
     hygieneRating,
     willRevisit,
+    memberId,
     memberNickname,
     memberProfileImageUrl,
     createdAt,
@@ -57,6 +58,7 @@ export default async function ReviewDetailProductPage({ reviewId }: Props) {
         kindnessRating={kindnessRating}
         hygieneRating={hygieneRating}
         willRevisit={willRevisit}
+        memberId={memberId}
         memberNickname={memberNickname}
         memberProfileImageUrl={memberProfileImageUrl}
         createdAt={createdAt}

@@ -32,6 +32,7 @@ export default function ReviewInfoSection({
   return (
     <section className="px-[15px] pt-5 pb-8 border-b border-line box-border">
       <ReviewInfo
+        memberId={memberId}
         memberProfileImageUrl={memberProfileImageUrl}
         memberNickname={memberNickname}
         createdAt={createdAt}

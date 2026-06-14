@@ -16,6 +16,7 @@ interface Props {
   kindnessRating: number
   hygieneRating: number
   willRevisit: boolean
+  memberId: number
   memberNickname: string
   memberProfileImageUrl: string | null
   createdAt: string
@@ -37,6 +38,7 @@ export default function ReviewDetailProductContent({
   kindnessRating,
   hygieneRating,
   willRevisit,
+  memberId,
   memberNickname,
   memberProfileImageUrl,
   createdAt,
@@ -63,6 +65,7 @@ export default function ReviewDetailProductContent({
         kindnessRating={kindnessRating}
         hygieneRating={hygieneRating}
         willRevisit={willRevisit}
+        memberId={memberId}
         memberNickname={memberNickname}
         memberProfileImageUrl={memberProfileImageUrl}
         createdAt={createdAt}

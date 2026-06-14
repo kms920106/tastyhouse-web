@@ -72,6 +72,7 @@ export interface ShopReviewListItemResponse {
   imageUrls: string[]
   totalRating: number
   content: string
+  memberId: number
   memberNickname: string
   memberProfileImageUrl: string | null
   createdAt: string

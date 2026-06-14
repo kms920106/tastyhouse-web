@@ -1,8 +1,8 @@
 'use client'
 
-import Avatar from '@/components/ui/Avatar'
 import MemberNickname from '@/components/members/MemberNickname'
 import TimeAgo from '@/components/reviews/TimeAgo'
+import Avatar from '@/components/ui/Avatar'
 import {
   Drawer,
   DrawerClose,
@@ -11,10 +11,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
+import type { ReviewReply } from '@/domains/review'
 import Link from 'next/link'
 import { FiMoreVertical } from 'react-icons/fi'
 import { useReply } from './ReviewReplyProvider'
-import type { ReviewReply } from '@/domains/review'
 
 interface Props {
   reply: ReviewReply
@@ -28,7 +28,9 @@ export default function ReviewReplyItem({ reply, parentCommentId, currentMemberI
 
   return (
     <div className="flex gap-2.5">
-      <Avatar src={reply.memberProfileImageUrl} alt={reply.memberNickname} size="sm" />
+      <Link href={`/members/${reply.memberId}`}>
+        <Avatar src={reply.memberProfileImageUrl} alt={reply.memberNickname} size="sm" />
+      </Link>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-2.5">
           <MemberNickname size="sm">{reply.memberNickname}</MemberNickname>
