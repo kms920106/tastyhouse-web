@@ -5,6 +5,7 @@ import AppConfirmDialog from '@/components/ui/AppConfirmDialog'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
 import FollowButton from '@/components/ui/FollowButton'
 import { SocialMember } from '@/domains/member'
+import { PAGE_PATHS } from '@/lib/paths'
 import { useState } from 'react'
 import { FiMoreVertical } from 'react-icons/fi'
 
@@ -29,7 +30,7 @@ export default function MemberFollowListItem({
         nickname={member.nickname}
         memberGrade={member.memberGrade}
         profileImageUrl={member.profileImageUrl}
-        href={`/members/${member.memberId}`}
+        href={PAGE_PATHS.MEMBER_DETAIL(member.memberId)}
       />
       <div className="flex items-center gap-2">
         {isOwner ? (

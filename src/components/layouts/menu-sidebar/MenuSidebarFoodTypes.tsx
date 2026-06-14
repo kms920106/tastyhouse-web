@@ -2,6 +2,7 @@
 
 import { useSidebar } from '@/components/ui/shadcn/sidebar'
 import { useShopFoodTypes } from '@/domains/shop/shop.hook'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { useState } from 'react'
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'
@@ -36,7 +37,7 @@ export default function MenuSidebarFoodTypes() {
         {visibleFoodTypes.map((foodType) => (
           <Link
             key={foodType.code}
-            href={`/places?foodTypes=${foodType.code}`}
+            href={`${PAGE_PATHS.PLACES}?foodTypes=${foodType.code}`}
             onClick={() => setOpenMobile(false)}
             className="flex flex-col items-center justify-center gap-[15px] h-24 bg-[#fdfdfd] border border-line box-border"
           >

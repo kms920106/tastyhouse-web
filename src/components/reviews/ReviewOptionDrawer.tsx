@@ -61,7 +61,7 @@ export default function ReviewOptionDrawer({ reviewId, memberId, memberNickname,
             <>
               <DrawerClose asChild>
                 <Link
-                  href={`/reviews/${reviewId}/update`}
+                  href={PAGE_PATHS.REVIEW_EDIT(reviewId)}
                   className="block w-full py-[20.5px] text-sm leading-[14px]"
                 >
                   수정

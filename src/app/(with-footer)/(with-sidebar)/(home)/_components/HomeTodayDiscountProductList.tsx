@@ -35,7 +35,7 @@ export default async function HomeTodayDiscountProductList() {
         ))}
       </div>
       <div className="flex justify-center mt-10">
-        <ViewMoreButton href="/products/today-discount" />
+        <ViewMoreButton href={PAGE_PATHS.PRODUCTS_TODAY_DISCOUNT} />
       </div>
     </>
   )

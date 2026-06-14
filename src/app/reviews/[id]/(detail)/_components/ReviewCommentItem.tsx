@@ -12,6 +12,7 @@ import {
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
 import type { ReviewComment } from '@/domains/review'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { FiMoreVertical } from 'react-icons/fi'
 import { useReply } from './ReviewReplyProvider'
@@ -27,7 +28,7 @@ export default function ReviewCommentItem({ comment, currentMemberId }: Props) {
 
   return (
     <div className="flex gap-2.5">
-      <Link href={`/members/${comment.memberId}`}>
+      <Link href={PAGE_PATHS.MEMBER_DETAIL(comment.memberId)}>
         <Avatar src={comment.memberProfileImageUrl} alt={comment.memberNickname} />
       </Link>
       <div className="flex-1 min-w-0">

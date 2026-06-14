@@ -12,6 +12,7 @@ import {
   DrawerTrigger,
 } from '@/components/ui/shadcn/drawer'
 import type { ReviewReply } from '@/domains/review'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 import { FiMoreVertical } from 'react-icons/fi'
 import { useReply } from './ReviewReplyProvider'
@@ -28,7 +29,7 @@ export default function ReviewReplyItem({ reply, parentCommentId, currentMemberI
 
   return (
     <div className="flex gap-2.5">
-      <Link href={`/members/${reply.memberId}`}>
+      <Link href={PAGE_PATHS.MEMBER_DETAIL(reply.memberId)}>
         <Avatar src={reply.memberProfileImageUrl} alt={reply.memberNickname} size="sm" />
       </Link>
       <div className="flex-1 min-w-0">
@@ -37,7 +38,10 @@ export default function ReviewReplyItem({ reply, parentCommentId, currentMemberI
           <TimeAgo date={reply.createdAt} />
         </div>
         <p className="text-xs leading-relaxed whitespace-pre-wrap break-words">
-          <Link href={`/members/${reply.replyToMemberId}`} className="text-[#3B82F6] font-medium">
+          <Link
+            href={PAGE_PATHS.MEMBER_DETAIL(reply.replyToMemberId)}
+            className="text-[#3B82F6] font-medium"
+          >
             @{reply.replyToMemberNickname}
           </Link>{' '}
           {reply.content}

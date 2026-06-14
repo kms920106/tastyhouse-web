@@ -3,6 +3,7 @@
 import MemberProfileCell from '@/components/members/MemberProfileCell'
 import FollowButton from '@/components/ui/FollowButton'
 import { SocialMember } from '@/domains/member'
+import { PAGE_PATHS } from '@/lib/paths'
 
 interface Props {
   member: SocialMember
@@ -16,7 +17,7 @@ export default function MemberSearchResultItem({ member, onFollowToggle }: Props
         nickname={member.nickname}
         memberGrade={member.memberGrade}
         profileImageUrl={member.profileImageUrl}
-        href={`/members/${member.memberId}`}
+        href={PAGE_PATHS.MEMBER_DETAIL(member.memberId)}
       />
       <FollowButton following={member.following} onClick={() => onFollowToggle(member)} />
     </div>

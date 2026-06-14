@@ -1,5 +1,6 @@
 'use client'
 
+import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/actions/member'
 import AppFormField from '@/components/ui/AppFormField'
 import AppInput from '@/components/ui/AppInput'
 import AppOutlineButton from '@/components/ui/AppOutlineButton'
@@ -9,19 +10,19 @@ import { toast } from '@/components/ui/AppToaster'
 import BorderedSection from '@/components/ui/BorderedSection'
 import PhoneVerificationField from '@/components/ui/PhoneVerificationField'
 import SectionStack from '@/components/ui/SectionStack'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
+import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
 import type { MemberGender } from '@/domains/member'
 import { usePhoneVerification } from '@/hooks/usePhoneVerification'
-import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { extractZodFieldErrors } from '@/lib/form'
-import { PHONE_ERROR_MESSAGES, PHONE_REGEX } from '@/constants/validation'
+import { PAGE_PATHS } from '@/lib/paths'
 import { cn } from '@/lib/utils'
-import { getMemberPersonalInfo, updateMemberPersonalInfo } from '@/actions/member'
 import Image from 'next/image'
 import Link from 'next/link'
-import ToggleSwitch from './ToggleSwitch'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState, useTransition } from 'react'
 import { z } from 'zod'
-import { useRouter } from 'next/navigation'
+import ToggleSwitch from './ToggleSwitch'
 
 const BIRTH_YEARS = Array.from({ length: 100 }, (_, i) => 2026 - i)
 const BIRTH_MONTHS = Array.from({ length: 12 }, (_, i) => i + 1)
@@ -261,9 +262,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
                   <AppOutlineButton
                     className={cn(
                       'flex-1 transition-colors',
-                      gender === 'MALE'
-                        ? 'border-main text-main'
-                        : 'border-line',
+                      gender === 'MALE' ? 'border-main text-main' : 'border-line',
                     )}
                     onClick={() => setGender('MALE')}
                   >
@@ -272,9 +271,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
                   <AppOutlineButton
                     className={cn(
                       'flex-1 transition-colors',
-                      gender === 'FEMALE'
-                        ? 'border-main text-main'
-                        : 'border-line',
+                      gender === 'FEMALE' ? 'border-main text-main' : 'border-line',
                     )}
                     onClick={() => setGender('FEMALE')}
                   >
@@ -303,7 +300,7 @@ export default function AccountInfoEditForm({ verifyToken }: Props) {
             </div>
             <div className="flex items-center justify-end mt-10">
               <Link
-                href="/account/withdraw"
+                href={PAGE_PATHS.ACCOUNT_WITHDRAW}
                 className="flex items-center gap-1 text-[13px] leading-[13px] text-[#999999]"
               >
                 회원탈퇴

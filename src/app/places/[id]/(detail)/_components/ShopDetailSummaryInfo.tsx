@@ -2,6 +2,7 @@
 
 import { toast } from '@/components/ui/AppToaster'
 import { formatDecimal } from '@/lib/number'
+import { PAGE_PATHS } from '@/lib/paths'
 import { copyToClipboard } from '@/lib/share'
 import Link from 'next/link'
 import { ReactNode } from 'react'
@@ -44,7 +45,7 @@ export default function ShopDetailSummaryInfo({
           <div className="relative text-xs leading-[12px] text-[#aaaaaa]">
             <span>[지번] {lotAddress}</span>
             <div className="absolute top-0 right-0 flex gap-[11px]">
-              <Link href={`/places/${id}/map`} className="flex items-center gap-[3px]">
+              <Link href={PAGE_PATHS.PLACE_MAP(id)} className="flex items-center gap-[3px]">
                 <TfiLocationPin size={12} className="text-main" />
                 <span className="text-xs leading-[12px] text-main">지도</span>
               </Link>

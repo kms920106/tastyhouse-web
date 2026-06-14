@@ -8,6 +8,7 @@ export const PAGE_PATHS = {
   ACCOUNT_INFO: '/account/info',
   ACCOUNT_PASSWORD: '/account/password',
   ACCOUNT_PROFILE: '/account/profile',
+  ACCOUNT_WITHDRAW: '/account/withdraw',
 
   // 광고
   ADVERTISING: '/advertising',
@@ -18,6 +19,7 @@ export const PAGE_PATHS = {
   AUTH_SIGNUP: '/auth/signup',
   AUTH_SIGNUP_SOCIAL: '/auth/signup/social',
   AUTH_PHONE_VERIFICATION: '/auth/phone-verification',
+  AUTH_FORGOT_PASSWORD: '/auth/forgot-password',
   AUTH_SIGNUP_COMPLETE: '/auth/signup/complete',
   AUTH_CALLBACK_KAKAO: '/auth/callback/kakao',
   AUTH_CALLBACK_NAVER: '/auth/callback/naver',
@@ -43,11 +45,9 @@ export const PAGE_PATHS = {
   // 등급
   GRADE: '/grade',
 
-  // 지도
-  // MAP paths (if needed)
-
   // 회원
   MEMBERS: '/members',
+  MEMBER_SEARCH: '/members/search',
   MEMBER_DETAIL: (id: string | number) => `/members/${id}`,
   MEMBER_FOLLOWS: (id: string | number, tab?: 'following' | 'follower') =>
     `/members/${id}/follows${tab ? `?tab=${tab}` : ''}`,
@@ -99,6 +99,7 @@ export const PAGE_PATHS = {
   PLACE_PRODUCT_DETAIL: (shopId: number, productId: number) =>
     `/places/${shopId}/products/${productId}`,
   PLACE_MENU_DETAIL: (shopId: number, menuId: number) => `/places/${shopId}/menus/${menuId}`,
+  PLACE_MAP: (id: string | number) => `/places/${id}/map`,
 
   // 포인트
   POINT: '/point',

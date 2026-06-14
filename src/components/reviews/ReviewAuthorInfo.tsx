@@ -1,6 +1,7 @@
 import MemberNickname from '@/components/members/MemberNickname'
 import TimeAgo from '@/components/reviews/TimeAgo'
 import Avatar from '@/components/ui/Avatar'
+import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
 interface Props {
@@ -18,7 +19,7 @@ export default function ReviewAuthorInfo({
 }: Props) {
   return (
     <div className="flex items-center gap-2.5">
-      <Link href={`/members/${memberId}`}>
+      <Link href={PAGE_PATHS.MEMBER_DETAIL(memberId)}>
         <Avatar src={profileImageUrl} alt={nickname} priority />
       </Link>
       <div className="flex flex-col gap-2">

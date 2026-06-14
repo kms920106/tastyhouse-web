@@ -42,7 +42,7 @@ export default async function OrderCompleteContent({ orderId }: Props) {
         </div>
       </div>
       <div className="px-[15px] py-2.5">
-        <Link href={`/orders/${orderId}`}>
+        <Link href={PAGE_PATHS.ORDER_DETAIL(orderId)}>
           <AppPrimaryButton>주문 내역 보기</AppPrimaryButton>
         </Link>
       </div>

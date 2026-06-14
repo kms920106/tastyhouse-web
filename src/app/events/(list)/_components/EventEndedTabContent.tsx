@@ -4,6 +4,7 @@ import type { Event } from '@/domains/event'
 import { useEndedEvents } from '@/domains/event/event.hook'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { formatDate } from '@/lib/date'
+import { PAGE_PATHS } from '@/lib/paths'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
@@ -35,7 +36,7 @@ export default function EventEndedTabContent() {
     <>
       <div className="flex flex-col gap-2.5">
         {events.map((event) => (
-          <Link key={event.id} href={`/events/${event.id}`} className="cursor-pointer">
+          <Link key={event.id} href={PAGE_PATHS.EVENT_DETAIL(event.id)} className="cursor-pointer">
             <div className="relative w-full aspect-[2/1]">
               <Image
                 src={event.thumbnailImageUrl}
