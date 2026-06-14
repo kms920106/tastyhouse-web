@@ -148,7 +148,7 @@ export default function OrderReviewCreateForm({
           <OrderProductItem
             productName={productName}
             productImageUrl={productImageUrl}
-            unitPrice={productPrice}
+            totalPrice={productPrice}
           />
         </div>
       </BorderedSection>

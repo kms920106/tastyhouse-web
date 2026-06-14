@@ -46,7 +46,7 @@ export default function OrderInfoSection({
                   key={index}
                   productName={orderProduct.name}
                   productImageUrl={orderProduct.imageUrl}
-                  unitPrice={orderProduct.salePrice}
+                  totalPrice={orderProduct.salePrice}
                   quantity={orderProduct.quantity}
                 />
               ))}

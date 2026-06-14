@@ -16,25 +16,25 @@ export default function OrderedProductList({ shopName, orderProducts }: Props) {
       </div>
       <div className="px-4 pb-[5px]">
         <div className="divide-y divide-line first:border-t border-line">
-          {orderProducts.map((item) => (
+          {orderProducts.map((orderProduct) => (
             <OrderProductItem
-              key={item.id}
-              productName={item.productName}
-              productImageUrl={item.productImageUrl}
-              unitPrice={item.unitPrice}
-              quantity={item.quantity}
-              options={item.options}
+              key={orderProduct.id}
+              productName={orderProduct.name}
+              productImageUrl={orderProduct.imageUrl}
+              totalPrice={orderProduct.totalPrice}
+              quantity={orderProduct.quantity}
+              options={orderProduct.options}
               action={
-                item.reviewed ? (
+                orderProduct.reviewed ? (
                   <Link
-                    href={PAGE_PATHS.ORDERS_REVIEWS_EDIT(item.id)}
+                    href={PAGE_PATHS.ORDERS_REVIEWS_EDIT(orderProduct.id)}
                     className="flex items-center justify-center shrink-0 px-[11px] py-2.5 text-xs leading-[12px] text-main border border-main box-border"
                   >
                     리뷰수정
                   </Link>
                 ) : (
                   <Link
-                    href={PAGE_PATHS.ORDERS_REVIEWS_CREATE(item.id)}
+                    href={PAGE_PATHS.ORDERS_REVIEWS_CREATE(orderProduct.id)}
                     className="flex items-center justify-center shrink-0 px-[11px] py-2.5 bg-main text-xs leading-[12px] text-white"
                   >
                     리뷰작성

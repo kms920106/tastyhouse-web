@@ -5,7 +5,7 @@ import { formatNumber } from '@/lib/number'
 interface Props {
   productName: string
   productImageUrl: string
-  unitPrice: number
+  totalPrice: number
   quantity?: number
   options?: OrderedProductOption[]
   action?: React.ReactNode
@@ -14,7 +14,7 @@ interface Props {
 export default function OrderProductItem({
   productName,
   productImageUrl,
-  unitPrice,
+  totalPrice: unitPrice,
   quantity,
   options,
   action,

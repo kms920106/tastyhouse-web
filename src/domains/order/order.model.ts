@@ -37,12 +37,12 @@ export interface OrderedProductOption {
 export interface OrderedProduct {
   id: number
   productId: number
-  productName: string
-  productImageUrl: string
+  name: string
+  imageUrl: string
   quantity: number
-  unitPrice: number
+  originalPrice: number
   discountPrice: number | null
-  optionTotalPrice: number
+  totalOptionPrice: number
   totalPrice: number
   options: OrderedProductOption[]
   reviewed: boolean
