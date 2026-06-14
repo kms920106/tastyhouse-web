@@ -1,17 +1,13 @@
 import 'server-only'
 
+import type { ApiResponse } from '@/lib/api'
 import { getMemberGradeColor, getMemberGradeIcon, getMemberGradeName } from './member.constants'
 import type { Member } from './member.model'
 import { memberRepository } from './member.repository'
-import type { ApiResponse } from '@/lib/api'
-import { getMemberIdFromToken } from '@/lib/auth-config'
 
 export const memberService = {
-  async getMe(): Promise<ApiResponse<Member>> {
-    const memberId = await getMemberIdFromToken()
-    if (!memberId) return { data: undefined, status: 401 }
-
-    const response = await memberRepository.getMemberProfile(memberId)
+  async getMyProfile(): Promise<ApiResponse<Member>> {
+    const response = await memberRepository.getMyProfile()
     if (!response.data) return { ...response, data: undefined }
 
     const grade = response.data.memberGrade

@@ -31,7 +31,7 @@ interface EnabledOptions {
   enabled?: boolean
 }
 
-export function useMemberProfile({ enabled = true }: EnabledOptions = {}) {
+export function useMyProfile({ enabled = true }: EnabledOptions = {}) {
   const { data, isLoading, isError } = useQuery({
     queryKey: memberQueryKeys.myProfile,
     queryFn: async () => {
@@ -76,7 +76,7 @@ export function useMyStats({ enabled = true }: EnabledOptions = {}) {
   })
 }
 
-export function useOtherMemberProfile(memberId: number) {
+export function useMemberProfile(memberId: number) {
   return useQuery({
     queryKey: memberQueryKeys.profile(memberId),
     queryFn: async () => {

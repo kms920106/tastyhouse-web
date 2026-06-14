@@ -9,11 +9,14 @@ import { memberRepository } from '@/domains/member/member.repository'
 import { memberService } from '@/domains/member/member.service'
 import { cn } from '@/lib/utils'
 import Icon from '@/components/ui/Icon'
-import { getMemberGradeIconNameBySize, type MemberGradeIconCode } from '@/components/ui/icon-helpers'
+import {
+  getMemberGradeIconNameBySize,
+  type MemberGradeIconCode,
+} from '@/components/ui/icon-helpers'
 
 export default async function GradeCurrentSection() {
   const [memberResult, myGradeResult] = await Promise.all([
-    memberService.getMe(),
+    memberService.getMyProfile(),
     memberRepository.getMyGrade(),
   ])
 
@@ -33,7 +36,10 @@ export default async function GradeCurrentSection() {
       {myGrade && (
         <div className="flex justify-center mt-[23px]">
           <Icon
-            name={getMemberGradeIconNameBySize(getMemberGradeIcon(myGrade.currentGrade as MemberGradeCode) as MemberGradeIconCode, 120)}
+            name={getMemberGradeIconNameBySize(
+              getMemberGradeIcon(myGrade.currentGrade as MemberGradeCode) as MemberGradeIconCode,
+              120,
+            )}
             alt={myGrade.currentGradeDisplayName}
             width={73}
             height={75}

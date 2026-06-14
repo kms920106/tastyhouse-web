@@ -15,7 +15,9 @@ interface Props {
 const MEMBER_FOLLOW_TAB_VALUES: MemberFollowTab[] = ['following', 'follower']
 
 function parseMemberFollowTab(value: string | undefined): MemberFollowTab {
-  return MEMBER_FOLLOW_TAB_VALUES.includes(value as MemberFollowTab) ? (value as MemberFollowTab) : 'follower'
+  return MEMBER_FOLLOW_TAB_VALUES.includes(value as MemberFollowTab)
+    ? (value as MemberFollowTab)
+    : 'follower'
 }
 
 export default async function Page({ params, searchParams }: Props) {
@@ -25,7 +27,7 @@ export default async function Page({ params, searchParams }: Props) {
 
   let isOwner = false
   if (isLoggedIn) {
-    const member = await memberService.getMe()
+    const member = await memberService.getMyProfile()
     isOwner = member?.data?.id === memberId
   }
 

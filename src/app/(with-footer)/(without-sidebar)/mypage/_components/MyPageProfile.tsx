@@ -6,7 +6,7 @@ import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import Icon from '@/components/ui/Icon'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useMemberProfile, useMyStats } from '@/domains/member/member.hook'
+import { useMyProfile, useMyStats } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
@@ -19,7 +19,7 @@ export default function MyPageProfile({ isLoggedIn }: Props) {
     memberProfile,
     isLoading: isProfileLoading,
     isError: isProfileError,
-  } = useMemberProfile({ enabled: isLoggedIn })
+  } = useMyProfile({ enabled: isLoggedIn })
   const {
     data: statsData,
     isLoading: isStatsLoading,

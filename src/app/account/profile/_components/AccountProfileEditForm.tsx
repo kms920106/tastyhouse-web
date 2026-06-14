@@ -5,7 +5,7 @@ import AppInputText from '@/components/ui/AppInputText'
 import AppSubmitButton from '@/components/ui/AppSubmitButton'
 import { toast } from '@/components/ui/AppToaster'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useMemberProfile, useUpdateMemberProfile } from '@/domains/member/member.hook'
+import { useMyProfile, useUpdateMemberProfile } from '@/domains/member/member.hook'
 import { extractZodFieldErrors } from '@/lib/form'
 import { uploadFileClient } from '@/lib/uploadFile'
 import { useRouter } from 'next/navigation'
@@ -30,7 +30,7 @@ type ProfileErrors = {
 export default function AccountProfileEditForm() {
   const router = useRouter()
 
-  const { memberProfile, isLoading } = useMemberProfile()
+  const { memberProfile, isLoading } = useMyProfile()
   const { mutateAsync: updateProfile } = useUpdateMemberProfile(memberProfile?.id)
 
   const [nickname, setNickname] = useState('')

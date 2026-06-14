@@ -3,7 +3,7 @@
 import MemberProfileCard from '@/components/members/MemberProfileCard'
 import FetchErrorState from '@/components/ui/FetchErrorState'
 import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
-import { useMemberStats, useOtherMemberProfile } from '@/domains/member/member.hook'
+import { useMemberStats, useMemberProfile } from '@/domains/member/member.hook'
 
 interface Props {
   memberId: number
@@ -14,7 +14,7 @@ export default function MemberDetailProfile({ memberId }: Props) {
     data: profileData,
     isLoading: isProfileLoading,
     isError: isProfileError,
-  } = useOtherMemberProfile(memberId)
+  } = useMemberProfile(memberId)
   const {
     data: statsData,
     isLoading: isStatsLoading,

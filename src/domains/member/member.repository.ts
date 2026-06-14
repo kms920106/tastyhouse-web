@@ -3,11 +3,12 @@ import 'server-only'
 import { api } from '@/lib/api'
 import { PaginationParams } from '@/types/common'
 import type {
-  MemberProfileResponse,
   MemberCouponListItemResponse,
+  MemberProfileResponse,
   MemberStatsResponse,
   MyBookmarkedShopListItemResponse,
   MyGradeResponse,
+  MyProfileResponse,
   MyReviewCountResponse,
   MyReviewListItemResponse,
   NicknameAvailabilityResponse,
@@ -41,6 +42,10 @@ export const memberRepository = {
   // 회원 기본 프로필 조회
   async getMemberProfile(memberId: number) {
     return api.get<MemberProfileResponse>(`${ENDPOINT}/v1/${memberId}/profile`)
+  },
+  // 내 프로필 조회
+  async getMyProfile() {
+    return api.get<MyProfileResponse>(`${ENDPOINT}/v1/me/profile`)
   },
   // 특정 회원 통계 조회
   async getMemberStats(memberId: number) {

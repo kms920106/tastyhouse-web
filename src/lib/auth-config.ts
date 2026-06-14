@@ -11,20 +11,6 @@ export async function getIsLoggedIn(): Promise<boolean> {
   return !!cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)
 }
 
-export async function getMemberIdFromToken(): Promise<number | null> {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get(AUTH_COOKIE_KEYS.ACCESS_TOKEN)?.value
-  if (!accessToken) return null
-
-  try {
-    const payload = accessToken.split('.')[1]
-    const decoded = JSON.parse(Buffer.from(payload, 'base64url').toString('utf-8'))
-    return typeof decoded.memberId === 'number' ? decoded.memberId : null
-  } catch {
-    return null
-  }
-}
-
 export const TOKEN_MAX_AGE = {
   ACCESS_TOKEN: 60 * 60, // 1시간
   REFRESH_TOKEN: 60 * 60 * 24 * 7, // 7일

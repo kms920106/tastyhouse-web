@@ -1,7 +1,7 @@
 'use client'
 
 import Avatar from '@/components/ui/Avatar'
-import { useMemberProfile } from '@/domains/member/member.hook'
+import { useMyProfile } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useRef } from 'react'
@@ -16,7 +16,7 @@ interface Props {
 export default function ReviewCommentInput({ isLoggedIn, reviewId }: Props) {
   const router = useRouter()
 
-  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
+  const { memberProfile } = useMyProfile({ enabled: isLoggedIn })
 
   const containerRef = useRef<HTMLDivElement>(null)
 

@@ -39,6 +39,14 @@ export interface MemberProfileResponse {
   profileImageUrl: string | null
 }
 
+export interface MyProfileResponse {
+  id: number
+  nickname: string
+  memberGrade: MemberGradeCode
+  statusMessage: string | null
+  profileImageUrl: string | null
+}
+
 export interface MemberInfoResponse {
   id: number
   nickname: string

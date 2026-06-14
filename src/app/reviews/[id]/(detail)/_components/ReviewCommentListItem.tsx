@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemberProfile } from '@/domains/member/member.hook'
+import { useMyProfile } from '@/domains/member/member.hook'
 import ReviewCommentItem from './ReviewCommentItem'
 import ReviewReplyItem from './ReviewReplyItem'
 import type { ReviewComment } from '@/domains/review'
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function ReviewCommentListItem({ comment, isLoggedIn }: Props) {
-  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
+  const { memberProfile } = useMyProfile({ enabled: isLoggedIn })
   const currentMemberId = memberProfile?.id ?? null
 
   return (

@@ -13,7 +13,7 @@ import { AUTH_COOKIE_KEYS } from '@/lib/auth-config'
 import { cookies } from 'next/headers'
 
 export async function getMyProfile() {
-  return memberService.getMe()
+  return memberService.getMyProfile()
 }
 
 export async function getMemberStats(memberId: number) {

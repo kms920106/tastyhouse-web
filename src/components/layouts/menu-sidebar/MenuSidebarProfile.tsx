@@ -7,14 +7,14 @@ import MemberNickname from '@/components/members/MemberNickname'
 import Avatar from '@/components/ui/Avatar'
 import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
 import Icon from '@/components/ui/Icon'
-import { useMemberProfile, useMyReviewCount } from '@/domains/member/member.hook'
+import { useMyProfile, useMyReviewCount } from '@/domains/member/member.hook'
 
 interface Props {
   isLoggedIn: boolean
 }
 
 export default function MenuSidebarProfile({ isLoggedIn }: Props) {
-  const { memberProfile } = useMemberProfile({ enabled: isLoggedIn })
+  const { memberProfile } = useMyProfile({ enabled: isLoggedIn })
   const { reviewCount } = useMyReviewCount({ enabled: isLoggedIn })
 
   if (!memberProfile) {
