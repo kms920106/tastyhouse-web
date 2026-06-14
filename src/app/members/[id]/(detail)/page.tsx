@@ -17,12 +17,9 @@ function parseMemberDetailTab(value: string | undefined): MemberDetailTab {
 
 export default async function Page({ params, searchParams }: Props) {
   const [{ id }, { tab }, isLoggedIn] = await Promise.all([params, searchParams, getIsLoggedIn()])
+  const memberId = Number(id)
 
   return (
-    <MemberDetailPage
-      memberId={Number(id)}
-      isLoggedIn={isLoggedIn}
-      tab={parseMemberDetailTab(tab)}
-    />
+    <MemberDetailPage memberId={memberId} isLoggedIn={isLoggedIn} tab={parseMemberDetailTab(tab)} />
   )
 }
