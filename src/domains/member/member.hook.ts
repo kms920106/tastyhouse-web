@@ -1,6 +1,6 @@
 'use client'
 
-import { getMemberProfile, getMemberStats, getMyBookmarks, getMyProfile, getMyReviewCount, getMyReviews, updateMemberProfile } from '@/actions/member'
+import { getMemberProfile, getMemberStats, getMyBookmarks, getMyProfile, getMyReviewCount, getMyReviews, getMyStats, updateMemberProfile } from '@/actions/member'
 import { getMemberReviews } from '@/actions/review'
 import type { Member, UpdateProfileRequest } from '@/domains/member'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -10,6 +10,7 @@ const BOOKMARK_PAGE_SIZE = 10
 export const memberQueryKeys = {
   myProfile: ['member', 'profile'] as const,
   myReviewCount: ['member', 'review-count'] as const,
+  myStats: ['member', 'me', 'stats'] as const,
   myReviews: ['mypage', 'reviews'] as const,
   myBookmarks: ['mypage', 'bookmarks'] as const,
   stats: (memberId: number) => ['member', memberId, 'stats'] as const,
@@ -46,6 +47,17 @@ export function useMemberStats(memberId: number | undefined) {
       return response.data ?? null
     },
     enabled: !!memberId,
+  })
+}
+
+export function useMyStats({ enabled = true }: EnabledOptions = {}) {
+  return useQuery({
+    queryKey: memberQueryKeys.myStats,
+    queryFn: async () => {
+      const response = await getMyStats()
+      return response.data ?? null
+    },
+    enabled,
   })
 }
 

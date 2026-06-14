@@ -46,6 +46,10 @@ export const memberRepository = {
   async getMemberStats(memberId: number) {
     return api.get<MemberStatsResponse>(`${ENDPOINT}/v1/${memberId}/stats`)
   },
+  // 내 통계 조회
+  async getMyStats() {
+    return api.get<MemberStatsResponse>(`${ENDPOINT}/v1/me/stats`)
+  },
   // 사용 가능한 쿠폰 목록 조회
   async getMyAvailableCoupons() {
     return api.get<MemberCouponListItemResponse[]>(`${ENDPOINT}/v1/me/coupons/available`)

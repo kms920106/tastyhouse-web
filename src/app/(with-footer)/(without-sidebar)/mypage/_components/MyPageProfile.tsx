@@ -4,7 +4,7 @@ import MemberProfileImage from '@/components/members/MemberProfileImage'
 import MemberProfileCard from '@/components/members/MemberProfileCard'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
 import Icon from '@/components/ui/Icon'
-import { useMemberProfile, useMemberStats } from '@/domains/member/member.hook'
+import { useMemberProfile, useMyStats } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
 
@@ -14,7 +14,7 @@ interface Props {
 
 export default function MyPageProfile({ isLoggedIn }: Props) {
   const { memberProfile, isLoading: isProfileLoading } = useMemberProfile({ enabled: isLoggedIn })
-  const { data: statsData, isLoading: isStatsLoading } = useMemberStats(memberProfile?.id)
+  const { data: statsData, isLoading: isStatsLoading } = useMyStats({ enabled: isLoggedIn })
 
   if (!isLoggedIn) {
     return (

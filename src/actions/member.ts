@@ -20,6 +20,10 @@ export async function getMemberStats(memberId: number) {
   return memberRepository.getMemberStats(memberId)
 }
 
+export async function getMyStats() {
+  return memberRepository.getMyStats()
+}
+
 export async function getMemberAvailableCoupons() {
   return memberRepository.getMyAvailableCoupons()
 }
