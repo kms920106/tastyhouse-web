@@ -3,7 +3,9 @@
 import MemberProfileImage from '@/components/members/MemberProfileImage'
 import MemberProfileCard from '@/components/members/MemberProfileCard'
 import AppPrimaryButton from '@/components/ui/AppPrimaryButton'
+import FetchErrorState from '@/components/ui/FetchErrorState'
 import Icon from '@/components/ui/Icon'
+import { COMMON_ERROR_MESSAGES } from '@/constants/errors'
 import { useMemberProfile, useMyStats } from '@/domains/member/member.hook'
 import { PAGE_PATHS } from '@/lib/paths'
 import Link from 'next/link'
@@ -13,8 +15,16 @@ interface Props {
 }
 
 export default function MyPageProfile({ isLoggedIn }: Props) {
-  const { memberProfile, isLoading: isProfileLoading } = useMemberProfile({ enabled: isLoggedIn })
-  const { data: statsData, isLoading: isStatsLoading } = useMyStats({ enabled: isLoggedIn })
+  const {
+    memberProfile,
+    isLoading: isProfileLoading,
+    isError: isProfileError,
+  } = useMemberProfile({ enabled: isLoggedIn })
+  const {
+    data: statsData,
+    isLoading: isStatsLoading,
+    isError: isStatsError,
+  } = useMyStats({ enabled: isLoggedIn })
 
   if (!isLoggedIn) {
     return (
@@ -29,6 +39,10 @@ export default function MyPageProfile({ isLoggedIn }: Props) {
     )
   }
 
+  if (isProfileError) {
+    return <FetchErrorState message={COMMON_ERROR_MESSAGES.FETCH_ERROR('프로필')} />
+  }
+
   return (
     <MemberProfileCard
       memberId={memberProfile?.id ?? 0}
@@ -41,6 +55,7 @@ export default function MyPageProfile({ isLoggedIn }: Props) {
       followerCount={statsData?.followerCount}
       isProfileLoading={isProfileLoading}
       isStatsLoading={isStatsLoading}
+      isStatsError={isStatsError}
       editSlot={
         <Link href={PAGE_PATHS.ACCOUNT_PROFILE}>
           <Icon name="mypage/pen" />

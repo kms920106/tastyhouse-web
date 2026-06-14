@@ -18,6 +18,7 @@ interface Props {
   followerCount?: number
   isProfileLoading?: boolean
   isStatsLoading?: boolean
+  isStatsError?: boolean
   editSlot?: ReactNode
 }
 
@@ -32,6 +33,7 @@ export default function MemberProfileCard({
   followerCount,
   isProfileLoading,
   isStatsLoading,
+  isStatsError,
   editSlot,
 }: Props) {
   return (
@@ -47,7 +49,7 @@ export default function MemberProfileCard({
           editSlot={editSlot}
         />
       )}
-      {isStatsLoading || reviewCount === undefined ? (
+      {isStatsLoading || (reviewCount === undefined && !isStatsError) ? (
         <MemberProfileStatsSkeleton />
       ) : (
         <MemberProfileStats

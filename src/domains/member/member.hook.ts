@@ -1,6 +1,15 @@
 'use client'
 
-import { getMemberProfile, getMemberStats, getMyBookmarks, getMyProfile, getMyReviewCount, getMyReviews, getMyStats, updateMemberProfile } from '@/actions/member'
+import {
+  getMemberProfile,
+  getMemberStats,
+  getMyBookmarks,
+  getMyProfile,
+  getMyReviewCount,
+  getMyReviews,
+  getMyStats,
+  updateMemberProfile,
+} from '@/actions/member'
 import { getMemberReviews } from '@/actions/review'
 import type { Member, UpdateProfileRequest } from '@/domains/member'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -23,9 +32,13 @@ interface EnabledOptions {
 }
 
 export function useMemberProfile({ enabled = true }: EnabledOptions = {}) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: memberQueryKeys.myProfile,
-    queryFn: () => getMyProfile(),
+    queryFn: async () => {
+      const response = await getMyProfile()
+      if (response.error) throw new Error(response.error)
+      return response
+    },
     staleTime: Infinity,
     enabled,
   })
@@ -35,6 +48,7 @@ export function useMemberProfile({ enabled = true }: EnabledOptions = {}) {
   return {
     memberProfile,
     isLoading,
+    isError,
     isLoggedIn: memberProfile !== null,
   }
 }
@@ -55,6 +69,7 @@ export function useMyStats({ enabled = true }: EnabledOptions = {}) {
     queryKey: memberQueryKeys.myStats,
     queryFn: async () => {
       const response = await getMyStats()
+      if (response.error) throw new Error(response.error)
       return response.data ?? null
     },
     enabled,
