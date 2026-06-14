@@ -8,6 +8,8 @@ import Avatar from '@/components/ui/Avatar'
 import GuestLoginBanner from '@/components/ui/GuestLoginBanner'
 import Icon from '@/components/ui/Icon'
 import { useMyProfile, useMyReviewCount } from '@/domains/member/member.hook'
+import { PAGE_PATHS } from '@/lib/paths'
+import Link from 'next/link'
 
 interface Props {
   isLoggedIn: boolean
@@ -36,7 +38,9 @@ export default function MenuSidebarProfile({ isLoggedIn }: Props) {
       <div className="flex flex-col gap-2 min-w-0">
         <div className="flex items-center gap-[2.5px]">
           <MemberNickname size="md">{nickname}</MemberNickname>
-          <Icon name="mypage/pen" />
+          <Link href={PAGE_PATHS.ACCOUNT_PROFILE}>
+            <Icon name="mypage/pen" />
+          </Link>
         </div>
         <div className="flex items-end gap-[1px]">
           <MemberGradeBadge
