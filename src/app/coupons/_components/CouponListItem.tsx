@@ -20,7 +20,7 @@ export default function CouponListItem({ memberCoupon }: Props) {
     useStartAt,
     useEndAt,
     daysRemaining,
-    isExpired,
+    expired,
   } = memberCoupon
 
   return (
@@ -37,7 +37,7 @@ export default function CouponListItem({ memberCoupon }: Props) {
           <span className="text-[21px] leading-[21px] text-main">
             {discountType === 'AMOUNT' ? `${formatNumber(discountAmount)}p` : `${discountAmount}%`}
           </span>
-          <span className={cn('mt-[15px] text-sm leading-[18px]', isExpired && 'text-gray-400')}>
+          <span className={cn('mt-[15px] text-sm leading-[18px]', expired && 'text-gray-400')}>
             {name}
           </span>
           <div className="flex flex-col gap-1 mt-2.5">
@@ -60,10 +60,10 @@ export default function CouponListItem({ memberCoupon }: Props) {
           <span
             className={cn(
               'text-base leading-[16px]',
-              isExpired ? 'text-gray-400' : 'text-[#666666]',
+              expired ? 'text-gray-400' : 'text-[#666666]',
             )}
           >
-            {isExpired ? '만료' : `D-${daysRemaining}`}
+            {expired ? '만료' : `D-${daysRemaining}`}
           </span>
         </div>
       </div>

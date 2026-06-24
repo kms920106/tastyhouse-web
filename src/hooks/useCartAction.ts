@@ -27,9 +27,9 @@ export function useCartAction({
 
   const validateRequiredOptions = useCallback((): boolean => {
     const missingRequired = optionGroups.filter((group) => {
-      if (!group.isRequired) return false
+      if (!group.required) return false
       const selected = options[group.id]
-      if (group.isMultipleSelect) return (selected as number[]).length < group.minSelect
+      if (group.multipleSelect) return (selected as number[]).length < group.minSelect
       return selected === -1
     })
     if (missingRequired.length > 0) {

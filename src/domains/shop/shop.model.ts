@@ -16,7 +16,7 @@ export interface ShopBusinessHour {
   dayTypeDescription: string
   openTime: string
   closeTime: string
-  isClosed: boolean
+  closed: boolean
 }
 
 export interface ShopBreakTime {

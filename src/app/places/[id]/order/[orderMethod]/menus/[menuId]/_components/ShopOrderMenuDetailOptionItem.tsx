@@ -17,7 +17,7 @@ export default function ShopOrderMenuDetailOptionItem({
   isSelected,
   onSelect,
 }: Props) {
-  const isDisabled = option.isSoldOut
+  const isDisabled = option.soldOut
 
   return (
     <button
@@ -42,7 +42,7 @@ export default function ShopOrderMenuDetailOptionItem({
       )}
       <span className="flex-1 text-sm leading-[14px]">
         {option.name}
-        {option.isSoldOut && <span className="text-[#aaaaaa] ml-2">(품절)</span>}
+        {option.soldOut && <span className="text-[#aaaaaa] ml-2">(품절)</span>}
       </span>
       {option.additionalPrice > 0 && (
         <span className="text-sm leading-[14px]">+{formatNumber(option.additionalPrice)}원</span>

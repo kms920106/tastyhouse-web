@@ -15,7 +15,7 @@ export default function FollowButton({ memberId, isLoggedIn }: Props) {
   const { handleFollowToggle } = useFollowMutation()
 
   const { data, isLoading } = useIsFollowing(memberId, isLoggedIn)
-  const following = data?.isFollowing ?? false
+  const following = data?.following ?? false
 
   if (isLoggedIn && isLoading) {
     return <Skeleton className="w-10 h-10 rounded-full" />

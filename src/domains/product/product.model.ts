@@ -13,18 +13,18 @@ export interface Product {
   discountRate: number | null
   rating: number | null
   reviewCount: number | null
-  isRepresentative: boolean | null
+  representative: boolean | null
 }
 
 export interface ProductOptionGroup {
   id: number
   name: string
   description: string | null
-  isRequired: boolean
-  isMultipleSelect: boolean
+  required: boolean
+  multipleSelect: boolean
   minSelect: number
   maxSelect: number
-  isCommon: boolean
+  common: boolean
   options: ProductOption[]
 }
 
@@ -32,5 +32,5 @@ export interface ProductOption {
   id: number
   name: string
   additionalPrice: number
-  isSoldOut: boolean
+  soldOut: boolean
 }

@@ -46,9 +46,9 @@ export async function getShopReviewStatistics(shopId: number) {
 
 export async function getShopReviews(
   shopId: number,
-  { page, size }: { page: number; size: number },
+  { page, size, hasImage }: { page: number; size: number; hasImage?: boolean },
 ) {
-  return shopRepository.getShopReviews(shopId, { page, size })
+  return shopRepository.getShopReviews(shopId, { page, size, hasImage })
 }
 
 export async function getShopFoodTypes() {

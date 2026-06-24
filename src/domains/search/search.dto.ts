@@ -3,7 +3,7 @@ import type { PaginationParams } from '@/types/common'
 export interface PopularKeywordResponse {
   rank: number
   keyword: string
-  isNew: boolean
+  newKeyword: boolean
 }
 
 export interface RecommendedKeywordResponse {
@@ -29,7 +29,7 @@ export interface SearchMenuListItemResponse {
   discountRate: number
   rating: number
   reviewCount: number
-  isRepresentative: boolean
+  representative: boolean
   spiciness: number
 }
 

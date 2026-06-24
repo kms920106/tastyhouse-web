@@ -32,7 +32,7 @@ export async function getSearchMenus({
       discountRate: item.discountRate,
       rating: item.rating,
       reviewCount: item.reviewCount,
-      isRepresentative: item.isRepresentative,
+      representative: item.representative,
       spiciness: item.spiciness,
     })),
   }

@@ -22,21 +22,21 @@ export default function ShopOrderMenuDetailOptionList({
           <div className="px-4 py-5">
             <h3 className="text-base leading-[16px] font-bold">
               {group.name}
-              {group.isRequired && <span className="text-main ml-1">*</span>}
+              {group.required && <span className="text-main ml-1">*</span>}
             </h3>
             <div className="flex flex-col gap-[15px] mt-5">
               {group.options.map((option) => (
                 <ShopOrderMenuDetailOptionItem
                   key={option.id}
                   option={option}
-                  isMultiple={group.isMultipleSelect}
+                  isMultiple={group.multipleSelect}
                   isSelected={
-                    group.isMultipleSelect
+                    group.multipleSelect
                       ? (options[group.id] as number[]).includes(option.id)
                       : options[group.id] === option.id
                   }
                   onSelect={() =>
-                    group.isMultipleSelect
+                    group.multipleSelect
                       ? onCheckboxToggle(group.id, option.id, group.maxSelect)
                       : onRadioSelect(group.id, option.id)
                   }

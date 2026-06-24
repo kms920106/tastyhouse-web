@@ -22,7 +22,10 @@ export async function getProductReviewStatistics(productId: number) {
   return productRepository.getProductReviewStatistics(productId)
 }
 
-export async function getProductReviews(productId: number, query: { page: number; size: number }) {
+export async function getProductReviews(
+  productId: number,
+  query: { page: number; size: number; hasImage?: boolean },
+) {
   return productRepository.getProductReviews(productId, query)
 }
 

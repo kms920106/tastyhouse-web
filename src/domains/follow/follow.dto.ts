@@ -10,5 +10,5 @@ export interface MemberSocialProfileListItemResponse {
 
 export interface IsFollowingResponse {
   memberId: number
-  isFollowing: boolean
+  following: boolean
 }

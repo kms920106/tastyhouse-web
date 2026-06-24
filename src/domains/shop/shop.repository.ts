@@ -15,6 +15,7 @@ import {
   ShopOrderMethodResponse,
   ShopPhotoCategoryResponse,
   ShopProductCategoryResponse,
+  ShopReviewListQuery,
   ShopReviewStatisticsResponse,
   ShopReviewsByRatingResponse,
   ShopStationListItemResponse,
@@ -89,7 +90,7 @@ export const shopRepository = {
       CACHE_OPTIONS,
     )
   },
-  async getShopReviews(shopId: number, params: PaginationParams) {
+  async getShopReviews(shopId: number, params: ShopReviewListQuery) {
     return publicApi.get<ShopReviewsByRatingResponse>(`${ENDPOINT}/v1/${shopId}/reviews`, {
       ...CACHE_OPTIONS,
       params,

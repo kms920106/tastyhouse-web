@@ -20,10 +20,10 @@ export default async function SearchPopularKeywordList() {
 
   return (
     <ul className="flex flex-col gap-5 px-[15px]">
-      {keywords.map(({ rank, keyword, isNew }) => (
+      {keywords.map(({ rank, keyword, newKeyword }) => (
         <li key={rank}>
           <Link href={`${PAGE_PATHS.SEARCH}?q=${encodeURIComponent(keyword)}`}>
-            <SearchPopularKeywordListItem rank={rank} keyword={keyword} isNew={isNew} />
+            <SearchPopularKeywordListItem rank={rank} keyword={keyword} isNew={newKeyword} />
           </Link>
         </li>
       ))}

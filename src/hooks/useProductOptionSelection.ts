@@ -8,10 +8,10 @@ export function useProductOptionSelection(optionGroups: ProductOptionGroup[]) {
   const [options, setOptions] = useState<Record<number, number | number[]>>(() => {
     const initial: Record<number, number | number[]> = {}
     optionGroups.forEach((group) => {
-      if (group.isMultipleSelect) {
+      if (group.multipleSelect) {
         initial[group.id] = []
       } else {
-        const firstOption = group.options.find((opt) => !opt.isSoldOut)
+        const firstOption = group.options.find((opt) => !opt.soldOut)
         initial[group.id] = firstOption?.id ?? -1
       }
     })
@@ -40,7 +40,7 @@ export function useProductOptionSelection(optionGroups: ProductOptionGroup[]) {
     const result: CartSelectedOption[] = []
     optionGroups.forEach((group) => {
       const selected = options[group.id]
-      if (group.isMultipleSelect) {
+      if (group.multipleSelect) {
         const selectedIds = selected as number[]
         selectedIds.forEach((optionId) => {
           result.push({ groupId: group.id, optionId })

@@ -118,7 +118,7 @@ export function useFollowMutation() {
 
     queryClient.setQueryData<IsFollowingResponse>(
       followQueryKeys.isFollowing(targetMemberId),
-      (old) => old ? { ...old, isFollowing: following } : old,
+      (old) => old ? { ...old, following } : old,
     )
   }
 

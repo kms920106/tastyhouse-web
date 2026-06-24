@@ -1,4 +1,9 @@
+import type { PaginationParams } from '@/types/common'
 import type { ProductOptionGroup } from './product.model'
+
+export interface ProductReviewListQuery extends PaginationParams {
+  hasImage?: boolean
+}
 
 export interface ProductListItemResponse {
   id: number
@@ -10,7 +15,7 @@ export interface ProductListItemResponse {
   discountRate: number | null
   rating: number | null
   reviewCount: number | null
-  isRepresentative: boolean | null
+  representative: boolean | null
 }
 
 export interface ProductDetailResponse {
@@ -20,7 +25,7 @@ export interface ProductDetailResponse {
   originalPrice: number
   discountPrice: number | null
   discountRate: number | null
-  isSoldOut: boolean
+  soldOut: boolean
   shopId: number
 }
 

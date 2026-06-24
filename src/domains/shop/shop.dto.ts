@@ -4,6 +4,10 @@ import { ShopAmenity, ShopBreakTime, ShopBusinessHour, ShopClosedDay } from '.'
 import type { OrderMethod } from '../order'
 import { ProductListItemResponse } from '../product'
 
+export interface ShopReviewListQuery extends PaginationParams {
+  hasImage?: boolean
+}
+
 export interface ShopLatestQuery extends PaginationParams {
   stationId?: number
   foodTypes?: ShopFoodType[]

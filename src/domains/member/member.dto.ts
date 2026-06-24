@@ -76,10 +76,10 @@ export interface MemberCouponListItemResponse {
   useStartAt: string
   useEndAt: string
   expiredAt: string
-  isUsed: boolean
+  used: boolean
   usedAt: string | null
   daysRemaining: number
-  isExpired: boolean
+  expired: boolean
 }
 
 export interface UsablePointResponse {

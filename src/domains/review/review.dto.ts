@@ -119,7 +119,7 @@ export interface ReviewWriteInfoResponse {
   productImageUrl: string
   productPrice: number
   orderId: number
-  isReviewed: boolean
+  reviewed: boolean
 }
 
 export interface ReviewCreateRequest {

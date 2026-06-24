@@ -9,6 +9,7 @@ import {
   ProductImagesResponse,
   ProductOptionsResponse,
   ProductReviewCountResponse,
+  ProductReviewListQuery,
   ProductReviewStatisticsResponse,
   ProductReviewsByRatingResponse,
   ProductTodayDiscountListItemResponse,
@@ -57,7 +58,7 @@ export const productRepository = {
     )
   },
   // 상품 리뷰 목록 조회
-  async getProductReviews(productId: number, params: PaginationParams) {
+  async getProductReviews(productId: number, params: ProductReviewListQuery) {
     return publicApi.get<ProductReviewsByRatingResponse>(`${ENDPOINT}/v1/${productId}/reviews`, {
       ...CACHE_OPTIONS,
       params,
